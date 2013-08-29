@@ -15,10 +15,10 @@ RAMP
 
 ### 1.2 Create the RAMP Database
 
-   The 'ramp/sql' folder contains a .sql file that can be used to create
+   The 'RAMP/sql' folder contains a .sql file that can be used to create
    the database that RAMP requires. 
    
-    mysql -u username -ppassword --host=hostname ramp < ramp.sql
+    mysql --user=username --password --host=hostname < sql/ramp.sql
 
 ### 1.3 Update db.php and Configuration Files
    Before using RAMP, change the 'ramp/conf/db.php' to reflect your current
