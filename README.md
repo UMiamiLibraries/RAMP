@@ -55,7 +55,7 @@ RAMP
    original EAD record is imported into the 
    database, along with the newly created EAC-CPF record. When the
    conversion process is completed the original EAD files are removed. 
-   If a duplicate EAD files is converted, the user is presented with an
+   If a duplicate EAD file is converted, the user is presented with an
    interface that displays a graphical diff. The user can choose which
    elements are merged into the new record.
 
@@ -70,7 +70,7 @@ RAMP
    The 'Edit' link displays a select box that includes a list of names.
    Selecting a name loads their EAC record into the editor. A user can
    manually edit the EAC XML in the editor. 
-   During the editing process, the files is monitored and sent to a
+   During the editing process, the files are monitored and sent to a
    validation service. If the XML is valid, a green icon is displayed. If the
    XML is invalid or not well-formed, a red icon and error information is displayed. 
    After editing the file, the user can save the XML to the database.
