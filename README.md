@@ -1,9 +1,9 @@
 RAMP 
 ===================
 
-## 1) Installation
+## 1 Installation
 
-### 1.1) Requirements
+### 1.1 Requirements
 
   * MySQL 5.1.5+ 
   * PHP 5+ 
@@ -12,16 +12,16 @@ RAMP
   * Apache (other web servers like nginx+php-fpm may work) 
 
 
-### 1.2) Create the RAMP Database
+### 1.2 Create the RAMP Database
      The 'ramp/sql' folder contains a .sql file that can be used to create
    the database that RAMP requires. 
     mysql -u username -ppassword --host=hostname ramp < ramp.sql
 
-### 1.3) Update db.php and Configuration Files
+### 1.3 Update db.php and Configuration Files
      Before using RAMP, change the 'ramp/conf/db.php' to reflect your current
    database connection information. 
 
-#### 1.3.1) Other Configuration Files
+#### 1.3.1 Other Configuration Files
 
   * inst_info.php
 
@@ -32,16 +32,16 @@ RAMP
 
     These files include the paths to XSL stylesheets.
 
-### 1.4) Add EAD Records
+### 1.4 Add EAD Records
      Before using the RAMP, the 'ead' folder should have correct read/write
    permissions set.
     chown -R www-data ramp/ead
     chmod 2755 ramp/ead
      This folder should contain all the EAD files that you want to work with.
 
-## 2) Usage
+## 2 Usage
 
-### 2.1) EAD to EAC Conversion
+### 2.1 EAD to EAC Conversion
      The 'Convert' link leads to a form that allows you to specify the path
    to EAD files. This path should have appropriate permissions so that the
    script can read and write files.
@@ -54,7 +54,7 @@ RAMP
    interface that displays a graphical diff. The user can choose which
    elements are merged into the new record.
 
-### 2.2) Creating a New EAC Records
+### 2.2 Creating a New EAC Records
      If you encounter a situation where there are no EAD files to import,
    RAMP can be used to create new records. The 'New' link leads to a form that
    allows you to chose what type of entity 
@@ -63,7 +63,7 @@ RAMP
    be able to write a stub EAD file necessary to create a 
      new EAC record. 
 
-### 2.3) Editing EAC Files
+### 2.3 Editing EAC Files
      The 'Edit' link displays a select box that includes a list of names.
    Selecting a name loads their EAC record into the editor. A user can
    manually edit the EAC XML in the editor. 
@@ -73,7 +73,7 @@ RAMP
      and error information is displayed. 
      After editing the file, the user can save the XML to the database.
 
-### 2.4) Ingesting Data from Third-Party Sources
+### 2.4 Ingesting Data from Third-Party Sources
      One of the major features of RAMP is the ability to ingest data from
    third-party sources. Currently a user can ingest data from OCLC Identities
    and VIAF. During the ingest, 
@@ -82,12 +82,12 @@ RAMP
    At this point, the user could
      edit the ingested data, but this is not required. 
 
-### 2.5) Working with Mediawiki Markup
+### 2.5 Working with Mediawiki Markup
      After ingestion, the user can convert the EAC record to Mediawiki
    Markup. They are presented with a different editor for working with the
    Mediawiki markup. 
 
-### 2.6) Submitting Wiki Article to Wikipedia
+### 2.6 Submitting Wiki Article to Wikipedia
      Before submitting the generated Wiki article to Wikipedia, the user must
    use the 'Get Existing Wiki' button to check if Wikipedia has an existing
    article for the entity. If there 
