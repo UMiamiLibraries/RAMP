@@ -247,10 +247,12 @@
                 <!-- If the first nameEntry contains a four-digit number (we assume a date)... -->
                 <xsl:choose>
                     <xsl:when
-                        test="string-length(translate(normalize-space(ead:ead/ead:archdesc/ead:did/ead:origination/child::node()[1]),concat($vAlpha,$vCommaSpace),''))&gt;=4">
+                        test="string-length(translate(normalize-space(ead:ead/ead:archdesc/ead:did/ead:origination/child::node()[1]),
+                        concat($vAlpha,$vCommaSpace),''))&gt;=4">
                         <part>
                             <xsl:value-of
-                                select="normalize-space(concat(substring-before(ead:ead/ead:archdesc/ead:did/ead:origination/child::node()[1],', '),', ',substring-before(substring-after(ead:ead/ead:archdesc/ead:did/ead:origination/child::node()[1],', '),', ')))"
+                                select="normalize-space(concat(substring-before(ead:ead/ead:archdesc/ead:did/ead:origination/child::node()[1],', '),', ',
+                                substring-before(substring-after(ead:ead/ead:archdesc/ead:did/ead:origination/child::node()[1],', '),', ')))"
                             />
                         </part>
                     </xsl:when>
@@ -390,9 +392,12 @@
                             </xsl:when>
                             <xsl:otherwise>
                                 <xsl:if
-                                    test="not(contains(.,'Chronolog')) and not(contains(.,'Timeline')) and not(contains(.,'Employment History'))">
+                                    test="not(contains(.,'Chronolog')) 
+                                    and not(contains(.,'Timeline')) 
+                                    and not(contains(.,'Employment History'))">
                                     <xsl:if
-                                        test="not(preceding-sibling::ead:p[contains(.,'Chronolog')]) and (string-length(substring(.,1,4)) = string-length(translate(substring(.,1,4),$vDigits,'')))">
+                                        test="not(preceding-sibling::ead:p[contains(.,'Chronolog')]) 
+                                        and (string-length(substring(.,1,4)) = string-length(translate(substring(.,1,4),$vDigits,'')))">
                                         <xsl:if test=". != '&#160;' ">
                                             <xsl:choose>
                                                 <xsl:when test="contains(.,'\n\n')">
@@ -597,215 +602,26 @@
                         </xsl:otherwise>
                     </xsl:choose>
                 </xsl:for-each>
+                <!-- Working to parse relatedmaterial elements. For now, if it's not an <extref>, just output the contents in a simple <resourRelation>. -->
                 <xsl:for-each
-                    select="ead:ead/ead:archdesc/ead:descgrp/ead:relatedmaterial/ead:p[not(ead:extref)][contains(.,$pRepositoryOne) or contains(.,$pRepositoryTwo) and not(contains(.,'published')) and not(contains(.,'Published'))]">
-                    <xsl:variable name="vRelatedCollection" select="normalize-space(.)"/>
-                    <xsl:choose>
-                        <xsl:when test="following-sibling::ead:p[contains(.,'http:')]">
-                            <xsl:for-each select="following-sibling::ead:p">
-                                <resourceRelation xmlns="urn:isbn:1-931666-33-4"
-                                    xlink:href="{concat('http:',substring-after(.,'http:'))}"
-                                    xlink:role="archivalRecords" xlink:type="simple">
-                                    <relationEntry>
-                                        <xsl:choose>
-                                            <xsl:when
-                                                test="contains($vRelatedCollection,'See also the')">
-                                                <xsl:value-of
-                                                  select="normalize-space(substring-after($vRelatedCollection,'See also the '))"
-                                                />
-                                            </xsl:when>
-                                            <xsl:otherwise>
-                                                <xsl:value-of
-                                                  select="normalize-space(substring-after($vRelatedCollection,'See also '))"
-                                                />
-                                            </xsl:otherwise>
-                                        </xsl:choose>
-                                    </relationEntry>
-                                </resourceRelation>
-                            </xsl:for-each>
-                        </xsl:when>
-                        <xsl:otherwise>
-                            <xsl:if test="not(contains(.,'listed below'))">
-                                <resourceRelation xmlns="urn:isbn:1-931666-33-4"
-                                    xlink:role="archivalRecords" xlink:type="simple">
-                                    <relationEntry>
-                                        <xsl:value-of select="normalize-space($vRelatedCollection)"
-                                        />
-                                    </relationEntry>
-                                </resourceRelation>
-                            </xsl:if>
-                        </xsl:otherwise>
-                    </xsl:choose>
-                </xsl:for-each>
-                <xsl:for-each
-                    select="ead:ead/ead:archdesc/ead:descgrp/ead:relatedmaterial/ead:p[not(ead:extref)][contains(.,'archival')]">
-                    <xsl:for-each select="following-sibling::ead:p">
-                        <!-- Create formatted URL for WorldCat links. -->
-                        <xsl:variable name="vWorldCatSearch">
-                            <xsl:choose>
-                                <xsl:when test="contains(.,'(')">
+                    select="ead:ead/ead:archdesc/ead:descgrp/ead:relatedmaterial/ead:p[not(ead:extref)]">
+                    <xsl:variable name="vRelatedCollection"
+                        select="translate(normalize-space(.),$vUpper,$vLower)"/>
+                    <xsl:if test="not(substring(.,string-length(.))=':')">
+                        <resourceRelation xmlns="urn:isbn:1-931666-33-4">
+                            <xsl:if test="contains($vRelatedCollection,'http:')">
+                                <xsl:attribute name="xlink:href">
                                     <xsl:value-of
-                                        select="translate(substring-before(normalize-space(.),' ('),' ','+')"
-                                    />
-                                </xsl:when>
-                                <xsl:otherwise>
-                                    <xsl:value-of
-                                        select="translate(substring-before(normalize-space(.),':'),' ','+')"
-                                    />
-                                </xsl:otherwise>
-                            </xsl:choose>
-                        </xsl:variable>
-                        <resourceRelation xmlns="urn:isbn:1-931666-33-4"
-                            xlink:arcrole="referencedIn"
-                            xlink:href="{concat('http://www.worldcat.org/search?q=ti:',$vWorldCatSearch)}"
-                            xlink:role="archivalRecords" xlink:type="simple">
+                                        select="concat('http:',substring-after(.,'http:'))"/>
+                                </xsl:attribute>
+                            </xsl:if>                            
+                            <xsl:attribute name="xlink:type">
+                                <xsl:value-of select="'simple'"/>
+                            </xsl:attribute>
                             <relationEntry>
-                                <xsl:value-of select="normalize-space(.)"/>
+                                <xsl:value-of select="."/>
                             </relationEntry>
                         </resourceRelation>
-                    </xsl:for-each>
-                </xsl:for-each>
-                <xsl:for-each
-                    select="ead:ead/ead:archdesc/ead:descgrp/ead:relatedmaterial/ead:p[not(ead:extref)]">
-                    <xsl:choose>
-                        <xsl:when
-                            test="contains(.,'Works by') or contains(.,'works by') or contains(.,'Titles by') or contains(.,'titles by')">
-                            <xsl:for-each select="following-sibling::ead:p">
-                                <xsl:variable name="vRelatedItem">
-                                    <xsl:choose>
-                                        <xsl:when test="contains(.,';')">
-                                            <xsl:value-of
-                                                select="substring-before(normalize-space(.),';')"/>
-                                        </xsl:when>
-                                        <xsl:when
-                                            test="contains(substring-after(normalize-space(.),'.'),'.')">
-                                            <xsl:value-of select="."/>
-                                        </xsl:when>
-                                    </xsl:choose>
-                                </xsl:variable>
-                                <xsl:if
-                                    test="not(contains(.,'Works about')) and not(contains(.,'works about')) and not(contains(.,'Titles about')) and not(contains(.,'titles about')) and not(preceding-sibling::ead:p[contains(.,'Works about') or contains(.,'works about') or contains(.,'Titles about') or contains(.,'titles about')])">
-                                    <xsl:if
-                                        test="contains(.,';') and not(contains(.,'about')) and not(contains(.,'available at'))">
-                                        <resourceRelation xmlns="urn:isbn:1-931666-33-4"
-                                            xlink:arcrole="creatorOf"
-                                            xlink:href="{concat('http://www.worldcat.org/search?q=kw:',translate(substring-before(normalize-space(../../../ead:did/ead:origination),','),' ','+'),'+',translate(substring-after(normalize-space($vRelatedItem),'. '),' ','+'))}"
-                                            xlink:role="resource" xlink:type="simple">
-                                            <relationEntry localType="title">
-                                                <xsl:value-of
-                                                  select="substring-after(normalize-space(.),'. ')"
-                                                />
-                                            </relationEntry>
-                                            <relationEntry localType="creator">
-                                                <xsl:value-of
-                                                  select="concat(substring-before(normalize-space(../../../ead:did/ead:origination),','),',',substring-before(substring-after(normalize-space(../../../ead:did/ead:origination),','),','))"
-                                                />
-                                            </relationEntry>
-                                        </resourceRelation>
-                                    </xsl:if>
-                                    <xsl:if
-                                        test="contains(substring-after(.,'.'),'.') and not(contains(.,';')) and not(contains(.,'about')) and not(contains(.,'available at'))">
-                                        <resourceRelation xmlns="urn:isbn:1-931666-33-4"
-                                            xlink:arcrole="creatorOf"
-                                            xlink:href="{concat('http://www.worldcat.org/search?q=kw:',translate(substring-before(normalize-space(../../../ead:did/ead:origination),','),' ','+'),'+',translate(substring-before(substring-after($vRelatedItem,'. '),'.'),' ','+'))}"
-                                            xlink:role="resource" xlink:type="simple">
-                                            <relationEntry localType="title">
-                                                <xsl:value-of
-                                                  select="substring-after(normalize-space(.),'. ')"
-                                                />
-                                            </relationEntry>
-                                            <relationEntry localType="creator">
-                                                <xsl:value-of
-                                                  select="concat(substring-before(../../../ead:did/ead:origination,','),',',substring-before(substring-after(../../../ead:did/ead:origination,','),','))"
-                                                />
-                                            </relationEntry>
-                                        </resourceRelation>
-                                    </xsl:if>
-                                </xsl:if>
-                            </xsl:for-each>
-                        </xsl:when>
-                        <xsl:when
-                            test="contains(.,'Works about') or contains(.,'works about') or contains(.,'Titles about') or contains(.,'titles about')">
-                            <xsl:for-each select="following-sibling::ead:p">
-                                <xsl:variable name="vRelatedItem" select="normalize-space(.)"/>
-                                <xsl:if
-                                    test="not(contains(.,'archival')) and not(preceding-sibling::ead:p[contains(.,'archival')])">
-                                    <resourceRelation xmlns="urn:isbn:1-931666-33-4"
-                                        xlink:arcrole="referencedIn"
-                                        xlink:href="{concat('http://www.worldcat.org/search?q=kw:',translate(substring-after(normalize-space($vRelatedItem),'. '),' ','+'))}"
-                                        xlink:role="resource" xlink:type="simple">
-                                        <relationEntry localType="title">
-                                            <xsl:value-of
-                                                select="substring-after(normalize-space(.),'. ')"/>
-                                        </relationEntry>
-                                        <relationEntry localType="creator">
-                                            <xsl:value-of
-                                                select="substring-before(normalize-space(.),'.')"/>
-                                        </relationEntry>
-                                    </resourceRelation>
-                                </xsl:if>
-                            </xsl:for-each>
-                        </xsl:when>
-                        <xsl:otherwise>
-                            <xsl:if test="not(contains(.,'listed below'))">
-                                <resourceRelation xmlns="urn:isbn:1-931666-33-4"
-                                    xlink:arcrole="referencedIn"
-                                    xlink:href="{concat('http://www.worldcat.org/search?q=kw:',translate(translate(substring-before(substring-after(normalize-space(.),'. '),'.'),' ','+'),$vQuote,''))}"
-                                    xlink:role="resource" xlink:type="simple">
-                                    <relationEntry localType="title">
-                                        <xsl:value-of
-                                            select="translate(substring-after(normalize-space(.),'. '),$vQuote,'')"
-                                        />
-                                    </relationEntry>
-                                    <relationEntry localType="creator">
-                                        <xsl:value-of
-                                            select="translate(substring-before(normalize-space(.),'.'),$vQuote,'')"
-                                        />
-                                    </relationEntry>
-                                </resourceRelation>
-                            </xsl:if>
-                        </xsl:otherwise>
-                    </xsl:choose>
-                </xsl:for-each>
-                <xsl:for-each
-                    select="ead:ead/ead:archdesc/ead:descgrp/ead:relatedmaterial/ead:p[not(ead:extref)][contains(.,'online') or contains(.,'Online') or contains(.,'digital') or contains(.,'Digital')]">
-                    <xsl:choose>
-                        <xsl:when test="contains(.,'http:')">
-                            <resourceRelation xmlns="urn:isbn:1-931666-33-4"
-                                xlink:arcrole="referencedIn"
-                                xlink:href="{concat('http:',substring-after(following-sibling::ead:p,'http:'))}"
-                                xlink:role="resource" xlink:type="simple">
-                                <relationEntry>
-                                    <xsl:value-of select="normalize-space(.)"/>
-                                </relationEntry>
-                            </resourceRelation>
-                        </xsl:when>
-                        <xsl:otherwise>
-                            <resourceRelation xmlns="urn:isbn:1-931666-33-4"
-                                xlink:arcrole="referencedIn" xlink:role="resource"
-                                xlink:type="simple">
-                                <relationEntry>
-                                    <xsl:value-of select="normalize-space(.)"/>
-                                </relationEntry>
-                            </resourceRelation>
-                        </xsl:otherwise>
-                    </xsl:choose>
-                </xsl:for-each>
-                <xsl:for-each
-                    select="ead:ead/ead:archdesc/ead:descgrp/ead:relatedmaterial/ead:p[not(ead:extref)]">
-                    <xsl:if
-                        test="contains(.,'Information about') or contains(.,'information about') or contains(.,'available at')">
-                        <xsl:choose>
-                            <xsl:when test="not(preceding-sibling::ead:p) and not(ead:emph)">
-                                <resourceRelation xmlns="urn:isbn:1-931666-33-4"
-                                    xlink:href="{concat('http:',substring-after(.,'http:'))}"
-                                    xlink:role="resource" xlink:type="simple">
-                                    <relationEntry>
-                                        <xsl:value-of select="preceding-sibling::ead:p[1]"/>
-                                    </relationEntry>
-                                </resourceRelation>
-                            </xsl:when>
-                        </xsl:choose>
                     </xsl:if>
                 </xsl:for-each>
             </xsl:if>

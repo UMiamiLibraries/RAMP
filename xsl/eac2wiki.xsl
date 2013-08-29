@@ -490,8 +490,7 @@
         <xsl:text>&#10;</xsl:text>
         <!-- Insert a default reference to the finding aid itself. -->
         <xsl:text> &lt;!-- Basic citation for the finding aid. Author names will need to be adjusted (inverted, updated based on revision info, etc.). --&gt;</xsl:text>
-        <xsl:for-each select="eac:eac-cpf/eac:control/eac:sources/eac:source[eac:sourceEntry]">            
-            <xsl:text>&#10;</xsl:text>
+        <xsl:for-each select="eac:eac-cpf/eac:control/eac:sources/eac:source[eac:sourceEntry]">                        
             <xsl:text>&#10;</xsl:text>
             <xsl:value-of
                 select="normalize-space(substring-after(eac:objectXMLWrap/ead:eadheader/ead:filedesc/ead:titlestmt/ead:author,'Finding Aid Authors: '))"/>
@@ -591,6 +590,15 @@
                 </xsl:choose>
                 <xsl:text>&#10;</xsl:text>
             </xsl:for-each>
+        </xsl:for-each>
+        <xsl:for-each
+            select="eac:eac-cpf/eac:cpfDescription/eac:relations/eac:resourceRelation[not(@xlink:arcrole) and not(@xlink:role='resource')]">
+            <xsl:sort
+                select="translate(eac:relationEntry[@localType='creator'],'ÁÀÉÈÍÓÚÜÑáàéèíóúúüñ','AAEEIOUUNaaeeiouuun')"
+                data-type="text"/>
+            <xsl:text>*</xsl:text>
+            <xsl:value-of select="normalize-space(.)"/>
+            <xsl:text>&#10;</xsl:text>
         </xsl:for-each>
     </xsl:template>
 
