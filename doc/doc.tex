@@ -1,0 +1,140 @@
+% Created 2013-08-05 Mon 11:52
+\documentclass[11pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{fixltx2e}
+\usepackage{graphicx}
+\usepackage{longtable}
+\usepackage{float}
+\usepackage{wrapfig}
+\usepackage{soul}
+\usepackage{textcomp}
+\usepackage{marvosym}
+\usepackage{wasysym}
+\usepackage{latexsym}
+\usepackage{amssymb}
+\usepackage{hyperref}
+\tolerance=1000
+\usepackage{minted}
+\providecommand{\alert}[1]{\textbf{#1}}
+
+\title{RAMP Documentation}
+\author{James Little}
+\date{\today}
+\hypersetup{
+  pdfkeywords={},
+  pdfsubject={},
+  pdfcreator={Emacs Org-mode version 7.9.3f}}
+
+\begin{document}
+
+\maketitle
+
+\setcounter{tocdepth}{3}
+\tableofcontents
+\vspace*{1cm}
+\section{Installation}
+\label{sec-1}
+\subsection{Requirements}
+\label{sec-1-1}
+
+\begin{itemize}
+\item MySQL 5.1.5+
+\item PHP 5+
+\item php\_{}xsl extension enabled
+\item Apache (other web servers like nginx+php-fpm may work)
+\end{itemize}
+  
+\subsection{Create the RAMP Database}
+\label{sec-1-2}
+
+   
+   The `ramp/sql' folder contains a .sql file that can be used to create the database that RAMP requires. 
+   
+
+\begin{minted}[]{sh}
+mysqldump -u username -ppassword --host=hostname ramp < ramp.sql
+\end{minted}
+   
+\subsection{Update db.php and Configuration Files}
+\label{sec-1-3}
+
+   
+   Before using RAMP, change the `ramp/conf/db.php' to reflect your current database connection information. 
+\subsubsection{Other Configuration Files}
+\label{sec-1-3-1}
+
+\begin{itemize}
+\item inst\_{}info.php
+
+  This file includes institutional information that appears in EAC records.
+\item xsl.php, paths.php
+
+  These files include the paths to XSL stylesheets.
+\end{itemize}
+\subsection{Add EAD Records}
+\label{sec-1-4}
+
+   
+   Before using the RAMP, the `ead' folder should have correct read/write permissions set.
+   
+
+\begin{minted}[]{sh}
+chown -R www-data ramp/ead
+chmod 2755 ramp/ead
+\end{minted}
+   
+   This folder should contain all the EAD files that you want to work with.
+      
+\section{Usage}
+\label{sec-2}
+\subsection{EAD to EAC Conversion}
+\label{sec-2-1}
+
+   The `Convert' link leads to a form that allows you to specify the path to EAD files. This path should have appropriate permissions so that the script can read and write files.
+   After submitting the form, the script performs an XSLT transformation on all the files in the folder. After a successful transformation, the original EAD record is imported into the 
+   database, along with the newly created EAC-CPF record.
+
+   When the conversion process is completed the original EAD files are removed. 
+
+   If a duplicate EAD file is converted, the user is presented with an interface that displays differences between the files. The user can choose which elements are merged into the new record.
+\subsection{Creating a New EAC Records}
+\label{sec-2-2}
+
+   If you encounter a situation where there are no EAD files to import, RAMP can be used to create new records. The `New' link leads to a form that allows you to chose what type of entity 
+   is being created and an input for a biography. 
+
+   If permissions for the `/ramp/ead/' directory are not correctly set, the script will not be able to write a stub EAD file necessary to create a 
+   new EAC record. 
+   
+\subsection{Editing EAC Files}
+\label{sec-2-3}
+
+   The `Edit' link displays a select box that includes a list of names. Selecting a name loads their EAC record into the editor. A user can manually edit the EAC XML in the editor. 
+   
+   During the editing process, the files is monitored and sent to a validation service. If the XML is valid, a green icon is displayed. If the XML is invalid or not well-formed, a red icon 
+   and error information is displayed. 
+
+   After editing the file, the user can save the XML to the database.
+\subsection{Ingesting Data from Third-Party Sources}
+\label{sec-2-4}
+
+   One of the major features of RAMP is the ability to ingest data from third-party sources. 
+
+   Currently a user can ingest data from OCLC Identities and VIAF. During the ingest, 
+   the user is presented with a list of possible matches. After selecting appropriate matches, data from the services is inserted into the EAC XML. At this point, the user could
+   edit the ingested data, but this is not required. 
+\subsection{Working with Mediawiki Markup}
+\label{sec-2-5}
+
+   After ingestion, the user can convert the EAC record to Mediawiki Markup. They are presented with a different editor for working with the Mediawiki markup. 
+\subsection{Submitting Wiki Article to Wikipedia}
+\label{sec-2-6}
+
+   Before submitting the generated Wiki article to Wikipedia, the user must use the `Get Existing Wiki' button to check if Wikipedia has an existing article for the entity. If there 
+   is an existing article they are presented with the generated and existing articles side by side. They can highlight a section of either article and transfer if to the other side
+   by using arrow buttons. 
+
+   Finally, the user can submit the generated article to Wikipedia. 
+
+\end{document}
