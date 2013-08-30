@@ -25,6 +25,7 @@ if ($mysqli->connect_errno) {
 
 $file_name = mysqli_real_escape_string($mysqli,$_POST["name"]);
 $file_name_lower = strtolower(str_replace(' ', '_', $file_name));
+$file_name_lower = preg_replace('/[^a-zA-Z0-9-_]/', '', $file_name_lower);
 
 //make file name valid utf8
 $file_name = iconv('utf-8', "us-ascii//TRANSLIT", $file_name);
