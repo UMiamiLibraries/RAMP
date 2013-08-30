@@ -39,8 +39,7 @@ RAMP
     These files include the paths to XSL stylesheets.
 
 ### 1.4 Add EAD Records
-   Before using the RAMP, the 'ead' folder should have correct read/write
-   permissions set.
+   Before using the RAMP, you will need to create a new 'ead' folder in the RAMP root directory. This folder should have correct read/write permissions set.
    
      chown -R www-data ramp/ead
      chmod 2755 ramp/ead
