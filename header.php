@@ -24,7 +24,7 @@ include('conf/includes.php');
 
 
 <ul id="menu" class="menu_slice">
-	<li><a href="/eac"><img id="logo" src="style/images/logos-02-01.png" alt="RAMP logo: lowercase sans-serif font with an M that mimics the shape of a skate ramp"/></a></li>
+	<li><a href="/RAMP"><img id="logo" src="style/images/logos-02-01.png" alt="RAMP logo: lowercase sans-serif font with an M that mimics the shape of a skate ramp"/></a></li>
 	<li id="ead_convert" class='menu_slice'><a href="ead_convert.php">Convert</a></li>
 	<li id="eac_edit" class="menu_slice"><a href="eac_edit.php">Edit</a></li>
 	<li id="new_eac" class="menu_slice"><a href="new_eac.php">New</a></li>
