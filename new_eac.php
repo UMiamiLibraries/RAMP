@@ -17,7 +17,7 @@ include('header.php');
 
 
   <label>Name</label>
-  <input id="eac_name" type="text" autofocus required/>
+  <input id="eac_name" type="text" size="80" autofocus required/>
   <label>Biography <span style="font-style:italic;">(please enter a space between each paragraph)</span></label>
   <textarea cols="60" style="margin-left:0; margin-bottom:1%;" id="bioghist" required></textarea>
   </form>
