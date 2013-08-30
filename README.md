@@ -3,7 +3,7 @@ RAMP
 
 ## Introduction
 
-   The Remixing Archival Metadata Project (RAMP) is a lightweight web-based editing tool that lets users generate enhanced archival authority records and gives them the ability to publish the content of those records as Wikipedia pages. The RAMP editor first extracts biographical and historical data from finding aids to create new authority records for persons, corporate bodies, and families associated with archival and special collections. It then lets users enhance those records with additional data from sources like VIAF and WorldCat Identities. Finally, it transforms those records into biographical pages for direct publication to Wikipedia through its API. 
+   The Remixing Archival Metadata Project (RAMP) is a lightweight web-based editing tool that lets users do two things: (1) generate enhanced authority records for creators of archival collections and (2) publish the content of those records as Wikipedia pages. The RAMP editor first extracts biographical and historical data from EAD finding aids to create new authority records for persons, corporate bodies, and families associated with archival and special collections. It then lets users enhance those records with additional data from sources like VIAF and WorldCat Identities. Finally, it transforms those records into biographical pages for direct publication to Wikipedia through its API. 
 
 ## 1 Installation
 
