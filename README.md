@@ -101,3 +101,6 @@ RAMP
    article and transfer if to the other side
    by using arrow buttons. 
    Finally, the user can submit the generated article to Wikipedia. 
+
+#### 2.6.1 Saving Draft Articles to Wikipedia
+   RAMP facilitates the editing process by letting users save Wikipedia-hosted drafts of their articles. For example, rather than editing and posting new content directly to http://en.wikipedia.org/wiki/Lydia_Cabrera, RAMP users can check the 'Draft' box to save their work-in-progress to a subpage of their Wikipedia user homepage (like http://en.wikipedia.org/wiki/User:Username/Lydia_Cabrera).
