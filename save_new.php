@@ -23,13 +23,12 @@ if ($mysqli->connect_errno) {
   echo "Failed to connect to MySQL: (" . $mysqli->connect_errno . ") " . $mysqli->connect_error;
 }
 
+//make file name valid utf8
 $file_name = mysqli_real_escape_string($mysqli,$_POST["name"]);
 $file_name_lower = strtolower(str_replace(' ', '_', $file_name));
 $file_name_lower = preg_replace('/[^a-zA-Z0-9-_]/', '', $file_name_lower);
-
-//make file name valid utf8
-$file_name = iconv('utf-8', "us-ascii//TRANSLIT", $file_name);
-$file_name = preg_replace('/[^a-zA-Z0-9-_\.]/', '', $file_name);
+$file_name_lower = iconv('utf-8', "us-ascii//TRANSLIT", $file_name_lower);
+$file_name_lower = preg_replace('/[^a-zA-Z0-9-_\.]/', '', $file_name_lower);
 
 //personal name
 $persname = mysqli_real_escape_string($mysqli,$_POST["name"]);
