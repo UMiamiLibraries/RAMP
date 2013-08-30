@@ -50,6 +50,9 @@ RAMP
    The 'Convert' link leads to a form that allows you to specify the path
    to EAD files. This path should have appropriate permissions so that the
    script can read and write files.
+   
+   Note: if you receive an error when trying to run the conversion routine, you may need to edit your php.ini settings to change the value of 'short_open_tag' to 'Off.'
+   
    After submitting the form, the script performs an XSLT transformation on
    all the files in the folder. After a successful transformation, the
    original EAD record is imported into the 
@@ -59,7 +62,7 @@ RAMP
    interface that displays a graphical diff. The user can choose which
    elements are merged into the new record.
 
-### 2.2 Creating a New EAC Records
+### 2.2 Creating a New EAC Record
    If you encounter a situation where there are no EAD files to import,
    RAMP can be used to create new records. The 'New' link leads to a form that
    allows you to chose what type of entity is being created and an input for a biography. 
