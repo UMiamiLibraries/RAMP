@@ -1,6 +1,9 @@
 RAMP 
 ===================
 
+## Introduction
+
+   The Remixing Archival Metadata Project (RAMP) is a lightweight web-based editing tool that lets users do two things: (1) generate enhanced authority records for creators of archival collections and (2) publish the content of those records as Wikipedia pages. The RAMP editor first extracts biographical and historical data from EAD finding aids to create new authority records for persons, corporate bodies, and families associated with archival and special collections. It then lets users enhance those records with additional data from sources like VIAF and WorldCat Identities. Finally, it transforms those records into biographical pages for direct publication to Wikipedia through its API. 
 
 ## 1 Installation
 
@@ -50,6 +53,9 @@ RAMP
    The 'Convert' link leads to a form that allows you to specify the path
    to EAD files. This path should have appropriate permissions so that the
    script can read and write files.
+   
+   Note: if you receive an error when trying to run the conversion routine, you may need to edit your php.ini settings to change the value of 'short_open_tag' to 'Off.'
+   
    After submitting the form, the script performs an XSLT transformation on
    all the files in the folder. After a successful transformation, the
    original EAD record is imported into the 
@@ -59,7 +65,7 @@ RAMP
    interface that displays a graphical diff. The user can choose which
    elements are merged into the new record.
 
-### 2.2 Creating a New EAC Records
+### 2.2 Creating a New EAC Record
    If you encounter a situation where there are no EAD files to import,
    RAMP can be used to create new records. The 'New' link leads to a form that
    allows you to chose what type of entity is being created and an input for a biography. 
@@ -98,3 +104,6 @@ RAMP
    article and transfer if to the other side
    by using arrow buttons. 
    Finally, the user can submit the generated article to Wikipedia. 
+
+#### 2.6.1 Saving Draft Articles to Wikipedia
+   RAMP facilitates the editing process by letting users save Wikipedia-hosted drafts of their articles. For example, rather than editing and posting new content directly to http://en.wikipedia.org/wiki/Lydia_Cabrera, RAMP users can check the 'Draft' box to save their work-in-progress to a subpage of their Wikipedia user homepage (like http://en.wikipedia.org/wiki/User:Username/Lydia_Cabrera).
