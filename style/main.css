@@ -75,6 +75,7 @@ label {
 	margin-top:.5em;
 	margin-bottom:.5em;
 	display: block;
+	font-weight:500;
 }
 
 textarea {
@@ -303,7 +304,7 @@ textarea {
   transition: border linear 0.2s, box-shadow linear 0.2s;
 
 
-  height:250px;
+  height:200px;
   width: 100%;
   margin-top: 1%;
 }

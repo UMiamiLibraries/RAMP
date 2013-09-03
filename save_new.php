@@ -30,10 +30,18 @@ $file_name_lower = preg_replace('/[^a-zA-Z0-9-_]/', '', $file_name_lower);
 $file_name_lower = iconv('utf-8', "us-ascii//TRANSLIT", $file_name_lower);
 $file_name_lower = preg_replace('/[^a-zA-Z0-9-_\.]/', '', $file_name_lower);
 
-//personal name
-$persname = mysqli_real_escape_string($mysqli,$_POST["name"]);
+// form values
 $entity =  mysqli_real_escape_string($mysqli,$_POST["entity"]);
+$name = mysqli_real_escape_string($mysqli,$_POST["name"]);
+$from = mysqli_real_escape_string($mysqli,$_POST["from"]);
+$to = mysqli_real_escape_string($mysqli,$_POST["to"]);
+$places = mysqli_real_escape_string($mysqli,$_POST["places"]);
+$group = mysqli_real_escape_string($mysqli,$_POST["group"]);	    
+$activity = mysqli_real_escape_string($mysqli,$_POST["activity"]);
+$gender = mysqli_real_escape_string($mysqli,$_POST["gender"]);	    
+$lang = mysqli_real_escape_string($mysqli,$_POST["lang"]);	    	    
 $bioghist =  mysqli_real_escape_string($mysqli,$_POST["bioghist"]);
+$sources = mysqli_real_escape_string($mysqli,$_POST["sources"]);
 
 // instinfo
 if (file_exists(  $_POST["dir"] . '/' . $file_name_lower . '.xml')) {
@@ -53,41 +61,60 @@ if (file_exists(  $_POST["dir"] . '/' . $file_name_lower . '.xml')) {
 
   switch($type) {
 
-  case 'Person':
+  case 'person':
     try {
-      $ead_doc->loadXML('<ead audience="external"
-		     xmlns="urn:isbn:1-931666-22-9"
-		     xmlns:xlink="http://www.w3.org/1999/xlink"
-		     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-		     xsi:schemaLocation="http://www.loc.gov/ead/ http://www.loc.gov/ead/ead.xsd">
-		   <eadheader langencoding="iso639-2b" audience="external" countryencoding="iso3166-1" dateencoding="iso8601" repositoryencoding="iso15511" scriptencoding="iso15924" relatedencoding="MARC21">
-		      <eadid encodinganalog="856$u" mainagencycode="' . $agency_code  . '" countrycode="US" identifier="' . $ramp_id . '"></eadid>
-		      <filedesc>
-		        <titlestmt>
-		               <titleproper encodinganalog="245"></titleproper>
-		                  </titlestmt>
-		      </filedesc>
-		</eadheader>
-		<frontmatter>
-		            </frontmatter>
-		            <archdesc audience="external" relatedencoding="MARC21">
-		               <did>
-		                     <origination label="Creator" encodinganalog="245$c">
-		                     <persname encodinganalog="100"  source="local">' . $persname .
-
-
-			'</persname>
-		                           </origination>
-		      </did>
-		               <bioghist encodinganalog="545">
-		<p>' . $bioghist .
-			'</p>
-		                           </bioghist>
-
-
-		   </archdesc>
-		</ead>
-		');
+      $ead_doc->loadXML('
+<ead audience="external" xmlns="urn:isbn:1-931666-22-9" xmlns:xlink="http://www.w3.org/1999/xlink"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.loc.gov/ead/ http://www.loc.gov/ead/ead.xsd">
+    <eadheader langencoding="iso639-2b" audience="external" countryencoding="iso3166-1"
+        dateencoding="iso8601" repositoryencoding="iso15511" scriptencoding="iso15924"
+        relatedencoding="MARC21">
+        <eadid encodinganalog="856$u" mainagencycode="' . $agency_code  . '" countrycode="US"
+            identifier="' . $ramp_id . '"/>
+        <filedesc>
+            <titlestmt>
+                <titleproper encodinganalog="245"/>
+            </titlestmt>
+        </filedesc>
+    </eadheader>
+    <frontmatter> </frontmatter>
+    <archdesc level="file" audience="external" relatedencoding="MARC21">
+        <did>
+            <origination label="Creator" encodinganalog="245$c">
+                <persname encodinganalog="100$a" source="local">' . $name . '</persname>
+            </origination>            
+            <note type="from" encodinganalog="100$d">
+                <p>' . $from . '</p>
+            </note>
+            <note type="to" encodinganalog="100$d">
+                <p>' . $to . '</p>
+            </note>
+            <note type="places" encodinganalog="370">
+                <p>' . $places . '</p>
+            </note>            
+            <note type="group" encodinganalog="373">
+                <p>' . $group . '</p>
+            </note>
+            <note type="activity" encodinganalog="374">
+                <p>' . $activity . '</p>
+            </note>
+            <note type="gender" encodinganalog="375">
+                <p>' . $gender . '</p>
+            </note>            
+            <note type="lang" encodinganalog="377">
+                <p>' . $lang . '</p>
+            </note>
+            <note type="sources" encodinganalog="670">
+                <p>' . $sources . '</p>
+            </note>                       	    	    	                        
+        </did>
+        <bioghist encodinganalog="545">
+            <p>' . $bioghist . '</p>
+        </bioghist>
+    </archdesc>
+</ead>
+      ');
       // Try to load the ead file
 
     } catch(Exception $e) {
@@ -96,90 +123,192 @@ if (file_exists(  $_POST["dir"] . '/' . $file_name_lower . '.xml')) {
 
     break;
 
-  case 'Corporate Body':
+  case 'corporate body':
     try {
-      $ead_doc->loadXML('<ead audience="external"
-		     xmlns="urn:isbn:1-931666-22-9"
-		     xmlns:xlink="http://www.w3.org/1999/xlink"
-		     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-		     xsi:schemaLocation="http://www.loc.gov/ead/ http://www.loc.gov/ead/ead.xsd">
-		   <eadheader langencoding="iso639-2b" audience="external" countryencoding="iso3166-1" dateencoding="iso8601" repositoryencoding="iso15511" scriptencoding="iso15924" relatedencoding="MARC21">
-		      <eadid encodinganalog="856$u" mainagencycode="' . $agency_code  . '" countrycode="US" identifier="' . $ramp_id . '"></eadid>
-		      <filedesc>
-		        <titlestmt>
-		               <titleproper encodinganalog="245"></titleproper>
-		                  </titlestmt>
-		      </filedesc>
-		</eadheader>
-		<frontmatter>
-		            </frontmatter>
-		            <archdesc audience="external" relatedencoding="MARC21">
-		               <did>
-		                     <origination label="Creator" encodinganalog="245$c">
-		                     <corpname encodinganalog="100"  source="local">' . $persname .
-
-
-			'</corpname>
-		                           </origination>
-		      </did>
-		               <bioghist encodinganalog="545">
-		<p>' . $bioghist .
-			'</p>
-		                           </bioghist>
-
-
-		   </archdesc>
-		</ead>
-		');
+      $ead_doc->loadXML('
+<ead audience="external" xmlns="urn:isbn:1-931666-22-9" xmlns:xlink="http://www.w3.org/1999/xlink"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.loc.gov/ead/ http://www.loc.gov/ead/ead.xsd">
+    <eadheader langencoding="iso639-2b" audience="external" countryencoding="iso3166-1"
+        dateencoding="iso8601" repositoryencoding="iso15511" scriptencoding="iso15924"
+        relatedencoding="MARC21">
+        <eadid encodinganalog="856$u" mainagencycode="' . $agency_code  . '" countrycode="US"
+            identifier="' . $ramp_id . '"/>
+        <filedesc>
+            <titlestmt>
+                <titleproper encodinganalog="245"/>
+            </titlestmt>
+        </filedesc>
+    </eadheader>
+    <frontmatter> </frontmatter>
+    <archdesc audience="external" relatedencoding="MARC21">
+        <did>
+            <origination label="Creator" encodinganalog="245$c">
+                <corpname encodinganalog="100" source="local">' . $name . '</corpname>
+            </origination>
+            <note type="from" encodinganalog="100$d">
+                <p>' . $from . '</p>
+            </note>
+            <note type="to" encodinganalog="100$d">
+                <p>' . $to . '</p>
+            </note>
+            <note type="places" encodinganalog="370">
+                <p>' . $places . '</p>
+            </note>            
+            <note type="group" encodinganalog="373">
+                <p>' . $group . '</p>
+            </note>
+            <note type="activity" encodinganalog="374">
+                <p>' . $activity . '</p>
+            </note>
+            <note type="gender" encodinganalog="375">
+                <p>' . $gender . '</p>
+            </note>            
+            <note type="lang" encodinganalog="377">
+                <p>' . $lang . '</p>
+            </note>
+            <note type="sources" encodinganalog="670">
+                <p>' . $sources . '</p>
+            </note>
+        </did>
+        <bioghist encodinganalog="545">
+            <p>' . $bioghist . '</p>
+        </bioghist>
+    </archdesc>
+</ead>      
+      ');
     } catch(Exception $e) {
       die ('Caught exception: ' .  $e->getMessage() . "\n");
     }
 
     break;
 
-  case 'Family':
+  case 'family':
 
     try{
-      $ead_doc->loadXML('<ead audience="external"
-		     xmlns="urn:isbn:1-931666-22-9"
-		     xmlns:xlink="http://www.w3.org/1999/xlink"
-		     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-		     xsi:schemaLocation="http://www.loc.gov/ead/ http://www.loc.gov/ead/ead.xsd">
-		   <eadheader langencoding="iso639-2b" audience="external" countryencoding="iso3166-1" dateencoding="iso8601" repositoryencoding="iso15511" scriptencoding="iso15924" relatedencoding="MARC21">
-		      <eadid encodinganalog="856$u" mainagencycode="' . $agency_code  . '" countrycode="US" identifier="' . $ramp_id . '"></eadid>
-		      <filedesc>
-		        <titlestmt>
-		               <titleproper encodinganalog="245"></titleproper>
-		                  </titlestmt>
-		      </filedesc>
-		</eadheader>
-		<frontmatter>
-		            </frontmatter>
-		            <archdesc audience="external" relatedencoding="MARC21">
-		               <did>
-		                     <origination label="Creator" encodinganalog="245$c">
-		                     <famname  source="local">' . $persname . '</famname>
-		                           </origination>
-		      </did>
-		               <bioghist encodinganalog="545">
-		<p>' . $bioghist .
-			'</p>
-		                           </bioghist>
-
-
-		   </archdesc>
-		</ead>
-		');
+      $ead_doc->loadXML('
+<ead audience="external" xmlns="urn:isbn:1-931666-22-9" xmlns:xlink="http://www.w3.org/1999/xlink"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.loc.gov/ead/ http://www.loc.gov/ead/ead.xsd">
+    <eadheader langencoding="iso639-2b" audience="external" countryencoding="iso3166-1"
+        dateencoding="iso8601" repositoryencoding="iso15511" scriptencoding="iso15924"
+        relatedencoding="MARC21">
+        <eadid encodinganalog="856$u" mainagencycode="' . $agency_code  . '" countrycode="US"
+            identifier="' . $ramp_id . '"/>
+        <filedesc>
+            <titlestmt>
+                <titleproper encodinganalog="245"/>
+            </titlestmt>
+        </filedesc>
+    </eadheader>
+    <frontmatter> </frontmatter>
+    <archdesc audience="external" relatedencoding="MARC21">
+        <did>
+            <origination label="Creator" encodinganalog="245$c">
+                <famname source="local">' . $name . '</famname>
+            </origination>
+            <note type="from" encodinganalog="100$d">
+                <p>' . $from . '</p>
+            </note>
+            <note type="to" encodinganalog="100$d">
+                <p>' . $to . '</p>
+            </note>
+            <note type="places" encodinganalog="370">
+                <p>' . $places . '</p>
+            </note>            
+            <note type="group" encodinganalog="373">
+                <p>' . $group . '</p>
+            </note>
+            <note type="activity" encodinganalog="374">
+                <p>' . $activity . '</p>
+            </note>
+            <note type="gender" encodinganalog="375">
+                <p>' . $gender . '</p>
+            </note>            
+            <note type="lang" encodinganalog="377">
+                <p>' . $lang . '</p>
+            </note>
+            <note type="sources" encodinganalog="670">
+                <p>' . $sources . '</p>
+            </note>
+        </did>
+        <bioghist encodinganalog="545">
+            <p>' . $bioghist . '</p>
+        </bioghist>
+    </archdesc>
+</ead>
+      ');
     } catch(Exception $e) {
       die ('Caught exception: ' .  $e->getMessage() . "\n");
     }
 
     break;
+    
+  case 'work':
+
+    try{
+      $ead_doc->loadXML('
+<ead audience="external" xmlns="urn:isbn:1-931666-22-9" xmlns:xlink="http://www.w3.org/1999/xlink"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.loc.gov/ead/ http://www.loc.gov/ead/ead.xsd">
+    <eadheader langencoding="iso639-2b" audience="external" countryencoding="iso3166-1"
+        dateencoding="iso8601" repositoryencoding="iso15511" scriptencoding="iso15924"
+        relatedencoding="MARC21">
+        <eadid encodinganalog="856$u" mainagencycode="' . $agency_code  . '" countrycode="US"
+            identifier="' . $ramp_id . '"/>
+        <filedesc>
+            <titlestmt>
+                <titleproper encodinganalog="245"/>
+            </titlestmt>
+        </filedesc>
+    </eadheader>
+    <frontmatter> </frontmatter>
+    <archdesc audience="external" relatedencoding="MARC21">
+        <did>
+            <origination label="Creator" encodinganalog="245$c">
+                <corpname encodinganalog="130" source="local">' . $name . '</corpname>
+            </origination>
+            <note type="from" encodinganalog="100$d">
+                <p>' . $from . '</p>
+            </note>
+            <note type="to" encodinganalog="100$d">
+                <p>' . $to . '</p>
+            </note>
+            <note type="places" encodinganalog="370">
+                <p>' . $places . '</p>
+            </note>            
+            <note type="group" encodinganalog="373">
+                <p>' . $group . '</p>
+            </note>
+            <note type="activity" encodinganalog="374">
+                <p>' . $activity . '</p>
+            </note>
+            <note type="gender" encodinganalog="375">
+                <p>' . $gender . '</p>
+            </note>            
+            <note type="lang" encodinganalog="377">
+                <p>' . $lang . '</p>
+            </note>
+            <note type="sources" encodinganalog="670">
+                <p>' . $sources . '</p>
+            </note>
+        </did>
+        <bioghist encodinganalog="545">
+            <p>' . $bioghist . '</p>
+        </bioghist>
+    </archdesc>
+</ead>
+      ');
+      } catch(Exception $e) {
+        die ('Caught exception: ' . $e->getMessage() . "\n");
+      }
+      
+      
   }
 
   fwrite($f, $ead_doc->saveXML());
 
-  $ead_convert = new EadConvert( $_POST["dir"] );
+    $ead_convert = new EadConvert( $_POST["dir"] );
 	$ead_convert->setAgency_code($agency_code);
 	$ead_convert->setOther_agency_code($other_agency_code);
 	$ead_convert->setAgency_name($agency_name);
@@ -192,7 +321,7 @@ if (file_exists(  $_POST["dir"] . '/' . $file_name_lower . '.xml')) {
 	$ead_convert->setEventDescCreate($eventDescCreate);
 	$ead_convert->setEventDescExport($eventDescExport);
 	$ead_convert->setEventDescRAMP($eventDescRAMP);
-  $ead_convert->new_eac( $file_name_lower );
+    $ead_convert->new_eac( $file_name_lower );
 
   echo "Sucessfully created new record.";
 
