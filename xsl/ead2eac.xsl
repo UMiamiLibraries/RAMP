@@ -216,7 +216,8 @@
                             <xsl:call-template name="lineSplitter">
                                 <xsl:with-param name="line"
                                     select="ead:ead/ead:archdesc/ead:did/ead:note[@encodinganalog='670']/ead:p"/>
-                                <xsl:with-param name="element">sourceEntry</xsl:with-param>
+                                <xsl:with-param name="element">source</xsl:with-param>
+                                <xsl:with-param name="element2">sourceEntry</xsl:with-param>
                             </xsl:call-template>
                         </xsl:when>
                         <xsl:otherwise>
@@ -366,7 +367,8 @@
                                 <languageUsed>
                                     <language
                                         languageCode="{normalize-space(substring-before(substring-after(.,'$a'),'$l'))}">
-                                        <xsl:value-of select="normalize-space(substring-after(.,'$l'))"/>
+                                        <xsl:value-of
+                                            select="normalize-space(substring-after(.,'$l'))"/>
                                     </language>
                                     <script scriptCode="Latn">Latin</script>
                                 </languageUsed>
@@ -375,7 +377,8 @@
                     </xsl:when>
                     <xsl:otherwise>
                         <languageUsed>
-                            <language languageCode="{normalize-space(substring-before(substring-after(.,'$a'),'$l'))}">
+                            <language
+                                languageCode="{normalize-space(substring-before(substring-after(.,'$a'),'$l'))}">
                                 <xsl:value-of
                                     select="normalize-space(substring-after(ead:ead/ead:archdesc/ead:did/ead:note[@encodinganalog='377']/ead:p,'$l'))"
                                 />
@@ -386,26 +389,28 @@
                 </xsl:choose>
             </xsl:if>
             <!-- Process occupations. -->
-            <xsl:if test="ead:ead/ead:archdesc/ead:did/ead:note[@encodinganalog='374']!=''">
-                <occupations>
-                    <xsl:choose>
-                        <xsl:when
-                            test="contains(ead:ead/ead:archdesc/ead:did/ead:note[@encodinganalog='374']/ead:p,'\n')">
-                            <xsl:for-each
-                                select="exsl:node-set(str:split(string(ead:ead/ead:archdesc/ead:did/ead:note[@encodinganalog='374']/ead:p),'\n'))">
-                                <xsl:choose>
-                                    <xsl:when
-                                        test="string-length(translate(normalize-space(.),concat($vAlpha,$vPunct,$vPunct2,$vCommaSpace),''))">
-                                        <xsl:if test="contains(.,'$a')">
-                                            <occupation>
-                                                <term>
+            <xsl:if
+                test="ead:ead/ead:archdesc/ead:did/ead:origination/child::node()[1][local-name()='persname']">
+                <xsl:if test="ead:ead/ead:archdesc/ead:did/ead:note[@encodinganalog='374']!=''">
+                    <occupations>
+                        <xsl:choose>
+                            <xsl:when
+                                test="contains(ead:ead/ead:archdesc/ead:did/ead:note[@encodinganalog='374']/ead:p,'\n')">
+                                <xsl:for-each
+                                    select="exsl:node-set(str:split(string(ead:ead/ead:archdesc/ead:did/ead:note[@encodinganalog='374']/ead:p),'\n'))">
+                                    <xsl:choose>
+                                        <xsl:when
+                                            test="string-length(translate(normalize-space(.),concat($vAlpha,$vPunct,$vPunct2,$vCommaSpace),''))">
+                                            <xsl:if test="contains(.,'$a')">
+                                                <occupation>
+                                                  <term>
                                                   <xsl:value-of
                                                   select="substring-before(substring-after(.,'$a'),'$')"
                                                   />
-                                                </term>
-                                            </occupation>
-                                            <xsl:if test="contains(.,'$s')">
-                                                <dateRange>
+                                                  </term>
+                                                </occupation>
+                                                <xsl:if test="contains(.,'$s')">
+                                                  <dateRange>
                                                   <fromDate>
                                                   <xsl:value-of
                                                   select="normalize-space(substring-before(substring-after(.,'$s'),'$'))"
@@ -418,90 +423,212 @@
                                                   />
                                                   </toDate>
                                                   </xsl:if>
-                                                </dateRange>
-                                            </xsl:if>
-                                            <xsl:if
-                                                test="not(contains(.,'$s')) and contains(.,'$t')">
-                                                <dateRange>
+                                                  </dateRange>
+                                                </xsl:if>
+                                                <xsl:if
+                                                  test="not(contains(.,'$s')) and contains(.,'$t')">
+                                                  <dateRange>
                                                   <toDate>
                                                   <xsl:value-of
                                                   select="normalize-space(substring-after(.,'$t'))"
                                                   />
                                                   </toDate>
-                                                </dateRange>
+                                                  </dateRange>
+                                                </xsl:if>
                                             </xsl:if>
-                                        </xsl:if>
-                                    </xsl:when>
-                                    <xsl:otherwise>
-                                        <occupation>
-                                            <term>
-                                                <xsl:value-of select="substring-after(.,'$a')"/>
-                                            </term>
-                                        </occupation>
-                                    </xsl:otherwise>
-                                </xsl:choose>
-                            </xsl:for-each>
-                        </xsl:when>
-                        <xsl:otherwise>
-                            <xsl:if
-                                test="contains(ead:ead/ead:archdesc/ead:did/ead:note[@encodinganalog='374']/ead:p,'$a') 
+                                        </xsl:when>
+                                        <xsl:otherwise>
+                                            <occupation>
+                                                <term>
+                                                  <xsl:value-of select="substring-after(.,'$a')"/>
+                                                </term>
+                                            </occupation>
+                                        </xsl:otherwise>
+                                    </xsl:choose>
+                                </xsl:for-each>
+                            </xsl:when>
+                            <xsl:otherwise>
+                                <xsl:if
+                                    test="contains(ead:ead/ead:archdesc/ead:did/ead:note[@encodinganalog='374']/ead:p,'$a') 
                                 and not(contains(ead:ead/ead:archdesc/ead:did/ead:note[@encodinganalog='374']/ead:p,'$s'))
                                 and not(contains(ead:ead/ead:archdesc/ead:did/ead:note[@encodinganalog='374']/ead:p,'$t'))">
-                                <occupation>
-                                    <term>
-                                        <xsl:value-of
-                                            select="substring-after(ead:ead/ead:archdesc/ead:did/ead:note[@encodinganalog='374']/ead:p,'$a')"
-                                        />
-                                    </term>
-                                </occupation>
-                                <xsl:if
-                                    test="contains(ead:ead/ead:archdesc/ead:did/ead:note[@encodinganalog='374']/ead:p,'$s')">
                                     <occupation>
                                         <term>
                                             <xsl:value-of
-                                                select="substring-before(substring-after(ead:ead/ead:archdesc/ead:did/ead:note[@encodinganalog='374']/ead:p,'$a'),'$')"
+                                                select="substring-after(ead:ead/ead:archdesc/ead:did/ead:note[@encodinganalog='374']/ead:p,'$a')"
                                             />
                                         </term>
                                     </occupation>
-                                    <dateRange>
-                                        <fromDate>
-                                            <xsl:value-of
-                                                select="normalize-space(substring-before(substring-after(ead:ead/ead:archdesc/ead:did/ead:note[@encodinganalog='374']/ead:p,'$s'),'$'))"
-                                            />
-                                        </fromDate>
-                                        <xsl:if
-                                            test="contains(ead:ead/ead:archdesc/ead:did/ead:note[@encodinganalog='374']/ead:p,'$t')">
+                                    <xsl:if
+                                        test="contains(ead:ead/ead:archdesc/ead:did/ead:note[@encodinganalog='374']/ead:p,'$s')">
+                                        <occupation>
+                                            <term>
+                                                <xsl:value-of
+                                                  select="substring-before(substring-after(ead:ead/ead:archdesc/ead:did/ead:note[@encodinganalog='374']/ead:p,'$a'),'$')"
+                                                />
+                                            </term>
+                                        </occupation>
+                                        <dateRange>
+                                            <fromDate>
+                                                <xsl:value-of
+                                                  select="normalize-space(substring-before(substring-after(ead:ead/ead:archdesc/ead:did/ead:note[@encodinganalog='374']/ead:p,'$s'),'$'))"
+                                                />
+                                            </fromDate>
+                                            <xsl:if
+                                                test="contains(ead:ead/ead:archdesc/ead:did/ead:note[@encodinganalog='374']/ead:p,'$t')">
+                                                <toDate>
+                                                  <xsl:value-of
+                                                  select="normalize-space(substring-after(ead:ead/ead:archdesc/ead:did/ead:note[@encodinganalog='374']/ead:p,'$t'))"
+                                                  />
+                                                </toDate>
+                                            </xsl:if>
+                                        </dateRange>
+                                    </xsl:if>
+                                    <xsl:if
+                                        test="not(contains(ead:ead/ead:archdesc/ead:did/ead:note[@encodinganalog='374']/ead:p,'$s')) 
+                                    and contains(ead:ead/ead:archdesc/ead:did/ead:note[@encodinganalog='374']/ead:p,'$t')">
+                                        <occupation>
+                                            <term>
+                                                <xsl:value-of
+                                                  select="substring-before(substring-after(ead:ead/ead:archdesc/ead:did/ead:note[@encodinganalog='374']/ead:p,'$a'),'$')"
+                                                />
+                                            </term>
+                                        </occupation>
+                                        <dateRange>
                                             <toDate>
                                                 <xsl:value-of
                                                   select="normalize-space(substring-after(ead:ead/ead:archdesc/ead:did/ead:note[@encodinganalog='374']/ead:p,'$t'))"
                                                 />
                                             </toDate>
-                                        </xsl:if>
-                                    </dateRange>
+                                        </dateRange>
+                                    </xsl:if>
                                 </xsl:if>
+                            </xsl:otherwise>
+                        </xsl:choose>
+                    </occupations>
+                </xsl:if>
+            </xsl:if>
+            <!-- Process functions -->
+            <xsl:if
+                test="ead:ead/ead:archdesc/ead:did/ead:origination/child::node()[1][local-name()='corpname']">
+                <xsl:if test="ead:ead/ead:archdesc/ead:did/ead:note[@encodinganalog='374']!=''">
+                    <functions>
+                        <xsl:choose>
+                            <xsl:when
+                                test="contains(ead:ead/ead:archdesc/ead:did/ead:note[@encodinganalog='374']/ead:p,'\n')">
+                                <xsl:for-each
+                                    select="exsl:node-set(str:split(string(ead:ead/ead:archdesc/ead:did/ead:note[@encodinganalog='374']/ead:p),'\n'))">
+                                    <xsl:choose>
+                                        <xsl:when
+                                            test="string-length(translate(normalize-space(.),concat($vAlpha,$vPunct,$vPunct2,$vCommaSpace),''))">
+                                            <xsl:if test="contains(.,'$a')">
+                                                <function>
+                                                  <term>
+                                                  <xsl:value-of
+                                                  select="substring-before(substring-after(.,'$a'),'$')"
+                                                  />
+                                                  </term>
+                                                </function>
+                                                <xsl:if test="contains(.,'$s')">
+                                                  <dateRange>
+                                                  <fromDate>
+                                                  <xsl:value-of
+                                                  select="normalize-space(substring-before(substring-after(.,'$s'),'$'))"
+                                                  />
+                                                  </fromDate>
+                                                  <xsl:if test="contains(.,'$t')">
+                                                  <toDate>
+                                                  <xsl:value-of
+                                                  select="normalize-space(substring-after(.,'$t'))"
+                                                  />
+                                                  </toDate>
+                                                  </xsl:if>
+                                                  </dateRange>
+                                                </xsl:if>
+                                                <xsl:if
+                                                  test="not(contains(.,'$s')) and contains(.,'$t')">
+                                                  <dateRange>
+                                                  <toDate>
+                                                  <xsl:value-of
+                                                  select="normalize-space(substring-after(.,'$t'))"
+                                                  />
+                                                  </toDate>
+                                                  </dateRange>
+                                                </xsl:if>
+                                            </xsl:if>
+                                        </xsl:when>
+                                        <xsl:otherwise>
+                                            <function>
+                                                <term>
+                                                  <xsl:value-of select="substring-after(.,'$a')"/>
+                                                </term>
+                                            </function>
+                                        </xsl:otherwise>
+                                    </xsl:choose>
+                                </xsl:for-each>
+                            </xsl:when>
+                            <xsl:otherwise>
                                 <xsl:if
-                                    test="not(contains(ead:ead/ead:archdesc/ead:did/ead:note[@encodinganalog='374']/ead:p,'$s')) 
-                                    and contains(ead:ead/ead:archdesc/ead:did/ead:note[@encodinganalog='374']/ead:p,'$t')">
-                                    <occupation>
+                                    test="contains(ead:ead/ead:archdesc/ead:did/ead:note[@encodinganalog='374']/ead:p,'$a') 
+                                    and not(contains(ead:ead/ead:archdesc/ead:did/ead:note[@encodinganalog='374']/ead:p,'$s'))
+                                    and not(contains(ead:ead/ead:archdesc/ead:did/ead:note[@encodinganalog='374']/ead:p,'$t'))">
+                                    <function>
                                         <term>
                                             <xsl:value-of
-                                                select="substring-before(substring-after(ead:ead/ead:archdesc/ead:did/ead:note[@encodinganalog='374']/ead:p,'$a'),'$')"
+                                                select="substring-after(ead:ead/ead:archdesc/ead:did/ead:note[@encodinganalog='374']/ead:p,'$a')"
                                             />
                                         </term>
-                                    </occupation>
-                                    <dateRange>
-                                        <toDate>
-                                            <xsl:value-of
-                                                select="normalize-space(substring-after(ead:ead/ead:archdesc/ead:did/ead:note[@encodinganalog='374']/ead:p,'$t'))"
-                                            />
-                                        </toDate>
-                                    </dateRange>
+                                    </function>
+                                    <xsl:if
+                                        test="contains(ead:ead/ead:archdesc/ead:did/ead:note[@encodinganalog='374']/ead:p,'$s')">
+                                        <function>
+                                            <term>
+                                                <xsl:value-of
+                                                  select="substring-before(substring-after(ead:ead/ead:archdesc/ead:did/ead:note[@encodinganalog='374']/ead:p,'$a'),'$')"
+                                                />
+                                            </term>
+                                        </function>
+                                        <dateRange>
+                                            <fromDate>
+                                                <xsl:value-of
+                                                  select="normalize-space(substring-before(substring-after(ead:ead/ead:archdesc/ead:did/ead:note[@encodinganalog='374']/ead:p,'$s'),'$'))"
+                                                />
+                                            </fromDate>
+                                            <xsl:if
+                                                test="contains(ead:ead/ead:archdesc/ead:did/ead:note[@encodinganalog='374']/ead:p,'$t')">
+                                                <toDate>
+                                                  <xsl:value-of
+                                                  select="normalize-space(substring-after(ead:ead/ead:archdesc/ead:did/ead:note[@encodinganalog='374']/ead:p,'$t'))"
+                                                  />
+                                                </toDate>
+                                            </xsl:if>
+                                        </dateRange>
+                                    </xsl:if>
+                                    <xsl:if
+                                        test="not(contains(ead:ead/ead:archdesc/ead:did/ead:note[@encodinganalog='374']/ead:p,'$s')) 
+                                        and contains(ead:ead/ead:archdesc/ead:did/ead:note[@encodinganalog='374']/ead:p,'$t')">
+                                        <function>
+                                            <term>
+                                                <xsl:value-of
+                                                  select="substring-before(substring-after(ead:ead/ead:archdesc/ead:did/ead:note[@encodinganalog='374']/ead:p,'$a'),'$')"
+                                                />
+                                            </term>
+                                        </function>
+                                        <dateRange>
+                                            <toDate>
+                                                <xsl:value-of
+                                                  select="normalize-space(substring-after(ead:ead/ead:archdesc/ead:did/ead:note[@encodinganalog='374']/ead:p,'$t'))"
+                                                />
+                                            </toDate>
+                                        </dateRange>
+                                    </xsl:if>
                                 </xsl:if>
-                            </xsl:if>
-                        </xsl:otherwise>
-                    </xsl:choose>
-                </occupations>
+                            </xsl:otherwise>
+                        </xsl:choose>
+                    </functions>
+                </xsl:if>
             </xsl:if>
+
             <!-- Process places. -->
             <xsl:if test="ead:ead/ead:archdesc/ead:did/ead:note[@encodinganalog='370']!=''">
                 <places>
@@ -659,7 +786,7 @@
                                                 <place>
                                                   <placeRole/>
                                                   <placeEntry>
-                                                  <xsl:value-of select="substring-after(.,'$e')"/>
+                                                  <xsl:value-of select="substring-after(.,'$f')"/>
                                                   </placeEntry>
                                                 </place>
                                             </xsl:when>
@@ -667,7 +794,7 @@
                                                 <place>
                                                   <placeRole>Place of origin</placeRole>
                                                   <placeEntry>
-                                                  <xsl:value-of select="substring-after(.,'$e')"/>
+                                                  <xsl:value-of select="substring-after(.,'$g')"/>
                                                   </placeEntry>
                                                 </place>
                                             </xsl:when>
@@ -751,18 +878,17 @@
                                         test="contains(ead:ead/ead:archdesc/ead:did/ead:note[@encodinganalog='370']/ead:p,'$f')">
                                         <placeRole/>
                                         <placeEntry>
-                                            <xsl:value-of select="substring-after(.,'$f')"/>
+                                            <xsl:value-of select="substring-after(ead:ead/ead:archdesc/ead:did/ead:note[@encodinganalog='370']/ead:p,'$f')"/>
                                         </placeEntry>
                                     </xsl:when>
                                     <xsl:when
                                         test="contains(ead:ead/ead:archdesc/ead:did/ead:note[@encodinganalog='370']/ead:p,'$g')">
                                         <placeRole>Place of origin</placeRole>
                                         <placeEntry>
-                                            <xsl:value-of select="substring-after(.,'$g')"/>
+                                            <xsl:value-of select="substring-after(ead:ead/ead:archdesc/ead:did/ead:note[@encodinganalog='370']/ead:p,'$g')"/>
                                         </placeEntry>
                                     </xsl:when>
                                 </xsl:choose>
-
                             </place>
                         </xsl:otherwise>
                     </xsl:choose>
