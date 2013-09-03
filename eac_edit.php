@@ -8,15 +8,13 @@
 
 include('header.php');
 ?>
-<ul id="addbioinfo" class="menu_slice">
-
-  <li id="edit" class-"menu_slice"><a href="#">EAC to Mediawiki Markup</a></li>
-
-  </ul>
 
 
 
   <div id="edit_controls">
+
+
+
  <?php
 
   $mysqli = new mysqli($db_host, $db_user, $db_pass, $db_default, $db_port);
@@ -84,6 +82,7 @@ print ("</select>");
 
 
 <button id="save_eac" class="pure-button pure-button-primary">Save Draft</button>
+<button id="edit" class="pure-button pure-button-primary">Convert to Wikimarkup</button>
   <span id="ingest_buttons">
   <button id="ingest_viaf" class="ingest_button pure-button pure-button-primary" >Ingest VIAF</button>
   <button id="ingest_worldcat" class="ingest_button pure-button pure-button-primary" >Ingest WorldCat</button>  
