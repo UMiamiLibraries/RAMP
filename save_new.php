@@ -30,6 +30,10 @@ $file_name_lower = preg_replace('/[^a-zA-Z0-9-_]/', '', $file_name_lower);
 $file_name_lower = iconv('utf-8', "us-ascii//TRANSLIT", $file_name_lower);
 $file_name_lower = preg_replace('/[^a-zA-Z0-9-_\.]/', '', $file_name_lower);
 
+//exit and return message if file name is empty
+if( $file_name_lower == "" )
+	die( "Record not saved. File name is invalid." );
+
 //personal name
 $persname = mysqli_real_escape_string($mysqli,$_POST["name"]);
 $entity =  mysqli_real_escape_string($mysqli,$_POST["entity"]);

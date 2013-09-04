@@ -291,6 +291,9 @@ function ingest_viaf_Relations( lobjEac, callback )
 
 		for(var i = 0; i < lobjParagraphList.length; i++)
 		{
+			if( typeof lobjParagraphList[i].childNodes[0] == 'undefined' )
+				continue;
+
 			var lstrParagraph = lobjParagraphList[i].childNodes[0].nodeValue;
 
 			if( lstrParagraph == null)
