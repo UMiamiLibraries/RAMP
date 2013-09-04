@@ -24,7 +24,7 @@ RAMP
     mysql --user=username --password --host=hostname < sql/ramp.sql
 
 ### 1.3 Update db.php and Configuration Files
-   Before using RAMP, change the 'ramp/conf/db.php' to reflect your current
+   Before using RAMP, change the 'conf/db.php' to reflect your current
    database connection information. 
 
 #### 1.3.1 Other Configuration Files
