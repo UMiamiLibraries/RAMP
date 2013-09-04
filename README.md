@@ -24,7 +24,7 @@ RAMP
     mysql --user=username --password --host=hostname < sql/ramp.sql
 
 ### 1.3 Update db.php and Configuration Files
-   Before using RAMP, change the 'ramp/conf/db.php' to reflect your current
+   Before using RAMP, change the 'conf/db.php' to reflect your current
    database connection information. 
 
 #### 1.3.1 Other Configuration Files
@@ -41,8 +41,8 @@ RAMP
 ### 1.4 Add EAD Records
    Before using the RAMP, you will need to create a new 'ead' folder in the RAMP root directory. This folder should have correct read/write permissions set.
    
-     chown -R www-data ramp/ead
-     chmod 2755 ramp/ead
+     chown -R www-data ead
+     chmod 2755 ead
      
    This folder should contain all the EAD files that you want to work with.
 
