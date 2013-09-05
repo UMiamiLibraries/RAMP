@@ -28,12 +28,33 @@ include('conf/includes.php');
 
 <ul id="menu" class="menu_slice">
 	<li><a href="/RAMP"><img id="logo" src="style/images/logos-02-01.png" alt="RAMP logo: lowercase sans-serif font with an M that mimics the shape of a skate ramp"/></a></li>
+
+<li id="menu_button">&#9776;</li>
+</ul>
+<ul id="menu_2" class="menu_slice">
+        <li><img src="style/images/convert_white.png" width="24px" height="24px"></img></li>
 	<li id="ead_convert" class='menu_slice'><a href="ead_convert.php">Convert</a></li>
+        <li><img src="style/images/edit_white.png" width="24px" height="24px"></img></li>
+
 	<li id="eac_edit" class="menu_slice"><a href="eac_edit.php">Edit</a></li>
+        <li><img src="style/images/new_white.png" width="24px" height="24px"></img></li>
+
 	<li id="new_eac" class="menu_slice"><a href="new_eac.php">New</a></li>
 </ul>
 
+<ul id="menu_3" class="menu_slice">
+        <li><img src="style/images/convert_white.png" width="24px" height="24px"></img></li>
+	<li id="ead_convert" class='menu_slice'><a href="ead_convert.php">Convert</a></li>
+        <li><img src="style/images/edit_white.png" width="24px" height="24px"></img></li>
+	<li id="eac_edit" class="menu_slice"><a href="eac_edit.php">Edit</a></li>
+        <li><img src="style/images/new_white.png" width="24px" height="24px"></img></li>
+	<li id="new_eac" class="menu_slice"><a href="new_eac.php">New</a></li>
+</ul>
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> 164c5fbe7bf1c522ce308c5353389b9c6aad9b32
 </header>
 <div id="wrap">
 <div id="main_content">
