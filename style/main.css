@@ -108,6 +108,7 @@ header {
 
 }
 
+
 .content_box img {
 
 display:inline-block;
@@ -624,12 +625,11 @@ margin-top:1%;
 
 h1 {
 margin-left: .5%;
-
-font-size: 2em;
+font-size: 1.5em;
 margin-top: 1%;
 margin-bottom: 1%;
-
 font-weight:300;
+
 }
 
 .save_button {
@@ -670,7 +670,7 @@ font-size:1.2em;
 #ead_files {
 
 margin-left:.5%;
-
+display:block;
 }
 
 textarea {
@@ -719,4 +719,9 @@ html, body {
 
 margin-bottom:1%;
 
+}
+
+.content_box {
+
+padding: 1.5%;
 }
