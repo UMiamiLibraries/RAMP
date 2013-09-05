@@ -10,12 +10,17 @@ include('header.php');
 ?>
 
 
+<script src="script/editor.js"></script>
+  <script src="script/eac_editor.js"></script>
+  <script src="script/vkbeautify.js"></script>
+  <script src="script/ingest.js"></script>
+  <script src="script/wikiator.js"></script>
+
+
+ 
 
   <div id="edit_controls">
-
-
-
- <?php
+  <?php
 
   $mysqli = new mysqli($db_host, $db_user, $db_pass, $db_default, $db_port);
 if ($mysqli->connect_errno) {
@@ -29,10 +34,6 @@ $results = $mysqli->query ("SELECT ead_file, ExtractValue(eac_xml, '/descendant-
 							ORDER BY CASE WHEN Name = '' THEN SortHelp ELSE Name END ASC");
 
 
-
-//	$allFiles = scandir($path);
-
-//	$files = array_diff($allFiles, array('.', '..'));
 
 echo  "<select id='ead_files'>";
 
@@ -72,26 +73,29 @@ print ("</select>");
 
 
 
-  <script src="script/editor.js"></script>
-  <script src="script/eac_editor.js"></script>
-  <script src="script/vkbeautify.js"></script>
-  <script src="script/ingest.js"></script>
-  <script src="script/wikiator.js"></script>
-
  
 
 
-<button id="save_eac" class="pure-button pure-button-primary">Save Draft</button>
-<button id="edit" class="pure-button pure-button-primary">Convert to Wikimarkup</button>
+<button id="save_eac" class="pure-button pure-button-primary">Save XML</button>
+<button id="convert_to_wiki" class="pure-button pure-button-primary">Convert to Wiki Markup</button>
+
   <span id="ingest_buttons">
   <button id="ingest_viaf" class="ingest_button pure-button pure-button-primary" >Ingest VIAF</button>
   <button id="ingest_worldcat" class="ingest_button pure-button pure-button-primary" >Ingest WorldCat</button>  
   </span>
+  
+
+ 
+  </div>
+ 
+ <div id="valid_row">
+
   <div id="validation">
   </div>
   <div id="validation_text">
   </div>
-  </div>
+</div>
+  
   <div id="editor_mask">
   <div id="editor_container">
 
