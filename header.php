@@ -51,10 +51,7 @@ include('conf/includes.php');
 	<li id="new_eac" class="menu_slice"><a href="new_eac.php">New</a></li>
 </ul>
 
-<<<<<<< HEAD
-=======
 
->>>>>>> 164c5fbe7bf1c522ce308c5353389b9c6aad9b32
 </header>
 <div id="wrap">
 <div id="main_content">

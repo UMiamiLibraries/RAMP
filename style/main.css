@@ -378,7 +378,7 @@ textarea:focus {
 .update_button {
 
 margin-left: 2%;
-
+margin-top: .5%;
 }
 
 #get_wiki, #post_wiki
@@ -724,4 +724,56 @@ margin-bottom:1%;
 .content_box {
 
 padding: 1.5%;
+}
+
+
+#menu_button {
+float:right;
+}
+
+#menu_button:hover {
+
+cursor:pointer;
+
+}
+#menu_3 {
+display:none;
+}
+
+#menu_2 {
+display:none;
+margin-top:1%;
+}
+
+#menu_3 a {
+color:white;
+text-decoration:none;
+}
+
+#menu_2  a {
+color:white;
+text-decoration:none;
+}
+
+.pure-button-primary {
+margin-top:.5%;
+margin-left:.5%;
+}
+
+.content_box button {
+display:block;
+font-size:1.3em;
+
+}
+.content_box select {
+margin-left:.5%;
+}
+
+
+#ingest_worldcat {
+float:left;
+}
+
+#ingest_viaf {
+float:left;
 }

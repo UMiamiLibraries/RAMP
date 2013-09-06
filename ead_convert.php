@@ -65,12 +65,22 @@ function convertEad( lstrDir, lobjUnprocessed, lstrDiffs )
 }
 </script>
 
+<div class="pure-g-r">
+<div class="pure-u-1">
+  <div class="content_box">
+
 <form action="ead_convert_class.php">
+
+
 
   Path to EAD Files: <input name='dir' value="<?php echo $ead_path ?>"></input>
   <button type="button" id="convertEad2Eac" name="convertEad2Eac" class="pure-button pure-button-primary">Convert</button>
   <span id="file_estimator" style="display: none;"></span>
   <div id="results"></div>
   </form>
+
+</div>
+</div>
+</div>
 
 <?php include('footer.php');?>

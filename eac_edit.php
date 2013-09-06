@@ -73,40 +73,20 @@ print ("</select>");
 
 
 
-<<<<<<< HEAD
+
 <button id="save_eac" class="pure-button pure-button-primary">Save XML &#10145;</button>
 
 <button id="convert_to_wiki" class="pure-button pure-button-primary">Convert to Wiki Markup &#10145;</button>
   <span id="ingest_buttons">
-=======
- 
->>>>>>> 164c5fbe7bf1c522ce308c5353389b9c6aad9b32
+
 
   <button id="ingest_viaf" class="ingest_button pure-button pure-button-primary" >Ingest VIAF &#10145;</button>
 
-<<<<<<< HEAD
+
   <button id="ingest_worldcat" class="ingest_button pure-button pure-button-primary" >Ingest WorldCat &#10145;</button>  
   </span>
     </div>
  
-
- <div id="valid_row">
-=======
-<button id="save_eac" class="pure-button pure-button-primary">Save XML</button>
-<button id="convert_to_wiki" class="pure-button pure-button-primary">Convert to Wiki Markup</button>
-
-  <span id="ingest_buttons">
-  <button id="ingest_viaf" class="ingest_button pure-button pure-button-primary" >Ingest VIAF</button>
-  <button id="ingest_worldcat" class="ingest_button pure-button pure-button-primary" >Ingest WorldCat</button>  
-  </span>
-  
-
- 
-  </div>
- 
- <div id="valid_row">
-
->>>>>>> 164c5fbe7bf1c522ce308c5353389b9c6aad9b32
   <div id="validation">
   </div>
   <div id="validation_text">
