@@ -92,10 +92,6 @@ print ("</select>");
   <option>
   Create a new ...
 
-  <p>
-  Create a new 
-  </p>
-  <select>
   <option>
 
 

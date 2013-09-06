@@ -790,3 +790,12 @@ float:left;
 #dialog_box {
 display:none;
 }
+
+#wiki_login {
+display:none;
+}
+
+#edit_xml {
+
+float:left;
+}
