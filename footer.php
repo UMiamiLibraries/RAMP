@@ -1,3 +1,5 @@
+<div id="dialog_box">
+</div>
 <div class="footer">
 <div id="footer-text">University of Miami Libraries</div>
     <div id="footer-logo-wrapper">            

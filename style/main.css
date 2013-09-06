@@ -648,11 +648,14 @@ select {
 	height: auto;
 }
 
+/*
 .wiki_container button#gtselectedtext
 {
 	margin-top: 500%;
 	margin:left: 10%;
 }
+*/
+
 
 li.wiki_login
 {
@@ -782,4 +785,8 @@ float:left;
 
 #ingest_viaf {
 float:left;
+}
+
+#dialog_box {
+display:none;
 }

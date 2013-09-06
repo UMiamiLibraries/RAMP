@@ -83,9 +83,9 @@ function editor_display() {
 		$.post('update_eac_xml.php', {xml: editor_xml, ead_file: eac_xml_path} , function(data) {
 
 		    
-		    $('#validation_text').html("<p>File saved</p>");
-
-		    makeDialog('#validation_text', ' ');
+		    $('#dialog_box').html("<p>File saved</p>");
+		    
+		    makeDialog('#dialog_box', ' ');
 
 
 		});
@@ -265,8 +265,8 @@ editor_display();
 
 	   	$('#wiki_update').on('click', function() {
 
-		    $('#validation_text').html("<p>File saved</p>");
-		    makeDialog('#validation_text', ' ');
+		    $('#dialog_box').html("<p>File saved</p>");
+		    makeDialog('#dialog_box', ' ');
 
 
 	   	    updated_markup = document.getElementById('wikimarkup').value;
