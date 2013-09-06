@@ -26,7 +26,8 @@ $('.ead_files').change(function () {
 
 console.log(this.value);
 document.cookie = "ead_file=" + this.value;
-
+document.cookie = "entity_name=" + this.options[this.selectedIndex].innerHTML;
+//console.log($(this).html().text());
 console.log(getCookie("ead_file"));
 window.location = "eac_edit.php";
 

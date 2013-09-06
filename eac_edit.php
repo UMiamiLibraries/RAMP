@@ -20,6 +20,7 @@ include('header.php');
  
 
   <div id="edit_controls">
+<h1 id="entity_name"></h1>
   <?php
   /*
   $mysqli = new mysqli($db_host, $db_user, $db_pass, $db_default, $db_port);
@@ -112,7 +113,7 @@ editor.getSession().setMode("ace/mode/xml");
   <script src="script/select2/select2.min.js"></script>
 
   <script>
-  //  $(document).ready(function() { $("#ead_files").select2(); });
+  //$(document).ready(function() { $(".ead_files").select2(); });
   </script>
   <?php
 

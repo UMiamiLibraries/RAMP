@@ -31,6 +31,8 @@ $(document).ready(function() {
 	if (getCookie('ead_file')) {
 	    console.log(getCookie('ead_file'));
 	    build_editor(getCookie('ead_file'));
+	    $('#entity_name').html(getCookie('entity_name'));
+	    
 	} 
 	else {
 	}
@@ -39,6 +41,7 @@ $(document).ready(function() {
 
 
     function build_editor(eac_xml_file) {
+	
 
 	$('#edit_xml').remove();
 	$('#wiki_update').remove();
@@ -70,6 +73,7 @@ $(document).ready(function() {
 	    //enable ingest buttons
 	    $('.ingest_button').removeAttr('disabled');
 
+	    
 	    document.cookie = 'ead_file=""';
 
 	    // then validate the XML
@@ -112,14 +116,14 @@ $(document).ready(function() {
 	cookie_check();
 
 
-//	$("#ead_files option:selected").each(function () {
-	    
-	    
-	 // document.cookie = "ead_file=" + this.value;
+	//	$("#ead_files option:selected").each(function () {
+	
+	
+	// document.cookie = "ead_file=" + this.value;
 
 
 
-//	});
+	//	});
     }
 
 
