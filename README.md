@@ -19,7 +19,7 @@ RAMP
 ### 1.2 Create the RAMP Database
 
    The 'RAMP/sql' folder contains a .sql file that can be used to create
-   the database that RAMP requires. 
+   the database that RAMP requires. This file can be imported using a database management utility like phpMyAdmin, or from the command line:
    
     mysql --user=username --password --host=hostname < sql/ramp.sql
 
