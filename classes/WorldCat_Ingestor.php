@@ -115,7 +115,7 @@ class WorldCat_Ingestor extends Ingestor
 		$this->getResults();
 
 		//added because some xml entity is not being converted and causing weird characters
-		//$this->strResponse = str_replace( "&#x200D;", "", $this->strResponse);
+		$this->strResponse = str_replace( "&#x200D;", "", $this->strResponse);
 
 		//there are some XML reference entities that exist in the WorldCat reponse XML which do not get
 		//converted with the html_entity_decode function and therefore, we must decode them manually
