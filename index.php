@@ -43,7 +43,7 @@ $results = $mysqli->query ("SELECT ead_file, ExtractValue(eac_xml, '/descendant-
 
 
 
-echo  "<select id='ead_files'>";
+echo  "<select class='ead_files'>";
 
 echo "<option>Select a name</option>";
 
@@ -88,7 +88,7 @@ print ("</select>");
 
   <p>
   </p>
-  <select>
+  <select id="new_select">
   <option>
   Create a new ...
 

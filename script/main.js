@@ -14,7 +14,15 @@ $('#menu_2').toggle();
 });
 
 
-$('#ead_files').change(function () {
+$("#eac_edit a").click(function() {
+
+$('#menu_3').toggle();
+
+});
+
+
+
+$('.ead_files').change(function () {
 
 console.log(this.value);
 document.cookie = "ead_file=" + this.value;
@@ -25,6 +33,15 @@ window.location = "eac_edit.php";
 });
 
 
+
+$('#new_select').change(function () {
+
+document.cookie = "entity_type=" + this.value; 
+
+window.location="new_eac.php"; 
+
+
+});
 
 });
 

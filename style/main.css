@@ -670,7 +670,7 @@ padding: .5%;
 font-size:1.2em;
 }
 
-#ead_files {
+.ead_files {
 
 margin-left:.5%;
 display:block;
@@ -741,12 +741,18 @@ cursor:pointer;
 }
 #menu_3 {
 display:none;
+background: #2167CF;
+float:left;
+padding:1%;
+width:100%;
+
+padding:0;
 }
 
 #menu_2 {
 display:none;
+background: #1873FA;
 
-background:#3F78CC;
 float:left;
 padding:1%;
 width:100%;

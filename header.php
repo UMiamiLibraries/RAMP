@@ -36,19 +36,62 @@ include('conf/includes.php');
 	<li id="ead_convert" class='menu_slice'><a href="ead_convert.php">Convert</a></li>
         <li><img src="style/images/edit_white.png" width="24px" height="24px"></img></li>
 
-	<li id="eac_edit" class="menu_slice"><a href="eac_edit.php">Edit</a></li>
+	<li id="eac_edit" class="menu_slice"><a href="#">Edit</a></li>
         <li><img src="style/images/new_white.png" width="24px" height="24px"></img></li>
 
 	<li id="new_eac" class="menu_slice"><a href="new_eac.php">New</a></li>
 </ul>
 
 <ul id="menu_3" class="menu_slice">
-        <li><img src="style/images/convert_white.png" width="24px" height="24px"></img></li>
-	<li id="ead_convert" class='menu_slice'><a href="ead_convert.php">Convert</a></li>
-        <li><img src="style/images/edit_white.png" width="24px" height="24px"></img></li>
-	<li id="eac_edit" class="menu_slice"><a href="eac_edit.php">Edit</a></li>
-        <li><img src="style/images/new_white.png" width="24px" height="24px"></img></li>
-	<li id="new_eac" class="menu_slice"><a href="new_eac.php">New</a></li>
+      <li>
+<?php
+  $mysqli = new mysqli($db_host, $db_user, $db_pass, $db_default, $db_port);
+if ($mysqli->connect_errno) {
+  echo "Failed to connect to MySQL: (" . $mysqli->connect_errno . ") " . $mysqli->connect_error;
+}
+
+
+
+$results = $mysqli->query ("SELECT ead_file, ExtractValue(eac_xml, '/descendant-or-self::part[1]') AS 'Name', substring_index(ead_file, '/', -1) AS 'SortHelp'
+							FROM ead_eac.eac
+							ORDER BY CASE WHEN Name = '' THEN SortHelp ELSE Name END ASC");
+
+
+
+echo  "<select class='ead_files'>";
+
+echo "<option>Select a name</option>";
+
+echo "<option value=''></option>";
+
+while ($row = $results->fetch_assoc()) {
+  $name = $row["Name"];
+  $file_name = $row["ead_file"];
+  $file_name_display = htmlentities(basename($file_name));
+  if($row["Name"]) {
+
+    print "<option value='$file_name'>$name</option>";
+
+  } else {
+
+    print "<option value='$file_name'>$file_name_display</option>";
+
+  }
+
+}
+
+
+
+//	foreach ($files as $file) {
+
+print ("<option>");
+
+//		print ("</option>");
+
+
+print ("</select>");
+?>
+     </li>
 </ul>
 
 
