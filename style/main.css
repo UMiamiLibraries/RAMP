@@ -242,7 +242,7 @@ margin-left:.5%;
 margin-top:.5%;
 margin-bottom:.5%;
 font-size:1.3em;
-display:inline-block;inline
+display:inline-block;
 
 }
 
@@ -334,7 +334,7 @@ textarea:focus {
   border-color: rgba(82, 168, 236, 0.8);
   box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(82, 168, 236, 0.6);
   outline: 0;
-  outline: thin dotted 9;
+ 
 }
 
 .single-line {
@@ -742,7 +742,13 @@ display:none;
 
 #menu_2 {
 display:none;
-margin-top:1%;
+
+background:#3F78CC;
+float:left;
+padding:1%;
+width:100%;
+margin-top:.5%;
+padding:.5%;
 }
 
 #menu_3 a {

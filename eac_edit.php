@@ -74,24 +74,24 @@ print ("</select>");
 
 
 
-<button id="save_eac" class="pure-button pure-button-primary">Save XML &#10145;</button>
+<button id="save_eac" class="pure-button pure-button-primary">Save XML</button>
 
-<button id="convert_to_wiki" class="pure-button pure-button-primary">Convert to Wiki Markup &#10145;</button>
+  <button id="convert_to_wiki" class="pure-button pure-button-primary">Convert to Wiki Markup</button>
   <span id="ingest_buttons">
 
 
-  <button id="ingest_viaf" class="ingest_button pure-button pure-button-primary" >Ingest VIAF &#10145;</button>
+  <button id="ingest_viaf" class="ingest_button pure-button pure-button-primary" >Ingest VIAF</button>
 
 
-  <button id="ingest_worldcat" class="ingest_button pure-button pure-button-primary" >Ingest WorldCat &#10145;</button>  
+  <button id="ingest_worldcat" class="ingest_button pure-button pure-button-primary" >Ingest WorldCat</button>  
   </span>
-    </div>
+  </div>
  
   <div id="validation">
   </div>
   <div id="validation_text">
   </div>
-</div>
+  </div>
   
   <div id="editor_mask">
   <div id="editor_container">
@@ -108,11 +108,11 @@ print ("</select>");
 editor.getSession().setMode("ace/mode/xml");
 </script>
 
-<link rel="stylesheet" type="text/css" href="script/select2/select2.css"/>
+<link rel="stylesheet" type="text/css" href="script/select2.css"/>
   <script src="script/select2/select2.min.js"></script>
 
   <script>
-  //  $(document).ready(function() { $("#ead_files").select2(); });
+   $(document).ready(function() { $("#ead_files").select2(); });
   </script>
   <?php
 
