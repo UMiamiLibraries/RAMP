@@ -15,15 +15,14 @@ include('header.php');
   <script src="script/vkbeautify.js"></script>
   <script src="script/ingest.js"></script>
   <script src="script/wikiator.js"></script>
-
-
  
 
   <div id="edit_controls">
-<h1 id="entity_name"></h1>
-  <?php
-  /*
-  $mysqli = new mysqli($db_host, $db_user, $db_pass, $db_default, $db_port);
+ <h1 id="entity_name"></h1>
+  
+ <?php
+
+$mysqli = new mysqli($db_host, $db_user, $db_pass, $db_default, $db_port);
 if ($mysqli->connect_errno) {
   echo "Failed to connect to MySQL: (" . $mysqli->connect_errno . ") " . $mysqli->connect_error;
 }
@@ -36,7 +35,11 @@ $results = $mysqli->query ("SELECT ead_file, ExtractValue(eac_xml, '/descendant-
 
 
 
-echo  "<select id='ead_files'>";
+echo  "<select id='ead_files' class='ead_files'>";
+
+echo "<option>Edit a different record</option>";
+
+echo "<option value=''></option>";
 
 while ($row = $results->fetch_assoc()) {
   $name = $row["Name"];
@@ -60,32 +63,28 @@ while ($row = $results->fetch_assoc()) {
 
 print ("<option>");
 
-
-
-
-
 //		print ("</option>");
 
 
 print ("</select>");
 
-*/
+
 ?>
 
-
-
-
-<button id="save_eac" class="pure-button pure-button-primary">Save XML</button>
-
-  <button id="convert_to_wiki" class="pure-button pure-button-primary">Convert to Wiki Markup &rarr;</button>
   <span id="ingest_buttons">
 
 
-  <button id="ingest_viaf" class="ingest_button pure-button pure-button-primary" >Ingest VIAF &darr;</button>
+  <button id="ingest_viaf" class="ingest_button pure-button pure-button-primary" >Ingest VIAF</button>
+ 
 
+  <button id="ingest_worldcat" class="ingest_button pure-button pure-button-primary" >Ingest WorldCat</button>  
 
-  <button id="ingest_worldcat" class="ingest_button pure-button pure-button-primary" >Ingest WorldCat &darr;</button>  
   </span>
+
+<button id="save_eac" class="pure-button pure-button-primary">Save XML</button>
+
+  <button id="convert_to_wiki" class="pure-button pure-button-primary">Convert to Wiki Markup </button>
+  
   </div>
  
   <div id="validation">
@@ -113,7 +112,7 @@ editor.getSession().setMode("ace/mode/xml");
   <script src="script/select2/select2.min.js"></script>
 
   <script>
-  //$(document).ready(function() { $(".ead_files").select2(); });
+  //   $(document).ready(function() { $("#ead_files").select2(); });
   </script>
   <?php
 
@@ -121,4 +120,3 @@ editor.getSession().setMode("ace/mode/xml");
   include('footer.php');
 
 ?>
-

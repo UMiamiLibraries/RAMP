@@ -2,8 +2,6 @@
 include('header.php');
 ?>
 
-
-
 <div class="pure-g-r">
 
   <div class="pure-u-1">

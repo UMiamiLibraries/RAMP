@@ -83,6 +83,7 @@ function setupGetWiki()
 {
 	jQuery('#get_wiki').on('click', function()
 	{
+	        $('#validation_text').hide();
 		$('#get_wiki').hide();
 		$('#get_wiki').after('<img id="loading-image" src="style/images/loading.gif" alt="loading" style="float: right;"/>');
 
@@ -258,7 +259,7 @@ function getWiki( lstrTitle )
 	{
 		mboolIsNew = true;
 
-		$('#wikieditor').append("<div class=\"wiki_container\" style=\"width: auto; height: 100%\"> \
+		$('#wikieditor').append("<div class=\"wiki_container\" style='margin: 1%; margin-top: 5%;'> \
 			<button id=\"gtselectedtext\" class=\"pure-button pure-button-secondary\">&gt;</button><br /> \
 			<button id=\"ltselectedtext\" class=\"pure-button pure-button-secondary\">&lt;</button></div> \
 			<div class=\"wiki_container\"><textarea id=\"get_wiki_text\"></textarea></div>");
@@ -276,14 +277,15 @@ function getWiki( lstrTitle )
 		//post to ajax wiki controller to get wiki markup with posted title
 		$.post('ajax/wiki_api.php', { 'action' : 'get', 'title' : lstrTitle }, function(response)
 		{
-			$('#wikieditor').append("<div class=\"wiki_container\" style=\"width: auto\"> \
+
+			$('#wikieditor').append("<div class=\"wiki_container\" style='margin: 1%; margin-top: 5%;'> \
 				<button id=\"gtselectedtext\" class=\"pure-button pure-button-secondary\">&gt;</button><br /> \
 				<button id=\"ltselectedtext\" class=\"pure-button pure-button-secondary\">&lt;</button></div> \
-				<div class=\"wiki_container\"><textarea id=\"get_wiki_text\">" + response + "</textarea></div>");
+				<div class=\"wiki_container\"><h1>Wikipedia Article</h1><textarea id=\"get_wiki_text\">" + response + "</textarea></div>");
 			$('#get_wiki_text').height($('#wikimarkup').height());
 
 			$('#loading-image').remove();
-			$('#get_wiki').replaceWith('<button id="post_wiki" class=\"pure-button pure-button-primary\">Post Wiki</button>');
+			$('#get_wiki').replaceWith('<button id="post_wiki" class=\"pure-button pure-button-primary\">Submit Local Article to Wikipedia</button>');
 			$('#post_wiki').after('<span id="draft_container"><input id="chkbx_draft" type="checkbox" />&nbsp;Draft</span>');
 
 			setupPostWiki();

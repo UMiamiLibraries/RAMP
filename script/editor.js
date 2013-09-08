@@ -81,7 +81,6 @@ $(document).ready(function() {
 
 	    // Check to see if there is some existing wiki markup
 	    wikiCheck();
-
    	});
 
 
@@ -253,7 +252,7 @@ $(document).ready(function() {
 		$('#validation_text').hide();
 
 		//Append some controls for dealing with the wikimarkup
-		$('#main_content').append("<div id=\"wikieditor\"><h1>Local Article</h1><div class=\"wiki_container\"> \
+		$('#main_content').append("<div id=\"wikieditor\"><div class=\"wiki_container\"><h1>Local Article</h1> \
 <textarea id=\"wikimarkup\">" + markup + "</textarea></div></div>");
 
 		$('#edit_controls').append("<button id=\"get_wiki\" class=\"pure-button pure-button-primary\">Get Article From Wikipedia</button> \
@@ -327,11 +326,11 @@ $(document).ready(function() {
 
 	    $('#wiki_save').remove();
 	    $('#wikieditor').remove();
+	    $('#validation_text').hide();
 
-
-	    $('#main_content').append('<div id="wikieditor"><div class="wiki_container"> \
+	    $('#main_content').append('<div id="wikieditor"><div class="wiki_container"><h1>Local Article</h1> \
 <textarea id="wikimarkup">' + data + '</textarea></div></div>');
-	    $('#edit_controls').append("<button class=\"save_button pure-button pure-button-primary\"  id=\"wiki_save\">Save Wiki Markup</button>");
+	    $('#edit_controls').append("<button class=\"save_button pure-button pure-button-primary\"  id=\"wiki_save\">Save Local Article</button>");
 
 	    var wiki_height = $(window).height() / 1.3;
 	    
@@ -363,8 +362,8 @@ $(document).ready(function() {
 		    $('#wiki_save').hide();
 
 		    //Append some controls for dealing with the wikimarkup
-		    $('#edit_controls').append("<button id=\"get_wiki\" class=\"pure-button pure-button-primary\">Get Existing Wiki</button> \
-<button class=\"update_button pure-button pure-button-primary\" id=\"wiki_update\">Update</button> \
+		    $('#edit_controls').append("<button class=\"update_button pure-button pure-button-primary\" id=\"wiki_update\">Update Local Article</button> \
+<button id=\"get_wiki\" class=\"pure-button pure-button-primary\">Get Article From Wikipedia</button> \
 <button class=\"update_button pure-button pure-button-primary\" id=\"edit_xml\"> &#8604; Revert to XML </button>");
 
 		    setupGetWiki();
@@ -399,7 +398,11 @@ $(document).ready(function() {
 		    });
 
 		    $('#wiki_update').on('click', function() {
-
+			
+			
+				$('#dialog_box').html("<p>Local article saved</p>");
+		
+		makeDialog('#dialog_box', ' ');
 
 			updated_markup = document.getElementById('wikimarkup').value;
 
