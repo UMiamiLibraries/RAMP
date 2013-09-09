@@ -202,6 +202,8 @@ function searchWiki( lstrSearch )
 function displayWikiSearch( lobjTitles, callback )
 {
 	var lstrHTML = "<div class=\"form_container\" style=\"top: 50px;\"><div class=\"user_help_form\">";
+	lstrHTML += "<button id=\"get_chosen_wiki\" class=\"pure-button pure-button-secondary\">Use Selected Title</button>";
+	lstrHTML += "<button id=\"get_chosen_wiki_no_match\" class=\"pure-button pure-button-secondary\">No Match (create new)</button>";
 
 	lstrHTML += "<h3>Please Choose Title: <div class=\"form_note\">*Wikipedia&#39;s search index is updated every morning. New pages will take a day to show up in index.</div></h3>";
 
@@ -211,8 +213,7 @@ function displayWikiSearch( lobjTitles, callback )
 		lstrHTML += lobjTitles[i].title + "\" /> " + lobjTitles[i]['title'] + "<br />" + html_decode(lobjTitles[i]['snippet']) + "<br /><br />";
 	}
 
-	lstrHTML += "<button id=\"get_chosen_wiki\" class=\"pure-button pure-button-secondary\">Use Selected Title</button>";
-	lstrHTML += "<button id=\"get_chosen_wiki_no_match\" class=\"pure-button pure-button-secondary\">No Match (create new)</button>";
+
 	lstrHTML += "</div></div>";
 
 	$('body').append(lstrHTML);
