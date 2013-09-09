@@ -28,10 +28,22 @@ $(document).ready(function() {
 
     function cookie_check () {
 
-	if (getCookie('ead_file')) {
-	    console.log(getCookie('ead_file'));
-	    build_editor(getCookie('ead_file'));
-	    $('#entity_name').html(getCookie('entity_name'));
+        if (getCookie('ead_file')) {
+
+            if (getCookie('ead_file') === '""') {
+
+                $('#entity_name').html('Please select a record to edit.');
+                $('#ingest_viaf').hide();
+                $('#ingest_worldcat').hide();
+                $('#save_eac').hide();
+                $('#convert_to_wiki').hide();
+                $('#editor_mask').hide();
+
+            } else {
+                console.log(getCookie('ead_file'));
+                build_editor(getCookie('ead_file'));
+                $('#entity_name').html('Now Editing: ' + getCookie('entity_name'));
+            }
 	    
 	} 
 	else {
@@ -51,7 +63,6 @@ $(document).ready(function() {
 	$('#post_wiki').remove();
 	$('#draft_container').remove();
 	$('#editor_container').show();
-
 	// When one of the files is selected...
 	eac_xml_path = eac_xml_file;
 	
@@ -220,7 +231,8 @@ $(document).ready(function() {
 	$('#save_eac').hide();
 	$('#ingest_buttons').hide();
 
-	
+	$('#ead_files').hide();
+
 	$('#validation').hide();
 	$('#validation_text').hide();
 	
@@ -250,6 +262,7 @@ $(document).ready(function() {
 		$('#ingest_buttons').hide();
 		$('#validation').hide();
 		$('#validation_text').hide();
+		$('#ead_files').hide();
 
 		//Append some controls for dealing with the wikimarkup
 		$('#main_content').append("<div id=\"wikieditor\"><div class=\"wiki_container\"><h1>Local Article</h1> \
@@ -323,6 +336,7 @@ $(document).ready(function() {
 	edited_xml = editor.getValue();
 
 	$.post('eac_mediawiki.php', {eac_text: edited_xml}, function(data) {
+	    $('#ead_files').hide();
 
 	    $('#wiki_save').remove();
 	    $('#wikieditor').remove();
@@ -360,6 +374,7 @@ $(document).ready(function() {
 		    $('#validation').hide();
 		    $('#validation_text').hide();
 		    $('#wiki_save').hide();
+                	$('#ead_files').hide();
 
 		    //Append some controls for dealing with the wikimarkup
 		    $('#edit_controls').append("<button class=\"update_button pure-button pure-button-primary\" id=\"wiki_update\">Update Local Article</button> \

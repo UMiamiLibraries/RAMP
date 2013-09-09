@@ -20,7 +20,24 @@ include('header.php');
   <div id="edit_controls">
  <h1 id="entity_name"></h1>
   
- <?php
+ 
+
+  <span id="ingest_buttons">
+
+
+  <button id="ingest_viaf" class="ingest_button pure-button pure-button-primary" >Ingest VIAF</button>
+    <div class="viaf_arrow arrows">&rarr;</div>
+
+  <button id="ingest_worldcat" class="ingest_button pure-button pure-button-primary" >Ingest WorldCat</button>
+    <div class="worldcat_arrow arrows">&rarr;</div>
+  </span>
+
+<button id="save_eac" class="pure-button pure-button-primary">Save XML</button>
+    <div class="save_arrow arrows">&rarr;</div>
+  <button id="convert_to_wiki" class="pure-button pure-button-primary">Convert to Wiki Markup </button>
+
+
+    <?php
 
 $mysqli = new mysqli($db_host, $db_user, $db_pass, $db_default, $db_port);
 if ($mysqli->connect_errno) {
@@ -70,28 +87,15 @@ print ("</select>");
 
 
 ?>
-
-  <span id="ingest_buttons">
-
-
-  <button id="ingest_viaf" class="ingest_button pure-button pure-button-primary" >Ingest VIAF</button>
- 
-
-  <button id="ingest_worldcat" class="ingest_button pure-button pure-button-primary" >Ingest WorldCat</button>  
-
-  </span>
-
-<button id="save_eac" class="pure-button pure-button-primary">Save XML</button>
-
-  <button id="convert_to_wiki" class="pure-button pure-button-primary">Convert to Wiki Markup </button>
-  
+    
+    
   </div>
  
   <div id="validation">
   </div>
   <div id="validation_text">
   </div>
-  </div>
+  
   
   <div id="editor_mask">
   <div id="editor_container">

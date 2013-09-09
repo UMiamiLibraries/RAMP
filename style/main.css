@@ -682,8 +682,7 @@ li.wiki_login
 
 #ead_files {
     margin-top:.5%;
-    float:right;
-    margin-right:60%;
+    
     display:inline-block;
 }
 textarea {
@@ -816,19 +815,41 @@ html, body {
     float:left;
 }
 
+
+.arrow {
+display: inline-block;
+font-size: 2em;
+margin-top: .5%;
+margin-left:.5%;
+display:none;
+
+}
+
 .viaf_arrow {
     float: left;
     font-size: 2em;
     display: inline-block;
     margin-top: .5%;
+margin-left:.5%;
+display:none;
 }
 
+.worldcat_arrow {
+    float: left;
+    font-size: 2em;
+    display: inline-block;
+    margin-top: .5%;
+    margin-left:.5%;
+    display:none;
+
+}
 
 .save_arrow {
 
     font-size: 2em;
     display: inline-block;
     margin-top: .5%;
+    display:none;
 }
 
 #save_eac {
