@@ -106,7 +106,7 @@ $(document).ready(function() {
 	    $.post('update_eac_xml.php', {xml: editor_xml, ead_file: eac_xml_path} , function(data) {
 
 		
-		$('#dialog_box').html("<p>File saved</p>");
+		$('#dialog_box').html("<p>Saved XML</p>");
 		
 		makeDialog('#dialog_box', ' ');
 
@@ -236,6 +236,8 @@ $(document).ready(function() {
 	$('#validation').hide();
 	$('#validation_text').hide();
 	
+
+
 	eacToMediaWiki();
 
     });
@@ -253,6 +255,7 @@ $(document).ready(function() {
 	    $('#save_eac').show();
 	    $('#ingest_buttons').show();
 	    $('#validation').show();
+	    $('#validation_text').hide();
 
 	    if (markup != "") {
 		// Hide this stuff if there is wiki markup
@@ -261,8 +264,8 @@ $(document).ready(function() {
 		$('#save_eac').hide();
 		$('#ingest_buttons').hide();
 		$('#validation').hide();
-		$('#validation_text').hide();
 		$('#ead_files').hide();
+		$('#validation_text').hide();
 
 		//Append some controls for dealing with the wikimarkup
 		$('#main_content').append("<div id=\"wikieditor\"><div class=\"wiki_container\"><h1>Local Article</h1> \

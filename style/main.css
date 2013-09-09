@@ -117,6 +117,7 @@ header {
 
 .content_box h1 {
     display: inline-block;
+    margin-top:.5%;
 
 }
 
@@ -627,8 +628,6 @@ pre {
 h1 {
     margin-left: .5%;
     font-size: 1.5em;
-    margin-top: 1%;
-    margin-bottom: 1%;
     font-weight:300;
 
 }
@@ -791,6 +790,7 @@ html, body {
 }
 .content_box select {
     margin-left:.5%;
+    margin-top:.5%;
 }
 
 
@@ -868,4 +868,18 @@ background: #7AB800;
 
 #edit_xml {
 background:crimson;
+}
+
+#convert_message {
+display: block;
+margin-bottom: .5%;
+
+}
+
+
+#file_estimator {
+font-size: 1.5em;
+margin-top: 10%;
+font-weight: 300;
+display: block;
 }

@@ -69,7 +69,7 @@ function convertEad( lstrDir, lobjUnprocessed, lstrDiffs )
 <div class="pure-u-1">
   <div class="content_box">
 
-  <h1>On this page you can convert EAD files that you have uploaded to the server during the install process.</h1>
+  <h1 id="convert_message">On this page you can convert EAD files that you have uploaded to the server during the install process.</h1>
 <form action="ead_convert_class.php">
 
   <input type="hidden" name='dir' value="<?php echo $ead_path ?>"></input>
