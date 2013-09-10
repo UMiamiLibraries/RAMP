@@ -13,7 +13,7 @@ $(document).ready(function() {
     $('#editor_container').css ( { "height" : ace_height });
 
 
-    $(window).resize(function() { 
+    $(window).resize(function() {
 
 	var ace_height = $(window).height() / 1.5;
 	$('#editor_container').css ( { "height" : ace_height });
@@ -39,7 +39,7 @@ $(document).ready(function() {
                 $('#save_eac').hide();
                 $('#convert_to_wiki').hide();
                 $('#editor_mask').hide();
-		
+
 
             } else {
                 console.log(getCookie('ead_file'));
@@ -47,17 +47,17 @@ $(document).ready(function() {
                 $('#entity_name').html('Now Editing: ' + getCookie('entity_name'));
 		$('#ead_files').hide();
             }
-	    
-	} 
+
+	}
 	else {
 	}
-	
+
     }
 
 
     function build_editor(eac_xml_file) {
-	
-	
+
+
 	$('#edit_xml').remove();
 	$('#wiki_update').remove();
 	$('#wiki_save').remove();
@@ -72,8 +72,8 @@ $(document).ready(function() {
 	$('.save_arrow').css({"display":"inline-block"});
 	// When one of the files is selected...
 	eac_xml_path = eac_xml_file;
-	
-	
+
+
 	//Get the XML
 
 	$.get('get_eac_xml.php?eac=' + eac_xml_path , function (data) {
@@ -91,7 +91,7 @@ $(document).ready(function() {
 	    //enable ingest buttons
 	    $('.ingest_button').removeAttr('disabled');
 
-	    
+
 	    document.cookie = 'ead_file=""';
 
 	    // then validate the XML
@@ -112,9 +112,9 @@ $(document).ready(function() {
 
 	    $.post('update_eac_xml.php', {xml: editor_xml, ead_file: eac_xml_path} , function(data) {
 
-		
+
 		$('#dialog_box').html("<p>Saved XML</p>");
-		
+
 		makeDialog('#dialog_box', ' ');
 
 
@@ -124,7 +124,7 @@ $(document).ready(function() {
     }
 
 
-    
+
 
 
 
@@ -134,8 +134,8 @@ $(document).ready(function() {
 
 
 	//	$("#ead_files option:selected").each(function () {
-	
-	
+
+
 	// document.cookie = "ead_file=" + this.value;
 
 
@@ -146,7 +146,7 @@ $(document).ready(function() {
 
 
     $('#ead_files').ready(function () {
-	
+
 	editor_display();
 
     });
@@ -224,7 +224,7 @@ $(document).ready(function() {
 	    if(typeof callback == 'undefined')
 		callback = function(){};
 
-            console.log("error"); 
+            console.log("error");
             callback(false);
         });
     }
@@ -262,7 +262,7 @@ $(document).ready(function() {
 	    $('#save_eac').show();
 	    $('#ingest_buttons').show();
 	    $('#validation').show();
-	    
+
 
 	    if (markup != "") {
 		// Hide this stuff if there is wiki markup
@@ -284,13 +284,13 @@ $(document).ready(function() {
 		//<button class=\"update_button pure-button pure-button-primary\" id=\"edit_xml\"> &#8604; Revert to XML</button></div>");
 		setupGetWiki();
 
-		
-		
 
 
-		$(window).resize(function() { 
 
-		    
+
+		$(window).resize(function() {
+
+
 
 		});
 
@@ -299,14 +299,14 @@ $(document).ready(function() {
 
 
     		    //Show the XML editor ui and wiki markup editor
-		    
+
 		    $('#convert_to_wiki').show();
 		    $('#editor_container').show();
 		    $('#save_eac').show();
 		    $('#ingest_buttons').show();
 		    $('#validation').show();
 		    $('#validation_text').show();
-		    
+
 
 		    $('#wikieditor').remove();
 		    $('#edit_xml').remove();
@@ -314,7 +314,7 @@ $(document).ready(function() {
 		    $('#get_wiki').remove();
 		    $('#post_wiki').remove();
 		    $('#draft_container').remove();
-		  
+
 	   	});
 
 	   	$('#wiki_update').on('click', function() {
@@ -356,16 +356,16 @@ $(document).ready(function() {
 	    $('#main_content').append('<div id="wikieditor"><div class="wiki_container"><h1>Local Article</h1> \
 <textarea id="wikimarkup">' + data + '</textarea></div></div>');
 	    $('#edit_controls').append("<button class=\"save_button pure-button pure-button-primary\"  id=\"wiki_save\">Save Local Article</button>");
-	    
+
 
 	    var wiki_height = $(window).height() / 1.3;
-	    
 
 
-	    $(window).resize(function() { 
+
+	    $(window).resize(function() {
 
 		var wiki_height = $(window).height() / 1.3;
-		
+
 
 	    });
 
@@ -384,7 +384,7 @@ $(document).ready(function() {
 	    	$.post('post_wiki.php', {media_wiki: wiki_markup_data, ead_path: eac_xml_path}, function(data) {
 
 	    	    // Hide this stuff if there is wiki markup
-	
+
 		      $('#convert_to_wiki').hide();
 		      $('#editor_container').hide();
 		      $('#save_eac').hide();
@@ -393,33 +393,33 @@ $(document).ready(function() {
 		      $('#validation_text').hide();
 		      $('#wiki_save').hide();
                       $('#ead_files').hide();
-		
+
 		    //Append some controls for dealing with the wikimarkup
-		    /*		
+		    /*
 				$('#edit_controls').append("<button class=\"update_button pure-button pure-button-primary\" id=\"wiki_update\">Update Local Article</button> \
 				<button id=\"get_wiki\" class=\"pure-button pure-button-primary\">Get Article From Wikipedia</button> \
 				");
 		    */
 
 		    setupGetWiki();
-		
+
   		    $('#wiki_switch').show();
 
 
 		    //  $('#wiki_switch_button').hide();
-		 
+
 
 		    wikiCheck();
 
 
 
 		    var wiki_height = $(window).height() / 1.3;
-		    
 
 
-		    $(window).resize(function() { 
 
-			
+		    $(window).resize(function() {
+
+
 
 		    });
 
@@ -444,10 +444,10 @@ $(document).ready(function() {
 		    });
 
 		    $('#wiki_update').on('click', function() {
-			
-			
+
+
 			$('#dialog_box').html("<p>Local article saved</p>");
-			
+
 			makeDialog('#dialog_box', ' ');
 
 			updated_markup = document.getElementById('wikimarkup').value;
@@ -491,10 +491,10 @@ $(document).ready(function() {
 
 
 	$('#wiki_switch_button').bind('click', function() {
-	    
+
 	    remove_wiki();
 	    wikiCheck();
-	 
+
             $('#xml_switch_button').css({"background":"#0078e7"});
 	    $(this).unbind();
 	});
@@ -508,7 +508,7 @@ $(document).ready(function() {
 
 
     	//Show the XML editor ui and wiki markup editor
-	
+
 	$('#convert_to_wiki').show();
 	$('#wiki_switch_button').css({"background":"#0078e7"});
 	$('#xml_switch_button').css({"background":"gray"});
@@ -517,7 +517,7 @@ $(document).ready(function() {
 	$('#ingest_buttons').show();
 	$('#validation').show();
 	$('#validation_text').show();
-	
+
 
 	$('#wikieditor').remove();
 	$('#edit_xml').remove();
@@ -525,7 +525,7 @@ $(document).ready(function() {
 	$('#get_wiki').remove();
 	$('#post_wiki').remove();
 	$('#draft_container').remove();
-	
+
 
 	$('#wiki_update').on('click', function() {
 
@@ -556,7 +556,7 @@ function remove_wiki() {
 	    $('#wiki_save').remove();
 	    $('#wiki_switch').show();
 	    $('#wikimarkup').remove();
-	    
+
 	    $('#get_wiki').remove();
             $('#wiki_update').remove();
 
@@ -619,7 +619,7 @@ function html_decode( lstrEncodedHTML )
 }
 
 /*
- * makeDialog creates dialog box from passed selector with passed title 
+ * makeDialog creates dialog box from passed selector with passed title
  * @method makeDialog
  */
 function makeDialog( lstrSelector, lstrTitle, callback )
@@ -663,7 +663,7 @@ function makePromptDialog( lstrSelector, lstrTitle, callback )
         title: lstrTitle,
         buttons:{
             "Ok":function(){
-            	callback(this);                
+            	callback(this);
             }
         },
         close:function(){

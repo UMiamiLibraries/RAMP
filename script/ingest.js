@@ -283,7 +283,7 @@ function display_possible_viaf_form( lobjPossibleViaf, callback )
 function ingest_viaf_Relations( lobjEac, callback )
 {
 	//need to get ead to get possible names and titles list
-	$.post( 'ajax/get_ead.php', { 'ead' : $('#ead_files').val() }, function(lstrXML)
+	$.post( 'ajax/get_ead.php', { 'ead' : getCookie('ead_file_last') }, function(lstrXML)
 	{
 		var lobjead = new ead();
 		lobjead.loadXMLString( lstrXML );
