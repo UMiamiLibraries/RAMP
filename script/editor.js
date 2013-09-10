@@ -33,16 +33,19 @@ $(document).ready(function() {
             if (getCookie('ead_file') === '""') {
 
                 $('#entity_name').html('Please select a record to edit.');
+		$('#ead_files').show();
                 $('#ingest_viaf').hide();
                 $('#ingest_worldcat').hide();
                 $('#save_eac').hide();
                 $('#convert_to_wiki').hide();
                 $('#editor_mask').hide();
+		
 
             } else {
                 console.log(getCookie('ead_file'));
                 build_editor(getCookie('ead_file'));
                 $('#entity_name').html('Now Editing: ' + getCookie('entity_name'));
+		$('#ead_files').hide();
             }
 	    
 	} 
@@ -91,7 +94,7 @@ $(document).ready(function() {
 	    validateXML();
 
 	    // Check to see if there is some existing wiki markup
-	    wikiCheck();
+	  //  wikiCheck();
    	});
 
 

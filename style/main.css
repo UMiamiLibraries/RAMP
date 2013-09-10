@@ -329,6 +329,8 @@ textarea {
     height:200px;
     width: 100%;
     margin-top: 1%;
+
+    min-width:500px;
 }
 
 
@@ -684,6 +686,7 @@ li.wiki_login
     margin-top:.5%;
     
     display:inline-block;
+  
 }
 textarea {
 
@@ -854,21 +857,24 @@ display:none;
 }
 
 #save_eac {
-background: #7AB800;
-
+/*background: #7AB800;*/
+background:#0078e7;
 }
 
 #wiki_save {
 
-background: #7AB800;
+/*background: #7AB800;*/
 }
 #wiki_update {
 
-background: #7AB800;
+/*background: #7AB800;*/
+background:#0078e7;
+
+
 }
 
 #edit_xml {
-background:crimson;
+/*background:crimson;*/
 }
 
 #convert_message {
@@ -887,23 +893,27 @@ display: block;
 
 
 #ingest_worldcat_chosen_subjects_cancel {
-    background:crimson;
+ /*   background:crimson;*/
+background:#0078e7;
 
 }
 #ingest_worldcat_chosen_subjects {
-    background: #7AB800;
+ /*   background: #7AB800;*/
     margin-left:1%;
-    
+    background:#0078e7;
 
 }
 
 #get_chosen_wiki {
-    background: #7AB800;
+ /*   background: #7AB800; */
+  background:#0078e7;
 
 }
 
 #get_chosen_wiki_no_match {
-background:crimson;
+
+/* background:crimson; */
+  background:#0078e7;
 }
 
 .pure-button {
@@ -911,16 +921,17 @@ color:white;
 }
 
 .ingest-ok {
-        background: #7AB800;
+     /*   background: #7AB800;*/
         margin-left: 1%;
-
+  background:#0078e7;
 
 }
 
 .ingest-cancel {
-    background:crimson;
+ /*   background:crimson;*/
 
     /* margin-left: -5%; */
+  background:#0078e7;
 }
 
 #instruction {
@@ -930,4 +941,14 @@ margin-top: 1%;
 font-size: 1.5em;
 
     margin-bottom: 1%;
+
+}
+
+#gtselectedtext {
+
+color:black;
+}
+
+#ltselectedtext {
+color:black;
 }
