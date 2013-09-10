@@ -276,8 +276,16 @@ $(document).ready(function() {
 		$('#validation_text').hide();
 		$('.arrows').hide();
 		//Append some controls for dealing with the wikimarkup
-		$('#main_content').append("<div id=\"wikieditor\"><div class=\"wiki_container\"><h1>Local Article</h1> \
-<textarea id=\"wikimarkup\">" + markup + "</textarea></div></div>");
+
+		if( $('#wikieditor').length == 0)
+		{
+			$('#main_content').append("<div id=\"wikieditor\"><div class=\"wiki_container\"><h1>Local Article</h1> \
+				<textarea id=\"wikimarkup\">" + markup + "</textarea></div></div>");
+		}else
+		{
+			$('#wikieditor').append("<div class=\"wiki_container\"><h1>Local Article</h1> \
+				<textarea id=\"wikimarkup\">" + markup + "</textarea></div>");
+		}		
 
 		$('#edit_controls').append("<button id=\"get_wiki\" class=\"pure-button pure-button-primary\">Get Article From Wikipedia</button> \
 <button class=\"update_button pure-button pure-button-primary\" id=\"wiki_update\">Update Local Article</button> ");
@@ -306,7 +314,6 @@ $(document).ready(function() {
 		    $('#ingest_buttons').show();
 		    $('#validation').show();
 		    $('#validation_text').show();
-
 
 		    $('#wikieditor').remove();
 		    $('#edit_xml').remove();
@@ -404,6 +411,7 @@ $(document).ready(function() {
 		    setupGetWiki();
 
   		    $('#wiki_switch').show();
+  		    $('#wiki_switch_button').unbind();
 
 
 		    //  $('#wiki_switch_button').hide();
@@ -559,7 +567,7 @@ function remove_wiki() {
 
 	    $('#get_wiki').remove();
             $('#wiki_update').remove();
-
+        $('#wikieditor').remove();
 }
 
 
