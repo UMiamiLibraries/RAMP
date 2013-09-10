@@ -57,7 +57,7 @@ $(document).ready(function() {
 
     function build_editor(eac_xml_file) {
 	
-
+	
 	$('#edit_xml').remove();
 	$('#wiki_update').remove();
 	$('#wiki_save').remove();
@@ -67,7 +67,9 @@ $(document).ready(function() {
 	$('#draft_container').remove();
 	$('#editor_container').show();
 	$('#wiki_switch').show();
-	  $('#xml_switch_button').css({"background":"gray"});
+	$('#xml_switch_button').css({"background":"gray"});
+	$('.arrows').show();
+	$('.save_arrow').css({"display":"inline-block"});
 	// When one of the files is selected...
 	eac_xml_path = eac_xml_file;
 	
@@ -241,7 +243,7 @@ $(document).ready(function() {
 	$('#validation').hide();
 	$('#validation_text').hide();
 	$('#wiki_switch').hide();
-
+	$('.arrows').hide();
 
 	eacToMediaWiki();
 
@@ -272,7 +274,7 @@ $(document).ready(function() {
 		$('#validation').hide();
 		$('#ead_files').hide();
 		$('#validation_text').hide();
-
+		$('.arrows').hide();
 		//Append some controls for dealing with the wikimarkup
 		$('#main_content').append("<div id=\"wikieditor\"><div class=\"wiki_container\"><h1>Local Article</h1> \
 <textarea id=\"wikimarkup\">" + markup + "</textarea></div></div>");
@@ -312,6 +314,7 @@ $(document).ready(function() {
 		    $('#get_wiki').remove();
 		    $('#post_wiki').remove();
 		    $('#draft_container').remove();
+		  
 	   	});
 
 	   	$('#wiki_update').on('click', function() {
@@ -349,7 +352,7 @@ $(document).ready(function() {
 	    $('#wiki_save').remove();
 	    $('#wikieditor').remove();
 	    $('#validation_text').hide();
-
+	    $('.arrows').hide();
 	    $('#main_content').append('<div id="wikieditor"><div class="wiki_container"><h1>Local Article</h1> \
 <textarea id="wikimarkup">' + data + '</textarea></div></div>');
 	    $('#edit_controls').append("<button class=\"save_button pure-button pure-button-primary\"  id=\"wiki_save\">Save Local Article</button>");
@@ -373,33 +376,42 @@ $(document).ready(function() {
 
 		wiki_markup_data = $('#wikimarkup').val();
 
+		remove_wiki();
+	        $('#xml_switch_button').css({"background":"#0078e7"});
+
+
+
 	    	$.post('post_wiki.php', {media_wiki: wiki_markup_data, ead_path: eac_xml_path}, function(data) {
 
 	    	    // Hide this stuff if there is wiki markup
-		/*
-		    $('#convert_to_wiki').hide();
-		    $('#editor_container').hide();
-		    $('#save_eac').hide();
-		    $('#ingest_buttons').hide();
-		    $('#validation').hide();
-		    $('#validation_text').hide();
-		    $('#wiki_save').hide();
-                    $('#ead_files').hide();
-	*/	    
+	
+		      $('#convert_to_wiki').hide();
+		      $('#editor_container').hide();
+		      $('#save_eac').hide();
+		      $('#ingest_buttons').hide();
+		      $('#validation').hide();
+		      $('#validation_text').hide();
+		      $('#wiki_save').hide();
+                      $('#ead_files').hide();
+		
 		    //Append some controls for dealing with the wikimarkup
-/*		
-    $('#edit_controls').append("<button class=\"update_button pure-button pure-button-primary\" id=\"wiki_update\">Update Local Article</button> \
-<button id=\"get_wiki\" class=\"pure-button pure-button-primary\">Get Article From Wikipedia</button> \
-");
-*/
+		    /*		
+				$('#edit_controls').append("<button class=\"update_button pure-button pure-button-primary\" id=\"wiki_update\">Update Local Article</button> \
+				<button id=\"get_wiki\" class=\"pure-button pure-button-primary\">Get Article From Wikipedia</button> \
+				");
+		    */
 
 		    setupGetWiki();
-		    $('.wiki_container h1').remove();
-		    $('#wikimarkup').remove();
-		    $('#wiki_save').hide();
-		    $('#wiki_switch').show();
-		    $('#wiki_switch_button').hide();
+		
+  		    $('#wiki_switch').show();
+
+
+		    //  $('#wiki_switch_button').hide();
+		 
+
 		    wikiCheck();
+
+
 
 		    var wiki_height = $(window).height() / 1.3;
 		    
@@ -413,6 +425,7 @@ $(document).ready(function() {
 
 
 		    $('#edit_xml').on('click', function() {
+
 
 		    	//Show the XML editor ui and wiki markup editor
 			$('#convert_to_wiki').show();
@@ -463,19 +476,25 @@ $(document).ready(function() {
 
     $('#wiki_switch_button').click(function() {
 
+	remove_wiki();
 	wikiCheck();
+
+
         $('#xml_switch_button').css({"background":"#0078e7"});
 	$(this).unbind();
 
     });
 
     $('#xml_switch_button').click(function() {
-
-	
+	remove_wiki();
 	editXML();
 
+
 	$('#wiki_switch_button').bind('click', function() {
+	    
+	    remove_wiki();
 	    wikiCheck();
+	 
             $('#xml_switch_button').css({"background":"#0078e7"});
 	    $(this).unbind();
 	});
@@ -530,9 +549,24 @@ $(document).ready(function() {
     }
 
 
+function remove_wiki() {
+
+	    $('.wiki_container h1').remove();
+	    $('#wikimarkup').remove();
+	    $('#wiki_save').remove();
+	    $('#wiki_switch').show();
+	    $('#wikimarkup').remove();
+	    
+	    $('#get_wiki').remove();
+            $('#wiki_update').remove();
+
+}
 
 
 });
+
+
+
 
 //functions that can be used by multiple js files
 

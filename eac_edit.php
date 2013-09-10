@@ -33,7 +33,7 @@ include('header.php');
   </span>
 
 <button id="save_eac" class="pure-button pure-button-primary">Save XML</button>
-    <div class="save_arrow arrows">&rarr;</div>
+    <div class="arrows save_arrow">&rarr;</div>
   <button id="convert_to_wiki" class="pure-button pure-button-primary">Convert to Wiki Markup </button>
 
 
