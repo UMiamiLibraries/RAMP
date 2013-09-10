@@ -952,3 +952,39 @@ color:black;
 #ltselectedtext {
 color:black;
 }
+
+
+#wiki_switch {
+display:block;
+display:none;
+margin-bottom:.5%;
+}
+
+#wiki_switch_button {
+
+display:inline-block;
+
+
+}
+
+#xml_swith_button {
+display:inline-block;
+}
+
+ol {
+font-size: 1.2em;
+margin: 1%;
+}
+
+ol li {
+margin-bottom:.5%;
+}
+
+#convert_ead {
+margin:1%;
+}
+
+em {
+font-weight:bold;
+
+}

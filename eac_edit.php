@@ -87,10 +87,16 @@ print ("</select>");
 
   
 ?>
-    
-    
+
   </div>
  
+<div id="wiki_switch"> 
+    <button id="wiki_switch_button" class="pure-button pure-button-primary">Wiki</button> 
+    <button id="xml_switch_button" class="pure-button pure-button-primary">XML</button> 
+
+    </div>
+
+
   <div id="validation">
   </div>
   <div id="validation_text">
