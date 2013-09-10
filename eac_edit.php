@@ -54,7 +54,7 @@ $results = $mysqli->query ("SELECT ead_file, ExtractValue(eac_xml, '/descendant-
 
 echo  "<select id='ead_files' class='ead_files'>";
 
-echo "<option>Edit a different record</option>";
+echo "<option>Please Select a Record</option>";
 
 echo "<option value=''></option>";
 
