@@ -854,6 +854,7 @@ display:none;
     display: inline-block;
     margin-top: .5%;
     display:none;
+    margin-left:.5%;
 }
 
 #save_eac {
