@@ -588,9 +588,9 @@ function html_decode( lstrEncodedHTML )
  * makeDialog creates dialog box from passed selector with passed title 
  * @method makeDialog
  */
-function makeDialog( lstrSelector, lstrTitle )
+function makeDialog( lstrSelector, lstrTitle, callback )
 {
-    if( typeof lstrTitle == 'undefined')
+    if( typeof lstrTitle == 'undefined' || lstrTitle == '')
 	lstrTitle = 'Response';
 
     $(lstrSelector).dialog({
@@ -607,6 +607,9 @@ function makeDialog( lstrSelector, lstrTitle )
         },
         close:function(){
             $(this).remove();
+
+            if( typeof callback != 'undefined' )
+                	callback();
         }
     });
 }

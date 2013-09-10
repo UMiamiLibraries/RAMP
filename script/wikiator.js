@@ -14,7 +14,7 @@ jQuery(document).ready(function($)
 * setupWikiLogin displays a form for the editor to login to wikipedia
 * @method setupWikiLogin
 */
-function setupWikiLogin()
+function setupWikiLogin( callback )
 {
 	$('body').append("<div id=\"dialog-form\" title=\"Wiki Login\"> \
 					<p class=\"validate-prompt\">Cannot be blank!</p> \
@@ -48,8 +48,8 @@ function setupWikiLogin()
 				}				
 
 				$('body').append("<div id=\"dialog\"><p>" + response + "</p></div>");
-				makeDialog('#dialog');
-				
+				makeDialog('#dialog', '',callback);
+
 				return;
 			});
 		});
@@ -64,9 +64,6 @@ function setupWikiLogout()
 	//post to ajax wiki controller to log out of wiki and get whether successful or not
 	$.post('ajax/wiki_api.php', { 'action' : 'logout' }, function(response)
 	{
-		//delete cookie that states user is logged in
-		deleteCookie('ramp_wiki_li');
-
 		$('#wiki_logout').replaceWith("<li id=\"wiki_login\" class=\"wiki_login menu_slice\"><a href=\"#\">Wiki Login</a></li>");
 		$("#wiki_login").on("click", setupWikiLogin );
 
@@ -267,8 +264,8 @@ function getWiki( lstrTitle )
 		$('#get_wiki_text').height($('#wikimarkup').height());
 
 		$('#loading-image').remove();
-		$('#get_wiki').replaceWith('<button id="post_wiki" class=\"pure-button pure-button-primary\">Post Wiki</button>');
-		$('#post_wiki').after('<span id="draft_container"><input id="chkbx_draft" type="checkbox" />&nbsp;Draft</span>');
+		$('#get_wiki').replaceWith('<button id="post_wiki" class=\"pure-button pure-button-primary\">Submit Local Article to Wikipedia</button>');
+		$('#post_wiki').after('<button id="post_draft_wiki" class=\"pure-button pure-button-primary\">Submit Local Article to Wikipedia as Draft</button>');
 
 		setupPostWiki();
 	}else
@@ -287,7 +284,7 @@ function getWiki( lstrTitle )
 
 			$('#loading-image').remove();
 			$('#get_wiki').replaceWith('<button id="post_wiki" class=\"pure-button pure-button-primary\">Submit Local Article to Wikipedia</button>');
-			$('#post_wiki').after('<span id="draft_container"><input id="chkbx_draft" type="checkbox" />&nbsp;Draft</span>');
+			$('#post_wiki').after('<button id="post_draft_wiki" class=\"pure-button pure-button-primary\">Submit Local Article to Wikipedia as Draft</button>');
 
 			setupPostWiki();
 		});
@@ -300,13 +297,17 @@ function getWiki( lstrTitle )
 */
 function setupPostWiki()
 {
-	$('#post_wiki').on('click', function()
+	$('#post_wiki, #post_draft_wiki').on('click', function()
 	{
 		//if user is not logged in, notify user and cancel posting process
 		if( getCookie('ramp_wiki_li') == null || getCookie('ramp_wiki_li') != '1' )
 		{
-			$('body').append("<div id=\"dialog\"><p>Need to log in before posting to Wikipedia.</p></div>");
-			makeDialog('#dialog');
+			lobjClicked = this;
+
+			//if not logged in, show log in screen and then try to post again
+			setupWikiLogin(function( ){
+				$( lobjClicked ).click();
+			});
 		}else
 		{
 			if( mstrTitle == '' )
@@ -336,14 +337,20 @@ function setupPostWiki()
 
 		            		mstrTitle = lstrTitle;
 
-		            		getUserComments();
+		            		if( $( this ).attr("id") == "post_draft_wiki" )
+		            			getUserComments( true );
+		            		else
+		            			getUserComments();
 		            	}
 					});
 
 				//mstrTitle = prompt("Please enter title of new Wiki page:");
 			}else
 			{
-				getUserComments();
+				if( $( this ).attr("id") == "post_draft_wiki" )
+        			getUserComments( true );
+        		else
+        			getUserComments();
 			}
 		}
 	});
@@ -377,8 +384,10 @@ function setupPostWiki()
 * getUserComments prompt user for comments for editing wiki page
 * @method getUserComments
 */
-function getUserComments()
+function getUserComments( lboolDraft )
 {
+	lboolDraft = typeof lboolDraft == 'undefined' ? false : lboolDraft;
+
 	$('body').append("<div id=\"dialog-form\" title=\"Wiki Comments\"> \
 			<p class=\"validate-prompt\">Cannot be blank!</p> \
 			<form> \
@@ -402,7 +411,7 @@ function getUserComments()
 	        $(dialog).remove();
 
 			var lstrWiki = $('#get_wiki_text').val();
-			postWiki( lstrWiki, lstrComments );
+			postWiki( lstrWiki, lstrComments, lboolDraft );
 		}
 	});
 }
@@ -411,18 +420,11 @@ function getUserComments()
 * postWiki post to wiki api to edit wiki page with wiki markup.
 * @method postWiki
 */
-function postWiki( lstrWiki, lstrComments, lstrCaptchaAnswer, lstrCaptchaId )
+function postWiki( lstrWiki, lstrComments, lboolDraft, lstrCaptchaAnswer, lstrCaptchaId )
 {
 	$('#post_wiki').after('<img id="loading-image" src="style/images/loading.gif" alt="loading" style="float: right;"/>');
 	$('#post_wiki').hide();
 	$('#draft_container').hide();
-
-	var lboolDraft = false;
-
-	if( $("#chkbx_draft").prop("checked") == true )
-	{
-		lboolDraft = true;
-	}
 
 	//if captcha not necessary, do not post captcha
 	if( typeof lstrCaptchaId == 'undefined')
@@ -448,7 +450,7 @@ function postWiki( lstrWiki, lstrComments, lstrCaptchaAnswer, lstrCaptchaId )
 			}
 
 			//displays captcha question
-			displayCaptcha( "http://en.wikipedia.org/" + lobjData.url, lobjData.id );
+			displayCaptcha( "http://en.wikipedia.org/" + lobjData.url, lobjData.id, lboolDraft );
 		});	
 	}else
 	{
@@ -474,7 +476,7 @@ function postWiki( lstrWiki, lstrComments, lstrCaptchaAnswer, lstrCaptchaId )
 			}
 
 			//displays captcha question 
-			displayCaptcha( "http://en.wikipedia.org/" + lobjData.url, lobjData.id );
+			displayCaptcha( "http://en.wikipedia.org/" + lobjData.url, lobjData.id, lboolDraft );
 		});	
 	}	
 }
@@ -483,7 +485,7 @@ function postWiki( lstrWiki, lstrComments, lstrCaptchaAnswer, lstrCaptchaId )
 * displayCaptcha display form with captcha image in order for editor to answer captcha question to complete edit wiki action
 * @method displayCaptcha
 */
-function displayCaptcha( lstrUrl, lstrCaptchaId )
+function displayCaptcha( lstrUrl, lstrCaptchaId, lboolDraft )
 {
 	var lstrHTML = "<div class=\"form_container\" style=\"top: 50px;\"><div class=\"user_help_form\">";
 
@@ -502,7 +504,7 @@ function displayCaptcha( lstrUrl, lstrCaptchaId )
 		var lstrWiki = $('#get_wiki_text').val();
 		var lstrCaptchaAnswer = $('input[name="captcha_ans"]').val();
 
-		postWiki( lstrWiki, lstrCaptchaAnswer, lstrCaptchaId );
+		postWiki( lstrWiki, 'Retry with Captcha', lboolDraft, lstrCaptchaAnswer, lstrCaptchaId );
 
 		$('.form_container').remove();
 	});
