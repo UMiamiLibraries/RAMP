@@ -55,9 +55,9 @@ if (file_exists(  $_POST["dir"] . '/' . $file_name_lower . '.xml')) {
 
   $type = $_POST['type'];
 
-  switch($type) {
+  switch(strtolower( $type )) {
 
-  case 'Person':
+  case 'person':
     try {
       $ead_doc->loadXML('<ead audience="external"
 		     xmlns="urn:isbn:1-931666-22-9"
@@ -100,7 +100,7 @@ if (file_exists(  $_POST["dir"] . '/' . $file_name_lower . '.xml')) {
 
     break;
 
-  case 'Corporate Body':
+  case 'corporate body':
     try {
       $ead_doc->loadXML('<ead audience="external"
 		     xmlns="urn:isbn:1-931666-22-9"
@@ -141,7 +141,7 @@ if (file_exists(  $_POST["dir"] . '/' . $file_name_lower . '.xml')) {
 
     break;
 
-  case 'Family':
+  case 'family':
 
     try{
       $ead_doc->loadXML('<ead audience="external"
