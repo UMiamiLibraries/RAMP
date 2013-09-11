@@ -698,7 +698,7 @@ function display_possible_worldcat_form( lobjPossibleURI, callback )
 {
     var lstrHTML = "<div class=\"form_container\">";
 
-    lstrHTML += "<p id='instruction'>Here are a list of FAST subject headings associated with this entity. Select appropriate headings to add to your EAC-CPF record.</p>";
+    lstrHTML += "<p id='instruction'> These results were retrieved from the WorldCat Identities. Please examine them to select the best match for the entity you are working with. If you click on a name, you will be taken to its WorldCat Identities page, which may include additional information that will help you decide whether it is an appropriate match. In general, the WorldCat Identities page with the most information will be the best match.</p>";
 
 
     lstrHTML += "<button id=\"ingest_worldcat_chosen_uri\" class=\"pure-button ingest-ok pure-button-secondary\">Use Selected WorldCat</button>";
@@ -761,7 +761,8 @@ function display_possible_worldcat_form( lobjPossibleURI, callback )
 function display_possible_worldcat_subjects( lobjPossibleSubjects, callback )
 {
     var lstrHTML = "<div class=\"form_container\">";
-    
+
+    lstrHTML += "<div id='instruction'>Here is a list of FAST subject headings associated with this entity. Select appropriate headings to add to your EAC-CPF record.</div>";
 
     lstrHTML += "<button id=\"ingest_worldcat_chosen_subjects\" class=\"pure-button pure-button-secondary\">Use Selected Subjects</button>";
     lstrHTML += "&nbsp;<button id=\"ingest_worldcat_chosen_subjects_cancel\" class=\"pure-button pure-button-secondary\">Cancel</button>";
@@ -769,6 +770,7 @@ function display_possible_worldcat_subjects( lobjPossibleSubjects, callback )
     lstrHTML += "<div class=\"user_help_form\">";
 
     lstrHTML += "<h3>Please Choose Subjects</h3>";
+     
     lstrHTML += "<input type=\"checkbox\" id=\"select_all\" value=\"\">Select All<br />";
 
     for(var i = 0; i < lobjPossibleSubjects.length; i++)
