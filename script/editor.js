@@ -476,9 +476,7 @@ $(document).ready(function() {
 
 	    });
 
-
-
-
+		$('#wiki_save').click();
 	});
 
 
