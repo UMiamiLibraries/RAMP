@@ -300,11 +300,12 @@ function setupPostWiki()
 {
 	$('#post_wiki, #post_draft_wiki').on('click', function()
 	{
+		//stored which wiki post button was clicked
+		lobjClicked = this;
+
 		//if user is not logged in, notify user and cancel posting process
 		if( getCookie('ramp_wiki_li') == null || getCookie('ramp_wiki_li') != '1' )
 		{
-			lobjClicked = this;
-
 			//if not logged in, show log in screen and then try to post again
 			setupWikiLogin(function( ){
 				$( lobjClicked ).click();
@@ -338,7 +339,7 @@ function setupPostWiki()
 
 		            		mstrTitle = lstrTitle;
 
-		            		if( $( this ).attr("id") == "post_draft_wiki" )
+		            		if( $( lobjClicked ).attr("id") == "post_draft_wiki" )
 		            			getUserComments( true );
 		            		else
 		            			getUserComments();
@@ -348,7 +349,7 @@ function setupPostWiki()
 				//mstrTitle = prompt("Please enter title of new Wiki page:");
 			}else
 			{
-				if( $( this ).attr("id") == "post_draft_wiki" )
+				if( $( lobjClicked ).attr("id") == "post_draft_wiki" )
         			getUserComments( true );
         		else
         			getUserComments();

@@ -64,6 +64,7 @@ $(document).ready(function() {
 	$('#get_wiki').remove();
 	$('#wikieditor').remove();
 	$('#post_wiki').remove();
+	$('#post_draft_wiki').remove();
 	$('#draft_container').remove();
 	$('#editor_container').show();
 	$('#wiki_switch').show();
@@ -321,6 +322,7 @@ $(document).ready(function() {
 		    $('#wiki_update').remove();
 		    $('#get_wiki').remove();
 		    $('#post_wiki').remove();
+		    $('#post_draft_wiki').remove();
 		    $('#draft_container').remove();
 
 	   	});
@@ -448,6 +450,7 @@ $(document).ready(function() {
 			$('#wiki_update').remove();
 			$('#get_wiki').remove();
 			$('#post_wiki').remove();
+			$('#post_draft_wiki').remove();
 			$('#draft_container').remove();
 
 		    });
@@ -533,6 +536,7 @@ $(document).ready(function() {
 	$('#wiki_update').remove();
 	$('#get_wiki').remove();
 	$('#post_wiki').remove();
+	$('#post_draft_wiki').remove();
 	$('#draft_container').remove();
 
 
