@@ -855,11 +855,16 @@ display:none;
     margin-top: .5%;
     display:none;
     margin-left:.5%;
+    
+
+    float: left;
+
 }
 
 #save_eac {
 /*background: #7AB800;*/
 background:#0078e7;
+float: left;
 }
 
 #wiki_save {
@@ -988,4 +993,9 @@ margin:1%;
 em {
 font-weight:bold;
 
+}
+
+#loading-image {
+margin-left:.5%;
+margin-top:.5%;
 }

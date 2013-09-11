@@ -5,7 +5,16 @@ include('conf/includes.php');
 <!DOCTYPE html>
 <html>
 <head>
+ <style type="text/css">
+    .hidden {display:none;}
+  </style>
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
+<script type="text/javascript">
+    $('html').addClass('hidden');
+    $(document).ready(function() {
+      $('html').show();
+     });  
+   </script>
 <script src="script/main.js"></script>
 <script src="script/select2/select2.min.js"></script>
 <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script>

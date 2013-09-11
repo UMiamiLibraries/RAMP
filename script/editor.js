@@ -114,8 +114,9 @@ $(document).ready(function() {
 
 
 		$('#dialog_box').html("<p>Saved XML</p>");
-
+			   
 		makeDialog('#dialog_box', ' ');
+		$('.save_arrow').html("&#10003;");
 
 
 	    });
@@ -496,7 +497,7 @@ $(document).ready(function() {
     $('#xml_switch_button').click(function() {
 	remove_wiki();
 	editXML();
-
+	$('.arrows').show();
 
 	$('#wiki_switch_button').bind('click', function() {
 
