@@ -113,13 +113,13 @@ $(document).ready(function() {
 	    $.post('update_eac_xml.php', {xml: editor_xml, ead_file: eac_xml_path} , function(data) {
 
 
-		$('#dialog_box').html("<p>Saved XML</p>");
-			   
-		makeDialog('#dialog_box', ' ');
-		$('.save_arrow').html("&#10003;");
+	    }).done(function () { 
+			$('.save_arrow').html("&#10003;");
+			$('#dialog_box').html("<p>Saved XML</p>");   
+		        makeDialog('#dialog_box', ' ');
 
-
-	    });
+		});
+	   
         });
 
     }

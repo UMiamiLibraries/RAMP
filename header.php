@@ -5,6 +5,7 @@ include('conf/includes.php');
 <!DOCTYPE html>
 <html>
 <head>
+<meta charset="utf-8"> 
  <style type="text/css">
     .hidden {display:none;}
   </style>

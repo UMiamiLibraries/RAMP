@@ -78,7 +78,7 @@ function setupWikiLogout()
 */
 function setupGetWiki()
 {
-	jQuery('#get_wiki').on('click', function()
+	jQuery('#get_wikix').on('click', function()
 	{
 	        $('#validation_text').hide();
 		$('#get_wiki').hide();
@@ -219,6 +219,7 @@ function displayWikiSearch( lobjTitles, callback )
 	//register click event to continue process once user choses result
 	$('#get_chosen_wiki').on('click', function()
 	{
+	      $('#validation_text').hide();
 
 		if( typeof $('input[name="chosen_title"]:checked').val() == 'undefined' )
 		{
