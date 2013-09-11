@@ -97,6 +97,7 @@ include('header.php');
 	    }, function (data) {
 
 	  $('#results').html(data);
+    location.reload();
 
 	});
 
