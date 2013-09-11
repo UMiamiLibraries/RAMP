@@ -78,7 +78,7 @@ function setupWikiLogout()
 */
 function setupGetWiki()
 {
-	jQuery('#get_wikix').on('click', function()
+	jQuery('#get_wiki').on('click', function()
 	{
 	        $('#validation_text').hide();
 		$('#get_wiki').hide();
