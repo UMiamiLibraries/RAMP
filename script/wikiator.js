@@ -284,8 +284,8 @@ function getWiki( lstrTitle )
 			$('#get_wiki_text').height($('#wikimarkup').height());
 
 			$('#loading-image').remove();
-			$('#get_wiki').replaceWith('<button id="post_wiki" class=\"pure-button pure-button-primary\">Submit Local Article to Wikipedia</button>');
-			$('#post_wiki').after('<button id="post_draft_wiki" class=\"pure-button pure-button-primary\">Submit Local Article to Wikipedia as Draft</button>');
+			$('#get_wiki').replaceWith('<button id="post_wiki" title="Clicking on this button will submit the local article to Wikipedia.org. Choose this option only if you are sure you want the article to be live to the world!" class=\"pure-button pure-button-primary\">Submit Local Article to Wikipedia</button>');
+			$('#post_wiki').after('<button id="post_draft_wiki" title="Clicking on this button will submit the local article to Wikipedia.org as a draft subpage of your user account (recommended for work-in-progress)." class=\"pure-button pure-button-primary\">Submit Local Article to Wikipedia as Draft</button>');
 
 			setupPostWiki();
 		});
