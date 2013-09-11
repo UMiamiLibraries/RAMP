@@ -289,8 +289,7 @@ $(document).ready(function() {
 				<textarea id=\"wikimarkup\">" + markup + "</textarea></div>");
 		}		
 
-		$('#edit_controls').append("<button id=\"get_wiki\" class=\"pure-button pure-button-primary\">Get Article From Wikipedia</button> \
-<button class=\"update_button pure-button pure-button-primary\" id=\"wiki_update\">Update Local Article</button> ");
+		$('#edit_controls').append("<button class=\"update_button pure-button pure-button-primary\" id=\"wiki_update\">Save Local Article</button><button id=\"get_wiki\" class=\"pure-button pure-button-primary\">Get Article From Wikipedia</button>");
 		//<button class=\"update_button pure-button pure-button-primary\" id=\"edit_xml\"> &#8604; Revert to XML</button></div>");
 		setupGetWiki();
 
