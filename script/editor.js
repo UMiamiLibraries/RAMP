@@ -1,5 +1,18 @@
 $(document).ready(function() {
+    
+    var $savedialog = $('<div></div>')
+    	.html('XML Saved')
+    	.dialog({
+    		autoOpen: false,
+    	        buttons: {
+		    "OK" : function () {
+			$( this ).dialog( "close" );
+		    }
+		   }
 
+	
+    	});
+    
     //depenging on value of the cookie, display login or logout
     if( getCookie('ramp_wiki_li') == null )
     {
@@ -120,8 +133,8 @@ $(document).ready(function() {
 
 	    }).done(function () { 
 			$('.save_arrow').html("&#10003;");
-			$('#dialog_box').html("<p>Saved XML</p>");   
-		        makeDialog('#dialog_box', ' ');
+			$savedialog.dialog('open');
+		      
 
 		});
 	   
