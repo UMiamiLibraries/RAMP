@@ -14,7 +14,7 @@ RAMP
   * php_xsl extension enabled 
   * php_curl extension enabled 
   * Apache (other web servers like nginx+php-fpm may work) 
-  * Mozilla Firebox or Google Chrome web browsers. RAMP is not currently compatible with Internet Explorer.
+  * Mozilla Firefox or Google Chrome web browsers. RAMP is not currently compatible with Internet Explorer.
 
 
 ### 1.2 Create the RAMP Database
