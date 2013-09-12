@@ -3,12 +3,9 @@ $(document).ready(function()
 		      //registrer click event that will start viaf ingestion
 		      $('#ingest_viaf').on('click', function()
 					   {
-					       $('.ingest_button').hide();
-					       $('.arrows').hide();
-					       $('#save_eac').hide();
-					       $('#convert_to_wiki').hide();
-
-					       $('#ingest_buttons').append('<img id="loading-image" src="style/images/loading.gif" alt="loading"/>');
+									       
+					       
+					       $('#main_content').prepend('<img id="loading-image" src="style/images/loading.gif" alt="loading"/>');
 
 					       var lstrXML = editor.getValue();
 
@@ -44,7 +41,7 @@ $(document).ready(function()
 											      $('body').append("<div id=\"dialog\"><p>" + lstrMessage + "</p></div>");
 											      makeDialog('#dialog', 'Response'); //display response
 
-											      $('#loading-image').remove();
+											  //    $('#loading-image').remove();
 											      //commented out by dgonzalez because ingest can be done multiple times
 											      //$('#ingest_viaf').attr("disabled", "disabled");
 											      $('.ingest_button').show();
@@ -65,12 +62,8 @@ $(document).ready(function()
 		      //registrer click event that will start worlcat ingestion
 		      $('#ingest_worldcat').on('click', function()
 					       {
-						   $('.ingest_button').hide();
-						   $('.arrows').hide();
-						   
-	     					   $('#save_eac').hide();
-						   $('#convert_to_wiki').hide();
-						   $('#ingest_buttons').append('<img id="loading-image" src="style/images/loading.gif" alt="loading"/>');
+					
+						   $('#main_content').prepend('<img id="loading-image" src="style/images/loading.gif" alt="loading"/>');
 
 						   var lstrXML = editor.getValue();
 
@@ -81,9 +74,7 @@ $(document).ready(function()
 						       makeDialog('#dialog', 'Error!'); //display error
 
 						       $('#loading-image').remove();
-						       $('.ingest_button').show();
-						       $('#save_eac').show();
-						       $('#convert_to_wiki').show();
+					
 						       return;
 						   }
 
@@ -119,10 +110,7 @@ $(document).ready(function()
 							   makeDialog('#dialog', 'Error!');
 
 							   $('#loading-image').remove();
-							   $('.ingest_button').show();
-							   
-							   $('#save_eac').show();
-							   $('#convert_to_wiki').show();
+					
 						       }
 						   });
 					       });
@@ -145,10 +133,7 @@ function ingest_viaf_NameEntry_Sources( lobjEac, lstrName, callback )
 </form></div>");
 
     $('#loading-image').remove();
-    $('.ingest_button').show();
 
-    $('#save_eac').show();
-    $('#convert_to_wiki').show();
     
 
     makePromptDialog('#dialog-form', 'Viaf name search?', function(dialog)
@@ -166,10 +151,8 @@ function ingest_viaf_NameEntry_Sources( lobjEac, lstrName, callback )
         		     $(dialog).dialog("close");
 			     $(dialog).remove();
 
-        		     $('.ingest_button').hide();
-		    	     $('#save_eac').hide();
-			     $('#convert_to_wiki').hide();
-			     $('#ingest_buttons').append('<img id="loading-image" src="style/images/loading.gif" alt="loading"/>');
+  
+			     $('#main_content').prepend('<img id="loading-image" src="style/images/loading.gif" alt="loading"/>');
 
 			     lstrName = encode_utf8(lstrName);
 
@@ -384,9 +367,7 @@ function ingest_viaf_Relations( lobjEac, callback )
 					       {
 						   callback("Done!"); //done if no names where chosen
 						   $('.viaf_arrow').html("&#10003;");
-						   $('.arrows').show();
-						   $('#save_eac').show();
-						   $('#convert_to_wiki').show();
+					
 						   
 						   return;
 					       }
@@ -406,11 +387,9 @@ function ingest_viaf_Relations( lobjEac, callback )
 							       $('#loading-image').remove();
 							       //commented out by dgonzalez because ingest can be done multiple times
 							       //$('#ingest_viaf').attr("disabled", "disabled");
-							       $('.ingest_button').show();
-							       $('.viaf_arrow').html("&#10003;");
-							       $('.arrows').show();
-							       $('#save_eac').show();
-							       $('#convert_to_wiki').show();
+							     //  $('.ingest_button').show();
+							      $('.viaf_arrow').html("&#10003;");
+						
 							       
 							       return;
 							   }
@@ -422,9 +401,7 @@ function ingest_viaf_Relations( lobjEac, callback )
 											 {
 											     callback("Done!"); //finish process if no results chosen
 											     $('.viaf_arrow').html("&#10003;");
-											     $('.arrows').show();
-											     $('#save_eac').show();
-											     $('#convert_to_wiki').show();
+							
 											     return;
 											 }
 
@@ -597,10 +574,10 @@ function ingest_worldcat_elements( lobjEac, lstrName, callback )
         		 }
         		 else
         		 {
-        		     $('.ingest_button').hide();
-		    	     $('#save_eac').hide();
-			     $('#convert_to_wiki').hide();
-			     $('#ingest_buttons').append('<img id="loading-image" src="style/images/loading.gif" alt="loading"/>');
+        		   //  $('.ingest_button').hide();
+		    	   //  $('#save_eac').hide();
+			   //  $('#convert_to_wiki').hide();
+			     $('#main_content').prepend('<img id="loading-image" src="style/images/loading.gif" alt="loading"/>');
 
 			     lstrName = encode_utf8(lstrName);
 
@@ -675,9 +652,9 @@ function ingest_worldcat_elements( lobjEac, lstrName, callback )
 
 																 callback('Done!');
 																 $('.worldcat_arrow').html("&#10003;");
-																 $('.arrows').show();
-																 $('#save_eac').show();
-																 $('#convert_to_wiki').show();
+															//	 $('.arrows').show();
+															//	 $('#save_eac').show();
+															//	 $('#convert_to_wiki').show();
 
 															     });
 										     });
@@ -746,10 +723,7 @@ function display_possible_worldcat_form( lobjPossibleURI, callback )
     $('#ingest_worldcat_chosen_uri_cancel').on('click', function()
 					       {
 						   $('.form_container').remove();
-						   	$('.arrows').show();
-						
-							$('#save_eac').show();
-							$('#convert_to_wiki').show();
+					
 						   callback('');
 					       });
 }

@@ -1024,6 +1024,7 @@ font-weight:bold;
 }
 
 #loading-image {
-margin-left:.5%;
-margin-top:.5%;
+display:block;
+margin:1%;
+
 }
