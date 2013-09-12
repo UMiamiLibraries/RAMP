@@ -3,7 +3,7 @@ $(document).ready(function()
 		      //registrer click event that will start viaf ingestion
 		      $('#ingest_viaf').on('click', function()
 					   {
-									       
+					       
 					       
 					       $('#main_content').prepend('<img id="loading-image" src="style/images/loading.gif" alt="loading"/>');
 
@@ -41,8 +41,8 @@ $(document).ready(function()
 											      $('body').append("<div id=\"dialog\"><p>" + lstrMessage + "</p></div>");
 											      makeDialog('#dialog', 'Response'); //display response
 
-											  //    $('#loading-image').remove();
-											      //commented out by dgonzalez because ingest can be done multiple times
+											      //    $('#loading-image').remove();
+											      //commented out by dgonzalez because ingest can be done  multiple times
 											      //$('#ingest_viaf').attr("disabled", "disabled");
 											      $('.ingest_button').show();
 											  });
@@ -62,7 +62,7 @@ $(document).ready(function()
 		      //registrer click event that will start worlcat ingestion
 		      $('#ingest_worldcat').on('click', function()
 					       {
-					
+						   
 						   $('#main_content').prepend('<img id="loading-image" src="style/images/loading.gif" alt="loading"/>');
 
 						   var lstrXML = editor.getValue();
@@ -74,7 +74,7 @@ $(document).ready(function()
 						       makeDialog('#dialog', 'Error!'); //display error
 
 						       $('#loading-image').remove();
-					
+						       
 						       return;
 						   }
 
@@ -110,7 +110,7 @@ $(document).ready(function()
 							   makeDialog('#dialog', 'Error!');
 
 							   $('#loading-image').remove();
-					
+							   
 						       }
 						   });
 					       });
@@ -151,7 +151,7 @@ function ingest_viaf_NameEntry_Sources( lobjEac, lstrName, callback )
         		     $(dialog).dialog("close");
 			     $(dialog).remove();
 
-  
+			     
 			     $('#main_content').prepend('<img id="loading-image" src="style/images/loading.gif" alt="loading"/>');
 
 			     lstrName = encode_utf8(lstrName);
@@ -367,7 +367,7 @@ function ingest_viaf_Relations( lobjEac, callback )
 					       {
 						   callback("Done!"); //done if no names where chosen
 						   $('.viaf_arrow').html("&#10003;");
-					
+						   $('#loading-image').remove();
 						   
 						   return;
 					       }
@@ -387,9 +387,9 @@ function ingest_viaf_Relations( lobjEac, callback )
 							       $('#loading-image').remove();
 							       //commented out by dgonzalez because ingest can be done multiple times
 							       //$('#ingest_viaf').attr("disabled", "disabled");
-							     //  $('.ingest_button').show();
-							      $('.viaf_arrow').html("&#10003;");
-						
+							       //  $('.ingest_button').show();
+							       $('.viaf_arrow').html("&#10003;");
+							       
 							       
 							       return;
 							   }
@@ -401,7 +401,7 @@ function ingest_viaf_Relations( lobjEac, callback )
 											 {
 											     callback("Done!"); //finish process if no results chosen
 											     $('.viaf_arrow').html("&#10003;");
-							
+											     $('#loading-image').remove();
 											     return;
 											 }
 
@@ -417,9 +417,8 @@ function ingest_viaf_Relations( lobjEac, callback )
 
 											 callback("Done!");
 											 $('.viaf_arrow').html("&#10003;");
-											 $('.arrows').show();
-											 $('#save_eac').show();
-											 $('#convert_to_wiki').show();
+											 
+											 $('#loading-image').remove();
 										     });
 						       });
 					   });
@@ -574,9 +573,9 @@ function ingest_worldcat_elements( lobjEac, lstrName, callback )
         		 }
         		 else
         		 {
-        		   //  $('.ingest_button').hide();
-		    	   //  $('#save_eac').hide();
-			   //  $('#convert_to_wiki').hide();
+        		     //  $('.ingest_button').hide();
+		    	     //  $('#save_eac').hide();
+			     //  $('#convert_to_wiki').hide();
 			     $('#main_content').prepend('<img id="loading-image" src="style/images/loading.gif" alt="loading"/>');
 
 			     lstrName = encode_utf8(lstrName);
@@ -651,10 +650,13 @@ function ingest_worldcat_elements( lobjEac, lstrName, callback )
 																 editor.getSession().setValue(lobjEac.getXML());
 
 																 callback('Done!');
+																 $('#loading-image').remove();
 																 $('.worldcat_arrow').html("&#10003;");
-															//	 $('.arrows').show();
-															//	 $('#save_eac').show();
-															//	 $('#convert_to_wiki').show();
+																 //	 $('.arrows').show();
+																 //	 $('#save_eac').show();
+
+																 
+																 //	 $('#convert_to_wiki').show();
 
 															     });
 										     });
@@ -723,7 +725,7 @@ function display_possible_worldcat_form( lobjPossibleURI, callback )
     $('#ingest_worldcat_chosen_uri_cancel').on('click', function()
 					       {
 						   $('.form_container').remove();
-					
+						   
 						   callback('');
 					       });
 }
@@ -744,7 +746,7 @@ function display_possible_worldcat_subjects( lobjPossibleSubjects, callback )
     lstrHTML += "<div class=\"user_help_form\">";
 
     lstrHTML += "<h3>Please Choose Subjects</h3>";
-     
+    
     lstrHTML += "<input type=\"checkbox\" id=\"select_all\" value=\"\">Select All<br />";
 
     for(var i = 0; i < lobjPossibleSubjects.length; i++)
@@ -783,7 +785,7 @@ function display_possible_worldcat_subjects( lobjPossibleSubjects, callback )
 							var lobjChosenSubjects = [];
 
 							$('.form_container').remove();
-						
+							
 
 
 							callback(lobjChosenSubjects);
