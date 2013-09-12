@@ -199,12 +199,16 @@ class Viaf_Ingestor extends Ingestor
 
 			$this->getResults();
 
+			//added because some xml entity is not being converted and causing weird characters
+			$this->strResponse = str_replace( "&#x200D;", "", $this->strResponse);
+
 			//there are some XML reference entities that exist in the Viaf search reponse XML which do not get
 			//converted with the html_entity_decode function and therefore, we must decode them manually
-			$this->strResponse = preg_replace_callback('/([a-zA-z])&#x301;/', array( $this, 'convertBadXMLEntities'), $this->strResponse );
+			//commented out by dgonzalez. No longer issue because not using md5
+			/*$this->strResponse = preg_replace_callback('/([a-zA-z])&#x301;/', array( $this, 'convertBadXMLEntities'), $this->strResponse );
 			$this->strResponse = preg_replace_callback('/([a-zA-z])&#x300;/', array( $this, 'convertBadXMLEntities'), $this->strResponse );
 			$this->strResponse = preg_replace_callback('/([a-zA-z])&#x303;/', array( $this, 'convertBadXMLEntities'), $this->strResponse );
-			$this->strResponse = preg_replace_callback('/([a-zA-z])&#x308;/', array( $this, 'convertBadXMLEntities'), $this->strResponse );
+			$this->strResponse = preg_replace_callback('/([a-zA-z])&#x308;/', array( $this, 'convertBadXMLEntities'), $this->strResponse );*/
 
 			$this->createDom();
 
