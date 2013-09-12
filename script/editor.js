@@ -70,10 +70,11 @@ $(document).ready(function() {
 	$('#post_draft_wiki').remove();
 	$('#draft_container').remove();
 	$('#editor_container').show();
-	$('#wiki_switch').show();
+	$('#wiki_switch').hide();
 	$('#xml_switch_button').css({"background":"gray"});
 	$('.arrows').show();
 	$('.save_arrow').css({"display":"inline-block"});
+	
 	// When one of the files is selected...
 	eac_xml_path = eac_xml_file;
 
