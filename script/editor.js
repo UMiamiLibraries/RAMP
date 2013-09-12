@@ -12,6 +12,20 @@ $(document).ready(function() {
 
 	
     	});
+
+
+       var $savewikidialog = $('<div></div>')
+    	.html('Your local Wikipedia article has been saved.')
+    	.dialog({
+    		autoOpen: false,
+    	        buttons: {
+		    "OK" : function () {
+			$( this ).dialog( "close" );
+		    }
+		   }
+
+	
+    	});
     
     //depenging on value of the cookie, display login or logout
     if( getCookie('ramp_wiki_li') == null )
@@ -87,6 +101,15 @@ $(document).ready(function() {
 	$('#xml_switch_button').css({"background":"gray"});
 	$('.arrows').show();
 	$('.save_arrow').css({"display":"inline-block"});
+	
+        $('#ingest_buttons').prepend('    <p id="start_here" style=" \
+    float: left; \
+    margin-top: 1%; \
+    margin-left: .5%; \
+    font-weight:900; \
+     "> Start Here: </p>');
+
+
 	
 	// When one of the files is selected...
 	eac_xml_path = eac_xml_file;
@@ -345,14 +368,15 @@ $(document).ready(function() {
 
 	   	$('#wiki_update').on('click', function() {
 
-		    $('#dialog_box').html("<p>File saved</p>");
-		    makeDialog('#dialog_box', ' ');
-
+		   
+		   
+		 
 
 	   	    updated_markup = document.getElementById('wikimarkup').value;
 
 		    $.post('update_wiki.php', {media_wiki: updated_markup, ead_path: eac_xml_path}, function(data) {
-
+			
+			$savewikidialog.dialog('open');
 
 
 	    	    });
