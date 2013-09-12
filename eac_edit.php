@@ -18,17 +18,15 @@ include('header.php');
  
 
   <div id="edit_controls">
- <h1 id="entity_name"></h1>
+  <h1 id="entity_name"></h1>
   
- 
-
+    
   <span id="ingest_buttons">
-
-
-  <button id="ingest_viaf" class="ingest_button pure-button pure-button-primary" >Ingest VIAF</button>
+    
+  <button id="ingest_viaf" class="ingest_button pure-button pure-button-primary">Ingest VIAF</button>
     <div class="viaf_arrow arrows">&rarr;</div>
 
-  <button id="ingest_worldcat" class="ingest_button pure-button pure-button-primary" >Ingest WorldCat</button>
+  <button id="ingest_worldcat" class="ingest_button pure-button pure-button-primary">Ingest WorldCat</button>
     <div class="worldcat_arrow arrows">&rarr;</div>
   </span>
 

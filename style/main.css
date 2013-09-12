@@ -333,7 +333,26 @@ textarea {
     min-width:500px;
 }
 
+.wiki_container textarea {
+    min-width:600px;
+    min-height:425px;    
+}
 
+.wiki_container button {
+    margin-left:33%;
+}
+
+.wiki_container h1 {
+    margin-left:1%;
+}
+
+#wiki_article {
+    margin-left:2%;
+}
+
+textarea#bioghist {
+    height:200px;
+}
 
 textarea:focus {
     border-color: rgba(82, 168, 236, 0.8);
@@ -913,6 +932,7 @@ background:#0078e7;
 #get_chosen_wiki {
  /*   background: #7AB800; */
   background:#0078e7;
+  margin:1% 1% 1% 0;
 
 }
 
@@ -920,6 +940,14 @@ background:#0078e7;
 
 /* background:crimson; */
   background:#0078e7;
+  margin:1% 0 1% 1%;
+}
+
+.user_help_form h3 {
+    margin:0 0 1% -2px;    
+}
+#form_wrapper {
+    margin:1% 0 2% 0;
 }
 
 .pure-button {

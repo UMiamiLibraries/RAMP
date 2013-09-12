@@ -284,11 +284,11 @@ $(document).ready(function() {
 
 		if( $('#wikieditor').length == 0)
 		{
-			$('#main_content').append("<div id=\"wikieditor\"><div class=\"wiki_container\"><h1>Local Article</h1> \
+			$('#main_content').append("<div id=\"wikieditor\"><div class=\"wiki_container\"><h1>Local article (transformed from EAC-CPF record)</h1> \
 				<textarea id=\"wikimarkup\">" + markup + "</textarea></div></div>");
 		}else
 		{
-			$('#wikieditor').append("<div class=\"wiki_container\"><h1>Local Article</h1> \
+			$('#wikieditor').append("<div class=\"wiki_container\"><h1>Local article (transformed from EAC-CPF record)</h1> \
 				<textarea id=\"wikimarkup\">" + markup + "</textarea></div>");
 		}		
 
@@ -365,7 +365,7 @@ $(document).ready(function() {
 	    $('#wikieditor').remove();
 	    $('#validation_text').hide();
 	    $('.arrows').hide();
-	    $('#main_content').append('<div id="wikieditor"><div class="wiki_container"><h1>Local Article</h1> \
+	    $('#main_content').append('<div id="wikieditor"><div class="wiki_container"><h1>Local article (transformed from EAC-CPF record)</h1> \
 <textarea id="wikimarkup">' + data + '</textarea></div></div>');
 	    $('#edit_controls').append("<button class=\"save_button pure-button pure-button-primary\"  id=\"wiki_save\">Save Local Article</button>");
 

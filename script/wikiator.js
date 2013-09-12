@@ -202,7 +202,7 @@ function displayWikiSearch( lobjTitles, callback )
 	lstrHTML += "<button id=\"get_chosen_wiki\" class=\"pure-button pure-button-secondary\">Use Selected Title</button>";
 	lstrHTML += "<button id=\"get_chosen_wiki_no_match\" class=\"pure-button pure-button-secondary\">No Match (create new)</button>";
 
-	lstrHTML += "<h3>Please Choose Title: <div class=\"form_note\">*Wikipedia&#39;s search index is updated every morning. New pages will take a day to show up in index.</div></h3>";
+	lstrHTML += "<div id=\"form_wrapper\"><h3>Please Choose Title</h3><div class=\"form_note\">Wikipedia&#39;s search index is updated every morning. New pages will take a day to show up in index.</div></div>";
 
 	for(var i = 0; i < lobjTitles.length; i++)
 	{
@@ -265,8 +265,8 @@ function getWiki( lstrTitle )
 		$('#get_wiki_text').height($('#wikimarkup').height());
 
 		$('#loading-image').remove();
-		$('#get_wiki').replaceWith('<button id="post_wiki" class=\"pure-button pure-button-primary\">Submit Local Article to Wikipedia</button>');
-		$('#post_wiki').after('<button id="post_draft_wiki" class=\"pure-button pure-button-primary\">Submit Local Article to Wikipedia as Draft</button>');
+		$('#get_wiki').replaceWith('<button id="post_wiki" class=\"pure-button pure-button-primary\">Submit  to Wikipedia</button>');
+		$('#post_wiki').after('<button id="post_draft_wiki" class=\"pure-button pure-button-primary\">Submit  to Wikipedia as Draft</button>');
 
 		setupPostWiki();
 	}else
@@ -280,12 +280,12 @@ function getWiki( lstrTitle )
 			$('#wikieditor').append("<div class=\"wiki_container\" style='margin: 1%; margin-top: 5%;'> \
 				<button id=\"gtselectedtext\" class=\"pure-button pure-button-secondary\">&gt;</button><br /> \
 				<button id=\"ltselectedtext\" class=\"pure-button pure-button-secondary\">&lt;</button></div> \
-				<div class=\"wiki_container\"><h1>Wikipedia Article</h1><textarea id=\"get_wiki_text\">" + response + "</textarea></div>");
+				<div class=\"wiki_container\"><h1 id=\"wiki_article\">Wikipedia article (to be submitted to Wikipedia)</h1><textarea id=\"get_wiki_text\">" + response + "</textarea></div>");
 			$('#get_wiki_text').height($('#wikimarkup').height());
 
 			$('#loading-image').remove();
-			$('#get_wiki').replaceWith('<button id="post_wiki" title="Clicking on this button will submit the local article to Wikipedia.org. Choose this option only if you are sure you want the article to be live to the world!" class=\"pure-button pure-button-primary\">Submit Local Article to Wikipedia</button>');
-			$('#post_wiki').after('<button id="post_draft_wiki" title="Clicking on this button will submit the local article to Wikipedia.org as a draft subpage of your user account (recommended for work-in-progress)." class=\"pure-button pure-button-primary\">Submit Local Article to Wikipedia as Draft</button>');
+			$('#get_wiki').replaceWith('<button id="post_wiki" title="Clicking on this button will submit content to Wikipedia.org. Choose this option only if you are sure you want the article to be live to the world!" class=\"pure-button pure-button-primary\">Submit to Wikipedia</button>');
+			$('#post_wiki').after('<button id="post_draft_wiki" title="Clicking on this button will submit content to Wikipedia.org as a draft subpage of your user account (recommended for work-in-progress)." class=\"pure-button pure-button-primary\">Submit to Wikipedia as Draft</button>');
 
 			setupPostWiki();
 		});
