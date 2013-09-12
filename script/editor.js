@@ -106,6 +106,7 @@ $(document).ready(function() {
     float: left; \
     margin-top: 1%; \
     margin-left: .5%; \
+    font-weight:900; \
      "> Start Here: </p>');
 
 
