@@ -102,6 +102,14 @@ $(document).ready(function() {
 	$('.arrows').show();
 	$('.save_arrow').css({"display":"inline-block"});
 	
+        $('#ingest_buttons').prepend('    <p id="start_here" style=" \
+    float: left; \
+    margin-top: 1%; \
+    margin-left: .5%; \
+     "> Start Here: </p>');
+
+
+	
 	// When one of the files is selected...
 	eac_xml_path = eac_xml_file;
 
