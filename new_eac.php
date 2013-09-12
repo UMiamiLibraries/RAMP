@@ -28,6 +28,19 @@ include('header.php');
 
   <script>
 
+    var $savedialog = $('<div></div>')
+    	.html('Saved New Record')
+    	.dialog({
+    		autoOpen: false,
+    	        buttons: {
+		    "OK" : function () {
+			$( this ).dialog( "close" );
+		    }
+		   }
+
+	
+    	});
+
   $('#submit_new').click(function() {
       $('#results').html('');
 
@@ -41,9 +54,15 @@ include('header.php');
 
 	    }, function (data) {
 
-	  $('#results').html(data);
-	  
-	location.reload();
+
+
+	  $savedialog.dialog('open');
+
+	  window.setTimeout(slowreload, 5000);
+
+	  function slowreload() {
+	    location.reload();
+	  }
 
 	});
 
