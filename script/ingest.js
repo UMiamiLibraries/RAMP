@@ -321,7 +321,15 @@ function ingest_viaf_Relations( lobjEac, callback )
 			{
 			    var lstrPossibleName = lobjPossibleNames[j];
 			    lstrPossibleName = lstrPossibleName.trim();
-
+                
+                // Strip any trailing commas.
+			    var lstrLastChar = lstrPossibleName.substr( lstrPossibleName.length - 1 );
+			    
+			    if( lstrLastChar == ",")
+                {
+                    lstrPossibleName = lstrPossibleName.slice(0, -1);
+                }
+                                                              
 			    PossibleNameList.push( lstrPossibleName );
 			}
 		    }
