@@ -82,13 +82,22 @@ textarea {
     display: block;
 }
 
-form  {
+#new_eac_form  {
     display:block;
     margin-top:.5%;
     margin-bottom:1%;
     margin-left:.5%;
     float:left;    
 }
+
+#download_form  {
+    display:inline;
+    margin-top:0;
+    margin-bottom:0;
+    margin-left:0;
+    float:0; 
+}
+
 
 header {
     /* padding:0; */
@@ -652,6 +661,7 @@ h1 {
     font-size: 1.5em;
     font-weight:300;
 
+    /* margin-bottom: 1%; */
 }
 
 .save_button {
@@ -904,16 +914,18 @@ background:#0078e7;
 
 #convert_message {
 display: block;
-margin-bottom: .5%;
+margin-bottom: 1%;
 
 }
 
 
 #file_estimator {
 font-size: 1.5em;
-margin-top: 10%;
+margin-top: 1%;
 font-weight: 300;
 display: block;
+padding-bottom: 5%;
+margin-left: .5%;
 }
 
 
@@ -1026,5 +1038,12 @@ font-weight:bold;
 #loading-image {
 display:block;
 margin:1%;
+
+}
+
+#download_xml {
+
+float: right;
+margin-right: .5%;
 
 }

@@ -49,9 +49,13 @@ $(document).ready(function() {
 
 
 
-    function remove_wiki_controls() {
 
-    }
+    
+
+    
+
+
+
 
     function cookie_check () {
 
@@ -108,6 +112,10 @@ $(document).ready(function() {
     margin-left: .5%; \
     font-weight:900; \
      "> Start Here: </p>');
+	
+	$('#edit_controls').append('<form id="download_form" method="post" target="_blank" action="download.php"><button id="download_xml" class="pure-button pure-button-primary" type="submit" name="xml" value="">Export Current EAC-CPF</button></form>');
+	
+	
 
 
 	
@@ -128,6 +136,8 @@ $(document).ready(function() {
 
 	    // Stick the XML in Ace editor
 	    edited_xml = editor.getSession().getValue();
+	    
+	    $('#download_xml').val(edited_xml);
 
 	    //enable ingest buttons
 	    $('.ingest_button').removeAttr('disabled');

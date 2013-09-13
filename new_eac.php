@@ -8,7 +8,7 @@
 
 include('header.php');
 ?>
-<form>
+<form id="new_eac_form">
   <br/>
   <label style="display:inline;">Entity type</label>
   <select id="entity_type">

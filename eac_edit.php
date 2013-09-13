@@ -22,7 +22,7 @@ include('header.php');
   
     
   <span id="ingest_buttons">
-    
+
   <button id="ingest_viaf" class="ingest_button pure-button pure-button-primary">Ingest VIAF</button>
     <div class="viaf_arrow arrows">&rarr;</div>
 
@@ -34,6 +34,8 @@ include('header.php');
     <div class="arrows save_arrow">&rarr;</div>
   <button id="convert_to_wiki" class="pure-button pure-button-primary">Convert to Wiki Markup </button>
 
+
+  
 
     <?php
   
