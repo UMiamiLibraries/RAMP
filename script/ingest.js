@@ -83,6 +83,7 @@ $(document).ready(function()
 						       //xml must be valid in order for worlcat ingestion to begin
 						       if(lboolValid)
 						       {
+							 
 							   var lobjeac = new eac();
 							   lobjeac.loadXMLString( lstrXML );
 
@@ -124,13 +125,13 @@ function ingest_viaf_NameEntry_Sources( lobjEac, lstrName, callback )
 {
     //dialog form to confirm search string to use to search viaf
     $('body').append("<div id=\"dialog-form\" title=\"Viaf Search\"> \
-<p class=\"validate-prompt\">Cannot be blank!</p> \
-<form> \
-<fieldset> \
-<label for=\"name\">Name</label> \
-<input type=\"text\" name=\"name\" id=\"name\" class=\"text ui-widget-content ui-corner-all\" value=\"" + decode_utf8(lstrName) + "\"/> \
-</fieldset> \
-</form></div>");
+		     <p class=\"validate-prompt\">Cannot be blank!</p> \
+		     <form> \
+		     <fieldset> \
+		     <label for=\"name\">Name</label> \
+		     <input type=\"text\" name=\"name\" id=\"name\" class=\"text ui-widget-content ui-corner-all\" value=\"" + decode_utf8(lstrName) + "\"/> \
+		     </fieldset> \
+		     </form></div>");
 
     $('#loading-image').remove();
 
@@ -243,7 +244,7 @@ function display_possible_viaf_form( lobjPossibleViaf, callback )
 
 	lstrHTML += "<input type=\"radio\" name=\"chosen_viaf_id\" value=\"";
 	lstrHTML += lstrViafID + "\" /><a href=\"http://viaf.org/viaf/" + lstrViafID + "\" target=\"_blank\"> \
-" + lstrName + "</a><br />";
+	" + lstrName + "</a><br />";
     }
 
 
@@ -326,29 +327,29 @@ function ingest_viaf_Relations( lobjEac, callback )
 		    }
 
 		    /*if( lobjPossibleTitles != null )
-		      {
-		      for( j = 0; j < lobjPossibleTitles.length; j++ )
-		      {
-		      var lstrPossibleTitle = lobjPossibleTitles[j];
-		      lstrPossibleTitle = lstrPossibleTitle.trim();
-		      lstrPossibleTitle = lstrPossibleTitle.replace(/["\u201D\u201C]/g, "");
-		      lstrPossibleTitle = lstrPossibleTitle.replace(/<span>|<\/span>/g, "");
+		     {
+		     for( j = 0; j < lobjPossibleTitles.length; j++ )
+		     {
+		     var lstrPossibleTitle = lobjPossibleTitles[j];
+		     lstrPossibleTitle = lstrPossibleTitle.trim();
+		     lstrPossibleTitle = lstrPossibleTitle.replace(/["\u201D\u201C]/g, "");
+		     lstrPossibleTitle = lstrPossibleTitle.replace(/<span>|<\/span>/g, "");
 
-		      PossibleNameList.push( lstrPossibleTitle );
-		      }
-		      }*/
+		     PossibleNameList.push( lstrPossibleTitle );
+		     }
+		     }*/
 		}
 
 		/*for(var i = 0; i < lobjSpanList.length; i++)
-		  {
-		  var lstrPossibleTitle = lobjSpanList[i].childNodes[0].nodeValue;
+		 {
+		 var lstrPossibleTitle = lobjSpanList[i].childNodes[0].nodeValue;
 
-		  if( lstrPossibleTitle == null)
-		  continue;
+		 if( lstrPossibleTitle == null)
+		 continue;
 
-		  lstrPossibleTitle = lstrPossibleTitle.trim();
-		  PossibleNameList.push(lstrPossibleTitle);
-		  }*/
+		 lstrPossibleTitle = lstrPossibleTitle.trim();
+		 PossibleNameList.push(lstrPossibleTitle);
+		 }*/
 
 		PossibleNameList = unique(PossibleNameList);
 		PossibleNameList.sort();
@@ -551,13 +552,13 @@ function display_viaf_results_form( lobjViafResults, callback )
 function ingest_worldcat_elements( lobjEac, lstrName, callback )
 {
     $('body').append("<div id=\"dialog-form\" title=\"WorldCat Search\"> \
-<p class=\"validate-prompt\">Cannot be blank!</p> \
-<form> \
-<fieldset> \
-<label for=\"name\">Name</label> \
-<input type=\"text\" name=\"name\" id=\"name\" class=\"text ui-widget-content ui-corner-all\" value=\"" + decode_utf8(lstrName) + "\"/> \
-</fieldset> \
-</form></div>");
+		     <p class=\"validate-prompt\">Cannot be blank!</p> \
+		     <form> \
+		     <fieldset> \
+		     <label for=\"name\">Name</label> \
+		     <input type=\"text\" name=\"name\" id=\"name\" class=\"text ui-widget-content ui-corner-all\" value=\"" + decode_utf8(lstrName) + "\"/> \
+		     </fieldset> \
+		     </form></div>");
 
     $('#loading-image').remove();
     $('.ingest_button').show();
@@ -576,8 +577,9 @@ function ingest_worldcat_elements( lobjEac, lstrName, callback )
         		     //  $('.ingest_button').hide();
 		    	     //  $('#save_eac').hide();
 			     //  $('#convert_to_wiki').hide();
+			     
 			     $('#main_content').prepend('<img id="loading-image" src="style/images/loading.gif" alt="loading"/>');
-
+			      $(dialog).dialog("close");
 			     lstrName = encode_utf8(lstrName);
 
 			     //post to ajax WorldCat ingestor controller to search worldcat and get results
@@ -695,7 +697,7 @@ function display_possible_worldcat_form( lobjPossibleURI, callback )
 
 	lstrHTML += "<input type=\"radio\" name=\"chosen_worldcat_uri\" value=\"";
 	lstrHTML += lstrURI + "\" /><a href=\"" + lstrURI + "\" target=\"_blank\"> \
-" + lstrTitle + "</a><br />";
+	" + lstrTitle + "</a><br />";
     }
 
 
