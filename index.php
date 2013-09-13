@@ -114,6 +114,19 @@ print ("</select>");
 
   </div>
 
+
+
+  <div class="pure-u-1">
+  <div class="content_box">
+<img src="style/images/export.png" height="24px" width="24px" alt="Export"/>
+  <h1>Batch Export EAC-CPF Records</h1>
+  <p style="margin:1%;">After your first conversion you can batch export the result EAC-CPF records</p>
+  <p><a href="export.php" style="margin:1%;">Export EAC-CPF Records</a></p>
+  
+
+  </div>
+  </div>
+
   <?php
   include('footer.php');
 ?>

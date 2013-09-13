@@ -50,6 +50,7 @@ include('conf/includes.php');
         <li><img src="style/images/new_white.png" width="24px" height="24px"></img></li>
 
 	<li id="new_eac" class="menu_slice"><a href="new_eac.php">New</a></li>
+    
 </ul>
 
 <ul id="menu_3" class="menu_slice">

@@ -1,4 +1,5 @@
 <?php 
+include('header.php');
 include('conf/db.php');
 
 $zip = new ZipArchive;
@@ -19,4 +20,19 @@ while ($row = $results->fetch_assoc()) {
  
 }
 
+
+?>
+<div class="pure-u-1">
+  <div class="content_box">
+  <img src="style/images/export.png" alt="Convert" width="24px" height="24px"/>
+ 
+ <h1> <a href="export/export.zip">Download Batch Export of EAC-CPF Files</a></h1>
+  <p style="margin-top:.5%">
+
+  </p>
+
+</div>
+</div>
+<?php
+include('footer.php');
 ?>
