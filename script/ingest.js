@@ -325,7 +325,7 @@ function ingest_viaf_Relations( lobjEac, callback )
                 // Strip any trailing commas.
 			    var lstrLastChar = lstrPossibleName.substr( lstrPossibleName.length - 1 );
 			    
-			    if( lstrLastChar == ",")
+			    if( lstrLastChar == "," )
                 {
                     lstrPossibleName = lstrPossibleName.slice(0, -1);
                 }
