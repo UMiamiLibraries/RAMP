@@ -321,7 +321,7 @@ $(document).ready(function() {
 
 		if( $('#wikieditor').length == 0)
 		{
-			$('#main_content').append("<div id=\"wikieditor\"><div class=\"wiki_container\"><h1>Local article (transformed from EAC-CPF record)</h1> \
+			$('#main_content').append("<div id=\"wikieditor\"><div class=\"wiki_container\"><h1>Local article (transformed from EAC-CPF record) <a style=\"font-size:small; float:right; margin-top:3px;\" href=\"https://en.wikipedia.org/wiki/Help:Wiki_markup\">Help with wiki markup</a></h1> \
 				<textarea id=\"wikimarkup\">" + markup + "</textarea></div></div>");
 		}else
 		{
