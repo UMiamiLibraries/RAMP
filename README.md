@@ -21,7 +21,7 @@ The RAMP editor can extract biographical and historical data from EAD finding ai
 
 ### 1.2 Create the RAMP Database
 
-   The 'RAMP/sql' folder contains a .sql file that can be used to create
+   The `RAMP/sql` folder contains a .sql file that can be used to create
    the database that RAMP requires. This file can be imported using a database management utility like phpMyAdmin, or from the command line:
    
     mysql --user=username --password --host=hostname < sql/ramp.sql
@@ -32,17 +32,17 @@ The RAMP editor can extract biographical and historical data from EAD finding ai
 
 #### 1.3.1 Other Configuration Files
 
-  * inst_info.php
+  * `inst_info.php`
 
   This file includes institutional information that appears in the EAC
   files.
 
-  * xsl.php, paths.php
+  * `xsl.php`, `paths.php`
 
     These files include the paths to XSL stylesheets.
 
 ### 1.4 Add EAD Records
-   The 'ead' folder in the RAMP root directory should have correct read/write permissions set.
+   The `ead` folder in the RAMP root directory should have correct read/write permissions set.
    
      chown -R www-data ead
      chmod 2755 ead
@@ -56,7 +56,7 @@ The RAMP editor can extract biographical and historical data from EAD finding ai
    to EAD files. This path should have appropriate permissions so that the
    script can read and write files.
    
-   Note: if you receive an error when trying to run the conversion routine, you may need to edit your php.ini settings to change the value of 'short_open_tag' to 'Off.'
+   Note: if you receive an error when trying to run the conversion routine, you may need to edit your php.ini settings to change the value of `short_open_tag` to 'Off.'
    
    After submitting the form, the script performs an XSLT transformation on
    all the files in the folder. After a successful transformation, the
@@ -71,7 +71,7 @@ The RAMP editor can extract biographical and historical data from EAD finding ai
    If you encounter a situation where there are no EAD files to import,
    RAMP can be used to create new records. The 'New' link leads to a form that
    allows you to chose what type of entity is being created and an input for a biography. 
-   If permissions for 'ramp/ead' are not correctly set, the script will not
+   If permissions for `ramp/ead` are not correctly set, the script will not
    be able to write a stub EAD file necessary to create a new EAC record. 
 
 ### 2.3 Editing EAC Files
