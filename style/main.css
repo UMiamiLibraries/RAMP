@@ -632,7 +632,7 @@ select {
 .wiki_container button#gtselectedtext
 {
 	margin-top: 500%;
-	margin:left: 10%;
+	margin-left: 15px;
 }
 
 li.wiki_login
