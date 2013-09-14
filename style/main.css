@@ -674,13 +674,13 @@ h1 {
 }
 
 h1#entity_name {
-	margin-bottom:.5%;
+    margin-bottom:.5%;
 }
 
 #start_here {
-	font-size:1.25em;
-	float: left; 
-	margin-top:.8%;
+    font-size:1.25em;
+    float: left; 
+    margin-top:.901%;
     margin-left: .5%; 
     font-weight:900; 
 }
