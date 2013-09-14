@@ -450,7 +450,7 @@ function display_possible_name_form( lobjPossibleNames, callback )
     lstrHTML += "<div class=\"user_help_form\">";
 
     lstrHTML += "<h2>Please choose names to create &lt;cpfRelation&gt; elements:</h2>";
-    lstrHTML += "<input type=\"checkbox\" id=\"select_all\" value=\"\"><span style=\"font-weight:800;\">Select all</span><br />";
+    lstrHTML += "<input type=\"checkbox\" id=\"select_all\" value=\"\"><span style=\"font-weight:800; margin-left:4px;\">Select all</span><br />";
 
     for(var i = 0; i < lobjPossibleNames.length; i++)
     {
@@ -509,7 +509,7 @@ function display_viaf_results_form( lobjViafResults, callback )
     lstrHTML += "<div class=\"user_help_form\">";
 
     lstrHTML += "<h2>Please choose appropriate matches from VIAF (the original string you searched for appears in parentheses):</h2>";
-    lstrHTML += "<input type=\"checkbox\" id=\"select_all\" value=\"\"><span style=\"font-weight:800;\">Select all</span><br />";
+    lstrHTML += "<input type=\"checkbox\" id=\"select_all\" value=\"\"><span style=\"font-weight:800; margin-left:4px;\">Select all</span><br />";
 
     for( var lstrName in lobjViafResults )
     {
@@ -755,7 +755,7 @@ function display_possible_worldcat_subjects( lobjPossibleSubjects, callback )
 
     lstrHTML += "<h2>Please choose any appropriate subjects related to this entity:</h2>";
     
-    lstrHTML += "<input type=\"checkbox\" id=\"select_all\" value=\"\"><span style=\"font-weight:800;\">Select all</span><br />";
+    lstrHTML += "<input type=\"checkbox\" id=\"select_all\" value=\"\"><span style=\"font-weight:800; margin-left:4px;\">Select all</span><br />";
 
     for(var i = 0; i < lobjPossibleSubjects.length; i++)
     {
