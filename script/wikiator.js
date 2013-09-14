@@ -258,7 +258,7 @@ function getWiki( lstrTitle )
 	{
 		mboolIsNew = true;
 
-		$('#wikieditor').append("<div class=\"wiki_container\" style='margin: 1%; margin-top: 5%;'> \
+		$('#wikieditor').append("<div class=\"wiki_container\" style='margin: 5% 1% 1% .9%;'> \
 			<button id=\"gtselectedtext\" class=\"pure-button pure-button-secondary\">&gt;</button><br /> \
 			<button id=\"ltselectedtext\" class=\"pure-button pure-button-secondary\">&lt;</button></div> \
 			<div class=\"wiki_container\"><h1 id=\"wiki_article\">Wikipedia article (to be submitted to Wikipedia)</h1><textarea id=\"get_wiki_text\"></textarea></div>");
