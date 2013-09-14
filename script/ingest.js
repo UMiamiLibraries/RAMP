@@ -226,25 +226,24 @@ function display_possible_viaf_form( lobjPossibleViaf, callback )
 {
     var lstrHTML = "<div class=\"form_container\">";
 
-    lstrHTML += "<p id='instruction'>These results were retrieved from the Virtual International Authority File (VIAF). Please examine them to select the best match for the entity you are working with. If you click on a name, you will be taken to its VIAF page, which may include additional information that will help you decide whether it is an appropriate match.</p>";
+    lstrHTML += "<p class=\"instruction\">These names were retrieved from the <a href=\"http://viaf.org\" title=\"Link to the Virtual International Authority File\" target=\"_blank\">Virtual International Authority File</a> (VIAF).</p> <p class=\"instruction\">Please examine them to select the best match for the entity you are working with. If you click on a name, you will be taken to its VIAF page, which may include additional information that will help you decide whether it is an appropriate match.</p>";
 
 
-    lstrHTML += "<button id=\"ingest_viaf_chosen_viaf\" class=\"pure-button ingest-ok pure-button-secondary\">Use Selected Viaf</button>";
+    lstrHTML += "<button id=\"ingest_viaf_chosen_viaf\" class=\"pure-button ingest-ok pure-button-secondary\">Use Selected VIAF</button>";
     lstrHTML += "&nbsp;<button id=\"ingest_viaf_chosen_viaf_cancel\" class=\"pure-button ingest-cancel pure-button-secondary\">Cancel</button>";
 
 
     lstrHTML += "<div class=\"user_help_form\">";
-    lstrHTML += "<h3>Please Choose Results</h3>";
+    lstrHTML += "<h2>Choose the best match for this name:</h2>";
 
     //go through list and display results as radio buttons for editor to choose
     for(var i = 0; i < lobjPossibleViaf.length; i++)
     {
 	var lstrViafID = typeof lobjPossibleViaf[i].viaf_id == 'undefined' ? '' : lobjPossibleViaf[i].viaf_id;
-	var lstrName = typeof lobjPossibleViaf[i].name == 'undefined' ? '' : lobjPossibleViaf[i].name;
-
+	var lstrName = typeof lobjPossibleViaf[i].name == 'undefined' ? '' : lobjPossibleViaf[i].name;	
+	
 	lstrHTML += "<input type=\"radio\" name=\"chosen_viaf_id\" value=\"";
-	lstrHTML += lstrViafID + "\" /><a href=\"http://viaf.org/viaf/" + lstrViafID + "\" target=\"_blank\"> \
-	" + lstrName + "</a><br />";
+	lstrHTML += lstrViafID + "\" /><a href=\"http://viaf.org/viaf/" + lstrViafID + "\" target=\"_blank\">" + lstrName + "</a><br />";
     }
 
 
@@ -441,7 +440,7 @@ function ingest_viaf_Relations( lobjEac, callback )
 function display_possible_name_form( lobjPossibleNames, callback )
 {
     var lstrHTML = "<div class=\"form_container\">";
-    lstrHTML += "<p id='instruction'>These results have been extracted from this entity's finding aid or biography. Select names that you would like to look up in VIAF.</p>";
+    lstrHTML += "<p class=\"instruction\">These names have been extracted from this entity\'s finding aid or biography. Select names that you would like to look up in VIAF.</p><p class=\"instruction\">These names will be used to create &lt;cpfRelation&gt; elements in the EAC-CPF record.</p>";
 
 
     lstrHTML += "<button id=\"ingest_viaf_chosen_names_relations\" class=\"pure-button ingest-ok pure-button-secondary\">Use Selected Names</button>";
@@ -450,8 +449,8 @@ function display_possible_name_form( lobjPossibleNames, callback )
 
     lstrHTML += "<div class=\"user_help_form\">";
 
-    lstrHTML += "<h3>Please Choose Names for Relation Creation</h3>";
-    lstrHTML += "<input type=\"checkbox\" id=\"select_all\" value=\"\">Select All<br />";
+    lstrHTML += "<h2>Please choose names to create &lt;cpfRelation&gt; elements:</h2>";
+    lstrHTML += "<input type=\"checkbox\" id=\"select_all\" value=\"\"><span style=\"font-weight:800;\">Select all</span><br />";
 
     for(var i = 0; i < lobjPossibleNames.length; i++)
     {
@@ -502,15 +501,15 @@ function display_viaf_results_form( lobjViafResults, callback )
 {
     var lstrHTML = "<div class=\"form_container\">";
 
-    lstrHTML += "<p id='instruction'>Based on your selections, these are the possible matches we were able to retrieve from VIAF. Please note that you will need to verify these results. Even if they seem to match your original selection, they may be false hits. When in doubt, please click on a name to visit its VIAF page and look for additional information.</p>"
+    lstrHTML += "<p class=\"instruction\">Based on your selections, these are the possible matches we were able to retrieve from VIAF.</p><p class=\"instruction\">Please note that you will need to verify these results. Even if they seem to match your original selection, there may be false hits. When in doubt, please click on a name to visit its VIAF page and look for additional information.</p>"
 
     lstrHTML += "<button id=\"ingest_viaf_add_relations\" class=\"pure-button ingest-ok pure-button-secondary\">Use Selected Results</button>";
     lstrHTML += "&nbsp;<button id=\"ingest_viaf_add_relations_cancel\" class=\"pure-button ingest-cancel pure-button-secondary\">Cancel</button>";
 
     lstrHTML += "<div class=\"user_help_form\">";
 
-    lstrHTML += "<h3>Please Choose Results</h3>";
-    lstrHTML += "<input type=\"checkbox\" id=\"select_all\" value=\"\">Select All<br />";
+    lstrHTML += "<h2>Please choose appropriate matches from VIAF (the original string you searched for appears in parentheses):</h2>";
+    lstrHTML += "<input type=\"checkbox\" id=\"select_all\" value=\"\"><span style=\"font-weight:800;\">Select all</span><br />";
 
     for( var lstrName in lobjViafResults )
     {
@@ -687,7 +686,7 @@ function display_possible_worldcat_form( lobjPossibleURI, callback )
 {
     var lstrHTML = "<div class=\"form_container\">";
 
-    lstrHTML += "<p id='instruction'> These results were retrieved from the WorldCat Identities. Please examine them to select the best match for the entity you are working with. If you click on a name, you will be taken to its WorldCat Identities page, which may include additional information that will help you decide whether it is an appropriate match. In general, the WorldCat Identities page with the most information will be the best match.</p>";
+    lstrHTML += "<p class=\"instruction\">These results were retrieved from the <a href=\"http://worldcat.org/identities/\" title=\"Link to WorldCat Identities\" target=\"_blank\">WorldCat Identities</a>.</p><p class=\"instruction\">Please examine them to select the best match for the entity you are working with. If you click on a name, you will be taken to its WorldCat Identities page, which may include additional information that will help you decide whether it is an appropriate match. In general, the WorldCat Identities page with the most information will be the best match.</p>";
 
 
     lstrHTML += "<button id=\"ingest_worldcat_chosen_uri\" class=\"pure-button ingest-ok pure-button-secondary\">Use Selected WorldCat</button>";
@@ -695,7 +694,7 @@ function display_possible_worldcat_form( lobjPossibleURI, callback )
 
     lstrHTML += "<div class=\"user_help_form\">";
 
-    lstrHTML += "<h3>Please Choose Results</h3>";
+    lstrHTML += "<h2>Please choose the best match for this name:</h2>";
 
     for(var i = 0; i < lobjPossibleURI.length; i++)
     {
@@ -704,8 +703,7 @@ function display_possible_worldcat_form( lobjPossibleURI, callback )
 	var lstrType = typeof lobjPossibleURI[i].type == 'undefined' ? '' : lobjPossibleURI[i].type;
 
 	lstrHTML += "<input type=\"radio\" name=\"chosen_worldcat_uri\" value=\"";
-	lstrHTML += lstrURI + "\" /><a href=\"" + lstrURI + "\" target=\"_blank\"> \
-	" + lstrTitle + "</a><br />";
+	lstrHTML += lstrURI + "\" /><a href=\"" + lstrURI + "\" target=\"_blank\">" + lstrTitle + "</a><br />";
     }
 
 
@@ -748,16 +746,16 @@ function display_possible_worldcat_subjects( lobjPossibleSubjects, callback )
 {
     var lstrHTML = "<div class=\"form_container\">";
 
-    lstrHTML += "<div id='instruction'>Here is a list of FAST subject headings associated with this entity. Select appropriate headings to add to your EAC-CPF record.</div>";
+    lstrHTML += "<div class=\"instruction\">Here is a list of FAST subject headings associated with this entity. Select appropriate headings to add to your EAC-CPF record.</div>";
 
     lstrHTML += "<button id=\"ingest_worldcat_chosen_subjects\" class=\"pure-button pure-button-secondary\">Use Selected Subjects</button>";
     lstrHTML += "&nbsp;<button id=\"ingest_worldcat_chosen_subjects_cancel\" class=\"pure-button pure-button-secondary\">Cancel</button>";
 
     lstrHTML += "<div class=\"user_help_form\">";
 
-    lstrHTML += "<h3>Please Choose Subjects</h3>";
+    lstrHTML += "<h2>Please choose any appropriate subjects related to this entity:</h2>";
     
-    lstrHTML += "<input type=\"checkbox\" id=\"select_all\" value=\"\">Select All<br />";
+    lstrHTML += "<input type=\"checkbox\" id=\"select_all\" value=\"\"><span style=\"font-weight:800;\">Select all</span><br />";
 
     for(var i = 0; i < lobjPossibleSubjects.length; i++)
     {
@@ -816,4 +814,3 @@ function setupSelectAll( lstrSelector )
 				     $('input[type="checkbox"]:visible').prop('checked', false);
 			     })
 }
-
