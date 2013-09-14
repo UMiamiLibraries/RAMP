@@ -277,7 +277,7 @@ function getWiki( lstrTitle )
 		$.post('ajax/wiki_api.php', { 'action' : 'get', 'title' : lstrTitle }, function(response)
 		{
 
-			$('#wikieditor').append("<div class=\"wiki_container\" style='margin: 1%; margin-top: 5%;'> \
+			$('#wikieditor').append("<div class=\"wiki_container\" style='margin: 5% 1% 1% .9%;'> \
 				<button id=\"gtselectedtext\" title=\"Click in right-hand box where you want text to appear. Highlight text on left. Use arrow to transfer text (click or use keypad).\" class=\"pure-button pure-button-secondary\">&gt;</button><br /> \
 				<button id=\"ltselectedtext\" title=\"Click in left-hand box where you want text to appear. Highlight text on right. Use arrow to transfer text (click or use keypad).\" class=\"pure-button pure-button-secondary\">&lt;</button></div> \
 				<div class=\"wiki_container\"><h1 id=\"wiki_article\">Wikipedia article (to be submitted to Wikipedia)</h1><textarea id=\"get_wiki_text\">" + response + "</textarea></div>");
