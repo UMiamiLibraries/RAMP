@@ -226,7 +226,7 @@ function display_possible_viaf_form( lobjPossibleViaf, callback )
 {
     var lstrHTML = "<div class=\"form_container\">";
 
-    lstrHTML += "<p class=\"instruction\">These names were retrieved from the <a href=\"http://viaf.org\" title=\"Link to the Virtual International Authority File\" target=\"_blank\">Virtual International Authority File</a> (VIAF).</p> <p class=\"instruction\">Please examine them to select the best match for the entity you are working with. If you click on a name, you will be taken to its VIAF page, which may include additional information that will help you decide whether it is an appropriate match.</p>";
+    lstrHTML += "<p class=\"instruction\">These names were retrieved from the Virtual International Authority File (<a href=\"http://viaf.org\" title=\"Link to the Virtual International Authority File\" target=\"_blank\">VIAF</a>). Please examine them to select the best match for the entity you are working with.</p><p class=\"instruction\">If you click on a name, you will be taken to its VIAF page, which may include additional information that will help you decide whether it is an appropriate match.</p>";
 
 
     lstrHTML += "<button id=\"ingest_viaf_chosen_viaf\" class=\"pure-button ingest-ok pure-button-secondary\">Use Selected VIAF</button>";
