@@ -686,7 +686,7 @@ function display_possible_worldcat_form( lobjPossibleURI, callback )
 {
     var lstrHTML = "<div class=\"form_container\">";
 
-    lstrHTML += "<p class=\"instruction\">These names were retrieved from <a href=\"http://worldcat.org/identities/\" title=\"Link to WorldCat Identities\" target=\"_blank\">WorldCat Identities</a>.</p><p class=\"instruction\">Please examine them to select the best match for the entity you are working with. If you click on a name, you will be taken to its WorldCat Identities page, which may include additional information that will help you decide whether it is an appropriate match. In general, the WorldCat Identities page with the most information will be the best match.</p>";
+    lstrHTML += "<p class=\"instruction\">These names were retrieved from <a href=\"http://worldcat.org/identities/\" title=\"Link to WorldCat Identities\" target=\"_blank\">WorldCat Identities</a>. Please examine them to select the best match for the entity you are working with.</p><p class=\"instruction\">If you click on a name, you will be taken to its WorldCat Identities page, which may include additional information that will help you decide whether it is an appropriate match. In general, the WorldCat Identities page with the most information will be the best match.</p>";
 
 
     lstrHTML += "<button id=\"ingest_worldcat_chosen_uri\" class=\"pure-button ingest-ok pure-button-secondary\">Use Selected WorldCat</button>";
