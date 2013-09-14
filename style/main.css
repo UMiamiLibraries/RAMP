@@ -816,10 +816,9 @@ html, body {
     background: #1873FA;
 
     float:left;
-    padding:1%;
     width:100%;
     margin-top:.5%;
-    padding:.5%;
+    padding:.5% 0 .5% 0;
 }
 
 #menu_3 a {
