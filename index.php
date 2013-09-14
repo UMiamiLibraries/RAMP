@@ -3,7 +3,17 @@ include('header.php');
 ?>
 
 <div class="pure-g-r">
-
+  <div class="pure-u-1">
+    <div class="content_box">
+    <h1>Welcome to RAMP</h1>
+    <br/>
+    <br/>
+    <p>The Remixing Archival Metadata Project (RAMP) is a lightweight web-based editing tool that is intended to let users do two things: (1) generate enhanced authority records for creators of archival collections and (2) publish the content of those records as Wikipedia pages.</p>
+    <br/>
+    <br/>
+    <p>The RAMP editor can extract biographical and historical data from <a href="http://www.loc.gov/ead/" title="Link to Library of Congress EAD page" target="_blank">EAD finding aids</a> to create new authority records for persons, corporate bodies, and families associated with archival and special collections (using the <a href="http://www3.iath.virginia.edu/eac/cpf/tagLibrary/cpfTagLibrary.html" title="Link to EAC-CPF tag library" target="_blank">EAC-CPF format</a>). It can then let users enhance those records with additional data from sources like <a href="http://viaf.org" title="Link to the Virtual International Authority File" target="_blank">VIAF</a> and <a href="http://worldcat.org/identities/" title="Link to WorldCat Identities" target="_blank">WorldCat Identities</a>. Finally, it can transform those records into wiki markup so that users can edit them directly, merge them with any existing Wikipedia pages, and publish them to <a href="http://en.wikipedia.org" title="Link to English Wikipedia" target="_blank">Wikipedia</a> through its API.</p>    
+    </div>   
+  </div>
   <div class="pure-u-1">
   <div class="content_box">
   <img src="style/images/convert.png" alt="Convert" width="24px" height="24px"/>

@@ -106,12 +106,7 @@ $(document).ready(function() {
 	$('.arrows').show();
 	$('.save_arrow').css({"display":"inline-block"});
 	
-        $('#ingest_buttons').prepend('    <p id="start_here" style=" \
-    float: left; \
-    margin-top: 1%; \
-    margin-left: .5%; \
-    font-weight:900; \
-     "> Start Here: </p>');
+        $('#ingest_buttons').prepend('    <p id="start_here"> Start here: </p>');
 	
 	$('#edit_controls').append('<form id="download_form" method="post" target="_blank" action="download.php"><button id="download_xml" class="pure-button pure-button-primary" type="submit" name="xml" value="">Export Current EAC-CPF</button></form>');
 	

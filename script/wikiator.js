@@ -198,16 +198,16 @@ function searchWiki( lstrSearch )
 */
 function displayWikiSearch( lobjTitles, callback )
 {
-	var lstrHTML = "<div class=\"form_container\" style=\"top: 50px;\"><div class=\"user_help_form\">";
+	var lstrHTML = "<div class=\"form_container\" style=\"top: 50px;\"><div class=\"user_help_form\" style=\"line-height:1em;\">";
 	lstrHTML += "<button id=\"get_chosen_wiki\" class=\"pure-button pure-button-secondary\">Use Selected Title</button>";
-	lstrHTML += "<button id=\"get_chosen_wiki_no_match\" class=\"pure-button pure-button-secondary\">No Match (create new)</button>";
+	lstrHTML += "<button id=\"get_chosen_wiki_no_match\" class=\"pure-button pure-button-secondary\">No Match (Create New)</button>";
 
-	lstrHTML += "<div id=\"form_wrapper\"><h3>Please Choose Title</h3><div class=\"form_note\">Wikipedia&#39;s search index is updated every morning. New pages will take a day to show up in index.</div></div>";
+	lstrHTML += "<div id=\"form_wrapper\"><h2>Please choose page to import from Wikipedia:</h2><div class=\"form_note\">Wikipedia&#39;s search index is updated every morning. New pages will take a day to show up in the index.</div></div>";
 
 	for(var i = 0; i < lobjTitles.length; i++)
 	{
 		lstrHTML += "<input type=\"radio\" name=\"chosen_title\" value=\"";
-		lstrHTML += lobjTitles[i].title + "\" /> " + lobjTitles[i]['title'] + "<br />" + html_decode(lobjTitles[i]['snippet']) + "<br /><br />";
+		lstrHTML += lobjTitles[i].title + "\" /><span style=\"font-weight:800;\">" + lobjTitles[i]['title'] + "</span><br /><dl><dd style=\"margin-left:3px;\">" + html_decode(lobjTitles[i]['snippet']) + "</dd></dl><br /><br />";
 	}
 
 
@@ -261,7 +261,7 @@ function getWiki( lstrTitle )
 		$('#wikieditor').append("<div class=\"wiki_container\" style='margin: 1%; margin-top: 5%;'> \
 			<button id=\"gtselectedtext\" class=\"pure-button pure-button-secondary\">&gt;</button><br /> \
 			<button id=\"ltselectedtext\" class=\"pure-button pure-button-secondary\">&lt;</button></div> \
-			<div class=\"wiki_container\"><textarea id=\"get_wiki_text\"></textarea></div>");
+			<div class=\"wiki_container\"><h1 id=\"wiki_article\">Wikipedia article (to be submitted to Wikipedia)</h1><textarea id=\"get_wiki_text\"></textarea></div>");
 		$('#get_wiki_text').height($('#wikimarkup').height());
 
 		$('#loading-image').remove();

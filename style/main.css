@@ -45,11 +45,30 @@ table {
 
 .user_help_form {
     padding:.5em;
+	font-size:1.25em;
+	line-height:1.5em;
+	left: 50%;
+    margin-left: -250px;
+    position: absolute;
+    top: 0;
+    width: 600px;
+    /*
+    height: 400px;
+    overflow: auto;
+    margin-top:5%;
+    padding-bottom: 20%;
+    */
+    height: 1000px;
 }
 
-.user_help_form h3 {
+.user_help_form h2 {
     font-weight:bold;
     padding:.25em;    
+    margin:0 0 1% -2px;
+}
+
+.user_help_form a {
+
 }
 
 #select_all {
@@ -145,7 +164,7 @@ body {
 
 }
 #logo {
-    margin-bottom: -14px;
+    margin-bottom: -12px;
     padding-bottom:.25em;	
     width: 150px;
 /* height: 10%; */
@@ -247,10 +266,10 @@ ul, menu, dir {
 }
 
 #validation_text {
-    margin-left:.5%;
+    margin-left:.25%;
     margin-top:.5%;
     margin-bottom:.5%;
-    font-size:1.3em;
+    font-size:1em;
     display:inline-block;
 
 }
@@ -260,7 +279,7 @@ ul, menu, dir {
     margin-left: 0px;
     width: 100%;
     margin-bottom:.5%;
-    margin-top:1%;
+    margin-top:.5%;
 }
 
 
@@ -285,21 +304,7 @@ ul, menu, dir {
 
 }
 
-.user_help_form
-{
-    left: 50%;
-    margin-left: -250px;
-    position: absolute;
-    top: 0;
-    width: 500px;
-    /*
-    height: 400px;
-    overflow: auto;
-    margin-top:5%;
-    padding-bottom: 20%;
-    */
-    height: 1000px;
-}
+
 
 .form_container
 {
@@ -427,6 +432,10 @@ textarea:focus {
 .pure_button 
 {
     margin-top:1%;
+}
+.pure-u-1 p {
+	margin-left:1.25em;
+	font-size:1.25em;
 }
 
 #get_wiki_text
@@ -662,6 +671,18 @@ h1 {
     font-weight:300;
 
     /* margin-bottom: 1%; */
+}
+
+h1#entity_name {
+	margin-bottom:.5%;
+}
+
+#start_here {
+	font-size:1.25em;
+	float: left; 
+	margin-top:.8%;
+    margin-left: .5%; 
+    font-weight:900; 
 }
 
 .save_button {
@@ -955,9 +976,6 @@ background:#0078e7;
   margin:1% 0 1% 1%;
 }
 
-.user_help_form h3 {
-    margin:0 0 1% -2px;    
-}
 #form_wrapper {
     margin:1% 0 2% 0;
 }
@@ -980,7 +998,7 @@ color:white;
   background:#0078e7;
 }
 
-#instruction {
+.instruction {
     margin-right: 70%;
 margin-left: 1%;
 margin-top: 1%;
