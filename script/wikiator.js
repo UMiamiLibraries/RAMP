@@ -198,7 +198,7 @@ function searchWiki( lstrSearch )
 */
 function displayWikiSearch( lobjTitles, callback )
 {
-	var lstrHTML = "<div class=\"form_container\" style=\"top: 50px;\"><div class=\"user_help_form\" style=\"line-height:1em;\">";
+	var lstrHTML = "<div class=\"form_container\" style=\"top: 45px;\"><div class=\"user_help_form\" style=\"line-height:1em;\">";
 	lstrHTML += "<button id=\"get_chosen_wiki\" class=\"pure-button pure-button-secondary\">Use Selected Title</button>";
 	lstrHTML += "<button id=\"get_chosen_wiki_no_match\" class=\"pure-button pure-button-secondary\">No Match (Create New)</button>";
 
