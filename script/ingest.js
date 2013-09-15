@@ -312,7 +312,7 @@ function ingest_viaf_Relations( lobjEac, callback )
 		    //apply regex to elements to find all possible names to search viaf for relations
 		    //lobjPossibleTitles = lstrParagraph.match(/["\u201D\u201C]([^"\u201D\u201C]+)["\u201D\u201C]/g);
 		    //lstrParagraph = lstrParagraph.replace(/["\u201D\u201C]([^"\u201D\u201C]+)["\u201D\u201C]/g, "");
-		    var lobjPossibleNames = lstrParagraph.match(/((\sde\s)*?[A-Z\u00C1\u00C9\u00CD\u00D3\u00DA\u00DC\u00D6][a-z\u00E1\u00E9\u00ED\u00F3\u00FA\u00FC\u00F1\-']+(\s[0-9][0-9])?([,]?)(\sde\sla|\sde\s|\sdel|\sde)?\s*([A-Z\u00C1\u00C9\u00CD\u00D3\u00DA\u00DC\u00D6][.]\s*)?(y\sdel\s|y\sde\sla\s|de\sla\s|del\s|de\slos\s|e\s|y\s|de\s)?){2,8}/g);
+		    var lobjPossibleNames = lstrParagraph.match(/((\sde\s)*?[A-Z\u00C1\u00C9\u00CD\u00D3\u00DA\u00DC\u00D6][a-z\u00E1\u00E9\u00ED\u00F3\u00FA\u00FC\u00F1\-']+(\s[0-9][0-9])?([,]?)(\sde\sla|\sde\s|\sdel|\sde)?\s*([A-Z\u00C1\u00C9\u00CD\u00D3\u00DA\u00DC\u00D6][.]\s*)?(y\sdel\s|y\sde\sla\s|de\sla\s|del\s|de\slos\s|e\s|y\s|de\s)?){2,6}/g);
 
 		    if( lobjPossibleNames != null )
 		    {
