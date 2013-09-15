@@ -297,7 +297,7 @@ function ingest_viaf_Relations( lobjEac, callback )
 		//lobjSpanList = lobjSpanList.concat(lobjEac.getElementList('//*[local-name()=\'cpfDescription\']/*[local-name()=\'description\']/*[local-name()=\'biogHist\']/*[local-name()=\'p\']//*[local-name()=\'span\']'));
 		var lobjUnitTitleList = lobjead.getElementList('//*[local-name()=\'unittitle\']');
 
-		lobjParagraphList = lobjParagraphList.concat(lobjUnitTitleList);
+		//lobjParagraphList = lobjParagraphList.concat(lobjUnitTitleList);
 
 		for(var i = 0; i < lobjParagraphList.length; i++)
 		{
@@ -312,26 +312,27 @@ function ingest_viaf_Relations( lobjEac, callback )
 		    //apply regex to elements to find all possible names to search viaf for relations
 		    //lobjPossibleTitles = lstrParagraph.match(/["\u201D\u201C]([^"\u201D\u201C]+)["\u201D\u201C]/g);
 		    //lstrParagraph = lstrParagraph.replace(/["\u201D\u201C]([^"\u201D\u201C]+)["\u201D\u201C]/g, "");
-		    var lobjPossibleNames = lstrParagraph.match(/((\sde\s)*?[A-Z\u00C1\u00C9\u00CD\u00D3\u00DA\u00DC\u00D6][a-z\u00E1\u00E9\u00ED\u00F3\u00FA\u00FC\u00F1\-']+(\s[0-9][0-9])?([,]?)(\sde\sla|\sde\s|\sdel|\sde)?\s*([A-Z\u00C1\u00C9\u00CD\u00D3\u00DA\u00DC\u00D6][.]\s*)?(y\sdel\s|y\sde\sla\s|de\sla\s|del\s|de\slos\s|e\s|y\s|de\s)?){2,6}/g);
+		    var lobjPossibleNames = lstrParagraph.match(/((\sde\s)*?[A-Z\u00C0\u00C1\u00C3\u00C7\u00C9\u00CA\u00CD\u00D3\u00DA\u00DC\u00D4\u00D5\u00D6][a-z\u00E0\u00E1\u00E3\u00E7\u00E9\u00EA\u00ED\u00F0\u00F3\u00F4\u00F5\u00FA\u00FC\u00F1\-']+(\s[0-9][0-9])?([,]*?)(\sde\sla|\sde\s|\sdel|\sde)?\s*([A-Z\u00C1\u00C9\u00CD\u00D3\u00DA\u00DC\u00D6][.]\s*)*(y\sdel\s|y\sde\sla\s|de\sla\s|del\s|de\slos\s|e\s|y\s|de\s)?){2,8}/g);
 
 		    if( lobjPossibleNames != null )
 		    {
-			for( var j = 0; j < lobjPossibleNames.length; j++ )
-			{
-			    var lstrPossibleName = lobjPossibleNames[j];
-			    lstrPossibleName = lstrPossibleName.trim();
-                
-                // Strip any trailing commas.
-			    var lstrLastChar = lstrPossibleName.substr( lstrPossibleName.length - 1 );
-			    
-			    if( lstrLastChar == "," )
-                {
-                    lstrPossibleName = lstrPossibleName.slice(0, -1);
-                }
-                                                              
-			    PossibleNameList.push( lstrPossibleName );
-			}
+     			for( var j = 0; j < lobjPossibleNames.length; j++ )
+     			{
+     			    var lstrPossibleName = lobjPossibleNames[j];
+     			    lstrPossibleName = lstrPossibleName.trim();
+                     
+                     // Strip any trailing commas.
+     			    var lstrLastChar = lstrPossibleName.substr( lstrPossibleName.length - 1 );
+     			    
+     			    if( lstrLastChar == "," )
+                     {
+                         lstrPossibleName = lstrPossibleName.slice(0, -1);
+                     }
+                                                                   
+     			    PossibleNameList.push( lstrPossibleName );
+     			}
 		    }
+		    
 
 		    /*if( lobjPossibleTitles != null )
 		     {
@@ -346,6 +347,58 @@ function ingest_viaf_Relations( lobjEac, callback )
 		     }
 		     }*/
 		}
+		
+		
+		for(var i = 0; i < lobjUnitTitleList.length; i++)
+		{
+		    if( typeof lobjUnitTitleList[i].childNodes[0] == 'undefined' )
+			continue;
+
+		    var lstrParagraph = lobjUnitTitleList[i].childNodes[0].nodeValue;
+
+		    if( lstrParagraph == null)
+			continue;
+
+		    //apply regex to elements to find all possible names to search viaf for relations
+		    //lobjPossibleTitles = lstrParagraph.match(/["\u201D\u201C]([^"\u201D\u201C]+)["\u201D\u201C]/g);
+		    //lstrParagraph = lstrParagraph.replace(/["\u201D\u201C]([^"\u201D\u201C]+)["\u201D\u201C]/g, "");
+		    var lobjPossibleNames = lstrParagraph.match(/((\sde\s)*?[A-Z\u00C0\u00C1\u00C3\u00C7\u00C9\u00CA\u00CD\u00D3\u00DA\u00DC\u00D4\u00D5\u00D6][a-z\u00E0\u00E1\u00E3\u00E7\u00E9\u00EA\u00ED\u00F0\u00F3\u00F4\u00F5\u00FA\u00FC\u00F1\-']+(\s[0-9][0-9])?([,]*?)(\sde\sla|\sde\s|\sdel|\sde)?\s*([A-Z\u00C1\u00C9\u00CD\u00D3\u00DA\u00DC\u00D6][.]\s*)*(y\sdel\s|y\sde\sla\s|de\sla\s|del\s|de\slos\s|e\s|y\s|de\s|[,]\s)?){2,8}/g);
+
+		    if( lobjPossibleNames != null )
+		    {
+     			for( var j = 0; j < lobjPossibleNames.length; j++ )
+     			{
+     			    var lstrPossibleName = lobjPossibleNames[j];
+     			    lstrPossibleName = lstrPossibleName.trim();
+                     
+                     // Strip any trailing commas.
+     			    var lstrLastChar = lstrPossibleName.substr( lstrPossibleName.length - 1 );
+     			    
+     			    if( lstrLastChar == "," )
+                     {
+                         lstrPossibleName = lstrPossibleName.slice(0, -1);
+                     }
+                                                                   
+     			    PossibleNameList.push( lstrPossibleName );
+     			}
+		    }
+		    
+
+		    /*if( lobjPossibleTitles != null )
+		     {
+		     for( j = 0; j < lobjPossibleTitles.length; j++ )
+		     {
+		     var lstrPossibleTitle = lobjPossibleTitles[j];
+		     lstrPossibleTitle = lstrPossibleTitle.trim();
+		     lstrPossibleTitle = lstrPossibleTitle.replace(/["\u201D\u201C]/g, "");
+		     lstrPossibleTitle = lstrPossibleTitle.replace(/<span>|<\/span>/g, "");
+
+		     PossibleNameList.push( lstrPossibleTitle );
+		     }
+		     }*/
+		}
+		
+		
 
 		/*for(var i = 0; i < lobjSpanList.length; i++)
 		 {
