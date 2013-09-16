@@ -18,7 +18,7 @@ include('header.php');
  
 
   <div id="edit_controls">
-  <h1 class="main_edit" id="entity_name"></h1>
+  <h1 class="main_edit wiki_edit" id="entity_name"></h1>
   
     
   <span id="ingest_buttons" class="main_edit">
@@ -89,12 +89,12 @@ print ("</select>");
 ?>
 
 </div>
- 
+
+
 <div id="wiki_switch"> 
   <button id="wiki_switch_button" class="pure-button pure-button-primary">Wiki</button> 
   <button id="xml_switch_button" class="pure-button pure-button-primary">XML</button> 
-
-  </div>
+</div>
 
 
   <div id="validation" class="main_edit">

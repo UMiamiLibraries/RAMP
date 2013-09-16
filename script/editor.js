@@ -1,45 +1,19 @@
 $(document).ready(function() {
-    
-    // Save dialogs 
-
-
-    var $savedialog = $('<div></div>')
-    	.html('XML Saved')
-    	.dialog({
-    	    autoOpen: false,
-    	    buttons: {
-		"OK" : function () {
-		    $( this ).dialog( "close" );
-		}
-	    }
-
-    	});
-
-
-    var $savewikidialog = $('<div></div>')
-    	.html('Your local Wikipedia article has been saved.')
-    	.dialog({
-    	    autoOpen: false,
-    	    buttons: {
-		"OK" : function () {
-		    $( this ).dialog( "close" );
-		}
-	    }
-	    
-    	});
-
+        
     function cookie_check () {
 
         if (getCookie('ead_file')) {
 
             if (getCookie('ead_file') === '""') {
-
-                $('#entity_name').html('Please select a record to edit from the menu.');
+		
+                
 		
 		$('#ead_files').hide();
 		$('.main_edit').hide();
                 $('#editor_mask').hide();
 		
+		$('#entity_name').html('Please select a record to edit from the menu.');
+		$('#entity_name').show();
             } else {
 		
                 console.log(getCookie('ead_file'));
@@ -60,7 +34,7 @@ $(document).ready(function() {
 	$('#xml_switch_button').css({"background":"gray"});
 
 	$('.main_edit').show();
-        
+	
 	// When one of the files is selected...
 	eac_xml_path = eac_xml_file;
 
@@ -91,6 +65,9 @@ $(document).ready(function() {
 
 	    // Check to see if there is some existing wiki markup
 	    //  wikiCheck();
+	    
+	
+
    	});
 
 
@@ -450,6 +427,42 @@ $(document).ready(function() {
 	$('#editor_container').css ( { "height" : ace_height });
 
     });
+
+    
+
+
+    // Save dialogs 
+
+
+    var $savedialog = $('<div></div>')
+    	.html('XML Saved')
+    	.dialog({
+    	    autoOpen: false,
+    	    buttons: {
+		"OK" : function () {
+		    $( this ).dialog( "close" );
+		}
+	    }
+
+    	});
+
+
+    var $savewikidialog = $('<div></div>')
+    	.html('Your local Wikipedia article has been saved.')
+    	.dialog({
+    	    autoOpen: false,
+    	    buttons: {
+		"OK" : function () {
+		    $( this ).dialog( "close" );
+		}
+	    }
+	    
+    	});
+    
+     
+
+
+
 
 });
 
