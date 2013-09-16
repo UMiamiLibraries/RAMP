@@ -61,6 +61,13 @@ table {
     height: 1000px;
 }
 
+/*
+.user_help_form_table {
+    height:600px;
+    overflow-y:scroll;
+}
+*/
+
 .user_help_form h2 {
     font-weight:bold;
     padding:.25em;    
@@ -313,7 +320,7 @@ ul, menu, dir {
     position: absolute;
     top: 50px;
     width: 100%;
-    height: 1000px;
+    height: 900px;
     z-index: 500;
 }
 

@@ -441,6 +441,14 @@ function ingest_viaf_Relations( lobjEac, callback )
 							   try
 							   {
 							       var lobjData = JSON.parse(response);
+							       // If no results, notify user (added by timathom)
+							       if( lobjData.length == 0 )
+     							   {
+     							       callback( 'No matches for possible names found!' ); //finish process if no results found
+     								   $('.viaf_arrow').html("&#10003;");
+     								   $('#loading-image').remove();
+     								   return;
+     						       }
 							   }
 							   catch(e) //response should be JSON so if not, throw error
 							   {
@@ -493,7 +501,7 @@ function ingest_viaf_Relations( lobjEac, callback )
 function display_possible_name_form( lobjPossibleNames, callback )
 {        
     var lstrHTML = "<div class=\"form_container\">";
-    lstrHTML += "<h2 class=\"instruction\" style=\"font-weight:800; font-size:1.5em;\">Named Entity Recognition</h2><p class=\"instruction\">These names have been extracted from this entity\'s finding aid or biography. Select names that you would like to look up in VIAF.</p><p class=\"instruction\">Each name can be edited to improve the search query, if appropriate.</p><p class=\"instruction\">These names will be used to create &lt;cpfRelation&gt; elements, with associated VIAF IDs, in the EAC-CPF record.</p>";
+    lstrHTML += "<h2 class=\"instruction\" style=\"font-weight:800; font-size:1.5em;\">Named Entity Recognition</h2><p class=\"instruction\">These names have been extracted from this entity\'s finding aid or biography. Select names that you would like to look up in VIAF.</p><p class=\"instruction\">Each name can be edited to improve the search query, if appropriate. If names need to be split, or if you have additional names to add, you may click \"Add New Row\" to input appropriate data.</p><p class=\"instruction\">These names will be used to create &lt;cpfRelation&gt; elements, with associated VIAF IDs, in the EAC-CPF record.</p>";
 
 
     lstrHTML += "<button id=\"ingest_viaf_chosen_names_relations\" class=\"pure-button ingest-ok pure-button-secondary\">Use Selected Names</button>";
@@ -506,13 +514,13 @@ function display_possible_name_form( lobjPossibleNames, callback )
     lstrHTML += "<input type=\"checkbox\" id=\"select_all\" value=\"\"><span style=\"font-weight:800; margin-left:4px;\">Select all</span><br />";
     
     // HTML modified by timathom to allow users to edit Named Entity Recognition results.
-    lstrHTML += "<table><tr>";
+    lstrHTML += "<table class=\"user_help_form_table\"><tr>";
     
     for(var i = 0; i < lobjPossibleNames.length; i++)
     {                
     	lstrHTML += "<td><input type=\"checkbox\" class=\"ner_check\" name=\"chosen_names\" value=\"\"/></td>";
     	lstrHTML += "<td><input type=\"text\" class=\"ner_text\" name=\"modified_names\" size=\"40\" value=\"" + lobjPossibleNames[i] + "\"/></td>";
-        lstrHTML += "<td><input type=\"button\" name=\"add\" value=\"Add Name\" class=\"ner_empty_add pure-button pure-button-secondary\"/><input type=\"button\" name=\"rm\" value=\"Delete\" class=\"ner_empty_rm pure-button pure-button-secondary\"/></td></tr>";	
+        lstrHTML += "<td><input type=\"button\" name=\"add\" value=\"Add New Row\" class=\"ner_empty_add pure-button pure-button-secondary\"/></td></tr>";	
     }
 
     lstrHTML += "</tr></table>"
@@ -521,17 +529,16 @@ function display_possible_name_form( lobjPossibleNames, callback )
 
     $('body').append(lstrHTML);
     
-    // jQuery added by timathom to include "Add Name" and "Delete" buttons.
+    // jQuery added by timathom to include "Add New Row" and "Delete Row" buttons and functionality.
     $("input.ner_empty_add").on('click', function() {        
-        var tr = "<tr><td><input type=\"checkbox\" class=\"ner_check\" name=\"chosen_names\" value=\"\"/></td><td><input type=\"text\" class=\"ner_text\" name=\"modified_names\" size=\"40\" value=\"\" /></td><td><input type=\"button\" name=\"rm\" value=\"Delete\" class=\"ner_empty_rm pure-button pure-button-secondary\"/></td></tr>";         
+        var tr = "<tr><td><input type=\"checkbox\" class=\"ner_check\" name=\"chosen_names\" value=\"\"/></td><td><input type=\"text\" class=\"ner_text\" name=\"modified_names\" size=\"40\" value=\"\" /></td><td><input type=\"button\" name=\"rm\" value=\"Delete Row\" class=\"ner_empty_rm pure-button pure-button-secondary\"/></td></tr>";         
         $(this).closest("tr").after(tr);
         
         $("input.ner_empty_rm").on('click', function() {        
             $(this).closest("tr").remove();
         });        
     });
-    
-    
+        
     setupSelectAll('input#select_all'); //able to select all checkboxes
     jQuery('html,body').animate({scrollTop:0},0); //scroll to top to view form correctly    
 
