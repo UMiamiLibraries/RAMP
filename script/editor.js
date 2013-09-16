@@ -1,37 +1,5 @@
 $(document).ready(function() {
-    
-    // Save dialogs 
-
-
-    var $savedialog = $('<div></div>')
-    	.html('XML Saved')
-    	.dialog({
-    	    autoOpen: false,
-    	    buttons: {
-		"OK" : function () {
-		    $( this ).dialog( "close" );
-		}
-	    }
-
-    	});
-
-
-    var $savewikidialog = $('<div></div>')
-    	.html('Your local Wikipedia article has been saved.')
-    	.dialog({
-    	    autoOpen: false,
-    	    buttons: {
-		"OK" : function () {
-		    $( this ).dialog( "close" );
-		}
-	    }
-	    
-    	});
-    
-     
-    
-
-
+        
     function cookie_check () {
 
         if (getCookie('ead_file')) {
@@ -465,6 +433,37 @@ $(document).ready(function() {
     });
 
     
+
+
+    // Save dialogs 
+
+
+    var $savedialog = $('<div></div>')
+    	.html('XML Saved')
+    	.dialog({
+    	    autoOpen: false,
+    	    buttons: {
+		"OK" : function () {
+		    $( this ).dialog( "close" );
+		}
+	    }
+
+    	});
+
+
+    var $savewikidialog = $('<div></div>')
+    	.html('Your local Wikipedia article has been saved.')
+    	.dialog({
+    	    autoOpen: false,
+    	    buttons: {
+		"OK" : function () {
+		    $( this ).dialog( "close" );
+		}
+	    }
+	    
+    	});
+    
+     
 
 
 
