@@ -477,7 +477,8 @@ function ingest_viaf_Relations( lobjEac, callback )
 											 {
 											     callback("Done!"); //finish process if no results chosen
 											     $('.viaf_arrow').html("&#10003;");
-											     $('#loading-image').remove();
+											     $('#loading-image').remove(); 
+											     $('main_edit').show();
 											     return;
 											 }
 
@@ -737,7 +738,7 @@ function ingest_worldcat_elements( lobjEac, lstrName, callback )
 
 																 
 																 //	 $('#convert_to_wiki').show();
-
+																 $('main_edit').show();
 															     });
 										     });
 									 });
