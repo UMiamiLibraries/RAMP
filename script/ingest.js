@@ -226,7 +226,7 @@ function display_possible_viaf_form( lobjPossibleViaf, callback )
 {
     var lstrHTML = "<div class=\"form_container\">";
 
-    lstrHTML += "<h2 class=\"instruction\" style=\"font-weight:800; font-size:1.5em;\">Authority Control</h2><p class=\"instruction\">The purpose of this step is to get a unique identifier from the Virtual International Authority File (<a href=\"http://viaf.org\" title=\"Link to the Virtual International Authority File\" target=\"_blank\">VIAF</a>) for the entity you are working with, and then do Named Entity Recognition to encode relationships.</p><p class=\"instruction\">The names on the right were retrieved from VIAF. Please examine them to select the best match for the entity you are working with.</p><p class=\"instruction\">If you click on a name, you will be taken to its VIAF page, which may include additional information that will help you decide whether it is an appropriate match.</p>";
+    lstrHTML += "<h2 class=\"instruction\" style=\"font-weight:800; font-size:1.5em;\">Authority Control</h2><p class=\"instruction\">The purpose of this step is to get a unique identifier from the Virtual International Authority File (<a href=\"http://viaf.org\" title=\"Link to the Virtual International Authority File\" target=\"_blank\">VIAF</a>) for the entity you are working with, and then do Named Entity Recognition on the text of the entity's bio or finding aid in order to encode relationships.</p><p class=\"instruction\">The list on the right was retrieved from VIAF. Please examine the name(s) to see whether there is an appropriate match for the entity you are working with.</p><p class=\"instruction\">If you click on a name, you will be taken to its VIAF page, which may include additional information that will help you decide whether it is an appropriate match.</p><p class=\"instruction\">If there is not a good match, click \"Cancel\" to proceed to the next step (Named Entity Recognition).</p>";
 
 
     lstrHTML += "<button id=\"ingest_viaf_chosen_viaf\" class=\"pure-button ingest-ok pure-button-secondary\">Use Selected VIAF</button>";
@@ -381,8 +381,7 @@ function ingest_viaf_Relations( lobjEac, callback )
                                                                    
      			    PossibleNameList.push( lstrPossibleName );
      			}
-		    }
-		    
+		    }		   
 
 		    /*if( lobjPossibleTitles != null )
 		     {
@@ -396,9 +395,7 @@ function ingest_viaf_Relations( lobjEac, callback )
 		     PossibleNameList.push( lstrPossibleTitle );
 		     }
 		     }*/
-		}
-		
-		
+		}			
 
 		/*for(var i = 0; i < lobjSpanList.length; i++)
 		 {
@@ -501,7 +498,7 @@ function ingest_viaf_Relations( lobjEac, callback )
 function display_possible_name_form( lobjPossibleNames, callback )
 {        
     var lstrHTML = "<div class=\"form_container\">";
-    lstrHTML += "<h2 class=\"instruction\" style=\"font-weight:800; font-size:1.5em;\">Named Entity Recognition</h2><p class=\"instruction\">These names have been extracted from this entity\'s finding aid or biography. Select names that you would like to look up in VIAF.</p><p class=\"instruction\">Each name can be edited to improve the search query, if appropriate. If names need to be split, or if you have additional names to add, you may click \"Add New Row\" to input appropriate data.</p><p class=\"instruction\">These names will be used to create &lt;cpfRelation&gt; elements, with associated VIAF IDs, in the EAC-CPF record.</p>";
+    lstrHTML += "<h2 class=\"instruction\" style=\"font-weight:800; font-size:1.5em;\">Named Entity Recognition</h2><p class=\"instruction\">These names have been extracted from this entity\'s finding aid or biography. Select additional names that you would like to look up in VIAF.</p><p class=\"instruction\">Note that geographical places are not included in VIAF and so should be skipped at this stage.</p><p class=\"instruction\">Each name can be edited to improve the search query, if appropriate. If names need to be split, or if you have additional names to add, you may click \"Add New Row\" to input appropriate data. It is best to enter new names where they would appear in alphabetical order (by first name).</p><p class=\"instruction\" style=\"font-style:italic\">Please note that if you select several names to look up in VIAF, your query may take a few seconds to run.</p><p class=\"instruction\">These names will be used to create &lt;cpfRelation&gt; elements, with associated VIAF IDs, in the EAC-CPF record.</p>";
 
 
     lstrHTML += "<button id=\"ingest_viaf_chosen_names_relations\" class=\"pure-button ingest-ok pure-button-secondary\">Use Selected Names</button>";
@@ -578,7 +575,7 @@ function display_viaf_results_form( lobjViafResults, callback )
 {    
     var lstrHTML = "<div class=\"form_container\">";
 
-    lstrHTML += "<h2 class=\"instruction\" style=\"font-weight:800; font-size:1.5em;\">Named Entity Recognition</h2><p class=\"instruction\">Based on your selections, these are the possible matches we were able to retrieve from VIAF. Results are sorted by how many holdings are associated with each name in VIAF.</p><p class=\"instruction\">Please note that you will need to verify these results. The first name listed may not be a correct match. When there are several possibilities listed, you may need to look at each one before choosing.</p><p class=\"instruction\">Some results are obviously unrelated, but others may be harder to differentiate. Be aware that even if a name seems to match your original selection, it may be a false hit.</p><p class=\"instruction\">When in doubt, please click on a name to visit its VIAF page and look for additional information. If a name already has a corresponding Wikipedia article (you should see a link from the VIAF page), check there to see whether a VIAF ID has been used, and then select the name that corresponds to that VIAF ID.</p>"
+    lstrHTML += "<h2 class=\"instruction\" style=\"font-weight:800; font-size:1.5em;\">Named Entity Recognition</h2><p class=\"instruction\">Based on your selections, these are the possible matches we were able to retrieve from VIAF. Results are sorted by how many individual holdings are associated with each name in the VIAF database.</p><p class=\"instruction\">Please note that you will need to verify these results. The first name listed for each entity may not be a correct match. When there are several possibilities, you may need to look at each one before choosing.</p><p class=\"instruction\">Some results are obviously unrelated, but others may be harder to differentiate. Be aware that even if a name seems to match your original selection, it may be a false hit.</p><p class=\"instruction\">When in doubt, please click on a name to visit its VIAF page and look for additional information. If a name already has a corresponding Wikipedia article (there may be a link from the VIAF page), check there to see which VIAF ID has been used, and then select the name that corresponds to that VIAF ID.</p>"
 
     lstrHTML += "<button id=\"ingest_viaf_add_relations\" class=\"pure-button ingest-ok pure-button-secondary\">Use Selected Results</button>";
     lstrHTML += "&nbsp;<button id=\"ingest_viaf_add_relations_cancel\" class=\"pure-button ingest-cancel pure-button-secondary\">Cancel</button>";
