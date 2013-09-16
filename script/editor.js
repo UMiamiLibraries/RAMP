@@ -37,13 +37,15 @@ $(document).ready(function() {
         if (getCookie('ead_file')) {
 
             if (getCookie('ead_file') === '""') {
-
-                $('#entity_name').html('Please select a record to edit from the menu.');
+		
+                
 		
 		$('#ead_files').hide();
 		$('.main_edit').hide();
                 $('#editor_mask').hide();
 		
+		$('#entity_name').html('Please select a record to edit from the menu.');
+		$('#entity_name').show();
             } else {
 		
                 console.log(getCookie('ead_file'));
