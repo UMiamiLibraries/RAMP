@@ -150,7 +150,7 @@ function ingest_viaf_NameEntry_Sources( lobjEac, lstrName, callback )
 
     
 
-    makePromptDialog('#dialog-form', 'Viaf name search?', function(dialog)
+    makePromptDialog('#dialog-form', 'VIAF name search?', function(dialog)
 		     {
 			 var lstrName = $('input[name="name"]').val();
 
@@ -201,14 +201,6 @@ function ingest_viaf_NameEntry_Sources( lobjEac, lstrName, callback )
 										     try
 										     {
 											 var lobjData = JSON.parse(response);
-											 // If no results, notify user (added by timathom)
- 										       if( lobjData.length == 0 )
- 			     							   {
- 			     							       callback( 'No matches for possible names found!' ); //finish process if no results found
- 			     								   $('.viaf_arrow').html("&#10003;");
- 			     								   $('#loading-image').remove();
- 			     								   return;
- 			     						       }
 										     }
 										     catch(e) //response should be JSON so if not, throw error
 										     {
@@ -463,15 +455,6 @@ function ingest_viaf_Relations( lobjEac, callback )
 							   try
 							   {
 							       var lobjData = JSON.parse(response);
-
-							         // If no results, notify user (added by timathom)
- 										       if( lobjData.length == 0 )
- 			     							   {
- 			     							       callback( 'No matches for possible names found!' ); //finish process if no results found
- 			     								   $('.viaf_arrow').html("&#10003;");
- 			     								   $('#loading-image').remove();
- 			     								   return;
- 			     						       }
 							   }
 							   catch(e) //response should be JSON so if not, throw error
 							   {
