@@ -1085,3 +1085,7 @@ float: right;
 margin-right: .5%;
 
 }
+
+.ui-dialog-titlebar-close {
+  visibility: hidden;
+}
