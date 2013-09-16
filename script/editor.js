@@ -35,10 +35,6 @@ $(document).ready(function() {
 
 	$('.main_edit').show();
 	
-	
-
-
-        
 	// When one of the files is selected...
 	eac_xml_path = eac_xml_file;
 
