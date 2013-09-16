@@ -19,7 +19,7 @@ include('header.php');
   <img src="style/images/convert.png" alt="Convert" width="24px" height="24px"/>
 
   <h1>Convert EAD Records Into EAC-CPF Records</h1>
- <ol><li><em>1.</em> FTP your EAD files into the correct folder on the RAMP server</li>
+ <ol><li><em>1.</em> Upload your EAD files into the correct folder on the RAMP server</li>
   <li><em>2.</em> Check the path is correct and then click 'Convert.'  This will transform the EAD files
 into EAC-CPF records, and store both original and newly created files in the RAMP database.</li>
 <li><em>3.</em> You may now use the RAMP editor (below) to enhance and publish your records. </li>

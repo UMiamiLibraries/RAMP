@@ -140,12 +140,15 @@ header {
 
     display:inline-block;
 
+    margin-left: 1%;
+
 }
 
 .content_box h1 {
     display: inline-block;
-    margin-top:.5%;
+    /* margin-top:.5%; */
 
+    margin-left: 1%;
 }
 
 body {
@@ -435,7 +438,7 @@ textarea:focus {
 }
 .pure-u-1 p {
 	margin-left:1.25em;
-	font-size:1.25em;
+	font-size: 1em;
 }
 
 #get_wiki_text
@@ -788,7 +791,7 @@ html, body {
 
 .content_box {
 
-    padding: 1.5%;
+    padding: 3%;
 }
 
 
@@ -1054,8 +1057,9 @@ font-weight:bold;
 
 #loading-image {
 display:block;
-margin:1%;
+margin-left: 40%;
 
+margin-top: 5%;
 }
 
 #download_xml {

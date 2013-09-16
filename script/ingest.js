@@ -1,8 +1,13 @@
+
 $(document).ready(function()
 		  {
 		      //registrer click event that will start viaf ingestion
 		      $('#ingest_viaf').on('click', function()
+
+					   
+
 					   {
+					       $('.main_edit').hide();
 					       
 					       
 					       $('#main_content').prepend('<img id="loading-image" src="style/images/loading.gif" alt="loading"/>');
@@ -17,7 +22,8 @@ $(document).ready(function()
 
 						   $('#loading-image').remove();
 						   $('.ingest_button').show();
-						   
+
+						   $('.main_edit').show();
 						   return;
 					       }
 
@@ -26,6 +32,7 @@ $(document).ready(function()
 						   //xml must be valid in order for viaf ingestion to begin
 						   if(lboolValid)
 						   {
+						       
 						       var lobjeac = new eac();
 						       lobjeac.loadXMLString( lstrXML );
 
@@ -44,6 +51,7 @@ $(document).ready(function()
 											      //    $('#loading-image').remove();
 											      //commented out by dgonzalez because ingest can be done  multiple times
 											      //$('#ingest_viaf').attr("disabled", "disabled");
+											    
 											      $('.ingest_button').show();
 											  });
 										      });
@@ -54,6 +62,7 @@ $(document).ready(function()
 						       makeDialog('#dialog', 'Error!');
 
 						       $('#loading-image').remove();
+						       $('.main_edit').show();
 						       $('.ingest_button').show();
 						   }
 					       });
@@ -61,10 +70,13 @@ $(document).ready(function()
 
 		      //registrer click event that will start worlcat ingestion
 		      $('#ingest_worldcat').on('click', function()
+
 					       {
+
+						   $('.main_edit').hide();
 						   
 						   $('#main_content').prepend('<img id="loading-image" src="style/images/loading.gif" alt="loading"/>');
-
+						   
 						   var lstrXML = editor.getValue();
 
 						   //cannot start ingestion without XML being loaded
@@ -74,6 +86,7 @@ $(document).ready(function()
 						       makeDialog('#dialog', 'Error!'); //display error
 
 						       $('#loading-image').remove();
+						       $('main_edit').show();
 						       
 						       return;
 						   }
@@ -83,7 +96,7 @@ $(document).ready(function()
 						       //xml must be valid in order for worlcat ingestion to begin
 						       if(lboolValid)
 						       {
-							 
+							   
 							   var lobjeac = new eac();
 							   lobjeac.loadXMLString( lstrXML );
 
@@ -103,6 +116,7 @@ $(document).ready(function()
 
 											 $('#loading-image').remove();
 											 $('.ingest_button').show();
+											 $('.main_edit').show();
 										     });
 						       }else
 						       {
@@ -111,7 +125,7 @@ $(document).ready(function()
 							   makeDialog('#dialog', 'Error!');
 
 							   $('#loading-image').remove();
-							   
+							   $('.main_edit').show();
 						       }
 						   });
 					       });
@@ -125,13 +139,13 @@ function ingest_viaf_NameEntry_Sources( lobjEac, lstrName, callback )
 {
     //dialog form to confirm search string to use to search viaf
     $('body').append("<div id=\"dialog-form\" title=\"Viaf Search\"> \
-		     <p class=\"validate-prompt\">Cannot be blank!</p> \
-		     <form> \
-		     <fieldset> \
-		     <label for=\"name\">Name</label> \
-		     <input type=\"text\" name=\"name\" id=\"name\" class=\"text ui-widget-content ui-corner-all\" value=\"" + decode_utf8(lstrName) + "\"/> \
-		     </fieldset> \
-		     </form></div>");
+<p class=\"validate-prompt\">Cannot be blank!</p> \
+<form> \
+<fieldset> \
+<label for=\"name\">Name</label> \
+<input type=\"text\" name=\"name\" id=\"name\" class=\"text ui-widget-content ui-corner-all\" value=\"" + decode_utf8(lstrName) + "\"/> \
+</fieldset> \
+</form></div>");
 
     $('#loading-image').remove();
 
@@ -151,7 +165,8 @@ function ingest_viaf_NameEntry_Sources( lobjEac, lstrName, callback )
         		     //close dialog
         		     $(dialog).dialog("close");
 			     $(dialog).remove();
-
+			     
+			  
 			     
 			     $('#main_content').prepend('<img id="loading-image" src="style/images/loading.gif" alt="loading"/>');
 
@@ -320,32 +335,32 @@ function ingest_viaf_Relations( lobjEac, callback )
      			{
      			    var lstrPossibleName = lobjPossibleNames[j];
      			    lstrPossibleName = lstrPossibleName.trim();
-                     
-                     // Strip any trailing commas.
+			    
+			    // Strip any trailing commas.
      			    var lstrLastChar = lstrPossibleName.substr( lstrPossibleName.length - 1 );
      			    
      			    if( lstrLastChar == "," )
-                     {
-                         lstrPossibleName = lstrPossibleName.slice(0, -1);
-                     }
-                                                                   
+			    {
+				lstrPossibleName = lstrPossibleName.slice(0, -1);
+			    }
+                            
      			    PossibleNameList.push( lstrPossibleName );
      			}
 		    }
 		    
 
 		    /*if( lobjPossibleTitles != null )
-		     {
-		     for( j = 0; j < lobjPossibleTitles.length; j++ )
-		     {
-		     var lstrPossibleTitle = lobjPossibleTitles[j];
-		     lstrPossibleTitle = lstrPossibleTitle.trim();
-		     lstrPossibleTitle = lstrPossibleTitle.replace(/["\u201D\u201C]/g, "");
-		     lstrPossibleTitle = lstrPossibleTitle.replace(/<span>|<\/span>/g, "");
+		      {
+		      for( j = 0; j < lobjPossibleTitles.length; j++ )
+		      {
+		      var lstrPossibleTitle = lobjPossibleTitles[j];
+		      lstrPossibleTitle = lstrPossibleTitle.trim();
+		      lstrPossibleTitle = lstrPossibleTitle.replace(/["\u201D\u201C]/g, "");
+		      lstrPossibleTitle = lstrPossibleTitle.replace(/<span>|<\/span>/g, "");
 
-		     PossibleNameList.push( lstrPossibleTitle );
-		     }
-		     }*/
+		      PossibleNameList.push( lstrPossibleTitle );
+		      }
+		      }*/
 		}
 		
 		
@@ -370,46 +385,46 @@ function ingest_viaf_Relations( lobjEac, callback )
      			{
      			    var lstrPossibleName = lobjPossibleNames[j];
      			    lstrPossibleName = lstrPossibleName.trim();
-                     
-                     // Strip any trailing commas.
+			    
+			    // Strip any trailing commas.
      			    var lstrLastChar = lstrPossibleName.substr( lstrPossibleName.length - 1 );
      			    
      			    if( lstrLastChar == "," )
-                     {
-                         lstrPossibleName = lstrPossibleName.slice(0, -1);
-                     }
-                                                                   
+			    {
+				lstrPossibleName = lstrPossibleName.slice(0, -1);
+			    }
+                            
      			    PossibleNameList.push( lstrPossibleName );
      			}
 		    }
 		    
 
 		    /*if( lobjPossibleTitles != null )
-		     {
-		     for( j = 0; j < lobjPossibleTitles.length; j++ )
-		     {
-		     var lstrPossibleTitle = lobjPossibleTitles[j];
-		     lstrPossibleTitle = lstrPossibleTitle.trim();
-		     lstrPossibleTitle = lstrPossibleTitle.replace(/["\u201D\u201C]/g, "");
-		     lstrPossibleTitle = lstrPossibleTitle.replace(/<span>|<\/span>/g, "");
+		      {
+		      for( j = 0; j < lobjPossibleTitles.length; j++ )
+		      {
+		      var lstrPossibleTitle = lobjPossibleTitles[j];
+		      lstrPossibleTitle = lstrPossibleTitle.trim();
+		      lstrPossibleTitle = lstrPossibleTitle.replace(/["\u201D\u201C]/g, "");
+		      lstrPossibleTitle = lstrPossibleTitle.replace(/<span>|<\/span>/g, "");
 
-		     PossibleNameList.push( lstrPossibleTitle );
-		     }
-		     }*/
+		      PossibleNameList.push( lstrPossibleTitle );
+		      }
+		      }*/
 		}
 		
 		
 
 		/*for(var i = 0; i < lobjSpanList.length; i++)
-		 {
-		 var lstrPossibleTitle = lobjSpanList[i].childNodes[0].nodeValue;
+		  {
+		  var lstrPossibleTitle = lobjSpanList[i].childNodes[0].nodeValue;
 
-		 if( lstrPossibleTitle == null)
-		 continue;
+		  if( lstrPossibleTitle == null)
+		  continue;
 
-		 lstrPossibleTitle = lstrPossibleTitle.trim();
-		 PossibleNameList.push(lstrPossibleTitle);
-		 }*/
+		  lstrPossibleTitle = lstrPossibleTitle.trim();
+		  PossibleNameList.push(lstrPossibleTitle);
+		  }*/
 
 		PossibleNameList = unique(PossibleNameList);
 		PossibleNameList.sort();
@@ -429,7 +444,7 @@ function ingest_viaf_Relations( lobjEac, callback )
 						   callback("Done!"); //done if no names where chosen
 						   $('.viaf_arrow').html("&#10003;");
 						   $('#loading-image').remove();
-						   
+						   $('.main_edit').show();
 						   return;
 					       }
 
@@ -480,6 +495,7 @@ function ingest_viaf_Relations( lobjEac, callback )
 											 $('.viaf_arrow').html("&#10003;");
 											 
 											 $('#loading-image').remove();
+											 $('.main_edit').show();
 										     });
 						       });
 					   });
@@ -612,13 +628,13 @@ function display_viaf_results_form( lobjViafResults, callback )
 function ingest_worldcat_elements( lobjEac, lstrName, callback )
 {
     $('body').append("<div id=\"dialog-form\" title=\"WorldCat Search\"> \
-		     <p class=\"validate-prompt\">Cannot be blank!</p> \
-		     <form> \
-		     <fieldset> \
-		     <label for=\"name\">Name</label> \
-		     <input type=\"text\" name=\"name\" id=\"name\" class=\"text ui-widget-content ui-corner-all\" value=\"" + decode_utf8(lstrName) + "\"/> \
-		     </fieldset> \
-		     </form></div>");
+<p class=\"validate-prompt\">Cannot be blank!</p> \
+<form> \
+<fieldset> \
+<label for=\"name\">Name</label> \
+<input type=\"text\" name=\"name\" id=\"name\" class=\"text ui-widget-content ui-corner-all\" value=\"" + decode_utf8(lstrName) + "\"/> \
+</fieldset> \
+</form></div>");
 
     $('#loading-image').remove();
     $('.ingest_button').show();
@@ -639,7 +655,8 @@ function ingest_worldcat_elements( lobjEac, lstrName, callback )
 			     //  $('#convert_to_wiki').hide();
 			     
 			     $('#main_content').prepend('<img id="loading-image" src="style/images/loading.gif" alt="loading"/>');
-			      $(dialog).dialog("close");
+			     $(dialog).dialog("close");
+			    
 			     lstrName = encode_utf8(lstrName);
 
 			     //post to ajax WorldCat ingestor controller to search worldcat and get results
@@ -654,7 +671,8 @@ function ingest_worldcat_elements( lobjEac, lstrName, callback )
 					     //alert(response);
 					     callback(response);
 					     $(dialog).dialog("close");
-
+					     $('.main_edit').show();
+					     
 					     return;
 					 }
 
@@ -680,7 +698,7 @@ function ingest_worldcat_elements( lobjEac, lstrName, callback )
 											     alert(response);
 											     callback();
 											     $(dialog).dialog("close");
-
+											     $('.main_edit').show();
 											     return;
 											 }
 
@@ -725,6 +743,7 @@ function ingest_worldcat_elements( lobjEac, lstrName, callback )
 									 });
 
 	        			 $(dialog).dialog("close");
+					 $('.main_edit').show();
 	            			 $(dialog).remove();
     				     });
 			 }
