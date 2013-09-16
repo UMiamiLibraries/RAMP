@@ -1,4 +1,6 @@
 $(document).ready(function()
+
+
 		  {
 		      //registrer click event that will start viaf ingestion
 		      $('#ingest_viaf').on('click', function()
