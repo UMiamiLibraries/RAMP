@@ -150,7 +150,7 @@ function ingest_viaf_NameEntry_Sources( lobjEac, lstrName, callback )
 
     
 
-    makePromptDialog('#dialog-form', 'Viaf name search?', function(dialog)
+    makePromptDialog('#dialog-form', 'VIAF name search?', function(dialog)
 		     {
 			 var lstrName = $('input[name="name"]').val();
 
@@ -201,14 +201,6 @@ function ingest_viaf_NameEntry_Sources( lobjEac, lstrName, callback )
 										     try
 										     {
 											 var lobjData = JSON.parse(response);
-											 // If no results, notify user (added by timathom)
- 										       if( lobjData.length == 0 )
- 			     							   {
- 			     							       callback( 'No matches for possible names found!' ); //finish process if no results found
- 			     								   $('.viaf_arrow').html("&#10003;");
- 			     								   $('#loading-image').remove();
- 			     								   return;
- 			     						       }
 										     }
 										     catch(e) //response should be JSON so if not, throw error
 										     {
@@ -463,15 +455,6 @@ function ingest_viaf_Relations( lobjEac, callback )
 							   try
 							   {
 							       var lobjData = JSON.parse(response);
-
-							         // If no results, notify user (added by timathom)
- 										       if( lobjData.length == 0 )
- 			     							   {
- 			     							       callback( 'No matches for possible names found!' ); //finish process if no results found
- 			     								   $('.viaf_arrow').html("&#10003;");
- 			     								   $('#loading-image').remove();
- 			     								   return;
- 			     						       }
 							   }
 							   catch(e) //response should be JSON so if not, throw error
 							   {
@@ -527,7 +510,7 @@ function display_possible_name_form( lobjPossibleNames, callback )
 {
     var lstrHTML = "<div class=\"form_container\">";
  
-  lstrHTML += "<h2 class=\"instruction\" style=\"font-weight:800; font-size:1.5em;\">Named Entity Recognition</h2><p class=\"instruction\">These names have been extracted from this entity\'s finding aid or biography. Select additional names that you would like to look up in VIAF.</p><p class=\"instruction\">Note that geographical places are not included in VIAF and so should be skipped at this stage.</p><p class=\"instruction\">Each name can be edited to improve the search query, if appropriate. If names need to be split, or if you have additional names to add, you may click \"Add New Row\" to input appropriate data. It is best to enter new names where they would appear in alphabetical order (by first name).</p><p class=\"instruction\" style=\"font-style:italic\">Please note that if you select several names to look up in VIAF, your query may take a few seconds to run.</p><p class=\"instruction\">These names will be used to create &lt;cpfRelation&gt; elements, with associated VIAF IDs, in the EAC-CPF record.</p>";
+    lstrHTML += "<h2 class=\"instruction\" style=\"font-weight:800; font-size:1.5em;\">Named Entity Recognition</h2><p class=\"instruction\">These names have been extracted from this entity\'s finding aid or biography. Select additional names that you would like to look up in VIAF.</p><p class=\"instruction\">Note that geographical places are not included in VIAF and so should be skipped at this stage.</p><p class=\"instruction\">Each name can be edited to improve the search query, if appropriate. If names need to be split, or if you have additional names to add, you may click \"Add New Row\" to input appropriate data. It is best to enter new names where they would appear in alphabetical order (by first name).</p><p class=\"instruction\" style=\"font-style:italic\">Please note that if you select several names to look up in VIAF, your query may take a few seconds to run.</p><p class=\"instruction\">These names will be used to create &lt;cpfRelation&gt; elements, with associated VIAF IDs, in the EAC-CPF record.</p>";
 
 
     lstrHTML += "<button id=\"ingest_viaf_chosen_names_relations\" class=\"pure-button ingest-ok pure-button-secondary\">Use Selected Names</button>";
@@ -539,12 +522,17 @@ function display_possible_name_form( lobjPossibleNames, callback )
     lstrHTML += "<h2>Please choose names to create &lt;cpfRelation&gt; elements:</h2>";
     lstrHTML += "<input type=\"checkbox\" id=\"select_all\" value=\"\"><span style=\"font-weight:800; margin-left:4px;\">Select all</span><br />";
 
+     // HTML modified by timathom to allow users to edit Named Entity Recognition results.
+    lstrHTML += "<table class=\"user_help_form_table\"><tr>";
+    
     for(var i = 0; i < lobjPossibleNames.length; i++)
-    {
-	lstrHTML += "<input type=\"checkbox\" name=\"chosen_names\" value=\"";
-	lstrHTML += lobjPossibleNames[i] + "\" /> " + lobjPossibleNames[i] + "<br />";
+    {                
+    	lstrHTML += "<td><input type=\"checkbox\" class=\"ner_check\" name=\"chosen_names\" value=\"\"/></td>";
+    	lstrHTML += "<td><input type=\"text\" class=\"ner_text\" name=\"modified_names\" size=\"40\" value=\"" + lobjPossibleNames[i] + "\"/></td>";
+        lstrHTML += "<td><input type=\"button\" name=\"add\" value=\"Add New Row\" class=\"ner_empty_add pure-button pure-button-secondary\"/></td></tr>";	
     }
 
+    lstrHTML += "</tr></table>"
 
     lstrHTML += "</div></div>";
 
