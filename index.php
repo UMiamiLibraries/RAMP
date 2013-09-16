@@ -19,7 +19,7 @@ include('header.php');
 <div class="pure-g-r">
   <div class="pure-u-1-2">
   <div class="content_box" id="convert_box">
-  <img src="style/images/convert" alt="Convert" width="24px" height="24px"/>
+  <img src="style/images/convert.png" alt="Convert" width="24px" height="24px"/>
 
   <h1>Convert EAD Records Into EAC-CPF Records</h1>
  <ol><li><em>1.</em> Upload your EAD files into the correct folder on the RAMP server</li>
