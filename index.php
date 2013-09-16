@@ -4,7 +4,7 @@ include('header.php');
 
 <div class="pure-g-r">
   <div class="pure-u-1">
-    <div class="content_box">
+    <div class="content_box" id="intro_box">
     <h1>Welcome to RAMP</h1>
     <br/>
     <br/>
@@ -14,9 +14,12 @@ include('header.php');
     <p>The RAMP editor can extract biographical and historical data from <a href="http://www.loc.gov/ead/" title="Link to Library of Congress EAD page" target="_blank">EAD finding aids</a> to create new authority records for persons, corporate bodies, and families associated with archival and special collections (using the <a href="http://www3.iath.virginia.edu/eac/cpf/tagLibrary/cpfTagLibrary.html" title="Link to EAC-CPF tag library" target="_blank">EAC-CPF format</a>). It can then let users enhance those records with additional data from sources like <a href="http://viaf.org" title="Link to the Virtual International Authority File" target="_blank">VIAF</a> and <a href="http://worldcat.org/identities/" title="Link to WorldCat Identities" target="_blank">WorldCat Identities</a>. Finally, it can transform those records into wiki markup so that users can edit them directly, merge them with any existing Wikipedia pages, and publish them to <a href="http://en.wikipedia.org" title="Link to English Wikipedia" target="_blank">Wikipedia</a> through its API.</p>    
     </div>   
   </div>
-  <div class="pure-u-1">
-  <div class="content_box">
-  <img src="style/images/convert.png" alt="Convert" width="24px" height="24px"/>
+</div>
+
+<div class="pure-g-r">
+  <div class="pure-u-1-2">
+  <div class="content_box" id="convert_box">
+  <img src="style/images/convert" alt="Convert" width="24px" height="24px"/>
 
   <h1>Convert EAD Records Into EAC-CPF Records</h1>
  <ol><li><em>1.</em> Upload your EAD files into the correct folder on the RAMP server</li>
@@ -33,8 +36,8 @@ are changed, you will be presented with a 'diff' screen to merge changes. </li><
   </div>
   </div>
 
-  <div class="pure-u-1">
-  <div class="content_box">
+  <div class="pure-u-1-2">
+  <div class="content_box" id="edit_box">
   <img src="style/images/edit.png" alt="Edit" width="24px" height="24px"/>
   <h1>Edit EAC, Enhance with Linked Data, Publish on Wikipedia</h1>
   
@@ -91,8 +94,8 @@ print ("</select>");
 </div>
 </div>
 
-<div class="pure-u-1">
-  <div class="content_box">
+<div class="pure-u-1-2">
+  <div class="content_box" id="new_box">
   <img src="style/images/new.png" alt="Convert" width="24px" height="24px"/>
   <h1>Create a New Skeleton EAC-CPF Record</h1>
 
@@ -120,21 +123,21 @@ print ("</select>");
   </div>
   </div>
 
- 
-
-  </div>
-
-
-
-  <div class="pure-u-1">
-  <div class="content_box">
+   <div class="pure-u-1-2">
+  <div class="content_box" id="export_box">
 <img src="style/images/export.png" height="24px" width="24px" alt="Export"/>
   <h1>Batch Export EAC-CPF Records</h1>
-  <p style="margin:1%;">After your first conversion you can batch export the result EAC-CPF records</p>
+  <p style="margin:1%;">After your first conversion you can export the resulting EAC-CPF records.</p>
   <p><a href="export.php" style="margin:1%;">Export EAC-CPF Records</a></p>
   
 
   </div>
+
+  </div>
+
+
+
+
   </div>
 
   <?php

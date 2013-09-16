@@ -27,6 +27,10 @@ $(document).ready(function() {
 	    }
 	    
     	});
+    
+     
+    
+
 
     function cookie_check () {
 
@@ -60,6 +64,10 @@ $(document).ready(function() {
 	$('#xml_switch_button').css({"background":"gray"});
 
 	$('.main_edit').show();
+	
+	
+
+
         
 	// When one of the files is selected...
 	eac_xml_path = eac_xml_file;
@@ -91,6 +99,9 @@ $(document).ready(function() {
 
 	    // Check to see if there is some existing wiki markup
 	    //  wikiCheck();
+	    
+	
+
    	});
 
 
@@ -450,6 +461,11 @@ $(document).ready(function() {
 	$('#editor_container').css ( { "height" : ace_height });
 
     });
+
+    
+
+
+
 
 });
 

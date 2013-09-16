@@ -126,7 +126,7 @@ function setupGetWiki()
 				       //alert("XML must be valid!");
 				       $('#loading-image').remove();
 				       $('#get_wiki').show();
-				       $('.wiki_edit').show();
+
 				   }
 			       });
 			   });
