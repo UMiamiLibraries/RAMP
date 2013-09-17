@@ -4,13 +4,10 @@ $(document).ready(function()
 		  {
 		      //registrer click event that will start viaf ingestion
 		      $('#ingest_viaf').on('click', function()
-
-					   
-
+					  
 					   {
 					       $('.main_edit').hide();
-					       
-					       
+					       					       
 					       $('#main_content').prepend('<img id="loading-image" src="style/images/loading.gif" alt="loading"/>');
 
 					       var lstrXML = editor.getValue();
@@ -540,14 +537,14 @@ function display_possible_name_form( lobjPossibleNames, callback )
 
     $('body').append(lstrHTML);
 
- // jQuery added by timathom to include "Add New Row" and "Delete Row" buttons and functionality.
+    // jQuery added by timathom to include "Add New Row" and "Delete Row" buttons and functionality.
  			    $("input.ner_empty_add").on('click', function() {        
  			        var tr = "<tr><td><input type=\"checkbox\" class=\"ner_check\" name=\"chosen_names\" value=\"\"/></td><td><input type=\"text\" class=\"ner_text\" name=\"modified_names\" size=\"40\" value=\"\" /></td><td><input type=\"button\" name=\"rm\" value=\"Delete Row\" class=\"ner_empty_rm pure-button pure-button-secondary\"/></td></tr>";         
  			        $(this).closest("tr").after(tr);
  			        
  			        $("input.ner_empty_rm").on('click', function() {        
  			            $(this).closest("tr").remove();
- 		        });        
+ 		            });        
  			    });
 
     setupSelectAll('input#select_all'); //able to select all checkboxes
@@ -558,19 +555,24 @@ function display_possible_name_form( lobjPossibleNames, callback )
 						{
 						    var lobjChosenNames = [];
 
-
-
 						    $('input.ner_check').each(function () {
 							if(this.checked)
-							{
-							    							   lobjChosenNames.push(encode_utf8($(this).closest('td').next('td').children('input').val())); 
-
-							}
-						    });
-
-						    $('.form_container').remove();
-
-						    callback(lobjChosenNames);
+     							{
+     					           lobjChosenNames.push(encode_utf8($(this).closest('td').next('td').children('input').val())); 
+     							}        	     							
+						    });				
+						    if ( lobjChosenNames == '' )
+						    {
+						        $('body').append("<div id=\"dialog\"><p>Cannot be blank!</p></div>");
+					            makeDialog('#dialog', 'Error!'); // display error
+						        //$('.main_edit').hide();   
+						    }
+						    else
+						    {						                                          
+      						    callback(lobjChosenNames);	
+      						    $('.form_container').remove();
+      						    $('.main_edit').hide();
+						    }						   						    											    			
 						});
 
     //register click event to cancel process
@@ -625,10 +627,17 @@ function display_viaf_results_form( lobjViafResults, callback )
 						   lobjChosenResults.push($(this).val());
 					       }
 					   });
-
-					   $('.form_container').remove();
-
-					   callback(lobjChosenResults);
+					   if ( lobjChosenResults == '' )
+						    {
+						        $('body').append("<div id=\"dialog\"><p>Cannot be blank!</p></div>");
+					            makeDialog('#dialog', 'Error!'); // display error
+						        //$('.main_edit').hide();   
+						    }
+						    else
+						    {						                                          
+      						    $('.form_container').remove();
+					           callback(lobjChosenResults);
+						    }					   
 				       });
 
     //register click event to cancel process
@@ -639,6 +648,9 @@ function display_viaf_results_form( lobjViafResults, callback )
 						  $('.form_container').remove();
 
 						  callback(lobjChosenResults);
+						  
+						  $('.main_edit').show();
+						  
 					      });
 }
 
