@@ -454,6 +454,15 @@ function ingest_viaf_Relations( lobjEac, callback )
 							   try
 							   {
 							       var lobjData = JSON.parse(response);
+							       if(lobjData.length == 0)
+                          	       {
+                          	           callback( 'No matches for possible names found!' );
+                          	           $('.viaf_arrow').html("&#10003;");
+    							       $('#loading-image').remove(); 
+    							       $('.form_container').remove();
+    							       $('.main_edit').show();
+                             	       return;
+                          	       }
 							   }
 							   catch(e) //response should be JSON so if not, throw error
 							   {
@@ -463,12 +472,12 @@ function ingest_viaf_Relations( lobjEac, callback )
 							       //$('#ingest_viaf').attr("disabled", "disabled");
 							       //  $('.ingest_button').show();
 							       $('.viaf_arrow').html("&#10003;");
-							       
-							       
+							       							       
 							       return;
-							   }
-
-							   //display results from viaf realtion nodes search so editor can choose which relations they want to ingest
+							   }		
+							  
+                          	    
+                          	   //display results from viaf realtion nodes search so editor can choose which relations they want to ingest
 							   display_viaf_results_form(lobjData, function( lobjResultsChosen )
 										     {
 											 if( lobjResultsChosen.length == 0 )
@@ -476,7 +485,7 @@ function ingest_viaf_Relations( lobjEac, callback )
 											     callback("Done!"); //finish process if no results chosen
 											     $('.viaf_arrow').html("&#10003;");
 											     $('#loading-image').remove(); 
-											     $('main_edit').show();
+											     $('.main_edit').show();
 											     return;
 											 }
 
@@ -495,7 +504,8 @@ function ingest_viaf_Relations( lobjEac, callback )
 											 
 											 $('#loading-image').remove();
 											 $('.main_edit').show();
-										     });
+										     });                          	      
+							   
 						       });
 					   });
 	    });
@@ -562,7 +572,7 @@ function display_possible_name_form( lobjPossibleNames, callback )
      							}        	     							
 						    });				
 						    // Display/notification logic added by timathom
-						    if ( lobjChosenNames == '' )
+						    if ( lobjChosenNames.length == 0 )
 						    {
 						        $('body').append("<div id=\"dialog\"><p>Cannot be blank!</p></div>");
 					            makeDialog('#dialog', 'Error!'); // display error
@@ -630,7 +640,7 @@ function display_viaf_results_form( lobjViafResults, callback )
 					   });
 					   
 					   // Display/notification logic added by timathom
-					   if ( lobjChosenResults == '' )
+					   if ( lobjChosenResults.length == 0 )
 						    {
 						        $('body').append("<div id=\"dialog\"><p>Cannot be blank!</p></div>");
 					            makeDialog('#dialog', 'Error!'); // display error
@@ -715,10 +725,10 @@ function ingest_worldcat_elements( lobjEac, lstrName, callback )
 					 //display form for editor to choose which WorldCat result is the correct result
 					 display_possible_worldcat_form( lobjData, function( lstrChosenURI )
 									 {
-									     //if cancelled because no viaf results matched
+									     //if cancelled because no WorldCat results matched
 									     if( lstrChosenURI == '' )
 									     {
-										 callback();
+										 callback('Done!');
 										 return;
 									     }
 
@@ -746,17 +756,55 @@ function ingest_worldcat_elements( lobjEac, lstrName, callback )
 											 {
 											     var CpfRelation = lobjCpfRelationList[i];
 											     lobjEac.addCPFRelation(CpfRelation);
+											     editor.getSession().setValue(lobjEac.getXML()); // added by timathom
 											 }
 
 											 for( i = 0; i < lobjResourceRelationList.length; i++ )
 											 {
 											     var ResourceRelation = lobjResourceRelationList[i];
 											     lobjEac.addResourceRelation(ResourceRelation);
+											     editor.getSession().setValue(lobjEac.getXML()); // added by timathom
 											 }
-
+											 
+											 // Result text added by timathom.
+											 var lstrCpfResults;
+											 var lstrResourceResults;
+											 
+											 if ( lobjCpfRelationList.length == 0 )
+											 {
+											     lstrCpfResults = '';
+											 }
+											 else
+											 {
+											     lstrCpfResults = "<p>&lt;cpfRelation&gt; elements were added.</p>";											     
+											 }
+											  if ( lobjResourceRelationList.length == 0 )
+											 {
+											     lstrResourceResults = '';
+											 }
+											 else
+											 {
+											     lstrResourceResults = "<p>&lt;resourceRelation&gt; elements were added.</p>";											     
+											 }
+											 
+											 // Display logic added by timathom.
+											 if(lobjSubjectList.length == 0)
+                                             {
+                                                 $('body').append("<div id=\"dialog\"><p>No matching subjects found.</p>" + lstrCpfResults + lstrResourceResults + "</div>");
+					                             makeDialog('#dialog', 'Results'); // display results
+                                                 $('.worldcat_arrow').html("&#10003;");
+                                  		         $('#loading-image').remove(); 
+                                  		         $('.form_container').remove();
+                                  		         $('.main_edit').show();
+                                                 return;
+                                             } 
+                                             else
+                                             {
+                                                                                              
 											 //display form for editor to chose which subject headings to ingest
 											 display_possible_worldcat_subjects( lobjSubjectList, function( lobjChosenSubjects )
 															     {
+															     															    
 																 for( i = 0; i < lobjChosenSubjects.length; i++ )
 																 {
 																     var Subject = lobjSubjectList[lobjChosenSubjects[i]];
@@ -775,12 +823,14 @@ function ingest_worldcat_elements( lobjEac, lstrName, callback )
 																 //	 $('#convert_to_wiki').show();
 																 $('main_edit').show();
 															     });
+											 }
 										     });
 									 });
-
+	        			 /* This was throwing a warning. Do we need? --timathom
 	        			 $(dialog).dialog("close");
-					 $('.main_edit').show();
-	            			 $(dialog).remove();
+					     $('.main_edit').show();
+	            		 $(dialog).remove();
+	            		 */
     				     });
 			 }
 		     });
@@ -880,7 +930,7 @@ lstrHTML += "&nbsp;<button id=\"ingest_worldcat_chosen_subjects_cancel\" class=\
 
     //register click event to continue process once user choses subjects
     $('#ingest_worldcat_chosen_subjects').on('click', function()
-					     {
+					 {
 						 var lobjChosenSubjects = [];
 
 						 $('input[name="chosen_subjects"]').each(function () {
@@ -889,11 +939,21 @@ lstrHTML += "&nbsp;<button id=\"ingest_worldcat_chosen_subjects_cancel\" class=\
 							 lobjChosenSubjects.push($(this).val());
 						     }
 						 });
-
-						 $('.form_container').remove();
-
-						 callback(lobjChosenSubjects);
-					     });
+						 
+						 // Display/notification logic added by timathom
+						 if ( lobjChosenSubjects.length == 0 )
+						 {
+						     $('body').append("<div id=\"dialog\"><p>Cannot be blank!</p></div>");
+					         makeDialog('#dialog', 'Error!'); // display error
+						     //$('.main_edit').hide();   
+						 }
+						 else
+						 {						                                                					     
+      						 $('.form_container').remove();
+      						 $('.main_edit').show();
+      						 callback(lobjChosenSubjects);
+						 }								 					
+					 });
 
     //register click event to cencel process
     $('#ingest_worldcat_chosen_subjects_cancel').on('click', function()
@@ -901,9 +961,8 @@ lstrHTML += "&nbsp;<button id=\"ingest_worldcat_chosen_subjects_cancel\" class=\
 							var lobjChosenSubjects = [];
 
 							$('.form_container').remove();
+							$('.main_edit').show();
 							
-
-
 							callback(lobjChosenSubjects);
 						    });
 }
