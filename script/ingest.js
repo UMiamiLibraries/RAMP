@@ -211,7 +211,7 @@ function ingest_viaf_NameEntry_Sources( lobjEac, lstrName, callback )
 
 										     var lobjNameEntryList = typeof lobjData.name_entry_list == 'undefined' ? [] : lobjData.name_entry_list;
 										     var lobjSource = typeof lobjData.source == 'undefined' ? [] : lobjData.source;
-
+										     										     										     										     										  
 										     for( var i = 0; i < lobjNameEntryList.length; i++ )
 										     {
 											 var NameEntry = lobjNameEntryList[i];
@@ -222,8 +222,15 @@ function ingest_viaf_NameEntry_Sources( lobjEac, lstrName, callback )
 
 										     //set ace editor value to new xml from EAC Dom Document with ingested source and name entries
 										     editor.getSession().setValue(lobjEac.getXML());
+										     
+										     // Results notification added by timathom
+										     $('body').append("<div id=\"dialog\"><p>&lt;source&gt; and &lt;nameEntry&gt; elements added!</p></div>");
+					                         makeDialog('#dialog', 'Results'); // display results
 
 										     callback();
+										     
+										     
+										     
 										 });
 								     });
     				     });
@@ -455,14 +462,14 @@ function ingest_viaf_Relations( lobjEac, callback )
 							   {
 							       var lobjData = JSON.parse(response);
 							       if(lobjData.length == 0)
-                          	       {
+                          	       {                          	                                     	                                    	           
                           	           callback( 'No matches for possible names found!' );
                           	           $('.viaf_arrow').html("&#10003;");
     							       $('#loading-image').remove(); 
     							       $('.form_container').remove();
     							       $('.main_edit').show();
-                             	       return;
-                          	       }
+                             	       return;                             	       
+                          	       }                          	       
 							   }
 							   catch(e) //response should be JSON so if not, throw error
 							   {
@@ -499,7 +506,8 @@ function ingest_viaf_Relations( lobjEac, callback )
 
 											 editor.getSession().setValue(lobjEac.getXML());
 
-											 callback("Done!");
+											 callback('&lt;cpfRelation&gt; elements added!');
+											 
 											 $('.viaf_arrow').html("&#10003;");
 											 
 											 $('#loading-image').remove();
