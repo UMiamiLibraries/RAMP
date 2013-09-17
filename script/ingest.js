@@ -1,4 +1,6 @@
 $(document).ready(function()
+
+
 		  {
 		      //registrer click event that will start viaf ingestion
 		      $('#ingest_viaf').on('click', function()
@@ -288,7 +290,7 @@ function display_possible_viaf_form( lobjPossibleViaf, callback )
     $('#ingest_viaf_chosen_viaf_cancel').on('click', function()
 					    {
 						$('.form_container').remove();
-
+						$('.main_edit').show();
 						callback('');
 					    });
 }
