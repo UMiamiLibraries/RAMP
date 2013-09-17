@@ -583,6 +583,7 @@ function display_possible_name_form( lobjPossibleNames, callback )
       						    callback(lobjChosenNames);	
       						    $('.form_container').remove();
       						    $('.main_edit').hide();
+      						    
 						    }						   						    											    			
 						});
 
