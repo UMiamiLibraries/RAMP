@@ -561,6 +561,7 @@ function display_possible_name_form( lobjPossibleNames, callback )
      					           lobjChosenNames.push(encode_utf8($(this).closest('td').next('td').children('input').val())); 
      							}        	     							
 						    });				
+						    // Display/notification logic added by timathom
 						    if ( lobjChosenNames == '' )
 						    {
 						        $('body').append("<div id=\"dialog\"><p>Cannot be blank!</p></div>");
@@ -627,6 +628,8 @@ function display_viaf_results_form( lobjViafResults, callback )
 						   lobjChosenResults.push($(this).val());
 					       }
 					   });
+					   
+					   // Display/notification logic added by timathom
 					   if ( lobjChosenResults == '' )
 						    {
 						        $('body').append("<div id=\"dialog\"><p>Cannot be blank!</p></div>");
