@@ -25,14 +25,29 @@ $(document).ready(function() {
 	
 	     }
     }
-    function build_editor(eac_xml_file) {
-	$('#wiki_switch').hide();
+    function build_editor(eac_xml_file) {       
+		
 	$('#xml_switch_button').css({"background":"gray"});
 
 	$('.main_edit').show();
 	
 	// When one of the files is selected...
 	eac_xml_path = eac_xml_file;
+	
+	// Check to see if there is already wiki markup. If so, show switcher. --timathom
+	$.get('get_wiki.php', {ead_path : eac_xml_path}, function(markup) {
+    
+        if ( markup == '')
+        {
+            $('#wiki_switch').hide();    
+        }
+        else
+        {
+            $('#wiki_switch').show();
+        }    	
+	
+	});
+	
 
 	//Get the XML
 
@@ -199,7 +214,7 @@ $(document).ready(function() {
 
 	    if (markup != "") {
 		// Hide this stuff if there is wiki markup
-		$('#wiki_switch_button').css({"background" : "grey" });
+		$('#wiki_switch_button').css({"background" : "gray" });
 
 		$('.main_edit').hide();
 		
