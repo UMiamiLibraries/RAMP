@@ -1,34 +1,30 @@
-$(document).ready(function() {
-        
+$(document).ready(function() {    
     function cookie_check () {
 
         if (getCookie('ead_file')) {
 
-            if (getCookie('ead_file') === '""') {
-		
-                
-		
-		$('#ead_files').hide();
-		$('.main_edit').hide();
+            if (getCookie('ead_file') === '""') 
+            {		                
+		        $('#ead_files').hide();
+		        $('.main_edit').hide();
                 $('#editor_mask').hide();
 		
-		$('#entity_name').html('Please select a record to edit from the menu.');
-		$('#entity_name').show();
-            } else {
-		
+		        $('#entity_name').html('Please select a record to edit from the menu.');
+		        $('#entity_name').show();
+            } 
+            else 
+            {
                 console.log(getCookie('ead_file'));
                 build_editor(getCookie('ead_file'));
                 $('#entity_name').html('Now Editing: ' + getCookie('entity_name'));
-		$('#ead_files').hide();
+		        $('#ead_files').hide();
             }
-
-	}
-	else {
-	}
-
+	     }
+	     else 
+	     {
+	
+	     }
     }
-
-
     function build_editor(eac_xml_file) {
 	$('#wiki_switch').hide();
 	$('#xml_switch_button').css({"background":"gray"});
@@ -57,27 +53,28 @@ $(document).ready(function() {
 	    //enable ingest buttons
 	    $('.ingest_button').removeAttr('disabled');
 
-
 	    document.cookie = 'ead_file=""';
+	    
+	    
 
 	    // then validate the XML
 	    validateXML();
 
 	    // Check to see if there is some existing wiki markup
-	    //  wikiCheck();
-	    
-	
-
+	    // wikiCheck();
+	   
    	});
 
 
 	$('#save_eac').click(function(data) {
 	    // This saves the XML by getting the the text from Ace editor
-
-
+	    
+	    // Set "saved" cookie. --timathom
+	    document.cookie = 'saved=saved';
+	    
 	    editor_xml = editor.getSession().getValue();
-
-	    // and POSTing is to update_eac_xml
+	    	   
+	    // and POSTing it to update_eac_xml
 
 	    $.post('update_eac_xml.php', {xml: editor_xml, ead_file: eac_xml_path} , function(data) {
 
@@ -92,11 +89,6 @@ $(document).ready(function() {
         });
 
     }
-
-
-
-
-
 
     $('#ead_files').ready(function () {
 	cookie_check();
@@ -164,7 +156,7 @@ $(document).ready(function() {
 		// Stick the error message into the validation_text div
 		$('#validation_text').html('<p>Error: ' + response[0].message + '</p><p>Line: ' + response[0].line + '</p>');
 
-		callback(false)
+		callback(false);
 	    }
 
 	},"json").fail(function() {
@@ -181,10 +173,18 @@ $(document).ready(function() {
 
 
     $('#convert_to_wiki').click(function() {
-
-	$('.main_edit').hide();
-	eacToMediaWiki();
-
+        
+    // Added logic for save dialog. --timathom
+    if ( getCookie('saved') != 'saved')
+    {
+        $unsaveddialog.dialog('open');
+    }
+    else 
+    {
+        $('.main_edit').hide();
+	    eacToMediaWiki();
+    }
+                  
     });
 
 
@@ -435,7 +435,8 @@ $(document).ready(function() {
 
 
     var $savedialog = $('<div></div>')
-    	.html('XML Saved')
+        
+    	.html('XML Saved!')
     	.dialog({
     	    autoOpen: false,
     	    buttons: {
@@ -445,6 +446,23 @@ $(document).ready(function() {
 	    }
 
     	});
+    
+    // Added save confirmation to "Convert to Wiki Markup" --timathom
+    var $unsaveddialog = $('<div></div>')
+        .html('Your record has not been saved. If you have changes, they will be lost. Do you want to proceed?')
+        .dialog({
+            autoOpen: false,
+            buttons : {
+                "Yes" : function() {
+                    $( this ).dialog( "close" );
+                    $('.main_edit').hide();
+                    eacToMediaWiki();                    
+                },
+                "No" : function() {
+                    $( this ).dialog( "close" );
+                }
+            }
+        });
 
 
     var $savewikidialog = $('<div></div>')
@@ -561,7 +579,7 @@ function makePromptDialog( lstrSelector, lstrTitle, callback )
         closeOnEscape: true,
         title: lstrTitle,
         buttons:{
-            "Ok":function(){
+            "OK":function(){
             	callback(this);
             }
         },
