@@ -85,9 +85,10 @@ $(document).ready(function() {
 	    // This saves the XML by getting the the text from Ace editor
 	    
 	    // Set "saved" cookie. --timathom
-	    
-	    document.cookie = 'saved=saved';
-	    
+	    if ( getCookie('saved') != 'saved' )
+	    {
+	        document.cookie = 'saved=saved';
+	    }
 	    editor_xml = editor.getSession().getValue();
 	    	   
 	    // and POSTing it to update_eac_xml
