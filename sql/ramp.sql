@@ -1,8 +1,8 @@
-CREATE DATABASE  IF NOT EXISTS `db490340821` /*!40100 DEFAULT CHARACTER SET latin1 */;
-USE `db490340821`;
+CREATE DATABASE  IF NOT EXISTS `ead_eac` /*!40100 DEFAULT CHARACTER SET latin1 */;
+USE `ead_eac`;
 -- MySQL dump 10.13  Distrib 5.5.32, for debian-linux-gnu (x86_64)
 --
--- Host: 127.0.0.1    Database: db490340821
+-- Host: 127.0.0.1    Database: ead_eac
 -- ------------------------------------------------------
 -- Server version	5.5.32-0ubuntu0.12.04.1
 
@@ -110,8 +110,8 @@ UNLOCK TABLES;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = '' */ ;
 DELIMITER ;;
-/*!50003 CREATE*/ /*!50017 DEFINER=`root`@`localhost`*/ /*!50003 TRIGGER `db490340821`.`eac_BINS`
-BEFORE INSERT ON `db490340821`.`mediawiki`
+/*!50003 CREATE*/ /*!50017 DEFINER=`root`@`localhost`*/ /*!50003 TRIGGER `ead_eac`.`eac_BINS`
+BEFORE INSERT ON `ead_eac`.`mediawiki`
 FOR EACH ROW
 
 	SET NEW.created = NOW(), NEW.updated = NOW() */;;
@@ -122,7 +122,7 @@ DELIMITER ;
 /*!50003 SET collation_connection  = @saved_col_connection */ ;
 
 --
--- Dumping routines for database 'db490340821'
+-- Dumping routines for database 'ead_eac'
 --
 /*!50003 DROP PROCEDURE IF EXISTS `get_wiki` */;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
@@ -159,7 +159,7 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `insert_wiki`(IN wikitext MEDIUMTEXT
     DETERMINISTIC
 BEGIN
 SELECT eac_id from eac WHERE ead_file LIKE  CONCAT("%",ead_xml_path,"%") INTO @eac_id;
-INSERT INTO db490340821.mediawiki (wiki_text,eac_id) VALUES (wikitext, @eac_id) 
+INSERT INTO ead_eac.mediawiki (wiki_text,eac_id) VALUES (wikitext, @eac_id) 
 ON DUPLICATE KEY UPDATE mediawiki.wiki_text = wikitext;
 END ;;
 DELIMITER ;
@@ -181,7 +181,7 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `update_wiki`(IN wikitext MEDIUMTEXT
     DETERMINISTIC
 BEGIN
 SELECT eac_id from eac WHERE ead_file LIKE  CONCAT("%",ead_xml_path,"%") INTO @eac_id;
-UPDATE db490340821.mediawiki SET wiki_text = wikitext WHERE eac_id = @eac_id;
+UPDATE ead_eac.mediawiki SET wiki_text = wikitext WHERE eac_id = @eac_id;
 END ;;
 DELIMITER ;
 /*!50003 SET sql_mode              = @saved_sql_mode */ ;
