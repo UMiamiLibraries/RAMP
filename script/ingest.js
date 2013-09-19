@@ -7,6 +7,7 @@ $(document).ready(function()
 					  
 					   {
 					       $('.main_edit').hide();
+					       $('#wiki_switch').hide();    
 					       					       
 					       $('#main_content').prepend('<img id="loading-image" src="style/images/loading.gif" alt="loading"/>');
 
@@ -72,6 +73,7 @@ $(document).ready(function()
 					       {
 
 						   $('.main_edit').hide();
+						   $('#wiki_switch').hide();    
 						   
 						   $('#main_content').prepend('<img id="loading-image" src="style/images/loading.gif" alt="loading"/>');
 						   
@@ -368,7 +370,7 @@ function ingest_viaf_Relations( lobjEac, callback )
 		      }*/
 		}
 		
-		
+		// Slightly different regex needs to be applied to unittitles. --timathom
 		for(var i = 0; i < lobjUnitTitleList.length; i++)
 		{
 		    if( typeof lobjUnitTitleList[i].childNodes[0] == 'undefined' )
@@ -456,20 +458,21 @@ function ingest_viaf_Relations( lobjEac, callback )
 					       var ljsonChosenNames = JSON.stringify(lobjChosenNames);
 
 					       //post to ajax viaf ingestor controller to get relation nodes from viaf based on posted lists
-					       $.post( 'ajax/viaf_ingest_api.php', { 'action' : 'relations', 'chosen_names' : ljsonChosenNames }, function(response)
-						       {
+					       $.post( 'ajax/viaf_ingest_api.php', { 'action' : 'relations', 'chosen_names' : ljsonChosenNames }, function(response)					       
+						       {						       						       
 							   try
-							   {
-							       var lobjData = JSON.parse(response);
+							   {							       
+							       var lobjOrigNames = JSON.parse(ljsonChosenNames);
+							       var lobjData = JSON.parse(response);							       
 							       if(lobjData.length == 0)
-                          	       {                          	                                     	                                    	           
+                          	       {                                                    	           
                           	           callback( 'No matches for possible names found!' );
                           	           $('.viaf_arrow').html("&#10003;");
     							       $('#loading-image').remove(); 
     							       $('.form_container').remove();
-    							       $('.main_edit').show();
-                             	       return;                             	       
-                          	       }                          	       
+    							       $('.main_edit').show();    							       
+                             	       return;                                                                                                                    
+                          	       }                                                   	                                 	                                	       
 							   }
 							   catch(e) //response should be JSON so if not, throw error
 							   {
@@ -485,7 +488,7 @@ function ingest_viaf_Relations( lobjEac, callback )
 							  
                           	    
                           	   //display results from viaf realtion nodes search so editor can choose which relations they want to ingest
-							   display_viaf_results_form(lobjData, function( lobjResultsChosen )
+							   display_viaf_results_form( lobjData, function( lobjResultsChosen )
 										     {
 											 if( lobjResultsChosen.length == 0 )
 											 {
@@ -495,16 +498,35 @@ function ingest_viaf_Relations( lobjEac, callback )
 											     $('.main_edit').show();
 											     return;
 											 }
+											 
+											 /*
+											 var index;
+											 var chosen_result;
+											 */
 
 											 //ingest into EAC all chosen results from viaf
 											 for(var i = 0; i < lobjResultsChosen.length; i++)
 											 {
-											     var chosen_result = lobjResultsChosen[i];
-
+											     chosen_result = lobjResultsChosen[i];											     
+                                                 index = chosen_result.indexOf(':');
 											     lobjEac.addCPFRelation(lobjData[chosen_result]);
+											     editor.getSession().setValue(lobjEac.getXML());											     
 											 }
-
-											 editor.getSession().setValue(lobjEac.getXML());
+											 /*
+											 var chosen_result_str = chosen_result.substr(0,index).trim();
+											 											 											 
+											 for( var i = 0; i < lobjOrigNames.length; i++ )
+											 {
+											     if ( chosen_result_str != lobjOrigNames[i] )
+											     {								
+											         chosen_orig_result = lobjOrigNames[i];
+											         //alert(chosen_orig_result);
+											         lobjEac.addCPFRelation(chosen_orig_result);
+											         editor.getSession().setValue(lobjEac.getXML());
+											     }
+											 }											 
+											 */
+											 //editor.getSession().setValue(lobjEac.getXML());
 
 											 callback('&lt;cpfRelation&gt; elements added!');
 											 
@@ -591,6 +613,7 @@ function display_possible_name_form( lobjPossibleNames, callback )
       						    callback(lobjChosenNames);	
       						    $('.form_container').remove();
       						    $('.main_edit').hide();
+      						    $('#wiki_switch').hide();    
       						    
 						    }						   						    											    			
 						});
@@ -628,6 +651,8 @@ function display_viaf_results_form( lobjViafResults, callback )
 	lstrHTML += "<input type=\"checkbox\" name=\"chosen_results\" value=\"";
 	lstrHTML += lstrName.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;') + "\" /> " + lstrName + "<br />";
     }
+    
+    
 
 
     lstrHTML += "</div></div>";

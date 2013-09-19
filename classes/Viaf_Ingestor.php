@@ -187,6 +187,7 @@ class Viaf_Ingestor extends Ingestor
 	{
 		foreach($lobjNames as $lstrName)
 		{
+		    $lstrOrigName = utf8_decode($lstrName);
 			$lstrName = Ingestor::encodeForUrl($lstrName);
                 
 			$this->strUrl = "http://viaf.org/viaf/search?query=local.names+all+\"$lstrName\"&httpAccept=text/xml&sortKeys=holdingscount";
@@ -218,7 +219,25 @@ class Viaf_Ingestor extends Ingestor
 			$lobjResult3 = $this->xpath('//*[local-name()=\'record\']//*[local-name()=\'mainHeadings\']/*[local-name()=\'data\']/*[local-name()=\'text\']');						
 
 			if($lobjResult === FALSE || $lobjResult->length == 0)
-				continue;
+			{
+			    $lobjcpfRelation = array(
+					   			"attributes" => array( "xmlns:xlink" => "http://www.w3.org/1999/xlink",
+													   "xlink:arcrole" => "associatedWith",																   										  
+													   "xlink:type" => "simple" ),
+								"elements" => array( "relationEntry" => array (																																										
+																		"elements" => $lstrOrigName
+																		)
+													)
+
+								);
+								$lstrKey = urldecode($lstrOrigName);
+								$this->objRelationsList[$lstrKey] = $lobjcpfRelation;
+			}
+			
+			
+			
+			
+				//continue;
 			else
 			{					    
 			    // Loop added by timathom to get full set of Named Entity Recognition results from VIAF.	   
@@ -228,7 +247,7 @@ class Viaf_Ingestor extends Ingestor
 				    $lstrType = $lobjResult2->item($i)->nodeValue == 'Personal' ? 'Person' : 'CorporateBody';
 				    $lstrResultName = $lobjResult3->item($i)->nodeValue;
 
-				    $lobjcpfRealtion = array(
+				    $lobjcpfRelation = array(
 					   			"attributes" => array( "xmlns:xlink" => "http://www.w3.org/1999/xlink",
 													   "xlink:arcrole" => "associatedWith",
 													   "xlink:role" => "http://RDVocab.info/uri/schema/FRBRentitiesRDA/" . $lstrType,
@@ -249,7 +268,7 @@ class Viaf_Ingestor extends Ingestor
 				    $lstrKey .= "<a target=\"_blank\" href =\"http://www.viaf.org/{$this->strViafID}/\">{$lstrResultName}</a>";
 				    //$lstrKey .= ' (' . urldecode($lstrName) . ')';
 
-				    $this->objRelationsList[$lstrKey] = $lobjcpfRealtion;
+				    $this->objRelationsList[$lstrKey] = $lobjcpfRelation;
 		         }
 			}    
 		}
