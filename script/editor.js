@@ -93,7 +93,7 @@ $(document).ready(function() {
 	    // and POSTing it to update_eac_xml
 
 	    $.post('update_eac_xml.php', {xml: editor_xml, ead_file: eac_xml_path} , function(data) {
-
+	    	   
 
 	    }).done(function () { 
 		$('.save_arrow').html("&#10003;");
