@@ -126,7 +126,7 @@ textarea {
     margin-top:0;
     margin-bottom:0;
     margin-left:0;
-    float:0; 
+   /* float:0; */ 
 }
 
 
@@ -161,6 +161,10 @@ header {
     /* margin-top:.5%; */
 
     margin-left: 1%;
+}
+
+.ents {
+    margin-left:10%;
 }
 
 body {

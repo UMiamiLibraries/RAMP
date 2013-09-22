@@ -10,6 +10,28 @@ jQuery(document).ready(function($)
 			   $("#wiki_logout").on("click", setupWikiLogout );
 		       });
 
+function confirmWikiSubmit( callback )
+{
+        $('body').append("<div id=\"dialog-form\" title=\"Confirm\"> \
+<form> \
+<fieldset> \
+<button class=\"update_button pure-button pure-button-primary value=\"Yes\"/> \
+</fieldset> \
+<fieldset> \
+<button class=\"update_button pure-button pure-button-primary value=\"No\"/> \
+</fieldset> \
+</form></div>");
+
+    //display login form
+    makePromptDialog('#dialog-form', 'Confirm', function(dialog)
+		     {			 
+			 $(dialog).dialog("close");
+			 $(dialog).remove();
+			 });
+  
+}
+
+
 /*
  * setupWikiLogin displays a form for the editor to login to wikipedia
  * @method setupWikiLogin
@@ -346,8 +368,20 @@ function getWiki( lstrTitle, lstrLink )
 		   $('#loading-image').remove();
 		   $('#get_wiki').replaceWith('<button id=\"post_draft_wiki\" class=\"pure-button pure-button-primary wiki_edit\">Submit to Wikipedia as Draft</button>');
 		   $('#post_draft_wiki').after('<button id=\"post_wiki\" class=\"pure-button pure-button-primary wiki_edit\">Submit to Wikipedia</button>');
-
+		   /*
+		   $('#post_draft_wiki').on('click',function()
+		   {
+		       	     
+		       $postdialog.dialog('open');	
+		       $(this).unbind();
+		       		       
+					 
+		   });
+		   */
+				
+                    	
 		   setupPostWiki();
+		   
 	       });
     }
 }
@@ -356,20 +390,76 @@ function getWiki( lstrTitle, lstrLink )
  * setupPostWiki register click event to post edit to wiki
  * @method setupPostWiki
  */
+ 
+ // Added save confirmation to "Convert to Wiki Markup" --timathom
+    var $postdialog = $('<div></div>')
+        .html('Clicking this button will create a draft subpage of your Wikipedia user account (recommended for work-in-progress). Do you want to proceed?')
+        .dialog({
+            autoOpen: false,
+            buttons : {                
+                "Yes" : function() {                                                                                       
+                    setupPostWiki();                                     
+                    $( this ).dialog( "close" );
+                },
+                "No" : function() {
+                    $( this ).dialog( "close" );
+                }                
+            }
+        });
+ 
 function setupPostWiki()
 {
     $('#post_wiki, #post_draft_wiki').on('click', function()
 					 {
 					     //stored which wiki post button was clicked
-					     lobjClicked = this;
-
+					     lobjClicked = this;						    				    
+                         
+                         // Added confirmation for Wiki submits. --timathom
+                         var lstrHTML;
+                         
+                         if( this.id == 'post_draft_wiki' )
+                         {
+                             lstrConfirm = 'Clicking this button will create a draft subpage of your Wikipedia user account (recommended for work-in-progress). Do you want to proceed?';   
+                         }       
+                         else
+                         {
+                             lstrConfirm = 'Clicking this button will publish your article to a public Wikipedia page, for the world to see. Are you sure you want to proceed?';
+                         }
+                         
+                         var $postdialog = $('<div></div>')
+                         .html(lstrConfirm).css('font-size','1.25em')                           
+                         .dialog({
+                             autoOpen: false,
+                             title : function() {
+                                 $(this).text('Confirm').css('font-size','1.25em');
+                             },
+                             buttons : {                
+                                 "Yes" : function() {                                                                                       
+                                     setupWikiLogin(function()
+                 						 {						    
+                 						     $( lobjClicked ).click();						     						    
+                 						 });                                     
+                                     $( this ).dialog( "close" );
+                                 },
+                                 "No" : function() {
+                                     $( this ).dialog( "close" );
+                                 }                
+                             }
+                         });                                                                                                   
+                         
 					     //if user is not logged in, notify user and cancel posting process
 					     if( getCookie('ramp_wiki_li') == null || getCookie('ramp_wiki_li') != '1' )
 					     {
-						 //if not logged in, show log in screen and then try to post again
-						 setupWikiLogin(function( ){
-						     $( lobjClicked ).click();
+					     
+						 //if not logged in, show log in screen and then try to post again						 
+						 $postdialog.dialog('open');
+						 /*
+						 setupWikiLogin(function()
+						 {						    
+						     $( lobjClicked ).click();						     						    
 						 });
+						 */
+						 
 					     }else
 					     {
 						 if( mstrTitle == '' )

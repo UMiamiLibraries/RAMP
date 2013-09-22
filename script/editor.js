@@ -466,14 +466,14 @@ $(document).ready(function() {
         .html('Your record has not been saved. If you have changes, they will be lost. Do you want to proceed?')
         .dialog({
             autoOpen: false,
-            buttons : {
-                "No" : function() {
-                    $( this ).dialog( "close" );
-                },
+            buttons : {                
                 "Yes" : function() {
                     $( this ).dialog( "close" );
                     $('.main_edit').hide();
                     eacToMediaWiki();                    
+                },
+                "No" : function() {
+                    $( this ).dialog( "close" );
                 }                
             }
         });        
@@ -559,7 +559,7 @@ function makeDialog( lstrSelector, lstrTitle, callback )
         closeOnEscape: true,
         title: lstrTitle,
         buttons:{
-            "Ok":function(){
+            "OK":function(){
                 $(this).dialog("close");
                 $(this).remove();
             }
