@@ -246,10 +246,16 @@ function ead()
 	* addCPFRelation adds to the EAC a cpfRelation element
 	* @method addCPFRelation
 	*/
-	eac.prototype.addCPFRelation = function( lobjCPFRelation )
+	eac.prototype.addCPFRelation = function( lobjCPFRelation, lobjRoles )
 	{
 		var lobjAttributes = typeof lobjCPFRelation.attributes != 'undefined' ? lobjCPFRelation.attributes : {};
 		var lobjElements = typeof lobjCPFRelation.elements != 'undefined' ? lobjCPFRelation.elements : {};
+		
+		// Added by timathom to allow user to select entity type when no good matches from VIAF.
+		if ( lobjAttributes["xlink:role"] == '' )
+		{		    		   
+		    lobjAttributes["xlink:role"] = lobjRoles;		    		        		        		    		    
+		}
 
 		var lobjCPFRelationNode = this.createElement( 'cpfRelation', lobjAttributes, lobjElements );		
 				

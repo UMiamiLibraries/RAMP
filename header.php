@@ -9,7 +9,7 @@ include('conf/includes.php');
  <style type="text/css">
     .hidden {display:none;}
   </style>
-<script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
 <script type="text/javascript">
     $('html').addClass('hidden');
     $(document).ready(function() {
@@ -18,8 +18,8 @@ include('conf/includes.php');
    </script>
 <script src="script/main.js"></script>
 <script src="script/select2/select2.min.js"></script>
-<script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script>
-<link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
+<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script>
+<link rel="stylesheet" href="style/jquery-ui.css" type="text/css"/>
 <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,600' rel='stylesheet' type='text/css'>
 <link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.2.1/pure-min.css">
 <link rel="stylesheet" href="script/select2/select2.css">

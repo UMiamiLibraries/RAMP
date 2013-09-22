@@ -94,6 +94,11 @@ table {
 
 .ace_content {
     cursor: text;
+    
+}
+
+.ace_text-layer {
+    
 }
 
 label {
@@ -711,6 +716,7 @@ select {
     /* height: auto; */
     display: inline-block;
     float: left;
+    margin-top:1%;
     margin-left: .3%;
 }
 
@@ -1005,6 +1011,16 @@ background:#0078e7;
   font-size:.8em;
 }
 .ner_empty_rm {
+  margin-left: 1%;
+  background:#0078e7;
+  font-size:.8em;
+}
+.viaf_empty_add {
+  margin-left: 1%;
+  background:#0078e7;
+  font-size:.8em;
+}
+.viaf_empty_rm {
   margin-left: 1%;
   background:#0078e7;
   font-size:.8em;

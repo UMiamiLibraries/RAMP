@@ -48,20 +48,18 @@ $(document).ready(function() {
 	
 	});
 	
-
 	//Get the XML
 
 	$.get('get_eac_xml.php?eac=' + eac_xml_path , function (data) {
 
-
-	    // Set up Ace editr
-
-  	    editor.getSession().setValue(data);
-	    editor.resize();
-	    editor.focus();
+	    // Set up Ace editor        
+  	    editor.getSession().setValue(data); 
+  	    editor.resize();  	    
+	    editor.focus();  	      	      	      	   
 
 	    // Stick the XML in Ace editor
-	    edited_xml = editor.getSession().getValue();
+	    edited_xml = editor.getSession().setUseWrapMode(true); // Set text wrap --timathom
+	    edited_xml = editor.getValue();
 	    
 	    $('#download_xml').val(edited_xml);
 
@@ -69,9 +67,7 @@ $(document).ready(function() {
 	    $('.ingest_button').removeAttr('disabled');
 
 	    document.cookie = 'ead_file=""';
-	    
-	    
-
+	    	   
 	    // then validate the XML
 	    validateXML();
 
@@ -91,7 +87,7 @@ $(document).ready(function() {
 	    }
 	    editor_xml = editor.getSession().getValue();
 	    	   
-	    // and POSTing it to update_eac_xml
+	    // POST XML to update_eac_xml
 
 	    $.post('update_eac_xml.php', {xml: editor_xml, ead_file: eac_xml_path} , function(data) {
 	    	   
@@ -197,7 +193,7 @@ $(document).ready(function() {
         $unsaveddialog.dialog('open');
     }
     else 
-    {
+    {        
         $('.main_edit').hide();
 	    eacToMediaWiki();
     }
@@ -215,6 +211,7 @@ $(document).ready(function() {
 
 	    if (markup != "") {
 		// Hide this stuff if there is wiki markup
+		
 		$('#wiki_switch_button').css({"background" : "gray" });
 
 		$('.main_edit').hide();
@@ -273,11 +270,11 @@ $(document).ready(function() {
     }
 
 
-    function eacToMediaWiki() {
+    function eacToMediaWiki() {    
 
 	edited_xml = editor.getValue();
 
-	$.post('eac_mediawiki.php', {eac_text: edited_xml}, function(data) {
+	$.post('eac_mediawiki.php', {eac_text: edited_xml}, function(data) {	    
 
 	    $('#main_content').append('<div id="wikieditor" class="wiki_edit"><div class="wiki_container"><h1>Local article (transformed from EAC-CPF record)</h1> \
 <textarea id="wikimarkup">' + data + '</textarea></div></div>');
@@ -394,7 +391,7 @@ $(document).ready(function() {
 
 	$('#wiki_switch_button').css({"background":"#0078e7"});
 	$('#xml_switch_button').css({"background":"gray"});
-        $('.wiki_edit').remove();
+    $('.wiki_edit').remove();
 	$('.main_edit').show();
 
 	$('#wiki_update').on('click', function() {
@@ -470,17 +467,16 @@ $(document).ready(function() {
         .dialog({
             autoOpen: false,
             buttons : {
+                "No" : function() {
+                    $( this ).dialog( "close" );
+                },
                 "Yes" : function() {
                     $( this ).dialog( "close" );
                     $('.main_edit').hide();
                     eacToMediaWiki();                    
-                },
-                "No" : function() {
-                    $( this ).dialog( "close" );
-                }
+                }                
             }
-        });
-
+        });        
 
     var $savewikidialog = $('<div></div>')
     	.html('Your local Wikipedia article has been saved.')
@@ -493,12 +489,7 @@ $(document).ready(function() {
 	    }
 	    
     	});
-    
-     
-
-
-
-
+        
 });
 
 

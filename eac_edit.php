@@ -18,7 +18,7 @@ include('header.php');
  
 
   <div id="edit_controls">
-  <h1 class="main_edit wiki_edit" id="entity_name"></h1>
+  <h1 id="entity_name"></h1>
   
     
   <span id="ingest_buttons" class="main_edit">

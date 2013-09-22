@@ -222,7 +222,8 @@ class Viaf_Ingestor extends Ingestor
 			{
 			    $lobjcpfRelation = array(
 					   			"attributes" => array( "xmlns:xlink" => "http://www.w3.org/1999/xlink",
-													   "xlink:arcrole" => "associatedWith",																   										  
+													   "xlink:arcrole" => "associatedWith",	
+													   "xlink:role" => "",															   										  
 													   "xlink:type" => "simple" ),
 								"elements" => array( "relationEntry" => array (																																										
 																		"elements" => $lstrOrigName
@@ -239,7 +240,8 @@ class Viaf_Ingestor extends Ingestor
 			
 				//continue;
 			else
-			{					    
+			{					    		   
+			    
 			    // Loop added by timathom to get full set of Named Entity Recognition results from VIAF.	   
 			    for($i = 0; $i < $lobjResult->length; $i++)
 		        {			    	   		            
@@ -270,6 +272,21 @@ class Viaf_Ingestor extends Ingestor
 
 				    $this->objRelationsList[$lstrKey] = $lobjcpfRelation;
 		         }
+		         
+		         // Include original name for selection, in case VIAF results are not a good match.
+			    $lobjcpfRelation = array(
+					   			"attributes" => array( "xmlns:xlink" => "http://www.w3.org/1999/xlink",
+													   "xlink:arcrole" => "associatedWith",	
+													   "xlink:role" => "",															   										  
+													   "xlink:type" => "simple" ),
+								"elements" => array( "relationEntry" => array (																																										
+																		"elements" => $lstrOrigName
+																		)
+													)
+
+								);
+								$lstrKey = urldecode($lstrOrigName);
+								$this->objRelationsList[$lstrKey] = $lobjcpfRelation;	
 			}    
 		}
 	}
