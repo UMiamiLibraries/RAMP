@@ -234,7 +234,7 @@ class WorldCat_Ingestor extends Ingestor
 	}
 
 	/**
-	 * WorldCat_Ingestor::collectUsefulLinks() - collect and save useful link to
+	 * WorldCat_Ingestor::collectUsefulLinks() - collect and save useful links to
 	 * appropriate property list
 	 *
 	 * @return boolean/void
@@ -255,15 +255,17 @@ class WorldCat_Ingestor extends Ingestor
 		if($lobjResults !== FALSE && $lobjResults->length > 0)
 			$this->strWikiTitle = $lobjResults->item(0)->nodeValue;
 
+        // Commented out because not currently needed for link collection. --timathom
 		//$this->objUsefulLinks[] = "http://viaf.org/viaf/" . $this->strViafId;
 		//$this->objUsefulLinks[] = "http://en.wikipedia.org/wiki/Special:Search?search=" . $this->strWikiTitle;
 
-/*
+        /*
 		if (strpos($this->strPNKey,'lccn-') !== false)
 		{
 			$this->objUsefulLinks[] = "http://errol.oclc.org/laf/" . str_replace( 'lccn-', '', $this->strPNKey ) . ".html";
 		}				
-*/		
+        */
+        		
         $lobjLink = array();
         $lobjLink['viaf'] = $this->strViafId;
 		$lobjLink['lccn'] = $this->strPNKey;
@@ -383,29 +385,33 @@ class WorldCat_Ingestor extends Ingestor
 		$lobjLinkNodeViaf = array();
 
 		foreach( $this->objUsefulLinks as $lobjLink )
-		{			
-								
-		    if( $lobjLink['wiki'] != "")
+		{											
+		    if( $lobjLink['wiki'] != "" || $lobjLink['wiki']->length != 0) {		    
 				$lobjLinkNodeWiki['attributes']['localType'] = "dbpedia"; 												
-				$lobjLinkNodeWiki['elements'] = "WCI:" . "dbpedia:http://dbpedia.org/resource/" . $lobjLink['wiki']; 
-				//$lobjLinkNodeWiki = "dbpedia:http://dbpedia.org/resource/" . $lobjLink['wiki'];				
-				
-			if( $lobjLink['lccn'] != "")		    
+				$lobjLinkNodeWiki['elements'] = "WCI:" . "dbpedia:http://dbpedia.org/resource/" . $lobjLink['wiki']; 	
+				$this->objElementList['otherRecordId'][] = $lobjLinkNodeWiki;						
+			}
+			
+			if( $lobjLink['lccn'] != "" || $lobjLink['lccn']->length != 0) {		    
 				$lobjLinkNodeSource['attributes']['xlink:href'] = "WCI:" . $lobjLink['lccn'] . "/identity.xml";		
 				$lobjLinkNodeSource['attributes']['xlink:type'] = "simple";
-				$lobjLinkNodeLccn['attributes']['localType'] = "lccn";				
-				$lobjLinkNodeLccn['elements'] = "WCI:" . $lobjLink['lccn'];
-				//$lobjLinkNodeLccn = "WCI:" . $lobjLink['lccn'];
+				$this->objElementList['source'][] = $lobjLinkNodeSource;
 				
-			if( $lobjLink['viaf'] != "")
+				if (strpos($lobjLink['lccn'],'lccn-') === false) {
+				    $lobjLinkNodeLccn['attributes']['localType'] = "WCI";
+				} else {
+				    $lobjLinkNodeLccn['attributes']['localType'] = "lccn";
+				}								
+				
+				$lobjLinkNodeLccn['elements'] = "WCI:" . $lobjLink['lccn'];
+				$this->objElementList['otherRecordId'][] = $lobjLinkNodeLccn;				
+			}
+				
+			if( $lobjLink['viaf'] != "" || $lobjLink['viaf']->length != 0) {
 			    $lobjLinkNodeViaf['attributes']['localType'] = "VIAFId";
-				$lobjLinkNodeViaf['elements'] = "VIAFId:" . $lobjLink['viaf'];				
-
-			$this->objElementList['otherRecordId'][] = $lobjLinkNodeWiki;			
-			$this->objElementList['source'][] = $lobjLinkNodeSource;
-			$this->objElementList['otherRecordId'][] = $lobjLinkNodeLccn;
-			$this->objElementList['otherRecordId'][] = $lobjLinkNodeViaf;			
-			
+				$lobjLinkNodeViaf['elements'] = "VIAFId:" . $lobjLink['viaf'];
+				$this->objElementList['otherRecordId'][] = $lobjLinkNodeViaf;
+			}				
 		}
 	}			
 
