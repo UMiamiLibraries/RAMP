@@ -245,7 +245,7 @@ class EadConvert {
 			    'agencyCode'=>$this->agency_code,
 			    'otherAgencyCode' => $this->other_agency_code,
 			    'agencyName'=> $this->agency_name,
-			    'standardDateTime'=>date('c'),
+			    'standardDateTime'=>substr(date('c'), 0, -15), // Removed hours from date to avoid unecessary Diffs. --timathom
 			    'file' => $file,
 
 			    'serverName' => $this->serverName,
