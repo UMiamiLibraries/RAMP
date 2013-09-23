@@ -10,5 +10,5 @@ $eventDescDerive = "New EAC-CPF record derived from EAD instance and existing EA
 $eventDescCreate = "Record created.";
 $eventDescRevise = "Record revised.";
 $eventDescExport = "Record exported as EAC-CPF/XML.";
-$eventDescRAMP = "Record created in RAMP.";
+//$eventDescRAMP = "Record created in RAMP."; // Removed because created Diff conflict. --timathom
 ?>

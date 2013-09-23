@@ -12,7 +12,7 @@ class EadConvert {
   private $eventDescCreate;
   private $eventDescRevise;
   private $eventDescExport;
-  private $eventDescRAMP;
+  //private $eventDescRAMP; // Removed because created Diff conflict. --timathom
 
   
 

@@ -163,7 +163,7 @@
                         <xsl:otherwise>
                             <!-- Provide the appropriate eventDescription. -->
                             <eventDescription>
-                                <xsl:value-of select="$pEventDescRAMP"/>
+                                <xsl:value-of select="ead:ead/ead:archdesc/ead:did/ead:note[@type='creation']"/>
                             </eventDescription>
                         </xsl:otherwise>
                     </xsl:choose>

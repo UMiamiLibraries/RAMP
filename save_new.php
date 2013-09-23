@@ -82,6 +82,7 @@ if (file_exists(  $_POST["dir"] . '/' . $file_name_lower . '.xml')) {
 
 			'</persname>
 		                           </origination>
+		                           <note type="creation">Record created in RAMP.</note>
 		      </did>
 		               <bioghist encodinganalog="545">
 		<p>' . $bioghist .
@@ -125,6 +126,7 @@ if (file_exists(  $_POST["dir"] . '/' . $file_name_lower . '.xml')) {
 
 			'</corpname>
 		                           </origination>
+		                           <note type="creation">Record created in RAMP.</note>
 		      </did>
 		               <bioghist encodinganalog="545">
 		<p>' . $bioghist .
@@ -164,6 +166,7 @@ if (file_exists(  $_POST["dir"] . '/' . $file_name_lower . '.xml')) {
 		                     <origination label="Creator" encodinganalog="245$c">
 		                     <famname  source="local">' . $persname . '</famname>
 		                           </origination>
+		                           <note type="creation">Record created in RAMP.</note>
 		      </did>
 		               <bioghist encodinganalog="545">
 		<p>' . $bioghist .
@@ -183,7 +186,7 @@ if (file_exists(  $_POST["dir"] . '/' . $file_name_lower . '.xml')) {
 
   fwrite($f, $ead_doc->saveXML());
 
-  $ead_convert = new EadConvert( $_POST["dir"] );
+    $ead_convert = new EadConvert( $_POST["dir"] );
 	$ead_convert->setAgency_code($agency_code);
 	$ead_convert->setOther_agency_code($other_agency_code);
 	$ead_convert->setAgency_name($agency_name);
@@ -195,8 +198,8 @@ if (file_exists(  $_POST["dir"] . '/' . $file_name_lower . '.xml')) {
     $ead_convert->setEventDescRevise($eventDescRevise);
 	$ead_convert->setEventDescCreate($eventDescCreate);
 	$ead_convert->setEventDescExport($eventDescExport);
-	$ead_convert->setEventDescRAMP($eventDescRAMP);
-  $ead_convert->new_eac( $file_name_lower );
+	//$ead_convert->setEventDescRAMP($eventDescRAMP); // Removed because created Diff conflict. --timathom
+    $ead_convert->new_eac( $file_name_lower );
 
   echo "Sucessfully created new record.";
 
