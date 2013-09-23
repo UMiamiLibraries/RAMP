@@ -335,12 +335,12 @@ function getWiki( lstrTitle, lstrLink )
 	$('#wikieditor').append("<div class=\"wiki_container\" style='margin: 175px 15px 15px 20px;'> \
 <button id=\"gtselectedtext\" class=\"pure-button pure-button-secondary\">&gt;</button><br /> \
 <button id=\"ltselectedtext\" class=\"pure-button pure-button-secondary\">&lt;</button></div> \
-<div class=\"wiki_container\"><h1 id=\"wiki_article\">Wikipedia articles (to be submitted to Wikipedia)</h1><textarea id=\"get_wiki_text\"></textarea></div>");
+<div class=\"wiki_container\"><h1 id=\"wiki_article\">Wikipedia article (to be submitted to Wikipedia)</h1><textarea id=\"get_wiki_text\"></textarea></div>");
 	$('#get_wiki_text').height($('#wikimarkup').height());
 
 	$('#loading-image').remove();
-	$('#get_wiki').replaceWith('<button id="post_wiki" class=\"pure-button pure-button-primary wiki_edit\">Submit to Wikipedia</button>');
-	$('#post_wiki').after('<button id="post_draft_wiki" class=\"pure-button pure-button-primary wiki_edit\">Submit to Wikipedia as Draft</button>');
+	$('#get_wiki').replaceWith('<button id="post_draft_wiki" class=\"pure-button pure-button-primary wiki_edit\">Submit to Wikipedia as Draft</button>');
+	$('#post_draft_wiki').after('<button id="post_wiki" class=\"pure-button pure-button-primary wiki_edit\">Submit to Wikipedia</button>');
 
 	setupPostWiki();
     }else
@@ -390,22 +390,6 @@ function getWiki( lstrTitle, lstrLink )
  * setupPostWiki register click event to post edit to wiki
  * @method setupPostWiki
  */
- 
- // Added save confirmation to "Convert to Wiki Markup" --timathom
-    var $postdialog = $('<div></div>')
-        .html('Clicking this button will create a draft subpage of your Wikipedia user account (recommended for work-in-progress). Do you want to proceed?')
-        .dialog({
-            autoOpen: false,
-            buttons : {                
-                "Yes" : function() {                                                                                       
-                    setupPostWiki();                                     
-                    $( this ).dialog( "close" );
-                },
-                "No" : function() {
-                    $( this ).dialog( "close" );
-                }                
-            }
-        });
  
 function setupPostWiki()
 {
