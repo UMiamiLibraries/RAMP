@@ -62,6 +62,24 @@ $(document).ready(function() {
 	    edited_xml = editor.getValue();
 	    
 	    $('#download_xml').val(edited_xml);
+	    var file_path = getCookie('entity_name');
+	    
+	    //file_path = file_path.match(/\/ead\/(.*)/)[1]; // file name as ID
+	    file_path = file_path.toLowerCase(); // file name as entity name
+	    file_path = file_path.replace(/(,\s)|(\s)/g, "_")
+	    
+	    var last_char = file_path.substr( file_path.length - 1 );
+         			    
+        if( last_char == "." )
+        {
+            file_path = file_path.slice(0, -1);
+        }
+        
+        file_path += ".xml";
+    			    	    	    
+	    $('#file_name').val(file_path);
+	    
+	    //$('#download_link').attr('href','download.php/' + file_path);
 
 	    //enable ingest buttons
 	    $('.ingest_button').removeAttr('disabled');
@@ -466,6 +484,7 @@ $(document).ready(function() {
         .html('Your record has not been saved. If you have changes, they will be lost. Do you want to proceed?')
         .dialog({
             autoOpen: false,
+            title : 'Confirm',
             buttons : {                
                 "Yes" : function() {
                     $( this ).dialog( "close" );

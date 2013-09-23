@@ -896,7 +896,7 @@
             <xsl:call-template name="tParseName2">
                 <xsl:with-param name="pNameType">person</xsl:with-param>
             </xsl:call-template>
-            <xsl:text> may be related to or associated with the following entities (these names may be useful for creating links to this page from other Wikipedia pages):</xsl:text>
+            <xsl:text> may be related to or associated with the following entities. These names may be useful for creating links to this page from other Wikipedia pages.</xsl:text>
             <xsl:text>&#10;</xsl:text>
             <xsl:text>&#10;</xsl:text>
             <xsl:for-each
@@ -904,8 +904,18 @@
                 <xsl:sort
                     select="translate(.,'ÁÀÉÈÍÓÚÜÑáàéèíóúúüñ','AAEEIOUUNaaeeiouuun')"
                     data-type="text"/>
-                <xsl:value-of select="normalize-space(.)"/>
-                <xsl:text>&#10;</xsl:text>
+                <xsl:text>[[</xsl:text>
+                <xsl:choose>
+                    <xsl:when test="contains(.,',')">
+                        <xsl:value-of select="substring-after(.,', ')"/>
+                        <xsl:text> </xsl:text>
+                        <xsl:value-of select="substring-before(.,',')"/>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <xsl:value-of select="normalize-space(.)"/>    
+                    </xsl:otherwise>
+                </xsl:choose>
+                <xsl:text>]]&#10;</xsl:text>
             </xsl:for-each>
             <xsl:text>&#10;</xsl:text>
             <xsl:text> --&gt;</xsl:text>
@@ -921,8 +931,30 @@
             <xsl:for-each select="eac:eac-cpf/eac:cpfDescription/eac:relations/eac:cpfRelation">
                 <xsl:sort
                     select="translate(eac:relationEntry[1],'ÁÀÉÈÍÓÚÜÑáàéèíóúúüñ','AAEEIOUUNaaeeiouuun')"
-                    data-type="text"/>
-                <xsl:value-of select="normalize-space(eac:relationEntry[1])"/>
+                    data-type="text"/>                
+                <xsl:choose>
+                    <xsl:when test="eac:relationEntry[1]/@xml:id">
+                        <xsl:text>{{Authority control|VIAF=</xsl:text>
+                        <xsl:value-of select="substring-after(eac:relationEntry[1]/@xml:id,':')"/>
+                        <xsl:text>}}</xsl:text>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <xsl:choose>
+                            <xsl:when test="contains(eac:relationEntry[1],',')">
+                                <xsl:text>[[</xsl:text>
+                                <xsl:value-of select="substring-after(eac:relationEntry[1],', ')"/>
+                                <xsl:text> </xsl:text>
+                                <xsl:value-of select="substring-before(eac:relationEntry[1],',')"/>
+                                <xsl:text>]]</xsl:text>
+                            </xsl:when>
+                            <xsl:otherwise>
+                                <xsl:text>[[</xsl:text>
+                                <xsl:value-of select="normalize-space(eac:relationEntry[1])"/>
+                                <xsl:text>]]</xsl:text>
+                            </xsl:otherwise>
+                        </xsl:choose>
+                    </xsl:otherwise>        
+                </xsl:choose>
                 <xsl:text>&#10;</xsl:text>
             </xsl:for-each>
             <xsl:text>&#10;</xsl:text>

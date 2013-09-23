@@ -106,9 +106,18 @@ function ead()
 	* addOtherRecordId adds to the EAC a otherRecordId element
 	* @method addOtherRecordId
 	*/
-	eac.prototype.addOtherRecordId = function( lstrValue )
+	eac.prototype.addOtherRecordId = function( lobjOtherRecId )
 	{
-		this.addElement( 'otherRecordId', lstrValue, '//*[local-name()=\'control\']/*[local-name()=\'maintenanceStatus\']', true );
+	   
+	    //this.addElement( 'otherRecordId', lstrValue, '//*[local-name()=\'control\']/*[local-name()=\'maintenanceStatus\']', true );
+	            
+        var lobjAttributes = typeof lobjOtherRecId.attributes != 'undefined' ? lobjOtherRecId.attributes : {};
+		var lobjElements = typeof lobjOtherRecId.elements != 'undefined' ? lobjOtherRecId.elements : {};		
+
+		var lobjOtherRecIdNode = this.createElement( 'otherRecordId', lobjAttributes, lobjElements );			
+
+        this.addElement( 'otherRecordId', lobjOtherRecIdNode, '//*[local-name()=\'control\']/*[local-name()=\'maintenanceStatus\']', true );	        
+        
 	}
 
 	/*
@@ -147,7 +156,7 @@ function ead()
 		if( !this.doesElementExist('//*[local-name()=\'control\']/*[local-name()=\'publicationStatus\']') )
 			this.addElement( 'publicationStatus', lstrValue, '//*[local-name()=\'control\']/*[local-name()=\'maintenanceAgency\']', true );
 		else
-			throw new Exception( "Cannot have multiple  ation statuses" );
+			throw new Exception( "Cannot have multiple publication statuses" );
 	}
 
 	/*

@@ -179,7 +179,7 @@
     				     {
     					 try
     					 {
-    					     var lobjData = JSON.parse(response);
+    					     var lobjData = JSON.parse(response);    					     
     					 }
     					 catch(e) //response should be JSON so if not, throw error
     					 {
@@ -204,6 +204,7 @@
     										     try
     										     {
     											 var lobjData = JSON.parse(response);
+    											 //alert(response);
     										     }
     										     catch(e) //response should be JSON so if not, throw error
     										     {
@@ -772,7 +773,8 @@
     										     {
     											 try
     											 {
-    											     var lobjData = JSON.parse(response);
+    											     var lobjData = JSON.parse(response);  
+                                                     //alert(response);   											     
     											 }
     											 catch(e) //response should be JSON so if not, throw error
     											 {
@@ -782,10 +784,26 @@
     											     $('.main_edit').show();
     											     return;
     											 }
-    
+    											     											 
+    											 var lobjSourceList = typeof lobjData.source == 'undefined' ? [] : lobjData.source;    
+    											 var lobjOtherRecList = typeof lobjData.otherRecordId == 'undefined' ? [] : lobjData.otherRecordId;
     											 var lobjCpfRelationList = typeof lobjData.cpfRelation == 'undefined' ? [] : lobjData.cpfRelation;
     											 var lobjResourceRelationList = typeof lobjData.resourceRelation == 'undefined' ? [] : lobjData.resourceRelation;
     											 var lobjSubjectList = typeof lobjData.subject == 'undefined' ? [] : lobjData.subject;
+    											 
+    											 for( var i = 0; i < lobjOtherRecList.length; i++ )
+    											 {
+    											     var OtherRecs = lobjOtherRecList[i];
+    											     lobjEac.addOtherRecordId(OtherRecs);    											     
+    											     //editor.getSession().setValue(lobjEac.getXML()); // added by timathom
+    											 }
+    											 
+    											 for( var i = 0; i < lobjSourceList.length; i++ )
+    											 {
+    											     var Sources = lobjSourceList[i];
+    											     lobjEac.addSource(Sources);
+    											     //editor.getSession().setValue(lobjEac.getXML()); // added by timathom
+    											 }
     
     											 for( var i = 0; i < lobjCpfRelationList.length; i++ )
     											 {
@@ -799,13 +817,31 @@
     											     var ResourceRelation = lobjResourceRelationList[i];
     											     lobjEac.addResourceRelation(ResourceRelation);
     											     //editor.getSession().setValue(lobjEac.getXML()); // added by timathom
-    											 }
+    											 }    											     											 										     											     											     											     											    										
     											 
-    											 editor.getSession().setValue(lobjEac.getXML()); // added by timathom
-    											 
-    											 // Result text added by timathom.
+    											 // Result text added by timathom.    
+    											 var lstrOtherRecId;
+    											 var lstrSources;
     											 var lstrCpfResults;
     											 var lstrResourceResults;
+    											 
+    											 if ( lobjOtherRecList.length == 0 )
+    											 {
+    											     lstrOtherRecId = '';
+    											 }
+    											 else 
+    											 {
+    											     lstrOtherRecId = "<p>&lt;otherRecordId&gt; elements were added.</p><br/>";
+    											 }
+    											 
+    											 if ( lobjSourceList.length == 0 )
+    											 {
+    											     lstrSources = '';
+    											 }
+    											 else 
+    											 {
+    											     lstrSources = "<p>&lt;source&gt; element was added.</p><br/>";
+    											 }
     											 
     											 if ( lobjCpfRelationList.length == 0 )
     											 {
@@ -823,21 +859,22 @@
     											 {
     											     lstrResourceResults = "<p>&lt;resourceRelation&gt; elements were added.</p><br/>";											     
     											 }
+    											     											 
     											 
     											 // Notification logic added by timathom.
     											 if(lobjSubjectList.length == 0)
-                                                 {
-                                                     $('body').append("<div id=\"dialog\"><p>No matching subjects.</p><br/>" + lstrCpfResults + lstrResourceResults + "</div>");
+                                                 {                                                    
+                                                     $('body').append("<div id=\"dialog\"><p>No matching subjects.</p><br/>" + lstrOtherRecId + lstrSources + lstrCpfResults + lstrResourceResults + "</div>");
     					                             makeDialog('#dialog', 'Results'); // display results
                                                      $('.worldcat_arrow').html("&#10003;");
                                       		         $('#loading-image').remove(); 
                                       		         $('.form_container').remove();
-                                      		         $('.main_edit').show();
+                                      		         $('.main_edit').show();                                      		         
                                                      return;
                                                  } 
                                                  else
                                                  {
-                                                                                                  
+                                                                                 
     											 //display form for editor to chose which subject headings to ingest
     											 display_possible_worldcat_subjects( lobjSubjectList, function( lobjChosenSubjects )
     															     {
@@ -849,19 +886,20 @@
     																 }
     																 
     																 if(lobjChosenSubjects.length == 0)
-                                                                     {
-                                                                         $('body').append("<div id=\"dialog\"><p>No subjects added.</p><br/>" + lstrCpfResults + lstrResourceResults + "</div>");
+                                                                     {                                                                                                     
+                                                                         $('body').append("<div id=\"dialog\"><p>No subjects added.</p><br/>" + lstrOtherRecId + lstrSources + lstrCpfResults + lstrResourceResults + "</div>");
                        					                                 makeDialog('#dialog', 'Results'); // display results
                                                                          $('.worldcat_arrow').html("&#10003;");
                                                          		         $('#loading-image').remove(); 
                                                          		         $('.form_container').remove();
                                                          		         $('.main_edit').show();
+                                                         		         editor.getSession().setValue(lobjEac.getXML());                                                         
                                                                          return;
                                                                     } 
                                                                     else
                                                                     {    
     																     editor.getSession().setValue(lobjEac.getXML());
-           																 $('body').append("<div id=\"dialog\"><p>&lt;localDescription&gt; elements were added with chosen subject(s).</p><br/>" + lstrCpfResults + lstrResourceResults + "</div>");
+           																 $('body').append("<div id=\"dialog\"><p>&lt;localDescription&gt; elements were added with chosen subject(s).</p><br/>" + lstrOtherRecId + lstrSources + lstrCpfResults + lstrResourceResults + "</div>");
            					                                             makeDialog('#dialog', 'Results'); // display results    																 
            																 $('#loading-image').remove();
            																 $('.worldcat_arrow').html("&#10003;");    																        															    																 
@@ -928,6 +966,9 @@
     					    }else
     					    {
     						$('.form_container').remove();
+    						    						 
+                             
+                            //alert(lstrChosenURI);
     
     						callback(lstrChosenURI);
     					    }

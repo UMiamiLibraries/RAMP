@@ -22,7 +22,7 @@ class XsltTransform {
       $xslt->setParameter('','pAgencyName',$parameters['agencyName']);
       $xslt->setParameter('','pOtherAgencyCode',$parameters['otherAgencyCode']);
       $xslt->setParameter('','pDate',$parameters['standardDateTime']);
-      $xslt->setParameter('','pRecordId', $ead_id);
+      $xslt->setParameter('','pRecordId', preg_replace('/_/','-',$ead_id));
       $xslt->setParameter('','pLocalURL',$parameters['localURL']);
       $xslt->setParameter('','pServerName',$parameters['serverName']);
       $xslt->setParameter('','pRepositoryOne',$parameters['repositoryOne']);

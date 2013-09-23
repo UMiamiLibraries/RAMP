@@ -34,7 +34,14 @@ include('header.php');
   <div class="arrows save_arrow main_edit">&rarr;</div>
   <button id="convert_to_wiki" class="pure-button pure-button-primary main_edit">Convert to Wiki Markup </button>
 
-  <form id="download_form" method="post" target="_blank" action="download.php"><button id="download_xml" class="pure-button pure-button-primary main_edit" type="submit" name="xml" value="">Export Current EAC-CPF</button></form>
+  
+  <form id="download_form" method="post" target="_blank" action="download.php">
+  <input id="download_xml" type="hidden" name="xml" value=""/>
+  <input id="file_name" type="hidden" name="path" value="">  
+  <button id="download_submit" class="pure-button pure-button-primary main_edit" type="submit">Export Current EAC-CPF</button>
+  </form>
+  
+  <!-- <button id="download_submit" class="pure-button pure-button-primary main_edit"><a id="download_link" href="">Export Current EAC-CPF</a></button> -->
   
 
   <?php
