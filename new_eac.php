@@ -67,7 +67,7 @@ include('header.php');
   <br/>
   </form>
 
-  <button id="submit_new" class="pure-button pure-button-primary" style="margin-left:50.3%; display:block; clear:left;">Create</button>
+  <button id="submit_new" class="pure-button pure-button-primary">Create</button>
   <p id="results" style="margin-left:7px;"></p>
   <br/>
   <br/>
