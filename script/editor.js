@@ -264,7 +264,7 @@ $(document).ready(function() {
 
 	   	$('#edit_xml').on('click', function() {
 
-    		    //Show the XML editor ui and wiki markup editor
+    		//Show the XML editor ui and wiki markup editor
 
 		    $('.main_edit').show();
 
@@ -279,9 +279,9 @@ $(document).ready(function() {
 		    $.post('update_wiki.php', {media_wiki: updated_markup, ead_path: eac_xml_path}, function(data) {
 			
 			$savewikidialog.dialog('open');
-			console.log("ahh!");
+			//console.log("ahh!");
 
-	    	    });
+	    	});
 
 
 		});

@@ -681,7 +681,11 @@ pre {
 .pure-form {
 
     margin-left:1%;
-    margin-top:1%;
+    margin-top:1%;    
+}
+
+#new_eac_form {
+    font-size:1.25em;
 }
 
 h1 {

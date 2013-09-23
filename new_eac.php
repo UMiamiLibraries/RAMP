@@ -30,17 +30,17 @@ include('header.php');
   <br/>
   <br/>
   <label>Associated places <span style="font-style:italic;">(enter each place on a new line)</span></label>
-  <label>Places and associated dates must be preceded by <a href="http://www.loc.gov/marc/authority/ad370.html">MARC 370 subfield delimiters</a> ($a, $b, $c, $e, $f, $g, $s, $t).</label>
-  <textarea cols="60" style="margin-left:0; margin-bottom:1%;" id="places"></textarea>
+  <label>Places and associated dates must be preceded by <a href="http://www.loc.gov/marc/authority/ad370.html" target="_blank">MARC 370 subfield delimiters</a> ($a, $b, $c, $e, $f, $g, $s, $t).</label>
+  <textarea cols="60" style="height:80px;margin-left:0; margin-bottom:1%;" id="places"></textarea>
   <br/>
   <br/>
   <label>Associated group <span style="font-style:italic;">(enter each group on a new line)</span></label>
-  <label>Groups and associated dates must be preceded by <a href="http://www.loc.gov/marc/authority/ad373.html">MARC 373 subfield delimiters</a> ($a, $s, $t).</label>
+  <label>Groups and associated dates must be preceded by <a href="http://www.loc.gov/marc/authority/ad373.html" target="_blank">MARC 373 subfield delimiters</a> ($a, $s, $t).</label>
   <textarea cols="60" style="height:80px; margin-left:0; margin-bottom:1%;" id="group"></textarea>
   <br/>
   <br/>
   <label>Occupation or field of activity <span style="font-style:italic;">(enter each item on a new line)</span></label>
-  <label>Activities and associated dates must be preceded by <a href="http://www.loc.gov/marc/authority/ad374.html">MARC 374 subfield delimiters</a> ($a, $s, $t).</label>
+  <label>Activities and associated dates must be preceded by <a href="http://www.loc.gov/marc/authority/ad374.html" target="_blank">MARC 374 subfield delimiters</a> ($a, $s, $t).</label>
   <textarea cols="60" style="height:80px; margin-left:0; margin-bottom:1%;" id="activity"></textarea>
   <br/>
   <br/>
@@ -54,7 +54,7 @@ include('header.php');
   <br/>
   <br/>
   <label>Language <span style="font-style:italic;">(enter each item on a new line)</span></label>
-  <label>Three-letter codes and language names must be preceded by <a href="http://www.loc.gov/marc/authority/ad377.html">MARC 377 subfield delimiters</a> ($a, $l).</label>
+  <label>Three-letter codes and language names must be preceded by <a href="http://www.loc.gov/marc/authority/ad377.html" target="_blank">MARC 377 subfield delimiters</a> ($a, $l).</label>
   <textarea cols="60" style="height:80px; margin-left:0; margin-bottom:1%;" id="lang"></textarea>
   <br/>
   <br/>
@@ -63,11 +63,11 @@ include('header.php');
   <br/>
   <br/>
   <label>Sources <span style="font-style:italic;">(enter a blank line between each source)</span></label>
-  <textarea cols="60" style="margin-left:0; margin-bottom:2%;" id="sources"></textarea>
+  <textarea cols="60" style="height:80px; margin-left:0; margin-bottom:2%;" id="sources"></textarea>
   <br/>
   </form>
 
-  <button id="submit_new" class="pure-button pure-button-primary" style="margin-left:39.6%; display:block; clear:left;">Create</button>
+  <button id="submit_new" class="pure-button pure-button-primary" style="margin-left:50.3%; display:block; clear:left;">Create</button>
   <p id="results" style="margin-left:7px;"></p>
   <br/>
   <br/>
