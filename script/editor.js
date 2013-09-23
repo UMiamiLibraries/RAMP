@@ -59,27 +59,7 @@ $(document).ready(function() {
 
 	    // Stick the XML in Ace editor
 	    edited_xml = editor.getSession().setUseWrapMode(true); // Set text wrap --timathom
-	    edited_xml = editor.getValue();
-	    
-	    $('#download_xml').val(edited_xml);
-	    var file_path = getCookie('entity_name');
-	    
-	    //file_path = file_path.match(/\/ead\/(.*)/)[1]; // file name as ID
-	    file_path = file_path.toLowerCase(); // file name as entity name
-	    file_path = file_path.replace(/(,\s)|(\s)/g, "_")
-	    
-	    var last_char = file_path.substr( file_path.length - 1 );
-         			    
-        if( last_char == "." )
-        {
-            file_path = file_path.slice(0, -1);
-        }
-        
-        file_path += ".xml";
-    			    	    	    
-	    $('#file_name').val(file_path);
-	    
-	    //$('#download_link').attr('href','download.php/' + file_path);
+	    edited_xml = editor.getValue();	    	    
 
 	    //enable ingest buttons
 	    $('.ingest_button').removeAttr('disabled');
@@ -108,7 +88,7 @@ $(document).ready(function() {
 	    // POST XML to update_eac_xml
 
 	    $.post('update_eac_xml.php', {xml: editor_xml, ead_file: eac_xml_path} , function(data) {
-	    	   
+	        	        
 
 	    }).done(function () { 
 		$('.save_arrow').html("&#10003;");
@@ -118,7 +98,33 @@ $(document).ready(function() {
 	    });
 	    
         });
-
+        
+        $('#download_submit').click(function() {
+            fetch_xml = editor.getSession();
+	        fetch_xml = editor.getValue();
+        
+            $('#download_xml').val(fetch_xml);
+            var file_path = getCookie('entity_name');
+            
+            //file_path = file_path.match(/\/ead\/(.*)/)[1]; // file name as ID
+            file_path = file_path.toLowerCase(); // file name as entity name
+            file_path = file_path.replace(/(,\s)|(\s)/g, "_")
+            
+            var last_char = file_path.substr( file_path.length - 1 );
+                   
+            if( last_char == "." )
+            {
+                file_path = file_path.slice(0, -1);
+            }
+            
+            file_path += ".xml";
+                                  
+            $('#file_name').val(file_path);
+            
+            //$('#download_link').attr('href','download.php/' + file_path);
+            
+	        });                        
+                	       	                                                      
     }
 
     $('#ead_files').ready(function () {
