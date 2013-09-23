@@ -666,7 +666,8 @@ pre {
 #submit_new {
     margin-top:1%;
     margin-left:50%;
-
+    display:block; 
+    clear:left;
 }
 #bioghist {
     width:100%;
