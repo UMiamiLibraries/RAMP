@@ -1,6 +1,5 @@
 <?php
 include('conf/includes.php');
-
 ?>
 <!DOCTYPE html>
 <html>
@@ -14,12 +13,15 @@ include('conf/includes.php');
     $('html').addClass('hidden');
     $(document).ready(function() {
       $('html').show();
+      $(".modal").colorbox({iframe:true, innerWidth:640, innerHeight:480});           
      });  
-   </script>
+   </script>    
 <script src="script/main.js"></script>
-<script src="script/select2/select2.min.js"></script>
+<!-- <script src="script/select2/select2.min.js"></script> -->
+<script src="script/colorbox-master/jquery.colorbox-min.js"></script>
 <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script>
 <link rel="stylesheet" href="style/jquery-ui.css" type="text/css"/>
+<link rel="stylesheet" href="style/colorbox-master/example1/colorbox.css" type="text/css"/>
 <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,600' rel='stylesheet' type='text/css'>
 <link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.2.1/pure-min.css">
 <link rel="stylesheet" href="script/select2/select2.css">
