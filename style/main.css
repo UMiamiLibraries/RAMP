@@ -79,11 +79,43 @@ table {
 }
 
 .user_help_form_table {
-    margin-bottom:200px;
+    margin-bottom:20%;
 }
 
-.user_plain_row {
-    border-bottom: dotted black 2px;
+.user_plain_row {            
+    border-bottom: dotted black 2px;    
+}
+
+#user_rel {        
+    font-weight:800;
+}
+
+#plainText {
+    padding-bottom:1%;    
+}
+.message {
+    padding-top:1%;
+    padding-bottom:1%;
+}
+
+#viaf_load {
+    margin:0px auto;
+    width:30%;
+    font-size:2em;
+    text-align:center;
+}
+
+#rels {
+    width:auto;
+    float:right;
+}
+#ents {
+    width:auto;
+    float:right;
+}
+
+.user_viaf_row {
+    font-weight:800;
 }
 
 #select_all {
@@ -386,7 +418,7 @@ ul, menu, dir {
     background: white;
     left: 0;
     position: absolute;
-    top: 100px;
+    top: 122px;
     width: 100%;
     height: 900px;
     z-index: 500;
@@ -1099,12 +1131,10 @@ background:#0078e7;
 
 .instruction {
     margin-right: 70%;
-margin-left: 1%;
-margin-top: 1%;
-font-size: 1.5em;
-
+    margin-left: 1%;
+    margin-top: 1%;
+    font-size: 1.4em;
     margin-bottom: 1%;
-
 }
 
 #gtselectedtext {
@@ -1154,9 +1184,8 @@ font-weight:bold;
 
 #loading-image {
 display:block;
-margin-left: 40%;
-
-margin-top: 5%;
+margin:5% auto 0px auto;
+margin-top: 10%;
 }
 
 #download_submit {

@@ -448,7 +448,7 @@
     						   $('#loading-image').remove();
     						   $('.main_edit').show();
     						   return;
-    					       }
+    					       }    					           					       
     
     					       var ljsonChosenNames = JSON.stringify(lobjChosenNames);
     
@@ -456,10 +456,10 @@
     					       $.post( 'ajax/viaf_ingest_api.php', { 'action' : 'relations', 'chosen_names' : ljsonChosenNames }, function(response)					       
     						       {						       						       
     							   try
-    							   {							       
+    							   {							         							       
     							       var lobjOrigNames = JSON.parse(ljsonChosenNames); // Keep the original name strings, in case there's no VIAF match.
     							       var lobjData = JSON.parse(response);		
-    							       console.log(response);
+    							       //console.log(response);
     							       if(lobjData.length == 0)
                               	       {                                                    	           
                               	           callback( 'No matches for possible names found!' );
@@ -485,7 +485,8 @@
                               	    
                               	   //display results from viaf realtion nodes search so editor can choose which relations they want to ingest
     							   display_viaf_results_form( lobjData, function( lobjResultsChosen, lobjRoleVals, lobjRelVals ) 
-    										     {
+    										     {    										         										         										     
+    										     
     											 if( lobjResultsChosen.length == 0 )
     											 {
     											     callback("Done!"); //finish process if no results chosen
@@ -527,7 +528,7 @@
     {
         var lstrHTML = "<div class=\"form_container\">";
      
-        lstrHTML += "<h2 class=\"instruction\" style=\"font-weight:800; font-size:1.5em;\">Named Entity Recognition</h2><p class=\"instruction\">These names have been extracted from this entity\'s finding aid or biography. Select additional names that you would like to look up in VIAF.</p><p class=\"instruction\">Note that geographical places are not included in VIAF and so should be skipped at this stage.</p><p class=\"instruction\">Each name can be edited to improve the search query, if appropriate. If names need to be split, or if you have additional names to add, you may click \"Add New Row\" to input appropriate data. It is best to enter new names where they would appear in alphabetical order (by first name).</p><p class=\"instruction\" style=\"font-style:italic\">Please note that if you select several names to look up in VIAF, your query may take a few seconds to run.</p><p class=\"instruction\">These names will be used to create &lt;cpfRelation&gt; elements, with associated VIAF IDs, in the EAC-CPF record.</p>";
+        lstrHTML += "<h2 class=\"instruction\" style=\"font-weight:800; font-size:1.5em;\">Named Entity Recognition</h2><p class=\"instruction\">These names have been extracted from this entity\'s finding aid or biography. Select names that you would like to look up in VIAF.</p><p class=\"instruction\">In the next step, you will be able to make a final selection to create &lt;cpfRelation&gt; elements, with associated VIAF IDs, in the EAC-CPF record.</p><p class=\"instruction\">Each name can be edited to improve the search query, if appropriate. When editing, it is best to put names in inverted order (Last Name, First Name).</p><p class=\"instruction\">If names need to be split, or if you have additional names to add, you may click \"Add New Row\" to input appropriate data.</p><p class=\"instruction\">Note that geographical places are not included in VIAF and so should be ignored at present.</p><p class=\"instruction\" style=\"font-style:italic\">Please note that if you select several names to look up in VIAF, your query may take some time to run.</p>";
     
     
         lstrHTML += "<button id=\"ingest_viaf_chosen_names_relations\" class=\"pure-button ingest-ok pure-button-secondary\">Use Selected Names</button>";
@@ -573,6 +574,8 @@
         $('#ingest_viaf_chosen_names_relations').on('click', function()
     						{
     						    var lobjChosenNames = [];
+    						    
+    						    $('#main_content').append('<div id="viaf_load">Searching VIAF for matches. Depending on the number of queries, this may take some time.</div>');
     
     						    $('input.ner_check').each(function () {
     							if(this.checked)
@@ -588,12 +591,12 @@
     						        //$('.main_edit').hide();   
     						    }
     						    else
-    						    {						                                          
+    						    {						              						        
           						    callback(lobjChosenNames);	
-          						    $('.form_container').remove();
+          						    $('.form_container').remove();          						    
           						    $('.main_edit').hide();
           						    $('#entity_name').hide();
-          						    $('#wiki_switch').hide();    
+          						    $('#wiki_switch').hide();              						    
           						    
     						    }						   						    											    			
     						});
@@ -619,7 +622,7 @@
     function display_viaf_results_form( lobjViafResults, callback )
     {
         var lstrHTML = "<div class=\"form_container\">";
-        lstrHTML += "<h2 class=\"instruction\" style=\"font-weight:800; font-size:1.5em;\">Named Entity Recognition</h2><p class=\"instruction\">Based on your selections, these are the possible matches we were able to retrieve from VIAF. Results are sorted by how many individual holdings are associated with each name in the VIAF database.</p><p class=\"instruction\">Please note that you will need to verify these results. The first name listed for each entity may not be a correct match. When there are several possibilities, you may need to look at each one before choosing.</p><p class=\"instruction\">Some results are obviously unrelated, but others may be harder to differentiate. Be aware that even if a name seems to match your original selection, it may be a false hit.</p><p class=\"instruction\">When in doubt, please click on a name to visit its VIAF page and look for additional information. If a name already has a corresponding Wikipedia article (there may be a link from the VIAF page), check there to see which VIAF ID has been used, and then select the name that corresponds to that VIAF ID.</p>"
+        lstrHTML += "<h2 class=\"instruction\" style=\"font-weight:800; font-size:1.5em;\">Named Entity Recognition</h2><p class=\"instruction\">Based on your selections, these are the possible matches (if any) that we were able to retrieve from VIAF. Results are sorted by the number of library holdings associated with each name in the VIAF database.</p><p class=\"instruction\">Please note that you will need to verify these results. When there are several possibilities, you may need to look at each one before choosing.</p><p class=\"instruction\">Some results are obviously unrelated, but others may be harder to differentiate. Be aware that even if a name seems to match your original selection, it may be a false hit.</p><p class=\"instruction\">When in doubt, please click on a name to visit its VIAF page and look for additional information. If a name already has a corresponding Wikipedia article (there may be a link from the VIAF page), check there to see which VIAF ID has been used, and then select the name that corresponds to that VIAF ID.</p><p class=\"instruction\">If there are no appropriate matches from VIAF, you may add a custom &lt;cpfRelation&gt; using the original search string.</p>";
        
         lstrHTML += "<button id=\"ingest_viaf_add_relations\" class=\"pure-button ingest-ok pure-button-secondary\">Use Selected Results</button>";
         lstrHTML += "&nbsp;<button id=\"ingest_viaf_add_relations_cancel\" class=\"pure-button ingest-cancel pure-button-secondary\">Cancel</button>";
@@ -631,27 +634,39 @@
     
         // Modified to include original name string and entity type selector along with VIAF results. --timathom
         
-        lstrHTML += "<table class=\"user_help_form_table\">";        
+        lstrHTML += "<table class=\"user_help_form_table\">";
+
+        /*
+        for( var lstrFirstResult in lobjViafResults )
+        {
+            var colon = lstrFirstResult.indexOf(':');
+            lstrHTML += "<tr class=\"user_viaf_row\"><td></td><td>Matches from VIAF:</td></tr>";
+            //for \"" + lstrFirstResult.substr(0,colon) + "\": </td></tr>";
+            break;
+        }
+        */        
+        
         for( var lstrName in lobjViafResults )                
         {                
             var lstrNameViaf = lstrName.match(/viaf/gi);
             var lstrNamePlain = lstrName.match(/[^(viaf)]/gi);
             
             if ( lstrNameViaf != null )
-            {
-               lstrHTML += "<tr class=\"user_viaf_row\">";
+            {                                             
                lstrHTML += "<td><input type=\"checkbox\" class=\"viaf_check\" name=\"chosen_results\" value=\"";		
     	       lstrHTML += lstrName.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;') + "\" /></td><td>" + lstrName + "</td>";
     	       lstrHTML += "</tr>";
             }    	    	
             else // Filter out VIAF results. --timathom
-            {
-                lstrHTML += "<tr class=\"user_plain_row\">";
-                lstrHTML += "<td><input type=\"checkbox\" class=\"viaf_check\" name=\"chosen_results\" value=\"";		
-    	        lstrHTML += "\"/></td><td id=\"plainText\">" + lstrName + "</td>";
-                lstrHTML += "<td id=\"rels\"><select name=\"relType\" title=\"For non-VIAF entries, you may choose one of two relation types. If you do not choose a relation type, the default value is 'associatedWith'\" ><option value=\"\">Relation Type</option><option value=\"\"></option><option value=\"assoc\">associatedWith</option><option value=\"corresp\">correspondedWith</option></select></td>";
-                lstrHTML += "<td id=\"ents\"><select name=\"entities\" title=\"For non-VIAF entries, you must choose an entity type. For VIAF entries (the ones with links), the entity type has been predefined.\"><option value=\"\">Entity Type</option><option value=\"\"></option><option value=\"pers\">Person</option><option value=\"corp\">CorporateBody</option><option value=\"fam\">Family</option></select></td>";
+            {   
+                lstrHTML += "<tr><td></td></tr>";
+                lstrHTML += "<tr id=\"user_rel\"><td></td><td class=\"message\">No appropriate matches from VIAF? Add &lt;cpfRelation&gt; using the original search string: </td></tr>";
+                lstrHTML += "<tr class=\"user_plain_row\"><td><input type=\"checkbox\" class=\"viaf_check\" name=\"chosen_results\" value=\"";		
+    	        lstrHTML += "\"/></td><td id=\"plainText\"><span id=\"textSpan\">" + lstrName;                
+                lstrHTML += "</span><select id=\"ents\" name=\"entities\" title=\"For non-VIAF entries, you must choose an entity type. For VIAF entries (the ones with links), the entity type has been predefined.\"><option value=\"\">Entity Type</option><option value=\"\"></option><option value=\"pers\">Person</option><option value=\"corp\">CorporateBody</option><option value=\"fam\">Family</option></select>";
+                lstrHTML += "<select id=\"rels\" name=\"relType\" title=\"For non-VIAF entries, you may choose one of two relation types. If you do not choose a relation type, the default value is 'associatedWith'\" ><option value=\"\">Relation Type</option><option value=\"\"></option><option value=\"assoc\">associatedWith</option><option value=\"corresp\">correspondedWith</option></select></td>";
                 lstrHTML += "</tr>";
+                //lstrHTML += "<tr class=\"user_viaf_row\"><td></td><td>Matches from VIAF:</td></tr>";
             }                               
         }                   
         
@@ -680,12 +695,12 @@
     					           }
     					           else  					              					          
     					           {    					                					          
-                                       lobjChosenResults.push($(this).closest('td').siblings('#plainText').text());
-                                       //alert($(this).next('#plainText').val()); 
+                                       lobjChosenResults.push($(this).closest('td').siblings('#plainText').children('#textSpan').text());
+                                       //console.log($(this).closest('td').siblings('#plainText').children('#textSpan').text()); 
                                        
-                                        if ($(this).closest('td').siblings('#rels').children('select').children('option:selected').val() != '')
+                                        if ($(this).closest('td').siblings('#plainText').children('#rels').children('option:selected').val() != '')
     					                {
-    					                    lobjChosenRels.push( $(this).closest('td').siblings('#rels').children('select').children('option:selected').text() );
+    					                    lobjChosenRels.push( $(this).closest('td').siblings('#plainText').children('#rels').children('option:selected').text() );
     					                }    				
     					                
     					                else if ( lobjChosenRels.length == 0 )
@@ -693,9 +708,9 @@
     					                    lobjChosenRels.push( "associatedWith" );
     					                }
     					           
-    					                if ($(this).closest('td').siblings('#ents').children('select').children('option:selected').val() != '')
+    					                if ($(this).closest('td').siblings('#plainText').children('#ents').children('option:selected').val() != '')
     					                {
-    					                    lobjChosenRoles.push( "http://RDVocab.info/uri/schema/FRBRentitiesRDA/" + $(this).closest('td').siblings('#ents').children('select').children('option:selected').text() );    
+    					                    lobjChosenRoles.push( "http://RDVocab.info/uri/schema/FRBRentitiesRDA/" + $(this).closest('td').siblings('#plainText').children('#ents').children('option:selected').text() );    					                    
     					                }    
     					           }    					               					          					               					      
     					       }					       
@@ -713,9 +728,10 @@
     	                       makeDialog('#dialog', 'Error!'); // display error    					     
     					   }     					  
     					   else
-    					   {						                                          
-          					  $('.form_container').remove();      						   
-    				          callback(lobjChosenResults, lobjChosenRoles, lobjChosenRels);
+    					   {						           					   
+          					  $('.form_container').remove();  
+          					  $('#viaf_load').remove();
+    				          callback(lobjChosenResults, lobjChosenRoles, lobjChosenRels);    				              				          
     					   }					   
     				       });
     
@@ -725,6 +741,7 @@
     						  var lobjChosenResults = [];
     
     						  $('.form_container').remove();
+    						  $('#viaf_load').remove();
     
     						  callback(lobjChosenResults);
     						  
