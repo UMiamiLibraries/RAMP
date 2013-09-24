@@ -1,9 +1,7 @@
-    $(document).ready(function()
-        
-    		  {
+    $(document).ready(function()        
+    		  {    		          		          		     
     		      //registrer click event that will start viaf ingestion
-    		      $('#ingest_viaf').on('click', function()
-    					  
+    		      $('#ingest_viaf').on('click', function()    					  
     					   {
     					       $('.main_edit').hide();
     					       $('#wiki_switch').hide();    
@@ -48,7 +46,7 @@
     											      makeDialog('#dialog', 'Response'); //display response
     
     											      //    $('#loading-image').remove();
-    											      //commented out by dgonzalez because ingest can be done  multiple times
+    											      //commented out by dgonzalez because ingest can be done multiple times
     											      //$('#ingest_viaf').attr("disabled", "disabled");
     											    
     											      $('.ingest_button').show();
@@ -141,7 +139,7 @@
     {
         //dialog form to confirm search string to use to search viaf
         $('body').append("<div id=\"dialog-form\" title=\"Viaf Search\"> \
-    <p class=\"validate-prompt\">Cannot be blank!</p> \
+    <p class=\"validate-prompt\">Please choose or click Cancel!</p> \
     <form> \
     <fieldset> \
     <label for=\"name\">Name</label> \
@@ -265,11 +263,10 @@
         for(var i = 0; i < lobjPossibleViaf.length; i++)
         {
     	var lstrViafID = typeof lobjPossibleViaf[i].viaf_id == 'undefined' ? '' : lobjPossibleViaf[i].viaf_id;
-    	var lstrName = typeof lobjPossibleViaf[i].name == 'undefined' ? '' : lobjPossibleViaf[i].name;	
-    	
+    	var lstrName = typeof lobjPossibleViaf[i].name == 'undefined' ? '' : lobjPossibleViaf[i].name;	    	
     	lstrHTML += "<input type=\"radio\" name=\"chosen_viaf_id\" value=\"";
     	lstrHTML += lstrViafID + "\" /><a href=\"http://viaf.org/viaf/" + lstrViafID + "\" target=\"_blank\">" + lstrName + "</a><br />";
-        }
+        }        
             
         lstrHTML += "</div></div>";
     
@@ -283,7 +280,7 @@
     
     					 if( typeof lstrChosenViaf == 'undefined')
     					 {
-    					     $('body').append("<div id=\"dialog\"><p>Cannot be blank!</p></div>");
+    					     $('body').append("<div id=\"dialog\"><p>Please choose or click Cancel!</p></div>");
     					     makeDialog('#dialog', 'Error!'); // display error
     					 }else
     					 {
@@ -461,7 +458,8 @@
     							   try
     							   {							       
     							       var lobjOrigNames = JSON.parse(ljsonChosenNames); // Keep the original name strings, in case there's no VIAF match.
-    							       var lobjData = JSON.parse(response);							       
+    							       var lobjData = JSON.parse(response);		
+    							       console.log(response);
     							       if(lobjData.length == 0)
                               	       {                                                    	           
                               	           callback( 'No matches for possible names found!' );
@@ -486,7 +484,7 @@
     							  
                               	    
                               	   //display results from viaf realtion nodes search so editor can choose which relations they want to ingest
-    							   display_viaf_results_form( lobjData, function( lobjResultsChosen, lobjRoleVals )
+    							   display_viaf_results_form( lobjData, function( lobjResultsChosen, lobjRoleVals, lobjRelVals ) 
     										     {
     											 if( lobjResultsChosen.length == 0 )
     											 {
@@ -500,9 +498,10 @@
     											 //ingest into EAC all chosen results from viaf
     											 for(var i = 0; i < lobjResultsChosen.length; i++)
     											 {
-    											     chosen_result = lobjResultsChosen[i];											                                                         
-                                                     
-                                                     lobjEac.addCPFRelation(lobjData[chosen_result],lobjRoleVals[i]);
+    											     var chosen_result = lobjResultsChosen[i];    											     
+                                                     var chosen_roles = lobjRoleVals[i];
+                                                     var chosen_rels = lobjRelVals[i];
+                                                     lobjEac.addCPFRelation(lobjData[chosen_result], chosen_roles, chosen_rels);
                                                         											        											     											    
     											 }
     											 editor.getSession().setValue(lobjEac.getXML());
@@ -541,16 +540,17 @@
         lstrHTML += "<input type=\"checkbox\" id=\"select_all\" value=\"\"><span style=\"font-weight:800; margin-left:4px;\">Select all</span><br />";
     
          // HTML modified by timathom to allow users to edit Named Entity Recognition results.
-        lstrHTML += "<table class=\"user_help_form_table\"><tr>";
+        lstrHTML += "<table class=\"user_help_form_table\">";
         
         for(var i = 0; i < lobjPossibleNames.length; i++)
-        {                
-        	lstrHTML += "<td><input type=\"checkbox\" class=\"ner_check\" name=\"chosen_names\" value=\"\"/></td>";
+        {               
+        	lstrHTML += "<tr><td><input type=\"checkbox\" class=\"ner_check\" name=\"chosen_names\" value=\"\"/></td>";
         	lstrHTML += "<td><input type=\"text\" class=\"ner_text\" name=\"modified_names\" size=\"50\" value=\"" + lobjPossibleNames[i] + "\"/></td>";
-            lstrHTML += "<td><input type=\"button\" name=\"add\" value=\"Add New Row\" class=\"ner_empty_add pure-button pure-button-secondary\"/></td></tr>";	
+            lstrHTML += "<td><input type=\"button\" name=\"add\" value=\"Add New Row\" class=\"ner_empty_add pure-button pure-button-secondary\"/></td></tr>";            
         }
+        
     
-        lstrHTML += "</tr></table>"
+        lstrHTML += "</table>"
     
         lstrHTML += "</div></div>";
     
@@ -583,7 +583,7 @@
     						    // Display/notification logic added by timathom
     						    if ( lobjChosenNames.length == 0 )
     						    {
-    						        $('body').append("<div id=\"dialog\"><p>Cannot be blank!</p></div>");
+    						        $('body').append("<div id=\"dialog\"><p>Please choose or click Cancel!</p></div>");
     					            makeDialog('#dialog', 'Error!'); // display error
     						        //$('.main_edit').hide();   
     						    }
@@ -619,7 +619,7 @@
     function display_viaf_results_form( lobjViafResults, callback )
     {
         var lstrHTML = "<div class=\"form_container\">";
-     lstrHTML += "<h2 class=\"instruction\" style=\"font-weight:800; font-size:1.5em;\">Named Entity Recognition</h2><p class=\"instruction\">Based on your selections, these are the possible matches we were able to retrieve from VIAF. Results are sorted by how many individual holdings are associated with each name in the VIAF database.</p><p class=\"instruction\">Please note that you will need to verify these results. The first name listed for each entity may not be a correct match. When there are several possibilities, you may need to look at each one before choosing.</p><p class=\"instruction\">Some results are obviously unrelated, but others may be harder to differentiate. Be aware that even if a name seems to match your original selection, it may be a false hit.</p><p class=\"instruction\">When in doubt, please click on a name to visit its VIAF page and look for additional information. If a name already has a corresponding Wikipedia article (there may be a link from the VIAF page), check there to see which VIAF ID has been used, and then select the name that corresponds to that VIAF ID.</p>"
+        lstrHTML += "<h2 class=\"instruction\" style=\"font-weight:800; font-size:1.5em;\">Named Entity Recognition</h2><p class=\"instruction\">Based on your selections, these are the possible matches we were able to retrieve from VIAF. Results are sorted by how many individual holdings are associated with each name in the VIAF database.</p><p class=\"instruction\">Please note that you will need to verify these results. The first name listed for each entity may not be a correct match. When there are several possibilities, you may need to look at each one before choosing.</p><p class=\"instruction\">Some results are obviously unrelated, but others may be harder to differentiate. Be aware that even if a name seems to match your original selection, it may be a false hit.</p><p class=\"instruction\">When in doubt, please click on a name to visit its VIAF page and look for additional information. If a name already has a corresponding Wikipedia article (there may be a link from the VIAF page), check there to see which VIAF ID has been used, and then select the name that corresponds to that VIAF ID.</p>"
        
         lstrHTML += "<button id=\"ingest_viaf_add_relations\" class=\"pure-button ingest-ok pure-button-secondary\">Use Selected Results</button>";
         lstrHTML += "&nbsp;<button id=\"ingest_viaf_add_relations_cancel\" class=\"pure-button ingest-cancel pure-button-secondary\">Cancel</button>";
@@ -631,26 +631,37 @@
     
         // Modified to include original name string and entity type selector along with VIAF results. --timathom
         
-        lstrHTML += "<table class=\"user_help_form_table\">";
-        
-        for( var lstrName in lobjViafResults )
-        {
-    	lstrHTML += "<tr><td><input type=\"checkbox\" class=\"viaf_check\" name=\"chosen_results\" value=\"";		
-    	lstrHTML += lstrName.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;') + "\" />" + lstrName + "</td>";    
-    	
-        if ( !(lstrName.match(/viaf/gi)) ) // Filter out VIAF results. --timathom
+        lstrHTML += "<table class=\"user_help_form_table\">";        
+        for( var lstrName in lobjViafResults )                
+        {                
+            var lstrNameViaf = lstrName.match(/viaf/gi);
+            var lstrNamePlain = lstrName.match(/[^(viaf)]/gi);
+            
+            if ( lstrNameViaf != null )
             {
-                lstrHTML += "<td><select name=\"entities\" class=\"ents\"><option value=\"\">Entity Type</option><option value=\"\"></option><option value=\"pers\">Person</option><option value=\"corp\">CorporateBody</option><option value=\"fam\">Family</option></select></td></tr>";    
-            }        
-        }
-                
+               lstrHTML += "<tr class=\"user_viaf_row\">";
+               lstrHTML += "<td><input type=\"checkbox\" class=\"viaf_check\" name=\"chosen_results\" value=\"";		
+    	       lstrHTML += lstrName.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;') + "\" /></td><td>" + lstrName + "</td>";
+    	       lstrHTML += "</tr>";
+            }    	    	
+            else // Filter out VIAF results. --timathom
+            {
+                lstrHTML += "<tr class=\"user_plain_row\">";
+                lstrHTML += "<td><input type=\"checkbox\" class=\"viaf_check\" name=\"chosen_results\" value=\"";		
+    	        lstrHTML += "\"/></td><td id=\"plainText\">" + lstrName + "</td>";
+                lstrHTML += "<td id=\"rels\"><select name=\"relType\" title=\"For non-VIAF entries, you may choose one of two relation types. If you do not choose a relation type, the default value is 'associatedWith'\" ><option value=\"\">Relation Type</option><option value=\"\"></option><option value=\"assoc\">associatedWith</option><option value=\"corresp\">correspondedWith</option></select></td>";
+                lstrHTML += "<td id=\"ents\"><select name=\"entities\" title=\"For non-VIAF entries, you must choose an entity type. For VIAF entries (the ones with links), the entity type has been predefined.\"><option value=\"\">Entity Type</option><option value=\"\"></option><option value=\"pers\">Person</option><option value=\"corp\">CorporateBody</option><option value=\"fam\">Family</option></select></td>";
+                lstrHTML += "</tr>";
+            }                               
+        }                   
+        
     	lstrHTML += "</table>"
     	
         lstrHTML += "</div></div>";
     
         $('body').append(lstrHTML);
         setupSelectAll('input#select_all'); //functionality to select all checkboxes
-        jQuery('html,body').animate({scrollTop:0},0); //scroll to top to view form correctly       
+        jQuery('html,body').animate({scrollTop:0},0); //scroll to top to view form correctly                                       
     
         //register click event to continue process once user choses results
         $('#ingest_viaf_add_relations').on('click', function()        
@@ -658,25 +669,45 @@
     				      				       				       
     					   var lobjChosenResults = [];					
     					   var lobjChosenRoles = [];
+    					   var lobjChosenRels = [];    					   
     					                                                  
     					   $('input.viaf_check').each(function () {
-    					       if(this.checked)
-    					       {					          
-    					           lobjChosenResults.push($(this).val());	
-    					           if ($(this).closest('td').next('td').children('select').children('option:selected').val() != '')
+    					       if ( this.checked )
+    					       {					     
+    					           if ($(this).val() != "")
     					           {
-    					               lobjChosenRoles.push("http://RDVocab.info/uri/schema/FRBRentitiesRDA/" + $(this).closest('td').next('td').children('select').children('option:selected').text());    
-    					           }    					               					           					           					         
+    					               lobjChosenResults.push($(this).val());    
+    					           }
+    					           else  					              					          
+    					           {    					                					          
+                                       lobjChosenResults.push($(this).closest('td').siblings('#plainText').text());
+                                       //alert($(this).next('#plainText').val()); 
+                                       
+                                        if ($(this).closest('td').siblings('#rels').children('select').children('option:selected').val() != '')
+    					                {
+    					                    lobjChosenRels.push( $(this).closest('td').siblings('#rels').children('select').children('option:selected').text() );
+    					                }    				
+    					                
+    					                else if ( lobjChosenRels.length == 0 )
+    					                {
+    					                    lobjChosenRels.push( "associatedWith" );
+    					                }
+    					           
+    					                if ($(this).closest('td').siblings('#ents').children('select').children('option:selected').val() != '')
+    					                {
+    					                    lobjChosenRoles.push( "http://RDVocab.info/uri/schema/FRBRentitiesRDA/" + $(this).closest('td').siblings('#ents').children('select').children('option:selected').text() );    
+    					                }    
+    					           }    					               					          					               					      
     					       }					       
     					   });					   					 					 
     					   
     					   // Display/notification logic added by timathom
     					   if ( lobjChosenResults.length == 0 )
     					   {
-    					       $('body').append("<div id=\"dialog\"><p>Cannot be blank!</p></div>");
+    					       $('body').append("<div id=\"dialog\"><p>Please choose or click Cancel!</p></div>");
     				           makeDialog('#dialog', 'Error!'); // display error    					     
     					   }    					   
-    					   else if ( $('input.viaf_check').closest('td').next('td').children('select').children('option:selected').val() == '' )
+    					   else if ( lobjChosenRoles.length == 0 )
     					   {    					    
     		                   $('body').append("<div id=\"dialog\"><p>Please select an Entity Type.</p></div>");
     	                       makeDialog('#dialog', 'Error!'); // display error    					     
@@ -684,7 +715,7 @@
     					   else
     					   {						                                          
           					  $('.form_container').remove();      						   
-    				          callback(lobjChosenResults, lobjChosenRoles);
+    				          callback(lobjChosenResults, lobjChosenRoles, lobjChosenRels);
     					   }					   
     				       });
     
@@ -709,7 +740,7 @@
     function ingest_worldcat_elements( lobjEac, lstrName, callback )
     {
         $('body').append("<div id=\"dialog-form\" title=\"WorldCat Search\"> \
-    <p class=\"validate-prompt\">Cannot be blank!</p> \
+    <p class=\"validate-prompt\">Please choose or click Cancel!</p> \
     <form> \
     <fieldset> \
     <label for=\"name\">Name</label> \
@@ -961,7 +992,7 @@
     
     					    if( typeof lstrChosenURI == 'undefined')
     					    {
-    						$('body').append("<div id=\"dialog\"><p>Cannot be blank!</p></div>");
+    						$('body').append("<div id=\"dialog\"><p>Please choose or click Cancel!</p></div>");
     						makeDialog('#dialog', 'Error!');
     					    }else
     					    {
@@ -1031,7 +1062,7 @@
     						 // Display/notification logic added by timathom
     						 if ( lobjChosenSubjects.length == 0 )
     						 {
-    						     $('body').append("<div id=\"dialog\"><p>Cannot be blank!</p></div>");
+    						     $('body').append("<div id=\"dialog\"><p>Please choose or click Cancel!</p></div>");
     					         makeDialog('#dialog', 'Error!'); // display error
     						     //$('.main_edit').hide();   
     						 }

@@ -75,7 +75,7 @@ class Viaf_Ingestor extends Ingestor
 		$this->strViafID = $lintViafId;
 
 		$this->objSourceNode = array(
-							"attributes" => array( "xlink:href" => "VIAF-$this->strViafID",
+							"attributes" => array( "xlink:href" => "VIAF:$this->strViafID",
 												   "xlink:type" => "simple" )
 							);
 		return true;
@@ -221,10 +221,8 @@ class Viaf_Ingestor extends Ingestor
 			if($lobjResult === FALSE || $lobjResult->length == 0)
 			{
 			    $lobjcpfRelation = array(
-					   			"attributes" => array( "xmlns:xlink" => "http://www.w3.org/1999/xlink",
-													   "xlink:arcrole" => "associatedWith",	
-													   "xlink:role" => "",															   										  
-													   "xlink:type" => "simple" ),
+					   			"attributes" => array( "xlink:arcrole" => "",	
+													   "xlink:role" => "" ),
 								"elements" => array( "relationEntry" => array (																																										
 																		"elements" => $lstrOrigName
 																		)
@@ -248,17 +246,16 @@ class Viaf_Ingestor extends Ingestor
 				    $this->strViafID = $lobjResult->item($i)->nodeValue;
 				    $lstrType = $lobjResult2->item($i)->nodeValue == 'Personal' ? 'Person' : 'CorporateBody';
 				    $lstrResultName = $lobjResult3->item($i)->nodeValue;
-
+http://www.viaf.org/viaf/
 				    $lobjcpfRelation = array(
-					   			"attributes" => array( "xmlns:xlink" => "http://www.w3.org/1999/xlink",
-													   "xlink:arcrole" => "associatedWith",
+					   			"attributes" => array( "xlink:arcrole" => "",
+													   "xlink:href" => "VIAF:$this->strViafID",
 													   "xlink:role" => "http://RDVocab.info/uri/schema/FRBRentitiesRDA/" . $lstrType,
 													   "xlink:type" => "simple" ),
 								"elements" => array( "relationEntry" => array (
-																		"attributes" => array( "xml:id" => "VIAF-$this->strViafID" ),
-																		"elements" => $lstrResultName
-																		)
-													)
+								                                        "elements" => $lstrResultName 
+								                                        )
+											)
 
 								);
 
@@ -273,12 +270,10 @@ class Viaf_Ingestor extends Ingestor
 				    $this->objRelationsList[$lstrKey] = $lobjcpfRelation;
 		         }
 		         
-		         // Include original name for selection, in case VIAF results are not a good match.
+		        // Include original name for selection, in case VIAF results are not a good match.
 			    $lobjcpfRelation = array(
-					   			"attributes" => array( "xmlns:xlink" => "http://www.w3.org/1999/xlink",
-													   "xlink:arcrole" => "associatedWith",	
-													   "xlink:role" => "",															   										  
-													   "xlink:type" => "simple" ),
+					   			"attributes" => array( "xlink:arcrole" => "",	
+													   "xlink:role" => "" ),
 								"elements" => array( "relationEntry" => array (																																										
 																		"elements" => $lstrOrigName
 																		)
