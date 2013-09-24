@@ -83,7 +83,7 @@ table {
 }
 
 .user_plain_row {            
-    border-bottom: dotted black 2px;    
+    border-bottom: solid black 1px;    
 }
 
 #user_rel {        
