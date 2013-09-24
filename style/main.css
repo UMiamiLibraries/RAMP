@@ -83,7 +83,7 @@ table {
 }
 
 .user_plain_row {            
-    border-bottom: solid black 1px;    
+    border-bottom: dashed black 1px;    
 }
 
 #user_rel {        
@@ -91,7 +91,7 @@ table {
 }
 
 #plainText {
-    padding-bottom:1%;    
+    padding-bottom:2%;    
 }
 .message {
     padding-top:1%;
@@ -113,6 +113,7 @@ table {
 #rels {
     width:auto;
     float:right;
+    margin-right:1%;
 }
 #ents {
     width:auto;
