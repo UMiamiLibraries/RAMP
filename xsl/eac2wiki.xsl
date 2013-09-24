@@ -905,6 +905,7 @@
                     select="translate(.,'ÁÀÉÈÍÓÚÜÑáàéèíóúúüñ','AAEEIOUUNaaeeiouuun')"
                     data-type="text"/>
                 <xsl:text>[[</xsl:text>
+                <!--
                 <xsl:choose>
                     <xsl:when test="contains(.,',')">
                         <xsl:value-of select="substring-after(.,', ')"/>
@@ -915,6 +916,8 @@
                         <xsl:value-of select="normalize-space(.)"/>    
                     </xsl:otherwise>
                 </xsl:choose>
+                -->
+                <xsl:value-of select="normalize-space(.)"/>
                 <xsl:text>]]&#10;</xsl:text>
             </xsl:for-each>
             <xsl:text>&#10;</xsl:text>
