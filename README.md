@@ -47,7 +47,16 @@ The RAMP editor can extract biographical and historical data from EAD finding ai
      chown -R www-data ead
      chmod 2755 ead
      
-   This folder should contain all the EAD files that you want to work with.
+   This folder should contain all the EAD files that you want to work with. 
+   
+   **Note that in order to be compatible with RAMP, EAD files should have the EAD namespace declared in an `@xmlns` attribute on the `ead` root element**. For example:
+     
+     <ead audience="external" xmlns="urn:isbn:1-931666-22-9" xmlns:xlink="http://www.w3.org/1999/xlink"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.loc.gov/ead/ http://www.loc.gov/ead/ead.xsd">
+       ...
+     </ead>
+     
 
 ## 2 Usage
 
