@@ -44,8 +44,7 @@ if (file_exists(  $_POST["dir"] . '/' . $file_name_lower . '.xml')) {
 
   echo "This record already exists.";
 
-} else {
-
+} else {  
   touch(  $_POST["dir"] . '/' . $file_name_lower . '.xml');
 
   $f = fopen(  $_POST["dir"] . '/' . $file_name_lower . '.xml', "w");

@@ -97,6 +97,11 @@ table {
     padding-top:1%;
     padding-bottom:1%;
 }
+.note {
+    font-weight:800;
+    font-size:1.2em;
+    margin:1% 0 2% 0;
+}
 
 #viaf_load {
     margin:0px auto;
@@ -750,12 +755,6 @@ pre {
     padding-bottom: 3%;
 }
 
-
-#submit_new {
-    margin-top:1%;
-    margin-left: .5%;
-
-}
 #bioghist {
     width:100%;
 }
@@ -763,17 +762,25 @@ pre {
 
     margin-left:0;
     margin-bottom:1%;
+}
+#new_eac_table {
+    margin-left:2%;
+}
 
+#new_eac_form {
+    font-size:1.25em;
+}
+
+#submit_new {
+    margin-top:-1%;
+    width:auto;
+    float:right;    
 }
 
 .pure-form {
 
     margin-left:1%;
     margin-top:1%;    
-}
-
-#new_eac_form {
-    font-size:1.25em;
 }
 
 h1 {

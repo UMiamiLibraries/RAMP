@@ -8,9 +8,13 @@
 
 include('header.php');
 ?>
+<table id="new_eac_table">
+<tr>
+<td>
 <form id="new_eac_form">
   <br/>
-  <label style="display:inline;">Entity type</label>
+  <p class="note">Note: new record form is still in beta. Currently, only Entity Type, Name, and Biography have been enabled. Please check back for updates.</p> 
+  <label style="display:inline;">Entity Type</label>
   <select id="entity_type">
     <option>person</option>
     <option>corporate body</option>
@@ -24,28 +28,28 @@ include('header.php');
   <br/>
   <label>Dates of existence</label>
   <label style="display:inline;">From</label>
-  <input id="from" type="text"/>
+  <input id="from" type="text" disabled/>
   <label style="display:inline;">To</label>
-  <input id="to" type="text"/>
+  <input id="to" type="text" disabled/>
   <br/>
   <br/>
   <label>Associated places <span style="font-style:italic;">(enter each place on a new line)</span></label>
   <label>Places and associated dates must be preceded by <a href="http://www.loc.gov/marc/authority/ad370.html" target="_blank">MARC 370 subfield delimiters</a> ($a, $b, $c, $e, $f, $g, $s, $t).</label>
-  <textarea cols="60" style="height:80px;margin-left:0; margin-bottom:1%;" id="places"></textarea>
+  <textarea cols="60" style="height:80px;margin-left:0; margin-bottom:1%;" id="places" disabled></textarea>
   <br/>
   <br/>
   <label>Associated group <span style="font-style:italic;">(enter each group on a new line)</span></label>
   <label>Groups and associated dates must be preceded by <a href="http://www.loc.gov/marc/authority/ad373.html" target="_blank">MARC 373 subfield delimiters</a> ($a, $s, $t).</label>
-  <textarea cols="60" style="height:80px; margin-left:0; margin-bottom:1%;" id="group"></textarea>
+  <textarea cols="60" style="height:80px; margin-left:0; margin-bottom:1%;" id="group" disabled></textarea>
   <br/>
   <br/>
   <label>Occupation or field of activity <span style="font-style:italic;">(enter each item on a new line)</span></label>
   <label>Activities and associated dates must be preceded by <a href="http://www.loc.gov/marc/authority/ad374.html" target="_blank">MARC 374 subfield delimiters</a> ($a, $s, $t).</label>
-  <textarea cols="60" style="height:80px; margin-left:0; margin-bottom:1%;" id="activity"></textarea>
+  <textarea cols="60" style="height:80px; margin-left:0; margin-bottom:1%;" id="activity" disabled></textarea>
   <br/>
   <br/>
   <label>Gender</label>
-  <select id="gender">
+  <select id="gender" disabled>
     <option></option>
     <option>female</option>
     <option>male</option>
@@ -55,7 +59,7 @@ include('header.php');
   <br/>
   <label>Language <span style="font-style:italic;">(enter each item on a new line)</span></label>
   <label>Three-letter codes and language names must be preceded by <a href="http://www.loc.gov/marc/authority/ad377.html" target="_blank">MARC 377 subfield delimiters</a> ($a, $l).</label>
-  <textarea cols="60" style="height:80px; margin-left:0; margin-bottom:1%;" id="lang"></textarea>
+  <textarea cols="60" style="height:80px; margin-left:0; margin-bottom:1%;" id="lang" disabled></textarea>
   <br/>
   <br/>
   <label>Biography or history <span style="font-style:italic;">(enter a blank line between each paragraph)</span></label>
@@ -63,11 +67,18 @@ include('header.php');
   <br/>
   <br/>
   <label>Sources <span style="font-style:italic;">(enter a blank line between each source)</span></label>
-  <textarea cols="60" style="height:80px; margin-left:0; margin-bottom:2%;" id="sources"></textarea>
+  <textarea cols="60" style="height:80px; margin-left:0; margin-bottom:2%;" id="sources" disabled></textarea>
   <br/>
   </form>
-
-  <button id="submit_new" class="pure-button pure-button-primary">Create</button>
+  </td>
+  </tr>
+  <tr>
+  <td>
+      <button id="submit_new" class="pure-button pure-button-primary">Create</button>  
+  </td>
+  </tr>
+  </table>
+  
   <p id="results" style="margin-left:7px;"></p>
   <br/>
   <br/>
