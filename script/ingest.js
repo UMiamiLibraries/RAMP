@@ -452,6 +452,7 @@
     						   $('.viaf_arrow').html("&#10003;");
     						   $('#loading-image').remove();
     						   $('.main_edit').show();
+    						   
     						   return;
     					       }    					           					       
     
@@ -471,7 +472,16 @@
                               	           $('.viaf_arrow').html("&#10003;");
         							       $('#loading-image').remove(); 
         							       $('.form_container').remove();
-        							       $('.main_edit').show();    							       
+        							       $('.main_edit').show();
+        							        // Check to see if there is already wiki markup. If so, show switcher. --timathom
+                                            if ( getCookie('wiki') == 'present' )   
+                                            {
+                                              $('#wiki_switch').show();    	                           	
+                                            }
+                                            else
+                                            {
+                                              $('#wiki_switch').hide();
+                                            }	
                                  	       return;                                                                                                                    
                               	       }                                                   	                                 	                                	       
     							   }
@@ -483,6 +493,15 @@
     							       //$('#ingest_viaf').attr("disabled", "disabled");
     							       //  $('.ingest_button').show();
     							       $('.viaf_arrow').html("&#10003;");
+    							        // Check to see if there is already wiki markup. If so, show switcher. --timathom
+                                        if ( getCookie('wiki') == 'present' )   
+                                        {
+                                          $('#wiki_switch').show();    	                           	
+                                        }
+                                        else
+                                        {
+                                          $('#wiki_switch').hide();
+                                        }	
     							       							       
     							       return;
     							   }		
@@ -498,6 +517,15 @@
     											     $('.viaf_arrow').html("&#10003;");
     											     $('#loading-image').remove(); 
     											     $('.main_edit').show();
+    											      // Check to see if there is already wiki markup. If so, show switcher. --timathom
+                                                        if ( getCookie('wiki') == 'present' )   
+                                                        {
+                                                          $('#wiki_switch').show();    	                           	
+                                                        }
+                                                        else
+                                                        {
+                                                          $('#wiki_switch').hide();
+                                                        }	
     											     return;
     											 }    											     																				
     
@@ -601,45 +629,18 @@
           						    $('.form_container').remove();          						    
           						    $('.main_edit').hide();
           						    $('#entity_name').hide();
-          						    // Check to see if there is already wiki markup. If so, show switcher. --timathom
-                                   	$.get('get_wiki.php', {ead_path : eac_xml_path}, function(markup) {
-                                       
-                                           if ( markup == '')
-                                           {
-                                               $('#wiki_switch').hide();    
-                                           }
-                                           else
-                                           {
-                                               $('#wiki_switch').show();
-                                           }    	
-                                   	
-                                   	});              						                                                 						   
+          						       						                                                 						   
     						    }						   						    											    			
     						});
     
         //register click event to cancel process
         $('#ingest_viaf_chosen_names_relations_cancel').on('click', function()
     						       {
-    							   var lobjChosenNames = [];
-    
+    							   var lobjChosenNames = [];    							      
     							   $('.form_container').remove();
     							   $('.main_edit').show();
-          						   $('#entity_name').show();
-          						   // Check to see if there is already wiki markup. If so, show switcher. --timathom
-                                   	$.get('get_wiki.php', {ead_path : eac_xml_path}, function(markup) {
-                                       
-                                           if ( markup == '')
-                                           {
-                                               $('#wiki_switch').hide();    
-                                           }
-                                           else
-                                           {
-                                               $('#wiki_switch').show();
-                                           }    	
-                                   	
-                                   	});
-    
-    							   callback(lobjChosenNames);
+          						   $('#entity_name').show();          						   
+    							   callback(lobjChosenNames);    							   
     						       });
     }
     
@@ -691,8 +692,8 @@
                 lstrHTML += "<tr id=\"user_rel\"><td></td><td class=\"message\">No appropriate matches from VIAF? Add &lt;cpfRelation&gt; using the original search string: </td></tr>";
                 lstrHTML += "<tr class=\"user_plain_row\"><td><input type=\"checkbox\" class=\"viaf_check\" name=\"chosen_results\" value=\"";		
     	        lstrHTML += "\"/></td><td id=\"plainText\"><span id=\"textSpan\">" + lstrName;                
-                lstrHTML += "</span><select id=\"ents\" name=\"entities\" title=\"For non-VIAF entries, you must choose an entity type. For VIAF entries (the ones with links), the entity type has been predefined.\"><option value=\"\">Entity Type</option><option value=\"\"></option><option value=\"pers\">Person</option><option value=\"corp\">CorporateBody</option><option value=\"fam\">Family</option></select>";
-                lstrHTML += "<select id=\"rels\" name=\"relType\" title=\"For non-VIAF entries, you may choose one of two relation types. If you do not choose a relation type, the default value is 'associatedWith'\" ><option value=\"\">Relation Type</option><option value=\"\"></option><option value=\"assoc\">associatedWith</option><option value=\"corresp\">correspondedWith</option></select></td>";
+                lstrHTML += "</span><select id=\"rels\" name=\"relType\" title=\"For non-VIAF entries, you may choose one of two relation types. If you do not choose a relation type, the default value is 'associatedWith'\" ><option value=\"\">Relation Type</option><option value=\"\"></option><option value=\"assoc\">associatedWith</option><option value=\"corresp\">correspondedWith</option></select>";
+                lstrHTML += "<select id=\"ents\" name=\"entities\" title=\"For non-VIAF entries, you must choose an entity type. For VIAF entries (the ones with links), the entity type has been predefined.\"><option value=\"\">Entity Type</option><option value=\"\"></option><option value=\"pers\">Person</option><option value=\"corp\">CorporateBody</option><option value=\"fam\">Family</option></select></td>";
                 lstrHTML += "</tr>";
                 //lstrHTML += "<tr class=\"user_viaf_row\"><td></td><td>Matches from VIAF:</td></tr>";
             }                               
@@ -710,7 +711,8 @@
         $('#ingest_viaf_add_relations').on('click', function()        
     				       {
     				      				       				       
-    					   var lobjChosenResults = [];					
+    					   var lobjChosenResults = [];	
+    					   var lobjChosenResultsTest = [];
     					   var lobjChosenRoles = [];
     					   var lobjChosenRels = [];    					   
     					                                                  
@@ -720,10 +722,11 @@
     					           if ($(this).val() != "")
     					           {
     					               lobjChosenResults.push($(this).val());    
-    					           }
+    					           }    					           
     					           else  					              					          
     					           {    					                					          
                                        lobjChosenResults.push($(this).closest('td').siblings('#plainText').children('#textSpan').text());
+                                       lobjChosenResultsTest.push($(this).closest('td').siblings('#plainText').children('#textSpan').text());
                                        //console.log($(this).closest('td').siblings('#plainText').children('#textSpan').text()); 
                                        
                                         if ($(this).closest('td').siblings('#plainText').children('#rels').children('option:selected').val() != '')
@@ -750,7 +753,7 @@
     					       $('body').append("<div id=\"dialog\"><p>Please choose or click Cancel!</p></div>");
     				           makeDialog('#dialog', 'Error!'); // display error    					     
     					   }    					   
-    					   else if ( lobjChosenRoles.length == 0 )
+    					   else if ( lobjChosenResultsTest.length != 0 && lobjChosenRoles.length == 0 )
     					   {    					    
     		                   $('body').append("<div id=\"dialog\"><p>Please select an Entity Type.</p></div>");
     	                       makeDialog('#dialog', 'Error!'); // display error    					     
@@ -759,6 +762,15 @@
     					   {						           					   
           					  $('.form_container').remove();  
           					  $('#viaf_load').remove();
+          					  // Check to see if there is already wiki markup. If so, show switcher. --timathom
+                              if ( getCookie('wiki') == 'present' )   
+                           	  {
+                                  $('#wiki_switch').show();    	                           	
+                           	  }
+                           	  else
+                           	  {
+                           	      $('#wiki_switch').hide();
+                           	  }
     				          callback(lobjChosenResults, lobjChosenRoles, lobjChosenRels);    				              				          
     					   }					   
     				       });
@@ -827,9 +839,17 @@
     					 {
     					     //alert(response);
     					     callback(response);
+    					     // Check to see if there is already wiki markup. If so, show switcher. --timathom
+                           	 if ( getCookie('wiki') == 'present' )   
+                           	 {
+                                 $('#wiki_switch').show();    	                           	
+                           	 }
+                           	 else
+                           	 {
+                           	     $('#wiki_switch').hide();
+                           	 }
     					     $(dialog).dialog("close");
-    					     $('.main_edit').show();
-    					     
+    					     $('.main_edit').show();    					        					     
     					     return;
     					 }
     
@@ -858,6 +878,7 @@
     											     callback();
     											     $(dialog).dialog("close");
     											     $('.main_edit').show();
+    											     
     											     return;
     											 }
     											     											 
@@ -947,17 +968,14 @@
                                       		         $('.form_container').remove();
                                       		         $('.main_edit').show();   
                                       		         // Check to see if there is already wiki markup. If so, show switcher. --timathom
-                                                     $.get('get_wiki.php', {ead_path : eac_xml_path}, function(markup) {                                                   
-                                                         if ( markup == '')
-                                                         {
-                                                             $('#wiki_switch').hide();    
-                                                         }
-                                                         else
-                                                         {
-                                                             $('#wiki_switch').show();
-                                                         }    	
-                                                   
-                                                     });
+                                                     if ( getCookie('wiki') == 'present' )   
+                                                     {
+                                                         $('#wiki_switch').show();    	                           	
+                                                     }
+                                                     else
+                                                     {
+                                                         $('#wiki_switch').hide();
+                                                     }
                                                      return;
                                                  } 
                                                  else
@@ -982,17 +1000,14 @@
                                                          		         $('.form_container').remove();
                                                          		         $('.main_edit').show();
                                                          		         // Check to see if there is already wiki markup. If so, show switcher. --timathom
-                                                                       	 $.get('get_wiki.php', {ead_path : eac_xml_path}, function(markup) {                                                                          
-                                                                                if ( markup == '')
-                                                                                {
-                                                                                    $('#wiki_switch').hide();    
-                                                                                }
-                                                                                else
-                                                                                {
-                                                                                    $('#wiki_switch').show();
-                                                                                }    	
-                                                                       	
-                                                                       	 });
+                                                                       	 if ( getCookie('wiki') == 'present' )   
+                                                                      	 {
+                                                                            $('#wiki_switch').show();    	                           	
+                                                                      	 }
+                                                                      	 else
+                                                                      	 {
+                                                                      	     $('#wiki_switch').hide();
+                                                                      	 }
                                                          		         editor.getSession().setValue(lobjEac.getXML());                                                         
                                                                          return;
                                                                     } 
@@ -1005,24 +1020,21 @@
            																 $('.worldcat_arrow').html("&#10003;");    																        															    																 
            																 $('main_edit').show();  
            																 // Check to see if there is already wiki markup. If so, show switcher. --timathom
-                                                                       	 $.get('get_wiki.php', {ead_path : eac_xml_path}, function(markup) {                                                                          
-                                                                                if ( markup == '')
-                                                                                {
-                                                                                    $('#wiki_switch').hide();    
-                                                                                }
-                                                                                else
-                                                                                {
-                                                                                    $('#wiki_switch').show();
-                                                                                }    	
-                                                                       	
-                                                                       	 });
-           																 
+                                                                       	 if ( getCookie('wiki') == 'present' )   
+                                                                      	 {
+                                                                            $('#wiki_switch').show();    	                           	
+                                                                      	 }
+                                                                      	 else
+                                                                      	 {
+                                                                      	     $('#wiki_switch').hide();
+                                                                      	 }           																 
     																 }
     																 
     															     });
     											 }
     										     });
     									 });
+    									 
     	        			 /* This was throwing a warning. Do we need? --timathom
     	        			 $(dialog).dialog("close");
     					     $('.main_edit').show();
@@ -1078,7 +1090,7 @@
     						makeDialog('#dialog', 'Error!');
     					    }else
     					    {
-    						$('.form_container').remove();
+    						$('.form_container').remove();    						
     						    						 
                              
                             //alert(lstrChosenURI);
@@ -1093,17 +1105,14 @@
     						   $('.form_container').remove();
     						   $('#entity_name').show();
           					   // Check to see if there is already wiki markup. If so, show switcher. --timathom
-                                                                       	 $.get('get_wiki.php', {ead_path : eac_xml_path}, function(markup) {                                                                          
-                                                                                if ( markup == '')
-                                                                                {
-                                                                                    $('#wiki_switch').hide();    
-                                                                                }
-                                                                                else
-                                                                                {
-                                                                                    $('#wiki_switch').show();
-                                                                                }    	
-                                                                       	
-                                                                       	 });
+                               if ( getCookie('wiki') == 'present' )   
+                           	   {
+                                   $('#wiki_switch').show();    	                           	
+                           	   }
+                           	   else
+                           	   {
+                           	       $('#wiki_switch').hide();
+                           	   }
     						   callback('');
     					       });
     }
@@ -1164,19 +1173,16 @@
           						 $('.form_container').remove();
           						 $('.main_edit').show();
           						 // Check to see if there is already wiki markup. If so, show switcher. --timathom
-                                                                       	 $.get('get_wiki.php', {ead_path : eac_xml_path}, function(markup) {                                                                          
-                                                                                if ( markup == '')
-                                                                                {
-                                                                                    $('#wiki_switch').hide();    
-                                                                                }
-                                                                                else
-                                                                                {
-                                                                                    $('#wiki_switch').show();
-                                                                                }    	
-                                                                       	
-                                                                       	 });
-          						 callback(lobjChosenSubjects);
-    						 }								 					
+                                 if ( getCookie('wiki') == 'present' )   
+                              	 {
+                                    $('#wiki_switch').show();    	                           	
+                              	 }
+                              	 else
+                              	 {
+                              	     $('#wiki_switch').hide();
+                              	 }
+             						 callback(lobjChosenSubjects);
+       						 }								 					
     					 });
     
         //register click event to cancel process
@@ -1187,18 +1193,14 @@
     							$('.form_container').remove();
     							$('.main_edit').show();
     							// Check to see if there is already wiki markup. If so, show switcher. --timathom
-                                                                       	 $.get('get_wiki.php', {ead_path : eac_xml_path}, function(markup) {                                                                          
-                                                                                if ( markup == '')
-                                                                                {
-                                                                                    $('#wiki_switch').hide();    
-                                                                                }
-                                                                                else
-                                                                                {
-                                                                                    $('#wiki_switch').show();
-                                                                                }    	
-                                                                       	
-                                                                       	 });
-    							
+                                if ( getCookie('wiki') == 'present' )   
+                           	    {
+                                    $('#wiki_switch').show();    	                           	
+                           	    }
+                           	    else
+                           	    {
+                           	        $('#wiki_switch').hide();
+                           	    }    							
     							callback(lobjChosenSubjects);
     						    });
     }

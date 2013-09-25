@@ -39,13 +39,17 @@ $(document).ready(function() {
     
         if ( markup == '')
         {
-            $('#wiki_switch').hide();    
+            $('#wiki_switch').hide();              
         }
         else
         {
             $('#wiki_switch').show();
-        }    	
-	
+            // Set "saved" cookie. --timathom
+	        if ( getCookie('wiki') != 'present' )
+	        {
+	            document.cookie = 'wiki=present';
+	        }
+        }    		
 	});
 	
 	//Get the XML
