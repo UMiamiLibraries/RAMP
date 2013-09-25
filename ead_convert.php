@@ -54,20 +54,20 @@ function convertEad( lstrDir, lobjUnprocessed, lstrDiffs )
 	     if( lobjData.status == "done" )
 	       {
 		 $('#file_estimator').html('Done');
-		 $('#exporting').html("<button class='pure-button pure-button-primary' id='export'>Batch Export EAC-CPF Records</button>");
-
+		 
+		 $('#exporting').html("<a style=\"margin:1%;\" href=\"export.php\">Export EAC-CPF Records</a>");
+		 
+         /*
 		    $('#export').on('click', function () {
 
-$('#exporting').html("<a href='export/export.zip'>Download your records</a>");
-			       $.post('export.php', function (data) {
-				 
-				   
-				   
-				   
-				 });
+                
+			    $.post('export.php', function (data) {
+				    $('#exporting').html("<a href='export/export.zip'>Download your records</a>"); 				   				   				  
+				});
 
-			     });
-
+			 });
+         */
+         
 		 $('#results').html( lstrDiffs );
 		 $('#convertEad2Eac').removeAttr('disabled');
 	       }else
@@ -75,9 +75,7 @@ $('#exporting').html("<a href='export/export.zip'>Download your records</a>");
 		 $('#file_estimator').html( lobjData.unprocessed.length + " files left.");
 		 lobjUnprocessed = lobjData.unprocessed;
 		 convertEad( lstrDir, lobjUnprocessed, lstrDiffs );
-	       }
-
-					
+	       }	
 	   },
 	     async: true
 	     });

@@ -30,7 +30,8 @@ into EAC-CPF records, and store both original and newly created files in the RAM
 <li><em>3.</em> You may now use the RAMP editor (below) to enhance and publish your records. </li>
 <li>Note:  If you run this on a folder that already has files, it will look for new and changed EAC files.  If files
 are changed, you will be presented with a 'diff' screen to merge changes. </li></ol>
-  <a href="ead_convert.php" id="convert_ead">Convert EAD Files</a>
+  <br/>
+  <p><a href="ead_convert.php" id="convert_ead">Convert EAD Files</a></p>
 
   <p>
   </p>
@@ -125,22 +126,20 @@ print ("</select>");
   </div>
   </div>
 
-   <div class="pure-u-1-2">
+  <div class="pure-u-1-2">
   <div class="content_box" id="export_box">
 <img src="style/images/export.png" height="24px" width="24px" alt="Export"/>
   <h1>Batch Export EAC-CPF Records</h1>
-  <p style="margin:1%;">After your first conversion you can export the resulting EAC-CPF records.</p>
-  <p><a href="export.php" style="margin:1%;">Export EAC-CPF Records</a></p>
+  <p style="margin:1%; font-size:1.2em;">After your first conversion you can export the resulting EAC-CPF records.</p>
+  <br/>
+  <p><a id="export_eac" href="export.php" style="margin:1%;">Export EAC-CPF Records</a></p>
   
-
   </div>
 
   </div>
 
-
-
-
   </div>
+  <div style="margin-bottom:5%;"></div>
 
   <?php
   include('footer.php');

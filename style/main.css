@@ -83,7 +83,7 @@ table {
 }
 
 .user_plain_row {            
-    border-bottom: dashed black 1px;    
+    border-bottom: dotted black 2px;    
 }
 
 #user_rel {        
@@ -91,7 +91,7 @@ table {
 }
 
 #plainText {
-    padding-bottom:2%;    
+    padding-bottom:1%;    
 }
 .message {
     padding-top:1%;
@@ -105,7 +105,7 @@ table {
 
 #viaf_load {
     margin:0px auto;
-    width:33%;
+    width:30%;
     font-size:2em;
     text-align:center;
 }
@@ -113,7 +113,6 @@ table {
 #rels {
     width:auto;
     float:right;
-    margin-right:1%;
 }
 #ents {
     width:auto;
@@ -148,7 +147,7 @@ padding: 10px 20px;
 color: white;
 border-radius: 20px;
 font: bold 14px "Helvetica Neue", Sans-Serif;
-text-transform: uppercase;
+/* text-transform: uppercase; */
 box-shadow: 0 0 7px black;
 }
 .arrow {
@@ -842,7 +841,7 @@ li.wiki_login
 
 .content_box {
 
-    padding: .5%;
+    margin:1%;
     font-size:1.2em;
 }
 
@@ -959,6 +958,7 @@ html, body {
 .content_box button {
     display:block;
     font-size:1.3em;
+    margin:0 0 1% 1%;
 
 }
 .content_box select {
@@ -1065,9 +1065,12 @@ margin-top: 1%;
 font-weight: 300;
 display: block;
 padding-bottom: 5%;
-margin-left: .5%;
+margin-left: 1%;
 }
 
+#exporting {
+    margin-top:1%;
+}
 
 #ingest_worldcat_chosen_subjects_cancel {
  /*   background:crimson;*/
@@ -1183,6 +1186,10 @@ margin-bottom:.5%;
 
 #convert_ead {
 margin:1%;
+font-size:1.4em;
+}
+#export_eac {
+font-size:1.4em;
 }
 
 em {
