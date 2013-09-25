@@ -13,7 +13,13 @@ include('header.php');
     <br/>
     <p>The RAMP editor can extract biographical and historical data from <a href="http://www.loc.gov/ead/" target="_blank">EAD finding aids</a> to create new authority records for persons, corporate bodies, and families associated with archival and special collections (using the <a href="http://www3.iath.virginia.edu/eac/cpf/tagLibrary/cpfTagLibrary.html" target="_blank">EAC-CPF format</a>). It can then let users enhance those records with additional data from sources like <a href="http://viaf.org" target="_blank">VIAF</a> and <a href="http://worldcat.org/identities/" target="_blank">WorldCat Identities</a>. Finally, it can transform those records into wiki markup so that users can edit them directly, merge them with any existing Wikipedia pages, and publish them to <a href="http://en.wikipedia.org" target="_blank">Wikipedia</a> through its API.</p>
     <br/>
-    <p><a href="http://player.vimeo.com/video/50214193" class="modal">Watch a demo showing how to use the RAMP editor</a>.</p>    
+    <p><a id="demo_1" href="http://www.screenr.com/DfZH" class="modal">Watch an overview of the RAMP editor</a>.</p>
+    <br/> 
+    <p><a id="demo_2" href="http://www.screenr.com/YfZH" class="modal">Watch a demo showing how to ingest data from VIAF</a>.</p>
+    <br/>    
+    <p><a id="demo_3" href="http://player.vimeo.com/video/50214193" class="modal">Watch a demo showing how to ingest data from WorldCat Identities</a> (coming soon).</p>
+    <br/>
+    <p><a id="demo_4" href="http://player.vimeo.com/video/50214193" class="modal">Watch a demo showing how to use RAMP to publish to Wikipedia</a> (coming soon).</p>
     </div>   
   </div>
 </div>

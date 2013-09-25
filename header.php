@@ -13,7 +13,7 @@ include('conf/includes.php');
     $('html').addClass('hidden');
     $(document).ready(function() {
       $('html').show();
-      $(".modal").colorbox({iframe:true, innerWidth:640, innerHeight:480});           
+      $(".modal").colorbox({iframe:true, innerWidth:750, innerHeight:450, frameborder:0});           
      });  
    </script>    
 <script src="script/main.js"></script>
