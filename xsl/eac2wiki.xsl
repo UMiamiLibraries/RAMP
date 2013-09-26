@@ -48,6 +48,7 @@
         <xsl:text>'''</xsl:text>
         <xsl:call-template name="tParseName2">
             <xsl:with-param name="pNameType">person</xsl:with-param>
+            <xsl:with-param name="pPersName" select="$pPersName"/>
         </xsl:call-template>
         <xsl:text>''' ...</xsl:text>
         <xsl:text>&#10;</xsl:text>
@@ -490,7 +491,7 @@
         <xsl:text>&#10;</xsl:text>
         <!-- Insert a default reference to the finding aid itself. -->
         <xsl:text> &lt;!-- Basic citation for the finding aid. Author names will need to be adjusted (inverted, updated based on revision info, etc.). --&gt;</xsl:text>
-        <xsl:for-each select="eac:eac-cpf/eac:control/eac:sources/eac:source[eac:sourceEntry]">                        
+        <xsl:for-each select="eac:eac-cpf/eac:control/eac:sources/eac:source[eac:sourceEntry]">
             <xsl:text>&#10;</xsl:text>
             <xsl:value-of
                 select="normalize-space(substring-after(eac:objectXMLWrap/ead:eadheader/ead:filedesc/ead:titlestmt/ead:author,'Finding Aid Authors: '))"/>
@@ -738,10 +739,11 @@
             <xsl:choose>
                 <xsl:when test="../../../eac:otherRecordId[@localType='lccn']">
                     <xsl:text> |LCCN=</xsl:text>
-                    <xsl:variable name="lccn" select="substring-after(../../../eac:otherRecordId[@localType='lccn'],'lccn-n')"/>
-                    <xsl:value-of select="concat('n/',translate($lccn,'-','/'))"/>                                
+                    <xsl:variable name="lccn"
+                        select="substring-after(../../../eac:otherRecordId[@localType='lccn'],'lccn-n')"/>
+                    <xsl:value-of select="concat('n/',translate($lccn,'-','/'))"/>
                 </xsl:when>
-                
+
             </xsl:choose>
             <xsl:text>}}</xsl:text>
         </xsl:for-each>
@@ -910,18 +912,22 @@
             <xsl:text>&lt;!-- </xsl:text>
             <xsl:call-template name="tParseName2">
                 <xsl:with-param name="pNameType">person</xsl:with-param>
+                <xsl:with-param name="pPersName" select="$pPersName"/>
             </xsl:call-template>
             <xsl:text> may be related to or associated with the following entities. These names may be useful for creating links to this page from other Wikipedia pages.</xsl:text>
             <xsl:text>&#10;</xsl:text>
             <xsl:text>&#10;</xsl:text>
-            <xsl:for-each
-                select="eac:eac-cpf/eac:cpfDescription/eac:relations/eac:cpfRelation|eac:eac-cpf/eac:cpfDescription/eac:description/eac:localDescription[@localType='600']">
+            <xsl:for-each select="eac:eac-cpf/eac:cpfDescription/eac:relations/eac:cpfRelation">
                 <xsl:sort
-                    select="translate(.,'ÁÀÉÈÍÓÚÜÑáàéèíóúúüñ','AAEEIOUUNaaeeiouuun')"
+                    select="translate(eac:relationEntry[1],'ÁÀÉÈÍÓÚÜÑáàéèíóúúüñ','AAEEIOUUNaaeeiouuun')"
                     data-type="text"/>
-                <xsl:text>[[</xsl:text>                               
-                <xsl:value-of select="normalize-space(.)"/>
-                <xsl:text>]]&#10;</xsl:text>
+                <xsl:text>[[</xsl:text>                
+                <xsl:call-template name="tParseName2">
+                    <xsl:with-param name="pNameType">person</xsl:with-param>
+                    <xsl:with-param name="pPersName" select="eac:relationEntry[1]"/>
+                </xsl:call-template>                
+                <xsl:text>]]</xsl:text>
+                <xsl:text>&#10;</xsl:text>
             </xsl:for-each>
             <xsl:text>&#10;</xsl:text>
             <xsl:text> --&gt;</xsl:text>
@@ -930,6 +936,7 @@
             <xsl:text>&lt;!-- </xsl:text>
             <xsl:call-template name="tParseName2">
                 <xsl:with-param name="pNameType">corporate</xsl:with-param>
+                <xsl:with-param name="pCorpName" select="$pCorpName"/>
             </xsl:call-template>
             <xsl:text> may be related to or associated with the following entities. These names may be useful for creating links to this page from other Wikipedia pages.</xsl:text>
             <xsl:text>&#10;</xsl:text>
@@ -937,33 +944,13 @@
             <xsl:for-each select="eac:eac-cpf/eac:cpfDescription/eac:relations/eac:cpfRelation">
                 <xsl:sort
                     select="translate(eac:relationEntry[1],'ÁÀÉÈÍÓÚÜÑáàéèíóúúüñ','AAEEIOUUNaaeeiouuun')"
-                    data-type="text"/>                
-                <xsl:choose>
-                    <xsl:when test="eac:relationEntry[1]/@xml:id">
-                        <xsl:text>{{Authority control|VIAF=</xsl:text>
-                        <xsl:value-of select="substring-after(eac:relationEntry[1]/@xml:id,'-')"/>
-                        <xsl:choose>
-                            <xsl:when test="../../../eac:control/eac:otherRecordId[@localType='lccn']">
-                                <xsl:text> |LCCN=</xsl:text>
-                                <xsl:variable name="lccn" select="substring-after(../../../eac:control/eac:otherRecordId[@localType='lccn'],'lccn-n')"/>
-                                <xsl:value-of select="concat('n/',translate($lccn,'-','/'))"/>                                
-                            </xsl:when>                            
-                        </xsl:choose>                        
-                        <xsl:text>}}</xsl:text>
-                    </xsl:when>
-                    <xsl:otherwise>                       
-                        <xsl:text>[[</xsl:text>
-                        <xsl:call-template name="tParseName2">
-                            <xsl:with-param name="pNameType">corporate</xsl:with-param>
-                            <xsl:with-param name="pCorpName" select="eac:relationEntry[1]"/>                                                        
-                        </xsl:call-template>
-                        <xsl:call-template name="tParseName2">
-                            <xsl:with-param name="pNameType">person</xsl:with-param>
-                            <xsl:with-param name="pPersName" select="eac:relationEntry[1]"/>
-                        </xsl:call-template>
-                        <xsl:text>]]</xsl:text>                                                  
-                    </xsl:otherwise>        
-                </xsl:choose>
+                    data-type="text"/>
+                <xsl:text>[[</xsl:text>                
+                <xsl:call-template name="tParseName2">
+                    <xsl:with-param name="pNameType">corporate</xsl:with-param>
+                    <xsl:with-param name="pCorpName" select="eac:relationEntry[1]"/>
+                </xsl:call-template>                
+                <xsl:text>]]</xsl:text>
                 <xsl:text>&#10;</xsl:text>
             </xsl:for-each>
             <xsl:text>&#10;</xsl:text>
@@ -1150,31 +1137,44 @@
     <xsl:template name="tParseName2">
         <xsl:param name="pNameType"/>
         <xsl:param name="pPersName"/>
-        <xsl:param name="pCorpName"/>        
+        <xsl:param name="pCorpName"/>
         <!-- Parse names for people first. -->
         <xsl:if test="$pNameType='person'">
             <xsl:choose>
-                <!-- If the name contains no dates ... -->
+                <!-- If the name contains dates ... -->
                 <xsl:when
-                    test="string-length(translate($pPersName,concat($vAlpha,$vCommaSpace),''))=0">
+                    test="string-length(translate($pPersName,$vDigits,''))&lt;string-length($pPersName)">
                     <!-- ... then reverse the order of the name parts accordingly. -->
-                    <xsl:value-of select="substring-after(normalize-space($pPersName),', ')"/>
-                    <xsl:text> </xsl:text>
-                    <xsl:value-of select="substring-before(normalize-space($pPersName),', ')"/>
+                    <xsl:choose>
+                        <xsl:when
+                            test="contains(substring-after(normalize-space($pPersName),', '), ' ')">
+                            <xsl:value-of
+                                select="substring-before(substring-after(normalize-space($pPersName),', '),' ')"
+                            />
+                            <xsl:text> </xsl:text>
+                            <xsl:value-of select="substring-before(normalize-space($pPersName),', ')"/>
+                        </xsl:when>
+                        <xsl:otherwise>
+                            <xsl:value-of
+                                select="substring-before(substring-after(normalize-space($pPersName),', '),', ')"
+                            />
+                            <xsl:text> </xsl:text>
+                            <xsl:value-of select="substring-before(normalize-space($pPersName),', ')"/>                            
+                        </xsl:otherwise>
+                    </xsl:choose>                          
                 </xsl:when>
                 <xsl:otherwise>
-                    <!-- If the name includes dates ... -->
-                    <xsl:value-of
-                        select="substring-before(substring-after(normalize-space($pPersName),', '),', ')"/>
+                    <!-- If the name does not include dates ... -->
+                    <xsl:value-of select="substring-after(normalize-space($pPersName),', ')"/>
                     <xsl:text> </xsl:text>
-                    <xsl:value-of select="substring-before(normalize-space($pPersName),', ')"/>
+                    <xsl:value-of select="substring-before(normalize-space($pPersName),', ')"/>                        
                 </xsl:otherwise>
             </xsl:choose>
         </xsl:if>
         <!-- Then parse names for corporate bodies. -->
         <xsl:if test="$pNameType='corporate'">
             <!-- Name order stays as is. -->
-            <xsl:value-of select="normalize-space($pCorpName)"/>
+            <xsl:value-of select="normalize-space($pCorpName)"/>            
         </xsl:if>
     </xsl:template>
 
@@ -1267,9 +1267,18 @@
                             <!-- Output the birth year, if exists. -->
                             <xsl:if
                                 test="substring-before(normalize-space(eac:eac-cpf/eac:cpfDescription/eac:identity/eac:nameEntry[2][preceding-sibling::eac:entityType='person']/eac:part),'-')">
-                                <xsl:value-of
-                                    select="normalize-space(substring-after(substring-after(substring-before(normalize-space(eac:eac-cpf/eac:cpfDescription/eac:identity/eac:nameEntry[2][preceding-sibling::eac:entityType='person']/eac:part),'-'),', '),', '))"
-                                />
+                                <xsl:choose>
+                                    <xsl:when test="normalize-space(substring-after(substring-after(substring-before(normalize-space(eac:eac-cpf/eac:cpfDescription/eac:identity/eac:nameEntry[2][preceding-sibling::eac:entityType='person']/eac:part),'-'),', '),', '))">
+                                        <xsl:value-of
+                                            select="normalize-space(substring-after(substring-after(substring-before(normalize-space(eac:eac-cpf/eac:cpfDescription/eac:identity/eac:nameEntry[2][preceding-sibling::eac:entityType='person']/eac:part),'-'),', '),', '))"
+                                        />        
+                                    </xsl:when>
+                                    <xsl:otherwise>
+                                        <xsl:value-of
+                                            select="normalize-space(substring-after(substring-after(substring-before(normalize-space(eac:eac-cpf/eac:cpfDescription/eac:identity/eac:nameEntry[2][preceding-sibling::eac:entityType='person']/eac:part),'-'),', '),' '))"
+                                        />
+                                    </xsl:otherwise>
+                                </xsl:choose>                                                               
                             </xsl:if>
                         </xsl:if>
                         <xsl:if test="$pDeathYr='true'">
