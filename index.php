@@ -17,12 +17,14 @@ include('header.php');
     <div id="demos">
     <p>RAMP demo videos:</p>
     <br/>
-    <div id="demo_links">
+    
+    <p>
     <a id="demo_1" href="http://www.screenr.com/DfZH" class="modal">Overview of the RAMP editor</a> <span> | </span>    
     <a id="demo_2" href="http://www.screenr.com/YfZH" class="modal">How to ingest from VIAF</a> <span> | </span>        
     <a id="demo_3" href="" class="modal">How to ingest from WorldCat Identities</a> (coming soon) <span> | </span>    
     <a id="demo_4" href="" class="modal">How to publish to Wikipedia</a> (coming soon)
-    </div>
+    </p>
+    
     </div>
     </div>   
   </div>
