@@ -39,10 +39,10 @@ if(isset($_POST['action']))
 				$lstrURI = $_POST['uri'];
 				$lobjWorldCatIngestor = new WorldCat_Ingestor();
 
-				if( !$lobjWorldCatIngestor->collectData($lstrURI) || !$lobjWorldCatIngestor->createElements() )
+				if( !$lobjWorldCatIngestor->collectData($lstrURI) || !$lobjWorldCatIngestor->createElements())
 					echo "Error!";
 				else
-				{
+				{				    
 					$lobjWorldCatIngestor->echoJsonElementsList();
 				}
 			}else

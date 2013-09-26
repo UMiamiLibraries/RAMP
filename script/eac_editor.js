@@ -106,9 +106,18 @@ function ead()
 	* addOtherRecordId adds to the EAC a otherRecordId element
 	* @method addOtherRecordId
 	*/
-	eac.prototype.addOtherRecordId = function( lstrValue )
+	eac.prototype.addOtherRecordId = function( lobjOtherRecId )
 	{
-		this.addElement( 'otherRecordId', lstrValue, '//*[local-name()=\'control\']/*[local-name()=\'maintenanceStatus\']', true );
+	   
+	    //this.addElement( 'otherRecordId', lstrValue, '//*[local-name()=\'control\']/*[local-name()=\'maintenanceStatus\']', true );
+	            
+        var lobjAttributes = typeof lobjOtherRecId.attributes != 'undefined' ? lobjOtherRecId.attributes : {};
+		var lobjElements = typeof lobjOtherRecId.elements != 'undefined' ? lobjOtherRecId.elements : {};		
+
+		var lobjOtherRecIdNode = this.createElement( 'otherRecordId', lobjAttributes, lobjElements );			
+
+        this.addElement( 'otherRecordId', lobjOtherRecIdNode, '//*[local-name()=\'control\']/*[local-name()=\'maintenanceStatus\']', true );	        
+        
 	}
 
 	/*
@@ -147,7 +156,7 @@ function ead()
 		if( !this.doesElementExist('//*[local-name()=\'control\']/*[local-name()=\'publicationStatus\']') )
 			this.addElement( 'publicationStatus', lstrValue, '//*[local-name()=\'control\']/*[local-name()=\'maintenanceAgency\']', true );
 		else
-			throw new Exception( "Cannot have multiple  ation statuses" );
+			throw new Exception( "Cannot have multiple publication statuses" );
 	}
 
 	/*
@@ -246,13 +255,25 @@ function ead()
 	* addCPFRelation adds to the EAC a cpfRelation element
 	* @method addCPFRelation
 	*/
-	eac.prototype.addCPFRelation = function( lobjCPFRelation )
+	eac.prototype.addCPFRelation = function( lobjCPFRelation, lobjRoles, lobjRels )
 	{
 		var lobjAttributes = typeof lobjCPFRelation.attributes != 'undefined' ? lobjCPFRelation.attributes : {};
 		var lobjElements = typeof lobjCPFRelation.elements != 'undefined' ? lobjCPFRelation.elements : {};
+								
+		// Added by timathom to allow user to select entity type and relation type when no good matches from VIAF.
+		if ( lobjAttributes["xlink:role"] == '' )
+		{		    		   
+		    lobjAttributes["xlink:role"] = lobjRoles;		    		        		        		    		    
+		}		
+		
+		if ( lobjAttributes["xlink:arcrole"] == '' )
+		{		    		   
+		    lobjAttributes["xlink:arcrole"] = lobjRels;		    		        		        		    		    
+		}
+		
 
-		var lobjCPFRelationNode = this.createElement( 'cpfRelation', lobjAttributes, lobjElements );
-
+		var lobjCPFRelationNode = this.createElement( 'cpfRelation', lobjAttributes, lobjElements );		
+				
 		if( this.doesElementExist('//*[local-name()=\'cpfDescription\']/*[local-name()=\'relations\']/*[local-name()=\'resourceRelation\']') )
 			this.addElement( 'cpfRelation', lobjCPFRelationNode, '//*[local-name()=\'cpfDescription\']/*[local-name()=\'relations\']/*[local-name()=\'resourceRelation\']', true );
 		else if( this.doesElementExist('//*[local-name()=\'cpfDescription\']/*[local-name()=\'relations\']/*[local-name()=\'functionRelation\']') )

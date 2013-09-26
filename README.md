@@ -3,7 +3,9 @@ RAMP
 
 ## Introduction
 
-   The Remixing Archival Metadata Project (RAMP) is a lightweight web-based editing tool that lets users do two things: (1) generate enhanced authority records for creators of archival collections and (2) publish the content of those records as Wikipedia pages. The RAMP editor first extracts biographical and historical data from EAD finding aids to create new authority records for persons, corporate bodies, and families associated with archival and special collections. It then lets users enhance those records with additional data from sources like VIAF and WorldCat Identities. Finally, it transforms those records into biographical pages for direct publication to Wikipedia through its API. 
+  The Remixing Archival Metadata Project (RAMP) is a lightweight web-based editing tool that is intended to let users do two things: (1) generate enhanced authority records for creators of archival collections and (2) publish the content of those records as Wikipedia pages.
+
+The RAMP editor can extract biographical and historical data from EAD finding aids to create new authority records for persons, corporate bodies, and families associated with archival and special collections (using the EAC-CPF format). It can then let users enhance those records with additional data from sources like VIAF and WorldCat Identities. Finally, it can transform those records into wiki markup so that users can edit them directly, merge them with any existing Wikipedia pages, and publish them to Wikipedia through its API.
 
 ## 1 Installation
 
@@ -14,11 +16,12 @@ RAMP
   * php_xsl extension enabled 
   * php_curl extension enabled 
   * Apache (other web servers like nginx+php-fpm may work) 
+  * Mozilla Firefox or Google Chrome web browsers. **RAMP is not currently compatible with Internet Explorer**.
 
 
 ### 1.2 Create the RAMP Database
 
-   The 'RAMP/sql' folder contains a .sql file that can be used to create
+   The `RAMP/sql` folder contains a .sql file that can be used to create
    the database that RAMP requires. This file can be imported using a database management utility like phpMyAdmin, or from the command line:
    
     mysql --user=username --password --host=hostname < sql/ramp.sql
@@ -29,22 +32,31 @@ RAMP
 
 #### 1.3.1 Other Configuration Files
 
-  * inst_info.php
+  * `inst_info.php`
 
   This file includes institutional information that appears in the EAC
   files.
 
-  * xsl.php, paths.php
+  * `xsl.php`, `paths.php`
 
     These files include the paths to XSL stylesheets.
 
 ### 1.4 Add EAD Records
-   Before using the RAMP, you will need to create a new 'ead' folder in the RAMP root directory. This folder should have correct read/write permissions set.
+   The `ead` folder in the RAMP root directory should have correct read/write permissions set.
    
      chown -R www-data ead
      chmod 2755 ead
      
-   This folder should contain all the EAD files that you want to work with.
+   This folder should contain all the EAD files that you want to work with. 
+   
+   **Note that in order to be compatible with RAMP, EAD files should have the EAD namespace declared in an `@xmlns` attribute on the `ead` root element**. For example:
+     
+     <ead audience="external" xmlns="urn:isbn:1-931666-22-9" xmlns:xlink="http://www.w3.org/1999/xlink"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.loc.gov/ead/ http://www.loc.gov/ead/ead.xsd">
+       ...
+     </ead>
+     
 
 ## 2 Usage
 
@@ -53,7 +65,7 @@ RAMP
    to EAD files. This path should have appropriate permissions so that the
    script can read and write files.
    
-   Note: if you receive an error when trying to run the conversion routine, you may need to edit your php.ini settings to change the value of 'short_open_tag' to 'Off.'
+   Note: if you receive an error when trying to run the conversion routine, you may need to edit your php.ini settings to change the value of `short_open_tag` to 'Off.'
    
    After submitting the form, the script performs an XSLT transformation on
    all the files in the folder. After a successful transformation, the
@@ -68,7 +80,7 @@ RAMP
    If you encounter a situation where there are no EAD files to import,
    RAMP can be used to create new records. The 'New' link leads to a form that
    allows you to chose what type of entity is being created and an input for a biography. 
-   If permissions for 'ramp/ead' are not correctly set, the script will not
+   If permissions for `ramp/ead` are not correctly set, the script will not
    be able to write a stub EAD file necessary to create a new EAC record. 
 
 ### 2.3 Editing EAC Files

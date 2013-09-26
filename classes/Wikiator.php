@@ -266,11 +266,11 @@ class Wikiator
 
 		if( $this->strPageId === 0 )
 			$lobjPostData = array( 'title' => $this->strPageTitle, 'text' => $lstrWikiText,
-				'token' => $this->strEditToken, 'md5' => md5( $lstrWikiText ), 'starttimestamp' => $this->strStartTimeStamp,
+				'token' => $this->strEditToken, 'starttimestamp' => $this->strStartTimeStamp,
 				'summary' => $lstrComments,'captchaid' => $lstrCaptchaID, 'captchaword' => $lstrCaptchaWord );
 		else
 			$lobjPostData = array( 'pageid' => $this->strPageId, 'text' => $lstrWikiText,
-				'token' => $this->strEditToken, 'md5' => md5( $lstrWikiText ), 'starttimestamp' => $this->strStartTimeStamp,
+				'token' => $this->strEditToken, 'starttimestamp' => $this->strStartTimeStamp,
 				'summary' => $lstrComments, 'captchaid' => $lstrCaptchaID, 'captchaword' => $lstrCaptchaWord );
 
 		//curl options setup for this request

@@ -62,7 +62,7 @@ if(isset($_POST['action']))
 			$lstrComments = isset($_POST['comments']) ? $_POST['comments'] : "";
 
 			//if draft change page title
-			if( $_POST['isDraft'] && isset( $_COOKIE['ramp_wiki_un'] ) && stripos( $_POST['title'], 'user:' ) !== 0 )
+			if( $_POST['isDraft'] == "true" && isset( $_COOKIE['ramp_wiki_un'] ) && stripos( $_POST['title'], 'user:' ) !== 0 )
 			{
 				$_POST['title'] = 'User:' . $_COOKIE['ramp_wiki_un'] . '/' . $_POST['title'];
 			}
@@ -107,6 +107,9 @@ if(isset($_POST['action']))
 		case 'logout':
 			$lobjWiki = new Wikiator();
 			$lobjWiki->Logout();
+
+			//delete logged in cookie
+			setcookie( 'ramp_wiki_li', '1', time() - 3600, Wikiator::getEacBase() );
 
 			echo "Logged out!";
 

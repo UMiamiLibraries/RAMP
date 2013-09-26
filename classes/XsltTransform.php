@@ -22,7 +22,7 @@ class XsltTransform {
       $xslt->setParameter('','pAgencyName',$parameters['agencyName']);
       $xslt->setParameter('','pOtherAgencyCode',$parameters['otherAgencyCode']);
       $xslt->setParameter('','pDate',$parameters['standardDateTime']);
-      $xslt->setParameter('','pRecordId', $ead_id);
+      $xslt->setParameter('','pRecordId', preg_replace('/_/','-',$ead_id));
       $xslt->setParameter('','pLocalURL',$parameters['localURL']);
       $xslt->setParameter('','pServerName',$parameters['serverName']);
       $xslt->setParameter('','pRepositoryOne',$parameters['repositoryOne']);
@@ -31,10 +31,10 @@ class XsltTransform {
 	  $xslt->setParameter('','pEventDescCreate',$parameters['eventDescCreate']);
 	  $xslt->setParameter('','pEventDescRevise',$parameters['eventDescRevise']);
 	  $xslt->setParameter('','pEventDescExport',$parameters['eventDescExport']);
-	  $xslt->setParameter('','pEventDescRAMP',$parameters['eventDescRAMP']);
+	  //$xslt->setParameter('','pEventDescRAMP',$parameters['eventDescRAMP']); // Removed because created Diff conflict. --timathom
 
     // These are all XSLT parameters that allow us to push values to the transformation. These
-    // should be changed to match your own instituions values.
+    // should be changed to match your own institution's values.
 
     $xsl = new DomDocument();
     // Create a new XSLT DomDocument

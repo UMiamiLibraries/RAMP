@@ -64,7 +64,6 @@ if(isset($_POST['action']))
 
 				$lobjViafIngestor = new Viaf_Ingestor();
 				$lobjViafIngestor->createRelationsList($lobjNames);
-
 				$lobjViafIngestor->echoRelationsJsonData();
 			}else
 			{

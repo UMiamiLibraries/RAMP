@@ -11,46 +11,137 @@ article, aside, canvas, details, embed,
 figure, figcaption, footer, header, hgroup,
 menu, nav, output, ruby, section, summary,
 time, mark, audio, video {
-  margin: 0;
-	padding: 0;
-	border: 0;
-	font-size: 100%;
-	font: inherit;
-	vertical-align: baseline;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    font-size: 100%;
+    font: inherit;
+    vertical-align: baseline;
 }
 /* HTML5 display-role reset for older browsers */
 article, aside, details, figcaption, figure,
 footer, header, hgroup, menu, nav, section {
-	display: block;
+    display: block;
 }
 body {
 
-	line-height: 1;
+    line-height: 1;
 }
 ol, ul {
-	list-style: none;
+    list-style: none;
 }
 blockquote, q {
-	quotes: none;
+    quotes: none;
 }
 blockquote:before, blockquote:after,
 q:before, q:after {
-	content: '';
-	content: none;
+    content: '';
+    content: none;
 }
 table {
-	border-collapse: collapse;
-	border-spacing: 0;
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+
+#demos {
+    /* border:dotted black 1px;
+    padding:2% 0;
+    margin-top:2%; */   
+}
+
+#demos a {
+    
+}
+
+#demo_links {
+    font-size: .9em;    
 }
 
 .user_help_form {
     padding:.5em;
-    border:solid black 1px;
+	font-size:1.25em;
+	line-height:1.5em;
+	left: 50%;
+    margin-left: -250px;
+    position: absolute;
+    top: 0;
+    width: 900px;
+    /*
+    height: 400px;
+    overflow: auto;
+    margin-top:5%;
+    padding-bottom: 20%;
+    */
+    height: 1000px;
 }
 
-.user_help_form h3 {
+/*
+.user_help_form_table {
+    height:600px;
+    overflow-y:scroll;
+}
+*/
+
+.user_help_form h2 {
     font-weight:bold;
     padding:.25em;    
+    margin:0 0 1% -2px;
+}
+
+.user_help_form a {
+
+}
+
+.user_help_form_table {
+    margin-bottom:20%;
+}
+
+.user_plain_row {            
+    border-bottom: dotted black 1px;    
+}
+
+#user_rel {        
+    font-weight:800;
+}
+
+#plainText {
+    padding-bottom:2%;    
+}
+
+#results_wrap {
+    margin-bottom:1%;
+}
+
+.message {
+    padding-top:2%;
+    padding-bottom:1%;
+}
+.note {
+    font-weight:800;
+    font-size:1.2em;
+    margin:1% 0 2% 0;
+}
+
+#viaf_load {
+    margin:0px auto;
+    width:30%;
+    font-size:2em;
+    text-align:center;
+}
+
+#rels {
+    width:auto;
+    float:right;
+    margin-left:1%;
+}
+#ents {
+    width:auto;
+    float:right;
+    margin-left:1%;
+}
+
+.user_viaf_row {
+    font-weight:800;
 }
 
 #select_all {
@@ -63,122 +154,205 @@ table {
 }
 
 .user_help_form button {
-    border:solid black 1px;
-    margin:1em;
+  color:white;
+  margin-right:.5%;
+}
+
+/* jQuery UI tooltips */
+ .ui-tooltip, .arrow:after {
+background: black;
+border: 2px solid white;
+}
+.ui-tooltip {
+padding: 10px 20px;
+color: white;
+border-radius: 20px;
+font: bold 14px "Helvetica Neue", Sans-Serif;
+/* text-transform: uppercase; */
+box-shadow: 0 0 7px black;
+}
+.arrow {
+width: 70px;
+height: 16px;
+overflow: hidden;
+position: absolute;
+left: 50%;
+margin-left: -35px;
+bottom: -16px;
+}
+.arrow.top {
+top: -16px;
+bottom: auto;
+}
+.arrow.left {
+left: 20%;
+}
+.arrow:after {
+content: "";
+position: absolute;
+left: 20px;
+top: -20px;
+width: 25px;
+height: 25px;
+box-shadow: 6px 5px 9px -9px black;
+-webkit-transform: rotate(45deg);
+-moz-transform: rotate(45deg);
+-ms-transform: rotate(45deg);
+-o-transform: rotate(45deg);
+tranform: rotate(45deg);
+}
+.arrow.top:after {
+bottom: -20px;
+top: auto;
 }
 
 .ace_content {
-	cursor: text;
+    cursor: text;
+    
+}
+
+.ace_text-layer {
+    
 }
 
 label {
-	margin-top:.5em;
-	margin-bottom:.5em;
-	display: block;
+    margin-top:.5em;
+    margin-bottom:.5em;
+    display: block;
+    font-weight:500;
 }
 
 textarea {
 
-	display: block;
+    display: block;
 }
 
-form  {
-	display:block;
-	margin-top:.5%;
-	margin-bottom:1%;
-	margin-left:.5%;
+#new_eac_form  {
+    display:block;
+    margin-top:.5%;
+    margin-bottom:1%;
+    margin-left:.5%;
     float:left;    
 }
 
+#download_form  {
+    display:inline;
+    margin-top:0;
+    margin-bottom:0;
+    margin-left:0;
+   /* float:0; */ 
+}
+
+
 header {
-	/* padding:0; */
-	padding-top: .5%;
-	padding-bottom: .5%;
-	margin:0;
-	width:100%;
+    /* padding:0; */
+    padding-top: .5%;
+    padding-bottom: .5%;
+    margin:0;
+    width:100%;
 
-	background:#49b6ff;
+    background:#49b6ff;
 
-	color:#EBFFEB;
-	font-family: "Open Sans",sans-serif;
-	font-weight:300;
-	font-size:1em;
+    color:#EBFFEB;
+    font-family: "Open Sans",sans-serif;
+    font-weight:300;
+    font-size:1em;
 
 
+}
+
+
+.content_box img {
+
+    display:inline-block;
+
+    margin-left: 1%;
+
+}
+
+.content_box h1 {
+    display: inline-block;
+    /* margin-top:.5%; */
+
+    margin-left: 1%;
+}
+
+.ents {
+    margin-left:10%;
 }
 
 body {
 
-	margin:0;
-	padding:0;
-	background: #F2FAFF;
-	color:#0F141A;
-	font-family: "Open Sans", sans-serif;
-	font-size: 1em;
+    margin:0;
+    padding:0;
+    background: #F2FAFF;
+    color:#0F141A;
+    font-family: "Open Sans", sans-serif;
+    font-size: 1em;
 }
 
 #title {
 
-	display: inline;
+    display: inline;
 
 }
 #logo {
-	margin-bottom: -14px;
+    margin-bottom: -12px;
     padding-bottom:.25em;	
-	width: 200px;
-	/* height: 10%; */
+    width: 150px;
+/* height: 10%; */
 }
 
 #convert {
 
-	background: #0099FF;
+    background: #0099FF;
 
 }
 
 #addbioinfo {
 
-	background:#19A3FF;
+    background:#19A3FF;
 
-	padding-top: .5%;
+    padding-top: .5%;
 
-	padding-bottom: .5%;
+    padding-bottom: .5%;
 
 }
 #addbioinfo a {
-	color:#EBFFEB;
-	text-decoration: none;
+    color:#EBFFEB;
+    text-decoration: none;
 
 }
 
 #addrel {
 
-	background:#30ACFF;
+    background:#30ACFF;
 
 }
 
 .menu_slice a {
-font-weight:300;
+    font-weight:300;
 }
 
 .menu_slice li {
-	padding:0;
-	margin:0;
-	list-style:none;
-	display:inline;
-	padding-right:1%;
-	font-size:2em;
-	margin-left:.5%;
-	font-weight:bold;
-	cursor:hand;
+    padding:0;
+    margin:0;
+    list-style:none;
+    display:inline;
+    padding-right:1%;
+    font-size:2em;
+    margin-left:.5%;
+    font-weight:bold;
+    cursor:hand;
 
-	/* padding-bottom: 1%; */
+/* padding-bottom: 1%; */
 }
 
 #menu a {
-	color:#EBFFEB;
-	text-decoration: none;
-	/* margin-bottom: 1%; */
-	/* margin-top: 1%; */
+    color:#EBFFEB;
+    text-decoration: none;
+/* margin-bottom: 1%; */
+/* margin-top: 1%; */
 }
 
 
@@ -187,8 +361,8 @@ font-weight:300;
 
 
 .node_name {
-	font-family: "Open Sans", sans-serif;
-	font-size:1.5em;
+    font-family: "Open Sans", sans-serif;
+    font-size:1.5em;
 
 
 
@@ -203,81 +377,81 @@ p {
 
 
 ul, menu, dir {
-	display: block;
-	list-style-type: disc;
-	-webkit-margin-before:0;
-	-webkit-margin-after:0;
-	-webkit-margin-start: 0;
-	-webkit-margin-end: 0;
-	-webkit-padding-start:0;
-	margin:0;
+    display: block;
+    list-style-type: disc;
+    -webkit-margin-before:0;
+    -webkit-margin-after:0;
+    -webkit-margin-start: 0;
+    -webkit-margin-end: 0;
+    -webkit-padding-start:0;
+    margin:0;
 
 }
 
 
 #validation {
-	display: inline-block;
-	height: 10px;
-	width:10px;
-
+    display: inline-block;
+    height: 10px;
+    width:10px;
+    margin-left:.5%;
 
 
 }
 
+#validation_text {
+    margin-left:.25%;
+    margin-top:.5%;
+    margin-bottom:.5%;
+    font-size:1em;
+    display:inline-block;
+
+}
+
 #edit_controls {
-	display: inline-block;
-	margin-left: 0px;
-	width: 100%;
-	margin-top:1%;
-	margin-bottom:1%;
+    display: inline-block;
+    margin-left: 0px;
+    width: 100%;
+    margin-bottom:.5%;
+    margin-top:.5%;
 }
 
 
 #editor {
 
-	position: absolute;
-top: 0;
-right: 0;
-bottom: 0;
-left: 0;
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
 }
 
 
 #editor_container {
-position: relative;
-height: 10000px;
+    position: relative;
+    height: 10000px;
 
 }
 
 #ingest_buttons
 {
-	float: right;
-	clear: both;
-	padding-right: 20px;
+
 }
 
-.user_help_form
-{
-	background: none repeat scroll 0 0 #C1E6FF;
-    left: 50%;
-    margin-left: -250px;
-    position: absolute;
-    top: 0;
-    width: 500px;
-    height: 650px;
-    overflow: auto;
-    margin-top:5%;
-}
+
 
 .form_container
 {
-	background: white;
-	left: 0;
-	position: absolute;
-	top: 85px;
-	width: 100%;
-	height: 100%;
-	z-index: 500;
+    background: white;
+    left: 0;
+    position: absolute;
+    top: 122px;
+    width: 100%;
+    height: 900px;
+    z-index: 500;
+}
+
+.instruction_div {
+    margin-bottom:2%;
 }
 
 #editor-mask {
@@ -288,65 +462,86 @@ height: 10000px;
 
 
 textarea {
-  border: 1px solid #d9d9d9;
-  border-radius: 3px;
-  box-shadow: inset 0 1px 2px #e5e5e5;
-  -webkit-box-sizing: border-box;
-  -moz-box-sizing: border-box;
-  box-sizing: border-box;
-  display: inline-block;
+    border: 1px solid #d9d9d9;
+    border-radius: 3px;
+    box-shadow: inset 0 1px 2px #e5e5e5;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    display: inline-block;
 
-  font-size: 13px;
-  line-height: 18px;
-  padding: 4px;
- 
-  transition: border linear 0.2s, box-shadow linear 0.2s;
+    font-size: 13px;
+    line-height: 18px;
+    padding: 4px;
+    
+    transition: border linear 0.2s, box-shadow linear 0.2s;
 
 
-  height:250px;
-  width: 100%;
-  margin-top: 1%;
+    height:200px;
+    width: 100%;
+    margin-top: 1%;
+
+    min-width:500px;
 }
 
+.wiki_container textarea {
+    min-width:600px;
+    min-height:425px;    
+}
 
+.wiki_container button {
+    margin-left:15px;
+}
+
+.wiki_container h1 {
+    margin-left:1%;
+}
+
+#wiki_article {
+    margin-left:2%;
+}
+
+textarea#bioghist {
+    height:200px;
+}
 
 textarea:focus {
-  border-color: rgba(82, 168, 236, 0.8);
-  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(82, 168, 236, 0.6);
-  outline: 0;
-  outline: thin dotted 9;
+    border-color: rgba(82, 168, 236, 0.8);
+    box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(82, 168, 236, 0.6);
+    outline: 0;
+    
 }
 
 .single-line {
-  height: 28px;
-  min-height: 28px;
-  max-height: 90px;
-  width: 250px;
+    height: 28px;
+    min-height: 28px;
+    max-height: 90px;
+    width: 250px;
 }
 
 .multiple-lines {
-  height: 64px;
-  min-height: 64px;
-  max-height: 150px;
-  width: 250px;
+    height: 64px;
+    min-height: 64px;
+    max-height: 150px;
+    width: 250px;
 }
 
 .single-line-no-box-sizing {
-  -moz-box-sizing: content-box;
-  box-sizing: content-box;
-  height: 18px;
-  min-height: 18px;
-  max-height: 90px;
-  width: 250px;
+    -moz-box-sizing: content-box;
+    box-sizing: content-box;
+    height: 18px;
+    min-height: 18px;
+    max-height: 90px;
+    width: 250px;
 }
 
 .multiple-lines-no-box-sizing {
-  -moz-box-sizing: content-box;
-  box-sizing: content-box;
-  height: 54px;
-  min-height: 54px;
-  max-height: 150px;
-  width: 250px;
+    -moz-box-sizing: content-box;
+    box-sizing: content-box;
+    height: 54px;
+    min-height: 54px;
+    max-height: 150px;
+    width: 250px;
 }
 
 #editor-mask {
@@ -356,266 +551,286 @@ textarea:focus {
 
 
 .update_button {
-margin-top:1%;
-margin-left: 2%;
 
+    margin-left: 2%;
+    margin-top: .5%;
 }
 
 #get_wiki, #post_wiki
 {
-	float: right;
-	margin-top: 1.25em;
-	margin-right: 5%;
-	margin-bottom: 5%
+
+
+    margin-left:.5%;
+
 }
 #wiki_save {
-    margin-bottom: 5%;
+    
 }
 .pure_button 
 {
-	margin-top:1%;
+    margin-top:1%;
+}
+.pure-u-1 p {
+	margin-left:1.25em;
+	font-size: 1em;
 }
 
 #get_wiki_text
 {
-	margin-left: 2%;
-	overflow: auto;
+    margin-left: 2%;
+    overflow: auto;
 }
 
 .form_note
 {
-	font-size: small;
-	font-style: italic;
+    font-size: small;
+    font-style: italic;
 }
 
 .ui-dialog, .ui-widget-overlay
 {
-	z-index: 501;
+    z-index: 501;
 }
 
 .validate-prompt
 {
-	display: none;
-	color: red;
+    display: none;
+    color: red;
 }
 
 body {
-	background: #fff;
-	font-family: "Open Sans", sans-serif;
-	font-size: 12px;
+    background: #fff;
+    font-family: "Open Sans", sans-serif;
+    font-size: 12px;
 }
 .Differences {
-	width: 100%;
-	border-collapse: collapse;
-	border-spacing: 0;
-	empty-cells: show;
+    width: 100%;
+    border-collapse: collapse;
+    border-spacing: 0;
+    empty-cells: show;
 }
 
 .Differences thead th {
-	text-align: left;
-	border-bottom: 1px solid #000;
-	background: #aaa;
-	color: #000;
-	padding: 4px;
+    text-align: left;
+    border-bottom: 1px solid #000;
+    background: #aaa;
+    color: #000;
+    padding: 4px;
 }
 .Differences tbody th {
-	text-align: right;
-	background: #ccc;
-	width: 4em;
-	padding: 1px 2px;
-	border-right: 1px solid #000;
-	vertical-align: top;
-	font-size: 13px;
+    text-align: right;
+    background: #ccc;
+    width: 4em;
+    padding: 1px 2px;
+    border-right: 1px solid #000;
+    vertical-align: top;
+    font-size: 13px;
 }
 
 .Differences td {
-	padding: 1px 2px;
-	font-family: Consolas, monospace;
-	font-size: 13px;
+    padding: 1px 2px;
+    font-family: Consolas, monospace;
+    font-size: 13px;
 }
 
 .DifferencesSideBySide .ChangeInsert td.Left {
-	background: #dfd;
+    background: #dfd;
 }
 
 .DifferencesSideBySide .ChangeInsert td.Right {
-	background: #cfc;
+    background: #cfc;
 }
 
 .DifferencesSideBySide .ChangeDelete td.Left {
-	background: #f88;
+    background: #f88;
 }
 
 .DifferencesSideBySide .ChangeDelete td.Right {
-	background: #faa;
+    background: #faa;
 }
 
 .DifferencesSideBySide .ChangeReplace .Left {
-	background: #fe9;
+    background: #fe9;
 }
 
 .DifferencesSideBySide .ChangeReplace .Right {
-	background: #fd8;
+    background: #fd8;
 }
 
 .Differences ins, .Differences del {
-	text-decoration: none;
+    text-decoration: none;
 }
 
 .DifferencesSideBySide .ChangeReplace ins, .DifferencesSideBySide .ChangeReplace del {
-	background: #fc0;
+    background: #fc0;
 }
 
 .Differences .Skipped {
-	background: #f7f7f7;
+    background: #f7f7f7;
 }
 
 .DifferencesInline .ChangeReplace .Left,
 .DifferencesInline .ChangeDelete .Left {
-	background: #fdd;
+    background: #fdd;
 }
 
 .DifferencesInline .ChangeReplace .Right,
 .DifferencesInline .ChangeInsert .Right {
-	background: #dfd;
+    background: #dfd;
 }
 
 .DifferencesInline .ChangeReplace ins {
-	background: #9e9;
+    background: #9e9;
 }
 
 .DifferencesInline .ChangeReplace del {
-	background: #e99;
+    background: #e99;
 }
 
 pre {
-	width: 100%;
-	overflow: auto;
+    width: 100%;
+    overflow: auto;
 }
 
 
 .footer {
 
-background:#008AE6;
+    background:#008AE6;
 
 
-color: white;
+    color: white;
 
 
-position: fixed;
+    position: fixed;
 
 
-width:100%;
+    width:100%;
 
 
-/* padding-bottom:5px; */
+    /* padding-bottom:5px; */
 
 
-/* overflow: hidden; */
+    /* overflow: hidden; */
 
 
-bottom:0;
+    bottom:0;
 
 
-height: 50px;
+    height: 50px;
 
 }
 
 #footer-text {	
 
-float: left;
+    float: left;
 
 
-/* margin-top: .5%; */
+    /* margin-top: .5%; */
 
 
-/* margin-bottom: 2%; */
+    /* margin-bottom: 2%; */
 
 
-/* margin-left: .5%; */
+    /* margin-left: .5%; */
 
-font-size: 1.5em;
-
-
-font-weight: 300;
-	
+    font-size: 1.5em;
 
 
-margin: 5px;
+    font-weight: 300;
+    
+
+
+    margin: 5px;
 
 }
 #footer-logo-wrapper {	
     float:right;
-   
+    
     margin:5px;
-	
+    
 }
 #footer-logo {
-	float:right;
-	width: 45px;
-	margin-top: 4px;
-	margin-bottom:1px;
-	margin-left:4px;
+    float:right;
+    width: 45px;
+    margin-top: 4px;
+    margin-bottom:1px;
+    margin-left:4px;
 
 }
 #footer-logo-text {	
     float:right;   
     text-align:right;	
     /* margin-top: -11px; */
-	
+    
     margin-top: -3px;
-	
+    
     margin-right:4px;
-	
+    
     padding-right:2px;
-	
+    
     width:10em;
     /* margin-right: 85px; */
     /* font-weight:300; */
-	
+    
     font-size: 1.2em;
-	
+    
     /* margin-right: 10px; */
     /* margin-top: 3px; */
     overflow: hidden;
     padding-bottom: 3%;
 }
 
-
-#submit_new {
-margin-top:1%;
-margin-left: .5%;
-
-}
 #bioghist {
-	width:100%;
+    width:100%;
 }
 #entity_type {
 
-margin-left:0;
-margin-bottom:1%;
+    margin-left:0;
+    margin-bottom:1%;
+}
+#new_eac_table {
+    margin-left:2%;
+}
 
+#new_eac_form {
+    font-size:1.25em;
+}
+
+#submit_new {
+    margin-top:-1%;
+    width:auto;
+    float:right;    
 }
 
 .pure-form {
 
-margin-left:1%;
-margin-top:1%;
+    margin-left:1%;
+    margin-top:1%;    
 }
 
 h1 {
-margin-left: .5%;
+    margin-left: .5%;
+    font-size: 1.5em;
+    font-weight:300;
 
-font-size: 2em;
-margin-top: 1%;
-margin-bottom: 1%;
+    /* margin-bottom: 1%; */
+}
 
-font-weight:300;
+h1#entity_name {
+    margin-bottom:.3%;
+}
+
+#start_here {
+    font-size:1.25em;
+    float: left; 
+    margin-top:.901%;
+    margin-left: .5%; 
+    font-weight:900; 
 }
 
 .save_button {
-margin-left: .5%;
-margin-top:1%;
+    margin-left: .5%;
+
 }
 select {
 
@@ -623,47 +838,55 @@ select {
 
 .wiki_container
 {
-	float: left;
-	width: 45%;
-	padding-right: 2%;
-	height: auto;
+    /* float: left; */
+    /* width: 45%; */
+    /* padding-right: 2%; */
+    /* height: auto; */
+    display: inline-block;
+    float: left;
+    margin-top:1%;
+    margin-left: .3%;
 }
 
-.wiki_container button#gtselectedtext
-{
-	margin-top: 500%;
-	margin-left: 15px;
-}
+/*
+  .wiki_container button#gtselectedtext
+  {
+  margin-top: 500%;
+  margin:left: 10%;
+  }
+  */
+
 
 li.wiki_login
 {
-	float: right;
-	font-size: 18px;
-	font-weight:800;
+    float: right;
+    font-size: 18px;
+    font-weight:800;
 }
 
-.content_box {
 
-padding: .5%;
-font-size:1.2em;
+.ead_files {
+
+    margin-left:.5%;
+    display:block;
 }
 
 #ead_files {
-
-margin-left:.5%;
-
+    margin-top:.5%;
+    
+    display:inline-block;
+  
 }
-
 textarea {
 
-margin-left:1%;
+    margin-left:1%;
 
 }
 
 #draft_container
 {
-	float: right;
-	margin: 1.25em 2em 0em 0em;
+    float: right;
+    margin: 1.25em 2em 0em 0em;
 }
 
 input#eac_name 
@@ -679,18 +902,367 @@ input#eac_name
 
 
 html, body {
-  height: 100%;
+    height: 100%;
 }
 #wrap {
-  min-height: 100%;
-  /* equal to footer height */
-  margin-bottom: -35px; 
+    min-height: 100%;
+    /* equal to footer height */
+    margin-bottom: -35px; 
 }
 #wrap:after {
-  content: "";
-  display: block;
+    content: "";
+    display: block;
 }
 .footer, #wrap:after {
-  /* .push must be the same height as footer */
-  height: 35px; 
+    /* .push must be the same height as footer */
+    height: 35px; 
+}
+
+
+#valid_row {
+
+    margin-bottom:1%;
+
+}
+
+.content_box {
+    font-size:1.2em;
+    padding: 2%;
+}
+
+
+#menu_button {
+    float:right;
+}
+
+#menu_button:hover {
+
+    cursor:pointer;
+
+}
+#menu_3 {
+    display:none;
+    background: #2167CF;
+    float:left;
+    padding:1%;
+    width:100%;
+    font-size: .5em;
+    padding:0;
+}
+
+#menu_2 {
+    display:none;
+    background: #1873FA;
+
+    float:left;
+    width:100%;
+    margin-top:.5%;
+    padding:.5% 0 .5% 0;
+}
+
+#menu_3 a {
+    color:white;
+    text-decoration:none;
+}
+
+#menu_2  a {
+    color:white;
+    text-decoration:none;
+}
+
+.pure-button-primary {
+    margin-top:.5%;
+    margin-left:.5%;
+}
+
+.content_box button {
+    display:block;
+    font-size:1.3em;
+    margin:0 0 1% 1%;
+
+}
+.content_box select {
+    margin-left:.5%;
+    margin-top:.5%;
+}
+
+
+#ingest_worldcat {
+    float:left;
+}
+
+#ingest_viaf {
+    float:left;
+}
+
+#dialog_box {
+    display:none;
+}
+
+#wiki_login {
+    display:none;
+}
+
+#edit_xml {
+
+    float:left;
+}
+
+
+.arrow {
+display: inline-block;
+font-size: 2em;
+margin-top: .5%;
+margin-left:.5%;
+display:none;
+
+}
+
+.viaf_arrow {
+    float: left;
+    font-size: 2em;
+    display: inline-block;
+    margin-top: .5%;
+margin-left:.5%;
+display:none;
+}
+
+.worldcat_arrow {
+    float: left;
+    font-size: 2em;
+    display: inline-block;
+    margin-top: .5%;
+    margin-left:.5%;
+    display:none;
+
+}
+
+.save_arrow {
+
+    font-size: 2em;
+    display: inline-block;
+    margin-top: .5%;
+    display:none;
+    margin-left:.5%;
+    
+
+    float: left;
+
+}
+
+#save_eac {
+/*background: #7AB800;*/
+background:#0078e7;
+float: left;
+}
+
+#wiki_save {
+
+/*background: #7AB800;*/
+}
+#wiki_update {
+
+/*background: #7AB800;*/
+background:#0078e7;
+
+
+}
+
+#edit_xml {
+/*background:crimson;*/
+}
+
+#convert_message {
+display: block;
+margin-bottom: 1%;
+
+}
+
+
+#file_estimator {
+font-size: 1.5em;
+margin-top: 1%;
+font-weight: 300;
+display: block;
+padding-bottom: 5%;
+margin-left: 1%;
+}
+
+#exporting {
+    margin-top:1%;
+}
+
+#ingest_worldcat_chosen_subjects_cancel {
+ /*   background:crimson;*/
+background:#0078e7;
+
+}
+#ingest_worldcat_chosen_subjects {
+ /*   background: #7AB800;*/
+    margin-left:1%;
+    background:#0078e7;
+
+}
+
+#get_chosen_wiki {
+ /*   background: #7AB800; */
+  background:#0078e7;
+  margin:1% 1% 1% 0;
+
+}
+
+#get_chosen_wiki_no_match {
+
+/* background:crimson; */
+  background:#0078e7;
+  margin:1% 0 1% 1%;
+}
+
+#form_wrapper {
+    margin:1% 0 2% 0;
+}
+
+.pure-button {
+    color:white;
+}
+
+.ingest-ok {
+     /*   background: #7AB800;*/
+  margin-left: 1%;
+  background:#0078e7;
+
+}
+.ner_empty_add {
+  margin-left: 1%;
+  background:#0078e7;
+  font-size:.8em;
+}
+.ner_empty_rm {
+  margin-left: 1%;
+  background:#0078e7;
+  font-size:.8em;
+}
+.viaf_empty_add {
+  margin-left: 1%;
+  background:#0078e7;
+  font-size:.8em;
+}
+.viaf_empty_rm {
+  margin-left: 1%;
+  background:#0078e7;
+  font-size:.8em;
+}
+
+.ingest-cancel {
+ /*   background:crimson;*/
+
+    /* margin-left: -5%; */
+  background:#0078e7;
+}
+
+.instruction {
+    margin-right: 70%;
+    margin-left: 1%;
+    margin-top: 1%;
+    font-size: 1.4em;
+    margin-bottom: 1%;
+}
+
+#gtselectedtext {
+
+color:black;
+}
+
+#ltselectedtext {
+color:black;
+}
+
+
+#wiki_switch {
+display:block;
+display:none;
+margin-bottom:.5%;
+}
+
+#wiki_switch_button {
+
+display:inline-block;
+
+
+}
+
+#xml_switch_button {
+display:inline-block;
+}
+
+ol {
+font-size: 1.2em;
+margin: 1%;
+}
+
+ol li {
+margin-bottom:.5%;
+}
+
+#convert_ead {
+margin:1%;
+font-size:1.4em;
+}
+#export_eac {
+font-size:1.4em;
+}
+
+em {
+font-weight:bold;
+
+}
+
+#loading-image {
+display:block;
+margin:5% auto 0px auto;
+margin-top: 10%;
+}
+
+#download_submit {
+
+float: right;
+margin-right: .5%;
+
+}
+
+.ui-dialog-titlebar-close {
+  visibility: hidden;
+}
+
+
+#intro_box {
+font-size:1.5em;
+margin:2% 2% 1% 2%;
+padding-bottom:2%;
+border-bottom:dotted black 1px;
+}
+
+#intro_box a {
+ 
+}
+
+#convert_box {
+margin:2% 4% 0 4%;
+}
+
+#edit_box {
+margin:2% 4% 0 4%;
+}
+
+#export_box {
+
+
+margin:4% 4%;
+
+}
+
+#new_box {
+
+
+margin:4% 4%;
 }

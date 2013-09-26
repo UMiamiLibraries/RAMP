@@ -44,8 +44,7 @@ if (file_exists(  $_POST["dir"] . '/' . $file_name_lower . '.xml')) {
 
   echo "This record already exists.";
 
-} else {
-
+} else {  
   touch(  $_POST["dir"] . '/' . $file_name_lower . '.xml');
 
   $f = fopen(  $_POST["dir"] . '/' . $file_name_lower . '.xml', "w");
@@ -55,9 +54,9 @@ if (file_exists(  $_POST["dir"] . '/' . $file_name_lower . '.xml')) {
 
   $type = $_POST['type'];
 
-  switch($type) {
+  switch(strtolower( $type )) {
 
-  case 'Person':
+  case 'person':
     try {
       $ead_doc->loadXML('<ead audience="external"
 		     xmlns="urn:isbn:1-931666-22-9"
@@ -82,6 +81,7 @@ if (file_exists(  $_POST["dir"] . '/' . $file_name_lower . '.xml')) {
 
 			'</persname>
 		                           </origination>
+		                           <note type="creation">Record created in RAMP.</note>
 		      </did>
 		               <bioghist encodinganalog="545">
 		<p>' . $bioghist .
@@ -100,7 +100,7 @@ if (file_exists(  $_POST["dir"] . '/' . $file_name_lower . '.xml')) {
 
     break;
 
-  case 'Corporate Body':
+  case 'corporate body':
     try {
       $ead_doc->loadXML('<ead audience="external"
 		     xmlns="urn:isbn:1-931666-22-9"
@@ -125,6 +125,7 @@ if (file_exists(  $_POST["dir"] . '/' . $file_name_lower . '.xml')) {
 
 			'</corpname>
 		                           </origination>
+		                           <note type="creation">Record created in RAMP.</note>
 		      </did>
 		               <bioghist encodinganalog="545">
 		<p>' . $bioghist .
@@ -141,7 +142,7 @@ if (file_exists(  $_POST["dir"] . '/' . $file_name_lower . '.xml')) {
 
     break;
 
-  case 'Family':
+  case 'family':
 
     try{
       $ead_doc->loadXML('<ead audience="external"
@@ -164,6 +165,7 @@ if (file_exists(  $_POST["dir"] . '/' . $file_name_lower . '.xml')) {
 		                     <origination label="Creator" encodinganalog="245$c">
 		                     <famname  source="local">' . $persname . '</famname>
 		                           </origination>
+		                           <note type="creation">Record created in RAMP.</note>
 		      </did>
 		               <bioghist encodinganalog="545">
 		<p>' . $bioghist .
@@ -183,7 +185,7 @@ if (file_exists(  $_POST["dir"] . '/' . $file_name_lower . '.xml')) {
 
   fwrite($f, $ead_doc->saveXML());
 
-  $ead_convert = new EadConvert( $_POST["dir"] );
+    $ead_convert = new EadConvert( $_POST["dir"] );
 	$ead_convert->setAgency_code($agency_code);
 	$ead_convert->setOther_agency_code($other_agency_code);
 	$ead_convert->setAgency_name($agency_name);
@@ -195,8 +197,8 @@ if (file_exists(  $_POST["dir"] . '/' . $file_name_lower . '.xml')) {
     $ead_convert->setEventDescRevise($eventDescRevise);
 	$ead_convert->setEventDescCreate($eventDescCreate);
 	$ead_convert->setEventDescExport($eventDescExport);
-	$ead_convert->setEventDescRAMP($eventDescRAMP);
-  $ead_convert->new_eac( $file_name_lower );
+	//$ead_convert->setEventDescRAMP($eventDescRAMP); // Removed because created Diff conflict. --timathom
+    $ead_convert->new_eac( $file_name_lower );
 
   echo "Sucessfully created new record.";
 

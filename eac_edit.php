@@ -8,17 +8,44 @@
 
 include('header.php');
 ?>
-<ul id="addbioinfo" class="menu_slice">
-
-  <li id="edit" class-"menu_slice"><a href="#">EAC to Mediawiki Markup</a></li>
-
-  </ul>
 
 
+<script src="script/editor.js"></script>
+  <script src="script/eac_editor.js"></script>
+  <script src="script/vkbeautify.js"></script>
+  <script src="script/ingest.js"></script>
+  <script src="script/wikiator.js"></script>
+ 
 
   <div id="edit_controls">
- <?php
+  <h1 id="entity_name"></h1>
+  
+    
+  <span id="ingest_buttons" class="main_edit">
+  <p id="start_here" class="main_edit"> Start here: </p>
+  <button id="ingest_viaf" class="ingest_button pure-button pure-button-primary main_edit">Ingest VIAF</button>
+  <div class="viaf_arrow arrows main_edit">&rarr;</div>
 
+  <button id="ingest_worldcat" class="ingest_button pure-button pure-button-primary main_edit">Ingest WorldCat</button>
+  <div class="worldcat_arrow arrows main_edit">&rarr;</div>
+  </span>
+
+  <button id="save_eac" class="pure-button pure-button-primary main_edit">Save XML</button>
+  <div class="arrows save_arrow main_edit">&rarr;</div>
+  <button id="convert_to_wiki" class="pure-button pure-button-primary main_edit">Convert to Wiki Markup </button>
+
+  
+  <form id="download_form" method="post" target="_blank" action="download.php">
+  <input id="download_xml" type="hidden" name="xml" value=""/>
+  <input id="file_name" type="hidden" name="path" value="">  
+  <button id="download_submit" class="pure-button pure-button-primary main_edit" type="submit">Export Current EAC-CPF</button>
+  </form>
+  
+  <!-- <button id="download_submit" class="pure-button pure-button-primary main_edit"><a id="download_link" href="">Export Current EAC-CPF</a></button> -->
+  
+
+  <?php
+  
   $mysqli = new mysqli($db_host, $db_user, $db_pass, $db_default, $db_port);
 if ($mysqli->connect_errno) {
   echo "Failed to connect to MySQL: (" . $mysqli->connect_errno . ") " . $mysqli->connect_error;
@@ -32,11 +59,11 @@ $results = $mysqli->query ("SELECT ead_file, ExtractValue(eac_xml, '/descendant-
 
 
 
-//	$allFiles = scandir($path);
+echo  "<select id='ead_files' class='ead_files'>";
 
-//	$files = array_diff($allFiles, array('.', '..'));
+echo "<option>Please Select a Record</option>";
 
-echo  "<select id='ead_files'>";
+echo "<option value=''></option>";
 
 while ($row = $results->fetch_assoc()) {
   $name = $row["Name"];
@@ -60,44 +87,33 @@ while ($row = $results->fetch_assoc()) {
 
 print ("<option>");
 
-
-
-
-
 //		print ("</option>");
 
 
 print ("</select>");
 
-
+  
 ?>
 
+</div>
 
 
-  <script src="script/editor.js"></script>
-  <script src="script/eac_editor.js"></script>
-  <script src="script/vkbeautify.js"></script>
-  <script src="script/ingest.js"></script>
-  <script src="script/wikiator.js"></script>
-
- 
+<div id="wiki_switch"> 
+  <button id="wiki_switch_button" class="pure-button pure-button-primary">Wiki</button> 
+  <button id="xml_switch_button" class="pure-button pure-button-primary">XML</button> 
+</div>
 
 
-<button id="save_eac" class="pure-button pure-button-primary">Save Draft</button>
-  <span id="ingest_buttons">
-  <button id="ingest_viaf" class="ingest_button pure-button pure-button-primary" >Ingest VIAF</button>
-  <button id="ingest_worldcat" class="ingest_button pure-button pure-button-primary" >Ingest WorldCat</button>  
-  </span>
-  <div id="validation">
+  <div id="validation" class="main_edit">
   </div>
-  <div id="validation_text">
-  </div>
-  </div>
-  <div id="editor_mask">
-  <div id="editor_container">
+  <div id="validation_text" class="main_edit">Valid XML</div>
+  
+  
+  <div id="editor_mask" class="main_edit">
+  <div id="editor_container" class="main_edit">
 
 
-  <div id="editor"></div>
+  <div id="editor" class="main_edit"></div>
   </div>
   </div>
 
@@ -108,11 +124,11 @@ print ("</select>");
 editor.getSession().setMode("ace/mode/xml");
 </script>
 
-<link rel="stylesheet" type="text/css" href="script/select2/select2.css"/>
+<link rel="stylesheet" type="text/css" href="script/select2.css"/>
   <script src="script/select2/select2.min.js"></script>
 
   <script>
-  //  $(document).ready(function() { $("#ead_files").select2(); });
+  //   $(document).ready(function() { $("#ead_files").select2(); });
   </script>
   <?php
 
@@ -120,4 +136,3 @@ editor.getSession().setMode("ace/mode/xml");
   include('footer.php');
 
 ?>
-

@@ -678,6 +678,13 @@
             <xsl:with-param name="pCorpName" select="$pCorpName"/>
         </xsl:call-template>
         <xsl:text>&#10;</xsl:text>
+        <!-- Add ID nonstandard WorldCat IDs
+        <xsl:if test="eac:eac-cpf/eac:control/eac:otherRecordId[@localType='WCI']">
+            <xsl:text>*{{worldcat|description="Rosa M. Abella's WorldCat Identities page"|name =Rosa M. Abella|id=</xsl:text>
+        </xsl:if>
+        *{{worldcat|description="Rosa M. Abella's WorldCat Identities page"|name =Rosa M. Abella|id=np-abella,%20rosa%20m}}
+        -->
+        <xsl:text>&#10;</xsl:text>
         <!-- Check for archival/digital collections created by or associated with the person or corporate body. -->
         <xsl:for-each
             select="eac:eac-cpf/eac:cpfDescription/eac:relations/eac:resourceRelation[@xlink:role='archivalRecords']">
@@ -727,7 +734,15 @@
         <xsl:for-each
             select="eac:eac-cpf/eac:control/eac:sources/eac:source/@xlink:href[contains(.,'VIAF')]">
             <xsl:text>{{Authority control|VIAF=</xsl:text>
-            <xsl:value-of select="substring-after(.,'-')"/>
+            <xsl:value-of select="substring-after(.,':')"/>
+            <xsl:choose>
+                <xsl:when test="../../../eac:otherRecordId[@localType='lccn']">
+                    <xsl:text> |LCCN=</xsl:text>
+                    <xsl:variable name="lccn" select="substring-after(../../../eac:otherRecordId[@localType='lccn'],'lccn-n')"/>
+                    <xsl:value-of select="concat('n/',translate($lccn,'-','/'))"/>                                
+                </xsl:when>
+                
+            </xsl:choose>
             <xsl:text>}}</xsl:text>
         </xsl:for-each>
         <xsl:text>&#10;</xsl:text>
@@ -896,7 +911,7 @@
             <xsl:call-template name="tParseName2">
                 <xsl:with-param name="pNameType">person</xsl:with-param>
             </xsl:call-template>
-            <xsl:text> may be related to or associated with the following entities (these names may be useful for creating links to this page from other Wikipedia pages):</xsl:text>
+            <xsl:text> may be related to or associated with the following entities. These names may be useful for creating links to this page from other Wikipedia pages.</xsl:text>
             <xsl:text>&#10;</xsl:text>
             <xsl:text>&#10;</xsl:text>
             <xsl:for-each
@@ -904,8 +919,9 @@
                 <xsl:sort
                     select="translate(.,'ÁÀÉÈÍÓÚÜÑáàéèíóúúüñ','AAEEIOUUNaaeeiouuun')"
                     data-type="text"/>
+                <xsl:text>[[</xsl:text>                               
                 <xsl:value-of select="normalize-space(.)"/>
-                <xsl:text>&#10;</xsl:text>
+                <xsl:text>]]&#10;</xsl:text>
             </xsl:for-each>
             <xsl:text>&#10;</xsl:text>
             <xsl:text> --&gt;</xsl:text>
@@ -921,8 +937,33 @@
             <xsl:for-each select="eac:eac-cpf/eac:cpfDescription/eac:relations/eac:cpfRelation">
                 <xsl:sort
                     select="translate(eac:relationEntry[1],'ÁÀÉÈÍÓÚÜÑáàéèíóúúüñ','AAEEIOUUNaaeeiouuun')"
-                    data-type="text"/>
-                <xsl:value-of select="normalize-space(eac:relationEntry[1])"/>
+                    data-type="text"/>                
+                <xsl:choose>
+                    <xsl:when test="eac:relationEntry[1]/@xml:id">
+                        <xsl:text>{{Authority control|VIAF=</xsl:text>
+                        <xsl:value-of select="substring-after(eac:relationEntry[1]/@xml:id,'-')"/>
+                        <xsl:choose>
+                            <xsl:when test="../../../eac:control/eac:otherRecordId[@localType='lccn']">
+                                <xsl:text> |LCCN=</xsl:text>
+                                <xsl:variable name="lccn" select="substring-after(../../../eac:control/eac:otherRecordId[@localType='lccn'],'lccn-n')"/>
+                                <xsl:value-of select="concat('n/',translate($lccn,'-','/'))"/>                                
+                            </xsl:when>                            
+                        </xsl:choose>                        
+                        <xsl:text>}}</xsl:text>
+                    </xsl:when>
+                    <xsl:otherwise>                       
+                        <xsl:text>[[</xsl:text>
+                        <xsl:call-template name="tParseName2">
+                            <xsl:with-param name="pNameType">corporate</xsl:with-param>
+                            <xsl:with-param name="pCorpName" select="eac:relationEntry[1]"/>                                                        
+                        </xsl:call-template>
+                        <xsl:call-template name="tParseName2">
+                            <xsl:with-param name="pNameType">person</xsl:with-param>
+                            <xsl:with-param name="pPersName" select="eac:relationEntry[1]"/>
+                        </xsl:call-template>
+                        <xsl:text>]]</xsl:text>                                                  
+                    </xsl:otherwise>        
+                </xsl:choose>
                 <xsl:text>&#10;</xsl:text>
             </xsl:for-each>
             <xsl:text>&#10;</xsl:text>
@@ -1108,6 +1149,8 @@
     <!-- Parse names for the article lede. -->
     <xsl:template name="tParseName2">
         <xsl:param name="pNameType"/>
+        <xsl:param name="pPersName"/>
+        <xsl:param name="pCorpName"/>        
         <!-- Parse names for people first. -->
         <xsl:if test="$pNameType='person'">
             <xsl:choose>

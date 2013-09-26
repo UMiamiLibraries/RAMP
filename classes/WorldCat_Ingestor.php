@@ -22,9 +22,9 @@ class WorldCat_Ingestor extends Ingestor
 										"ccp" => "conceptor", "prf" => "performer");
 
 	public $strRawName = '';
-	public $strViafId = '';
+	public $strViafId = '';	
 	public $strPNKey = '';
-	public $strWikiTitle = '';
+	public $strWikiTitle = '';	
 	public $objWorksBy = array();
 	public $objWorksAbout = array();
 	public $objRelatedIdentites = array();
@@ -36,7 +36,7 @@ class WorldCat_Ingestor extends Ingestor
 	{
 		parent::__construct();
 	}
-
+   
 	/**
 	 * WorldCat_Ingestor::searchWorldCat() - search WorldCat API for passed parameter and
 	 * return results list (json encoded)
@@ -119,10 +119,11 @@ class WorldCat_Ingestor extends Ingestor
 
 		//there are some XML reference entities that exist in the WorldCat reponse XML which do not get
 		//converted with the html_entity_decode function and therefore, we must decode them manually
-		$this->strResponse = preg_replace_callback('/([a-zA-z])&#x301;/', array( $this, 'convertBadXMLEntities'), $this->strResponse );
+		//commented out by dgonzalez. No longer issue because not using md5
+		/*$this->strResponse = preg_replace_callback('/([a-zA-z])&#x301;/', array( $this, 'convertBadXMLEntities'), $this->strResponse );
 		$this->strResponse = preg_replace_callback('/([a-zA-z])&#x300;/', array( $this, 'convertBadXMLEntities'), $this->strResponse );
 		$this->strResponse = preg_replace_callback('/([a-zA-z])&#x303;/', array( $this, 'convertBadXMLEntities'), $this->strResponse );
-		$this->strResponse = preg_replace_callback('/([a-zA-z])&#x308;/', array( $this, 'convertBadXMLEntities'), $this->strResponse );
+		$this->strResponse = preg_replace_callback('/([a-zA-z])&#x308;/', array( $this, 'convertBadXMLEntities'), $this->strResponse );*/
 
 		$this->createDom();
 
@@ -143,6 +144,7 @@ class WorldCat_Ingestor extends Ingestor
 	 */
 	public function createElements()
 	{
+	    $this->createLinkElements();
 		$this->createSubjectElements();
 		$this->createCPFRelationsElements();
 		$this->createResourceRelationsElements();
@@ -232,7 +234,7 @@ class WorldCat_Ingestor extends Ingestor
 	}
 
 	/**
-	 * WorldCat_Ingestor::collectUsefulLinks() - collect and save useful link to
+	 * WorldCat_Ingestor::collectUsefulLinks() - collect and save useful links to
 	 * appropriate property list
 	 *
 	 * @return boolean/void
@@ -253,13 +255,24 @@ class WorldCat_Ingestor extends Ingestor
 		if($lobjResults !== FALSE && $lobjResults->length > 0)
 			$this->strWikiTitle = $lobjResults->item(0)->nodeValue;
 
-		$this->objUsefulLinks[] = "http://viaf.org/viaf/" . $this->strViafId;
-		$this->objUsefulLinks[] = "http://en.wikipedia.org/wiki/Special:Search?search=" . $this->strWikiTitle;
+        // Commented out because not currently needed for link collection. --timathom
+		//$this->objUsefulLinks[] = "http://viaf.org/viaf/" . $this->strViafId;
+		//$this->objUsefulLinks[] = "http://en.wikipedia.org/wiki/Special:Search?search=" . $this->strWikiTitle;
 
+        /*
 		if (strpos($this->strPNKey,'lccn-') !== false)
 		{
 			$this->objUsefulLinks[] = "http://errol.oclc.org/laf/" . str_replace( 'lccn-', '', $this->strPNKey ) . ".html";
-		}
+		}				
+        */
+        		
+        $lobjLink = array();
+        $lobjLink['viaf'] = $this->strViafId;
+		$lobjLink['lccn'] = $this->strPNKey;
+		$lobjLink['wiki'] = $this->strWikiTitle;			
+
+		$this->objUsefulLinks[] = $lobjLink;
+					
 	}
 
 	/**
@@ -357,6 +370,50 @@ class WorldCat_Ingestor extends Ingestor
 			$this->objElementList['subject'][] = $lobjSubjectNode;
 		}
 	}
+	
+	/**
+	 * WorldCat_Ingestor::createLinkElements() - build link nodes based on collected
+	 * useful links list and save in element list property
+	 *
+	 * @return void
+	 */
+	private function createLinkElements()
+	{
+		$lobjLinkNodeWiki = array();
+		$lobjLinkNodeSource = array();
+		$lobjLinkNodeLccn = array();
+		$lobjLinkNodeViaf = array();
+
+		foreach( $this->objUsefulLinks as $lobjLink )
+		{											
+		    if( $lobjLink['wiki'] != "" || $lobjLink['wiki']->length != 0) {		    
+				$lobjLinkNodeWiki['attributes']['localType'] = "dbpedia"; 												
+				$lobjLinkNodeWiki['elements'] = "WCI:" . "dbpedia:http://dbpedia.org/resource/" . $lobjLink['wiki']; 	
+				$this->objElementList['otherRecordId'][] = $lobjLinkNodeWiki;						
+			}
+			
+			if( $lobjLink['lccn'] != "" || $lobjLink['lccn']->length != 0) {		    
+				$lobjLinkNodeSource['attributes']['xlink:href'] = "WCI:" . $lobjLink['lccn'] . "/identity.xml";		
+				$lobjLinkNodeSource['attributes']['xlink:type'] = "simple";
+				$this->objElementList['source'][] = $lobjLinkNodeSource;
+				
+				if (strpos($lobjLink['lccn'],'lccn-') === false) {
+				    $lobjLinkNodeLccn['attributes']['localType'] = "WCI";
+				} else {
+				    $lobjLinkNodeLccn['attributes']['localType'] = "lccn";
+				}								
+				
+				$lobjLinkNodeLccn['elements'] = "WCI:" . $lobjLink['lccn'];
+				$this->objElementList['otherRecordId'][] = $lobjLinkNodeLccn;				
+			}
+				
+			if( $lobjLink['viaf'] != "" || $lobjLink['viaf']->length != 0) {
+			    $lobjLinkNodeViaf['attributes']['localType'] = "VIAFId";
+				$lobjLinkNodeViaf['elements'] = "VIAFId:" . $lobjLink['viaf'];
+				$this->objElementList['otherRecordId'][] = $lobjLinkNodeViaf;
+			}				
+		}
+	}			
 
 	/**
 	 * WorldCat_Ingestor::createCPFRelationsElements() - build cpfRelation nodes
@@ -375,9 +432,20 @@ class WorldCat_Ingestor extends Ingestor
 				continue;
 
 			$lobjCPFRelationNode['attributes']['xlink:arcrole'] = "associatedWith";
+			
+			if( strpos( $lobjIdentity['id'], 'lccn') === false )
+			{
+				$lobjCPFRelationNode['attributes']['xlink:href'] = "http://www.worldcat.org/identities/" . substr($lobjIdentity['id']);
+			}
+			else
+			{
+			    $lobjCPFRelationNode['attributes']['xlink:href'] = "http://id.loc.gov/authorities/names/" . substr(preg_replace('/-/','0',$lobjIdentity['id']),5);
+			}
+			
 			$lobjCPFRelationNode['attributes']['xlink:role'] = "http://RDVocab.info/uri/schema/FRBRentitiesRDA/Person";
 			$lobjCPFRelationNode['attributes']['xlink:type'] = "simple";
 
+            /*
 			if( strpos( $lobjIdentity['id'], 'lccn') !== false )
 			{
 				$lobjCPFRelationNode['elements']['relationEntry']['attributes']['xml:id'] = $lobjIdentity['id'];
@@ -389,6 +457,7 @@ class WorldCat_Ingestor extends Ingestor
 					$lobjCPFRelationNode['elements']['relationEntry']['attributes']['xml:id'] = $lobjIdentity['id'];
 				}
 			}
+			*/
 
 			if( $lobjIdentity['type'] != '' )
 				$lobjCPFRelationNode['elements']['relationEntry']['attributes']['localType'] = $lobjIdentity['type'];
@@ -417,7 +486,7 @@ class WorldCat_Ingestor extends Ingestor
 			if(preg_match( "/^nc-/", $lobjIdentity['id'] ) < 1)
 				continue;
 
-			$lobjResourceRelationNode['attributes']['xlink:arcrole'] = "referencedIn";
+			$lobjResourceRelationNode['attributes']['resourceRelationType'] = "subjectOf";
 			$lobjResourceRelationNode['attributes']['xlink:href'] = "http://www.worldcat.org/identities/" . $lobjIdentity['id'];
 			$lobjResourceRelationNode['attributes']['xlink:role'] = "archivalRecords";
 			$lobjResourceRelationNode['attributes']['xlink:type'] = "simple";
@@ -443,7 +512,7 @@ class WorldCat_Ingestor extends Ingestor
 			if($lobjCitation['isbn'] != '')
 				$lobjResourceRelationNode['attributes']['localType'] = "isbn";*/
 
-			$lobjResourceRelationNode['attributes']['xlink:arcrole'] = "creatorOf";
+			$lobjResourceRelationNode['attributes']['resourceRelationType'] = "creatorOf";
 			$lobjResourceRelationNode['attributes']['xlink:href'] = "http://worldcat.org/oclc/" . preg_replace( "[^0-9]", "", $lobjCitation['oclcnum'] );
 			$lobjResourceRelationNode['attributes']['xlink:role'] = $lobjCitation['record_type'] == "mixd" ? "archivalRecords" : "resource";
 			$lobjResourceRelationNode['attributes']['xlink:type'] = "simple";
@@ -516,7 +585,7 @@ class WorldCat_Ingestor extends Ingestor
 			//sometimes WorldCat API lists works by under works about, tested here and handled
 			if( $lobjCitation['creator'] != '' && $this->strRawName == $lobjCitation['creator'] )
 			{
-				$lobjResourceRelationNode['attributes']['xlink:arcrole'] = "creatorOf";
+				$lobjResourceRelationNode['attributes']['resourceRelationType'] = "creatorOf";
 
 				//if mixd, it is an archival resource relation.
 				if( $lobjCitation['record_type'] == 'mixd' )
@@ -525,7 +594,7 @@ class WorldCat_Ingestor extends Ingestor
 					$lobjResourceBy[] = $lobjResourceRelationNode;
 			}else
 			{
-				$lobjResourceRelationNode['attributes']['xlink:arcrole'] = "referencedIn";
+				$lobjResourceRelationNode['attributes']['resourceRelationType'] = "subjectOf";
 
 				//if mixd, it is an archival resource relation.
 				if( $lobjCitation['record_type'] == "mixd" )
