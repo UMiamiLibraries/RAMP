@@ -1279,7 +1279,7 @@
                                 <xsl:value-of
                                     select="normalize-space(substring-after(normalize-space(eac:eac-cpf/eac:cpfDescription/eac:identity/eac:nameEntry[2][preceding-sibling::eac:entityType='person']/eac:part),'-'))"
                                 />
-                            </xsl:if>
+                            </xsl:if>                            
                         </xsl:if>
                     </xsl:if>
                 </xsl:if>
