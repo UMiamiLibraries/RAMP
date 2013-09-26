@@ -248,7 +248,7 @@ class Viaf_Ingestor extends Ingestor
 				    $lstrResultName = $lobjResult3->item($i)->nodeValue;
 http://www.viaf.org/viaf/
 				    $lobjcpfRelation = array(
-					   			"attributes" => array( "xlink:arcrole" => "",
+					   			"attributes" => array( "xlink:arcrole" => "associatedWith",
 													   "xlink:href" => "VIAF:$this->strViafID",
 													   "xlink:role" => "http://RDVocab.info/uri/schema/FRBRentitiesRDA/" . $lstrType,
 													   "xlink:type" => "simple" ),
