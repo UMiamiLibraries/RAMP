@@ -359,14 +359,14 @@
          			    PossibleNameList.push( lstrPossibleName );
          			}
          			if(PossibleNameList.length == 0)
-              		{
-              		    callback( 'No matches for possible names found!' );
+              		{              		    
               		    $('#loading-image').remove();
               		    $('.form_container').remove();
      			        $('main_edit').show();     			        
     			        $('#entity_name').show();
+    			        callback( 'No matches for possible names found!' );
               
-              		    return;
+              		    //return;
               		}
     		    }
     		    
@@ -419,13 +419,13 @@
          			    PossibleNameList.push( lstrPossibleName );
          			}
          			if(PossibleNameList.length == 0)
-              		{
-              		    callback( 'No matches for possible names found!' );
+              		{              		    
                         $('#loading-image').remove();
                         $('.form_container').remove();
      			        $('main_edit').show();
     			        $('#entity_name').show();
-              		    return;
+    			        callback( 'No matches for possible names found!' );
+              		    //return;
               		}
     		    }
     		    
