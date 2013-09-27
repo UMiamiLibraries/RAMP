@@ -875,7 +875,7 @@
                         <xsl:text>&#10;</xsl:text>
                     </xsl:if>
                     <!-- If the person bio is less than 5000 characters, consider it a stub. -->
-                    <xsl:if test="string-length($pBiogHist) &lt; 5000">                        
+                    <xsl:if test="string-length($pBiogHist) &lt; 5000">
                         <xsl:text>&#10;</xsl:text>
                         <xsl:text>{{Cuba-bio-stub}}</xsl:text>
                     </xsl:if>
@@ -920,13 +920,26 @@
                 <xsl:sort
                     select="translate(eac:relationEntry[1],'ÁÀÉÈÍÓÚÜÑáàéèíóúúüñ','AAEEIOUUNaaeeiouuun')"
                     data-type="text"/>
-                <xsl:text>[[</xsl:text>                
-                <xsl:call-template name="tParseName2">
-                    <xsl:with-param name="pNameType">person</xsl:with-param>
-                    <xsl:with-param name="pPersName" select="eac:relationEntry[1]"/>
-                </xsl:call-template>                
-                <xsl:text>]]</xsl:text>
-                <xsl:text>&#10;</xsl:text>
+                <xsl:choose>
+                    <xsl:when test="@xlink:role='http://RDVocab.info/uri/schema/FRBRentitiesRDA/Person'">
+                        <xsl:text>[[</xsl:text>
+                        <xsl:call-template name="tParseName2">
+                            <xsl:with-param name="pNameType">person</xsl:with-param>
+                            <xsl:with-param name="pPersName" select="eac:relationEntry[1]"/>
+                        </xsl:call-template>
+                        <xsl:text>]]</xsl:text>
+                        <xsl:text>&#10;</xsl:text>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <xsl:text>[[</xsl:text>
+                        <xsl:call-template name="tParseName2">
+                            <xsl:with-param name="pNameType">corporate</xsl:with-param>
+                            <xsl:with-param name="pCorpName" select="eac:relationEntry[1]"/>
+                        </xsl:call-template>
+                        <xsl:text>]]</xsl:text>
+                        <xsl:text>&#10;</xsl:text>
+                    </xsl:otherwise>
+                </xsl:choose>                
             </xsl:for-each>
             <xsl:text>&#10;</xsl:text>
             <xsl:text> --&gt;</xsl:text>
@@ -944,11 +957,12 @@
                 <xsl:sort
                     select="translate(eac:relationEntry[1],'ÁÀÉÈÍÓÚÜÑáàéèíóúúüñ','AAEEIOUUNaaeeiouuun')"
                     data-type="text"/>
-                <xsl:text>[[</xsl:text>                
+                <xsl:text>[[</xsl:text>
                 <xsl:call-template name="tParseName2">
                     <xsl:with-param name="pNameType">corporate</xsl:with-param>
-                    <xsl:with-param name="pCorpName" select="eac:relationEntry[1]"/>
-                </xsl:call-template>                
+                    <xsl:with-param name="pCorpName" select="normalize-space(eac:relationEntry[1])"
+                    />
+                </xsl:call-template>
                 <xsl:text>]]</xsl:text>
                 <xsl:text>&#10;</xsl:text>
             </xsl:for-each>
@@ -1148,32 +1162,34 @@
                         <xsl:when
                             test="contains(substring-after(normalize-space($pPersName),', '), ' ')">
                             <xsl:value-of
-                                select="substring-before(substring-after(normalize-space($pPersName),', '),' ')"
-                            />
+                                select="substring-before(substring-after(normalize-space($pPersName),', '),' ')"/>
                             <xsl:text> </xsl:text>
-                            <xsl:value-of select="substring-before(normalize-space($pPersName),', ')"/>
+                            <xsl:value-of
+                                select="substring-before(normalize-space($pPersName),', ')"/>
                         </xsl:when>
                         <xsl:otherwise>
                             <xsl:value-of
-                                select="substring-before(substring-after(normalize-space($pPersName),', '),', ')"
-                            />
+                                select="substring-before(substring-after(normalize-space($pPersName),', '),', ')"/>
                             <xsl:text> </xsl:text>
-                            <xsl:value-of select="substring-before(normalize-space($pPersName),', ')"/>                            
+                            <xsl:value-of
+                                select="substring-before(normalize-space($pPersName),', ')"/>
                         </xsl:otherwise>
-                    </xsl:choose>                          
+                    </xsl:choose>
                 </xsl:when>
                 <xsl:otherwise>
                     <!-- If the name does not include dates ... -->
                     <xsl:value-of select="substring-after(normalize-space($pPersName),', ')"/>
                     <xsl:text> </xsl:text>
-                    <xsl:value-of select="substring-before(normalize-space($pPersName),', ')"/>                        
+                    <xsl:value-of select="substring-before(normalize-space($pPersName),', ')"/>
                 </xsl:otherwise>
             </xsl:choose>
         </xsl:if>
         <!-- Then parse names for corporate bodies. -->
         <xsl:if test="$pNameType='corporate'">
             <!-- Name order stays as is. -->
-            <xsl:value-of select="normalize-space($pCorpName)"/>            
+            <xsl:value-of
+                select="normalize-space($pCorpName[parent::node()[@xlink:role='http://RDVocab.info/uri/schema/FRBRentitiesRDA/CorporateBody']])"
+            />
         </xsl:if>
     </xsl:template>
 
@@ -1265,19 +1281,20 @@
                         <xsl:if test="$pBirthYr='true'">
                             <!-- Output the birth year, if exists. -->
                             <xsl:if
-                                test="substring-before(normalize-space(eac:eac-cpf/eac:cpfDescription/eac:identity/eac:nameEntry[2][preceding-sibling::eac:entityType='person']/eac:part),'-')">
+                                test="string-length(translate(substring-before(normalize-space(eac:eac-cpf/eac:cpfDescription/eac:identity/eac:nameEntry[2][preceding-sibling::eac:entityType='person']/eac:part),'-'),$vDigits,''))&lt;substring-before(normalize-space(eac:eac-cpf/eac:cpfDescription/eac:identity/eac:nameEntry[2][preceding-sibling::eac:entityType='person']/eac:part),'-')">
                                 <xsl:choose>
-                                    <xsl:when test="normalize-space(substring-after(substring-after(substring-before(normalize-space(eac:eac-cpf/eac:cpfDescription/eac:identity/eac:nameEntry[2][preceding-sibling::eac:entityType='person']/eac:part),'-'),', '),', '))">
+                                    <xsl:when
+                                        test="normalize-space(substring-after(substring-after(substring-before(normalize-space(eac:eac-cpf/eac:cpfDescription/eac:identity/eac:nameEntry[2][preceding-sibling::eac:entityType='person']/eac:part),'-'),', '),', '))">
                                         <xsl:value-of
                                             select="normalize-space(substring-after(substring-after(substring-before(normalize-space(eac:eac-cpf/eac:cpfDescription/eac:identity/eac:nameEntry[2][preceding-sibling::eac:entityType='person']/eac:part),'-'),', '),', '))"
-                                        />        
+                                        />
                                     </xsl:when>
                                     <xsl:otherwise>
                                         <xsl:value-of
                                             select="normalize-space(substring-after(substring-after(substring-before(normalize-space(eac:eac-cpf/eac:cpfDescription/eac:identity/eac:nameEntry[2][preceding-sibling::eac:entityType='person']/eac:part),'-'),', '),' '))"
                                         />
                                     </xsl:otherwise>
-                                </xsl:choose>                                                               
+                                </xsl:choose>
                             </xsl:if>
                         </xsl:if>
                         <xsl:if test="$pDeathYr='true'">
