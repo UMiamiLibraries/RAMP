@@ -933,7 +933,7 @@
             <xsl:text> --&gt;</xsl:text>
         </xsl:if>
         <xsl:if test="$pNameType='corporate'">
-            <xsl:text>&lt;!-- </xsl:text>
+            <xsl:text>&lt;!-- </xsl:text> 
             <xsl:call-template name="tParseName2">
                 <xsl:with-param name="pNameType">corporate</xsl:with-param>
                 <xsl:with-param name="pCorpName" select="$pCorpName"/>
