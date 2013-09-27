@@ -50,7 +50,7 @@
     											      //$('#ingest_viaf').attr("disabled", "disabled");
     											    
     											      $('.ingest_button').show();
-    											      $('#entity_name').show();
+    											      //$('#entity_name').show();
     											  });
     										      });
     						   }
@@ -211,7 +211,7 @@
     										     }
     										     catch(e) //response should be JSON so if not, throw error
     										     {
-    											 alert(response);
+    											 //alert(response);
     											 callback();
     
     											 return;
@@ -231,12 +231,14 @@
     										     //set ace editor value to new xml from EAC Dom Document with ingested source and name entries
     										     editor.getSession().setValue(lobjEac.getXML());
     										     
-    										     // Results notification added by timathom
+    										     // Results notification added by timathom    										     
     										     $('body').append("<div id=\"dialog\"><p>&lt;source&gt; and &lt;nameEntry&gt; elements added!</p></div>");
     					                         makeDialog('#dialog', 'Results'); // display results
     
-    										     callback();
-    										     
+    										     //callback();
+    										     $('.form_container').remove();
+    						                     $('.main_edit').hide();        						
+    						                     callback();
     										     
     										     
     										 });
@@ -290,6 +292,7 @@
     					 }else
     					 {
     					     $('.form_container').remove();
+    					     $('#entity_name').hide();
     
     					     callback(lstrChosenViaf);
     					 }
@@ -331,7 +334,7 @@
     
     		    var lstrParagraph = lobjParagraphList[i].childNodes[0].nodeValue;
     
-    		    if( lstrParagraph == null)
+    		    if( lstrParagraph == null )
     			continue;
     
     		    //apply regex to elements to find all possible names to search viaf for relations
@@ -355,7 +358,19 @@
     			    }                                
          			    PossibleNameList.push( lstrPossibleName );
          			}
+         			if(PossibleNameList.length == 0)
+              		{              		    
+              		    $('#loading-image').remove();
+              		    $('.form_container').remove();
+     			        $('main_edit').show();     			        
+    			        $('#entity_name').show();
+    			        callback( 'No matches for possible names found!' );
+              
+              		    //return;
+              		}
     		    }
+    		    
+    		    
     		        
     		    /*if( lobjPossibleTitles != null )
     		      {
@@ -403,6 +418,15 @@
     			    }                                
          			    PossibleNameList.push( lstrPossibleName );
          			}
+         			if(PossibleNameList.length == 0)
+              		{              		    
+                        $('#loading-image').remove();
+                        $('.form_container').remove();
+     			        $('main_edit').show();
+    			        $('#entity_name').show();
+    			        callback( 'No matches for possible names found!' );
+              		    //return;
+              		}
     		    }
     		    
     
@@ -435,13 +459,7 @@
     
     		PossibleNameList = unique(PossibleNameList);
     		PossibleNameList.sort();
-    
-    		if(PossibleNameList.length == 0)
-    		{
-    		    callback( 'No matches for possible names found!' );
-    
-    		    return;
-    		}
+                                        		
     
     		//display all possible names for editor to choose correct/desired names to search viaf and create relations
     		display_possible_name_form(PossibleNameList, function( lobjChosenNames )
