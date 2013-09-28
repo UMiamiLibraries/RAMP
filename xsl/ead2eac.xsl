@@ -1132,7 +1132,11 @@
         </xsl:choose>
     </xsl:template>
 
-    <!-- Process mixed content emph and p elements. -->
+    <!-- Process mixed content elements. -->
+    <xsl:template match="ead:abstract">
+        <xsl:value-of select="normalize-space(.)"/>
+    </xsl:template>
+    
     <xsl:template match="ead:emph">
         <span xmlns="urn:isbn:1-931666-33-4">
             <xsl:attribute name="style">font-style:italic</xsl:attribute>
