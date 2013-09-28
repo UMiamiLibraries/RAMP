@@ -251,6 +251,25 @@ function ead()
 		this.addElement( 'nameEntry', lobjNameEntryNode, '//*[local-name()=\'cpfDescription\']/*[local-name()=\'identity\']' );
 	}
 
+    /*
+	* addCPFRelation adds to the EAC a cpfRelation element
+	* @method addCPFRelation
+	*/
+	eac.prototype.addCPFRelation = function( lobjCPFRelation )
+	{
+		var lobjAttributes = typeof lobjCPFRelation.attributes != 'undefined' ? lobjCPFRelation.attributes : {};
+		var lobjElements = typeof lobjCPFRelation.elements != 'undefined' ? lobjCPFRelation.elements : {};
+											
+		var lobjCPFRelationNode = this.createElement( 'cpfRelation', lobjAttributes, lobjElements );		
+				
+		if( this.doesElementExist('//*[local-name()=\'cpfDescription\']/*[local-name()=\'relations\']/*[local-name()=\'resourceRelation\']') )
+			this.addElement( 'cpfRelation', lobjCPFRelationNode, '//*[local-name()=\'cpfDescription\']/*[local-name()=\'relations\']/*[local-name()=\'resourceRelation\']', true );
+		else if( this.doesElementExist('//*[local-name()=\'cpfDescription\']/*[local-name()=\'relations\']/*[local-name()=\'functionRelation\']') )
+			this.addElement( 'cpfRelation', lobjCPFRelationNode, '//*[local-name()=\'cpfDescription\']/*[local-name()=\'relations\']/*[local-name()=\'functionRelation\']', true );
+		else
+			this.addElement( 'cpfRelation', lobjCPFRelationNode, '//*[local-name()=\'cpfDescription\']/*[local-name()=\'relations\']' );
+	}
+
 	/*
 	* addCPFRelationViaf adds to the EAC a cpfRelation element
 	* @method addCPFRelationViaf

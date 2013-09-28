@@ -957,14 +957,26 @@
                 <xsl:sort
                     select="translate(eac:relationEntry[1],'ÁÀÉÈÍÓÚÜÑáàéèíóúúüñ','AAEEIOUUNaaeeiouuun')"
                     data-type="text"/>
-                <xsl:text>[[</xsl:text>
-                <xsl:call-template name="tParseName2">
-                    <xsl:with-param name="pNameType">corporate</xsl:with-param>
-                    <xsl:with-param name="pCorpName" select="normalize-space(eac:relationEntry[1])"
-                    />
-                </xsl:call-template>
-                <xsl:text>]]</xsl:text>
-                <xsl:text>&#10;</xsl:text>
+                <xsl:choose>
+                    <xsl:when test="@xlink:role='http://RDVocab.info/uri/schema/FRBRentitiesRDA/Person'">
+                        <xsl:text>[[</xsl:text>
+                        <xsl:call-template name="tParseName2">
+                            <xsl:with-param name="pNameType">person</xsl:with-param>
+                            <xsl:with-param name="pPersName" select="eac:relationEntry[1]"/>
+                        </xsl:call-template>
+                        <xsl:text>]]</xsl:text>
+                        <xsl:text>&#10;</xsl:text>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <xsl:text>[[</xsl:text>
+                        <xsl:call-template name="tParseName2">
+                            <xsl:with-param name="pNameType">corporate</xsl:with-param>
+                            <xsl:with-param name="pCorpName" select="eac:relationEntry[1]"/>
+                        </xsl:call-template>
+                        <xsl:text>]]</xsl:text>
+                        <xsl:text>&#10;</xsl:text>
+                    </xsl:otherwise>
+                </xsl:choose>       
             </xsl:for-each>
             <xsl:text>&#10;</xsl:text>
             <xsl:text> --&gt;</xsl:text>
@@ -1160,7 +1172,7 @@
                     <!-- ... then reverse the order of the name parts accordingly. -->
                     <xsl:choose>
                         <xsl:when
-                            test="contains(substring-after(normalize-space($pPersName),', '), ' ')">
+                            test="contains(substring-after(normalize-space($pPersName),', '), ' ') and not(contains(substring-after(normalize-space($pPersName),', '), ', '))">
                             <xsl:value-of
                                 select="substring-before(substring-after(normalize-space($pPersName),', '),' ')"/>
                             <xsl:text> </xsl:text>
