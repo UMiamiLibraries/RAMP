@@ -503,7 +503,7 @@
             <xsl:text>&#10;</xsl:text>
         </xsl:for-each>
         <xsl:for-each
-            select="eac:eac-cpf/eac:cpfDescription/eac:relations/eac:resourceRelation[@xlink:arcrole='referencedIn' and @xlink:role='resource']">
+            select="eac:eac-cpf/eac:cpfDescription/eac:relations/eac:resourceRelation[@resourceRelationType='referencedIn' and @xlink:role='resource']">
             <xsl:sort
                 select="translate(eac:relationEntry[@localType='creator'],'ÁÀÉÈÍÓÚÜÑáàéèíóúúüñ','AAEEIOUUNaaeeiouuun')"
                 data-type="text"/>
@@ -593,7 +593,7 @@
             </xsl:for-each>
         </xsl:for-each>
         <xsl:for-each
-            select="eac:eac-cpf/eac:cpfDescription/eac:relations/eac:resourceRelation[not(@xlink:arcrole) and not(@xlink:role='resource')]">
+            select="eac:eac-cpf/eac:cpfDescription/eac:relations/eac:resourceRelation[not(@resourceRelationType) and not(@xlink:role='resource')]">
             <xsl:sort
                 select="translate(eac:relationEntry[@localType='creator'],'ÁÀÉÈÍÓÚÜÑáàéèíóúúüñ','AAEEIOUUNaaeeiouuun')"
                 data-type="text"/>
@@ -728,25 +728,39 @@
         </xsl:for-each>
     </xsl:template>
 
-    <!-- Get VIAF ID, if available. -->
+    <!-- Get VIAF ID and/or LCCN, if available. -->
     <xsl:template name="tVIAF">
         <xsl:text>&#10;</xsl:text>
         <xsl:text>&#10;</xsl:text>
-        <xsl:for-each
-            select="eac:eac-cpf/eac:control/eac:sources/eac:source/@xlink:href[contains(.,'viaf')]">
-            <xsl:text>{{Authority control|VIAF=</xsl:text>
-            <xsl:value-of select="substring-after(.,'viaf/')"/>
-            <xsl:choose>
-                <xsl:when test="../../../eac:otherRecordId[@localType='lccn']">
-                    <xsl:text> |LCCN=</xsl:text>
-                    <xsl:variable name="lccn"
-                        select="substring-after(../../../eac:otherRecordId[@localType='lccn'],'lccn-n')"/>
-                    <xsl:value-of select="concat('n/',translate($lccn,'-','/'))"/>
-                </xsl:when>
-
-            </xsl:choose>
-            <xsl:text>}}</xsl:text>
-        </xsl:for-each>
+        <xsl:choose>
+            <xsl:when test="eac:eac-cpf/eac:control/eac:sources/eac:source/@xlink:href[contains(.,'viaf')]">
+                <xsl:for-each
+                    select="eac:eac-cpf/eac:control/eac:sources/eac:source/@xlink:href[contains(.,'viaf')]">
+                    <xsl:text>{{Authority control|VIAF=</xsl:text>
+                    <xsl:value-of select="substring-after(.,'viaf/')"/>
+                    <xsl:choose>
+                        <xsl:when test="../../../eac:otherRecordId[@localType='lccn']">
+                            <xsl:text> |LCCN=</xsl:text>
+                            <xsl:variable name="lccn"
+                                select="substring-after(../../../eac:otherRecordId[@localType='lccn'],'lccn-n')"/>
+                            <xsl:value-of select="concat('n/',translate($lccn,'-','/'))"/>
+                        </xsl:when>                          
+                    </xsl:choose>
+                    <xsl:text>}}</xsl:text>
+                </xsl:for-each>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:choose>
+                    <xsl:when test="eac:eac-cpf/eac:control/eac:otherRecordId[@localType='lccn']">                        
+                        <xsl:text>{{Authority control|LCCN=</xsl:text>   
+                        <xsl:variable name="lccn"
+                            select="substring-after(eac:eac-cpf/eac:control/eac:otherRecordId[@localType='lccn'],'lccn-n')"/>
+                        <xsl:value-of select="concat('n/',translate($lccn,'-','/'))"/>
+                        <xsl:text>}}</xsl:text>                                                
+                    </xsl:when>
+                </xsl:choose>
+            </xsl:otherwise>
+        </xsl:choose>        
         <xsl:text>&#10;</xsl:text>
     </xsl:template>
 
