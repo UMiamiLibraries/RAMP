@@ -914,6 +914,7 @@
                 <xsl:with-param name="pPersName" select="$pPersName"/>
             </xsl:call-template>
             <xsl:text> may be related to or associated with the following entities. These names may be useful for creating links to this page from other Wikipedia pages.</xsl:text>
+            <xsl:text> --&gt;</xsl:text>
             <xsl:text>&#10;</xsl:text>
             <xsl:text>&#10;</xsl:text>
             <xsl:for-each select="eac:eac-cpf/eac:cpfDescription/eac:relations/eac:cpfRelation">
@@ -941,8 +942,7 @@
                     </xsl:otherwise>
                 </xsl:choose>                
             </xsl:for-each>
-            <xsl:text>&#10;</xsl:text>
-            <xsl:text> --&gt;</xsl:text>
+            <xsl:text>&#10;</xsl:text>            
         </xsl:if>
         <xsl:if test="$pNameType='corporate'">
             <xsl:text>&lt;!-- </xsl:text>

@@ -442,7 +442,7 @@ class WorldCat_Ingestor extends Ingestor
 			    $lobjCPFRelationNode['attributes']['xlink:href'] = "http://id.loc.gov/authorities/names/" . substr(preg_replace('/-/','0',$lobjIdentity['id']),5);
 			}
 			
-			$lobjCPFRelationNode['attributes']['xlink:role'] = "rdvocab.info/uri/schema/FRBRentitiesRDA/";
+			$lobjCPFRelationNode['attributes']['xlink:role'] = "RDVocab.info/uri/schema/FRBRentitiesRDA/Person";
 			$lobjCPFRelationNode['attributes']['xlink:type'] = "simple";
 
             /*
