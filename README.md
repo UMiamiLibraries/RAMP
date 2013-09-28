@@ -108,9 +108,9 @@ The RAMP editor can extract biographical and historical data from EAD finding ai
    article for the entity. If there 
    is an existing article they are presented with the generated and
    existing articles side by side. They can highlight a section of either
-   article and transfer if to the other side
+   article and transfer it to the other side
    by using arrow buttons. 
    Finally, the user can submit the generated article to Wikipedia. 
 
 #### 2.6.1 Saving Draft Articles to Wikipedia
-   RAMP facilitates the editing process by letting users save Wikipedia-hosted drafts of their articles. For example, rather than editing and posting new content directly to http://en.wikipedia.org/wiki/Lydia_Cabrera, RAMP users can check the 'Draft' box to save their work-in-progress to a subpage of their Wikipedia user homepage (like http://en.wikipedia.org/wiki/User:Username/Lydia_Cabrera).
+   RAMP facilitates the editing process by letting users save Wikipedia-hosted drafts of their articles. For example, rather than editing and posting new content directly to http://en.wikipedia.org/wiki/Lydia_Cabrera, RAMP users can click the 'Submit to Wikipedia as Draft' button to save their work-in-progress to a subpage of their Wikipedia user homepage (like http://en.wikipedia.org/wiki/User:Username/Lydia_Cabrera).
