@@ -35,11 +35,11 @@ include('header.php');
   <div class="content_box" id="convert_box">
   <img src="style/images/convert.png" alt="Convert" width="24px" height="24px"/>
 
-  <h1>Convert EAD Records Into EAC-CPF Records</h1>
- <ol><li><em>1.</em> Upload your EAD files into the correct folder on the RAMP server</li>
+  <h1>Convert EAD Records into EAC-CPF Records</h1>
+ <ol><li><em>1.</em> Upload your EAD files into the 'ead' folder on the RAMP server</li>
   <li><em>2.</em> Check the path is correct and then click 'Convert.'  This will transform the EAD files
 into EAC-CPF records, and store both original and newly created files in the RAMP database.</li>
-<li><em>3.</em> You may now use the RAMP editor (below) to enhance and publish your records. </li>
+<li><em>3.</em> You may now use the RAMP editor to enhance and publish your records. </li>
 <li>Note:  If you run this on a folder that already has files, it will look for new and changed EAC files.  If files
 are changed, you will be presented with a 'diff' screen to merge changes. </li></ol>
   <br/>
@@ -54,7 +54,7 @@ are changed, you will be presented with a 'diff' screen to merge changes. </li><
   <div class="pure-u-1-2">
   <div class="content_box" id="edit_box">
   <img src="style/images/edit.png" alt="Edit" width="24px" height="24px"/>
-  <h1>Edit EAC, Enhance with Linked Data, Publish on Wikipedia</h1>
+  <h1>Edit EAC, Enhance with External Data, Publish on Wikipedia</h1>
   
   <?php
 
