@@ -70,11 +70,7 @@ The RAMP editor can extract biographical and historical data from EAD finding ai
    After submitting the form, the script performs an XSLT transformation on
    all the files in the folder. After a successful transformation, the
    original EAD record is imported into the 
-   database, along with the newly created EAC-CPF record. When the
-   conversion process is completed the original EAD files are removed. 
-   If a duplicate EAD file is converted, the user is presented with an
-   interface that displays a graphical diff. The user can choose which
-   elements are merged into the new record.
+   database, along with the newly created EAC-CPF record. If a duplicate EAD file is converted, the user is presented      with an interface that displays a graphical diff. The user can choose which elements are merged into the new record.
 
 ### 2.2 Creating a New EAC Record
    If you encounter a situation where there are no EAD files to import,
@@ -112,9 +108,9 @@ The RAMP editor can extract biographical and historical data from EAD finding ai
    article for the entity. If there 
    is an existing article they are presented with the generated and
    existing articles side by side. They can highlight a section of either
-   article and transfer if to the other side
+   article and transfer it to the other side
    by using arrow buttons. 
    Finally, the user can submit the generated article to Wikipedia. 
 
 #### 2.6.1 Saving Draft Articles to Wikipedia
-   RAMP facilitates the editing process by letting users save Wikipedia-hosted drafts of their articles. For example, rather than editing and posting new content directly to http://en.wikipedia.org/wiki/Lydia_Cabrera, RAMP users can check the 'Draft' box to save their work-in-progress to a subpage of their Wikipedia user homepage (like http://en.wikipedia.org/wiki/User:Username/Lydia_Cabrera).
+   RAMP facilitates the editing process by letting users save Wikipedia-hosted drafts of their articles. For example, rather than editing and posting new content directly to http://en.wikipedia.org/wiki/Lydia_Cabrera, RAMP users can click the 'Submit to Wikipedia as Draft' button to save their work-in-progress to a subpage of their Wikipedia user homepage (like http://en.wikipedia.org/wiki/User:Username/Lydia_Cabrera).
