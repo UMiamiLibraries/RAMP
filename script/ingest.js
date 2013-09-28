@@ -688,8 +688,8 @@
                 lstrHTML += "<tr id=\"user_rel\"><td></td><td class=\"message\">No appropriate matches from VIAF? Add &lt;cpfRelation&gt; using the original search string: </td></tr>";
                 lstrHTML += "<tr class=\"user_plain_row\"><td><input type=\"checkbox\" class=\"viaf_check\" name=\"chosen_results\" value=\"";		
     	        lstrHTML += "\"/></td><td id=\"plainText\"><span id=\"textSpan\">" + lstrName;                
-                lstrHTML += "</span><select id=\"rels\" name=\"relType\" title=\"For non-VIAF entries, you may choose one of two relation types. If you do not choose a relation type, the default value is 'associatedWith'\"><option value=\"\">Relation Type</option><option value=\"\"></option><option value=\"assoc\">associatedWith</option><option value=\"corresp\">correspondedWith</option></select>";
-                lstrHTML += "<select id=\"ents\" name=\"entities\" title=\"For non-VIAF entries, you must choose an entity type. For VIAF entries (the ones with links), the entity type has been predefined.\"><option value=\"\">Entity Type</option><option value=\"\"></option><option value=\"pers\">Person</option><option value=\"corp\">CorporateBody</option><option value=\"fam\">Family</option></select></td>";
+                lstrHTML += "</span><span id=\"select_wrap\"><select id=\"ents\" name=\"entities\" title=\"For non-VIAF entries, you must choose an entity type. For VIAF entries (the ones with links), the entity type has been predefined.\"><option value=\"\">Entity Type</option><option value=\"\"></option><option value=\"pers\">Person</option><option value=\"corp\">CorporateBody</option><option value=\"fam\">Family</option></select>";
+                lstrHTML += "<select id=\"rels\" name=\"relType\" title=\"For non-VIAF entries, you may choose one of two relation types. If you do not choose a relation type, the default value is 'associatedWith'\"><option value=\"\">Relation Type</option><option value=\"\"></option><option value=\"assoc\">associatedWith</option><option value=\"corresp\">correspondedWith</option></select></span></td>";
                 lstrHTML += "</tr>";
                 //lstrHTML += "<tr class=\"user_viaf_row\"><td></td><td>Matches from VIAF:</td></tr>";
             }                               
@@ -725,9 +725,9 @@
                                        lobjChosenResultsTest.push($(this).closest('td').siblings('#plainText').children('#textSpan').text());
                                        //console.log($(this).closest('td').siblings('#plainText').children('#textSpan').text()); 
                                        
-                                        if ($(this).closest('td').siblings('#plainText').children('#rels').children('option:selected').val() != '')
+                                        if ($(this).closest('td').siblings('#plainText').children('#select_wrap').children('#rels').children('option:selected').val() != '')
     					                {
-    					                    lobjChosenRels.push( $(this).closest('td').siblings('#plainText').children('#rels').children('option:selected').text() );
+    					                    lobjChosenRels.push( $(this).closest('td').siblings('#plainText').children('#select_wrap').children('#rels').children('option:selected').text() );
     					                }    				
     					                
     					                else if ( lobjChosenRels.length == 0 )
@@ -735,9 +735,9 @@
     					                    lobjChosenRels.push( "associatedWith" );
     					                }
     					           
-    					                if ($(this).closest('td').siblings('#plainText').children('#ents').children('option:selected').val() != '')
+    					                if ($(this).closest('td').siblings('#plainText').children('#select_wrap').children('#ents').children('option:selected').val() != '')
     					                {
-    					                    lobjChosenRoles.push( "http://RDVocab.info/uri/schema/FRBRentitiesRDA/" + $(this).closest('td').siblings('#plainText').children('#ents').children('option:selected').text() );    					                    
+    					                    lobjChosenRoles.push( "http://RDVocab.info/uri/schema/FRBRentitiesRDA/" + $(this).closest('td').siblings('#plainText').children('#select_wrap').children('#ents').children('option:selected').text() );    					                    
     					                }    
     					           }    					               					          					               					      
     					       }					       
