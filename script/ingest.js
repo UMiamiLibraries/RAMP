@@ -419,7 +419,7 @@
     		PossibleNameList = unique(PossibleNameList);
     		PossibleNameList.sort();
     		
-    		if( (PossibleNameList.length == 0 || PossibleNameList == null) )
+    		if( PossibleNameList.length == 0 )
 		    {			    
 		        callback( 'No matches for possible names found!' );
 			    $('#loading-image').remove();
@@ -428,11 +428,7 @@
     			$('#entity_name').show();    			    			
 
 			    return;
-		    }		    
-    
-    	
-    		
-                                        		
+		    }		            	                                         
     
     		//display all possible names for editor to choose correct/desired names to search viaf and create relations
     		display_possible_name_form(PossibleNameList, function( lobjChosenNames )
