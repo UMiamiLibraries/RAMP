@@ -231,16 +231,15 @@
     										     //set ace editor value to new xml from EAC Dom Document with ingested source and name entries
     										     editor.getSession().setValue(lobjEac.getXML());
     										     
-    										     // Results notification added by timathom    										     
+    										     // Results notification added by timathom    	
+    										     
     										     $('body').append("<div id=\"dialog\"><p>&lt;source&gt; and &lt;nameEntry&gt; elements added!</p></div>");
     					                         makeDialog('#dialog', 'Results'); // display results
-    
-    										     //callback();
+    					                         
     										     $('.form_container').remove();
     						                     $('.main_edit').hide();        						
     						                     callback();
-    										     
-    										     
+    						                    
     										 });
     								     });
         				     });
@@ -255,8 +254,7 @@
     function display_possible_viaf_form( lobjPossibleViaf, callback )
     {
         var lstrHTML = "<div class=\"form_container\">";
-    
-       
+          
         lstrHTML += "<div class=\"instruction_div\"><h2 class=\"instruction\" style=\"font-weight:800; font-size:1.5em;\">Authority Control</h2><p class=\"instruction\">The purpose of this step is to get a unique identifier from the Virtual International Authority File (<a href=\"http://viaf.org\" title=\"Link to the Virtual International Authority File\" target=\"_blank\">VIAF</a>) for the entity you are working with, and then do Named Entity Recognition on the text of the entity's bio or finding aid in order to encode relationships.</p><p class=\"instruction\">The list on the right was retrieved from VIAF. Please examine the name(s) to see whether there is an appropriate match for the entity you are working with.</p><p class=\"instruction\">If you click on a name, you will be taken to its VIAF page, which may include additional information that will help you decide whether it is an appropriate match.</p><p class=\"instruction\">If there is not a good match, click \"Cancel\" to proceed to the next step (Named Entity Recognition).</p></div>";
     
         lstrHTML += "<button id=\"ingest_viaf_chosen_viaf\" class=\"pure-button ingest-ok pure-button-secondary\">Use Selected VIAF</button>";
@@ -292,7 +290,7 @@
     					 }else
     					 {
     					     $('.form_container').remove();
-    					     $('#entity_name').hide();
+    					     $('.main_edit').hide(); 
     
     					     callback(lstrChosenViaf);
     					 }
@@ -319,6 +317,8 @@
     		var lobjead = new ead();
     		lobjead.loadXMLString( lstrXML );
     
+    		var PossibleNameListBio = [];
+    		var PossibleNameListUnit = [];
     		var PossibleNameList = [];
     		var lobjParagraphList = lobjEac.getParagraph();
     		//var lobjSpanList = lobjead.getElementList('//*[local-name()=\'unittitle\']/*[local-name()=\'span\']');
@@ -340,125 +340,98 @@
     		    //apply regex to elements to find all possible names to search viaf for relations
     		    //lobjPossibleTitles = lstrParagraph.match(/["\u201D\u201C]([^"\u201D\u201C]+)["\u201D\u201C]/g);
     		    //lstrParagraph = lstrParagraph.replace(/["\u201D\u201C]([^"\u201D\u201C]+)["\u201D\u201C]/g, "");
-    		    var lobjPossibleNames = lstrParagraph.match(/((\sde\s)*?[A-Z\u00C0\u00C1\u00C3\u00C7\u00C9\u00CA\u00CD\u00D3\u00DA\u00DC\u00D4\u00D5\u00D6][a-z\u00E0\u00E1\u00E3\u00E7\u00E9\u00EA\u00ED\u00F0\u00F3\u00F4\u00F5\u00FA\u00FC\u00F1\-']+(\s[0-9][0-9])?([,]*?)(\sde\sla|\sde\s|\sdel|\sde)?\s*([A-Z\u00C1\u00C9\u00CD\u00D3\u00DA\u00DC\u00D6][.]\s*)*(y\sdel\s|y\sde\sla\s|de\sla\s|del\s|de\slos\s|e\s|y\s|de\s)?){2,8}/g);
-    
-    		    if( lobjPossibleNames != null )
+    		    var lobjPossibleNamesBio = lstrParagraph.match(/((\sde\s)*?[A-Z\u00C0\u00C1\u00C3\u00C7\u00C9\u00CA\u00CD\u00D3\u00DA\u00DC\u00D4\u00D5\u00D6][a-z\u00E0\u00E1\u00E3\u00E7\u00E9\u00EA\u00ED\u00F0\u00F3\u00F4\u00F5\u00FA\u00FC\u00F1\-']+(\s[0-9][0-9])?([,]*?)(\sde\sla|\sde\s|\sdel|\sde)?\s*([A-Z\u00C1\u00C9\u00CD\u00D3\u00DA\u00DC\u00D6][.]\s*)*(y\sdel\s|y\sde\sla\s|de\sla\s|del\s|de\slos\s|e\s|y\s|de\s)?){2,8}/g);
+    		       
+    		    if( lobjPossibleNamesBio != null )
     		    {
-         			for( var j = 0; j < lobjPossibleNames.length; j++ )
+         			for( var j = 0; j < lobjPossibleNamesBio.length; j++ )
          			{
-         			    var lstrPossibleName = lobjPossibleNames[j];
-         			    lstrPossibleName = lstrPossibleName.trim();
+         			    var lstrPossibleNameBio = lobjPossibleNamesBio[j];
+         			    lstrPossibleNameBio = lstrPossibleNameBio.trim();
     			    
         			    // Strip any trailing commas. --timathom
-         			    var lstrLastChar = lstrPossibleName.substr( lstrPossibleName.length - 1 );
+         			    var lstrLastChar = lstrPossibleNameBio.substr( lstrPossibleNameBio.length - 1 );
          			    
          			    if( lstrLastChar == "," )
-    			    {
-    				lstrPossibleName = lstrPossibleName.slice(0, -1);
-    			    }                                
-         			    PossibleNameList.push( lstrPossibleName );
-         			}
-         			if(PossibleNameList.length == 0)
-              		{              		    
-              		    $('#loading-image').remove();
-              		    $('.form_container').remove();
-     			        $('main_edit').show();     			        
-    			        $('#entity_name').show();
-    			        callback( 'No matches for possible names found!' );
+    			        {
+    				        lstrPossibleNameBio = lstrPossibleNameBio.slice(0, -1);
+    			        }                                
+         			    PossibleNameListBio.push( lstrPossibleNameBio );
+         			}         			         			
+    		    }   
+    		    /*
+    		    else
+    		    {
+    		        $('#loading-image').remove();
+              		$('.form_container').remove();
+     			    $('.main_edit').show();     			        
+    			    $('#entity_name').show();
+    			    callback( 'No matches for possible names found!' );
               
-              		    //return;
-              		}
-    		    }
-    		    
-    		    
-    		        
-    		    /*if( lobjPossibleTitles != null )
-    		      {
-    		      for( j = 0; j < lobjPossibleTitles.length; j++ )
-    		      {
-    		      var lstrPossibleTitle = lobjPossibleTitles[j];
-    		      lstrPossibleTitle = lstrPossibleTitle.trim();
-    		      lstrPossibleTitle = lstrPossibleTitle.replace(/["\u201D\u201C]/g, "");
-    		      lstrPossibleTitle = lstrPossibleTitle.replace(/<span>|<\/span>/g, "");
-    
-    		      PossibleNameList.push( lstrPossibleTitle );
-    		      }
-    		      }*/
-    		}
-    		
-    		// Slightly different regex needs to be applied to unittitles. --timathom
-    		for(var i = 0; i < lobjUnitTitleList.length; i++)
+              		return;
+    		    }  
+    		    */
+      		}
+      		for(var i = 0; i < lobjUnitTitleList.length; i++)
     		{
     		    if( typeof lobjUnitTitleList[i].childNodes[0] == 'undefined' )
     			continue;
     
-    		    var lstrParagraph = lobjUnitTitleList[i].childNodes[0].nodeValue;
+    		    var lstrUnitTitle = lobjUnitTitleList[i].childNodes[0].nodeValue;
     
-    		    if( lstrParagraph == null)
+    		    if( lstrUnitTitle == null )
     			continue;
-    
-    		    //apply regex to elements to find all possible names to search viaf for relations
-    		    //lobjPossibleTitles = lstrParagraph.match(/["\u201D\u201C]([^"\u201D\u201C]+)["\u201D\u201C]/g);
-    		    //lstrParagraph = lstrParagraph.replace(/["\u201D\u201C]([^"\u201D\u201C]+)["\u201D\u201C]/g, "");
-    		    var lobjPossibleNames = lstrParagraph.match(/((\sde\s)*?[A-Z\u00C0\u00C1\u00C3\u00C7\u00C9\u00CA\u00CD\u00D3\u00DA\u00DC\u00D4\u00D5\u00D6][a-z\u00E0\u00E1\u00E3\u00E7\u00E9\u00EA\u00ED\u00F0\u00F3\u00F4\u00F5\u00FA\u00FC\u00F1\-']+(\s[0-9][0-9])?([,]*?)(\sde\sla|\sde\s|\sdel|\sde)?\s*([A-Z\u00C1\u00C9\u00CD\u00D3\u00DA\u00DC\u00D6][.]\s*)*(y\sdel\s|y\sde\sla\s|de\sla\s|del\s|de\slos\s|e\s|y\s|de\s|[,]\s)?){2,8}/g);
-    
-    		    if( lobjPossibleNames != null )
-    		    {
-         			for( var j = 0; j < lobjPossibleNames.length; j++ )
-         			{
-         			    var lstrPossibleName = lobjPossibleNames[j];
-         			    lstrPossibleName = lstrPossibleName.trim();
+    			
+    			var lobjPossibleNamesUnit = lstrUnitTitle.match(/((\sde\s)*?[A-Z\u00C0\u00C1\u00C3\u00C7\u00C9\u00CA\u00CD\u00D3\u00DA\u00DC\u00D4\u00D5\u00D6][a-z\u00E0\u00E1\u00E3\u00E7\u00E9\u00EA\u00ED\u00F0\u00F3\u00F4\u00F5\u00FA\u00FC\u00F1\-']+(\s[0-9][0-9])?([,]*?)(\sde\sla|\sde\s|\sdel|\sde)?\s*([A-Z\u00C1\u00C9\u00CD\u00D3\u00DA\u00DC\u00D6][.]\s*)*(y\sdel\s|y\sde\sla\s|de\sla\s|del\s|de\slos\s|e\s|y\s|de\s|[,]\s)?){2,8}/g);
+    			
+    			if ( lobjPossibleNamesUnit != null )
+    			{
+    			    for( var j = 0; j < lobjPossibleNamesUnit.length; j++ )
+    			    {
+    			        var lstrPossibleNameUnit = lobjPossibleNamesUnit[j];
+         			    lstrPossibleNameUnit = lstrPossibleNameUnit.trim();
     			    
-    			         // Strip any trailing commas. --timathom
-         			    var lstrLastChar = lstrPossibleName.substr( lstrPossibleName.length - 1 );
+        			    // Strip any trailing commas. --timathom
+         			    var lstrLastChar = lstrPossibleNameUnit.substr( lstrPossibleNameUnit.length - 1 );
          			    
          			    if( lstrLastChar == "," )
-    			    {
-    				lstrPossibleName = lstrPossibleName.slice(0, -1);
-    			    }                                
-         			    PossibleNameList.push( lstrPossibleName );
-         			}
-         			if(PossibleNameList.length == 0)
-              		{              		    
-                        $('#loading-image').remove();
-                        $('.form_container').remove();
-     			        $('main_edit').show();
-    			        $('#entity_name').show();
-    			        callback( 'No matches for possible names found!' );
-              		    //return;
-              		}
-    		    }
-    		    
-    
-    		    /*if( lobjPossibleTitles != null )
-    		      {
-    		      for( j = 0; j < lobjPossibleTitles.length; j++ )
-    		      {
-    		      var lstrPossibleTitle = lobjPossibleTitles[j];
-    		      lstrPossibleTitle = lstrPossibleTitle.trim();
-    		      lstrPossibleTitle = lstrPossibleTitle.replace(/["\u201D\u201C]/g, "");
-    		      lstrPossibleTitle = lstrPossibleTitle.replace(/<span>|<\/span>/g, "");
-    
-    		      PossibleNameList.push( lstrPossibleTitle );
-    		      }
-    		      }*/
-    		}
-    		
-    		
-    
-    		/*for(var i = 0; i < lobjSpanList.length; i++)
-    		  {
-    		  var lstrPossibleTitle = lobjSpanList[i].childNodes[0].nodeValue;
-    
-    		  if( lstrPossibleTitle == null)
-    		  continue;
-    
-    		  lstrPossibleTitle = lstrPossibleTitle.trim();
-    		  PossibleNameList.push(lstrPossibleTitle);
-    		  }*/
-    
+    			        {
+    				        lstrPossibleNameUnit = lstrPossibleNameUnit.slice(0, -1);
+    			        }                                
+         			    PossibleNameListUnit.push( lstrPossibleNameUnit );
+         			}         		
+    			}
+    			/*
+    			else
+    		    {
+    		        $('#loading-image').remove();
+              		$('.form_container').remove();
+     			    $('.main_edit').show();     			        
+    			    $('#entity_name').show();
+    			    //callback( 'No matches for possible names found!' );
+              
+              		return;
+    		    }   
+    		    */
+    	    }
+    	    
+    	    PossibleNameList = PossibleNameListBio.concat(PossibleNameListUnit);
     		PossibleNameList = unique(PossibleNameList);
     		PossibleNameList.sort();
+    		
+    		if( (PossibleNameList.length == 0 || PossibleNameList == null) )
+		    {			    
+		        callback( 'No matches for possible names found!' );
+			    $('#loading-image').remove();
+                $('.form_container').remove();
+     			$('.main_edit').show();     			        
+    			$('#entity_name').show();    			    			
+
+			    return;
+		    }		    
+    
+    	
+    		
                                         		
     
     		//display all possible names for editor to choose correct/desired names to search viaf and create relations
@@ -1151,11 +1124,11 @@
     function display_possible_worldcat_subjects( lobjPossibleSubjects, callback )
     {
         var lstrHTML = "<div class=\"form_container\">";
-     lstrHTML += "<h2 class=\"instruction\" style=\"font-weight:800; font-size:1.5em;\">Ingest from WorldCat Identities</h2><p class=\"instruction\">Here is a list of FAST subject headings from this entity's WorldCat Identities page. Select appropriate headings to add to your EAC-CPF record.</p>";
+        lstrHTML += "<div class=\"instruction_div\"><h2 class=\"instruction\" style=\"font-weight:800; font-size:1.5em;\">Ingest from WorldCat Identities</h2><p class=\"instruction\">Here is a list of FAST subject headings from this entity's WorldCat Identities page. Select appropriate headings to add to your EAC-CPF record.</p></div>";
      
-    lstrHTML += "<button id=\"ingest_worldcat_chosen_subjects\" class=\"pure-button pure-button-secondary\">Use Selected Subjects</button>";
+        lstrHTML += "<button id=\"ingest_worldcat_chosen_subjects\" class=\"pure-button pure-button-secondary\">Use Selected Subjects</button>";
     
-    lstrHTML += "&nbsp;<button id=\"ingest_worldcat_chosen_subjects_cancel\" class=\"pure-button pure-button-secondary\">Cancel</button>";  
+        lstrHTML += "&nbsp;<button id=\"ingest_worldcat_chosen_subjects_cancel\" class=\"pure-button pure-button-secondary\">Cancel</button>";  
     
         lstrHTML += "<div class=\"user_help_form\">";
     

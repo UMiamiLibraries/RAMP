@@ -435,14 +435,14 @@ class WorldCat_Ingestor extends Ingestor
 			
 			if( strpos( $lobjIdentity['id'], 'lccn') === false )
 			{
-				$lobjCPFRelationNode['attributes']['xlink:href'] = "http://www.worldcat.org/identities/" . substr($lobjIdentity['id']);
+				$lobjCPFRelationNode['attributes']['xlink:href'] = "http://www.worldcat.org/identities/" . $lobjIdentity['id'];
 			}
 			else
 			{
 			    $lobjCPFRelationNode['attributes']['xlink:href'] = "http://id.loc.gov/authorities/names/" . substr(preg_replace('/-/','0',$lobjIdentity['id']),5);
 			}
 			
-			$lobjCPFRelationNode['attributes']['xlink:role'] = "http://RDVocab.info/uri/schema/FRBRentitiesRDA/Person";
+			$lobjCPFRelationNode['attributes']['xlink:role'] = "rdvocab.info/uri/schema/FRBRentitiesRDA/";
 			$lobjCPFRelationNode['attributes']['xlink:type'] = "simple";
 
             /*

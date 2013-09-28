@@ -75,7 +75,7 @@ class Viaf_Ingestor extends Ingestor
 		$this->strViafID = $lintViafId;
 
 		$this->objSourceNode = array(
-							"attributes" => array( "xlink:href" => "VIAF:$this->strViafID",
+							"attributes" => array( "xlink:href" => "http://viaf.org/viaf/$this->strViafID",
 												   "xlink:type" => "simple" )
 							);
 		return true;
@@ -249,7 +249,7 @@ class Viaf_Ingestor extends Ingestor
 http://www.viaf.org/viaf/
 				    $lobjcpfRelation = array(
 					   			"attributes" => array( "xlink:arcrole" => "associatedWith",
-													   "xlink:href" => "VIAF:$this->strViafID",
+													   "xlink:href" => "http://viaf.org/viaf/$this->strViafID",
 													   "xlink:role" => "http://RDVocab.info/uri/schema/FRBRentitiesRDA/" . $lstrType,
 													   "xlink:type" => "simple" ),
 								"elements" => array( "relationEntry" => array (
