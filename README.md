@@ -70,11 +70,7 @@ The RAMP editor can extract biographical and historical data from EAD finding ai
    After submitting the form, the script performs an XSLT transformation on
    all the files in the folder. After a successful transformation, the
    original EAD record is imported into the 
-   database, along with the newly created EAC-CPF record. When the
-   conversion process is completed the original EAD files are removed. 
-   If a duplicate EAD file is converted, the user is presented with an
-   interface that displays a graphical diff. The user can choose which
-   elements are merged into the new record.
+   database, along with the newly created EAC-CPF record. If a duplicate EAD file is converted, the user is presented      with an interface that displays a graphical diff. The user can choose which elements are merged into the new record.
 
 ### 2.2 Creating a New EAC Record
    If you encounter a situation where there are no EAD files to import,
