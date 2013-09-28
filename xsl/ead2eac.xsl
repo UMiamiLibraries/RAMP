@@ -1301,7 +1301,7 @@
 
             <!-- For local archival collections, output EAD snippet in objectXMLWrap. -->
             <xsl:for-each select="ead:ead/ead:archdesc/ead:did/ead:unittitle">
-                <resourceRelation xmlns="urn:isbn:1-931666-33-4" xlink:arcrole="creatorOf"
+                <resourceRelation xmlns="urn:isbn:1-931666-33-4" resourceRelationType="creatorOf"
                     xlink:href="{concat($pLocalURL,substring-after(../../../ead:eadheader/ead:eadid/@identifier,':'))}"
                     xlink:role="archivalRecords" xlink:type="simple"
                     xmlns:xlink="http://www.w3.org/1999/xlink">
@@ -1340,7 +1340,7 @@
             <!-- Process local digital collections. -->
             <xsl:if test="ead:ead/ead:archdesc/ead:dao">
                 <xsl:for-each select="ead:ead/ead:archdesc/ead:dao">
-                    <resourceRelation xmlns="urn:isbn:1-931666-33-4" xlink:arcrole="creatorOf"
+                    <resourceRelation xmlns="urn:isbn:1-931666-33-4" resourceRelationType="creatorOf"
                         xlink:href="{@xlink:href}" xlink:role="archivalRecords" xlink:type="simple"
                         xmlns:xlink="http://www.w3.org/1999/xlink">
                         <relationEntry>

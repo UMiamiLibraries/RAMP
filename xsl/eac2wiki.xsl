@@ -611,7 +611,7 @@
         <xsl:text>&#10;</xsl:text>
         <!-- Check for works by the person or corporate body. -->
         <xsl:for-each
-            select="eac:eac-cpf/eac:cpfDescription/eac:relations/eac:resourceRelation[@xlink:arcrole='creatorOf' and @xlink:role='resource']">
+            select="eac:eac-cpf/eac:cpfDescription/eac:relations/eac:resourceRelation[@resourceRelationType='creatorOf' and @xlink:role='resource']">
             <xsl:sort
                 select="translate(eac:relationEntry[1],'ÁÀÉÈÍÓÚÜÑáàéèíóúúüñ','AAEEIOUUNaaeeiouuun')"
                 data-type="text"/>

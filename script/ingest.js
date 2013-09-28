@@ -495,11 +495,11 @@
     							  
                               	    
                               	   //display results from viaf realtion nodes search so editor can choose which relations they want to ingest
-    							   display_viaf_results_form( lobjData, function( lobjResultsChosen, lobjRoleVals, lobjRelVals ) 
+    							   display_viaf_results_form( lobjData, function( lobjResultsChosen ) 
     										     {    										         										         										     
-    										     
-    											 if( lobjResultsChosen.length == 0 )
-    											 {
+    										     console.log(lobjResultsChosen['names']['entity']['all']);
+    											 if( lobjResultsChosen['names']['entity']['all'].length == 0 )    											 
+    											 {    											     
     											     callback("Done!"); //finish process if no results chosen
     											     $('.viaf_arrow').html("&#10003;");
     											     $('#loading-image').remove(); 
@@ -517,14 +517,20 @@
     											 }    											     																				
     
     											 //ingest into EAC all chosen results from viaf
-    											 for(var i = 0; i < lobjResultsChosen.length; i++)
+    											 for(var i = 0; i < lobjResultsChosen['names']['entity']['viaf'].length; i++)
     											 {
-    											     var chosen_result = lobjResultsChosen[i];    											     
-                                                     var chosen_roles = lobjRoleVals[i];
-                                                     var chosen_rels = lobjRelVals[i];
-                                                     lobjEac.addCPFRelation(lobjData[chosen_result], chosen_roles, chosen_rels);
-                                                        											        											     											    
-    											 }
+    											     var chosen_result_viaf = lobjResultsChosen['names']['entity']['viaf'][i];
+    											     lobjEac.addCPFRelationViaf(lobjData[chosen_result_viaf]);
+    											 }    											     											 
+    											 
+    											 for(var i = 0; i < lobjResultsChosen['names']['entity']['custom'].length; i++)
+    											 {
+    											     var chosen_result_custom = lobjResultsChosen['names']['entity']['custom'][i];    											         											     
+    											     var chosen_roles = lobjResultsChosen['names']['roles'][i];        											                                                         
+    											     var chosen_rels = lobjResultsChosen['names']['rels'][i];
+    											     lobjEac.addCPFRelationCustom(lobjData[chosen_result_custom], chosen_roles, chosen_rels);
+    											 }    											     		    											     											
+    											 
     											 editor.getSession().setValue(lobjEac.getXML());
     
     											 callback('&lt;cpfRelation&gt; elements added!'); // Notify that <cpfRelation> elements have been added. --timathom
@@ -708,48 +714,57 @@
     				       {
     				      				       				       
     					   var lobjChosenResults = [];	
-    					   var lobjChosenResultsTest = [];
-    					   var lobjChosenRoles = [];
-    					   var lobjChosenRels = [];    					   
+    					   lobjChosenResults['names'] = [];    					   
+    					   lobjChosenResults['names']['entity'] = [];
+    					   lobjChosenResults['names']['entity']['all'] = [];
+    					   lobjChosenResults['names']['entity']['viaf'] = [];
+    					   lobjChosenResults['names']['entity']['custom'] = [];
+    					   lobjChosenResults['names']['rels'] = [];
+    					   lobjChosenResults['names']['roles'] = [];
+    					   //var lobjChosenResultsTest = [];
+    					   //lobjChosenResultsTest['names'] = [];
+    					   //lobjChosenResultsTest['names']['entity'] = [];    					       					  
     					                                                  
     					   $('input.viaf_check').each(function () {
     					       if ( this.checked )
     					       {					     
     					           if ($(this).val() != "")
     					           {
-    					               lobjChosenResults.push($(this).val());    
+    					               lobjChosenResults['names']['entity']['viaf'].push($(this).val());
+    					               lobjChosenResults['names']['entity']['all'].push($(this).val());  
     					           }    					           
     					           else  					              					          
-    					           {    					                					          
-                                       lobjChosenResults.push($(this).closest('td').siblings('#plainText').children('#textSpan').text());
-                                       lobjChosenResultsTest.push($(this).closest('td').siblings('#plainText').children('#textSpan').text());
+    					           {    					                					                                                 
+                                       //lobjChosenResultsTest['names']['entity']['custom'].push($(this).closest('td').siblings('#plainText').children('#textSpan').text());
                                        //console.log($(this).closest('td').siblings('#plainText').children('#textSpan').text()); 
                                        
                                         if ($(this).closest('td').siblings('#plainText').children('#select_wrap').children('#rels').children('option:selected').val() != '')
-    					                {
-    					                    lobjChosenRels.push( $(this).closest('td').siblings('#plainText').children('#select_wrap').children('#rels').children('option:selected').text() );
+    					                {    					                    
+    					                    lobjChosenResults['names']['rels'].push( $(this).closest('td').siblings('#plainText').children('#select_wrap').children('#rels').children('option:selected').text() );
     					                }    				
     					                
-    					                else if ( lobjChosenRels.length == 0 )
-    					                {
-    					                    lobjChosenRels.push( "associatedWith" );
+    					                else if ( lobjChosenResults['names']['rels'].length == 0 )
+    					                {    					                    
+    					                    lobjChosenResults['names']['rels'].push( "associatedWith" );
     					                }
     					           
     					                if ($(this).closest('td').siblings('#plainText').children('#select_wrap').children('#ents').children('option:selected').val() != '')
     					                {
-    					                    lobjChosenRoles.push( "http://RDVocab.info/uri/schema/FRBRentitiesRDA/" + $(this).closest('td').siblings('#plainText').children('#select_wrap').children('#ents').children('option:selected').text() );    					                    
+    					                    lobjChosenResults['names']['entity']['custom'].push($(this).closest('td').siblings('#plainText').children('#textSpan').text());
+    					                    lobjChosenResults['names']['entity']['all'].push($(this).closest('td').siblings('#plainText').children('#textSpan').text());
+    					                    lobjChosenResults['names']['roles'].push( "http://RDVocab.info/uri/schema/FRBRentitiesRDA/" + $(this).closest('td').siblings('#plainText').children('#select_wrap').children('#ents').children('option:selected').text() );    					                    
     					                }    
     					           }    					               					          					               					      
     					       }					       
     					   });					   					 					 
     					   
     					   // Display/notification logic added by timathom
-    					   if ( lobjChosenResults.length == 0 )
+    					   if ( lobjChosenResults['names']['entity']['all'].length == 0 )
     					   {
     					       $('body').append("<div id=\"dialog\"><p>Please choose or click Cancel!</p></div>");
     				           makeDialog('#dialog', 'Error!'); // display error    					     
     					   }    					   
-    					   else if ( lobjChosenResultsTest.length != 0 && lobjChosenRoles.length == 0 )
+    					   else if ( lobjChosenResults['names']['entity']['custom'].length != 0 && lobjChosenResults['names']['roles'].length == 0 )
     					   {    					    
     		                   $('body').append("<div id=\"dialog\"><p>Please select an Entity Type.</p></div>");
     	                       makeDialog('#dialog', 'Error!'); // display error    					     
@@ -767,7 +782,8 @@
                            	  {
                            	      $('#wiki_switch').hide();
                            	  }
-    				          callback(lobjChosenResults, lobjChosenRoles, lobjChosenRels);    				              				          
+    				          callback(lobjChosenResults);
+    				          console.log(lobjChosenResults['names']['entity']['all']);    				         
     					   }					   
     				       });
     
