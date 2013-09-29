@@ -1221,11 +1221,19 @@
                         </xsl:otherwise>
                     </xsl:choose>
                 </xsl:when>
-                <xsl:otherwise>
+                <xsl:otherwise>                    
                     <!-- If the name does not include dates ... -->
-                    <xsl:value-of select="substring-after(normalize-space($pPersName),', ')"/>
-                    <xsl:text> </xsl:text>
-                    <xsl:value-of select="substring-before(normalize-space($pPersName),', ')"/>
+                    <xsl:choose>
+                        <xsl:when test="contains($pPersName,', ')">
+                            <xsl:value-of select="substring-after(normalize-space($pPersName),', ')"/>
+                            <xsl:text> </xsl:text>
+                            <xsl:value-of select="substring-before(normalize-space($pPersName),', ')"/>
+                        </xsl:when>
+                        <xsl:otherwise>
+                            <!-- Name order stays as is. -->            
+                            <xsl:value-of select="normalize-space($pPersName)"/>
+                        </xsl:otherwise>
+                    </xsl:choose>                    
                 </xsl:otherwise>
             </xsl:choose>
         </xsl:if>
@@ -1250,27 +1258,59 @@
                         <!-- ... then reverse the order of the name parts accordingly. -->
                         <!-- Output the URL -->
                         <xsl:value-of select="$pDiscServ"/>
-                        <!-- Output the first name. -->
-                        <xsl:value-of
-                            select="translate(concat(substring-after($pPersName,', '),' ',substring-before($pPersName,', ')),',. ','+++')"/>
-                        <xsl:text> </xsl:text>
-                        <xsl:call-template name="tParseName2">
-                            <xsl:with-param name="pNameType">person</xsl:with-param>
-                            <xsl:with-param name="pPersName" select="$pPersName"/>
-                        </xsl:call-template>
-                        <xsl:text>].</xsl:text>
+                        <!-- Output the name. -->
+                        <xsl:choose>
+                            <xsl:when test="contains($pPersName,',')">
+                                <xsl:value-of
+                                    select="translate(concat(substring-after($pPersName,', '),' ',substring-before($pPersName,', ')),',. ','+++')"/>
+                                <xsl:text> </xsl:text>
+                                <xsl:call-template name="tParseName2">
+                                    <xsl:with-param name="pNameType">person</xsl:with-param>
+                                    <xsl:with-param name="pPersName" select="$pPersName"/>
+                                </xsl:call-template>
+                                <xsl:text>].</xsl:text>
+                            </xsl:when>
+                            <xsl:otherwise>
+                                <xsl:call-template name="tParseName2">
+                                    <xsl:with-param name="pNameType">person</xsl:with-param>
+                                    <xsl:with-param name="pPersName" select="$pPersName"/>
+                                </xsl:call-template>
+                                <xsl:text> </xsl:text>
+                                <xsl:call-template name="tParseName2">
+                                    <xsl:with-param name="pNameType">person</xsl:with-param>
+                                    <xsl:with-param name="pPersName" select="$pPersName"/>
+                                </xsl:call-template>
+                                <xsl:text>].</xsl:text>
+                            </xsl:otherwise>
+                        </xsl:choose>                        
                     </xsl:when>
                     <xsl:otherwise>
                         <!-- If the name includes dates ... -->
                         <xsl:value-of select="$pDiscServ"/>
-                        <xsl:value-of
-                            select="translate(concat(substring-before(substring-after($pPersName,', '),', '),' ',substring-before($pPersName,', ')),',. ','+++')"/>
-                        <xsl:text> </xsl:text>
-                        <xsl:call-template name="tParseName2">
-                            <xsl:with-param name="pNameType">person</xsl:with-param>
-                            <xsl:with-param name="pPersName" select="$pPersName"/>
-                        </xsl:call-template>
-                        <xsl:text>].</xsl:text>
+                        <xsl:choose>
+                            <xsl:when test="contains($pPersName,',')">
+                                <xsl:value-of
+                                    select="translate(concat(substring-before(substring-after($pPersName,', '),', '),' ',substring-before($pPersName,', ')),',. ','+++')"/>
+                                <xsl:text> </xsl:text>
+                                <xsl:call-template name="tParseName2">
+                                    <xsl:with-param name="pNameType">person</xsl:with-param>
+                                    <xsl:with-param name="pPersName" select="$pPersName"/>
+                                </xsl:call-template>
+                                <xsl:text>].</xsl:text>
+                            </xsl:when>
+                            <xsl:otherwise>
+                                <xsl:call-template name="tParseName2">
+                                    <xsl:with-param name="pNameType">person</xsl:with-param>
+                                    <xsl:with-param name="pPersName" select="$pPersName"/>
+                                </xsl:call-template>
+                                <xsl:text> </xsl:text>
+                                <xsl:call-template name="tParseName2">
+                                    <xsl:with-param name="pNameType">person</xsl:with-param>
+                                    <xsl:with-param name="pPersName" select="$pPersName"/>
+                                </xsl:call-template>
+                                <xsl:text>].</xsl:text>
+                            </xsl:otherwise>
+                        </xsl:choose>                        
                     </xsl:otherwise>
                 </xsl:choose>
             </xsl:if>
@@ -1284,8 +1324,15 @@
                         />
                     </xsl:when>
                     <xsl:otherwise>
-                        <xsl:value-of select="concat($pDiscServ,translate($pCorpName,',. ','+++'))"
-                        />
+                        <xsl:choose>
+                            <xsl:when test="contains($pCorpName,',')">
+                                <xsl:value-of select="concat($pDiscServ,translate($pCorpName,',. ','+++'))"
+                                />        
+                            </xsl:when>
+                            <xsl:otherwise>
+                                <xsl:value-of select="concat($pDiscServ,$pCorpName)"/>
+                            </xsl:otherwise>
+                        </xsl:choose>                        
                     </xsl:otherwise>
                 </xsl:choose>
                 <xsl:text> </xsl:text>
