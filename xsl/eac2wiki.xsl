@@ -748,6 +748,7 @@
     <xsl:template name="tVIAF">
         <xsl:text>&#10;</xsl:text>
         <xsl:text>&#10;</xsl:text>
+<<<<<<< .merge_file_0EBS4P
 <<<<<<< .merge_file_DtBRvV
         <xsl:for-each
             select="eac:eac-cpf/eac:control/eac:sources/eac:source/@xlink:href[contains(.,'VIAF')]">
@@ -765,6 +766,8 @@
             <xsl:text>}}</xsl:text>
         </xsl:for-each>
 =======
+=======
+>>>>>>> .merge_file_U20DkR
         <xsl:choose>
             <xsl:when
                 test="eac:eac-cpf/eac:control/eac:sources/eac:source/@xlink:href[contains(.,'viaf')]">
@@ -795,7 +798,10 @@
                 </xsl:choose>
             </xsl:otherwise>
         </xsl:choose>
+<<<<<<< .merge_file_0EBS4P
 >>>>>>> .merge_file_hBPPwU
+=======
+>>>>>>> .merge_file_U20DkR
         <xsl:text>&#10;</xsl:text>
     </xsl:template>
 
@@ -971,12 +977,17 @@
                     select="translate(eac:relationEntry[1],'ÁÀÉÈÍÓÚÜÑáàéèíóúúüñ','AAEEIOUUNaaeeiouuun')"
                     data-type="text"/>
                 <xsl:choose>
+<<<<<<< .merge_file_0EBS4P
 <<<<<<< .merge_file_DtBRvV
                     <xsl:when test="@xlink:role='http://RDVocab.info/uri/schema/FRBRentitiesRDA/Person'">
 =======
                     <xsl:when
                         test="@xlink:role='http://RDVocab.info/uri/schema/FRBRentitiesRDA/Person'">
 >>>>>>> .merge_file_hBPPwU
+=======
+                    <xsl:when
+                        test="@xlink:role='http://RDVocab.info/uri/schema/FRBRentitiesRDA/Person'">
+>>>>>>> .merge_file_U20DkR
                         <xsl:text>[[</xsl:text>
                         <xsl:call-template name="tParseName2">
                             <xsl:with-param name="pNameType">person</xsl:with-param>
@@ -994,11 +1005,15 @@
                         <xsl:text>]]</xsl:text>
                         <xsl:text>&#10;</xsl:text>
                     </xsl:otherwise>
+<<<<<<< .merge_file_0EBS4P
 <<<<<<< .merge_file_DtBRvV
                 </xsl:choose>                
 =======
                 </xsl:choose>
 >>>>>>> .merge_file_hBPPwU
+=======
+                </xsl:choose>
+>>>>>>> .merge_file_U20DkR
             </xsl:for-each>
             <xsl:text>&#10;</xsl:text>
         </xsl:if>
@@ -1016,6 +1031,7 @@
                 <xsl:sort
                     select="translate(eac:relationEntry[1],'ÁÀÉÈÍÓÚÜÑáàéèíóúúüñ','AAEEIOUUNaaeeiouuun')"
                     data-type="text"/>
+<<<<<<< .merge_file_0EBS4P
 <<<<<<< .merge_file_DtBRvV
                 <xsl:text>[[</xsl:text>
                 <xsl:call-template name="tParseName2">
@@ -1026,6 +1042,8 @@
                 <xsl:text>]]</xsl:text>
                 <xsl:text>&#10;</xsl:text>
 =======
+=======
+>>>>>>> .merge_file_U20DkR
                 <xsl:choose>
                     <xsl:when
                         test="@xlink:role='http://RDVocab.info/uri/schema/FRBRentitiesRDA/Person'">
@@ -1047,7 +1065,10 @@
                         <xsl:text>&#10;</xsl:text>
                     </xsl:otherwise>
                 </xsl:choose>
+<<<<<<< .merge_file_0EBS4P
 >>>>>>> .merge_file_hBPPwU
+=======
+>>>>>>> .merge_file_U20DkR
             </xsl:for-each>
             <xsl:text>&#10;</xsl:text>            
         </xsl:if>
@@ -1242,11 +1263,15 @@
                     <!-- ... then reverse the order of the name parts accordingly. -->
                     <xsl:choose>
                         <xsl:when
+<<<<<<< .merge_file_0EBS4P
 <<<<<<< .merge_file_DtBRvV
                             test="contains(substring-after(normalize-space($pPersName),', '), ' ')">
 =======
                             test="contains(substring-after(normalize-space($pPersName),', '), ' ') and not(contains(substring-after(normalize-space($pPersName),', '), ', '))">
 >>>>>>> .merge_file_hBPPwU
+=======
+                            test="contains(substring-after(normalize-space($pPersName),', '), ' ') and not(contains(substring-after(normalize-space($pPersName),', '), ', '))">
+>>>>>>> .merge_file_U20DkR
                             <xsl:value-of
                                 select="substring-before(substring-after(normalize-space($pPersName),', '),' ')"/>
                             <xsl:text> </xsl:text>
@@ -1272,12 +1297,15 @@
         </xsl:if>
         <!-- Then parse names for corporate bodies. -->
         <xsl:if test="$pNameType='corporate'">
+<<<<<<< .merge_file_0EBS4P
 <<<<<<< .merge_file_DtBRvV
             <!-- Name order stays as is. -->
             <xsl:value-of
                 select="normalize-space($pCorpName[parent::node()[@xlink:role='http://RDVocab.info/uri/schema/FRBRentitiesRDA/CorporateBody']])"
             />
 =======
+=======
+>>>>>>> .merge_file_U20DkR
             <!-- Name order stays as is. -->            
             <xsl:value-of select="normalize-space($pCorpName)"/>
 >>>>>>> .merge_file_hBPPwU

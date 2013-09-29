@@ -249,11 +249,15 @@ class Viaf_Ingestor extends Ingestor
 http://www.viaf.org/viaf/
 				    $lobjcpfRelation = array(
 					   			"attributes" => array( "xlink:arcrole" => "associatedWith",
+<<<<<<< .merge_file_ecRQTL
 <<<<<<< .merge_file_N5jFCQ
 													   "xlink:href" => "VIAF:$this->strViafID",
 =======
 													   "xlink:href" => "http://viaf.org/viaf/$this->strViafID",
 >>>>>>> .merge_file_gytYUP
+=======
+													   "xlink:href" => "http://viaf.org/viaf/$this->strViafID",
+>>>>>>> .merge_file_MooiTK
 													   "xlink:role" => "http://RDVocab.info/uri/schema/FRBRentitiesRDA/" . $lstrType,
 													   "xlink:type" => "simple" ),
 								"elements" => array( "relationEntry" => array (
