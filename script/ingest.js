@@ -231,68 +231,15 @@
     										     //set ace editor value to new xml from EAC Dom Document with ingested source and name entries
     										     editor.getSession().setValue(lobjEac.getXML());
     										     
-<<<<<<< HEAD
-<<<<<<< .merge_file_BcKF0G
-<<<<<<< .merge_file_199LCQ
-<<<<<<< .merge_file_iCV7dN
-<<<<<<< .merge_file_ZnT9xO
-    										     // Results notification added by timathom    										     
-    										     $('body').append("<div id=\"dialog\"><p>&lt;source&gt; and &lt;nameEntry&gt; elements added!</p></div>");
-    					                         makeDialog('#dialog', 'Results'); // display results
-    
-    										     //callback();
-    										     $('.form_container').remove();
-    						                     $('.main_edit').hide();        						
-    						                     callback();
-    										     
-    										     
-=======
     										     // Results notification added by timathom    	
     										     
     										     $('body').append("<div id=\"dialog\"><p>&lt;source&gt; and &lt;nameEntry&gt; elements added!</p></div>");
     					                         makeDialog('#dialog', 'Results'); // display results
-=======
-    										     // Results notification added by timathom    	
-    										     
-    										     $('body').append("<div id=\"dialog\"><p>&lt;source&gt; and &lt;nameEntry&gt; elements added!</p></div>");
-    					                         makeDialog('#dialog', 'Results'); // display results
->>>>>>> .merge_file_wc68aP
-=======
-    										     // Results notification added by timathom    	
-    										     
-    										     $('body').append("<div id=\"dialog\"><p>&lt;source&gt; and &lt;nameEntry&gt; elements added!</p></div>");
-    					                         makeDialog('#dialog', 'Results'); // display results
->>>>>>> .merge_file_XUa4wS
-=======
-    										     // Results notification added by timathom    	
-    										     
-    										     $('body').append("<div id=\"dialog\"><p>&lt;source&gt; and &lt;nameEntry&gt; elements added!</p></div>");
-    					                         makeDialog('#dialog', 'Results'); // display results
->>>>>>> .merge_file_7LoYdH
-=======
-    										     // Results notification added by timathom    	
-    										     
-    										     $('body').append("<div id=\"dialog\"><p>&lt;source&gt; and &lt;nameEntry&gt; elements added!</p></div>");
-    					                         makeDialog('#dialog', 'Results'); // display results
->>>>>>> master
     					                         
     										     $('.form_container').remove();
     						                     $('.main_edit').hide();        						
     						                     callback();
     						                    
-<<<<<<< HEAD
-<<<<<<< .merge_file_BcKF0G
-<<<<<<< .merge_file_199LCQ
-<<<<<<< .merge_file_iCV7dN
->>>>>>> .merge_file_cVfGXO
-=======
->>>>>>> .merge_file_wc68aP
-=======
->>>>>>> .merge_file_XUa4wS
-=======
->>>>>>> .merge_file_7LoYdH
-=======
->>>>>>> master
     										 });
     								     });
         				     });
@@ -343,27 +290,7 @@
     					 }else
     					 {
     					     $('.form_container').remove();
-<<<<<<< HEAD
-<<<<<<< .merge_file_BcKF0G
-<<<<<<< .merge_file_199LCQ
-<<<<<<< .merge_file_iCV7dN
-<<<<<<< .merge_file_ZnT9xO
-    					     $('#entity_name').hide();
-=======
     					     $('.main_edit').hide(); 
->>>>>>> .merge_file_cVfGXO
-=======
-    					     $('.main_edit').hide(); 
->>>>>>> .merge_file_wc68aP
-=======
-    					     $('.main_edit').hide(); 
->>>>>>> .merge_file_XUa4wS
-=======
-    					     $('.main_edit').hide(); 
->>>>>>> .merge_file_7LoYdH
-=======
-    					     $('.main_edit').hide(); 
->>>>>>> master
     
     					     callback(lstrChosenViaf);
     					 }
@@ -426,55 +353,6 @@
          			    var lstrLastChar = lstrPossibleNameBio.substr( lstrPossibleNameBio.length - 1 );
          			    
          			    if( lstrLastChar == "," )
-<<<<<<< HEAD
-<<<<<<< .merge_file_BcKF0G
-<<<<<<< .merge_file_199LCQ
-<<<<<<< .merge_file_iCV7dN
-<<<<<<< .merge_file_ZnT9xO
-    			    {
-    				lstrPossibleName = lstrPossibleName.slice(0, -1);
-    			    }                                
-         			    PossibleNameList.push( lstrPossibleName );
-         			}
-         			if(PossibleNameList.length == 0)
-              		{              		    
-              		    $('#loading-image').remove();
-              		    $('.form_container').remove();
-     			        $('main_edit').show();     			        
-    			        $('#entity_name').show();
-    			        callback( 'No matches for possible names found!' );
-              
-              		    //return;
-              		}
-    		    }
-    		    
-    		    
-    		        
-    		    /*if( lobjPossibleTitles != null )
-    		      {
-    		      for( j = 0; j < lobjPossibleTitles.length; j++ )
-    		      {
-    		      var lstrPossibleTitle = lobjPossibleTitles[j];
-    		      lstrPossibleTitle = lstrPossibleTitle.trim();
-    		      lstrPossibleTitle = lstrPossibleTitle.replace(/["\u201D\u201C]/g, "");
-    		      lstrPossibleTitle = lstrPossibleTitle.replace(/<span>|<\/span>/g, "");
-    
-    		      PossibleNameList.push( lstrPossibleTitle );
-    		      }
-    		      }*/
-    		}
-    		
-    		// Slightly different regex needs to be applied to unittitles. --timathom
-    		for(var i = 0; i < lobjUnitTitleList.length; i++)
-=======
-=======
->>>>>>> .merge_file_wc68aP
-=======
->>>>>>> .merge_file_XUa4wS
-=======
->>>>>>> .merge_file_7LoYdH
-=======
->>>>>>> master
     			        {
     				        lstrPossibleNameBio = lstrPossibleNameBio.slice(0, -1);
     			        }                                
@@ -495,19 +373,6 @@
     		    */
       		}
       		for(var i = 0; i < lobjUnitTitleList.length; i++)
-<<<<<<< HEAD
-<<<<<<< .merge_file_BcKF0G
-<<<<<<< .merge_file_199LCQ
-<<<<<<< .merge_file_iCV7dN
->>>>>>> .merge_file_cVfGXO
-=======
->>>>>>> .merge_file_wc68aP
-=======
->>>>>>> .merge_file_XUa4wS
-=======
->>>>>>> .merge_file_7LoYdH
-=======
->>>>>>> master
     		{
     		    if( typeof lobjUnitTitleList[i].childNodes[0] == 'undefined' )
     			continue;
@@ -530,59 +395,6 @@
          			    var lstrLastChar = lstrPossibleNameUnit.substr( lstrPossibleNameUnit.length - 1 );
          			    
          			    if( lstrLastChar == "," )
-<<<<<<< HEAD
-<<<<<<< .merge_file_BcKF0G
-<<<<<<< .merge_file_199LCQ
-<<<<<<< .merge_file_iCV7dN
-<<<<<<< .merge_file_ZnT9xO
-    			    {
-    				lstrPossibleName = lstrPossibleName.slice(0, -1);
-    			    }                                
-         			    PossibleNameList.push( lstrPossibleName );
-         			}
-         			if(PossibleNameList.length == 0)
-              		{              		    
-                        $('#loading-image').remove();
-                        $('.form_container').remove();
-     			        $('main_edit').show();
-    			        $('#entity_name').show();
-    			        callback( 'No matches for possible names found!' );
-              		    //return;
-              		}
-    		    }
-    		    
-    
-    		    /*if( lobjPossibleTitles != null )
-    		      {
-    		      for( j = 0; j < lobjPossibleTitles.length; j++ )
-    		      {
-    		      var lstrPossibleTitle = lobjPossibleTitles[j];
-    		      lstrPossibleTitle = lstrPossibleTitle.trim();
-    		      lstrPossibleTitle = lstrPossibleTitle.replace(/["\u201D\u201C]/g, "");
-    		      lstrPossibleTitle = lstrPossibleTitle.replace(/<span>|<\/span>/g, "");
-    
-    		      PossibleNameList.push( lstrPossibleTitle );
-    		      }
-    		      }*/
-    		}
-    		
-    		
-    
-    		/*for(var i = 0; i < lobjSpanList.length; i++)
-    		  {
-    		  var lstrPossibleTitle = lobjSpanList[i].childNodes[0].nodeValue;
-    
-    		  if( lstrPossibleTitle == null)
-    		  continue;
-    
-    		  lstrPossibleTitle = lstrPossibleTitle.trim();
-    		  PossibleNameList.push(lstrPossibleTitle);
-    		  }*/
-    
-    		PossibleNameList = unique(PossibleNameList);
-    		PossibleNameList.sort();
-                                        		
-=======
     			        {
     				        lstrPossibleNameUnit = lstrPossibleNameUnit.slice(0, -1);
     			        }                                
@@ -606,106 +418,6 @@
     	    PossibleNameList = PossibleNameListBio.concat(PossibleNameListUnit);
     		PossibleNameList = unique(PossibleNameList);
     		PossibleNameList.sort();
-=======
-    			        {
-    				        lstrPossibleNameUnit = lstrPossibleNameUnit.slice(0, -1);
-    			        }                                
-         			    PossibleNameListUnit.push( lstrPossibleNameUnit );
-         			}         		
-    			}
-    			/*
-    			else
-    		    {
-    		        $('#loading-image').remove();
-              		$('.form_container').remove();
-     			    $('.main_edit').show();     			        
-    			    $('#entity_name').show();
-    			    //callback( 'No matches for possible names found!' );
-              
-              		return;
-    		    }   
-    		    */
-    	    }
-    	    
-    	    PossibleNameList = PossibleNameListBio.concat(PossibleNameListUnit);
-    		PossibleNameList = unique(PossibleNameList);
-    		PossibleNameList.sort();
->>>>>>> .merge_file_wc68aP
-=======
-    			        {
-    				        lstrPossibleNameUnit = lstrPossibleNameUnit.slice(0, -1);
-    			        }                                
-         			    PossibleNameListUnit.push( lstrPossibleNameUnit );
-         			}         		
-    			}
-    			/*
-    			else
-    		    {
-    		        $('#loading-image').remove();
-              		$('.form_container').remove();
-     			    $('.main_edit').show();     			        
-    			    $('#entity_name').show();
-    			    //callback( 'No matches for possible names found!' );
-              
-              		return;
-    		    }   
-    		    */
-    	    }
-    	    
-    	    PossibleNameList = PossibleNameListBio.concat(PossibleNameListUnit);
-    		PossibleNameList = unique(PossibleNameList);
-    		PossibleNameList.sort();
->>>>>>> .merge_file_XUa4wS
-=======
-    			        {
-    				        lstrPossibleNameUnit = lstrPossibleNameUnit.slice(0, -1);
-    			        }                                
-         			    PossibleNameListUnit.push( lstrPossibleNameUnit );
-         			}         		
-    			}
-    			/*
-    			else
-    		    {
-    		        $('#loading-image').remove();
-              		$('.form_container').remove();
-     			    $('.main_edit').show();     			        
-    			    $('#entity_name').show();
-    			    //callback( 'No matches for possible names found!' );
-              
-              		return;
-    		    }   
-    		    */
-    	    }
-    	    
-    	    PossibleNameList = PossibleNameListBio.concat(PossibleNameListUnit);
-    		PossibleNameList = unique(PossibleNameList);
-    		PossibleNameList.sort();
->>>>>>> .merge_file_7LoYdH
-=======
-    			        {
-    				        lstrPossibleNameUnit = lstrPossibleNameUnit.slice(0, -1);
-    			        }                                
-         			    PossibleNameListUnit.push( lstrPossibleNameUnit );
-         			}         		
-    			}
-    			/*
-    			else
-    		    {
-    		        $('#loading-image').remove();
-              		$('.form_container').remove();
-     			    $('.main_edit').show();     			        
-    			    $('#entity_name').show();
-    			    //callback( 'No matches for possible names found!' );
-              
-              		return;
-    		    }   
-    		    */
-    	    }
-    	    
-    	    PossibleNameList = PossibleNameListBio.concat(PossibleNameListUnit);
-    		PossibleNameList = unique(PossibleNameList);
-    		PossibleNameList.sort();
->>>>>>> master
     		
     		if( PossibleNameList.length == 0 )
 		    {			    
@@ -717,19 +429,6 @@
 
 			    return;
 		    }		            	                                         
-<<<<<<< HEAD
-<<<<<<< .merge_file_BcKF0G
-<<<<<<< .merge_file_199LCQ
-<<<<<<< .merge_file_iCV7dN
->>>>>>> .merge_file_cVfGXO
-=======
->>>>>>> .merge_file_wc68aP
-=======
->>>>>>> .merge_file_XUa4wS
-=======
->>>>>>> .merge_file_7LoYdH
-=======
->>>>>>> master
     
     		//display all possible names for editor to choose correct/desired names to search viaf and create relations
     		display_possible_name_form(PossibleNameList, function( lobjChosenNames )
