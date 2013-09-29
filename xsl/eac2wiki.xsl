@@ -748,35 +748,6 @@
     <xsl:template name="tVIAF">
         <xsl:text>&#10;</xsl:text>
         <xsl:text>&#10;</xsl:text>
-<<<<<<< HEAD
-<<<<<<< .merge_file_RqFWNJ
-<<<<<<< .merge_file_JywOCU
-<<<<<<< .merge_file_0EBS4P
-<<<<<<< .merge_file_DtBRvV
-        <xsl:for-each
-            select="eac:eac-cpf/eac:control/eac:sources/eac:source/@xlink:href[contains(.,'VIAF')]">
-            <xsl:text>{{Authority control|VIAF=</xsl:text>
-            <xsl:value-of select="substring-after(.,':')"/>
-            <xsl:choose>
-                <xsl:when test="../../../eac:otherRecordId[@localType='lccn']">
-                    <xsl:text> |LCCN=</xsl:text>
-                    <xsl:variable name="lccn"
-                        select="substring-after(../../../eac:otherRecordId[@localType='lccn'],'lccn-n')"/>
-                    <xsl:value-of select="concat('n/',translate($lccn,'-','/'))"/>
-                </xsl:when>
-
-            </xsl:choose>
-            <xsl:text>}}</xsl:text>
-        </xsl:for-each>
-=======
-=======
->>>>>>> .merge_file_U20DkR
-=======
->>>>>>> .merge_file_nI5YOU
-=======
->>>>>>> .merge_file_HqSWbL
-=======
->>>>>>> master
         <xsl:choose>
             <xsl:when
                 test="eac:eac-cpf/eac:control/eac:sources/eac:source/@xlink:href[contains(.,'viaf')]">
@@ -807,19 +778,6 @@
                 </xsl:choose>
             </xsl:otherwise>
         </xsl:choose>
-<<<<<<< HEAD
-<<<<<<< .merge_file_RqFWNJ
-<<<<<<< .merge_file_JywOCU
-<<<<<<< .merge_file_0EBS4P
->>>>>>> .merge_file_hBPPwU
-=======
->>>>>>> .merge_file_U20DkR
-=======
->>>>>>> .merge_file_nI5YOU
-=======
->>>>>>> .merge_file_HqSWbL
-=======
->>>>>>> master
         <xsl:text>&#10;</xsl:text>
     </xsl:template>
 
@@ -995,32 +953,8 @@
                     select="translate(eac:relationEntry[1],'ÁÀÉÈÍÓÚÜÑáàéèíóúúüñ','AAEEIOUUNaaeeiouuun')"
                     data-type="text"/>
                 <xsl:choose>
-<<<<<<< HEAD
-<<<<<<< .merge_file_RqFWNJ
-<<<<<<< .merge_file_JywOCU
-<<<<<<< .merge_file_0EBS4P
-<<<<<<< .merge_file_DtBRvV
-                    <xsl:when test="@xlink:role='http://RDVocab.info/uri/schema/FRBRentitiesRDA/Person'">
-=======
                     <xsl:when
                         test="@xlink:role='http://RDVocab.info/uri/schema/FRBRentitiesRDA/Person'">
->>>>>>> .merge_file_hBPPwU
-=======
-                    <xsl:when
-                        test="@xlink:role='http://RDVocab.info/uri/schema/FRBRentitiesRDA/Person'">
->>>>>>> .merge_file_U20DkR
-=======
-                    <xsl:when
-                        test="@xlink:role='http://RDVocab.info/uri/schema/FRBRentitiesRDA/Person'">
->>>>>>> .merge_file_nI5YOU
-=======
-                    <xsl:when
-                        test="@xlink:role='http://RDVocab.info/uri/schema/FRBRentitiesRDA/Person'">
->>>>>>> .merge_file_HqSWbL
-=======
-                    <xsl:when
-                        test="@xlink:role='http://RDVocab.info/uri/schema/FRBRentitiesRDA/Person'">
->>>>>>> master
                         <xsl:text>[[</xsl:text>
                         <xsl:call-template name="tParseName2">
                             <xsl:with-param name="pNameType">person</xsl:with-param>
@@ -1038,27 +972,7 @@
                         <xsl:text>]]</xsl:text>
                         <xsl:text>&#10;</xsl:text>
                     </xsl:otherwise>
-<<<<<<< HEAD
-<<<<<<< .merge_file_RqFWNJ
-<<<<<<< .merge_file_JywOCU
-<<<<<<< .merge_file_0EBS4P
-<<<<<<< .merge_file_DtBRvV
-                </xsl:choose>                
-=======
                 </xsl:choose>
->>>>>>> .merge_file_hBPPwU
-=======
-                </xsl:choose>
->>>>>>> .merge_file_U20DkR
-=======
-                </xsl:choose>
->>>>>>> .merge_file_nI5YOU
-=======
-                </xsl:choose>
->>>>>>> .merge_file_HqSWbL
-=======
-                </xsl:choose>
->>>>>>> master
             </xsl:for-each>
             <xsl:text>&#10;</xsl:text>
         </xsl:if>
@@ -1076,28 +990,6 @@
                 <xsl:sort
                     select="translate(eac:relationEntry[1],'ÁÀÉÈÍÓÚÜÑáàéèíóúúüñ','AAEEIOUUNaaeeiouuun')"
                     data-type="text"/>
-<<<<<<< HEAD
-<<<<<<< .merge_file_RqFWNJ
-<<<<<<< .merge_file_JywOCU
-<<<<<<< .merge_file_0EBS4P
-<<<<<<< .merge_file_DtBRvV
-                <xsl:text>[[</xsl:text>
-                <xsl:call-template name="tParseName2">
-                    <xsl:with-param name="pNameType">corporate</xsl:with-param>
-                    <xsl:with-param name="pCorpName" select="normalize-space(eac:relationEntry[1])"
-                    />
-                </xsl:call-template>
-                <xsl:text>]]</xsl:text>
-                <xsl:text>&#10;</xsl:text>
-=======
-=======
->>>>>>> .merge_file_U20DkR
-=======
->>>>>>> .merge_file_nI5YOU
-=======
->>>>>>> .merge_file_HqSWbL
-=======
->>>>>>> master
                 <xsl:choose>
                     <xsl:when
                         test="@xlink:role='http://RDVocab.info/uri/schema/FRBRentitiesRDA/Person'">
@@ -1119,19 +1011,6 @@
                         <xsl:text>&#10;</xsl:text>
                     </xsl:otherwise>
                 </xsl:choose>
-<<<<<<< HEAD
-<<<<<<< .merge_file_RqFWNJ
-<<<<<<< .merge_file_JywOCU
-<<<<<<< .merge_file_0EBS4P
->>>>>>> .merge_file_hBPPwU
-=======
->>>>>>> .merge_file_U20DkR
-=======
->>>>>>> .merge_file_nI5YOU
-=======
->>>>>>> .merge_file_HqSWbL
-=======
->>>>>>> master
             </xsl:for-each>
             <xsl:text>&#10;</xsl:text>            
         </xsl:if>
@@ -1326,27 +1205,7 @@
                     <!-- ... then reverse the order of the name parts accordingly. -->
                     <xsl:choose>
                         <xsl:when
-<<<<<<< HEAD
-<<<<<<< .merge_file_RqFWNJ
-<<<<<<< .merge_file_JywOCU
-<<<<<<< .merge_file_0EBS4P
-<<<<<<< .merge_file_DtBRvV
-                            test="contains(substring-after(normalize-space($pPersName),', '), ' ')">
-=======
                             test="contains(substring-after(normalize-space($pPersName),', '), ' ') and not(contains(substring-after(normalize-space($pPersName),', '), ', '))">
->>>>>>> .merge_file_hBPPwU
-=======
-                            test="contains(substring-after(normalize-space($pPersName),', '), ' ') and not(contains(substring-after(normalize-space($pPersName),', '), ', '))">
->>>>>>> .merge_file_U20DkR
-=======
-                            test="contains(substring-after(normalize-space($pPersName),', '), ' ') and not(contains(substring-after(normalize-space($pPersName),', '), ', '))">
->>>>>>> .merge_file_nI5YOU
-=======
-                            test="contains(substring-after(normalize-space($pPersName),', '), ' ') and not(contains(substring-after(normalize-space($pPersName),', '), ', '))">
->>>>>>> .merge_file_HqSWbL
-=======
-                            test="contains(substring-after(normalize-space($pPersName),', '), ' ') and not(contains(substring-after(normalize-space($pPersName),', '), ', '))">
->>>>>>> master
                             <xsl:value-of
                                 select="substring-before(substring-after(normalize-space($pPersName),', '),' ')"/>
                             <xsl:text> </xsl:text>
@@ -1372,27 +1231,8 @@
         </xsl:if>
         <!-- Then parse names for corporate bodies. -->
         <xsl:if test="$pNameType='corporate'">
-<<<<<<< HEAD
-<<<<<<< .merge_file_RqFWNJ
-<<<<<<< .merge_file_JywOCU
-<<<<<<< .merge_file_0EBS4P
-<<<<<<< .merge_file_DtBRvV
-            <!-- Name order stays as is. -->
-            <xsl:value-of
-                select="normalize-space($pCorpName[parent::node()[@xlink:role='http://RDVocab.info/uri/schema/FRBRentitiesRDA/CorporateBody']])"
-            />
-=======
-=======
->>>>>>> .merge_file_U20DkR
-=======
->>>>>>> .merge_file_nI5YOU
-=======
->>>>>>> .merge_file_HqSWbL
-=======
->>>>>>> master
             <!-- Name order stays as is. -->            
             <xsl:value-of select="normalize-space($pCorpName)"/>
->>>>>>> .merge_file_hBPPwU
         </xsl:if>
     </xsl:template>
 
