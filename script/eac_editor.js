@@ -251,14 +251,52 @@ function ead()
 		this.addElement( 'nameEntry', lobjNameEntryNode, '//*[local-name()=\'cpfDescription\']/*[local-name()=\'identity\']' );
 	}
 
-	/*
+    /*
 	* addCPFRelation adds to the EAC a cpfRelation element
 	* @method addCPFRelation
 	*/
-	eac.prototype.addCPFRelation = function( lobjCPFRelation, lobjRoles, lobjRels )
+	eac.prototype.addCPFRelation = function( lobjCPFRelation )
 	{
 		var lobjAttributes = typeof lobjCPFRelation.attributes != 'undefined' ? lobjCPFRelation.attributes : {};
 		var lobjElements = typeof lobjCPFRelation.elements != 'undefined' ? lobjCPFRelation.elements : {};
+											
+		var lobjCPFRelationNode = this.createElement( 'cpfRelation', lobjAttributes, lobjElements );		
+				
+		if( this.doesElementExist('//*[local-name()=\'cpfDescription\']/*[local-name()=\'relations\']/*[local-name()=\'resourceRelation\']') )
+			this.addElement( 'cpfRelation', lobjCPFRelationNode, '//*[local-name()=\'cpfDescription\']/*[local-name()=\'relations\']/*[local-name()=\'resourceRelation\']', true );
+		else if( this.doesElementExist('//*[local-name()=\'cpfDescription\']/*[local-name()=\'relations\']/*[local-name()=\'functionRelation\']') )
+			this.addElement( 'cpfRelation', lobjCPFRelationNode, '//*[local-name()=\'cpfDescription\']/*[local-name()=\'relations\']/*[local-name()=\'functionRelation\']', true );
+		else
+			this.addElement( 'cpfRelation', lobjCPFRelationNode, '//*[local-name()=\'cpfDescription\']/*[local-name()=\'relations\']' );
+	}
+
+	/*
+	* addCPFRelationViaf adds to the EAC a cpfRelation element
+	* @method addCPFRelationViaf
+	*/
+	eac.prototype.addCPFRelationViaf = function( lobjCPFRelationViaf )
+	{
+		var lobjAttributes = typeof lobjCPFRelationViaf.attributes != 'undefined' ? lobjCPFRelationViaf.attributes : {};
+		var lobjElements = typeof lobjCPFRelationViaf.elements != 'undefined' ? lobjCPFRelationViaf.elements : {};
+											
+		var lobjCPFRelationNode = this.createElement( 'cpfRelation', lobjAttributes, lobjElements );		
+				
+		if( this.doesElementExist('//*[local-name()=\'cpfDescription\']/*[local-name()=\'relations\']/*[local-name()=\'resourceRelation\']') )
+			this.addElement( 'cpfRelation', lobjCPFRelationNode, '//*[local-name()=\'cpfDescription\']/*[local-name()=\'relations\']/*[local-name()=\'resourceRelation\']', true );
+		else if( this.doesElementExist('//*[local-name()=\'cpfDescription\']/*[local-name()=\'relations\']/*[local-name()=\'functionRelation\']') )
+			this.addElement( 'cpfRelation', lobjCPFRelationNode, '//*[local-name()=\'cpfDescription\']/*[local-name()=\'relations\']/*[local-name()=\'functionRelation\']', true );
+		else
+			this.addElement( 'cpfRelation', lobjCPFRelationNode, '//*[local-name()=\'cpfDescription\']/*[local-name()=\'relations\']' );
+	}
+	
+	/*
+	* addCPFRelationCustom adds to the EAC a custom cpfRelation element
+	* @method addCPFRelationCustom
+	*/
+	eac.prototype.addCPFRelationCustom = function( lobjCPFRelationCustom, lobjRoles, lobjRels )
+	{
+		var lobjAttributes = typeof lobjCPFRelationCustom.attributes != 'undefined' ? lobjCPFRelationCustom.attributes : {};
+		var lobjElements = typeof lobjCPFRelationCustom.elements != 'undefined' ? lobjCPFRelationCustom.elements : {};
 								
 		// Added by timathom to allow user to select entity type and relation type when no good matches from VIAF.
 		if ( lobjAttributes["xlink:role"] == '' )
@@ -271,7 +309,6 @@ function ead()
 		    lobjAttributes["xlink:arcrole"] = lobjRels;		    		        		        		    		    
 		}
 		
-
 		var lobjCPFRelationNode = this.createElement( 'cpfRelation', lobjAttributes, lobjElements );		
 				
 		if( this.doesElementExist('//*[local-name()=\'cpfDescription\']/*[local-name()=\'relations\']/*[local-name()=\'resourceRelation\']') )

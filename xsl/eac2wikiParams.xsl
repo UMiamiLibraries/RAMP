@@ -19,7 +19,7 @@
     <xsl:param name="pDiscServ">http://miami.summon.serialssolutions.com/search?spellcheck=true&amp;s.q=</xsl:param>
     
     <!-- Declare variables for basic pattern matching. -->    
-    <xsl:variable name="vUpper" select="'AÁÀBCDEÉÈFGHIÍJKLMNÑOÓPQRSTUÚÜVWXYZ'"/>
+    <xsl:variable name="vUpper" select="'AÁÀBCDEÉÈFGHIÍJKLMNÑOÓPQRŔSTUÚÜVWXYZ'"/>
     
     <xsl:variable name="vLower" select="'aáàbcdeéèfghiíjklmnñoópqrstuúüvwxyz'"/>
     

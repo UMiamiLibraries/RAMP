@@ -127,6 +127,7 @@
         <xsl:if test="eac:eac-cpf/eac:cpfDescription/eac:relations/eac:cpfRelation">
             <xsl:call-template name="tRelations">
                 <xsl:with-param name="pNameType">person</xsl:with-param>
+                <xsl:with-param name="pPersName" select="$pPersName"/>
             </xsl:call-template>
         </xsl:if>
     </xsl:template>
@@ -140,6 +141,7 @@
         <xsl:text>'''</xsl:text>
         <xsl:call-template name="tParseName2">
             <xsl:with-param name="pNameType">corporate</xsl:with-param>
+            <xsl:with-param name="pCorpName" select="$pCorpName"/>
         </xsl:call-template>
         <xsl:text>''' ...</xsl:text>
         <xsl:text>&#10;</xsl:text>
@@ -217,13 +219,14 @@
         <!-- Categories -->
         <xsl:call-template name="tCategories">
             <xsl:with-param name="pNameType">corporate</xsl:with-param>
-            <xsl:with-param name="pPersName" select="$pPersName"/>
+            <xsl:with-param name="pCorpName" select="$pCorpName"/>
             <xsl:with-param name="pBiogHist" select="$pBiogHist"/>
         </xsl:call-template>
         <!-- Relations -->
         <xsl:if test="eac:eac-cpf/eac:cpfDescription/eac:relations/eac:cpfRelation">
             <xsl:call-template name="tRelations">
                 <xsl:with-param name="pNameType">corporate</xsl:with-param>
+                <xsl:with-param name="pCorpName" select="$pCorpName"/>
             </xsl:call-template>
         </xsl:if>
     </xsl:template>
@@ -314,6 +317,7 @@
         <xsl:text>&#09;&#09;&#09;&#09;= </xsl:text>
         <xsl:call-template name="tParseName">
             <xsl:with-param name="pNameType">corporate</xsl:with-param>
+            <xsl:with-param name="pCorpName" select="$pCorpName"/>
         </xsl:call-template>
         <xsl:text>| extinction </xsl:text>
         <xsl:text>&#09;&#09;&#09;= </xsl:text>
@@ -503,7 +507,7 @@
             <xsl:text>&#10;</xsl:text>
         </xsl:for-each>
         <xsl:for-each
-            select="eac:eac-cpf/eac:cpfDescription/eac:relations/eac:resourceRelation[@xlink:arcrole='referencedIn' and @xlink:role='resource']">
+            select="eac:eac-cpf/eac:cpfDescription/eac:relations/eac:resourceRelation[@resourceRelationType='referencedIn' and @xlink:role='resource']">
             <xsl:sort
                 select="translate(eac:relationEntry[@localType='creator'],'ÁÀÉÈÍÓÚÜÑáàéèíóúúüñ','AAEEIOUUNaaeeiouuun')"
                 data-type="text"/>
@@ -593,7 +597,7 @@
             </xsl:for-each>
         </xsl:for-each>
         <xsl:for-each
-            select="eac:eac-cpf/eac:cpfDescription/eac:relations/eac:resourceRelation[not(@xlink:arcrole) and not(@xlink:role='resource')]">
+            select="eac:eac-cpf/eac:cpfDescription/eac:relations/eac:resourceRelation[not(@resourceRelationType) and not(@xlink:role='resource')]">
             <xsl:sort
                 select="translate(eac:relationEntry[@localType='creator'],'ÁÀÉÈÍÓÚÜÑáàéèíóúúüñ','AAEEIOUUNaaeeiouuun')"
                 data-type="text"/>
@@ -611,7 +615,7 @@
         <xsl:text>&#10;</xsl:text>
         <!-- Check for works by the person or corporate body. -->
         <xsl:for-each
-            select="eac:eac-cpf/eac:cpfDescription/eac:relations/eac:resourceRelation[@xlink:arcrole='creatorOf' and @xlink:role='resource']">
+            select="eac:eac-cpf/eac:cpfDescription/eac:relations/eac:resourceRelation[@resourceRelationType='creatorOf' and @xlink:role='resource']">
             <xsl:sort
                 select="translate(eac:relationEntry[1],'ÁÀÉÈÍÓÚÜÑáàéèíóúúüñ','AAEEIOUUNaaeeiouuun')"
                 data-type="text"/>
@@ -679,12 +683,24 @@
             <xsl:with-param name="pCorpName" select="$pCorpName"/>
         </xsl:call-template>
         <xsl:text>&#10;</xsl:text>
-        <!-- Add ID nonstandard WorldCat IDs
+        <!-- Add ID nonstandard WorldCat IDs -->
         <xsl:if test="eac:eac-cpf/eac:control/eac:otherRecordId[@localType='WCI']">
-            <xsl:text>*{{worldcat|description="Rosa M. Abella's WorldCat Identities page"|name =Rosa M. Abella|id=</xsl:text>
-        </xsl:if>
-        *{{worldcat|description="Rosa M. Abella's WorldCat Identities page"|name =Rosa M. Abella|id=np-abella,%20rosa%20m}}
-        -->
+            <xsl:text>*{{worldcat|description="</xsl:text>
+            <xsl:call-template name="tParseName2">
+                <xsl:with-param name="pNameType" select="'person' or 'corporate'"/>
+                <xsl:with-param name="pPersName" select="$pPersName"/>
+                <xsl:with-param name="pCorpName" select="$pCorpName"/>
+            </xsl:call-template>
+            <xsl:text>'s WorldCat Identities page"|name=</xsl:text>
+            <xsl:call-template name="tParseName2">
+                <xsl:with-param name="pNameType" select="'person' or 'corporate'"/>
+                <xsl:with-param name="pPersName" select="$pPersName"/>
+                <xsl:with-param name="pCorpName" select="$pCorpName"/>
+            </xsl:call-template>
+            <xsl:text>|id=</xsl:text>
+            <xsl:value-of select="translate(substring-after(eac:eac-cpf/eac:control/eac:otherRecordId[@localType='WCI'],'WCI:'),' ','+')"/>
+            <xsl:text>}}</xsl:text>
+        </xsl:if>                
         <xsl:text>&#10;</xsl:text>
         <!-- Check for archival/digital collections created by or associated with the person or corporate body. -->
         <xsl:for-each
@@ -728,10 +744,11 @@
         </xsl:for-each>
     </xsl:template>
 
-    <!-- Get VIAF ID, if available. -->
+    <!-- Get VIAF ID and/or LCCN, if available. -->
     <xsl:template name="tVIAF">
         <xsl:text>&#10;</xsl:text>
         <xsl:text>&#10;</xsl:text>
+<<<<<<< .merge_file_DtBRvV
         <xsl:for-each
             select="eac:eac-cpf/eac:control/eac:sources/eac:source/@xlink:href[contains(.,'VIAF')]">
             <xsl:text>{{Authority control|VIAF=</xsl:text>
@@ -747,6 +764,38 @@
             </xsl:choose>
             <xsl:text>}}</xsl:text>
         </xsl:for-each>
+=======
+        <xsl:choose>
+            <xsl:when
+                test="eac:eac-cpf/eac:control/eac:sources/eac:source/@xlink:href[contains(.,'viaf')]">
+                <xsl:for-each
+                    select="eac:eac-cpf/eac:control/eac:sources/eac:source/@xlink:href[contains(.,'viaf')]">
+                    <xsl:text>{{Authority control|VIAF=</xsl:text>
+                    <xsl:value-of select="substring-after(.,'viaf/')"/>
+                    <xsl:choose>
+                        <xsl:when test="../../../eac:otherRecordId[@localType='lccn']">
+                            <xsl:text> |LCCN=</xsl:text>
+                            <xsl:variable name="lccn"
+                                select="substring-after(../../../eac:otherRecordId[@localType='lccn'],'lccn-n')"/>
+                            <xsl:value-of select="concat('n/',translate($lccn,'-','/'))"/>
+                        </xsl:when>
+                    </xsl:choose>
+                    <xsl:text>}}</xsl:text>
+                </xsl:for-each>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:choose>
+                    <xsl:when test="eac:eac-cpf/eac:control/eac:otherRecordId[@localType='lccn']">
+                        <xsl:text>{{Authority control|LCCN=</xsl:text>
+                        <xsl:variable name="lccn"
+                            select="substring-after(eac:eac-cpf/eac:control/eac:otherRecordId[@localType='lccn'],'lccn-n')"/>
+                        <xsl:value-of select="concat('n/',translate($lccn,'-','/'))"/>
+                        <xsl:text>}}</xsl:text>
+                    </xsl:when>
+                </xsl:choose>
+            </xsl:otherwise>
+        </xsl:choose>
+>>>>>>> .merge_file_hBPPwU
         <xsl:text>&#10;</xsl:text>
     </xsl:template>
 
@@ -914,6 +963,7 @@
                 <xsl:with-param name="pPersName" select="$pPersName"/>
             </xsl:call-template>
             <xsl:text> may be related to or associated with the following entities. These names may be useful for creating links to this page from other Wikipedia pages.</xsl:text>
+            <xsl:text> --&gt;</xsl:text>
             <xsl:text>&#10;</xsl:text>
             <xsl:text>&#10;</xsl:text>
             <xsl:for-each select="eac:eac-cpf/eac:cpfDescription/eac:relations/eac:cpfRelation">
@@ -921,7 +971,12 @@
                     select="translate(eac:relationEntry[1],'ÁÀÉÈÍÓÚÜÑáàéèíóúúüñ','AAEEIOUUNaaeeiouuun')"
                     data-type="text"/>
                 <xsl:choose>
+<<<<<<< .merge_file_DtBRvV
                     <xsl:when test="@xlink:role='http://RDVocab.info/uri/schema/FRBRentitiesRDA/Person'">
+=======
+                    <xsl:when
+                        test="@xlink:role='http://RDVocab.info/uri/schema/FRBRentitiesRDA/Person'">
+>>>>>>> .merge_file_hBPPwU
                         <xsl:text>[[</xsl:text>
                         <xsl:call-template name="tParseName2">
                             <xsl:with-param name="pNameType">person</xsl:with-param>
@@ -939,10 +994,13 @@
                         <xsl:text>]]</xsl:text>
                         <xsl:text>&#10;</xsl:text>
                     </xsl:otherwise>
+<<<<<<< .merge_file_DtBRvV
                 </xsl:choose>                
+=======
+                </xsl:choose>
+>>>>>>> .merge_file_hBPPwU
             </xsl:for-each>
             <xsl:text>&#10;</xsl:text>
-            <xsl:text> --&gt;</xsl:text>
         </xsl:if>
         <xsl:if test="$pNameType='corporate'">
             <xsl:text>&lt;!-- </xsl:text>
@@ -951,12 +1009,14 @@
                 <xsl:with-param name="pCorpName" select="$pCorpName"/>
             </xsl:call-template>
             <xsl:text> may be related to or associated with the following entities. These names may be useful for creating links to this page from other Wikipedia pages.</xsl:text>
+            <xsl:text> --&gt;</xsl:text>
             <xsl:text>&#10;</xsl:text>
-            <xsl:text>&#10;</xsl:text>
+            <xsl:text>&#10;</xsl:text>            
             <xsl:for-each select="eac:eac-cpf/eac:cpfDescription/eac:relations/eac:cpfRelation">
                 <xsl:sort
                     select="translate(eac:relationEntry[1],'ÁÀÉÈÍÓÚÜÑáàéèíóúúüñ','AAEEIOUUNaaeeiouuun')"
                     data-type="text"/>
+<<<<<<< .merge_file_DtBRvV
                 <xsl:text>[[</xsl:text>
                 <xsl:call-template name="tParseName2">
                     <xsl:with-param name="pNameType">corporate</xsl:with-param>
@@ -965,9 +1025,31 @@
                 </xsl:call-template>
                 <xsl:text>]]</xsl:text>
                 <xsl:text>&#10;</xsl:text>
+=======
+                <xsl:choose>
+                    <xsl:when
+                        test="@xlink:role='http://RDVocab.info/uri/schema/FRBRentitiesRDA/Person'">
+                        <xsl:text>[[</xsl:text>
+                        <xsl:call-template name="tParseName2">
+                            <xsl:with-param name="pNameType">person</xsl:with-param>
+                            <xsl:with-param name="pPersName" select="eac:relationEntry[1]"/>
+                        </xsl:call-template>
+                        <xsl:text>]]</xsl:text>
+                        <xsl:text>&#10;</xsl:text>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <xsl:text>[[</xsl:text>
+                        <xsl:call-template name="tParseName2">
+                            <xsl:with-param name="pNameType">corporate</xsl:with-param>                            
+                            <xsl:with-param name="pCorpName" select="eac:relationEntry[1]"/>
+                        </xsl:call-template>
+                        <xsl:text>]]</xsl:text>
+                        <xsl:text>&#10;</xsl:text>
+                    </xsl:otherwise>
+                </xsl:choose>
+>>>>>>> .merge_file_hBPPwU
             </xsl:for-each>
-            <xsl:text>&#10;</xsl:text>
-            <xsl:text> --&gt;</xsl:text>
+            <xsl:text>&#10;</xsl:text>            
         </xsl:if>
     </xsl:template>
 
@@ -1160,7 +1242,11 @@
                     <!-- ... then reverse the order of the name parts accordingly. -->
                     <xsl:choose>
                         <xsl:when
+<<<<<<< .merge_file_DtBRvV
                             test="contains(substring-after(normalize-space($pPersName),', '), ' ')">
+=======
+                            test="contains(substring-after(normalize-space($pPersName),', '), ' ') and not(contains(substring-after(normalize-space($pPersName),', '), ', '))">
+>>>>>>> .merge_file_hBPPwU
                             <xsl:value-of
                                 select="substring-before(substring-after(normalize-space($pPersName),', '),' ')"/>
                             <xsl:text> </xsl:text>
@@ -1186,10 +1272,15 @@
         </xsl:if>
         <!-- Then parse names for corporate bodies. -->
         <xsl:if test="$pNameType='corporate'">
+<<<<<<< .merge_file_DtBRvV
             <!-- Name order stays as is. -->
             <xsl:value-of
                 select="normalize-space($pCorpName[parent::node()[@xlink:role='http://RDVocab.info/uri/schema/FRBRentitiesRDA/CorporateBody']])"
             />
+=======
+            <!-- Name order stays as is. -->            
+            <xsl:value-of select="normalize-space($pCorpName)"/>
+>>>>>>> .merge_file_hBPPwU
         </xsl:if>
     </xsl:template>
 
@@ -1213,6 +1304,7 @@
                         <xsl:text> </xsl:text>
                         <xsl:call-template name="tParseName2">
                             <xsl:with-param name="pNameType">person</xsl:with-param>
+                            <xsl:with-param name="pPersName" select="$pPersName"/>
                         </xsl:call-template>
                         <xsl:text>].</xsl:text>
                     </xsl:when>
@@ -1224,6 +1316,7 @@
                         <xsl:text> </xsl:text>
                         <xsl:call-template name="tParseName2">
                             <xsl:with-param name="pNameType">person</xsl:with-param>
+                            <xsl:with-param name="pPersName" select="$pPersName"/>
                         </xsl:call-template>
                         <xsl:text>].</xsl:text>
                     </xsl:otherwise>
@@ -1246,6 +1339,7 @@
                 <xsl:text> </xsl:text>
                 <xsl:call-template name="tParseName2">
                     <xsl:with-param name="pNameType">corporate</xsl:with-param>
+                    <xsl:with-param name="pCorpName" select="$pCorpName"/>
                 </xsl:call-template>
                 <xsl:text>].</xsl:text>
             </xsl:if>

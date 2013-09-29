@@ -13,7 +13,7 @@ include('header.php');
 <td>
 <form id="new_eac_form">
   <br/>
-  <p class="note">Note: new record form is still in beta. Currently, only Entity Type, Name, and Biography have been enabled. Please watch the <a href="https://github.com/UMiamiLibraries/RAMP">RAMP GitHub repository for updates</a>.</p> 
+  <p class="note">Note: new record form is still in beta. Currently, only Entity Type, Name, and Biography have been enabled. Please monitor the <a href="https://github.com/UMiamiLibraries/RAMP">RAMP GitHub repository for updates</a>.</p> 
   <label style="display:inline;">Entity Type</label>
   <select id="entity_type">
     <option>person</option>

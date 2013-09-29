@@ -129,15 +129,23 @@ table {
     text-align:center;
 }
 
-#rels {
+#rels {       
+    margin-left:5px;
+    display:inline;
     width:auto;
     float:right;
-    margin-left:1%;
 }
 #ents {
+    display:inline;
     width:auto;
-    float:right;
-    margin-left:1%;
+    float:left;
+}
+#textSpan {
+    width:auto;    
+}
+#select_wrap {
+    width:auto;
+    float:right;        
 }
 
 .user_viaf_row {
@@ -296,7 +304,7 @@ body {
     display: inline;
 
 }
-#logo {
+#logo {    
     margin-bottom: -12px;
     padding-bottom:.25em;	
     width: 150px;

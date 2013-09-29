@@ -231,6 +231,7 @@
     										     //set ace editor value to new xml from EAC Dom Document with ingested source and name entries
     										     editor.getSession().setValue(lobjEac.getXML());
     										     
+<<<<<<< .merge_file_ZnT9xO
     										     // Results notification added by timathom    										     
     										     $('body').append("<div id=\"dialog\"><p>&lt;source&gt; and &lt;nameEntry&gt; elements added!</p></div>");
     					                         makeDialog('#dialog', 'Results'); // display results
@@ -241,6 +242,17 @@
     						                     callback();
     										     
     										     
+=======
+    										     // Results notification added by timathom    	
+    										     
+    										     $('body').append("<div id=\"dialog\"><p>&lt;source&gt; and &lt;nameEntry&gt; elements added!</p></div>");
+    					                         makeDialog('#dialog', 'Results'); // display results
+    					                         
+    										     $('.form_container').remove();
+    						                     $('.main_edit').hide();        						
+    						                     callback();
+    						                    
+>>>>>>> .merge_file_cVfGXO
     										 });
     								     });
         				     });
@@ -255,8 +267,7 @@
     function display_possible_viaf_form( lobjPossibleViaf, callback )
     {
         var lstrHTML = "<div class=\"form_container\">";
-    
-       
+          
         lstrHTML += "<div class=\"instruction_div\"><h2 class=\"instruction\" style=\"font-weight:800; font-size:1.5em;\">Authority Control</h2><p class=\"instruction\">The purpose of this step is to get a unique identifier from the Virtual International Authority File (<a href=\"http://viaf.org\" title=\"Link to the Virtual International Authority File\" target=\"_blank\">VIAF</a>) for the entity you are working with, and then do Named Entity Recognition on the text of the entity's bio or finding aid in order to encode relationships.</p><p class=\"instruction\">The list on the right was retrieved from VIAF. Please examine the name(s) to see whether there is an appropriate match for the entity you are working with.</p><p class=\"instruction\">If you click on a name, you will be taken to its VIAF page, which may include additional information that will help you decide whether it is an appropriate match.</p><p class=\"instruction\">If there is not a good match, click \"Cancel\" to proceed to the next step (Named Entity Recognition).</p></div>";
     
         lstrHTML += "<button id=\"ingest_viaf_chosen_viaf\" class=\"pure-button ingest-ok pure-button-secondary\">Use Selected VIAF</button>";
@@ -292,7 +303,11 @@
     					 }else
     					 {
     					     $('.form_container').remove();
+<<<<<<< .merge_file_ZnT9xO
     					     $('#entity_name').hide();
+=======
+    					     $('.main_edit').hide(); 
+>>>>>>> .merge_file_cVfGXO
     
     					     callback(lstrChosenViaf);
     					 }
@@ -319,6 +334,8 @@
     		var lobjead = new ead();
     		lobjead.loadXMLString( lstrXML );
     
+    		var PossibleNameListBio = [];
+    		var PossibleNameListUnit = [];
     		var PossibleNameList = [];
     		var lobjParagraphList = lobjEac.getParagraph();
     		//var lobjSpanList = lobjead.getElementList('//*[local-name()=\'unittitle\']/*[local-name()=\'span\']');
@@ -340,19 +357,20 @@
     		    //apply regex to elements to find all possible names to search viaf for relations
     		    //lobjPossibleTitles = lstrParagraph.match(/["\u201D\u201C]([^"\u201D\u201C]+)["\u201D\u201C]/g);
     		    //lstrParagraph = lstrParagraph.replace(/["\u201D\u201C]([^"\u201D\u201C]+)["\u201D\u201C]/g, "");
-    		    var lobjPossibleNames = lstrParagraph.match(/((\sde\s)*?[A-Z\u00C0\u00C1\u00C3\u00C7\u00C9\u00CA\u00CD\u00D3\u00DA\u00DC\u00D4\u00D5\u00D6][a-z\u00E0\u00E1\u00E3\u00E7\u00E9\u00EA\u00ED\u00F0\u00F3\u00F4\u00F5\u00FA\u00FC\u00F1\-']+(\s[0-9][0-9])?([,]*?)(\sde\sla|\sde\s|\sdel|\sde)?\s*([A-Z\u00C1\u00C9\u00CD\u00D3\u00DA\u00DC\u00D6][.]\s*)*(y\sdel\s|y\sde\sla\s|de\sla\s|del\s|de\slos\s|e\s|y\s|de\s)?){2,8}/g);
-    
-    		    if( lobjPossibleNames != null )
+    		    var lobjPossibleNamesBio = lstrParagraph.match(/((\sde\s)*?[A-Z\u00C0\u00C1\u00C3\u00C7\u00C9\u00CA\u00CD\u00D3\u00DA\u00DC\u00D4\u00D5\u00D6][a-z\u00E0\u00E1\u00E3\u00E7\u00E9\u00EA\u00ED\u00F0\u00F3\u00F4\u00F5\u00FA\u00FC\u00F1\-']+(\s[0-9][0-9])?([,]*?)(\sde\sla|\sde\s|\sdel|\sde)?\s*([A-Z\u00C1\u00C9\u00CD\u00D3\u00DA\u00DC\u00D6][.]\s*)*(y\sdel\s|y\sde\sla\s|de\sla\s|del\s|de\slos\s|e\s|y\s|de\s)?){2,8}/g);
+    		       
+    		    if( lobjPossibleNamesBio != null )
     		    {
-         			for( var j = 0; j < lobjPossibleNames.length; j++ )
+         			for( var j = 0; j < lobjPossibleNamesBio.length; j++ )
          			{
-         			    var lstrPossibleName = lobjPossibleNames[j];
-         			    lstrPossibleName = lstrPossibleName.trim();
+         			    var lstrPossibleNameBio = lobjPossibleNamesBio[j];
+         			    lstrPossibleNameBio = lstrPossibleNameBio.trim();
     			    
         			    // Strip any trailing commas. --timathom
-         			    var lstrLastChar = lstrPossibleName.substr( lstrPossibleName.length - 1 );
+         			    var lstrLastChar = lstrPossibleNameBio.substr( lstrPossibleNameBio.length - 1 );
          			    
          			    if( lstrLastChar == "," )
+<<<<<<< .merge_file_ZnT9xO
     			    {
     				lstrPossibleName = lstrPossibleName.slice(0, -1);
     			    }                                
@@ -388,31 +406,51 @@
     		
     		// Slightly different regex needs to be applied to unittitles. --timathom
     		for(var i = 0; i < lobjUnitTitleList.length; i++)
+=======
+    			        {
+    				        lstrPossibleNameBio = lstrPossibleNameBio.slice(0, -1);
+    			        }                                
+         			    PossibleNameListBio.push( lstrPossibleNameBio );
+         			}         			         			
+    		    }   
+    		    /*
+    		    else
+    		    {
+    		        $('#loading-image').remove();
+              		$('.form_container').remove();
+     			    $('.main_edit').show();     			        
+    			    $('#entity_name').show();
+    			    callback( 'No matches for possible names found!' );
+              
+              		return;
+    		    }  
+    		    */
+      		}
+      		for(var i = 0; i < lobjUnitTitleList.length; i++)
+>>>>>>> .merge_file_cVfGXO
     		{
     		    if( typeof lobjUnitTitleList[i].childNodes[0] == 'undefined' )
     			continue;
     
-    		    var lstrParagraph = lobjUnitTitleList[i].childNodes[0].nodeValue;
+    		    var lstrUnitTitle = lobjUnitTitleList[i].childNodes[0].nodeValue;
     
-    		    if( lstrParagraph == null)
+    		    if( lstrUnitTitle == null )
     			continue;
-    
-    		    //apply regex to elements to find all possible names to search viaf for relations
-    		    //lobjPossibleTitles = lstrParagraph.match(/["\u201D\u201C]([^"\u201D\u201C]+)["\u201D\u201C]/g);
-    		    //lstrParagraph = lstrParagraph.replace(/["\u201D\u201C]([^"\u201D\u201C]+)["\u201D\u201C]/g, "");
-    		    var lobjPossibleNames = lstrParagraph.match(/((\sde\s)*?[A-Z\u00C0\u00C1\u00C3\u00C7\u00C9\u00CA\u00CD\u00D3\u00DA\u00DC\u00D4\u00D5\u00D6][a-z\u00E0\u00E1\u00E3\u00E7\u00E9\u00EA\u00ED\u00F0\u00F3\u00F4\u00F5\u00FA\u00FC\u00F1\-']+(\s[0-9][0-9])?([,]*?)(\sde\sla|\sde\s|\sdel|\sde)?\s*([A-Z\u00C1\u00C9\u00CD\u00D3\u00DA\u00DC\u00D6][.]\s*)*(y\sdel\s|y\sde\sla\s|de\sla\s|del\s|de\slos\s|e\s|y\s|de\s|[,]\s)?){2,8}/g);
-    
-    		    if( lobjPossibleNames != null )
-    		    {
-         			for( var j = 0; j < lobjPossibleNames.length; j++ )
-         			{
-         			    var lstrPossibleName = lobjPossibleNames[j];
-         			    lstrPossibleName = lstrPossibleName.trim();
+    			
+    			var lobjPossibleNamesUnit = lstrUnitTitle.match(/((\sde\s)*?[A-Z\u00C0\u00C1\u00C3\u00C7\u00C9\u00CA\u00CD\u00D3\u00DA\u00DC\u00D4\u00D5\u00D6][a-z\u00E0\u00E1\u00E3\u00E7\u00E9\u00EA\u00ED\u00F0\u00F3\u00F4\u00F5\u00FA\u00FC\u00F1\-']+(\s[0-9][0-9])?([,]*?)(\sde\sla|\sde\s|\sdel|\sde)?\s*([A-Z\u00C1\u00C9\u00CD\u00D3\u00DA\u00DC\u00D6][.]\s*)*(y\sdel\s|y\sde\sla\s|de\sla\s|del\s|de\slos\s|e\s|y\s|de\s|[,]\s)?){2,8}/g);
+    			
+    			if ( lobjPossibleNamesUnit != null )
+    			{
+    			    for( var j = 0; j < lobjPossibleNamesUnit.length; j++ )
+    			    {
+    			        var lstrPossibleNameUnit = lobjPossibleNamesUnit[j];
+         			    lstrPossibleNameUnit = lstrPossibleNameUnit.trim();
     			    
-    			         // Strip any trailing commas. --timathom
-         			    var lstrLastChar = lstrPossibleName.substr( lstrPossibleName.length - 1 );
+        			    // Strip any trailing commas. --timathom
+         			    var lstrLastChar = lstrPossibleNameUnit.substr( lstrPossibleNameUnit.length - 1 );
          			    
          			    if( lstrLastChar == "," )
+<<<<<<< .merge_file_ZnT9xO
     			    {
     				lstrPossibleName = lstrPossibleName.slice(0, -1);
     			    }                                
@@ -460,6 +498,42 @@
     		PossibleNameList = unique(PossibleNameList);
     		PossibleNameList.sort();
                                         		
+=======
+    			        {
+    				        lstrPossibleNameUnit = lstrPossibleNameUnit.slice(0, -1);
+    			        }                                
+         			    PossibleNameListUnit.push( lstrPossibleNameUnit );
+         			}         		
+    			}
+    			/*
+    			else
+    		    {
+    		        $('#loading-image').remove();
+              		$('.form_container').remove();
+     			    $('.main_edit').show();     			        
+    			    $('#entity_name').show();
+    			    //callback( 'No matches for possible names found!' );
+              
+              		return;
+    		    }   
+    		    */
+    	    }
+    	    
+    	    PossibleNameList = PossibleNameListBio.concat(PossibleNameListUnit);
+    		PossibleNameList = unique(PossibleNameList);
+    		PossibleNameList.sort();
+    		
+    		if( PossibleNameList.length == 0 )
+		    {			    
+		        callback( 'No matches for possible names found!' );
+			    $('#loading-image').remove();
+                $('.form_container').remove();
+     			$('.main_edit').show();     			        
+    			$('#entity_name').show();    			    			
+
+			    return;
+		    }		            	                                         
+>>>>>>> .merge_file_cVfGXO
     
     		//display all possible names for editor to choose correct/desired names to search viaf and create relations
     		display_possible_name_form(PossibleNameList, function( lobjChosenNames )
@@ -526,11 +600,11 @@
     							  
                               	    
                               	   //display results from viaf realtion nodes search so editor can choose which relations they want to ingest
-    							   display_viaf_results_form( lobjData, function( lobjResultsChosen, lobjRoleVals, lobjRelVals ) 
+    							   display_viaf_results_form( lobjData, function( lobjResultsChosen ) 
     										     {    										         										         										     
-    										     
-    											 if( lobjResultsChosen.length == 0 )
-    											 {
+    										     console.log(lobjResultsChosen['names']['entity']['all']);
+    											 if( lobjResultsChosen['names']['entity']['all'].length == 0 )    											 
+    											 {    											     
     											     callback("Done!"); //finish process if no results chosen
     											     $('.viaf_arrow').html("&#10003;");
     											     $('#loading-image').remove(); 
@@ -548,14 +622,20 @@
     											 }    											     																				
     
     											 //ingest into EAC all chosen results from viaf
-    											 for(var i = 0; i < lobjResultsChosen.length; i++)
+    											 for(var i = 0; i < lobjResultsChosen['names']['entity']['viaf'].length; i++)
     											 {
-    											     var chosen_result = lobjResultsChosen[i];    											     
-                                                     var chosen_roles = lobjRoleVals[i];
-                                                     var chosen_rels = lobjRelVals[i];
-                                                     lobjEac.addCPFRelation(lobjData[chosen_result], chosen_roles, chosen_rels);
-                                                        											        											     											    
-    											 }
+    											     var chosen_result_viaf = lobjResultsChosen['names']['entity']['viaf'][i];
+    											     lobjEac.addCPFRelationViaf(lobjData[chosen_result_viaf]);
+    											 }    											     											 
+    											 
+    											 for(var i = 0; i < lobjResultsChosen['names']['entity']['custom'].length; i++)
+    											 {
+    											     var chosen_result_custom = lobjResultsChosen['names']['entity']['custom'][i];    											         											     
+    											     var chosen_roles = lobjResultsChosen['names']['roles'][i];        											                                                         
+    											     var chosen_rels = lobjResultsChosen['names']['rels'][i];
+    											     lobjEac.addCPFRelationCustom(lobjData[chosen_result_custom], chosen_roles, chosen_rels);
+    											 }    											     		    											     											
+    											 
     											 editor.getSession().setValue(lobjEac.getXML());
     
     											 callback('&lt;cpfRelation&gt; elements added!'); // Notify that <cpfRelation> elements have been added. --timathom
@@ -719,8 +799,8 @@
                 lstrHTML += "<tr id=\"user_rel\"><td></td><td class=\"message\">No appropriate matches from VIAF? Add &lt;cpfRelation&gt; using the original search string: </td></tr>";
                 lstrHTML += "<tr class=\"user_plain_row\"><td><input type=\"checkbox\" class=\"viaf_check\" name=\"chosen_results\" value=\"";		
     	        lstrHTML += "\"/></td><td id=\"plainText\"><span id=\"textSpan\">" + lstrName;                
-                lstrHTML += "</span><select id=\"rels\" name=\"relType\" title=\"For non-VIAF entries, you may choose one of two relation types. If you do not choose a relation type, the default value is 'associatedWith'\"><option value=\"\">Relation Type</option><option value=\"\"></option><option value=\"assoc\">associatedWith</option><option value=\"corresp\">correspondedWith</option></select>";
-                lstrHTML += "<select id=\"ents\" name=\"entities\" title=\"For non-VIAF entries, you must choose an entity type. For VIAF entries (the ones with links), the entity type has been predefined.\"><option value=\"\">Entity Type</option><option value=\"\"></option><option value=\"pers\">Person</option><option value=\"corp\">CorporateBody</option><option value=\"fam\">Family</option></select></td>";
+                lstrHTML += "</span><span id=\"select_wrap\"><select id=\"ents\" name=\"entities\" title=\"For non-VIAF entries, you must choose an entity type. For VIAF entries (the ones with links), the entity type has been predefined.\"><option value=\"\">Entity Type</option><option value=\"\"></option><option value=\"pers\">Person</option><option value=\"corp\">CorporateBody</option><option value=\"fam\">Family</option></select>";
+                lstrHTML += "<select id=\"rels\" name=\"relType\" title=\"For non-VIAF entries, you may choose one of two relation types. If you do not choose a relation type, the default value is 'associatedWith'\"><option value=\"\">Relation Type</option><option value=\"\"></option><option value=\"assoc\">associatedWith</option><option value=\"corresp\">correspondedWith</option></select></span></td>";
                 lstrHTML += "</tr>";
                 //lstrHTML += "<tr class=\"user_viaf_row\"><td></td><td>Matches from VIAF:</td></tr>";
             }                               
@@ -739,48 +819,57 @@
     				       {
     				      				       				       
     					   var lobjChosenResults = [];	
-    					   var lobjChosenResultsTest = [];
-    					   var lobjChosenRoles = [];
-    					   var lobjChosenRels = [];    					   
+    					   lobjChosenResults['names'] = [];    					   
+    					   lobjChosenResults['names']['entity'] = [];
+    					   lobjChosenResults['names']['entity']['all'] = [];
+    					   lobjChosenResults['names']['entity']['viaf'] = [];
+    					   lobjChosenResults['names']['entity']['custom'] = [];
+    					   lobjChosenResults['names']['rels'] = [];
+    					   lobjChosenResults['names']['roles'] = [];
+    					   //var lobjChosenResultsTest = [];
+    					   //lobjChosenResultsTest['names'] = [];
+    					   //lobjChosenResultsTest['names']['entity'] = [];    					       					  
     					                                                  
     					   $('input.viaf_check').each(function () {
     					       if ( this.checked )
     					       {					     
     					           if ($(this).val() != "")
     					           {
-    					               lobjChosenResults.push($(this).val());    
+    					               lobjChosenResults['names']['entity']['viaf'].push($(this).val());
+    					               lobjChosenResults['names']['entity']['all'].push($(this).val());  
     					           }    					           
     					           else  					              					          
-    					           {    					                					          
-                                       lobjChosenResults.push($(this).closest('td').siblings('#plainText').children('#textSpan').text());
-                                       lobjChosenResultsTest.push($(this).closest('td').siblings('#plainText').children('#textSpan').text());
+    					           {    					                					                                                 
+                                       //lobjChosenResultsTest['names']['entity']['custom'].push($(this).closest('td').siblings('#plainText').children('#textSpan').text());
                                        //console.log($(this).closest('td').siblings('#plainText').children('#textSpan').text()); 
                                        
-                                        if ($(this).closest('td').siblings('#plainText').children('#rels').children('option:selected').val() != '')
-    					                {
-    					                    lobjChosenRels.push( $(this).closest('td').siblings('#plainText').children('#rels').children('option:selected').text() );
+                                        if ($(this).closest('td').siblings('#plainText').children('#select_wrap').children('#rels').children('option:selected').val() != '')
+    					                {    					                    
+    					                    lobjChosenResults['names']['rels'].push( $(this).closest('td').siblings('#plainText').children('#select_wrap').children('#rels').children('option:selected').text() );
     					                }    				
     					                
-    					                else if ( lobjChosenRels.length == 0 )
-    					                {
-    					                    lobjChosenRels.push( "associatedWith" );
+    					                else if ( lobjChosenResults['names']['rels'].length == 0 )
+    					                {    					                    
+    					                    lobjChosenResults['names']['rels'].push( "associatedWith" );
     					                }
     					           
-    					                if ($(this).closest('td').siblings('#plainText').children('#ents').children('option:selected').val() != '')
+    					                if ($(this).closest('td').siblings('#plainText').children('#select_wrap').children('#ents').children('option:selected').val() != '')
     					                {
-    					                    lobjChosenRoles.push( "http://RDVocab.info/uri/schema/FRBRentitiesRDA/" + $(this).closest('td').siblings('#plainText').children('#ents').children('option:selected').text() );    					                    
+    					                    lobjChosenResults['names']['entity']['custom'].push($(this).closest('td').siblings('#plainText').children('#textSpan').text());
+    					                    lobjChosenResults['names']['entity']['all'].push($(this).closest('td').siblings('#plainText').children('#textSpan').text());
+    					                    lobjChosenResults['names']['roles'].push( "http://RDVocab.info/uri/schema/FRBRentitiesRDA/" + $(this).closest('td').siblings('#plainText').children('#select_wrap').children('#ents').children('option:selected').text() );    					                    
     					                }    
     					           }    					               					          					               					      
     					       }					       
     					   });					   					 					 
     					   
     					   // Display/notification logic added by timathom
-    					   if ( lobjChosenResults.length == 0 )
+    					   if ( lobjChosenResults['names']['entity']['all'].length == 0 )
     					   {
     					       $('body').append("<div id=\"dialog\"><p>Please choose or click Cancel!</p></div>");
     				           makeDialog('#dialog', 'Error!'); // display error    					     
     					   }    					   
-    					   else if ( lobjChosenResultsTest.length != 0 && lobjChosenRoles.length == 0 )
+    					   else if ( lobjChosenResults['names']['entity']['custom'].length != 0 && lobjChosenResults['names']['roles'].length == 0 )
     					   {    					    
     		                   $('body').append("<div id=\"dialog\"><p>Please select an Entity Type.</p></div>");
     	                       makeDialog('#dialog', 'Error!'); // display error    					     
@@ -798,7 +887,8 @@
                            	  {
                            	      $('#wiki_switch').hide();
                            	  }
-    				          callback(lobjChosenResults, lobjChosenRoles, lobjChosenRels);    				              				          
+    				          callback(lobjChosenResults);
+    				          console.log(lobjChosenResults['names']['entity']['all']);    				         
     					   }					   
     				       });
     
@@ -1151,11 +1241,11 @@
     function display_possible_worldcat_subjects( lobjPossibleSubjects, callback )
     {
         var lstrHTML = "<div class=\"form_container\">";
-     lstrHTML += "<h2 class=\"instruction\" style=\"font-weight:800; font-size:1.5em;\">Ingest from WorldCat Identities</h2><p class=\"instruction\">Here is a list of FAST subject headings from this entity's WorldCat Identities page. Select appropriate headings to add to your EAC-CPF record.</p>";
+        lstrHTML += "<div class=\"instruction_div\"><h2 class=\"instruction\" style=\"font-weight:800; font-size:1.5em;\">Ingest from WorldCat Identities</h2><p class=\"instruction\">Here is a list of FAST subject headings from this entity's WorldCat Identities page. Select appropriate headings to add to your EAC-CPF record.</p></div>";
      
-    lstrHTML += "<button id=\"ingest_worldcat_chosen_subjects\" class=\"pure-button pure-button-secondary\">Use Selected Subjects</button>";
+        lstrHTML += "<button id=\"ingest_worldcat_chosen_subjects\" class=\"pure-button pure-button-secondary\">Use Selected Subjects</button>";
     
-    lstrHTML += "&nbsp;<button id=\"ingest_worldcat_chosen_subjects_cancel\" class=\"pure-button pure-button-secondary\">Cancel</button>";  
+        lstrHTML += "&nbsp;<button id=\"ingest_worldcat_chosen_subjects_cancel\" class=\"pure-button pure-button-secondary\">Cancel</button>";  
     
         lstrHTML += "<div class=\"user_help_form\">";
     

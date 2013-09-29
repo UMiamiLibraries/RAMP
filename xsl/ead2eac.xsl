@@ -1132,7 +1132,11 @@
         </xsl:choose>
     </xsl:template>
 
-    <!-- Process mixed content emph and p elements. -->
+    <!-- Process mixed content elements. -->
+    <xsl:template match="ead:abstract">
+        <xsl:value-of select="normalize-space(.)"/>
+    </xsl:template>
+    
     <xsl:template match="ead:emph">
         <span xmlns="urn:isbn:1-931666-33-4">
             <xsl:attribute name="style">font-style:italic</xsl:attribute>
@@ -1297,7 +1301,7 @@
 
             <!-- For local archival collections, output EAD snippet in objectXMLWrap. -->
             <xsl:for-each select="ead:ead/ead:archdesc/ead:did/ead:unittitle">
-                <resourceRelation xmlns="urn:isbn:1-931666-33-4" xlink:arcrole="creatorOf"
+                <resourceRelation xmlns="urn:isbn:1-931666-33-4" resourceRelationType="creatorOf"
                     xlink:href="{concat($pLocalURL,substring-after(../../../ead:eadheader/ead:eadid/@identifier,':'))}"
                     xlink:role="archivalRecords" xlink:type="simple"
                     xmlns:xlink="http://www.w3.org/1999/xlink">
@@ -1336,7 +1340,7 @@
             <!-- Process local digital collections. -->
             <xsl:if test="ead:ead/ead:archdesc/ead:dao">
                 <xsl:for-each select="ead:ead/ead:archdesc/ead:dao">
-                    <resourceRelation xmlns="urn:isbn:1-931666-33-4" xlink:arcrole="creatorOf"
+                    <resourceRelation xmlns="urn:isbn:1-931666-33-4" resourceRelationType="creatorOf"
                         xlink:href="{@xlink:href}" xlink:role="archivalRecords" xlink:type="simple"
                         xmlns:xlink="http://www.w3.org/1999/xlink">
                         <relationEntry>

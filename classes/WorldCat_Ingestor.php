@@ -393,7 +393,7 @@ class WorldCat_Ingestor extends Ingestor
 			}
 			
 			if( $lobjLink['lccn'] != "" || $lobjLink['lccn']->length != 0) {		    
-				$lobjLinkNodeSource['attributes']['xlink:href'] = "WCI:" . $lobjLink['lccn'] . "/identity.xml";		
+				$lobjLinkNodeSource['attributes']['xlink:href'] = "http://worldcat.org/identities/" . $lobjLink['lccn'] . "/identity.xml";		
 				$lobjLinkNodeSource['attributes']['xlink:type'] = "simple";
 				$this->objElementList['source'][] = $lobjLinkNodeSource;
 				
@@ -435,7 +435,7 @@ class WorldCat_Ingestor extends Ingestor
 			
 			if( strpos( $lobjIdentity['id'], 'lccn') === false )
 			{
-				$lobjCPFRelationNode['attributes']['xlink:href'] = "http://www.worldcat.org/identities/" . substr($lobjIdentity['id']);
+				$lobjCPFRelationNode['attributes']['xlink:href'] = "http://www.worldcat.org/identities/" . $lobjIdentity['id'];
 			}
 			else
 			{
@@ -553,7 +553,7 @@ class WorldCat_Ingestor extends Ingestor
 		{
 			$lobjResourceRelationNode = array();
 
-			$lobjResourceRelationNode['attributes']['xlink:arcrole'] = "";
+			$lobjResourceRelationNode['attributes']['resourceRelationType'] = "subjectOf";
 			$lobjResourceRelationNode['attributes']['xlink:href'] = "http://worldcat.org/oclc/" . preg_replace( "[^0-9]", "", $lobjCitation['oclcnum'] );
 			$lobjResourceRelationNode['attributes']['xlink:role'] = $lobjCitation['record_type'] == "mixd" ? "archivalRecords" : "resource";
 			$lobjResourceRelationNode['attributes']['xlink:type'] = "simple";
