@@ -1221,11 +1221,19 @@
                         </xsl:otherwise>
                     </xsl:choose>
                 </xsl:when>
-                <xsl:otherwise>
+                <xsl:otherwise>                    
                     <!-- If the name does not include dates ... -->
-                    <xsl:value-of select="substring-after(normalize-space($pPersName),', ')"/>
-                    <xsl:text> </xsl:text>
-                    <xsl:value-of select="substring-before(normalize-space($pPersName),', ')"/>
+                    <xsl:choose>
+                        <xsl:when test="contains($pPersName,', ')">
+                            <xsl:value-of select="substring-after(normalize-space($pPersName),', ')"/>
+                            <xsl:text> </xsl:text>
+                            <xsl:value-of select="substring-before(normalize-space($pPersName),', ')"/>
+                        </xsl:when>
+                        <xsl:otherwise>
+                            <!-- Name order stays as is. -->            
+                            <xsl:value-of select="normalize-space($pPersName)"/>
+                        </xsl:otherwise>
+                    </xsl:choose>                    
                 </xsl:otherwise>
             </xsl:choose>
         </xsl:if>
