@@ -231,6 +231,7 @@
     										     //set ace editor value to new xml from EAC Dom Document with ingested source and name entries
     										     editor.getSession().setValue(lobjEac.getXML());
     										     
+<<<<<<< .merge_file_BcKF0G
 <<<<<<< .merge_file_199LCQ
 <<<<<<< .merge_file_iCV7dN
 <<<<<<< .merge_file_ZnT9xO
@@ -261,11 +262,18 @@
     										     $('body').append("<div id=\"dialog\"><p>&lt;source&gt; and &lt;nameEntry&gt; elements added!</p></div>");
     					                         makeDialog('#dialog', 'Results'); // display results
 >>>>>>> .merge_file_XUa4wS
+=======
+    										     // Results notification added by timathom    	
+    										     
+    										     $('body').append("<div id=\"dialog\"><p>&lt;source&gt; and &lt;nameEntry&gt; elements added!</p></div>");
+    					                         makeDialog('#dialog', 'Results'); // display results
+>>>>>>> .merge_file_7LoYdH
     					                         
     										     $('.form_container').remove();
     						                     $('.main_edit').hide();        						
     						                     callback();
     						                    
+<<<<<<< .merge_file_BcKF0G
 <<<<<<< .merge_file_199LCQ
 <<<<<<< .merge_file_iCV7dN
 >>>>>>> .merge_file_cVfGXO
@@ -273,6 +281,8 @@
 >>>>>>> .merge_file_wc68aP
 =======
 >>>>>>> .merge_file_XUa4wS
+=======
+>>>>>>> .merge_file_7LoYdH
     										 });
     								     });
         				     });
@@ -323,6 +333,7 @@
     					 }else
     					 {
     					     $('.form_container').remove();
+<<<<<<< .merge_file_BcKF0G
 <<<<<<< .merge_file_199LCQ
 <<<<<<< .merge_file_iCV7dN
 <<<<<<< .merge_file_ZnT9xO
@@ -336,6 +347,9 @@
 =======
     					     $('.main_edit').hide(); 
 >>>>>>> .merge_file_XUa4wS
+=======
+    					     $('.main_edit').hide(); 
+>>>>>>> .merge_file_7LoYdH
     
     					     callback(lstrChosenViaf);
     					 }
@@ -398,6 +412,7 @@
          			    var lstrLastChar = lstrPossibleNameBio.substr( lstrPossibleNameBio.length - 1 );
          			    
          			    if( lstrLastChar == "," )
+<<<<<<< .merge_file_BcKF0G
 <<<<<<< .merge_file_199LCQ
 <<<<<<< .merge_file_iCV7dN
 <<<<<<< .merge_file_ZnT9xO
@@ -441,6 +456,8 @@
 >>>>>>> .merge_file_wc68aP
 =======
 >>>>>>> .merge_file_XUa4wS
+=======
+>>>>>>> .merge_file_7LoYdH
     			        {
     				        lstrPossibleNameBio = lstrPossibleNameBio.slice(0, -1);
     			        }                                
@@ -461,6 +478,7 @@
     		    */
       		}
       		for(var i = 0; i < lobjUnitTitleList.length; i++)
+<<<<<<< .merge_file_BcKF0G
 <<<<<<< .merge_file_199LCQ
 <<<<<<< .merge_file_iCV7dN
 >>>>>>> .merge_file_cVfGXO
@@ -468,6 +486,8 @@
 >>>>>>> .merge_file_wc68aP
 =======
 >>>>>>> .merge_file_XUa4wS
+=======
+>>>>>>> .merge_file_7LoYdH
     		{
     		    if( typeof lobjUnitTitleList[i].childNodes[0] == 'undefined' )
     			continue;
@@ -490,6 +510,7 @@
          			    var lstrLastChar = lstrPossibleNameUnit.substr( lstrPossibleNameUnit.length - 1 );
          			    
          			    if( lstrLastChar == "," )
+<<<<<<< .merge_file_BcKF0G
 <<<<<<< .merge_file_199LCQ
 <<<<<<< .merge_file_iCV7dN
 <<<<<<< .merge_file_ZnT9xO
@@ -614,6 +635,31 @@
     		PossibleNameList = unique(PossibleNameList);
     		PossibleNameList.sort();
 >>>>>>> .merge_file_XUa4wS
+=======
+    			        {
+    				        lstrPossibleNameUnit = lstrPossibleNameUnit.slice(0, -1);
+    			        }                                
+         			    PossibleNameListUnit.push( lstrPossibleNameUnit );
+         			}         		
+    			}
+    			/*
+    			else
+    		    {
+    		        $('#loading-image').remove();
+              		$('.form_container').remove();
+     			    $('.main_edit').show();     			        
+    			    $('#entity_name').show();
+    			    //callback( 'No matches for possible names found!' );
+              
+              		return;
+    		    }   
+    		    */
+    	    }
+    	    
+    	    PossibleNameList = PossibleNameListBio.concat(PossibleNameListUnit);
+    		PossibleNameList = unique(PossibleNameList);
+    		PossibleNameList.sort();
+>>>>>>> .merge_file_7LoYdH
     		
     		if( PossibleNameList.length == 0 )
 		    {			    
@@ -625,6 +671,7 @@
 
 			    return;
 		    }		            	                                         
+<<<<<<< .merge_file_BcKF0G
 <<<<<<< .merge_file_199LCQ
 <<<<<<< .merge_file_iCV7dN
 >>>>>>> .merge_file_cVfGXO
@@ -632,6 +679,8 @@
 >>>>>>> .merge_file_wc68aP
 =======
 >>>>>>> .merge_file_XUa4wS
+=======
+>>>>>>> .merge_file_7LoYdH
     
     		//display all possible names for editor to choose correct/desired names to search viaf and create relations
     		display_possible_name_form(PossibleNameList, function( lobjChosenNames )

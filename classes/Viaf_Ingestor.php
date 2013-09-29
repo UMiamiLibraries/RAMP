@@ -249,6 +249,7 @@ class Viaf_Ingestor extends Ingestor
 http://www.viaf.org/viaf/
 				    $lobjcpfRelation = array(
 					   			"attributes" => array( "xlink:arcrole" => "associatedWith",
+<<<<<<< .merge_file_brWxEF
 <<<<<<< .merge_file_j3IhOO
 <<<<<<< .merge_file_ecRQTL
 <<<<<<< .merge_file_N5jFCQ
@@ -262,6 +263,9 @@ http://www.viaf.org/viaf/
 =======
 													   "xlink:href" => "http://viaf.org/viaf/$this->strViafID",
 >>>>>>> .merge_file_Vpbf1N
+=======
+													   "xlink:href" => "http://viaf.org/viaf/$this->strViafID",
+>>>>>>> .merge_file_N7NmIE
 													   "xlink:role" => "http://RDVocab.info/uri/schema/FRBRentitiesRDA/" . $lstrType,
 													   "xlink:type" => "simple" ),
 								"elements" => array( "relationEntry" => array (
