@@ -47,7 +47,7 @@ The RAMP editor can extract biographical and historical data from EAD finding ai
      chown -R www-data ead
      chmod 2755 ead
      
-   This folder should contain all the EAD files that you want to work with. 
+   This folder should contain all the EAD files that you want to work with. Utilities in the `utils` directory can be used to merge EAD files before importing them into RAMP (designed to work with files exported from the Archon archival management system).
    
    **Note that in order to be compatible with RAMP, EAD files should have the EAD namespace declared in an `@xmlns` attribute on the `ead` root element**. For example:
      
