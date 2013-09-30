@@ -23,8 +23,30 @@ if ($mysqli->connect_errno) {
   echo "Failed to connect to MySQL: (" . $mysqli->connect_errno . ") " . $mysqli->connect_error;
 }
 
+// Basic input validation
+$cleanedArray = array();
+
+foreach ($_POST as $post_name => $post_val) {
+    if ($post_name == "entity") {
+        checkCharacters($post_val);
+    }
+    if ($post_name == "name") {
+        checkCharacters($post_val);
+    }    
+    if ($post_name == "bioghist") {
+        $post_val = mysqli_real_escape_string($mysqli,$post_val);
+        $post_val = trim($post_val);
+        $post_val = strip_tags($post_val);
+        $post_val = htmlentities($post_val);
+    }    
+    if ($post_name == "type") {
+        checkCharacters($post_val);
+    }                
+    $cleanedArray[$post_name] = $post_val;
+} 
+
 //make file name valid utf8
-$file_name = mysqli_real_escape_string($mysqli,$_POST["name"]);
+$file_name = $cleanedArray["name"];
 $file_name_lower = strtolower(str_replace(' ', '_', $file_name));
 $file_name_lower = preg_replace('/[^a-zA-Z0-9-_]/', '', $file_name_lower);
 $file_name_lower = iconv('utf-8', "us-ascii//TRANSLIT", $file_name_lower);
@@ -32,17 +54,27 @@ $file_name_lower = preg_replace('/[^a-zA-Z0-9-_\.]/', '', $file_name_lower);
 
 //exit and return message if file name is empty
 if( $file_name_lower == "" )
-	die( "Record not saved. File name is invalid." );
+	die( "Record not saved. File name is empty." );
 
-//personal name
-$persname = mysqli_real_escape_string($mysqli,$_POST["name"]);
-$entity =  mysqli_real_escape_string($mysqli,$_POST["entity"]);
-$bioghist =  mysqli_real_escape_string($mysqli,$_POST["bioghist"]);
+//assign values to cleaned array
+$entity = $cleanedArray["entity"];
+$entname = $cleanedArray["name"];
+$bioghist = $cleanedArray["bioghist"];
+$type = $cleanedArray["type"];
+
+//check for newlines in bioghist
+/*
+$lines = strpos($bioghist, '\n\n');
+
+if ($bioghist != "" && $lines === false) {
+    die( "Please enter a space between each paragraph of the biography/history." );    
+} 
+*/
 
 // instinfo
 if (file_exists(  $_POST["dir"] . '/' . $file_name_lower . '.xml')) {
 
-  echo "This record already exists.";
+  echo "A record with this name already exists.";
 
 } else {  
   touch(  $_POST["dir"] . '/' . $file_name_lower . '.xml');
@@ -50,9 +82,7 @@ if (file_exists(  $_POST["dir"] . '/' . $file_name_lower . '.xml')) {
   $f = fopen(  $_POST["dir"] . '/' . $file_name_lower . '.xml', "w");
 
   $ead_doc = new DOMDocument();
-  $ead_doc->formatOutput = true;
-
-  $type = $_POST['type'];
+  $ead_doc->formatOutput = true; 
 
   switch(strtolower( $type )) {
 
@@ -76,7 +106,7 @@ if (file_exists(  $_POST["dir"] . '/' . $file_name_lower . '.xml')) {
 		            <archdesc audience="external" relatedencoding="MARC21">
 		               <did>
 		                     <origination label="Creator" encodinganalog="245$c">
-		                     <persname encodinganalog="100"  source="local">' . $persname .
+		                     <persname encodinganalog="100"  source="local">' . $entname .
 
 
 			'</persname>
@@ -84,9 +114,8 @@ if (file_exists(  $_POST["dir"] . '/' . $file_name_lower . '.xml')) {
 		                           <note type="creation">Record created in RAMP.</note>
 		      </did>
 		               <bioghist encodinganalog="545">
-		<p>' . $bioghist .
-			'</p>
-		                           </bioghist>
+		                  <p>' . $bioghist . '</p>
+		               </bioghist>
 
 
 		   </archdesc>
@@ -120,7 +149,7 @@ if (file_exists(  $_POST["dir"] . '/' . $file_name_lower . '.xml')) {
 		            <archdesc audience="external" relatedencoding="MARC21">
 		               <did>
 		                     <origination label="Creator" encodinganalog="245$c">
-		                     <corpname encodinganalog="100"  source="local">' . $persname .
+		                     <corpname encodinganalog="100"  source="local">' . $entname .
 
 
 			'</corpname>
@@ -163,7 +192,7 @@ if (file_exists(  $_POST["dir"] . '/' . $file_name_lower . '.xml')) {
 		            <archdesc audience="external" relatedencoding="MARC21">
 		               <did>
 		                     <origination label="Creator" encodinganalog="245$c">
-		                     <famname  source="local">' . $persname . '</famname>
+		                     <famname  source="local">' . $entname . '</famname>
 		                           </origination>
 		                           <note type="creation">Record created in RAMP.</note>
 		      </did>
@@ -202,6 +231,17 @@ if (file_exists(  $_POST["dir"] . '/' . $file_name_lower . '.xml')) {
 
   echo "Sucessfully created new record.";
 
+}
+
+// Function for basic validation of character input.
+function checkCharacters($string) {
+    $string = trim($string);
+    $string = stripslashes(strip_tags($string));
+    $string = htmlentities($string);
+    $string = mysqli_real_escape_string($mysqli,$string);    
+    //$found = preg_match("/^[a-zA-Z]$/", $string);		
+    //return $found;
+    return $string;
 }
 
 ?>

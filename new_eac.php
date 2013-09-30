@@ -120,7 +120,7 @@ include('header.php');
 
 	   $savedialog.html(data).dialog('open');
 
-      window.setTimeout(slowreload, 1000);
+      window.setTimeout(slowreload, 2500);
 
       function slowreload() {
         location.reload();

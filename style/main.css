@@ -1265,13 +1265,19 @@ margin:2% 4% 0 4%;
 
 #export_box {
 
-
 margin:4% 4%;
 
 }
 
 #new_box {
-
-
 margin:4% 4%;
+}
+
+#new_box h1 {
+    margin-bottom:3%;
+}
+
+#new_eac_record {
+    margin:1%;
+    font-size:1.4em;
 }

@@ -116,6 +116,7 @@ print ("</select>");
 
   <p>
   </p>
+  <!-- Temporarily hiding select box until we can make selection dynamic.
   <select id="new_select">
   <option>
   Create a new ...
@@ -134,7 +135,8 @@ print ("</select>");
   Family
   </option>
   </select> 
-
+  -->
+  <p><a href="new_eac.php" id="new_eac_record">Create New EAC-CPF Record</a></p>
   </div>
   </div>
 
