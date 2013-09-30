@@ -161,7 +161,7 @@
     			 var lstrName = $('input[name="name"]').val();
     
             		 if(lstrName == '')
-            		 {
+            		 {cd
             		     //need name to continue
             		     $('.validate-prompt').show();
             		 }
