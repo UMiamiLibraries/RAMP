@@ -10,7 +10,7 @@ include('header.php');
 ?>
 
 
-<script src="script/editor.js"></script>
+  <script src="script/editor.js"></script>
   <script src="script/eac_editor.js"></script>
   <script src="script/vkbeautify.js"></script>
   <script src="script/ingest.js"></script>
@@ -124,7 +124,7 @@ print ("</select>");
 editor.getSession().setMode("ace/mode/xml");
 </script>
 
-<link rel="stylesheet" type="text/css" href="script/select2.css"/>
+<link rel="stylesheet" type="text/css" href="script/select2/select2.css"/>
   <script src="script/select2/select2.min.js"></script>
 
   <script>
