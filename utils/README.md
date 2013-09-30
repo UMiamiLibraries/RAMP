@@ -4,7 +4,8 @@ RAMP utilities
 ## Introduction
 
   The scripts and stylesheets in this folder can be used to merge a set of EAD and EAC-CPF files as part of a separate preprocessing stage prior to import into RAMP. 
-  **These utilities have been designed to work with files exported from the Archon archival management system. They require a set of EAC-CPF files that encode the relations between creators and archival collections.**
+  **These utilities have been designed to work with files exported from the Archon archival management system.**
+  **They require a set of EAC-CPF files that encode the relations between creators and archival collections.**
 
 ## 1 Requirements
 
