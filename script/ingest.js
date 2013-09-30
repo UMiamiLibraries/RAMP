@@ -161,7 +161,7 @@
     			 var lstrName = $('input[name="name"]').val();
     
             		 if(lstrName == '')
-            		 {
+            		 {cd
             		     //need name to continue
             		     $('.validate-prompt').show();
             		 }
@@ -979,6 +979,7 @@
                                       		         $('#loading-image').remove(); 
                                       		         $('.form_container').remove();
                                       		         $('.main_edit').show();   
+                                      		         $('#entity_name').show();
                                       		         // Check to see if there is already wiki markup. If so, show switcher. --timathom
                                                      if ( getCookie('wiki') == 'present' )   
                                                      {
@@ -1011,6 +1012,7 @@
                                                          		         $('#loading-image').remove(); 
                                                          		         $('.form_container').remove();
                                                          		         $('.main_edit').show();
+                                                         		         $('#entity_name').show();
                                                          		         // Check to see if there is already wiki markup. If so, show switcher. --timathom
                                                                        	 if ( getCookie('wiki') == 'present' )   
                                                                       	 {
@@ -1024,13 +1026,13 @@
                                                                          return;
                                                                     } 
                                                                     else
-                                                                    {    
-    																     editor.getSession().setValue(lobjEac.getXML());
+                                                                    {        																     
            																 $('body').append("<div id=\"dialog\"><p>&lt;localDescription&gt; elements were added with chosen subject(s).</p><br/>" + lstrOtherRecId + lstrSources + lstrCpfResults + lstrResourceResults + "</div>");
            					                                             makeDialog('#dialog', 'Results'); // display results    																 
            																 $('#loading-image').remove();
            																 $('.worldcat_arrow').html("&#10003;");    																        															    																 
            																 $('main_edit').show();  
+           																 $('#entity_name').show();
            																 // Check to see if there is already wiki markup. If so, show switcher. --timathom
                                                                        	 if ( getCookie('wiki') == 'present' )   
                                                                       	 {
@@ -1039,7 +1041,9 @@
                                                                       	 else
                                                                       	 {
                                                                       	     $('#wiki_switch').hide();
-                                                                      	 }           																 
+                                                                      	 }
+                                                                      	 editor.getSession().setValue(lobjEac.getXML());
+                                                                      	 return;                                                                      	 
     																 }
     																 
     															     });
