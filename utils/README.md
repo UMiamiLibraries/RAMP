@@ -16,9 +16,9 @@ RAMP utilities
 
   * Download your EAC-CPF and EAD files and place them in their respective directories, `eac` and `ead`.
   * Run `eac2eadMatch.sh` on the files in the `eac` directory and `eadRename.sh` on the `ead` directory. The scripts are already located in the directories.
-    **Note: some files exported from Archon may contain undeclared `&nbsp;` entities.** These can be removed with a sed script run on the contents of the directory:
-     
-    find ./ -type f -exec sed -i 's/&nbsp;/ /g' {} \;
+  **Note: some files exported from Archon may contain undeclared `&nbsp;` entities.** These can be removed with a sed script run on the contents of the directory:
+
+    ```find ./ -type f -exec sed -i 's/&nbsp;/ /g' {} \;```
 
   * Run the `eacFileListGenerator.xsl` stylesheet on the files in the `eac` directory. The output file can be named something like `eacFileList.xml`.
   * `eacFileList.xml` should be run as the input file for the `eac2eadMerge.xsl` stylesheet.
