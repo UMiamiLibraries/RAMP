@@ -4,7 +4,7 @@ RAMP utilities
 ## Introduction
 
   The scripts and stylesheets in this folder can be used to merge a set of EAD and EAC-CPF files as part of a separate preprocessing stage prior to import into RAMP. 
-  **These utilities have been designed to work with files exported from the Archon archival management system, but may be adapted to work with files from other systems. 
+  **These utilities have been designed to work with files exported from the Archon archival management system, but may be adapted to work with files from other systems.**
 
 ## 1 Requirements
 
@@ -21,4 +21,4 @@ RAMP utilities
   * `eacFileList.xml` should be run as the input file for the `eac2eadMerge.xsl` stylesheet.
   * The merged EAD files will be located in the `merge` directory inside `utils`. This directory will be created by the `eac2eadMerge.xsl` stylesheet.
   
-  **Once EAD files have been merged, they should be moved to the `ead` directory that is located one level up, within the RAMP root directory. 
+  **Once EAD files have been merged, they should be moved to the `ead` directory that is located one level up, within the RAMP root directory.**
