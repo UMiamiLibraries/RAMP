@@ -214,7 +214,13 @@ $(document).ready(function() {
 
 
     $('#convert_to_wiki').click(function() {
-        
+    
+     // Set cookie for showing wiki screen on dialog close.
+     if ( getCookie('onWiki') != 'true' )
+     {
+         document.cookie = 'onWiki=true';
+     }
+
     // Added logic for save dialog. --timathom
     if ( getCookie('saved') != 'saved')
     {
@@ -383,30 +389,47 @@ $(document).ready(function() {
 
 
     $('#wiki_switch_button').click(function() {
-
+        
+        // Set cookie for showing wiki screen on dialog close.
+        if ( getCookie('onWiki') != 'true' )
+        {
+            document.cookie = 'onWiki=true';
+        }
         $('.wiki_edit').remove();
 
-	wikiCheck();
+	    wikiCheck();
 
 
         $('#xml_switch_button').css({"background":"#0078e7"});
-	$(this).unbind();
+	
+	    $(this).unbind();
 
     });
 
     $('#xml_switch_button').click(function() {
-
-
+    
+    // Unset "onWiki" cookie. --timathom
+    if ( getCookie('onWiki') == 'true' )
+    {
+        document.cookie = 'onWiki=';
+    }
+    
 	editXML();
 
 
 	$('#wiki_switch_button').bind('click', function() {
 	    
-            $('.wiki_edit').remove();
+        // Set cookie for showing wiki screen on dialog close.
+        if ( getCookie('onWiki') != 'true' )
+        {
+            document.cookie = 'onWiki=true';
+        }
+        
+        $('.wiki_edit').remove();
 	    
 	    wikiCheck();
 
-            $('#xml_switch_button').css({"background":"#0078e7"});
+        $('#xml_switch_button').css({"background":"#0078e7"});
 	    $(this).unbind();
 	});
 
@@ -610,18 +633,55 @@ function makePromptDialog( lstrSelector, lstrTitle, callback )
 {
     $( lstrSelector ).dialog({
         autoOpen: true,
-        resizable: false,
+        resizable: true,
         modal: true,
         width: 'auto',
         closeOnEscape: true,
         title: lstrTitle,
         buttons:{
-            "OK":function(){
-            	callback(this);
+            "OK":function(){            	            	                
+                callback(this);     
+                if ( getCookie('onWiki') == 'true' )   
+                {
+                    $('#entity_name').hide();
+           	        $('.wiki_edit').hide();
+           	        $('#get_wiki').hide();
+           	        $('#wiki_switch').hide();
+           	        $('#post_wiki').hide();
+           	    }
+           	    else
+           	    {
+           	        $('.main_edit').hide();
+           	        $('#entity_name').hide();
+           	        $('#wiki_switch').hide();
+           	    }
             }
         },
         close:function(){
             $(this).remove();
+            if ( getCookie('onWiki') == 'true' )   
+            {
+                 $('#entity_name').show();
+           		 $('.wiki_edit').show();
+           		 $('#get_wiki').show();
+           		 $('#wiki_switch').show();
+           		 $('#post_wiki').show();
+                 $('.main_edit').hide();           		 
+            }
+            else
+            {
+                 $('.main_edit').show();
+                 $('#entity_name').show();
+                 // Check to see if there is already wiki markup. If so, show switcher. --timathom
+                 if ( getCookie('wiki') == 'present' )   
+                 {
+                     $('#wiki_switch').show();    	                           	
+                 }
+                 else
+                 {
+                     $('#wiki_switch').hide();
+                 }                 
+            }	                        
         }
     });
 

@@ -6,6 +6,8 @@
     					       $('.main_edit').hide();
     					       $('#wiki_switch').hide();    
     					       $('#entity_name').hide();
+    					       
+    					       document.cookie = "onWiki="; // Unset "onWiki" cookie. --timathom
     					       					       
     					       // $('#main_content').prepend('<img id="loading-image" src="style/images/loading.gif" alt="loading"/>');
     
@@ -28,8 +30,7 @@
     
     						   //xml must be valid in order for viaf ingestion to begin
     						   if(lboolValid)
-    						   {
-    						       
+    						   {    						       
     						       var lobjeac = new eac();
     						       lobjeac.loadXMLString( lstrXML );
     
@@ -71,12 +72,11 @@
     		      //registrer click event that will start worlcat ingestion
     		      $('#ingest_worldcat').on('click', function()
     
-    					       {
-    
-    						   $('.main_edit').hide();
+    					       {                              
+    						   $('.main_edit').hide();    						   
     						   $('#wiki_switch').hide();    
-    						   $('#entity_name').hide();
-    						   
+    						   $('#entity_name').hide();    						       						  
+    						   document.cookie = "onWiki="; // Unset "onWiki" cookie. --timathom
     						   //$('#main_content').prepend('<img id="loading-image" src="style/images/loading.gif" alt="loading"/>');
     						   
     						   var lstrXML = editor.getValue();
@@ -98,8 +98,7 @@
     
     						       //xml must be valid in order for worlcat ingestion to begin
     						       if(lboolValid)
-    						       {
-    							   
+    						       {    							   
     							   var lobjeac = new eac();
     							   lobjeac.loadXMLString( lstrXML );
     
@@ -143,7 +142,7 @@
     function ingest_viaf_NameEntry_Sources( lobjEac, lstrName, callback )
     {
         //dialog form to confirm search string to use to search viaf
-        $('body').append("<div id=\"dialog-form\" title=\"Viaf Search\"> \
+        $('body').append("<div id=\"dialog-form\" title=\"Viaf search\"> \
     <p class=\"validate-prompt\">Please choose or click Cancel!</p> \
     <form> \
     <fieldset> \
@@ -156,12 +155,12 @@
     
         
     
-        makePromptDialog('#dialog-form', 'VIAF name search?', function(dialog)
+        makePromptDialog('#dialog-form', 'VIAF Name Search', function(dialog)
     		     {
     			 var lstrName = $('input[name="name"]').val();
     
             		 if(lstrName == '')
-            		 {cd
+            		 {
             		     //need name to continue
             		     $('.validate-prompt').show();
             		 }
@@ -170,9 +169,7 @@
             		     //close dialog
             		     $(dialog).dialog("close");
     			         $(dialog).remove();
-    			     
-    			  
-    			     
+    			         			      			    
     			     $('#main_content').prepend('<img id="loading-image" src="style/images/loading.gif" alt="loading"/>');
     
     			     lstrName = encode_utf8(lstrName);
@@ -808,7 +805,7 @@
      */
     function ingest_worldcat_elements( lobjEac, lstrName, callback )
     {
-        $('body').append("<div id=\"dialog-form\" title=\"WorldCat Search\"> \
+        $('body').append("<div id=\"dialog-form\" title=\"WorldCat search\"> \
     <p class=\"validate-prompt\">Please choose or click Cancel!</p> \
     <form> \
     <fieldset> \
@@ -821,7 +818,7 @@
         $('.ingest_button').show();
     
         //prompt user to enter search string for WorldCat search
-        makePromptDialog('#dialog-form', 'WorldCat name search?', function(dialog)
+        makePromptDialog('#dialog-form', 'WorldCat Name Search', function(dialog)
     		     {
     			 var lstrName = $('input[name="name"]').val();
     
@@ -830,10 +827,7 @@
             		     $('.validate-prompt').show();
             		 }
             		 else
-            		 {
-            		     //  $('.ingest_button').hide();
-    		    	     //  $('#save_eac').hide();
-    			     //  $('#convert_to_wiki').hide();
+            		 {            		     
     			     
     			     $('#main_content').prepend('<img id="loading-image" src="style/images/loading.gif" alt="loading"/>');
     			     $(dialog).dialog("close");
@@ -1049,13 +1043,7 @@
     															     });
     											 }
     										     });
-    									 });
-    									 
-    	        			 /* This was throwing a warning. Do we need? --timathom
-    	        			 $(dialog).dialog("close");
-    					     $('.main_edit').show();
-    	            		 $(dialog).remove();
-    	            		 */
+    									 });    									     	        		
         				     });
     			 }
     		     });

@@ -52,7 +52,7 @@ function setupWikiLogin( callback )
 </form></div>");
 
     //display login form
-    makePromptDialog('#dialog-form', 'Wiki Login?', function(dialog)
+    makePromptDialog('#dialog-form', 'Wiki Login', function(dialog)
 		     {
 			 var lstrUserName = $('input[name="username"]').val();
 			 var lstrPassword = $('input[name="password"]').val();
@@ -101,15 +101,12 @@ function setupWikiLogout()
 function setupGetWiki()
 {
     jQuery('#get_wiki').on('click', function()
-			   {
-			       
-			       
+			   {			       			       
 			       $('.main_edit').hide();
 			       $('.wiki_edit').hide();
 			       $('#wiki_switch').hide();
 			       $('#get_wiki').hide();
-			       $('#entity_name').hide();
-			       
+			       $('#entity_name').hide();			       			       			      		      
 
 			       //$('#get_wiki').after('<img id="loading-image" src="style/images/loading.gif" alt="loading"/>');
 
@@ -138,10 +135,25 @@ function setupGetWiki()
 				       var lobjeac = new eac();
 				       lobjeac.loadXMLString( lstrXML );
 
-				       var lobjNameEntryPart = lobjeac.getElement('//*[local-name()=\'cpfDescription\']/*[local-name()=\'identity\']/*[local-name()=\'nameEntry\']/*[local-name()=\'part\']');
-				       eac_name = lobjNameEntryPart.childNodes[0].nodeValue;
-				       eac_name = eac_name.trim();
-				       eac_name = encode_utf8(eac_name);
+				       var lobjNameEntryPart; 
+				       if ( lobjeac.getElement('//*[local-name()=\'control\']/*[local-name()=\'otherRecordId\'][@localType=\'dbpedia\']') ) 
+				       {
+				           lobjNameEntryPart = lobjeac.getElement('//*[local-name()=\'control\']/*[local-name()=\'otherRecordId\'][@localType=\'dbpedia\']');
+				           //= lobjeac.getElement('//*[local-name()=\'cpfDescription\']/*[local-name()=\'identity\']/*[local-name()=\'nameEntry\']/*[local-name()=\'part\']');
+				           eac_name = lobjNameEntryPart.childNodes[0].nodeValue;
+				           eac_name = eac_name.trim();
+				           eac_name = encode_utf8(eac_name);
+				           eac_name = eac_name.substring(40);
+        				           
+				       }
+				       else 
+				       {
+				           lobjNameEntryPart = lobjeac.getElement('//*[local-name()=\'cpfDescription\']/*[local-name()=\'identity\']/*[local-name()=\'nameEntry\']/*[local-name()=\'part\']');
+				           //= lobjeac.getElement('//*[local-name()=\'cpfDescription\']/*[local-name()=\'identity\']/*[local-name()=\'nameEntry\']/*[local-name()=\'part\']');
+     				       eac_name = lobjNameEntryPart.childNodes[0].nodeValue;
+     				       eac_name = eac_name.trim();
+     				       eac_name = encode_utf8(eac_name);
+				       }				       				       				       				      
 
 				       searchWiki(eac_name);
 				   }else
@@ -175,7 +187,7 @@ function searchWiki( lstrSearch )
     
 
 
-    $('body').append("<div id=\"dialog-form\" title=\"Wiki Search\"> \
+    $('body').append("<div id=\"dialog-form\" title=\"Wiki search\"> \
 <p class=\"validate-prompt\">Cannot be blank!</p> \
 <form> \
 <fieldset> \
@@ -188,7 +200,7 @@ function searchWiki( lstrSearch )
    
 
     //propt user to enter search string for wiki search
-    makePromptDialog('#dialog-form', 'Wiki Search?', function(dialog)
+    makePromptDialog('#dialog-form', 'Wiki Search', function(dialog)
 		     {
 			 var lstrUserSearch = $('input[name="search"]').val();
 
@@ -197,14 +209,14 @@ function searchWiki( lstrSearch )
         		     $('.validate-prompt').show();
         		 }
         		 else
-        		 {
+        		 {        		             		     
         		     $('#get_wiki').hide();
-			     $('#get_wiki').after('<img id="loading-image" src="style/images/loading.gif" alt="loading"/>');
+			         $('#get_wiki').after('<img id="loading-image" src="style/images/loading.gif" alt="loading"/>');			         			        			         			         
 
-        		     lstrUserSearch = encode_utf8(lstrUserSearch);
+        		     lstrUserSearch = encode_utf8(lstrUserSearch);        		             		  
 
         		     $(dialog).dialog("close");
-			     $(dialog).remove();
+			         $(dialog).remove();			         			        
 
 			     //post to ajax wiki controller to search wiki and get results
 			     $.post('ajax/wiki_api.php', { 'action' : 'search', 'title' : lstrUserSearch }, function(response)
@@ -221,11 +233,7 @@ function searchWiki( lstrSearch )
 					    //alert(response);
 					    $('#loading-image').remove();
 					    $('#get_wiki').show();
-					    
-					    
-					    
-					    
-
+					    					    					  					
 					    return;
 					}
 
@@ -271,8 +279,7 @@ function displayWikiSearch( lobjTitles, callback )
 
     //register click event to continue process once user choses result
     $('#get_chosen_wiki').on('click', function()
-			     {
-				 
+			     {				 				 
 
 				 if( typeof $('input[name="chosen_title"]:checked').val() == 'undefined' )
 				 {
@@ -307,8 +314,9 @@ function displayWikiSearch( lobjTitles, callback )
     //register click event to cancel process
     $('#get_chosen_wiki_no_match').on('click', function()
 				      {
-					  callback('!new_wiki_page!');
-
+					  
+					  callback('!new_wiki_page!');					                        
+					  
 					  $('.form_container').remove();
 					  $('.wiki_edit').show();
 					  $('#wiki_switch').show();
@@ -458,7 +466,7 @@ function setupPostWiki()
 </form></div>");
 
 						     //get wiki page title from editor if new wiki page
-						     makePromptDialog('#dialog-form', 'Wiki Title?', function(dialog)
+						     makePromptDialog('#dialog-form', 'Wiki Title', function(dialog)
 								      {
 									  var lstrTitle = $('input[name="title"]').val();
 
@@ -533,7 +541,7 @@ function getUserComments( lboolDraft )
 </fieldset> \
 </form></div>");
 
-    makePromptDialog('#dialog-form', 'Wiki Comment?', function(dialog)
+    makePromptDialog('#dialog-form', 'Wiki Comment: Please Explain and Document Your Edits', function(dialog)
 		     {
 			 var lstrComments = $('input[name="comments"]').val();
 
