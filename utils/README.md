@@ -9,7 +9,7 @@ RAMP utilities
 
 ## 1 Requirements
 
-  * XSLT 2.0 processor like Saxon-HE 9+ or desktop XML editor like oXygen
+  * XSLT 2.0 processor like Saxon-HE 9+ or a desktop XML editor like oXygen
   * Bash shell  
 
 ## 2 File merging
