@@ -35,10 +35,10 @@ body {
     line-height: 1;
     margin:0;
     padding:0;
-    background: #F2FAFF;
+	/* background: #F2FAFF; */
     color:#0F141A;
     font-family: "Open Sans", sans-serif;
-    font-size: 1em;
+    font-size: .8em;
 }
 
 ol, ul {
@@ -80,9 +80,7 @@ header {
     padding-bottom: .5%;
     margin:0;
     width:100%;
-
     background:#49b6ff;
-
     color:#EBFFEB;
     font-family: "Open Sans",sans-serif;
     font-weight:300;
@@ -143,7 +141,6 @@ ul, menu, dir {
     -webkit-margin-end: 0;
     -webkit-padding-start:0;
     margin:0;
-
 }
 
 
@@ -499,7 +496,7 @@ ul, menu, dir {
 }
 
 .update_button {
-    margin-left: 2%;
+    margin-left: .5%;
     margin-top: .5%;
 }
 
