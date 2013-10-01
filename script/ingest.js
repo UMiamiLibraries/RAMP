@@ -923,8 +923,7 @@
     										     {
     											 try
     											 {
-    											     var lobjData = JSON.parse(response);  
-                                                     //alert(response);   											     
+    											     var lobjData = JSON.parse(response);                                                          											    
     											 }
     											 catch(e) //response should be JSON so if not, throw error
     											 {    											     
@@ -955,7 +954,7 @@
     
     											 for( var i = 0; i < lobjCpfRelationList.length; i++ )
     											 {
-    											     var CpfRelation = lobjCpfRelationList[i];
+    											     var CpfRelation = lobjCpfRelationList[i];    											     
     											     lobjEac.addCPFRelation(CpfRelation);
     											     //editor.getSession().setValue(lobjEac.getXML()); // added by timathom
     											 }
@@ -1102,10 +1101,10 @@
     {
         var lstrHTML = "<div class=\"form_container\">";
     
-     lstrHTML += "<div class=\"instruction_div\"><h2 class=\"instruction\" style=\"font-weight:800; font-size:1.5em;\">Ingest from WorldCat Identities</h2><p class=\"instruction\">This step draws on <a href=\"http://worldcat.org/identities/\" title=\"Link to WorldCat Identities\" target=\"_blank\">WorldCat Identities</a> to pull in a variety of data (works by, works about, related entities, and subject headings) associated with the entity you are working with.</p><p class=\"instruction\">The list on the right presents possible matches from WorldCat Identities. Please examine them to select the best match for the current entity.</p><p class=\"instruction\">If you click on a name, you will be taken to its WorldCat Identities page, which may include additional information that will help you decide whether it is an appropriate match. In general, the page with the most information will be the best match.</p><p class=\"instruction\">If there is no appropriate match, click \"Cancel.\"</p></div>";
+     lstrHTML += "<div class=\"instruction_div\"><h2 class=\"instruction\" style=\"font-weight:800; font-size:1.5em;\">Ingest from WorldCat Identities</h2><p class=\"instruction\">This step draws on <a href=\"http://worldcat.org/identities/\" title=\"Link to WorldCat Identities\" target=\"_blank\">WorldCat Identities</a> to pull in a variety of data (works by, works about, related entities, and subject headings) associated with the entity you are working with.</p><p class=\"instruction\">The list on the right presents possible matches from WorldCat Identities. Please examine them to select the best match for the current entity.</p><p class=\"instruction\">If you click on a name, you will be taken to its WorldCat Identities page, which may include additional information that will help you decide whether it is an appropriate match. In general, the page with the most information will be the best match.</p><p class=\"instruction\">If there is no appropriate match, click \"Cancel\" to return to the edit screen.</p></div>";
     
     
-        lstrHTML += "<button id=\"ingest_worldcat_chosen_uri\" class=\"pure-button ingest-ok pure-button-secondary\">Use Selected WorldCat</button>";
+        lstrHTML += "<button id=\"ingest_worldcat_chosen_uri\" class=\"pure-button ingest-ok pure-button-secondary\">Use Selected WorldCat Identity</button>";
         lstrHTML += "&nbsp;<button id=\"ingest_worldcat_chosen_uri_cancel\" class=\"pure-button ingest-cancel pure-button-secondary\">Cancel</button>";
     
         lstrHTML += "<div class=\"user_help_form\">";
@@ -1179,7 +1178,7 @@
     function display_possible_worldcat_subjects( lobjPossibleSubjects, callback )
     {
         var lstrHTML = "<div class=\"form_container\">";
-        lstrHTML += "<div class=\"instruction_div\"><h2 class=\"instruction\" style=\"font-weight:800; font-size:1.5em;\">Ingest from WorldCat Identities</h2><p class=\"instruction\">Here is a list of FAST subject headings from this entity's WorldCat Identities page. Select appropriate headings to add to your EAC-CPF record.</p></div>";
+        lstrHTML += "<div class=\"instruction_div\"><h2 class=\"instruction\" style=\"font-weight:800; font-size:1.5em;\">Ingest from WorldCat Identities</h2><p class=\"instruction\">Here is a list of FAST subject headings from this entity's WorldCat Identities page. Select appropriate headings to add to your EAC-CPF record.</p><p class=\"instruction\">If there are no appropriate matches, click \"Cancel\" to return to the edit screen.</p></div>";
      
         lstrHTML += "<button id=\"ingest_worldcat_chosen_subjects\" class=\"pure-button pure-button-secondary\">Use Selected Subjects</button>";
     

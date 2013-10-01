@@ -23,7 +23,7 @@ include('header.php');
     
   <span id="ingest_buttons" class="main_edit">
   <p id="start_here" class="main_edit"> Start here: </p>
-  <button id="ingest_worldcat" class="ingest_button pure-button pure-button-primary main_edit">Ingest WorldCat</button>
+  <button id="ingest_worldcat" class="ingest_button pure-button pure-button-primary main_edit">Ingest WorldCat Identities</button>
   <div class="worldcat_arrow arrows main_edit">&rarr;</div>
 
   <button id="ingest_viaf" class="ingest_button pure-button pure-button-primary main_edit">Ingest VIAF</button>
