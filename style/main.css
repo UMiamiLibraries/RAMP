@@ -1127,6 +1127,13 @@ background:#0078e7;
   margin:1% 0 1% 1%;
 }
 
+#get_chosen_wiki_cancel {
+
+/* background:crimson; */
+  background:#0078e7;
+  margin:1% 0 1% 2%;
+}
+
 #form_wrapper {
     margin:1% 0 2% 0;
 }

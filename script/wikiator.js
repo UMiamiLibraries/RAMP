@@ -43,11 +43,11 @@ function setupWikiLogin( callback )
 <form> \
 <fieldset> \
 <label for=\"username\">Username</label> \
-<input type=\"input\" name=\"username\" id=\"username\" class=\"text ui-widget-content ui-corner-all\" value=\"\"/> \
+<input type=\"input\" size=\"35\" name=\"username\" id=\"username\" class=\"text ui-widget-content ui-corner-all\" value=\"\"/> \
 </fieldset> \
 <fieldset> \
 <label for=\"password\">Password</label> \
-<input type=\"password\" name=\"password\" id=\"password\" class=\"text ui-widget-content ui-corner-all\" value=\"\"/> \
+<input type=\"password\" size=\"35\" name=\"password\" id=\"password\" class=\"text ui-widget-content ui-corner-all\" value=\"\"/> \
 </fieldset> \
 </form></div>");
 
@@ -192,7 +192,7 @@ function searchWiki( lstrSearch )
 <form> \
 <fieldset> \
 <label for=\"search\">Search</label> \
-<input type=\"text\" name=\"search\" id=\"search\" class=\"text ui-widget-content ui-corner-all\" value=\"" + decode_utf8(lstrSearch) + "\"/> \
+<input type=\"text\" size=\"35\" name=\"search\" id=\"search\" class=\"text ui-widget-content ui-corner-all\" value=\"" + decode_utf8(lstrSearch) + "\"/> \
 </fieldset> \
 </form></div>");
 
@@ -262,6 +262,7 @@ function displayWikiSearch( lobjTitles, callback )
     var lstrHTML = "<div class=\"form_container\" style=\"top: 45px;\"><div class=\"user_help_form\" style=\"line-height:1em;\">";
     lstrHTML += "<button id=\"get_chosen_wiki\" class=\"pure-button pure-button-secondary\">Use Selected Title</button>";
     lstrHTML += "<button id=\"get_chosen_wiki_no_match\" class=\"pure-button pure-button-secondary\">No Match (Create New)</button>";
+    lstrHTML += "<button id=\"get_chosen_wiki_cancel\" class=\"pure-button pure-button-secondary\">Cancel</button>";
 
     lstrHTML += "<div id=\"form_wrapper\"><h2>Please choose page to import from Wikipedia:</h2><div class=\"form_note\">Wikipedia&#39;s search index is updated every morning. New pages will take a day to show up in the index.</div></div>";
 
@@ -317,9 +318,23 @@ function displayWikiSearch( lobjTitles, callback )
 					  
 					  callback('!new_wiki_page!');					                        
 					  
-					  $('.form_container').remove();
+					  $('.form_container').remove();					  
 					  $('.wiki_edit').show();
 					  $('#wiki_switch').show();
+				      });
+				      
+    //register click event to cancel process
+    $('#get_chosen_wiki_cancel').on('click', function()
+				      {
+					  
+					  //callback('');					                        
+					  
+					  $('.form_container').remove();
+					  $('#loading-image').remove();
+					  $('#entity_name').show();
+					  $('.wiki_edit').show();
+					  $('#wiki_switch').show();
+					  
 				      });
 }
 
@@ -461,7 +476,7 @@ function setupPostWiki()
 <form> \
 <fieldset> \
 <label for=\"title\">Title</label> \
-<input type=\"text\" name=\"title\" id=\"title\" class=\"text ui-widget-content ui-corner-all\" value=\"" + decode_utf8(eac_name) + "\"/> \
+<input type=\"text\" size=\"35\" name=\"title\" id=\"title\" class=\"text ui-widget-content ui-corner-all\" value=\"" + decode_utf8(eac_name) + "\"/> \
 </fieldset> \
 </form></div>");
 
@@ -537,7 +552,7 @@ function getUserComments( lboolDraft )
 <form> \
 <fieldset> \
 <label for=\"title\">Comments</label> \
-<input name=\"comments\" id=\"comments\" size=\"50\" maxlength=\"255\" /> \
+<input name=\"comments\" id=\"comments\" size=\"60\" maxlength=\"255\" /> \
 </fieldset> \
 </form></div>");
 
