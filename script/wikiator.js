@@ -552,7 +552,7 @@ function getUserComments( lboolDraft )
 <form> \
 <fieldset> \
 <label for=\"title\">Comments</label> \
-<input name=\"comments\" id=\"comments\" size=\"75\" maxlength=\"255\" /> \
+<input name=\"comments\" id=\"comments\" size=\"65\" maxlength=\"255\" /> \
 </fieldset> \
 </form></div>");
 
