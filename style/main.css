@@ -837,15 +837,15 @@ h1#entity_name {
     border: solid black 1px;
 }
 
-#gtselected:focus {
-    color:black;
-}
-
 #gtselectedtext {
     background:#0078e7;
     margin-bottom:5%;
     font-weight:800; 
     color:white;
+}
+
+button#gtselectedtext:focus {
+    color:black;
 }
 
 #ingest_viaf {
@@ -892,15 +892,15 @@ h1#entity_name {
     width: 150px;
 }
 
-#ltselected:focus {
-    color:black;
-}
-
 #ltselectedtext {
     background:#0078e7;
     margin-top:5%;
     font-weight:800;
     color:white;    
+}
+
+button#ltselectedtext:focus {
+    color:black;
 }
 
 #menu a {
