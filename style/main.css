@@ -1113,6 +1113,61 @@ background:#0078e7;
 
 }
 
+#wikimarkup {
+    border: solid black 1px;
+}
+
+#get_wiki_text {
+    border: solid black 1px;
+}
+
+#wiki_article {
+    font-weight:800;    
+}
+
+#wiki_article a {
+    font-weight:500;
+}
+
+#local_wiki {
+    font-weight:800;
+}
+
+#local_wiki a {
+    font-weight:500;
+}
+
+#gtselectedtext {
+    background:#0078e7;
+    margin-bottom:5%;
+    font-weight:800; 
+    color:white;
+}
+#ltselectedtext {
+    background:#0078e7;
+    margin-top:5%;
+    font-weight:800;
+    color:white;    
+}
+
+#try_with_captcha {
+    background:#0078e7;
+    margin:1%;
+}
+
+#captcha_div {
+    width:auto;
+    float:left;    
+}
+#captcha_input {
+    margin-left:0;
+}
+
+.captcha {
+    width:auto;
+    float:left;
+}
+
 #get_chosen_wiki {
  /*   background: #7AB800; */
   background:#0078e7;
@@ -1125,6 +1180,13 @@ background:#0078e7;
 /* background:crimson; */
   background:#0078e7;
   margin:1% 0 1% 1%;
+}
+
+#get_chosen_wiki_cancel {
+
+/* background:crimson; */
+  background:#0078e7;
+  margin:1% 0 1% 2%;
 }
 
 #form_wrapper {
@@ -1176,16 +1238,6 @@ background:#0078e7;
     font-size: 1.4em;
     margin-bottom: 1%;
 }
-
-#gtselectedtext {
-
-color:black;
-}
-
-#ltselectedtext {
-color:black;
-}
-
 
 #wiki_switch {
 display:block;
@@ -1265,13 +1317,19 @@ margin:2% 4% 0 4%;
 
 #export_box {
 
-
 margin:4% 4%;
 
 }
 
 #new_box {
-
-
 margin:4% 4%;
+}
+
+#new_box h1 {
+    margin-bottom:3%;
+}
+
+#new_eac_record {
+    margin:1%;
+    font-size:1.4em;
 }

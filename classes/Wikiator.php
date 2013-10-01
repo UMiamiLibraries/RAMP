@@ -141,7 +141,7 @@ class Wikiator
 
 			$lobjExactMatch['title'] = urldecode($lstrSearch);
 			$lobjExactMatch['titlesnippet'] = urldecode($lstrSearch);
-			$lobjExactMatch['snippet'] = "Page exists with exact match. <a target=\"_blank\" href=\"http://en.wikipedia.org/wiki/{$lstrEncodedSearch}\">Link to page</a>";
+			$lobjExactMatch['snippet'] = "Page exists with exact match. <a target=\"_blank\" href=\"http://en.wikipedia.org/wiki/{$lstrEncodedSearch}\">View existing Wikipedia page</a>";
 		}
 
 		//curl options setup for this request
@@ -165,7 +165,7 @@ class Wikiator
 		{
 			$lstrEncodedTitle = self::encodeForUrl($lobjSearchList[$i]['title']);
 
-			$lobjSearchList[$i]['snippet'] = $lobjMatch[1][$i] . "<br/><a target=\"_blank\" href=\"http://en.wikipedia.org/wiki/{$lstrEncodedTitle}\">Link to page</a>";
+			$lobjSearchList[$i]['snippet'] = $lobjMatch[1][$i] . "<br/><a target=\"_blank\" href=\"http://en.wikipedia.org/wiki/{$lstrEncodedTitle}\">View existing Wikipedia page</a>";
 		}
 
 		$lobjMatch = array();
@@ -261,6 +261,7 @@ class Wikiator
 	 */
 	public function editWikiPage( $lstrPageTitle, $lstrWikiText, $lstrEncodedTitle = '', $lstrComments = "", $lstrCaptchaID = '', $lstrCaptchaWord = '' )
 	{
+              
 		$this->strPageTitle = $lstrPageTitle;
 		$this->setWikiEditInfo($lstrEncodedTitle);
 

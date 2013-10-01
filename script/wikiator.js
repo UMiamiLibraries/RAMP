@@ -43,11 +43,11 @@ function setupWikiLogin( callback )
 <form> \
 <fieldset> \
 <label for=\"username\">Username</label> \
-<input type=\"input\" name=\"username\" id=\"username\" class=\"text ui-widget-content ui-corner-all\" value=\"\"/> \
+<input type=\"input\" size=\"35\" name=\"username\" id=\"username\" class=\"text ui-widget-content ui-corner-all\" value=\"\"/> \
 </fieldset> \
 <fieldset> \
 <label for=\"password\">Password</label> \
-<input type=\"password\" name=\"password\" id=\"password\" class=\"text ui-widget-content ui-corner-all\" value=\"\"/> \
+<input type=\"password\" size=\"35\" name=\"password\" id=\"password\" class=\"text ui-widget-content ui-corner-all\" value=\"\"/> \
 </fieldset> \
 </form></div>");
 
@@ -192,7 +192,7 @@ function searchWiki( lstrSearch )
 <form> \
 <fieldset> \
 <label for=\"search\">Search</label> \
-<input type=\"text\" name=\"search\" id=\"search\" class=\"text ui-widget-content ui-corner-all\" value=\"" + decode_utf8(lstrSearch) + "\"/> \
+<input type=\"text\" size=\"35\" name=\"search\" id=\"search\" class=\"text ui-widget-content ui-corner-all\" value=\"" + decode_utf8(lstrSearch) + "\"/> \
 </fieldset> \
 </form></div>");
 
@@ -262,6 +262,7 @@ function displayWikiSearch( lobjTitles, callback )
     var lstrHTML = "<div class=\"form_container\" style=\"top: 45px;\"><div class=\"user_help_form\" style=\"line-height:1em;\">";
     lstrHTML += "<button id=\"get_chosen_wiki\" class=\"pure-button pure-button-secondary\">Use Selected Title</button>";
     lstrHTML += "<button id=\"get_chosen_wiki_no_match\" class=\"pure-button pure-button-secondary\">No Match (Create New)</button>";
+    lstrHTML += "<button id=\"get_chosen_wiki_cancel\" class=\"pure-button pure-button-secondary\">Cancel</button>";
 
     lstrHTML += "<div id=\"form_wrapper\"><h2>Please choose page to import from Wikipedia:</h2><div class=\"form_note\">Wikipedia&#39;s search index is updated every morning. New pages will take a day to show up in the index.</div></div>";
 
@@ -317,9 +318,23 @@ function displayWikiSearch( lobjTitles, callback )
 					  
 					  callback('!new_wiki_page!');					                        
 					  
-					  $('.form_container').remove();
+					  $('.form_container').remove();					  
 					  $('.wiki_edit').show();
 					  $('#wiki_switch').show();
+				      });
+				      
+    //register click event to cancel process
+    $('#get_chosen_wiki_cancel').on('click', function()
+				      {
+					  
+					  //callback('');					                        
+					  
+					  $('.form_container').remove();
+					  $('#loading-image').remove();
+					  $('#entity_name').show();
+					  $('.wiki_edit').show();
+					  $('#wiki_switch').show();
+					  
 				      });
 }
 
@@ -365,12 +380,12 @@ function getWiki( lstrTitle, lstrLink )
 		   $('.wiki_edit').show();
 		   $('#get_wiki').show();
 		   $('#wiki_switch').show();
-		   $('#post_wiki').show();
+		   $('#post_wiki').show();		   		  
 		   
 		   $('#wikieditor').append("<div class=\"wiki_container\" style='margin: 175px 15px 15px 20px;'> \
-<button id=\"gtselectedtext\" title=\"Click in right-hand box where you want text to appear. Highlight text on left. Use arrow to transfer text (click or use keypad).\" class=\"pure-button pure-button-secondary\">&gt;</button><br /> \
-<button id=\"ltselectedtext\" title=\"Click in left-hand box where you want text to appear. Highlight text on right. Use arrow to transfer text (click or use keypad).\" class=\"pure-button pure-button-secondary\">&lt;</button></div> \
-<div class=\"wiki_container\"><h1 id=\"wiki_article\">Wikipedia article (to be submitted to Wikipedia)<a style=\"font-size:small; float:right; margin-top:3px;\" target=\"_blank\" href=\"" + lstrLink + "\">Link to existing Wikipedia page</a></h1><textarea id=\"get_wiki_text\">" + response + "</textarea></div>");
+<button id=\"gtselectedtext\" class=\"pure-button ingest-cancel pure-button-secondary\" title=\"Click in right-hand box where you want text to appear. Highlight text on left. Use arrow to transfer text (click or use keypad).\" class=\"pure-button pure-button-secondary\">&gt;</button><br /> \
+<button id=\"ltselectedtext\" class=\"pure-button ingest-cancel pure-button-secondary\" title=\"Click in left-hand box where you want text to appear. Highlight text on right. Use arrow to transfer text (click or use keypad).\" class=\"pure-button pure-button-secondary\">&lt;</button></div> \
+   <div class=\"wiki_container\"><h1 id=\"wiki_article\">Wikipedia article (to be submitted to Wikipedia)<a style=\"font-size:small; float:right; margin-top:3px;\" target=\"_blank\" href=\"https://en.wikipedia.org/wiki/" + encodeURI(lstrTitle) + "\">View existing Wikipedia page</a></h1><textarea id=\"get_wiki_text\">" + response + "</textarea></div>");
 		   $('#get_wiki_text').height($('#wikimarkup').height());
 
 		   $('#loading-image').remove();
@@ -461,7 +476,7 @@ function setupPostWiki()
 <form> \
 <fieldset> \
 <label for=\"title\">Title</label> \
-<input type=\"text\" name=\"title\" id=\"title\" class=\"text ui-widget-content ui-corner-all\" value=\"" + decode_utf8(eac_name) + "\"/> \
+<input type=\"text\" size=\"35\" name=\"title\" id=\"title\" class=\"text ui-widget-content ui-corner-all\" value=\"" + decode_utf8(eac_name) + "\"/> \
 </fieldset> \
 </form></div>");
 
@@ -537,7 +552,7 @@ function getUserComments( lboolDraft )
 <form> \
 <fieldset> \
 <label for=\"title\">Comments</label> \
-<input name=\"comments\" id=\"comments\" size=\"50\" maxlength=\"255\" /> \
+<input name=\"comments\" id=\"comments\" size=\"75\" maxlength=\"255\" /> \
 </fieldset> \
 </form></div>");
 
@@ -566,8 +581,7 @@ function getUserComments( lboolDraft )
  */
 function postWiki( lstrWiki, lstrComments, lboolDraft, lstrCaptchaAnswer, lstrCaptchaId )
 {
-    $('#edit_controls').after('<img id="loading-image" src="style/images/loading.gif" alt="loading"/>');
-    $('#edit_controls').hide();    
+    $('#edit_controls').after('<img id="loading-image" src="style/images/loading.gif" alt="loading"/>');    
     $('.wiki_edit').hide();
     $('#wiki_switch').hide();
     $('#get_wiki').hide();
@@ -599,12 +613,11 @@ function postWiki( lstrWiki, lstrComments, lboolDraft, lstrCaptchaAnswer, lstrCa
 		       makeDialog('#dialog');
 		       
 		       $('#loading-image').remove();
-		       $('#edit_controls').show();    
+		       $('#entity_name').show();
                $('.wiki_edit').show();
-               $('#wiki_switch').show();
                $('#get_wiki').show();
-               $('#post_wiki').show(); 
-		       $('#draft_container').show();
+               $('#wiki_switch').show();
+               $('#post_wiki').show();
 		       return;
 		   }
 
@@ -628,9 +641,12 @@ function postWiki( lstrWiki, lstrComments, lboolDraft, lstrCaptchaAnswer, lstrCa
 		       $('body').append("<div id=\"dialog\"><p>" + response + "</p></div>");
 		       makeDialog('#dialog');
 
-		       $('#loading-image').remove();
-		       $('#post_wiki').show();
-		       $('#draft_container').show();
+		       $('#loading-image').remove();		       
+		       $('#entity_name').show();
+               $('.wiki_edit').show();
+               $('#get_wiki').show();
+               $('#wiki_switch').show();
+               $('#post_wiki').show();
 		       return;
 		   }
 
@@ -648,11 +664,11 @@ function displayCaptcha( lstrUrl, lstrCaptchaId, lboolDraft )
 {
     var lstrHTML = "<div class=\"form_container\" style=\"top: 50px;\"><div class=\"user_help_form\">";
 
-    lstrHTML += "<h3>Please Solve CAPTCHA</h3>";
-    lstrHTML += "<img src=\"" + lstrUrl +"\" /><br/>";
-    lstrHTML += "<input name=\"captcha_ans\" type=\"text\"/><br/>";
-    lstrHTML += "<button id=\"try_with_captcha\" class=\"pure-button pure-button-secondary\">Try again</button>";
-    lstrHTML += "</div></div>";
+    lstrHTML += "<div id=\"captcha_div\"><h3 class=\"captcha\">Please Solve CAPTCHA</h3>";
+    lstrHTML += "<img class=\"captcha\" src=\"" + lstrUrl +"\" /><br/>";
+    lstrHTML += "<input class=\"captcha\" id=\"captcha_input\" name=\"captcha_ans\" type=\"text\"/><br/>";
+    lstrHTML += "<button id=\"try_with_captcha\" class=\"captcha pure-button pure-button-secondary\">Try again</button>";
+    lstrHTML += "</div></div></div>";
 
     $('body').append(lstrHTML);
     jQuery('html,body').animate({scrollTop:0},0); //scroll to top to display form correctly
@@ -664,10 +680,9 @@ function displayCaptcha( lstrUrl, lstrCaptchaId, lboolDraft )
 				  var lstrCaptchaAnswer = $('input[name="captcha_ans"]').val();
 
 				  postWiki( lstrWiki, 'Retry with Captcha', lboolDraft, lstrCaptchaAnswer, lstrCaptchaId );
-				  
-                  $('#loading-image').remove();
+				                    
 				  $('.form_container').remove();
-				  
+								  
 			      });
 }
 
