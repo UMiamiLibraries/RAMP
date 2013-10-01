@@ -930,7 +930,7 @@
                 <xsl:with-param name="pNameType">person</xsl:with-param>
                 <xsl:with-param name="pPersName" select="$pPersName"/>
             </xsl:call-template>
-            <xsl:text> may be associated with the following entities. These names may be useful for creating links to this page from other Wikipedia pages. </xsl:text>
+            <xsl:text> may be associated with the following entities. These names were extracted from the &lt;cpfRelation&gt; elements in the EAC-CPF record and may be useful for creating links to this page from other Wikipedia pages. Some names may be duplicates; however, different name forms can useful for testing whether an entity has an existing page on Wikipedia.</xsl:text>
             <xsl:text>&#10;</xsl:text>
             <xsl:text>&#10;</xsl:text>
             <xsl:text>Uncomment this section to see whether these entities have existing Wikipedia pages.</xsl:text>                       
@@ -971,7 +971,7 @@
                 <xsl:with-param name="pNameType">corporate</xsl:with-param>
                 <xsl:with-param name="pCorpName" select="$pCorpName"/>
             </xsl:call-template>
-            <xsl:text> may be associated with the following entities. These names may be useful for creating links to this page from other Wikipedia pages. </xsl:text>
+            <xsl:text> may be associated with the following entities. These names were extracted from the &lt;cpfRelation&gt; elements in the EAC-CPF record and may be useful for creating links to this page from other Wikipedia pages. Some names may be duplicates; however, different name forms can useful for testing whether an entity has an existing page on Wikipedia.</xsl:text>
             <xsl:text>&#10;</xsl:text>
             <xsl:text>&#10;</xsl:text>
             <xsl:text>Uncomment this section to see whether these entities have existing Wikipedia pages.</xsl:text>                       
