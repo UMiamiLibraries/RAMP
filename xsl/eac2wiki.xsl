@@ -602,7 +602,7 @@
                 </xsl:for-each>
             </xsl:when>
             <xsl:otherwise>
-                <xsl:text>&#10;</xsl:text>
+                
             </xsl:otherwise>
         </xsl:choose>        
     </xsl:template>
@@ -612,60 +612,64 @@
         <xsl:text>&#10;</xsl:text>
         <xsl:text>==Publications==</xsl:text>
         <xsl:text>&#10;</xsl:text>
-        <!-- Check for works by the person or corporate body. -->
-        <xsl:for-each
-            select="eac:eac-cpf/eac:cpfDescription/eac:relations/eac:resourceRelation[@resourceRelationType='creatorOf' and @xlink:role='resource']">
-            <xsl:sort
-                select="translate(eac:relationEntry[1],'ÁÀÉÈÍÓÚÜÑáàéèíóúúüñ','AAEEIOUUNaaeeiouuun')"
-                data-type="text"/>
-            <!-- Old XPath: contains(eac:relationEntry[2], substring-before($pPersName,',')) and contains(eac:relationEntry[2], substring-before(substring-after($pPersName,','),',')) -->
-            <xsl:variable name="vStrLen" select="string-length(eac:relationEntry[1])"/>
-            <xsl:text>*</xsl:text>
-            <xsl:choose>
-                <xsl:when test="normalize-space(child::eac:relationEntry[@localType='creator'])">
-                    <xsl:text>''</xsl:text>
-                </xsl:when>
-                <xsl:otherwise>
-                    <xsl:text>''</xsl:text>
-                </xsl:otherwise>
-            </xsl:choose>
-            <xsl:choose>
-                <xsl:when test="substring(eac:relationEntry[1],$vStrLen)='.'">
-                    <xsl:variable name="vTitleVal"
-                        select="substring(eac:relationEntry[1],1,$vStrLen -1)"/>
-                    <xsl:value-of select="substring-before($vTitleVal,' . ')"/>
-                    <xsl:text>''. </xsl:text>
-                    <xsl:value-of select="substring-after($vTitleVal,' . ')"/>
-                </xsl:when>
-                <xsl:otherwise>
-                    <xsl:value-of select="normalize-space(eac:relationEntry[1])"/>
-                    <xsl:text>''. </xsl:text>
-                </xsl:otherwise>
-            </xsl:choose>
-            <xsl:choose>
-                <xsl:when
-                    test="contains(@xlink:href,'oclc/ocn') and eac:relationEntry[@localType='isbn']">
-                    <xsl:text>{{OCLC|</xsl:text>
-                    <xsl:value-of select="substring-after(@xlink:href,'oclc/ocn')"/>
-                    <xsl:text>}}, </xsl:text>
-                    <xsl:text>ISBN </xsl:text>
-                    <xsl:value-of select="eac:relationEntry[@localType='isbn']"/>
-                </xsl:when>
-                <xsl:when
-                    test="contains(@xlink:href,'oclc/ocn') and not(eac:relationEntry[@localType='isbn'])">
-                    <xsl:text>{{OCLC|</xsl:text>
-                    <xsl:value-of select="substring-after(@xlink:href,'oclc/ocn')"/>
-                    <xsl:text>}}</xsl:text>
-                </xsl:when>
-                <xsl:when
-                    test="eac:relationEntry[@localType='isbn'] and not(contains(@xlink:href,'oclc/ocn'))">
-                    <xsl:text>ISBN </xsl:text>
-                    <xsl:value-of select="eac:relationEntry[@localType='isbn']"/>
-                </xsl:when>
-                <xsl:otherwise/>
-            </xsl:choose>
-            <xsl:text>&#10;</xsl:text>
-        </xsl:for-each>
+        <xsl:choose>
+            <xsl:when test="eac:eac-cpf/eac:cpfDescription/eac:relations/eac:resourceRelation[@resourceRelationType='creatorOf' and @xlink:role='resource']">
+                <!-- Check for works by the person or corporate body. -->
+                <xsl:for-each
+                    select="eac:eac-cpf/eac:cpfDescription/eac:relations/eac:resourceRelation[@resourceRelationType='creatorOf' and @xlink:role='resource']">
+                    <xsl:sort
+                        select="translate(eac:relationEntry[1],'ÁÀÉÈÍÓÚÜÑáàéèíóúúüñ','AAEEIOUUNaaeeiouuun')"
+                        data-type="text"/>
+                    <!-- Old XPath: contains(eac:relationEntry[2], substring-before($pPersName,',')) and contains(eac:relationEntry[2], substring-before(substring-after($pPersName,','),',')) -->
+                    <xsl:variable name="vStrLen" select="string-length(eac:relationEntry[1])"/>
+                    <xsl:text>*</xsl:text>
+                    <xsl:choose>
+                        <xsl:when test="normalize-space(child::eac:relationEntry[@localType='creator'])">
+                            <xsl:text>''</xsl:text>
+                        </xsl:when>
+                        <xsl:otherwise>
+                            <xsl:text>''</xsl:text>
+                        </xsl:otherwise>
+                    </xsl:choose>
+                    <xsl:choose>
+                        <xsl:when test="substring(eac:relationEntry[1],$vStrLen)='.'">
+                            <xsl:variable name="vTitleVal"
+                                select="substring(eac:relationEntry[1],1,$vStrLen -1)"/>
+                            <xsl:value-of select="substring-before($vTitleVal,' . ')"/>
+                            <xsl:text>''. </xsl:text>
+                            <xsl:value-of select="substring-after($vTitleVal,' . ')"/>
+                        </xsl:when>
+                        <xsl:otherwise>
+                            <xsl:value-of select="normalize-space(eac:relationEntry[1])"/>
+                            <xsl:text>''. </xsl:text>
+                        </xsl:otherwise>
+                    </xsl:choose>
+                    <xsl:choose>
+                        <xsl:when
+                            test="contains(@xlink:href,'oclc/ocn') and eac:relationEntry[@localType='isbn']">
+                            <xsl:text>{{OCLC|</xsl:text>
+                            <xsl:value-of select="substring-after(@xlink:href,'oclc/ocn')"/>
+                            <xsl:text>}}, </xsl:text>
+                            <xsl:text>ISBN </xsl:text>
+                            <xsl:value-of select="eac:relationEntry[@localType='isbn']"/>
+                        </xsl:when>
+                        <xsl:when
+                            test="contains(@xlink:href,'oclc/ocn') and not(eac:relationEntry[@localType='isbn'])">
+                            <xsl:text>{{OCLC|</xsl:text>
+                            <xsl:value-of select="substring-after(@xlink:href,'oclc/ocn')"/>
+                            <xsl:text>}}</xsl:text>
+                        </xsl:when>
+                        <xsl:when
+                            test="eac:relationEntry[@localType='isbn'] and not(contains(@xlink:href,'oclc/ocn'))">
+                            <xsl:text>ISBN </xsl:text>
+                            <xsl:value-of select="eac:relationEntry[@localType='isbn']"/>
+                        </xsl:when>
+                        <xsl:otherwise/>
+                    </xsl:choose>
+                    <xsl:text>&#10;</xsl:text>
+                </xsl:for-each>
+            </xsl:when>
+        </xsl:choose>        
     </xsl:template>
 
     <!-- Output External links section. -->
@@ -681,74 +685,78 @@
             <xsl:with-param name="pCorpName" select="$pCorpName"/>
         </xsl:call-template>
         <xsl:text>&#10;</xsl:text>
-        <!-- Add ID nonstandard WorldCat IDs -->
-        <xsl:if test="eac:eac-cpf/eac:control/eac:otherRecordId[@localType='WCI']">
-            <xsl:text>*{{worldcat|description="</xsl:text>
-            <xsl:call-template name="tParseName2">
-                <xsl:with-param name="pNameType" select="'person' or 'corporate'"/>
-                <xsl:with-param name="pPersName" select="$pPersName"/>
-                <xsl:with-param name="pCorpName" select="$pCorpName"/>
-            </xsl:call-template>
-            <xsl:text>'s WorldCat Identities page"|name=</xsl:text>
-            <xsl:call-template name="tParseName2">
-                <xsl:with-param name="pNameType" select="'person' or 'corporate'"/>
-                <xsl:with-param name="pPersName" select="$pPersName"/>
-                <xsl:with-param name="pCorpName" select="$pCorpName"/>
-            </xsl:call-template>
-            <xsl:text>|id=</xsl:text>
-            <xsl:value-of select="translate(substring-after(eac:eac-cpf/eac:control/eac:otherRecordId[@localType='WCI'],'WCI:'),' ','+')"/>
-            <xsl:text>}}</xsl:text>
-        </xsl:if>                
-        <xsl:text>&#10;</xsl:text>
-        <!-- Check for archival/digital collections created by or associated with the person or corporate body. -->
-        <xsl:for-each
-            select="eac:eac-cpf/eac:cpfDescription/eac:relations/eac:resourceRelation[@xlink:role='archivalRecords']">
-            <xsl:sort
-                select="translate(eac:relationEntry,'ÁÀÉÈÍÓÚÜÑáàéèíóúúüñ','AAEEIOUUNaaeeiouuun')"
-                data-type="text"/>
-            <xsl:text>*[</xsl:text>
-            <xsl:choose>
-                <xsl:when test="contains(@xlink:href,' ')">
-                    <xsl:value-of select="normalize-space(translate(@xlink:href,' ','+'))"/>
-                </xsl:when>
-                <xsl:otherwise>
+        <xsl:choose>
+            <xsl:when test="eac:eac-cpf/eac:control/eac:otherRecordId[@localType='WCI']">
+                <!-- Add ID nonstandard WorldCat IDs -->        
+                <xsl:text>*{{worldcat|description="</xsl:text>
+                <xsl:call-template name="tParseName2">
+                    <xsl:with-param name="pNameType" select="'person' or 'corporate'"/>
+                    <xsl:with-param name="pPersName" select="$pPersName"/>
+                    <xsl:with-param name="pCorpName" select="$pCorpName"/>
+                </xsl:call-template>
+                <xsl:text>'s WorldCat Identities page"|name=</xsl:text>
+                <xsl:call-template name="tParseName2">
+                    <xsl:with-param name="pNameType" select="'person' or 'corporate'"/>
+                    <xsl:with-param name="pPersName" select="$pPersName"/>
+                    <xsl:with-param name="pCorpName" select="$pCorpName"/>
+                </xsl:call-template>
+                <xsl:text>|id=</xsl:text>
+                <xsl:value-of select="translate(substring-after(eac:eac-cpf/eac:control/eac:otherRecordId[@localType='WCI'],'WCI:'),' ','+')"/>
+                <xsl:text>}}</xsl:text>                
+                <xsl:text>&#10;</xsl:text>                
+            </xsl:when>
+            <xsl:when test="eac:eac-cpf/eac:cpfDescription/eac:relations/eac:resourceRelation[@xlink:role='archivalRecords']">
+                <!-- Check for archival/digital collections created by or associated with the person or corporate body. -->
+                <xsl:for-each
+                    select="eac:eac-cpf/eac:cpfDescription/eac:relations/eac:resourceRelation[@xlink:role='archivalRecords']">
+                    <xsl:sort
+                        select="translate(eac:relationEntry,'ÁÀÉÈÍÓÚÜÑáàéèíóúúüñ','AAEEIOUUNaaeeiouuun')"
+                        data-type="text"/>
+                    <xsl:text>*[</xsl:text>
                     <xsl:choose>
-                        <xsl:when test="contains(@xlink:href,'oclc/ocn')">
+                        <xsl:when test="contains(@xlink:href,' ')">
+                            <xsl:value-of select="normalize-space(translate(@xlink:href,' ','+'))"/>
+                        </xsl:when>
+                        <xsl:otherwise>
+                            <xsl:choose>
+                                <xsl:when test="contains(@xlink:href,'oclc/ocn')">
+                                    <xsl:value-of
+                                        select="normalize-space(concat(substring-before(@xlink:href,'ocn'),substring-after(@xlink:href,'ocn')))"
+                                    />
+                                </xsl:when>
+                                <xsl:otherwise>
+                                    <xsl:value-of select="normalize-space(@xlink:href)"/>
+                                </xsl:otherwise>
+                            </xsl:choose>
+                        </xsl:otherwise>
+                    </xsl:choose>
+                    <xsl:text> </xsl:text>
+                    <xsl:choose>
+                        <xsl:when test="contains(normalize-space(eac:relationEntry),' . ')">
                             <xsl:value-of
-                                select="normalize-space(concat(substring-before(@xlink:href,'ocn'),substring-after(@xlink:href,'ocn')))"
+                                select="normalize-space(substring-before(eac:relationEntry,' . '))"/>
+                            <xsl:text>] </xsl:text>
+                            <xsl:value-of select="normalize-space(substring-after(eac:relationEntry,' . '))"
                             />
                         </xsl:when>
                         <xsl:otherwise>
-                            <xsl:value-of select="normalize-space(@xlink:href)"/>
+                            <xsl:value-of select="normalize-space(eac:relationEntry)"/>
+                            <xsl:text>]</xsl:text>
                         </xsl:otherwise>
                     </xsl:choose>
-                </xsl:otherwise>
-            </xsl:choose>
-            <xsl:text> </xsl:text>
-            <xsl:choose>
-                <xsl:when test="contains(normalize-space(eac:relationEntry),' . ')">
-                    <xsl:value-of
-                        select="normalize-space(substring-before(eac:relationEntry,' . '))"/>
-                    <xsl:text>] </xsl:text>
-                    <xsl:value-of select="normalize-space(substring-after(eac:relationEntry,' . '))"
-                    />
-                </xsl:when>
-                <xsl:otherwise>
-                    <xsl:value-of select="normalize-space(eac:relationEntry)"/>
-                    <xsl:text>]</xsl:text>
-                </xsl:otherwise>
-            </xsl:choose>
-            <xsl:text>&#10;</xsl:text>
-        </xsl:for-each>
+                    <xsl:text>&#10;</xsl:text>
+                </xsl:for-each>
+            </xsl:when>
+        </xsl:choose>               
     </xsl:template>
 
     <!-- Get VIAF ID and/or LCCN, if available. -->
-    <xsl:template name="tVIAF">        
-        <xsl:text>&#10;</xsl:text>
-        <xsl:text>&#10;</xsl:text>
+    <xsl:template name="tVIAF">                
         <xsl:choose>
             <xsl:when
                 test="eac:eac-cpf/eac:control/eac:sources/eac:source/@xlink:href[contains(.,'viaf')]">
+                <xsl:text>&#10;</xsl:text>
+                <xsl:text>&#10;</xsl:text>
                 <xsl:for-each
                     select="eac:eac-cpf/eac:control/eac:sources/eac:source/@xlink:href[contains(.,'viaf')]">
                     <xsl:text>{{Authority control|VIAF=</xsl:text>
@@ -772,11 +780,14 @@
                     </xsl:choose>
                     <xsl:text>}}</xsl:text>
                     <xsl:text>&#10;</xsl:text>
+                    <xsl:text>&#10;</xsl:text>
                 </xsl:for-each>
             </xsl:when>
             <xsl:otherwise>
                 <xsl:choose>
                     <xsl:when test="eac:eac-cpf/eac:control/eac:otherRecordId[@localType='lccn']">
+                        <xsl:text>&#10;</xsl:text>
+                        <xsl:text>&#10;</xsl:text>
                         <xsl:text>{{Authority control|LCCN=</xsl:text>
                         <xsl:choose>
                             <xsl:when test="contains(eac:eac-cpf/eac:control/eac:otherRecordId[@localType='lccn'],'no')">
@@ -791,11 +802,15 @@
                             </xsl:otherwise>
                         </xsl:choose>
                         <xsl:text>}}</xsl:text>
+                        <xsl:text>&#10;</xsl:text>
+                        <xsl:text>&#10;</xsl:text>
                     </xsl:when>
+                    <xsl:otherwise>
+                        <xsl:text>&#10;</xsl:text>                           
+                    </xsl:otherwise>
                 </xsl:choose>
-            </xsl:otherwise>
-        </xsl:choose>
-        <xsl:text>&#10;</xsl:text>
+            </xsl:otherwise>            
+        </xsl:choose>        
     </xsl:template>
 
     <!-- Parse PersonDate template. -->

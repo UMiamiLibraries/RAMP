@@ -197,7 +197,7 @@
     										     try
     										     {
     											     var lobjData = JSON.parse(response);  
-    											     console.log(lobjData);
+    											     //console.log(lobjData);
         											     
     										     }
     										     catch(e) //response should be JSON so if not, throw error
@@ -209,22 +209,22 @@
     										     }
     
     										     var lobjNameEntryList = typeof lobjData.name_entry_list == 'undefined' ? [] : lobjData.name_entry_list;
-    										     var lobjSource = typeof lobjData.source == 'undefined' ? [] : lobjData.source;
+    										     var lobjSource = typeof lobjData.source == 'undefined' ? [] : lobjData.source;    										         										     
     										     
-    										     
+    										     lobjEac.addSource(lobjSource);
+         								         //set ace editor value to new xml from EAC Dom Document with ingested source and name entries
+         								         editor.getSession().setValue(lobjEac.getXML());
+    										         			    										         		
     										     if ( lobjNameEntryList.length != 0 ) 
-    										     {    										            										         										     	
+    										     {    										            										         										     	         										     
          										     for( var i = 0; i < lobjNameEntryList.length; i++ )
          										     {
-         											 var NameEntry = lobjNameEntryList[i];
-         											 lobjEac.addNameEntry(NameEntry);
-         										     }
-         
-         										     lobjEac.addSource( lobjSource );
-         
-         										     //set ace editor value to new xml from EAC Dom Document with ingested source and name entries
-         										     editor.getSession().setValue(lobjEac.getXML());
-         										     
+         											    var NameEntry = lobjNameEntryList[i];
+         											    lobjEac.addNameEntry(NameEntry);
+         											    //set ace editor value to new xml from EAC Dom Document with ingested source and name entries
+         										        editor.getSession().setValue(lobjEac.getXML());
+         										     }         										              										     
+         										                    										                       										              										     
          										     // Results notification added by timathom    	
          										     callback();
          										     
@@ -687,7 +687,7 @@
     						       {
     							   var lobjChosenNames = [];    
     							   callback(lobjChosenNames); 
-    							   // Check to see if there is already wiki markup. If so, show switcher. --timathom
+    							   // Check to see if there is already wiki markup. If so, show switcher. --timathom    							   
                                    if ( getCookie('wiki') == 'present' )   
                                    {
                                      $('#wiki_switch').show();    	                           	
