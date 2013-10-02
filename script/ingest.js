@@ -710,7 +710,7 @@
     function display_viaf_results_form( lobjViafResults, callback )
     {
         var lstrHTML = "<div class=\"form_container\">";
-        lstrHTML += "<div class=\"instruction_div\"><h2 class=\"instruction\" style=\"font-weight:800; font-size:1.5em;\">Named Entity Recognition</h2><p class=\"instruction\">Based on your selections, these are the possible matches (if any) that we were able to retrieve from VIAF. Results are sorted by the number of library holdings associated with each name in the VIAF database.</p><p class=\"instruction\">Please note that you will need to verify these results. When there are several possibilities, you may need to look at each one before choosing.</p><p class=\"instruction\">Some results are obviously unrelated, but others may be harder to differentiate. Be aware that even if a name seems to match your original selection, it may be a false hit.</p><p class=\"instruction\">When in doubt, please click on a name to visit its VIAF page and look for additional information. If a name already has a corresponding Wikipedia article (there may be a link from the VIAF page), check there to see which VIAF ID has been used, and then select the name that corresponds to that VIAF ID.</p><p class=\"instruction\">If there are no appropriate matches from VIAF, you may add a custom &lt;cpfRelation&gt; using the original search string.</p></div>";
+        lstrHTML += "<div class=\"instruction_div\"><h2 class=\"instruction\" style=\"font-weight:800; font-size:1.5em;\">Named Entity Recognition</h2><p class=\"instruction\">Based on your selections, these are the possible matches (if any) retrieved from VIAF. Results are sorted by the number of library holdings associated with each name in VIAF.</p><p class=\"instruction\">Please note that you will need to verify these results. When there are several possibilities, you may need to look at each one before choosing.</p><p class=\"instruction\">Some results are obviously unrelated, but others may be harder to differentiate. Even if a name seems to match your original selection, it may be a false hit.</p><p class=\"instruction\">When in doubt, click on a name to visit its VIAF page and look for additional information. If a name already has a corresponding Wikipedia article (there may be a link from the VIAF page), check there to see which VIAF ID has been used, and select the name that corresponds to that VIAF ID.</p><p class=\"instruction\">If there are no appropriate matches from VIAF, you may add a custom &lt;cpfRelation&gt; using the original search string.</p></div>";
        
         lstrHTML += "<button id=\"ingest_viaf_add_relations\" class=\"pure-button ingest-ok pure-button-secondary\">Use Selected Results</button>";
         lstrHTML += "&nbsp;<button id=\"ingest_viaf_add_relations_cancel\" class=\"pure-button ingest-cancel pure-button-secondary\">Cancel</button>";
@@ -942,28 +942,28 @@
     											 {
     											     var OtherRecs = lobjOtherRecList[i];
     											     lobjEac.addOtherRecordId(OtherRecs);    											     
-    											     //editor.getSession().setValue(lobjEac.getXML()); // added by timathom
+    											     editor.getSession().setValue(lobjEac.getXML()); // added by timathom
     											 }
     											 
     											 for( var i = 0; i < lobjSourceList.length; i++ )
     											 {
     											     var Sources = lobjSourceList[i];
     											     lobjEac.addSource(Sources);
-    											     //editor.getSession().setValue(lobjEac.getXML()); // added by timathom
+    											     editor.getSession().setValue(lobjEac.getXML()); // added by timathom
     											 }
     
     											 for( var i = 0; i < lobjCpfRelationList.length; i++ )
     											 {
     											     var CpfRelation = lobjCpfRelationList[i];    											     
     											     lobjEac.addCPFRelation(CpfRelation);
-    											     //editor.getSession().setValue(lobjEac.getXML()); // added by timathom
+    											     editor.getSession().setValue(lobjEac.getXML()); // added by timathom
     											 }
     
     											 for( i = 0; i < lobjResourceRelationList.length; i++ )
     											 {
     											     var ResourceRelation = lobjResourceRelationList[i];
     											     lobjEac.addResourceRelation(ResourceRelation);
-    											     //editor.getSession().setValue(lobjEac.getXML()); // added by timathom
+    											     editor.getSession().setValue(lobjEac.getXML()); // added by timathom
     											 }    											     											 										     											     											     											     											    										
     											 
     											 // Result text added by timathom.    
@@ -1040,6 +1040,7 @@
     																 {
     																     var Subject = lobjSubjectList[lobjChosenSubjects[i]];
     																     lobjEac.addSubjectHeading(Subject);
+    																     editor.getSession().setValue(lobjEac.getXML());
     																 }
     																 
     																 if(lobjChosenSubjects.length == 0)
@@ -1059,8 +1060,7 @@
                                                                       	 else
                                                                       	 {
                                                                       	     $('#wiki_switch').hide();
-                                                                      	 }
-                                                         		         editor.getSession().setValue(lobjEac.getXML());                                                         
+                                                                      	 }                                                         		                                                                 
                                                                          return;
                                                                     } 
                                                                     else
@@ -1080,7 +1080,7 @@
                                                                       	 {
                                                                       	     $('#wiki_switch').hide();
                                                                       	 }
-                                                                      	 editor.getSession().setValue(lobjEac.getXML());
+                                                                      	 //editor.getSession().setValue(lobjEac.getXML()); --timathom
                                                                       	 return;                                                                      	 
     																 }
     																 
