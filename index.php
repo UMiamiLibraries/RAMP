@@ -113,7 +113,7 @@ print ("</select>");
 <div class="pure-u-1-2">
   <div class="content_box" id="new_box">
   <img src="style/images/new.png" alt="Convert" width="24px" height="24px"/>
-  <h1>Create a New Skeleton EAC-CPF Record</h1>
+  <h1>Create a New EAC-CPF Record</h1>
 
   <p>
   </p>

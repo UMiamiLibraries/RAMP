@@ -668,6 +668,10 @@ textarea#bioghist {
     
 }
 
+#demos p {
+    font-size:.9em;
+}
+
 #demo_links {
     font-size: .9em;    
 }
@@ -1082,6 +1086,12 @@ button#ltselectedtext:focus {
 
 #wikimarkup {
     border: solid black 1px;
+}
+
+#wiki_page_link {
+    font-weight:800;
+    font-size:1em;
+    color:#0078e7;
 }
 
 #wiki_switch {
