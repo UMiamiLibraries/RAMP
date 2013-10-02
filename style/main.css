@@ -70,7 +70,7 @@ em {
 
 h1 {
     margin-left: .5%;
-    font-size: 1.5em;
+    font-size: 1.4em;
     font-weight:300;
 }
 
@@ -367,6 +367,7 @@ ul, menu, dir {
     margin-top: 1%;
     font-size: 1.4em;
     margin-bottom: 1%;
+    text-align:justify;
 }
 
 .instruction_div {
@@ -592,6 +593,7 @@ li.wiki_login
     float: right;
     font-size: 18px;
     font-weight:800;
+    margin-top:2px;
 }
 
 .worldcat_arrow {
@@ -672,6 +674,10 @@ textarea#bioghist {
 
 #dialog_box {
     display:none;
+}
+
+#dialog-form {
+    font-size:1em;
 }
 
 #download_form  {
