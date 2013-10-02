@@ -482,118 +482,129 @@
         <xsl:text>&#10;</xsl:text>
         <xsl:text>==References==</xsl:text>
         <xsl:text>&#10;</xsl:text>
-        <!-- Insert a default reference to the finding aid itself. -->
-        <xsl:text> &lt;!-- Basic citation for the finding aid. Author names will need to be adjusted (inverted, updated based on revision info, etc.). --&gt;</xsl:text>
-        <xsl:for-each select="eac:eac-cpf/eac:control/eac:sources/eac:source[eac:sourceEntry]">
-            <xsl:text>&#10;</xsl:text>
-            <xsl:value-of
-                select="normalize-space(substring-after(eac:objectXMLWrap/ead:eadheader/ead:filedesc/ead:titlestmt/ead:author,'Finding Aid Authors: '))"/>
-            <xsl:text> "[</xsl:text>
-            <xsl:value-of select="normalize-space(@xlink:href)"/>
-            <xsl:text>#bioghist </xsl:text>
-            <xsl:value-of select="normalize-space(eac:sourceEntry)"/>
-            <xsl:text>]," Miami, FL: University of Miami Libraries, [YYYY].</xsl:text>
-            <xsl:text>&#10;</xsl:text>
-        </xsl:for-each>
-        <xsl:for-each
-            select="eac:eac-cpf/eac:cpfDescription/eac:relations/eac:resourceRelation[@resourceRelationType='referencedIn' and @xlink:role='resource']">
-            <xsl:sort
-                select="translate(eac:relationEntry[@localType='creator'],'ÁÀÉÈÍÓÚÜÑáàéèíóúúüñ','AAEEIOUUNaaeeiouuun')"
-                data-type="text"/>
-            <xsl:for-each select="eac:relationEntry[1]">
-                <xsl:variable name="vStrLen" select="string-length(.)"/>
-                <xsl:text>*</xsl:text>
-                <xsl:choose>
-                    <xsl:when
-                        test="normalize-space(following-sibling::eac:relationEntry[@localType='creator'])">
-                        <xsl:value-of
-                            select="normalize-space(following-sibling::eac:relationEntry[@localType='creator'])"/>
+        <xsl:choose>
+            <xsl:when test="eac:eac-cpf/eac:control/eac:sources/eac:source/eac:objectXMLWrap">
+                <!-- Insert a default reference to the finding aid itself. -->
+                <xsl:text> &lt;!-- Basic citation for the finding aid. Author names will need to be adjusted (inverted, updated based on revision info, etc.). --&gt;</xsl:text>
+                <xsl:for-each select="eac:eac-cpf/eac:control/eac:sources/eac:source[eac:sourceEntry]">
+                    <xsl:text>&#10;</xsl:text>
+                    <xsl:value-of
+                        select="normalize-space(substring-after(eac:objectXMLWrap/ead:eadheader/ead:filedesc/ead:titlestmt/ead:author,'Finding Aid Authors: '))"/>
+                    <xsl:text> "[</xsl:text>
+                    <xsl:value-of select="normalize-space(@xlink:href)"/>
+                    <xsl:text>#bioghist </xsl:text>
+                    <xsl:value-of select="normalize-space(eac:sourceEntry)"/>
+                    <xsl:text>]," Miami, FL: University of Miami Libraries, [YYYY].</xsl:text>
+                    <xsl:text>&#10;</xsl:text>
+                </xsl:for-each>                
+            </xsl:when>
+            <xsl:when test="eac:eac-cpf/eac:cpfDescription/eac:relations/eac:resourceRelation[@resourceRelationType='referencedIn' and @xlink:role='resource']">
+                <xsl:for-each
+                    select="eac:eac-cpf/eac:cpfDescription/eac:relations/eac:resourceRelation[@resourceRelationType='referencedIn' and @xlink:role='resource']">
+                    <xsl:sort
+                        select="translate(eac:relationEntry[@localType='creator'],'ÁÀÉÈÍÓÚÜÑáàéèíóúúüñ','AAEEIOUUNaaeeiouuun')"
+                        data-type="text"/>
+                    <xsl:for-each select="eac:relationEntry[1]">
+                        <xsl:variable name="vStrLen" select="string-length(.)"/>
+                        <xsl:text>*</xsl:text>
+                        <xsl:choose>
+                            <xsl:when
+                                test="normalize-space(following-sibling::eac:relationEntry[@localType='creator'])">
+                                <xsl:value-of
+                                    select="normalize-space(following-sibling::eac:relationEntry[@localType='creator'])"/>
+                                <xsl:choose>
+                                    <xsl:when test="contains(../@xlink:href,'q=kw')">
+                                        <xsl:text>. </xsl:text>
+                                    </xsl:when>
+                                    <xsl:otherwise>
+                                        <xsl:if test="not(substring(.,string-length(.))='.')">
+                                            <xsl:text>. ''</xsl:text>
+                                        </xsl:if>
+                                        <xsl:if test="substring(.,string-length(.))='.'">
+                                            <xsl:text> </xsl:text>
+                                        </xsl:if>
+                                    </xsl:otherwise>
+                                </xsl:choose>
+                            </xsl:when>
+                            <xsl:otherwise>
+                                <xsl:text>''</xsl:text>
+                            </xsl:otherwise>
+                        </xsl:choose>
                         <xsl:choose>
                             <xsl:when test="contains(../@xlink:href,'q=kw')">
+                                <xsl:text>[</xsl:text>
+                                <xsl:value-of select="../@xlink:href"/>
+                                <xsl:text> </xsl:text>
+                                <xsl:text>''</xsl:text>
+                                <xsl:choose>
+                                    <xsl:when test="substring(.,string-length(.))='.'">
+                                        <xsl:value-of
+                                            select="normalize-space(substring-before(substring(.,1,$vStrLen -1),'.'))"/>
+                                        <xsl:text>''</xsl:text>
+                                        <xsl:text>]. </xsl:text>
+                                        <xsl:value-of
+                                            select="normalize-space(substring-after(substring(.,1,$vStrLen -1),'.'))"
+                                        />
+                                    </xsl:when>
+                                    <xsl:otherwise>
+                                        <xsl:value-of select="normalize-space(substring-before(.,'.'))"/>
+                                        <xsl:text>''</xsl:text>
+                                        <xsl:text>]. </xsl:text>
+                                        <xsl:value-of select="normalize-space(substring-after(.,'.'))"/>
+                                    </xsl:otherwise>
+                                </xsl:choose>
                                 <xsl:text>. </xsl:text>
                             </xsl:when>
-                            <xsl:otherwise>
-                                <xsl:if test="not(substring(.,string-length(.))='.')">
-                                    <xsl:text>. ''</xsl:text>
-                                </xsl:if>
-                                <xsl:if test="substring(.,string-length(.))='.'">
-                                    <xsl:text> </xsl:text>
-                                </xsl:if>
-                            </xsl:otherwise>
                         </xsl:choose>
-                    </xsl:when>
-                    <xsl:otherwise>
-                        <xsl:text>''</xsl:text>
-                    </xsl:otherwise>
-                </xsl:choose>
-                <xsl:choose>
-                    <xsl:when test="contains(../@xlink:href,'q=kw')">
-                        <xsl:text>[</xsl:text>
-                        <xsl:value-of select="../@xlink:href"/>
-                        <xsl:text> </xsl:text>
-                        <xsl:text>''</xsl:text>
                         <xsl:choose>
-                            <xsl:when test="substring(.,string-length(.))='.'">
+                            <xsl:when
+                                test="contains(../@xlink:href,'oclc/ocn') and following-sibling::eac:relationEntry[@localType='isbn']">
+                                <xsl:value-of select="normalize-space(.)"/>
+                                <xsl:text>''. </xsl:text>
+                                <xsl:text>{{OCLC|</xsl:text>
+                                <xsl:value-of select="substring-after(../@xlink:href,'oclc/ocn')"/>
+                                <xsl:text>}}, </xsl:text>
+                                <xsl:text>ISBN </xsl:text>
                                 <xsl:value-of
-                                    select="normalize-space(substring-before(substring(.,1,$vStrLen -1),'.'))"/>
-                                <xsl:text>''</xsl:text>
-                                <xsl:text>]. </xsl:text>
-                                <xsl:value-of
-                                    select="normalize-space(substring-after(substring(.,1,$vStrLen -1),'.'))"
-                                />
+                                    select="following-sibling::eac:relationEntry[@localType='isbn']"/>
                             </xsl:when>
-                            <xsl:otherwise>
-                                <xsl:value-of select="normalize-space(substring-before(.,'.'))"/>
-                                <xsl:text>''</xsl:text>
-                                <xsl:text>]. </xsl:text>
-                                <xsl:value-of select="normalize-space(substring-after(.,'.'))"/>
-                            </xsl:otherwise>
+                            <xsl:when
+                                test="contains(../@xlink:href,'oclc/ocn') and not(following-sibling::eac:relationEntry[@localType='isbn'])">
+                                <xsl:value-of select="normalize-space(.)"/>
+                                <xsl:text>''. </xsl:text>
+                                <xsl:text>{{OCLC|</xsl:text>
+                                <xsl:value-of select="substring-after(../@xlink:href,'oclc/ocn')"/>
+                                <xsl:text>}}</xsl:text>
+                            </xsl:when>
+                            <xsl:when
+                                test="following-sibling::eac:relationEntry[@localType='isbn'] and not(contains(../@xlink:href,'oclc/ocn'))">
+                                <xsl:value-of select="normalize-space(.)"/>
+                                <xsl:text>''. </xsl:text>
+                                <xsl:text>ISBN </xsl:text>
+                                <xsl:value-of
+                                    select="following-sibling::eac:relationEntry[@localType='isbn']"/>
+                            </xsl:when>
+                            <xsl:otherwise/>
                         </xsl:choose>
-                        <xsl:text>. </xsl:text>
-                    </xsl:when>
-                </xsl:choose>
-                <xsl:choose>
-                    <xsl:when
-                        test="contains(../@xlink:href,'oclc/ocn') and following-sibling::eac:relationEntry[@localType='isbn']">
-                        <xsl:value-of select="normalize-space(.)"/>
-                        <xsl:text>''. </xsl:text>
-                        <xsl:text>{{OCLC|</xsl:text>
-                        <xsl:value-of select="substring-after(../@xlink:href,'oclc/ocn')"/>
-                        <xsl:text>}}, </xsl:text>
-                        <xsl:text>ISBN </xsl:text>
-                        <xsl:value-of
-                            select="following-sibling::eac:relationEntry[@localType='isbn']"/>
-                    </xsl:when>
-                    <xsl:when
-                        test="contains(../@xlink:href,'oclc/ocn') and not(following-sibling::eac:relationEntry[@localType='isbn'])">
-                        <xsl:value-of select="normalize-space(.)"/>
-                        <xsl:text>''. </xsl:text>
-                        <xsl:text>{{OCLC|</xsl:text>
-                        <xsl:value-of select="substring-after(../@xlink:href,'oclc/ocn')"/>
-                        <xsl:text>}}</xsl:text>
-                    </xsl:when>
-                    <xsl:when
-                        test="following-sibling::eac:relationEntry[@localType='isbn'] and not(contains(../@xlink:href,'oclc/ocn'))">
-                        <xsl:value-of select="normalize-space(.)"/>
-                        <xsl:text>''. </xsl:text>
-                        <xsl:text>ISBN </xsl:text>
-                        <xsl:value-of
-                            select="following-sibling::eac:relationEntry[@localType='isbn']"/>
-                    </xsl:when>
-                    <xsl:otherwise/>
-                </xsl:choose>
+                        <xsl:text>&#10;</xsl:text>
+                    </xsl:for-each>
+                </xsl:for-each>
+            </xsl:when>
+            <xsl:when test="eac:eac-cpf/eac:cpfDescription/eac:relations/eac:resourceRelation[not(@resourceRelationType) and not(@xlink:role='resource')]">
+                <xsl:for-each
+                    select="eac:eac-cpf/eac:cpfDescription/eac:relations/eac:resourceRelation[not(@resourceRelationType) and not(@xlink:role='resource')]">
+                    <xsl:sort
+                        select="translate(eac:relationEntry[@localType='creator'],'ÁÀÉÈÍÓÚÜÑáàéèíóúúüñ','AAEEIOUUNaaeeiouuun')"
+                        data-type="text"/>
+                    <xsl:text>*</xsl:text>
+                    <xsl:value-of select="normalize-space(.)"/>
+                    <xsl:text>&#10;</xsl:text>
+                </xsl:for-each>
+            </xsl:when>
+            <xsl:otherwise>
                 <xsl:text>&#10;</xsl:text>
-            </xsl:for-each>
-        </xsl:for-each>
-        <xsl:for-each
-            select="eac:eac-cpf/eac:cpfDescription/eac:relations/eac:resourceRelation[not(@resourceRelationType) and not(@xlink:role='resource')]">
-            <xsl:sort
-                select="translate(eac:relationEntry[@localType='creator'],'ÁÀÉÈÍÓÚÜÑáàéèíóúúüñ','AAEEIOUUNaaeeiouuun')"
-                data-type="text"/>
-            <xsl:text>*</xsl:text>
-            <xsl:value-of select="normalize-space(.)"/>
-            <xsl:text>&#10;</xsl:text>
-        </xsl:for-each>
+            </xsl:otherwise>
+        </xsl:choose>        
     </xsl:template>
 
     <!-- Output Bibliography ("works by") section. -->
