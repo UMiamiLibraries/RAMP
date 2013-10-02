@@ -768,14 +768,14 @@
                     <xsl:when test="eac:eac-cpf/eac:control/eac:otherRecordId[@localType='lccn']">
                         <xsl:text>{{Authority control|LCCN=</xsl:text>
                         <xsl:choose>
-                            <xsl:when test="contains(../../../eac:otherRecordId[@localType='lccn'],'no')">
+                            <xsl:when test="contains(eac:eac-cpf/eac:control/eac:otherRecordId[@localType='lccn'],'no')">
                                 <xsl:variable name="lccn"
-                                    select="substring-after(../../../eac:otherRecordId[@localType='lccn'],'lccn-no')"/>
+                                    select="substring-after(eac:eac-cpf/eac:control/eac:otherRecordId[@localType='lccn'],'lccn-no')"/>
                                 <xsl:value-of select="concat('no/',translate($lccn,'-','/'))"/>
                             </xsl:when>
                             <xsl:otherwise>
                                 <xsl:variable name="lccn"
-                                    select="substring-after(../../../eac:otherRecordId[@localType='lccn'],'lccn-n')"/>
+                                    select="substring-after(eac:eac-cpf/eac:control/eac:otherRecordId[@localType='lccn'],'lccn-n')"/>
                                 <xsl:value-of select="concat('n/',translate($lccn,'-','/'))"/>
                             </xsl:otherwise>
                         </xsl:choose>
