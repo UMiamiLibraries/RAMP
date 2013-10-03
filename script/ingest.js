@@ -224,22 +224,14 @@
          										     lobjEac.addSource(lobjSource);
          								             //set ace editor value to new xml from EAC Dom Document with ingested source and name entries
          								             editor.getSession().setValue(lobjEac.getXML());
-         								             
-         								             // Results notification added by timathom
+         								                      								                      								                     										   
+         										              										     
+         										     callback();
+         										     // Results notification added by timathom
          									         $('body').append("<div id=\"dialog\"><p>&lt;source&gt; and &lt;nameEntry&gt; elements added!</p></div>");
          				                             makeDialog('#dialog', 'Results'); // display results
-         								             
          										     $('.main_edit').show();
-         										     if ( getCookie('wiki') == 'present' )   
-                                                     {
-                                                         $('#wiki_switch').show();    	                           	
-                                                     }
-                                                     else
-                                                     {
-                                                         $('#wiki_switch').hide();
-                                                     }
          										     
-         										     callback();
     						                     }    						                     
     						                     else
     						                     {    						                         
@@ -568,7 +560,9 @@
     											 for(var i = 0; i < lobjResultsChosen['names']['entity']['viaf'].length; i++)
     											 {
     											     var chosen_result_viaf = lobjResultsChosen['names']['entity']['viaf'][i];
-    											     lobjEac.addCPFRelationViaf(lobjData[chosen_result_viaf]);    											     
+    											     lobjEac.addCPFRelationViaf(lobjData[chosen_result_viaf]);    			
+    											     
+    											     editor.getSession().setValue(lobjEac.getXML());
     											         									
     											     /* Attempting to dedupe cpfRelations... Needs more work. --timathom
                                      			     var colon = chosen_result_viaf.indexOf(':');
@@ -592,9 +586,11 @@
     											     var chosen_roles = lobjResultsChosen['names']['roles'][i];        											                                                         
     											     var chosen_rels = lobjResultsChosen['names']['rels'][i];
     											     lobjEac.addCPFRelationCustom(lobjData[chosen_result_custom], chosen_roles, chosen_rels);
+    											     
+    											     editor.getSession().setValue(lobjEac.getXML());
     											 }    											     		    											     											
     											 
-    											 editor.getSession().setValue(lobjEac.getXML());
+    											 
     
     											 callback('&lt;cpfRelation&gt; elements added!'); // Notify that <cpfRelation> elements have been added. --timathom    											
     											 $('.viaf_arrow').html("&#10003;");    											 
