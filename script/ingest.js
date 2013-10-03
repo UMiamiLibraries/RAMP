@@ -238,7 +238,7 @@
     						                         callback();
     						                         $('body').append("<div id=\"dialog\"><p>Skipped VIAF ingest.</p></div>");
          					                         makeDialog('#dialog', 'Results'); // display results
-    											     return;    
+    											     //return;    
     						                     }
     						                     
     										 });
