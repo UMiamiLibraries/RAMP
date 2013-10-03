@@ -183,7 +183,7 @@
     					 catch(e) //response should be JSON so if not, throw error
     					 {    					     
     					     callback();
-    					     $('body').append("<div id=\"dialog\"><p>No results found in VIAF for " + lstrName + ".</p><br/><p>Please choose names to create &ltcpfRelation&gt; elements.</p></div>");
+    					     $('body').append("<div id=\"dialog\"><p>No results found in VIAF for " + lstrName + ".</p></div>");
     						 makeDialog('#dialog', 'Response'); //display response   
     					     return;
     					 }
@@ -209,35 +209,41 @@
     										     }
     
     										     var lobjNameEntryList = typeof lobjData.name_entry_list == 'undefined' ? [] : lobjData.name_entry_list;
-    										     var lobjSource = typeof lobjData.source == 'undefined' ? [] : lobjData.source;    										         										     
-    										     
-    										     lobjEac.addSource(lobjSource);
-         								         //set ace editor value to new xml from EAC Dom Document with ingested source and name entries
-         								         editor.getSession().setValue(lobjEac.getXML());
+    										     var lobjSource = typeof lobjData.source == 'undefined' ? [] : lobjData.source;    										         										         										         										     
     										         			    										         		
     										     if ( lobjNameEntryList.length != 0 ) 
-    										     {    										            										         										     	         										     
+    										     {    							    										     
          										     for( var i = 0; i < lobjNameEntryList.length; i++ )
          										     {
          											    var NameEntry = lobjNameEntryList[i];
          											    lobjEac.addNameEntry(NameEntry);
          											    //set ace editor value to new xml from EAC Dom Document with ingested source and name entries
          										        editor.getSession().setValue(lobjEac.getXML());
-         										     }         										              										     
-         										                    										                       										              										     
-         										     // Results notification added by timathom    	
-         										     callback();
+         										     }
          										     
-         										     $('body').append("<div id=\"dialog\"><p>&lt;source&gt; and &lt;nameEntry&gt; elements added!</p></div>");
-         					                         makeDialog('#dialog', 'Results'); // display results    					                             					                         
-         					                         
-         										     $('.form_container').remove();
-         						                     $('.main_edit').hide();
-         						                     $('.viaf_arrow').html("&#10003;");   
+         										     lobjEac.addSource(lobjSource);
+         								             //set ace editor value to new xml from EAC Dom Document with ingested source and name entries
+         								             editor.getSession().setValue(lobjEac.getXML());
+         								             
+         								             // Results notification added by timathom
+         									         $('body').append("<div id=\"dialog\"><p>&lt;source&gt; and &lt;nameEntry&gt; elements added!</p></div>");
+         				                             makeDialog('#dialog', 'Results'); // display results
+         								             
+         										     $('.main_edit').show();
+         										     if ( getCookie('wiki') == 'present' )   
+                                                     {
+                                                         $('#wiki_switch').show();    	                           	
+                                                     }
+                                                     else
+                                                     {
+                                                         $('#wiki_switch').hide();
+                                                     }
+         										     
+         										     callback();
     						                     }    						                     
     						                     else
-    						                     {
-    						                         callback('');
+    						                     {    						                         
+    						                         callback();
     						                         $('body').append("<div id=\"dialog\"><p>Skipped VIAF ingest.</p></div>");
          					                         makeDialog('#dialog', 'Results'); // display results
     											     return;    
@@ -293,8 +299,8 @@
     					 }else
     					 {
     					     callback(lstrChosenViaf);
-    					     $('.form_container').remove();
-    					     $('.main_edit').hide();         					     
+    					     //$('.form_container').remove();
+    					     //$('.main_edit').hide();         					     
     					 }
     				     });
     
@@ -302,6 +308,7 @@
         $('#ingest_viaf_chosen_viaf_cancel').on('click', function()
     					    {    					        					   
     					    
+    					    $('.form_container').remove();
     					    callback('');       	    					        					   
     						//$('.form_container').remove();
                             //$('#loading-image').remove();
