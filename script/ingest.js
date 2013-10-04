@@ -44,8 +44,8 @@
     										      {    										          										      
     											  
     											  ingest_viaf_Relations(lobjeac, function( lstrMessage ){
-    											      $('body').append("<div id=\"dialog\"><p>" + lstrMessage + "</p></div>");
-    											      makeDialog('#dialog', 'Response'); //display response
+    											      $('body').append("<div id=\"dialog_main\"><p>" + lstrMessage + "</p></div>");
+    											      makeDialog('#dialog_main', 'Response'); //display response
     
     											      //    $('#loading-image').remove();
     											      //commented out by dgonzalez because ingest can be done multiple times
@@ -113,8 +113,8 @@
     										     {
     											 if( typeof lstrMessage != 'undefined' && lstrMessage != '' )
     											 {
-    											     $('body').append("<div id=\"dialog\"><p>" + lstrMessage + "</p></div>");
-    											     makeDialog('#dialog', 'Response'); //display response
+    											     $('body').append("<div id=\"dialog_main\"><p>" + lstrMessage + "</p></div>");
+    											     makeDialog('#dialog_main', 'Response'); //display response
     											 }
     
     											 $('#loading-image').remove();
