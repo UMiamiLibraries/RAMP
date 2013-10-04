@@ -31,7 +31,7 @@ include('conf/includes.php');
 
 
 <link rel="stylesheet" type="text/css" href="style/main.css"/>
-<title>RAMP Editor</title>
+<title>RAMP editor</title>
 <head>
 <body>
 <header>
