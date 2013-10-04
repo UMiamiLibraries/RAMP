@@ -190,7 +190,16 @@
     
     					 display_possible_viaf_form( lobjData, function( lstrChosenViaf )
     								     {
-    									     									 
+
+                                         $('.form_container').remove();    	
+
+                                         if( lstrChosenViaf == "" )		
+                                         {
+                                           callback();
+                                           $('#loading-image').remove();
+                                           return;
+                                         }			              
+
     									 //post to ajax viaf ingestor controller to get source and name entry nodes from viaf record of chosen result
     									 $.post( 'ajax/viaf_ingest_api.php', { 'action' : 'source_and_name_entry', 'viaf_id' : lstrChosenViaf }, function(response)
     										 {
@@ -224,13 +233,12 @@
          										     lobjEac.addSource(lobjSource);
          								             //set ace editor value to new xml from EAC Dom Document with ingested source and name entries
          								             editor.getSession().setValue(lobjEac.getXML());
-         								                      								                      								                     										   
          										              										     
          										     callback();
          										     // Results notification added by timathom
          									         $('body').append("<div id=\"dialog\"><p>&lt;source&gt; and &lt;nameEntry&gt; elements added!</p></div>");
          				                             makeDialog('#dialog', 'Results'); // display results
-         										     $('.main_edit').show();
+         										     //$('.main_edit').show();
          										     
     						                     }    						                     
     						                     else
@@ -240,7 +248,8 @@
          					                         makeDialog('#dialog', 'Results'); // display results    						                            
     						                         return;
     						                     }
-    						                     
+
+                                                 $('#loading-image').remove();    						                     
     										 });
     								     });
         				     });
@@ -329,6 +338,8 @@
      */
     function ingest_viaf_Relations( lobjEac, callback )
     {
+        $('#main_content').prepend('<img id="loading-image" src="style/images/loading.gif" alt="loading"/>');
+
         //need to get ead to get possible names and titles list
         $.post( 'ajax/get_ead.php', { 'ead' : getCookie('ead_file_last') }, function(lstrXML)
     	    {
@@ -449,24 +460,24 @@
     		
     		if( PossibleNameList.length == 0 )
 		    {			    
-		        //callback( 'No matches for Named Entity Recognition.' );
+		        callback( 'No matches for Named Entity Recognition.' );
 		        //$('body').append("<div id=\"dialog\"><p>Canceled!</p></div>");
                 //makeDialog('#dialog', 'Results'); // display results
 			    $('#loading-image').remove();
                 $('.form_container').remove();
-     			$('.main_edit').show();     			        
+     			$('.main_edit').show();     		        
     			$('#entity_name').show();    			    			
 
 			    return;
 		    }		            	                                         
     
+            $('#loading-image').remove();
+
     		//display all possible names for editor to choose correct/desired names to search viaf and create relations
     		display_possible_name_form(PossibleNameList, function( lobjChosenNames )
     					   {        					   
     					       if( lobjChosenNames.length == 0 )
-    					       {    					
-    					           callback("Canceled!"); //done if no names where chosen
-    					           
+    					       {    					    					           
         					       if ( getCookie('wiki') == 'present' )   
                                    {
                                      $('#wiki_switch').show();    	                           	
@@ -477,7 +488,9 @@
                                    }
         						   $('.viaf_arrow').html("&#10003;");
         						   $('#loading-image').remove();
-        						   $('.main_edit').show();        						   
+                                   $('#viaf_load').remove();
+        						   $('.main_edit').show();      
+                                   callback("Canceled!"); //done if no names where chosen  						   
         						   return;
     					       }    					           					       
     					       
@@ -497,6 +510,7 @@
                               	           callback('');
                               	           $('.viaf_arrow').html("&#10003;");
         							       $('#loading-image').remove(); 
+                                           $('#viaf_load').remove();
         							       $('.form_container').remove();
         							       $('.main_edit').show();
         							       // Check to see if there is already wiki markup. If so, show switcher. --timathom
@@ -541,6 +555,7 @@
     											     callback("Canceled!"); //finish process if no results chosen
     											     $('.viaf_arrow').html("&#10003;");
     											     $('#loading-image').remove(); 
+                                                     $('#viaf_load').remove();
     											     $('.main_edit').show();
     											     
     											     // Check to see if there is already wiki markup. If so, show switcher. --timathom
@@ -659,11 +674,9 @@
         $('#ingest_viaf_chosen_names_relations').on('click', function()
     						{
     						    var lobjChosenNames = [];
-    						    
-    						    $('#main_content').append('<div id="viaf_load">Searching VIAF for matches. Depending on the number of queries, this may take some time.</div>');
     
     						    $('input.ner_check').each(function () {
-    							if(this.checked)
+    							    if(this.checked)
          							{
          					           lobjChosenNames.push(encode_utf8($(this).closest('td').next('td').children('input').val())); 
          							}        	     							
@@ -676,9 +689,11 @@
     						        //$('.main_edit').hide();   
     						    }
     						    else
-    						    {						              						        
+    						    {						  
           						    callback(lobjChosenNames);	
           						    $('.form_container').remove();          						    
+                                    $('#main_content').append('<div id="viaf_load">Searching VIAF for matches. Depending on the number of queries, this may take some time.</div>');                                        
+                                    $('#main_content').prepend('<img id="loading-image" src="style/images/loading.gif" alt="loading"/>');
           						    $('.main_edit').hide();
           						    $('#entity_name').hide();
           						       						                                                 						   
