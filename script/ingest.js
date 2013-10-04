@@ -482,7 +482,10 @@
                                    }
         						   $('.viaf_arrow').html("&#10003;");
         						   $('#loading-image').remove();
-        						   $('.main_edit').show();        	
+        						   $('.main_edit').show();    
+
+                                   //added to show changes immediately
+                                   editor.getSession().setValue(lobjEac.getXML());     	
                                    					   
         						   return;
     					       }    					           					       
