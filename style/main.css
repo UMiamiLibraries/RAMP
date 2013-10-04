@@ -38,7 +38,7 @@ body {
 	/* background: #F2FAFF; */
     color:#0F141A;
     font-family: "Open Sans", sans-serif;
-    font-size: .8em;
+    font-size: .78em;
 }
 
 ol, ul {
@@ -70,7 +70,7 @@ em {
 
 h1 {
     margin-left: .5%;
-    font-size: 1.5em;
+    font-size: 1.4em;
     font-weight:300;
 }
 
@@ -367,6 +367,7 @@ ul, menu, dir {
     margin-top: 1%;
     font-size: 1.4em;
     margin-bottom: 1%;
+    text-align:justify;
 }
 
 .instruction_div {
@@ -592,6 +593,7 @@ li.wiki_login
     float: right;
     font-size: 18px;
     font-weight:800;
+    margin-top:2px;
 }
 
 .worldcat_arrow {
@@ -666,12 +668,20 @@ textarea#bioghist {
     
 }
 
+#demos p {
+    font-size:.9em;
+}
+
 #demo_links {
     font-size: .9em;    
 }
 
 #dialog_box {
     display:none;
+}
+
+#dialog-form {
+    font-size:1em;    
 }
 
 #download_form  {
@@ -796,7 +806,7 @@ h1#entity_name {
 
 #footer-logo-wrapper {	
     float:right;    
-    margin:5px;    
+    margin:12px 5px 5px 5px;    
 }
 
 #footer-text {	
@@ -837,15 +847,15 @@ h1#entity_name {
     border: solid black 1px;
 }
 
-#gtselected:focus {
-    color:black;
-}
-
 #gtselectedtext {
     background:#0078e7;
     margin-bottom:5%;
     font-weight:800; 
     color:white;
+}
+
+button#gtselectedtext:focus {
+    color:black;
 }
 
 #ingest_viaf {
@@ -892,15 +902,15 @@ h1#entity_name {
     width: 150px;
 }
 
-#ltselected:focus {
-    color:black;
-}
-
 #ltselectedtext {
     background:#0078e7;
     margin-top:5%;
     font-weight:800;
     color:white;    
+}
+
+button#ltselectedtext:focus {
+    color:black;
 }
 
 #menu a {
@@ -947,11 +957,11 @@ h1#entity_name {
 }
 
 #new_box {
-    margin:4% 4%;
+    margin:4% 4%;    
 }
 
 #new_box h1 {
-    margin-bottom:3%;
+    margin-bottom:1%;
 }
 
 #new_eac_form  {
@@ -1013,6 +1023,7 @@ h1#entity_name {
 
 #submit_new {
     margin-top:-1%;
+    margin-bottom:2%;
     width:auto;
     float:right;    
 }
@@ -1076,6 +1087,12 @@ h1#entity_name {
 
 #wikimarkup {
     border: solid black 1px;
+}
+
+#wiki_page_link {
+    font-weight:800;
+    font-size:1em;
+    color:#0078e7;
 }
 
 #wiki_switch {
