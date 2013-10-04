@@ -20,8 +20,8 @@ include('header.php');
     
     <p>
     <a id="demo_1" href="http://www.screenr.com/DfZH" class="modal">Overview of the RAMP editor</a> <span> | </span>    
-    <a id="demo_2" href="http://www.screenr.com/YfZH" class="modal">Ingesting from VIAF</a> <span> | </span>        
-    <a id="demo_3" href="" class="modal">Ingesting from WorldCat Identities</a> <span> | </span>    
+    <a id="demo_3" href="" class="modal">Ingesting from WorldCat Identities</a> <span> | </span>        
+    <a id="demo_2" href="http://www.screenr.com/YfZH" class="modal">Ingesting from VIAF</a> <span> | </span>    
     <a id="demo_4" href="" class="modal">Publishing to Wikipedia</a> 
     </p>
     
