@@ -301,7 +301,7 @@ class Wikiator
 		{
 			$this->intStatus = self::SUCCESSFUL_EDIT;
 
-			return "Edit successful! Page id -> {$this->strPageId}<br/><a target=\"_blank\" href=\"http://en.wikipedia.org/wiki/{$this->strPageTitle}\">Link to page</a>";
+			return "Edit successful! Page id -> {$this->strPageId}<br/><br/><a id=\"wiki_page_link\" target=\"_blank\" href=\"http://en.wikipedia.org/wiki/{$this->strPageTitle}\">View the page you just edited!</a>";
 		}else
 		{
 			$this->intStatus = self::FAILED_EDIT;

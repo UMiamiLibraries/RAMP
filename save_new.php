@@ -34,10 +34,9 @@ foreach ($_POST as $post_name => $post_val) {
         checkCharacters($post_val);
     }    
     if ($post_name == "bioghist") {
-        $post_val = mysqli_real_escape_string($mysqli,$post_val);
-        $post_val = trim($post_val);
+        $post_val = mysqli_real_escape_string($mysqli,$post_val);        
         $post_val = strip_tags($post_val);
-        $post_val = htmlentities($post_val);
+        //$post_val = htmlentities($post_val);
     }    
     if ($post_name == "type") {
         checkCharacters($post_val);
@@ -149,19 +148,13 @@ if (file_exists(  $_POST["dir"] . '/' . $file_name_lower . '.xml')) {
 		            <archdesc audience="external" relatedencoding="MARC21">
 		               <did>
 		                     <origination label="Creator" encodinganalog="245$c">
-		                     <corpname encodinganalog="100"  source="local">' . $entname .
-
-
-			'</corpname>
+		                     <corpname encodinganalog="100"  source="local">' . $entname . '</corpname>
 		                           </origination>
 		                           <note type="creation">Record created in RAMP.</note>
 		      </did>
 		               <bioghist encodinganalog="545">
-		<p>' . $bioghist .
-			'</p>
+		<p>' . $bioghist . '</p>
 		                           </bioghist>
-
-
 		   </archdesc>
 		</ead>
 		');

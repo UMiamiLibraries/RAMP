@@ -434,11 +434,11 @@ function setupPostWiki()
                          }
                          
                          var $postdialog = $('<div></div>')
-                         .html(lstrConfirm).css('font-size','1.25em')                           
+                         .html(lstrConfirm)                           
                          .dialog({
                              autoOpen: false,
                              title : function() {
-                                 $(this).text('Confirm').css('font-size','1.25em');
+                                 $(this).text('Confirm');
                              },
                              buttons : {                
                                  "Yes" : function() {                                                                                       
