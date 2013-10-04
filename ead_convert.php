@@ -55,7 +55,7 @@ function convertEad( lstrDir, lobjUnprocessed, lstrDiffs )
 	       {
 		 $('#file_estimator').html('Done');
 		 
-		 $('#exporting').html("<a style=\"margin:1%;\" href=\"export.php\">Export EAC-CPF Records</a>");
+		 $('#exporting').html("<a style=\"font-size:1.4em; margin:1%;\" href=\"export.php\">Export EAC-CPF Records</a>");
 		 
          /*
 		    $('#export').on('click', function () {
