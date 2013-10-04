@@ -89,7 +89,7 @@
     						       makeDialog('#dialog', 'Error!'); //display error
     
     						       $('#loading-image').remove();
-    						       $('main_edit').show();
+    						       $('.main_edit').show();
     						       $('#entity_name').show();
     						       
     						       return;
@@ -221,19 +221,18 @@
          										     }
          
          										     lobjEac.addSource( lobjSource );
-         
-         										     //set ace editor value to new xml from EAC Dom Document with ingested source and name entries
-         										     editor.getSession().setValue(lobjEac.getXML());
-         										     
-         										     // Results notification added by timathom    	
-         										     callback();
          										     
          										     $('body').append("<div id=\"dialog\"><p>&lt;source&gt; and &lt;nameEntry&gt; elements added!</p></div>");
-         					                         makeDialog('#dialog', 'Results'); // display results    					                             					                         
+         					                         makeDialog('#dialog', 'Results'); // display results    
+
+                                                     //set ace editor value to new xml from EAC Dom Document with ingested source and name entries
+                                                     editor.getSession().setValue(lobjEac.getXML());					                             					                         
          					                         
          										     $('.form_container').remove();
-         						                     $('.main_edit').hide();
          						                     $('.viaf_arrow').html("&#10003;");   
+
+                                                     // Results notification added by timathom      
+                                                     callback();
     						                     }    						                     
     						                     else
     						                     {
@@ -447,15 +446,20 @@
     		PossibleNameList.sort();
     		
     		//console.log(PossibleNameList);
-    		
+    	
     		if( PossibleNameList.length == 0 )
 		    {			    
-		        //callback( 'No matches for Named Entity Recognition.' );
+		        callback( 'No matches for Named Entity Recognition.' );
 		        //$('body').append("<div id=\"dialog\"><p>Canceled!</p></div>");
                 //makeDialog('#dialog', 'Results'); // display results
 			    $('#loading-image').remove();
                 $('.form_container').remove();
-     			$('.main_edit').show();     			        
+                $('.main_edit').show();
+
+                //set ace editor value to new xml from EAC Dom Document with ingested source and name entries
+                //added to show changes immediately
+                editor.getSession().setValue(lobjEac.getXML());    
+                    			        
     			$('#entity_name').show();    			    			
 
 			    return;
@@ -478,7 +482,8 @@
                                    }
         						   $('.viaf_arrow').html("&#10003;");
         						   $('#loading-image').remove();
-        						   $('.main_edit').show();        						   
+        						   $('.main_edit').show();        	
+                                   					   
         						   return;
     					       }    					           					       
     					       
@@ -542,7 +547,7 @@
     											     callback("Canceled!"); //finish process if no results chosen
     											     $('.viaf_arrow').html("&#10003;");
     											     $('#loading-image').remove(); 
-    											     $('.main_edit').show();
+    											     $('.main_edit').show();                                                     
     											     
     											     // Check to see if there is already wiki markup. If so, show switcher. --timathom
                                                      if ( getCookie('wiki') == 'present' )   
@@ -1069,7 +1074,7 @@
            					                                             makeDialog('#dialog', 'Results'); // display results    																 
            																 $('#loading-image').remove();
            																 $('.worldcat_arrow').html("&#10003;");    																        															    																 
-           																 $('main_edit').show();  
+           																 $('.main_edit').show();
            																 $('#entity_name').show();
            																 // Check to see if there is already wiki markup. If so, show switcher. --timathom
                                                                        	 if ( getCookie('wiki') == 'present' )   
