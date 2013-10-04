@@ -471,7 +471,7 @@
     					       if( lobjChosenNames.length == 0 )
     					       {    					
     					           callback("Canceled!"); //done if no names where chosen
-    					           
+
         					       if ( getCookie('wiki') == 'present' )   
                                    {
                                      $('#wiki_switch').show();    	                           	
@@ -482,8 +482,11 @@
                                    }
         						   $('.viaf_arrow').html("&#10003;");
         						   $('#loading-image').remove();
-        						   $('.main_edit').show();        	
-                                   					   
+        						   $('.main_edit').show(); 
+                                   					
+                                   //added to show changes immediately
+                                   editor.getSession().setValue(lobjEac.getXML());
+                                                       
         						   return;
     					       }    					           					       
     					       
@@ -704,7 +707,7 @@
     							   $('.form_container').remove();
     							   $('#viaf_load').remove();
     							   $('.main_edit').show();
-          						   $('#entity_name').show();          						       							      							  
+          						   $('#entity_name').show();          						       							      							    
     						       });
     }
     
