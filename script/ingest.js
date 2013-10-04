@@ -44,8 +44,8 @@
     										      {    										          										      
     											  
     											  ingest_viaf_Relations(lobjeac, function( lstrMessage ){
-    											      $('body').append("<div id=\"dialog\"><p>" + lstrMessage + "</p></div>");
-    											      makeDialog('#dialog', 'Response'); //display response
+    											      $('body').append("<div id=\"dialog_main\"><p>" + lstrMessage + "</p></div>");
+    											      makeDialog('#dialog_main', 'Response'); //display response
     
     											      //    $('#loading-image').remove();
     											      //commented out by dgonzalez because ingest can be done multiple times
@@ -113,8 +113,8 @@
     										     {
     											 if( typeof lstrMessage != 'undefined' && lstrMessage != '' )
     											 {
-    											     $('body').append("<div id=\"dialog\"><p>" + lstrMessage + "</p></div>");
-    											     makeDialog('#dialog', 'Response'); //display response
+    											     $('body').append("<div id=\"dialog_main\"><p>" + lstrMessage + "</p></div>");
+    											     makeDialog('#dialog_main', 'Response'); //display response
     											 }
     
     											 $('#loading-image').remove();
@@ -471,7 +471,7 @@
     					       if( lobjChosenNames.length == 0 )
     					       {    					
     					           callback("Canceled!"); //done if no names where chosen
-
+    					           
         					       if ( getCookie('wiki') == 'present' )   
                                    {
                                      $('#wiki_switch').show();    	                           	
@@ -482,11 +482,11 @@
                                    }
         						   $('.viaf_arrow').html("&#10003;");
         						   $('#loading-image').remove();
-        						   $('.main_edit').show(); 
-                                   					
+        						   $('.main_edit').show();    
+
                                    //added to show changes immediately
-                                   editor.getSession().setValue(lobjEac.getXML());
-                                                       
+                                   editor.getSession().setValue(lobjEac.getXML());     	
+                                   					   
         						   return;
     					       }    					           					       
     					       
@@ -707,7 +707,7 @@
     							   $('.form_container').remove();
     							   $('#viaf_load').remove();
     							   $('.main_edit').show();
-          						   $('#entity_name').show();          						       							      							    
+          						   $('#entity_name').show();          						       							      							  
     						       });
     }
     
