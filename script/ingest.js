@@ -89,7 +89,7 @@
     						       makeDialog('#dialog', 'Error!'); //display error
     
     						       $('#loading-image').remove();
-    						       $('main_edit').show();
+    						       $('.main_edit').show();
     						       $('#entity_name').show();
     						       
     						       return;
@@ -183,30 +183,21 @@
     					 catch(e) //response should be JSON so if not, throw error
     					 {    					     
     					     callback();
-    					     $('body').append("<div id=\"dialog\"><p>No results found in VIAF for " + lstrName + ".</p></div>");
+    					     $('body').append("<div id=\"dialog\"><p>No results found in VIAF for " + lstrName + ".</p><br/><p>Please choose names to create &ltcpfRelation&gt; elements.</p></div>");
     						 makeDialog('#dialog', 'Response'); //display response   
     					     return;
     					 }
     
     					 display_possible_viaf_form( lobjData, function( lstrChosenViaf )
     								     {
-
-                                         $('.form_container').remove();    	
-
-                                         if( lstrChosenViaf == "" )		
-                                         {
-                                           callback();
-                                           $('#loading-image').remove();
-                                           return;
-                                         }			              
-
+    									     									 
     									 //post to ajax viaf ingestor controller to get source and name entry nodes from viaf record of chosen result
     									 $.post( 'ajax/viaf_ingest_api.php', { 'action' : 'source_and_name_entry', 'viaf_id' : lstrChosenViaf }, function(response)
     										 {
     										     try
     										     {
     											     var lobjData = JSON.parse(response);  
-    											     //console.log(lobjData);
+    											     console.log(lobjData);
         											     
     										     }
     										     catch(e) //response should be JSON so if not, throw error
@@ -218,38 +209,39 @@
     										     }
     
     										     var lobjNameEntryList = typeof lobjData.name_entry_list == 'undefined' ? [] : lobjData.name_entry_list;
-    										     var lobjSource = typeof lobjData.source == 'undefined' ? [] : lobjData.source;    										         										         										         										     
-    										         			    										         		
+    										     var lobjSource = typeof lobjData.source == 'undefined' ? [] : lobjData.source;
+    										     
+    										     
     										     if ( lobjNameEntryList.length != 0 ) 
-    										     {    							    										     
+    										     {    										            										         										     	
          										     for( var i = 0; i < lobjNameEntryList.length; i++ )
          										     {
-         											    var NameEntry = lobjNameEntryList[i];
-         											    lobjEac.addNameEntry(NameEntry);
-         											    //set ace editor value to new xml from EAC Dom Document with ingested source and name entries
-         										        editor.getSession().setValue(lobjEac.getXML());
+         											 var NameEntry = lobjNameEntryList[i];
+         											 lobjEac.addNameEntry(NameEntry);
          										     }
+         
+         										     lobjEac.addSource( lobjSource );
          										     
-         										     lobjEac.addSource(lobjSource);
-         								             //set ace editor value to new xml from EAC Dom Document with ingested source and name entries
-         								             editor.getSession().setValue(lobjEac.getXML());
-         										              										     
-         										     callback();
-         										     // Results notification added by timathom
-         									         $('body').append("<div id=\"dialog\"><p>&lt;source&gt; and &lt;nameEntry&gt; elements added!</p></div>");
-         				                             makeDialog('#dialog', 'Results'); // display results
-         										     //$('.main_edit').show();
-         										     
+         										     $('body').append("<div id=\"dialog\"><p>&lt;source&gt; and &lt;nameEntry&gt; elements added!</p></div>");
+         					                         makeDialog('#dialog', 'Results'); // display results    
+
+                                                     //set ace editor value to new xml from EAC Dom Document with ingested source and name entries
+                                                     editor.getSession().setValue(lobjEac.getXML());					                             					                         
+         					                         
+         										     $('.form_container').remove();
+         						                     $('.viaf_arrow').html("&#10003;");   
+
+                                                     // Results notification added by timathom      
+                                                     callback();
     						                     }    						                     
     						                     else
-    						                     {    			
-    						                         callback();
+    						                     {
+    						                         callback('');
     						                         $('body').append("<div id=\"dialog\"><p>Skipped VIAF ingest.</p></div>");
-         					                         makeDialog('#dialog', 'Results'); // display results    						                            
-    						                         return;
+         					                         makeDialog('#dialog', 'Results'); // display results
+    											     return;    
     						                     }
-
-                                                 $('#loading-image').remove();    						                     
+    						                     
     										 });
     								     });
         				     });
@@ -300,8 +292,8 @@
     					 }else
     					 {
     					     callback(lstrChosenViaf);
-    					     //$('.form_container').remove();
-    					     //$('.main_edit').hide();         					     
+    					     $('.form_container').remove();
+    					     $('.main_edit').hide();         					     
     					 }
     				     });
     
@@ -309,7 +301,6 @@
         $('#ingest_viaf_chosen_viaf_cancel').on('click', function()
     					    {    					        					   
     					    
-    					    $('.form_container').remove();
     					    callback('');       	    					        					   
     						//$('.form_container').remove();
                             //$('#loading-image').remove();
@@ -338,8 +329,6 @@
      */
     function ingest_viaf_Relations( lobjEac, callback )
     {
-        $('#main_content').prepend('<img id="loading-image" src="style/images/loading.gif" alt="loading"/>');
-
         //need to get ead to get possible names and titles list
         $.post( 'ajax/get_ead.php', { 'ead' : getCookie('ead_file_last') }, function(lstrXML)
     	    {
@@ -457,7 +446,7 @@
     		PossibleNameList.sort();
     		
     		//console.log(PossibleNameList);
-    		
+    	
     		if( PossibleNameList.length == 0 )
 		    {			    
 		        callback( 'No matches for Named Entity Recognition.' );
@@ -465,19 +454,24 @@
                 //makeDialog('#dialog', 'Results'); // display results
 			    $('#loading-image').remove();
                 $('.form_container').remove();
-     			$('.main_edit').show();     		        
+                $('.main_edit').show();
+
+                //set ace editor value to new xml from EAC Dom Document with ingested source and name entries
+                //added to show changes immediately
+                editor.getSession().setValue(lobjEac.getXML());    
+                    			        
     			$('#entity_name').show();    			    			
 
 			    return;
 		    }		            	                                         
     
-            $('#loading-image').remove();
-
     		//display all possible names for editor to choose correct/desired names to search viaf and create relations
     		display_possible_name_form(PossibleNameList, function( lobjChosenNames )
     					   {        					   
     					       if( lobjChosenNames.length == 0 )
-    					       {    					    					           
+    					       {    					
+    					           callback("Canceled!"); //done if no names where chosen
+    					           
         					       if ( getCookie('wiki') == 'present' )   
                                    {
                                      $('#wiki_switch').show();    	                           	
@@ -488,9 +482,8 @@
                                    }
         						   $('.viaf_arrow').html("&#10003;");
         						   $('#loading-image').remove();
-                                   $('#viaf_load').remove();
-        						   $('.main_edit').show();      
-                                   callback("Canceled!"); //done if no names where chosen  						   
+        						   $('.main_edit').show();        	
+                                   					   
         						   return;
     					       }    					           					       
     					       
@@ -510,7 +503,6 @@
                               	           callback('');
                               	           $('.viaf_arrow').html("&#10003;");
         							       $('#loading-image').remove(); 
-                                           $('#viaf_load').remove();
         							       $('.form_container').remove();
         							       $('.main_edit').show();
         							       // Check to see if there is already wiki markup. If so, show switcher. --timathom
@@ -555,8 +547,7 @@
     											     callback("Canceled!"); //finish process if no results chosen
     											     $('.viaf_arrow').html("&#10003;");
     											     $('#loading-image').remove(); 
-                                                     $('#viaf_load').remove();
-    											     $('.main_edit').show();
+    											     $('.main_edit').show();                                                     
     											     
     											     // Check to see if there is already wiki markup. If so, show switcher. --timathom
                                                      if ( getCookie('wiki') == 'present' )   
@@ -575,9 +566,7 @@
     											 for(var i = 0; i < lobjResultsChosen['names']['entity']['viaf'].length; i++)
     											 {
     											     var chosen_result_viaf = lobjResultsChosen['names']['entity']['viaf'][i];
-    											     lobjEac.addCPFRelationViaf(lobjData[chosen_result_viaf]);    			
-    											     
-    											     editor.getSession().setValue(lobjEac.getXML());
+    											     lobjEac.addCPFRelationViaf(lobjData[chosen_result_viaf]);    											     
     											         									
     											     /* Attempting to dedupe cpfRelations... Needs more work. --timathom
                                      			     var colon = chosen_result_viaf.indexOf(':');
@@ -601,11 +590,9 @@
     											     var chosen_roles = lobjResultsChosen['names']['roles'][i];        											                                                         
     											     var chosen_rels = lobjResultsChosen['names']['rels'][i];
     											     lobjEac.addCPFRelationCustom(lobjData[chosen_result_custom], chosen_roles, chosen_rels);
-    											     
-    											     editor.getSession().setValue(lobjEac.getXML());
     											 }    											     		    											     											
     											 
-    											 
+    											 editor.getSession().setValue(lobjEac.getXML());
     
     											 callback('&lt;cpfRelation&gt; elements added!'); // Notify that <cpfRelation> elements have been added. --timathom    											
     											 $('.viaf_arrow').html("&#10003;");    											 
@@ -674,9 +661,11 @@
         $('#ingest_viaf_chosen_names_relations').on('click', function()
     						{
     						    var lobjChosenNames = [];
+    						    
+    						    $('#main_content').append('<div id="viaf_load">Searching VIAF for matches. Depending on the number of queries, this may take some time.</div>');
     
     						    $('input.ner_check').each(function () {
-    							    if(this.checked)
+    							if(this.checked)
          							{
          					           lobjChosenNames.push(encode_utf8($(this).closest('td').next('td').children('input').val())); 
          							}        	     							
@@ -689,11 +678,9 @@
     						        //$('.main_edit').hide();   
     						    }
     						    else
-    						    {						  
+    						    {						              						        
           						    callback(lobjChosenNames);	
           						    $('.form_container').remove();          						    
-                                    $('#main_content').append('<div id="viaf_load">Searching VIAF for matches. Depending on the number of queries, this may take some time.</div>');                                        
-                                    $('#main_content').prepend('<img id="loading-image" src="style/images/loading.gif" alt="loading"/>');
           						    $('.main_edit').hide();
           						    $('#entity_name').hide();
           						       						                                                 						   
@@ -705,7 +692,7 @@
     						       {
     							   var lobjChosenNames = [];    
     							   callback(lobjChosenNames); 
-    							   // Check to see if there is already wiki markup. If so, show switcher. --timathom    							   
+    							   // Check to see if there is already wiki markup. If so, show switcher. --timathom
                                    if ( getCookie('wiki') == 'present' )   
                                    {
                                      $('#wiki_switch').show();    	                           	
@@ -728,7 +715,7 @@
     function display_viaf_results_form( lobjViafResults, callback )
     {
         var lstrHTML = "<div class=\"form_container\">";
-        lstrHTML += "<div class=\"instruction_div\"><h2 class=\"instruction\" style=\"font-weight:800; font-size:1.5em;\">Named Entity Recognition</h2><p class=\"instruction\">Based on your selections, these are the possible matches (if any) retrieved from VIAF. Results are sorted by the number of library holdings associated with each name in VIAF.</p><p class=\"instruction\">Please note that you will need to verify these results. When there are several possibilities, you may need to look at each one before choosing.</p><p class=\"instruction\">Some results are obviously unrelated, but others may be harder to differentiate. Even if a name seems to match your original selection, it may be a false hit.</p><p class=\"instruction\">When in doubt, click on a name to visit its VIAF page and look for additional information. If a name already has a corresponding Wikipedia article (there may be a link from the VIAF page), check there to see which VIAF ID has been used, and select the name that corresponds to that VIAF ID.</p><p class=\"instruction\">If there are no appropriate matches from VIAF, you may add a custom &lt;cpfRelation&gt; using the original search string.</p></div>";
+        lstrHTML += "<div class=\"instruction_div\"><h2 class=\"instruction\" style=\"font-weight:800; font-size:1.5em;\">Named Entity Recognition</h2><p class=\"instruction\">Based on your selections, these are the possible matches (if any) that we were able to retrieve from VIAF. Results are sorted by the number of library holdings associated with each name in the VIAF database.</p><p class=\"instruction\">Please note that you will need to verify these results. When there are several possibilities, you may need to look at each one before choosing.</p><p class=\"instruction\">Some results are obviously unrelated, but others may be harder to differentiate. Be aware that even if a name seems to match your original selection, it may be a false hit.</p><p class=\"instruction\">When in doubt, please click on a name to visit its VIAF page and look for additional information. If a name already has a corresponding Wikipedia article (there may be a link from the VIAF page), check there to see which VIAF ID has been used, and then select the name that corresponds to that VIAF ID.</p><p class=\"instruction\">If there are no appropriate matches from VIAF, you may add a custom &lt;cpfRelation&gt; using the original search string.</p></div>";
        
         lstrHTML += "<button id=\"ingest_viaf_add_relations\" class=\"pure-button ingest-ok pure-button-secondary\">Use Selected Results</button>";
         lstrHTML += "&nbsp;<button id=\"ingest_viaf_add_relations_cancel\" class=\"pure-button ingest-cancel pure-button-secondary\">Cancel</button>";
@@ -960,28 +947,28 @@
     											 {
     											     var OtherRecs = lobjOtherRecList[i];
     											     lobjEac.addOtherRecordId(OtherRecs);    											     
-    											     editor.getSession().setValue(lobjEac.getXML()); // added by timathom
+    											     //editor.getSession().setValue(lobjEac.getXML()); // added by timathom
     											 }
     											 
     											 for( var i = 0; i < lobjSourceList.length; i++ )
     											 {
     											     var Sources = lobjSourceList[i];
     											     lobjEac.addSource(Sources);
-    											     editor.getSession().setValue(lobjEac.getXML()); // added by timathom
+    											     //editor.getSession().setValue(lobjEac.getXML()); // added by timathom
     											 }
     
     											 for( var i = 0; i < lobjCpfRelationList.length; i++ )
     											 {
     											     var CpfRelation = lobjCpfRelationList[i];    											     
     											     lobjEac.addCPFRelation(CpfRelation);
-    											     editor.getSession().setValue(lobjEac.getXML()); // added by timathom
+    											     //editor.getSession().setValue(lobjEac.getXML()); // added by timathom
     											 }
     
     											 for( i = 0; i < lobjResourceRelationList.length; i++ )
     											 {
     											     var ResourceRelation = lobjResourceRelationList[i];
     											     lobjEac.addResourceRelation(ResourceRelation);
-    											     editor.getSession().setValue(lobjEac.getXML()); // added by timathom
+    											     //editor.getSession().setValue(lobjEac.getXML()); // added by timathom
     											 }    											     											 										     											     											     											     											    										
     											 
     											 // Result text added by timathom.    
@@ -1058,7 +1045,6 @@
     																 {
     																     var Subject = lobjSubjectList[lobjChosenSubjects[i]];
     																     lobjEac.addSubjectHeading(Subject);
-    																     editor.getSession().setValue(lobjEac.getXML());
     																 }
     																 
     																 if(lobjChosenSubjects.length == 0)
@@ -1078,7 +1064,8 @@
                                                                       	 else
                                                                       	 {
                                                                       	     $('#wiki_switch').hide();
-                                                                      	 }                                                         		                                                                 
+                                                                      	 }
+                                                         		         editor.getSession().setValue(lobjEac.getXML());                                                         
                                                                          return;
                                                                     } 
                                                                     else
@@ -1087,7 +1074,7 @@
            					                                             makeDialog('#dialog', 'Results'); // display results    																 
            																 $('#loading-image').remove();
            																 $('.worldcat_arrow').html("&#10003;");    																        															    																 
-           																 $('main_edit').show();  
+           																 $('.main_edit').show();
            																 $('#entity_name').show();
            																 // Check to see if there is already wiki markup. If so, show switcher. --timathom
                                                                        	 if ( getCookie('wiki') == 'present' )   
@@ -1098,7 +1085,7 @@
                                                                       	 {
                                                                       	     $('#wiki_switch').hide();
                                                                       	 }
-                                                                      	 //editor.getSession().setValue(lobjEac.getXML()); --timathom
+                                                                      	 editor.getSession().setValue(lobjEac.getXML());
                                                                       	 return;                                                                      	 
     																 }
     																 
