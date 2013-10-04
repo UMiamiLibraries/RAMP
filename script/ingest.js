@@ -211,7 +211,7 @@
     										     var lobjNameEntryList = typeof lobjData.name_entry_list == 'undefined' ? [] : lobjData.name_entry_list;
     										     var lobjSource = typeof lobjData.source == 'undefined' ? [] : lobjData.source;    										         										         										         										     
     										         			    										         		
-    										     if ( lobjNameEntryList.length != 0 || typeof lobjNameEntryList != 'undefined' ) 
+    										     if ( lobjNameEntryList.length != 0 ) 
     										     {    							    										     
          										     for( var i = 0; i < lobjNameEntryList.length; i++ )
          										     {
@@ -235,9 +235,10 @@
     						                     }    						                     
     						                     else
     						                     {    			
+    						                         callback();
     						                         $('body').append("<div id=\"dialog\"><p>Skipped VIAF ingest.</p></div>");
-         					                         makeDialog('#dialog', 'Results'); // display results
-    						                         callback();    						                            											       
+         					                         makeDialog('#dialog', 'Results'); // display results    						                            
+    						                         return;
     						                     }
     						                     
     										 });
