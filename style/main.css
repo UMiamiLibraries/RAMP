@@ -349,6 +349,7 @@ ul, menu, dir {
     width:100%;
     bottom:0;
     height: 50px;
+    z-index:501;
 }
 
 .ingest-cancel {
