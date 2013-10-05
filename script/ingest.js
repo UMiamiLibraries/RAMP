@@ -851,7 +851,7 @@
                                        
                                         if ($(this).closest('td').siblings('#plainText').children('#select_wrap').children('#ents').children('option:selected').val() != '')
     					                {    					                        					                   
-    					                    lobjChosenResults['names']['roles'].push( "http://RDVocab.info/uri/schema/FRBRentitiesRDA/" + $(this).closest('td').siblings('#plainText').children('#select_wrap').children('#ents').children('option:selected').text() );    					                    
+    					                    lobjChosenResults['names']['roles'].push( "http://rdvocab.info/uri/schema/FRBRentitiesRDA/" + $(this).closest('td').siblings('#plainText').children('#select_wrap').children('#ents').children('option:selected').text() );    					                    
     					                }
                                         
                                         if ($(this).closest('td').siblings('#plainText').children('#select_wrap').children('#rels').children('option:selected').val() != '')

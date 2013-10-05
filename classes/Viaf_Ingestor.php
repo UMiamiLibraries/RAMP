@@ -250,7 +250,7 @@ http://www.viaf.org/viaf/
 				    $lobjcpfRelation = array(
 					   			"attributes" => array( "xlink:arcrole" => "associatedWith",
 													   "xlink:href" => "http://viaf.org/viaf/$this->strViafID",
-													   "xlink:role" => "http://RDVocab.info/uri/schema/FRBRentitiesRDA/" . $lstrType,
+													   "xlink:role" => "http://rdvocab.info/uri/schema/FRBRentitiesRDA/" . $lstrType,
 													   "xlink:type" => "simple" ),
 								"elements" => array( "relationEntry" => array (
 								                                        "elements" => $lstrResultName 
