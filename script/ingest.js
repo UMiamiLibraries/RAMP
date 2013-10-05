@@ -183,7 +183,7 @@
     					 catch(e) //response should be JSON so if not, throw error
     					 {    					     
     					     callback();
-    					     $('body').append("<div id=\"dialog\"><p>No results found in VIAF for " + lstrName + ".</p><br/><p>Please choose names to create &ltcpfRelation&gt; elements.</p></div>");
+    					     $('body').append("<div id=\"dialog\"><p>No results found in VIAF for " + lstrName + ".</p></div>");
     						 makeDialog('#dialog', 'Response'); //display response   
     					     return;
     					 }
