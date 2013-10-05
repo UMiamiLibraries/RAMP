@@ -236,6 +236,8 @@
     						                     }    						                     
     						                     else
     						                     {
+    						                         jQuery('html,body').animate({scrollTop:0},0); //scroll to top to view form correctly
+    						                         
     						                         callback('');
     						                         $('body').append("<div id=\"dialog\"><p>Skipped VIAF ingest.</p></div>");
          					                         makeDialog('#dialog', 'Results'); // display results
@@ -361,8 +363,9 @@
     		    //apply regex to elements to find all possible names to search viaf for relations
     		    //lobjPossibleTitles = lstrParagraph.match(/["\u201D\u201C]([^"\u201D\u201C]+)["\u201D\u201C]/g);
     		    //lstrParagraph = lstrParagraph.replace(/["\u201D\u201C]([^"\u201D\u201C]+)["\u201D\u201C]/g, "");
-    		    var lobjPossibleNamesBio = lstrParagraph.match(/((\sde\s)*?[A-Z\u002E\u00DC\u0300\u0301\u0302\u0303\u0304\u0305\u0306\u0307\u0308\u00C0\u00C1\u00C3\u00C7\u00C9\u00CA\u00CD\u00D3\u00DA\u00DC\u00D4\u00D5\u00D6][a-z\u002E\u00FC\u0300\u0301\u0303\u0308\u030B\u030E\u00E0\u00E1\u00E3\u00E7\u00E9\u00EA\u00ED\u00F0\u00F3\u00F4\u00F5\u00FA\u00FC\u00F1\-']+(\s[0-9][0-9])?([,]*?)(\sof|\sfu\u0308r|\sdes|\set|\sde\sla|\sde\s|\sdel|\sde|\svon|\svan)?\s*([A-Z\u002E\u00C1\u00C9\u00CD\u00D3\u00DA\u00DC\u00D6][.]\s*)*(of\s|fu\u0308r\s|des\s|et\s|y\sdel\s|y\sde\sla\s|de\sla\s|del\s|de\slos\s|e\s|y\s|de\s|von\s|van\s)?){2,8}/g);    		                               
-    		    
+    		    var lobjPossibleNamesBio = lstrParagraph.match(/((\sde\s)*?[A-Z\u00C0\u00C1\u00C3\u00C7\u00C9\u00CA\u00CD\u00D3\u00DA\u00DC\u00D4\u00D5\u00D6][a-z\u00E0\u00E1\u00E3\u00E7\u00E9\u00EA\u00ED\u00F0\u00F3\u00F4\u00F5\u00FA\u00FC\u00F1\-']+(\s[0-9][0-9])?([,]*?)(\sof|\sfu\u0308r|\sdes|\set|\sde\sla|\sde\s|\sdel|\sde)?\s*([A-Z\u00C1\u00C9\u00CD\u00D3\u00DA\u00DC\u00D6][.]\s*)*(of\s|fu\u0308r\s|des\s|et\s|y\sdel\s|y\sde\sla\s|de\sla\s|del\s|de\slos\s|e\s|y\s|de\s)?){2,8}/g);
+     		    //lstrParagraph.match(/((\sde\s)*?[A-Z\u002E\u00DC\u0300\u0301\u0302\u0303\u0304\u0305\u0306\u0307\u0308\u00C0\u00C1\u00C3\u00C7\u00C9\u00CA\u00CD\u00D3\u00DA\u00DC\u00D4\u00D5\u00D6][a-z\u002E\u00FC\u0300\u0301\u0303\u0308\u030B\u030E\u00E0\u00E1\u00E3\u00E7\u00E9\u00EA\u00ED\u00F0\u00F3\u00F4\u00F5\u00FA\u00FC\u00F1\-']+(\s[0-9][0-9])?([,]*?)(\sof|\sfu\u0308r|\sdes|\set|\sde\sla|\sde\s|\sdel|\sde|\svon|\svan)?\s*([A-Z\u002E\u00C1\u00C9\u00CD\u00D3\u00DA\u00DC\u00D6][.]\s*)*(of\s|fu\u0308r\s|des\s|et\s|y\sdel\s|y\sde\sla\s|de\sla\s|del\s|de\slos\s|e\s|y\s|de\s|von\s|van\s)?){2,8}/g);    		                               
+    		                               
     		    // Attempt to get substring before/after regex match. In development. --timathom
     		    //var NameIndex = []; 
     		    //var NameIndexList = [];
@@ -384,8 +387,10 @@
          			    
          			    //Attempt to get substring before/after regex match. In development. --timathom
          			    
-         			    //lstrNameMatch = lstrParagraph.indexOf(lstrPossibleNameBio);         			    
-         			    //NameIndex.push(lstrNameMatch);         			    
+         			    //lstrNameMatch = lstrParagraph.indexOf(lstrPossibleNameBio);
+         			    
+         			    //NameIndex.push(lstrNameMatch);
+         			    
          			    /* 
          			    for (var y = 0; y < NameIndex.length; y++)
                    	    {
@@ -601,6 +606,9 @@
     											 for(var i = 0; i < lobjResultsChosen['names']['entity']['viaf'].length; i++)
     											 {
     											     var chosen_result_viaf = lobjResultsChosen['names']['entity']['viaf'][i];
+    											     
+    											     //console.log(chosen_result_viaf);
+    											     
     											     lobjEac.addCPFRelationViaf(lobjData[chosen_result_viaf]);    											     
     											         									
     											     /* Attempting to dedupe cpfRelations... Needs more work. --timathom
@@ -628,11 +636,14 @@
     											 }    											     		    											     											
     											 
     											 editor.getSession().setValue(lobjEac.getXML());
+    											 
+    											 jQuery('html,body').animate({scrollTop:0},0); //scroll to top to view form correctly
     
-    											 callback('&lt;cpfRelation&gt; elements added!'); // Notify that <cpfRelation> elements have been added. --timathom    											
+    											 callback('&lt;cpfRelation&gt; elements added!'); // Notify that <cpfRelation> elements have been added. --timathom    											    											 
     											 $('.viaf_arrow').html("&#10003;");    											 
     											 $('#loading-image').remove();
     											 $('.main_edit').show();
+    											 
     											 
     											 }
     										 });                          	      
@@ -838,20 +849,19 @@
                                         lobjChosenResults['names']['entity']['all'].push($(this).closest('td').siblings('#plainText').children('#textSpan').text());
                                         lobjChosenResults['names']['entity']['custom'].push($(this).closest('td').siblings('#plainText').children('#textSpan').text());
                                        
+                                        if ($(this).closest('td').siblings('#plainText').children('#select_wrap').children('#ents').children('option:selected').val() != '')
+    					                {    					                        					                   
+    					                    lobjChosenResults['names']['roles'].push( "http://RDVocab.info/uri/schema/FRBRentitiesRDA/" + $(this).closest('td').siblings('#plainText').children('#select_wrap').children('#ents').children('option:selected').text() );    					                    
+    					                }
+                                        
                                         if ($(this).closest('td').siblings('#plainText').children('#select_wrap').children('#rels').children('option:selected').val() != '')
     					                {    					                    
     					                    lobjChosenResults['names']['rels'].push( $(this).closest('td').siblings('#plainText').children('#select_wrap').children('#rels').children('option:selected').text() );
-    					                }    				
-    					                
-    					                else if ( lobjChosenResults['names']['rels'].length == 0 )
+    					                }    				    					                
+    					                else //( lobjChosenResults['names']['rels'].length == 0 )
     					                {    					                    
     					                    lobjChosenResults['names']['rels'].push( "associatedWith" );
-    					                }
-    					           
-    					                if ($(this).closest('td').siblings('#plainText').children('#select_wrap').children('#ents').children('option:selected').val() != '')
-    					                {    					                        					                   
-    					                    lobjChosenResults['names']['roles'].push( "http://RDVocab.info/uri/schema/FRBRentitiesRDA/" + $(this).closest('td').siblings('#plainText').children('#select_wrap').children('#ents').children('option:selected').text() );    					                    
-    					                }    
+    					                }    					               					                    
     					           }    					               					          					               					      
     					       }					       
     					   });					   					 					 
