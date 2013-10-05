@@ -197,7 +197,7 @@
     										     try
     										     {
     											     var lobjData = JSON.parse(response);  
-    											     console.log(lobjData);
+    											     //console.log(lobjData);
         											     
     										     }
     										     catch(e) //response should be JSON so if not, throw error
@@ -257,7 +257,7 @@
     {
         var lstrHTML = "<div class=\"form_container\">";
           
-        lstrHTML += "<div class=\"instruction_div\"><h2 class=\"instruction\" style=\"font-weight:800; font-size:1.5em;\">Authority Control</h2><p class=\"instruction\">The purpose of this step is to get a unique identifier from the Virtual International Authority File (<a href=\"http://viaf.org\" title=\"Link to the Virtual International Authority File\" target=\"_blank\">VIAF</a>) for the entity you are working with, and then do Named Entity Recognition on the text of the entity's bio or finding aid in order to encode relationships.</p><p class=\"instruction\">The list on the right was retrieved from VIAF. Please examine the name(s) to see whether there is an appropriate match for the entity you are working with.</p><p class=\"instruction\">If you click on a name, you will be taken to its VIAF page, which may include additional information that will help you decide whether it is an appropriate match.</p><p class=\"instruction\">If there is not a good match, click \"Cancel\" to proceed to the next step (Named Entity Recognition).</p></div>";
+        lstrHTML += "<div class=\"instruction_div\"><h2 class=\"instruction\" style=\"font-weight:800; font-size:1.5em;\">Authority Control: Ingest from VIAF</h2><p class=\"instruction\">The purpose of this step is to get a unique identifier from the Virtual International Authority File (<a href=\"http://viaf.org\" title=\"Link to the Virtual International Authority File\" target=\"_blank\">VIAF</a>) for the entity you are working with, and then do Named Entity Recognition on the text of the entity's bio or finding aid in order to encode relationships.</p><p class=\"instruction\">The list on the right was retrieved from VIAF. Please examine the name(s) to see whether there is an appropriate match for the entity you are working with.</p><p class=\"instruction\">If you click on a name, you will be taken to its VIAF page, which may include additional information that will help you decide whether it is an appropriate match.</p><p class=\"instruction\">If there is not a good match, click \"Cancel\" to proceed to the next step (Named Entity Recognition).</p></div>";
     
         lstrHTML += "<button id=\"ingest_viaf_chosen_viaf\" class=\"pure-button ingest-ok pure-button-secondary\">Use Selected VIAF</button>";
         lstrHTML += "&nbsp;<button id=\"ingest_viaf_chosen_viaf_cancel\" class=\"pure-button ingest-cancel pure-button-secondary\">Cancel</button>";
@@ -342,7 +342,7 @@
 
     		var lobjParagraphList = lobjEac.getParagraph();
     		var lobjUnitTitleList = lobjead.getElementList('//*[local-name()=\'unittitle\']');
-    		var lobjIngestList = lobjEac.getElementList('//*[local-name()=\'resourceRelation\'][@resourceRelationType=\'creatorOf\']/*[local-name()=\'relationEntry\'][1] | //*[local-name()=\'resourceRelation\'][@resourceRelationType=\'subjectOf\']/*[local-name()=\'relationEntry\'][@localType=\'creator\']');    		    		 
+    		var lobjIngestList = lobjEac.getElementList('//*[local-name()=\'resourceRelation\'][@resourceRelationType=\'creatorOf\']/*[local-name()=\'relationEntry\'][1] | //*[local-name()=\'resourceRelation\'][@resourceRelationType=\'subjectOf\']/*[local-name()=\'relationEntry\'][@localType=\'creator\'] | //*[local-name()=\'resourceRelation\'][@resourceRelationType=\'subjectOf\']/*[local-name()=\'relationEntry\'][1]');    		    		 
     		
     		// XPath for getting things wrapped in <span> tags:
     		//var lobjSpanList = lobjead.getElementList('//*[local-name()=\'unittitle\']/*[local-name()=\'span\']');
@@ -361,8 +361,12 @@
     		    //apply regex to elements to find all possible names to search viaf for relations
     		    //lobjPossibleTitles = lstrParagraph.match(/["\u201D\u201C]([^"\u201D\u201C]+)["\u201D\u201C]/g);
     		    //lstrParagraph = lstrParagraph.replace(/["\u201D\u201C]([^"\u201D\u201C]+)["\u201D\u201C]/g, "");
-    		    var lobjPossibleNamesBio = lstrParagraph.match(/((\sde\s)*?[A-Z\u00C0\u00C1\u00C3\u00C7\u00C9\u00CA\u00CD\u00D3\u00DA\u00DC\u00D4\u00D5\u00D6][a-z\u00E0\u00E1\u00E3\u00E7\u00E9\u00EA\u00ED\u00F0\u00F3\u00F4\u00F5\u00FA\u00FC\u00F1\-']+(\s[0-9][0-9])?([,]*?)(\sde\sla|\sde\s|\sdel|\sde)?\s*([A-Z\u00C1\u00C9\u00CD\u00D3\u00DA\u00DC\u00D6][.]\s*)*(y\sdel\s|y\sde\sla\s|de\sla\s|del\s|de\slos\s|e\s|y\s|de\s)?){2,8}/g);
-    		       
+    		    var lobjPossibleNamesBio = lstrParagraph.match(/((\sde\s)*?[A-Z\u002E\u00DC\u0300\u0301\u0302\u0303\u0304\u0305\u0306\u0307\u0308\u00C0\u00C1\u00C3\u00C7\u00C9\u00CA\u00CD\u00D3\u00DA\u00DC\u00D4\u00D5\u00D6][a-z\u002E\u00FC\u0300\u0301\u0303\u0308\u030B\u030E\u00E0\u00E1\u00E3\u00E7\u00E9\u00EA\u00ED\u00F0\u00F3\u00F4\u00F5\u00FA\u00FC\u00F1\-']+(\s[0-9][0-9])?([,]*?)(\sof|\sfu\u0308r|\sdes|\set|\sde\sla|\sde\s|\sdel|\sde|\svon|\svan)?\s*([A-Z\u002E\u00C1\u00C9\u00CD\u00D3\u00DA\u00DC\u00D6][.]\s*)*(of\s|fu\u0308r\s|des\s|et\s|y\sdel\s|y\sde\sla\s|de\sla\s|del\s|de\slos\s|e\s|y\s|de\s|von\s|van\s)?){2,8}/g);    		                               
+    		    
+    		    // Attempt to get substring before/after regex match. In development. --timathom
+    		    //var NameIndex = []; 
+    		    //var NameIndexList = [];
+    		    
     		    if( lobjPossibleNamesBio == null || lobjPossibleNamesBio.length == 0 )
     		    {
          			continue;    			         			
@@ -370,11 +374,32 @@
     		    else
     		    {
     		        for( var j = 0; j < lobjPossibleNamesBio.length; j++ )
-         			{
-         			    var lstrPossibleNameBio = lobjPossibleNamesBio[j];
+         			{         			             			             	         			        	        	  
+         			             			             			  
+         			    var lstrPossibleNameBio = lobjPossibleNamesBio[j];         			             			    
+         			    
          			    lstrPossibleNameBio = lstrPossibleNameBio.trim();
     			            			                         
          			    PossibleNameListBio.push( lstrPossibleNameBio );
+         			    
+         			    //Attempt to get substring before/after regex match. In development. --timathom
+         			    
+         			    //lstrNameMatch = lstrParagraph.indexOf(lstrPossibleNameBio);         			    
+         			    //NameIndex.push(lstrNameMatch);         			    
+         			    /* 
+         			    for (var y = 0; y < NameIndex.length; y++)
+                   	    {
+                   	       
+                   	       var lstrBeforeName = lstrParagraph.substring(NameIndex[y]-50, NameIndex[y])
+                   	       var lstrAfterName = lstrParagraph.substring(NameIndex[y],NameIndex[y]+50)
+                   	       
+                   	       NameIndexList.push(lstrBeforeName);
+                   	       NameIndexList.push(lstrPossibleNameBio);
+                   	       NameIndexList.push(lstrAfterName);
+                   	        
+                   	    }
+                   	    */
+         			    
          			}     
     		    }    		   
       		}
@@ -388,8 +413,7 @@
     		    if( lstrUnitTitle == null || lstrUnitTitle == '' )
     			continue;
     			
-    			var lobjPossibleNamesUnit = lstrUnitTitle.match(/((\sde\s)*?[A-Z\u00C0\u00C1\u00C3\u00C7\u00C9\u00CA\u00CD\u00D3\u00DA\u00DC\u00D4\u00D5\u00D6][a-z\u00E0\u00E1\u00E3\u00E7\u00E9\u00EA\u00ED\u00F0\u00F3\u00F4\u00F5\u00FA\u00FC\u00F1\-']+(\s[0-9][0-9])?([,]*?)(\sde\sla|\sde\s|\sdel|\sde)?\s*([A-Z\u00C1\u00C9\u00CD\u00D3\u00DA\u00DC\u00D6][.]\s*)*(y\sdel\s|y\sde\sla\s|de\sla\s|del\s|de\slos\s|e\s|y\s|de\s|[,]\s)?){2,8}/g);
-    			
+    			var lobjPossibleNamesUnit = lstrUnitTitle.match(/((\sde\s)*?[A-Z\u002E\u00DC\u0300\u0301\u0302\u0303\u0304\u0305\u0306\u0307\u0308\u00C0\u00C1\u00C3\u00C7\u00C9\u00CA\u00CD\u00D3\u00DA\u00DC\u00D4\u00D5\u00D6][a-z\u002E\u00FC\u0300\u0301\u0303\u0308\u030B\u030E\u00E0\u00E1\u00E3\u00E7\u00E9\u00EA\u00ED\u00F0\u00F3\u00F4\u00F5\u00FA\u00FC\u00F1\-',]+(\s[0-9][0-9])?([,]*?)(\sof|\sfu\u0308r|\sdes|\set|\sde\sla|\sde\s|\sdel|\sde|\svon|\svan)?\s*([A-Z\u002E\u00C1\u00C9\u00CD\u00D3\u00DA\u00DC\u00D6][.]\s*)*(of\s|fu\u0308r\s|des\s|et\s|y\sdel\s|y\sde\sla\s|de\sla\s|del\s|de\slos\s|e\s|y\s|de\s|von\s|van\s|[,]\s)?){2,8}/g);    			                            
     			if ( lobjPossibleNamesUnit == null || lobjPossibleNamesUnit.length == 0 )
     			{
     			    continue;   		
@@ -423,7 +447,7 @@
     		    if( lstrIngest == null || lstrIngest == '' )
     			continue;
     			
-    			var lobjPossibleNamesIngest = lstrIngest.match(/((\sde\s)*?[A-Z\u0300\u0301\u0303\u0308\u00C0\u00C1\u00C3\u00C7\u00C9\u00CA\u00CD\u00D3\u00DA\u00DC\u00D4\u00D5\u00D6][a-z\u0300\u0301\u0303\u0308\u00E0\u00E1\u00E3\u00E7\u00E9\u00EA\u00ED\u00F0\u00F3\u00F4\u00F5\u00FA\u00FC\u00F1\-']+(\s[0-9][0-9])?([,]*?)(\sde\sla|\sde\s|\sdel|\sde)?\s*([A-Z\u00C1\u00C9\u00CD\u00D3\u00DA\u00DC\u00D6][.]\s*)*(y\sdel\s|y\sde\sla\s|de\sla\s|del\s|de\slos\s|e\s|y\s|de\s)?){2,8}/g);
+    			var lobjPossibleNamesIngest = lstrIngest.match(/((\sde\s)*?[A-Z\u002E\u00DC\u0300\u0301\u0302\u0303\u0304\u0305\u0306\u0307\u0308\u00C0\u00C1\u00C3\u00C7\u00C9\u00CA\u00CD\u00D3\u00DA\u00DC\u00D4\u00D5\u00D6][a-z\u002E\u00FC\u0300\u0301\u0303\u0308\u030B\u030E\u00E0\u00E1\u00E3\u00E7\u00E9\u00EA\u00ED\u00F0\u00F3\u00F4\u00F5\u00FA\u00FC\u00F1\-',]+(\s[0-9][0-9])?([,]*?)(\sof|\sfu\u0308r|\sdes|\set|\sde\sla|\sde\s|\sdel|\sde|\svon|\svan)?\s*([A-Z\u002E\u00C1\u00C9\u00CD\u00D3\u00DA\u00DC\u00D6][.]\s*)*(of\s|fu\u0308r\s|des\s|et\s|y\sdel\s|y\sde\sla\s|de\sla\s|del\s|de\slos\s|e\s|y\s|de\s|von\s|van\s)?){2,8}/g);
     			
     			if ( lobjPossibleNamesIngest == null || lobjPossibleNamesIngest.length == 0 )
     			{
@@ -435,17 +459,25 @@
     			    {
     			        var lstrPossibleNameIngest = lobjPossibleNamesIngest[j];
          			    lstrPossibleNameIngest = lstrPossibleNameIngest.trim();
+         			    
+         			    // Strip any trailing commas. --timathom
+         			    var lstrLastChar = lstrPossibleNameIngest.substr( lstrPossibleNameIngest.length - 1 );
+         			    
+         			    if( lstrLastChar == "," )
+    			        {
+    				        lstrPossibleNameIngest = lstrPossibleNameIngest.slice(0, -1);
+    			        }     
     			            			                               
          			    PossibleNameListIngest.push( lstrPossibleNameIngest );
          			}        
     			}    			
     	    }
     	    
+    	    
+    	    //console.log(NameIndexList);
     	    PossibleNameList = PossibleNameListBio.concat(PossibleNameListUnit).concat(PossibleNameListIngest);
     		PossibleNameList = unique(PossibleNameList);
-    		PossibleNameList.sort();
-    		
-    		//console.log(PossibleNameList);
+    		PossibleNameList.sort();    		    		
     	
     		if( PossibleNameList.length == 0 )
 		    {			    
@@ -636,7 +668,7 @@
         for(var i = 0; i < lobjPossibleNames.length; i++)
         {               
         	lstrHTML += "<tr><td><input type=\"checkbox\" class=\"ner_check\" name=\"chosen_names\" value=\"\"/></td>";
-        	lstrHTML += "<td><input type=\"text\" class=\"ner_text\" name=\"modified_names\" size=\"35\" value=\"" + lobjPossibleNames[i] + "\"/></td>";
+        	lstrHTML += "<td><input type=\"text\" class=\"ner_text\" name=\"modified_names\" size=\"50\" value=\"" + lobjPossibleNames[i] + "\"/></td>";
             lstrHTML += "<td><input type=\"button\" name=\"add\" value=\"Add New Row\" class=\"ner_empty_add pure-button pure-button-secondary\"/></td></tr>";            
         }
         
@@ -649,7 +681,7 @@
     
         // jQuery added by timathom to include "Add New Row" and "Delete Row" buttons and functionality.
      			    $("input.ner_empty_add").on('click', function() {        
-     			        var tr = "<tr><td><input type=\"checkbox\" class=\"ner_check\" name=\"chosen_names\" value=\"\"/></td><td><input type=\"text\" class=\"ner_text\" name=\"modified_names\" size=\"35\" value=\"\" /></td><td><input type=\"button\" name=\"rm\" value=\"Delete Row\" class=\"ner_empty_rm pure-button pure-button-secondary\"/></td></tr>";         
+     			        var tr = "<tr><td><input type=\"checkbox\" class=\"ner_check\" name=\"chosen_names\" value=\"\" checked/></td><td><input type=\"text\" class=\"ner_text\" name=\"modified_names\" size=\"50\" value=\"\" /></td><td><input type=\"button\" name=\"rm\" value=\"Delete Row\" class=\"ner_empty_rm pure-button pure-button-secondary\"/></td></tr>";         
      			        $(this).closest("tr").after(tr);
      			        
      			        $("input.ner_empty_rm").on('click', function() {        
@@ -986,7 +1018,7 @@
     											 }
     											 else 
     											 {
-    											     lstrOtherRecId = "<p>&lt;otherRecordId&gt; elements were added.</p><br/>";
+    											     lstrOtherRecId = "<p>&lt;otherRecordId&gt; element(s) added.</p><br/>";
     											 }
     											 
     											 if ( lobjSourceList.length == 0 )
@@ -995,7 +1027,7 @@
     											 }
     											 else 
     											 {
-    											     lstrSources = "<p>&lt;source&gt; element was added.</p><br/>";
+    											     lstrSources = "<p>&lt;source&gt; element added.</p><br/>";
     											 }
     											 
     											 if ( lobjCpfRelationList.length == 0 )
@@ -1004,7 +1036,7 @@
     											 }
     											 else
     											 {
-    											     lstrCpfResults = "<p>&lt;cpfRelation&gt; elements were added.</p><br/>";											     
+    											     lstrCpfResults = "<p>&lt;cpfRelation&gt; element(s) added.</p><br/>";											     
     											 }
     											 if ( lobjResourceRelationList.length == 0 )
     											 {
@@ -1012,7 +1044,7 @@
     											 }
     											 else
     											 {
-    											     lstrResourceResults = "<p>&lt;resourceRelation&gt; elements were added.</p><br/>";											     
+    											     lstrResourceResults = "<p>&lt;resourceRelation&gt; element(s) added.</p><br/>";											     
     											 }
     											     											 
     											 
@@ -1073,7 +1105,7 @@
                                                                     } 
                                                                     else
                                                                     {        																     
-           																 $('body').append("<div id=\"dialog\"><p>&lt;localDescription&gt; elements were added with chosen subject(s).</p><br/>" + lstrOtherRecId + lstrSources + lstrCpfResults + lstrResourceResults + "</div>");
+           																 $('body').append("<div id=\"dialog\"><p>&lt;localDescription&gt; element(s) added with chosen subject(s).</p><br/>" + lstrOtherRecId + lstrSources + lstrCpfResults + lstrResourceResults + "</div>");
            					                                             makeDialog('#dialog', 'Results'); // display results    																 
            																 $('#loading-image').remove();
            																 $('.worldcat_arrow').html("&#10003;");    																        															    																 
@@ -1186,7 +1218,7 @@
     function display_possible_worldcat_subjects( lobjPossibleSubjects, callback )
     {
         var lstrHTML = "<div class=\"form_container\">";
-        lstrHTML += "<div class=\"instruction_div\"><h2 class=\"instruction\" style=\"font-weight:800; font-size:1.5em;\">Ingest from WorldCat Identities</h2><p class=\"instruction\">Here is a list of FAST subject headings from this entity's WorldCat Identities page. Select appropriate headings to add to your EAC-CPF record.</p><p class=\"instruction\">If there are no appropriate matches, click \"Cancel\" to return to the edit screen.</p></div>";
+        lstrHTML += "<div class=\"instruction_div\"><h2 class=\"instruction\" style=\"font-weight:800; font-size:1.5em;\">Ingest from WorldCat Identities</h2><p class=\"instruction\">Here is a list of FAST subject headings from this entity's WorldCat Identities page. Select appropriate headings to add to your EAC-CPF record.</p><p class=\"instruction\">These headings will be transformed to wiki markup and, when publishing to Wikipedia, should be replaced with appropriate Wikipedia categories (using the HotCat tool).</p><p class=\"instruction\">If there are no appropriate matches, click \"Cancel\" to return to the edit screen.</p></div>";
      
         lstrHTML += "<button id=\"ingest_worldcat_chosen_subjects\" class=\"pure-button pure-button-secondary\">Use Selected Subjects</button>";
     
@@ -1194,16 +1226,21 @@
     
         lstrHTML += "<div class=\"user_help_form\">";
     
-        lstrHTML += "<h2>Please choose any appropriate subjects related to this entity:</h2>";
+        lstrHTML += "<h2>Please choose any appropriate subjects related to this entity:</h2>";               
         
         lstrHTML += "<input type=\"checkbox\" id=\"select_all\" value=\"\"><span style=\"font-weight:500; margin-left:4px;\">Select all</span><br />";
-    
+
+        lstrHTML += "<table class=\"user_help_form_table\">";
+
         for(var i = 0; i < lobjPossibleSubjects.length; i++)
         {
-    	lstrHTML += "<input type=\"checkbox\" name=\"chosen_subjects\" value=\"";
-    	lstrHTML += i + "\" /> " + lobjPossibleSubjects[i].elements.term.elements + "<br />";
+    	lstrHTML += "<tr>";
+    	lstrHTML += "<td><input type=\"checkbox\" name=\"chosen_subjects\" value=\"";
+    	lstrHTML += i + "\" /></td><td>" + lobjPossibleSubjects[i].elements.term.elements + "</td>";
+        lstrHTML += "</tr>";
         }
     
+        lstrHTML += "</table>";
     
         lstrHTML += "</div></div></div>";
     
