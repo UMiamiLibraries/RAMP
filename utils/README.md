@@ -16,7 +16,7 @@ RAMP utilities
 
   * Download your EAC-CPF and EAD files and place them in their respective directories, `utils/eac` and `utils/ead`.
   * Run `eac2eadMatch.sh` on the files in the `eac` directory and `eadRename.sh` on the `ead` directory. The scripts are already located within the directories.
-  * **Note: some files exported from Archon may contain undeclared `&nbsp;` entities, which will throw an error when attempting to process the files.** These can be removed with a sed script run on the contents of the directory:
+  * **Note: some files exported from Archon may contain undeclared `&nbsp;` entities, which will throw an error when attempting to process the files.** Before running the rename script, these should be removed--for example, with a sed script run on the contents of the directory:
 
     ```find ./ -type f -exec sed -i 's/&nbsp;/ /g' {} \;```
 
