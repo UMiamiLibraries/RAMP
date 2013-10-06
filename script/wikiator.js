@@ -136,14 +136,14 @@ function setupGetWiki()
 				       lobjeac.loadXMLString( lstrXML );
 
 				       var lobjNameEntryPart; 
-				       if ( lobjeac.getElement('//*[local-name()=\'control\']/*[local-name()=\'otherRecordId\'][@localType=\'dbpedia\']') ) 
+				       if ( lobjeac.getElement('//*[local-name()=\'control\']/*[local-name()=\'otherRecordId\'][@localType=\'WCI:DBpedia\']') ) 
 				       {
-				           lobjNameEntryPart = lobjeac.getElement('//*[local-name()=\'control\']/*[local-name()=\'otherRecordId\'][@localType=\'dbpedia\']');
+				           lobjNameEntryPart = lobjeac.getElement('//*[local-name()=\'control\']/*[local-name()=\'otherRecordId\'][@localType=\'WCI:DBpedia\']');
 				           //= lobjeac.getElement('//*[local-name()=\'cpfDescription\']/*[local-name()=\'identity\']/*[local-name()=\'nameEntry\']/*[local-name()=\'part\']');
 				           eac_name = lobjNameEntryPart.childNodes[0].nodeValue;
 				           eac_name = eac_name.trim();
 				           eac_name = encode_utf8(eac_name);
-				           eac_name = eac_name.substring(40);
+				           eac_name = eac_name.substring(28);
         				           
 				       }
 				       else 

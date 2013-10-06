@@ -4,6 +4,7 @@ class EadConvert {
   private $agency_code;
   private $other_agency_code;
   private $agency_name;
+  private $short_agency_name;
   private $serverName;
   private $localURL;
   private $repositoryOne;
@@ -71,13 +72,22 @@ class EadConvert {
   	$this->other_agency_code = $other_agency_code;
   }
 
- public function getAgency_name() {
+  public function getAgency_name() {
     return $this->agency_name;
   }
 
   public function setAgency_name($agency_name)
   {
   	$this->agency_name = $agency_name;
+  }
+  
+  public function getShortAgency_name() {
+    return $this->short_agency_name;
+  }
+
+  public function setShortAgency_name($short_agency_name)
+  {
+  	$this->short_agency_name = $short_agency_name;
   }
 
   public function setServer_name($serverName) {
@@ -244,10 +254,10 @@ class EadConvert {
 
 			    'agencyCode'=>$this->agency_code,
 			    'otherAgencyCode' => $this->other_agency_code,
-			    'agencyName'=> $this->agency_name,
+			    'agencyName' => $this->agency_name,
+			    'shortAgencyName' => $this->short_agency_name,
 			    'standardDateTime'=>substr(date('c'), 0, -15), // Removed hours from date to avoid unecessary Diffs. --timathom
 			    'file' => $file,
-
 			    'serverName' => $this->serverName,
 			    'localURL' => $this->localURL,
 			    'eventDescCreate' => $this->eventDescCreate,

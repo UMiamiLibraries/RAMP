@@ -695,13 +695,13 @@
         <xsl:choose>
             <xsl:when test="eac:eac-cpf/eac:control/eac:otherRecordId[@localType='WCI']">
                 <!-- Add ID nonstandard WorldCat IDs -->
-                <xsl:text>*{{worldcat|description="</xsl:text>
+                <xsl:text>*{{worldcat|description="WorldCat Identities page for </xsl:text>
                 <xsl:call-template name="tParseName2">
                     <xsl:with-param name="pNameType" select="'person' or 'corporate'"/>
                     <xsl:with-param name="pPersName" select="$pPersName"/>
                     <xsl:with-param name="pCorpName" select="$pCorpName"/>
                 </xsl:call-template>
-                <xsl:text>'s WorldCat Identities page"|name=</xsl:text>
+                <xsl:text>"|name=</xsl:text>
                 <xsl:call-template name="tParseName2">
                     <xsl:with-param name="pNameType" select="'person' or 'corporate'"/>
                     <xsl:with-param name="pPersName" select="$pPersName"/>
@@ -709,7 +709,7 @@
                 </xsl:call-template>
                 <xsl:text>|id=</xsl:text>
                 <xsl:value-of
-                    select="translate(substring-after(eac:eac-cpf/eac:control/eac:otherRecordId[@localType='WCI'],'WCI:'),' ','+')"/>
+                    select="translate(eac:eac-cpf/eac:control/eac:otherRecordId[@localType='WCI'],' ','+')"/>
                 <xsl:text>}}</xsl:text>
                 <xsl:text>&#10;</xsl:text>
             </xsl:when>
@@ -771,18 +771,18 @@
                     <xsl:text>{{Authority control|VIAF=</xsl:text>
                     <xsl:value-of select="substring-after(.,'viaf/')"/>
                     <xsl:choose>
-                        <xsl:when test="../../../eac:otherRecordId[@localType='lccn']">
+                        <xsl:when test="../../../eac:otherRecordId[@localType='WCI:LCCN']">
                             <xsl:text> |LCCN=</xsl:text>
                             <xsl:choose>
                                 <xsl:when
-                                    test="contains(../../../eac:otherRecordId[@localType='lccn'],'no')">
+                                    test="contains(../../../eac:otherRecordId[@localType='WCI:LCCN'],'no')">
                                     <xsl:variable name="lccn"
-                                        select="substring-after(../../../eac:otherRecordId[@localType='lccn'],'lccn-no')"/>
+                                        select="substring-after(../../../eac:otherRecordId[@localType='WCI:LCCN'],'lccn-no')"/>
                                     <xsl:value-of select="concat('no/',translate($lccn,'-','/'))"/>
                                 </xsl:when>
                                 <xsl:otherwise>
                                     <xsl:variable name="lccn"
-                                        select="substring-after(../../../eac:otherRecordId[@localType='lccn'],'lccn-n')"/>
+                                        select="substring-after(../../../eac:otherRecordId[@localType='WCI:LCCN'],'lccn-n')"/>
                                     <xsl:value-of select="concat('n/',translate($lccn,'-','/'))"/>
                                 </xsl:otherwise>
                             </xsl:choose>
@@ -795,20 +795,20 @@
             </xsl:when>
             <xsl:otherwise>
                 <xsl:choose>
-                    <xsl:when test="eac:eac-cpf/eac:control/eac:otherRecordId[@localType='lccn']">
+                    <xsl:when test="eac:eac-cpf/eac:control/eac:otherRecordId[@localType='WCI:LCCN']">
                         <xsl:text>&#10;</xsl:text>
                         <xsl:text>&#10;</xsl:text>
                         <xsl:text>{{Authority control|LCCN=</xsl:text>
                         <xsl:choose>
                             <xsl:when
-                                test="contains(eac:eac-cpf/eac:control/eac:otherRecordId[@localType='lccn'],'no')">
+                                test="contains(eac:eac-cpf/eac:control/eac:otherRecordId[@localType='WCI:LCCN'],'no')">
                                 <xsl:variable name="lccn"
-                                    select="substring-after(eac:eac-cpf/eac:control/eac:otherRecordId[@localType='lccn'],'lccn-no')"/>
+                                    select="substring-after(eac:eac-cpf/eac:control/eac:otherRecordId[@localType='WCI:LCCN'],'lccn-no')"/>
                                 <xsl:value-of select="concat('no/',translate($lccn,'-','/'))"/>
                             </xsl:when>
                             <xsl:otherwise>
                                 <xsl:variable name="lccn"
-                                    select="substring-after(eac:eac-cpf/eac:control/eac:otherRecordId[@localType='lccn'],'lccn-n')"/>
+                                    select="substring-after(eac:eac-cpf/eac:control/eac:otherRecordId[@localType='WCI:LCCN'],'lccn-n')"/>
                                 <xsl:value-of select="concat('n/',translate($lccn,'-','/'))"/>
                             </xsl:otherwise>
                         </xsl:choose>
@@ -1044,7 +1044,7 @@
                         data-type="text"/>
                     <xsl:choose>
                         <xsl:when
-                            test="@xlink:role='http://RDVocab.info/uri/schema/FRBRentitiesRDA/Person'">
+                            test="@xlink:role='http://rdvocab.info/uri/schema/FRBRentitiesRDA/Person'">
                             <xsl:text>*[[</xsl:text>
                             <xsl:call-template name="tParseName2">
                                 <xsl:with-param name="pNameType">person</xsl:with-param>
@@ -1094,7 +1094,7 @@
                         data-type="text"/>
                     <xsl:choose>
                         <xsl:when
-                            test="@xlink:role='http://RDVocab.info/uri/schema/FRBRentitiesRDA/Person'">
+                            test="@xlink:role='http://rdvocab.info/uri/schema/FRBRentitiesRDA/Person'">
                             <xsl:text>*[[</xsl:text>
                             <xsl:call-template name="tParseName2">
                                 <xsl:with-param name="pNameType">person</xsl:with-param>

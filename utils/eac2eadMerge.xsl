@@ -70,56 +70,61 @@
                     </xsl:for-each>
                 </xsl:variable>
                 <xsl:variable name="posCount" select="position()"/>
-                
+
                 <!-- Output the merged EAD files. -->
                 <xsl:result-document
                     href="{concat('merged/',$eacId,'_',$eadRef,'-',$posCount,'.xml')}" indent="yes">
 
-                    <!-- Output a fake EAD wrapper element for the merged EAD files. -->
+
+                    <!-- Output a faux EAD wrapper element for the merged EAD files. -->
                     <ead audience="external" xmlns="urn:isbn:1-931666-22-9"
-                        xmlns:xlink="http://www.w3.org/1999/xlink"
-                        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-                        xsi:schemaLocation="http://www.loc.gov/ead/ http://www.loc.gov/ead/ead.xsd">
+                        xmlns:xlink="http://www.w3.org/1999/xlink">
 
                         <!-- Build the EAD files. -->
                         <xsl:for-each select="current-group()/following-sibling::ead">
-
                             <ead audience="external" xmlns="urn:isbn:1-931666-22-9"
-                                xmlns:xlink="http://www.w3.org/1999/xlink"
-                                xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-                                xsi:schemaLocation="http://www.loc.gov/ead/ http://www.loc.gov/ead/ead.xsd">
+                                xmlns:xlink="http://www.w3.org/1999/xlink">
                                 <xsl:variable name="eadVal"
                                     select="document(concat($eadDir,normalize-space(.)))"
                                     xpath-default-namespace="urn:isbn:1-931666-22-9"/>
                                 <xsl:copy-of select="$eadVal/ead/eadheader"
-                                    xpath-default-namespace="urn:isbn:1-931666-22-9"/>
+                                    xpath-default-namespace="urn:isbn:1-931666-22-9" copy-namespaces="no"/>
                                 <xsl:copy-of select="$eadVal/ead/frontmatter"
-                                    xpath-default-namespace="urn:isbn:1-931666-22-9"/>
+                                    xpath-default-namespace="urn:isbn:1-931666-22-9" copy-namespaces="no"/>
                                 <archdesc level="collection" type="inventory" audience="external"
                                     relatedencoding="MARC21">
                                     <did>
                                         <xsl:copy-of select="$eadVal/ead/archdesc/did/head"
-                                            xpath-default-namespace="urn:isbn:1-931666-22-9"/>
+                                            xpath-default-namespace="urn:isbn:1-931666-22-9" copy-namespaces="no"/>
                                         <xsl:copy-of select="$eadVal/ead/archdesc/did/unittitle"
-                                            xpath-default-namespace="urn:isbn:1-931666-22-9"/>
+                                            xpath-default-namespace="urn:isbn:1-931666-22-9" copy-namespaces="no"/>
                                         <xsl:copy-of select="$eadVal/ead/archdesc/did/unitid"
-                                            xpath-default-namespace="urn:isbn:1-931666-22-9"/>
-                                        <origination label="Creator" encodinganalog="245$c">
+                                            xpath-default-namespace="urn:isbn:1-931666-22-9" copy-namespaces="no"/>
+                                        <origination label="Creator" encodinganalog="245$c">                                                                                    
                                             <xsl:for-each
                                                 select="$eadVal/ead/archdesc/did/origination/child::node()/@normal[.=$eacName]"
                                                 xpath-default-namespace="urn:isbn:1-931666-22-9">
-                                                <xsl:copy-of select="parent::node()"/>
+                                                <xsl:copy-of select="parent::node()" copy-namespaces="no"/>
                                             </xsl:for-each>
                                             <xsl:for-each
                                                 select="$eadVal/ead/archdesc/did/origination/child::node()/@normal[.!=$eacName]"
-                                                xpath-default-namespace="urn:isbn:1-931666-22-9">
-                                                <xsl:copy-of select="parent::node()"/>
+                                                xpath-default-namespace="urn:isbn:1-931666-22-9">                                                                                                                                                                                               
+                                                <xsl:copy-of select="parent::node()" copy-namespaces="no"/>
                                             </xsl:for-each>
+                                            <!-- Create faux name elements to generate unique record IDs for related creators. -->
+                                            <xsl:for-each-group select="$eacGroup/eac/name" group-by="following-sibling::id">                                                
+                                                <xsl:variable name="nameId" select="current-grouping-key()"/>
+                                                <xsl:if test=".=$eadVal/ead/archdesc/did/origination/child::node()/@normal[.!=$eacName]" xpath-default-namespace="urn:isbn:1-931666-22-9">
+                                                    <name id="{concat('r',$nameId)}">
+                                                        <xsl:value-of select="."/>                                                        
+                                                    </name>
+                                                </xsl:if>                                                                                                    
+                                            </xsl:for-each-group>   
                                         </origination>
                                         <xsl:for-each
                                             select="$eadVal/ead/archdesc/did/origination/following-sibling::node()"
                                             xpath-default-namespace="urn:isbn:1-931666-22-9">
-                                            <xsl:copy-of select="."/>
+                                            <xsl:copy-of select="." copy-namespaces="no"/>
                                         </xsl:for-each>
                                     </did>
                                     <xsl:choose>
@@ -133,7 +138,7 @@
                                             <xsl:for-each
                                                 select="$eadVal/ead/archdesc/did/following-sibling::node()"
                                                 xpath-default-namespace="urn:isbn:1-931666-22-9">
-                                                <xsl:copy-of select="."/>
+                                                <xsl:copy-of select="." copy-namespaces="no"/>
                                             </xsl:for-each>
                                         </xsl:when>
                                         <xsl:otherwise>
@@ -160,7 +165,7 @@
                                             <xsl:for-each
                                                 select="$eadVal/ead/archdesc/bioghist/following-sibling::node()"
                                                 xpath-default-namespace="urn:isbn:1-931666-22-9">
-                                                <xsl:copy-of select="."/>
+                                                <xsl:copy-of select="." copy-namespaces="no"/>
                                             </xsl:for-each>
                                         </xsl:otherwise>
                                     </xsl:choose>
@@ -169,7 +174,7 @@
                         </xsl:for-each>
                     </ead>
                 </xsl:result-document>
-                
+
                 <!-- Report the number of files processed. -->
                 <xsl:if test="position()=last()">
                     <xsl:text>Processed </xsl:text>

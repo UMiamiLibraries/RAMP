@@ -363,7 +363,7 @@
     		    //apply regex to elements to find all possible names to search viaf for relations
     		    //lobjPossibleTitles = lstrParagraph.match(/["\u201D\u201C]([^"\u201D\u201C]+)["\u201D\u201C]/g);
     		    //lstrParagraph = lstrParagraph.replace(/["\u201D\u201C]([^"\u201D\u201C]+)["\u201D\u201C]/g, "");
-    		    var lobjPossibleNamesBio = lstrParagraph.match(/((\sde\s)*?[A-Z\u00C0\u00C1\u00C3\u00C7\u00C9\u00CA\u00CD\u00D3\u00DA\u00DC\u00D4\u00D5\u00D6][a-z\u00E0\u00E1\u00E3\u00E7\u00E9\u00EA\u00ED\u00F0\u00F3\u00F4\u00F5\u00FA\u00FC\u00F1\-']+(\s[0-9][0-9])?([,]*?)(\sof|\sfu\u0308r|\sdes|\set|\sde\sla|\sde\s|\sdel|\sde)?\s*([A-Z\u00C1\u00C9\u00CD\u00D3\u00DA\u00DC\u00D6][.]\s*)*(of\s|fu\u0308r\s|des\s|et\s|y\sdel\s|y\sde\sla\s|de\sla\s|del\s|de\slos\s|e\s|y\s|de\s)?){2,8}/g);
+    		    var lobjPossibleNamesBio = lstrParagraph.match(/((\sde\s)*?[A-Z\u00C0\u00C1\u00C3\u00C7\u00C9\u00CA\u00CD\u00D3\u00DA\u00DC\u00D4\u00D5\u00D6][a-z\u00E0\u00E1\u00E3\u00E7\u00E9\u00EA\u00ED\u00F0\u00F3\u00F4\u00F5\u00FA\u00FC\u00F1\-']+(\s[0-9][0-9])?([,]*?)(\sof|\sfu\u0308r|\sdes|\set|\sde\sla|\sde\s|\sdel|\sde)?\s*([A-Z\u00C1\u00C9\u00CD\u00D3\u00DA\u00DC\u00D6][.]\s*)*(e\s|y\s|of\s|fu\u0308r\s|des\s|et\s|y\sdel\s|y\sde\sla\s|de\sla\s|del\s|de\slos\s|de\s)?){2,8}/g);
      		    //lstrParagraph.match(/((\sde\s)*?[A-Z\u002E\u00DC\u0300\u0301\u0302\u0303\u0304\u0305\u0306\u0307\u0308\u00C0\u00C1\u00C3\u00C7\u00C9\u00CA\u00CD\u00D3\u00DA\u00DC\u00D4\u00D5\u00D6][a-z\u002E\u00FC\u0300\u0301\u0303\u0308\u030B\u030E\u00E0\u00E1\u00E3\u00E7\u00E9\u00EA\u00ED\u00F0\u00F3\u00F4\u00F5\u00FA\u00FC\u00F1\-']+(\s[0-9][0-9])?([,]*?)(\sof|\sfu\u0308r|\sdes|\set|\sde\sla|\sde\s|\sdel|\sde|\svon|\svan)?\s*([A-Z\u002E\u00C1\u00C9\u00CD\u00D3\u00DA\u00DC\u00D6][.]\s*)*(of\s|fu\u0308r\s|des\s|et\s|y\sdel\s|y\sde\sla\s|de\sla\s|del\s|de\slos\s|e\s|y\s|de\s|von\s|van\s)?){2,8}/g);    		                               
     		                               
     		    // Attempt to get substring before/after regex match. In development. --timathom
@@ -418,7 +418,7 @@
     		    if( lstrUnitTitle == null || lstrUnitTitle == '' )
     			continue;
     			
-    			var lobjPossibleNamesUnit = lstrUnitTitle.match(/((\sde\s)*?[A-Z\u002E\u00DC\u0300\u0301\u0302\u0303\u0304\u0305\u0306\u0307\u0308\u00C0\u00C1\u00C3\u00C7\u00C9\u00CA\u00CD\u00D3\u00DA\u00DC\u00D4\u00D5\u00D6][a-z\u002E\u00FC\u0300\u0301\u0303\u0308\u030B\u030E\u00E0\u00E1\u00E3\u00E7\u00E9\u00EA\u00ED\u00F0\u00F3\u00F4\u00F5\u00FA\u00FC\u00F1\-',]+(\s[0-9][0-9])?([,]*?)(\sof|\sfu\u0308r|\sdes|\set|\sde\sla|\sde\s|\sdel|\sde|\svon|\svan)?\s*([A-Z\u002E\u00C1\u00C9\u00CD\u00D3\u00DA\u00DC\u00D6][.]\s*)*(of\s|fu\u0308r\s|des\s|et\s|y\sdel\s|y\sde\sla\s|de\sla\s|del\s|de\slos\s|e\s|y\s|de\s|von\s|van\s|[,]\s)?){2,8}/g);    			                            
+    			var lobjPossibleNamesUnit = lstrUnitTitle.match(/((\sde\s)*?[A-Z\u00DC\u0300\u0301\u0302\u0303\u0304\u0305\u0306\u0307\u0308\u00C0\u00C1\u00C3\u00C7\u00C9\u00CA\u00CD\u00D3\u00DA\u00DC\u00D4\u00D5\u00D6][a-z\u00FC\u0300\u0301\u0303\u0308\u030B\u030E\u00E0\u00E1\u00E3\u00E7\u00E9\u00EA\u00ED\u00F0\u00F3\u00F4\u00F5\u00FA\u00FC\u00F1\-',]+(\s[0-9][0-9])?([,]*?)(\sof|\sfu\u0308r|\sdes|\set|\sde\sla|\sde\s|\sdel|\sde|\svon|\svan)?\s*([A-Z\u00C1\u00C9\u00CD\u00D3\u00DA\u00DC\u00D6][.]\s*)*(of\s|fu\u0308r\s|des\s|et\s|y\sdel\s|y\sde\sla\s|de\sla\s|del\s|de\slos\s|e\s|y\s|de\s|von\s|van\s|[,]\s)?){2,8}/g);    			                            
     			if ( lobjPossibleNamesUnit == null || lobjPossibleNamesUnit.length == 0 )
     			{
     			    continue;   		
@@ -452,7 +452,7 @@
     		    if( lstrIngest == null || lstrIngest == '' )
     			continue;
     			
-    			var lobjPossibleNamesIngest = lstrIngest.match(/((\sde\s)*?[A-Z\u002E\u00DC\u0300\u0301\u0302\u0303\u0304\u0305\u0306\u0307\u0308\u00C0\u00C1\u00C3\u00C7\u00C9\u00CA\u00CD\u00D3\u00DA\u00DC\u00D4\u00D5\u00D6][a-z\u002E\u00FC\u0300\u0301\u0303\u0308\u030B\u030E\u00E0\u00E1\u00E3\u00E7\u00E9\u00EA\u00ED\u00F0\u00F3\u00F4\u00F5\u00FA\u00FC\u00F1\-',]+(\s[0-9][0-9])?([,]*?)(\sof|\sfu\u0308r|\sdes|\set|\sde\sla|\sde\s|\sdel|\sde|\svon|\svan)?\s*([A-Z\u002E\u00C1\u00C9\u00CD\u00D3\u00DA\u00DC\u00D6][.]\s*)*(of\s|fu\u0308r\s|des\s|et\s|y\sdel\s|y\sde\sla\s|de\sla\s|del\s|de\slos\s|e\s|y\s|de\s|von\s|van\s)?){2,8}/g);
+    			var lobjPossibleNamesIngest = lstrIngest.match(/((\sde\s)*?[A-Z\u00DC\u0300\u0301\u0302\u0303\u0304\u0305\u0306\u0307\u0308\u00C0\u00C1\u00C3\u00C7\u00C9\u00CA\u00CD\u00D3\u00DA\u00DC\u00D4\u00D5\u00D6][a-z\u00B4\u00FC\u0300\u0301\u0303\u0308\u030B\u030E\u00E0\u00E1\u00E3\u00E7\u00E9\u00EA\u00ED\u00F0\u00F3\u00F4\u00F5\u00FA\u00FC\u00F1\-',]+(\s[0-9][0-9])?([,]*?)(\sof|\sfu\u0308r|\sdes|\set|\sde\sla|\sde\s|\sdel|\sde|\svon|\svan)?\s*([A-Z\u00C1\u00C9\u00CD\u00D3\u00DA\u00DC\u00D6][.]\s*)*(e\s|y\s|of\s|fu\u0308r\s|des\s|et\s|y\sdel\s|y\sde\sla\s|de\sla\s|del\s|de\slos\s|de\s|von\s|van\s)?){2,8}/g);
     			
     			if ( lobjPossibleNamesIngest == null || lobjPossibleNamesIngest.length == 0 )
     			{
@@ -992,28 +992,28 @@
     											 {
     											     var OtherRecs = lobjOtherRecList[i];
     											     lobjEac.addOtherRecordId(OtherRecs);    											     
-    											     //editor.getSession().setValue(lobjEac.getXML()); // added by timathom
+    											     editor.getSession().setValue(lobjEac.getXML()); // added by timathom
     											 }
     											 
     											 for( var i = 0; i < lobjSourceList.length; i++ )
     											 {
     											     var Sources = lobjSourceList[i];
     											     lobjEac.addSource(Sources);
-    											     //editor.getSession().setValue(lobjEac.getXML()); // added by timathom
+    											     editor.getSession().setValue(lobjEac.getXML()); // added by timathom
     											 }
     
     											 for( var i = 0; i < lobjCpfRelationList.length; i++ )
     											 {
     											     var CpfRelation = lobjCpfRelationList[i];    											     
     											     lobjEac.addCPFRelation(CpfRelation);
-    											     //editor.getSession().setValue(lobjEac.getXML()); // added by timathom
+    											     editor.getSession().setValue(lobjEac.getXML()); // added by timathom
     											 }
     
     											 for( i = 0; i < lobjResourceRelationList.length; i++ )
     											 {
     											     var ResourceRelation = lobjResourceRelationList[i];
     											     lobjEac.addResourceRelation(ResourceRelation);
-    											     //editor.getSession().setValue(lobjEac.getXML()); // added by timathom
+    											     editor.getSession().setValue(lobjEac.getXML()); // added by timathom
     											 }    											     											 										     											     											     											     											    										
     											 
     											 // Result text added by timathom.    
@@ -1090,6 +1090,7 @@
     																 {
     																     var Subject = lobjSubjectList[lobjChosenSubjects[i]];
     																     lobjEac.addSubjectHeading(Subject);
+    																     editor.getSession().setValue(lobjEac.getXML());
     																 }
     																 
     																 if(lobjChosenSubjects.length == 0)
@@ -1110,7 +1111,7 @@
                                                                       	 {
                                                                       	     $('#wiki_switch').hide();
                                                                       	 }
-                                                         		         editor.getSession().setValue(lobjEac.getXML());                                                         
+                                                         		         //editor.getSession().setValue(lobjEac.getXML());                                                         
                                                                          return;
                                                                     } 
                                                                     else
@@ -1130,7 +1131,7 @@
                                                                       	 {
                                                                       	     $('#wiki_switch').hide();
                                                                       	 }
-                                                                      	 editor.getSession().setValue(lobjEac.getXML());
+                                                                      	 //editor.getSession().setValue(lobjEac.getXML());
                                                                       	 return;                                                                      	 
     																 }
     																 
