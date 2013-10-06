@@ -344,7 +344,7 @@
 
     		var lobjParagraphList = lobjEac.getParagraph();
     		var lobjUnitTitleList = lobjead.getElementList('//*[local-name()=\'unittitle\']');
-    		var lobjIngestList = lobjEac.getElementList('//*[local-name()=\'resourceRelation\'][@resourceRelationType=\'creatorOf\']/*[local-name()=\'relationEntry\'][1] | //*[local-name()=\'resourceRelation\'][@resourceRelationType=\'subjectOf\']/*[local-name()=\'relationEntry\'][@localType=\'creator\'] | //*[local-name()=\'resourceRelation\'][@resourceRelationType=\'subjectOf\']/*[local-name()=\'relationEntry\'][1]');    		    		 
+    		var lobjIngestList = lobjEac.getElementList('//*[local-name()=\'resourceRelation\'][@resourceRelationType=\'creatorOf\']/*[local-name()=\'relationEntry\'][1] | //*[local-name()=\'resourceRelation\'][not(@resourceRelationType)]/*[local-name()=\'relationEntry\'][1] | //*[local-name()=\'resourceRelation\'][@resourceRelationType=\'subjectOf\']/*[local-name()=\'relationEntry\'][@localType=\'creator\'] | //*[local-name()=\'resourceRelation\'][@resourceRelationType=\'subjectOf\']/*[local-name()=\'relationEntry\'][1]');    		    		 
     		
     		// XPath for getting things wrapped in <span> tags:
     		//var lobjSpanList = lobjead.getElementList('//*[local-name()=\'unittitle\']/*[local-name()=\'span\']');
@@ -363,7 +363,7 @@
     		    //apply regex to elements to find all possible names to search viaf for relations
     		    //lobjPossibleTitles = lstrParagraph.match(/["\u201D\u201C]([^"\u201D\u201C]+)["\u201D\u201C]/g);
     		    //lstrParagraph = lstrParagraph.replace(/["\u201D\u201C]([^"\u201D\u201C]+)["\u201D\u201C]/g, "");
-    		    var lobjPossibleNamesBio = lstrParagraph.match(/((\sde\s)*?[A-Z\u00C0\u00C1\u00C3\u00C7\u00C9\u00CA\u00CD\u00D3\u00DA\u00DC\u00D4\u00D5\u00D6][a-z\u00E0\u00E1\u00E3\u00E7\u00E9\u00EA\u00ED\u00F0\u00F3\u00F4\u00F5\u00FA\u00FC\u00F1\-']+(\s[0-9][0-9])?([,]*?)(\sof|\sfu\u0308r|\sdes|\set|\sde\sla|\sde\s|\sdel|\sde)?\s*([A-Z\u00C1\u00C9\u00CD\u00D3\u00DA\u00DC\u00D6][.]\s*)*(e\s|y\s|of\s|fu\u0308r\s|des\s|et\s|y\sdel\s|y\sde\sla\s|de\sla\s|del\s|de\slos\s|de\s)?){2,8}/g);
+    		    var lobjPossibleNamesBio = lstrParagraph.match(/((\sde\s)*?[A-Z\u00C0\u00C1\u00C3\u00C7\u00C9\u00CA\u00CD\u00D3\u00DA\u00DC\u00D4\u00D5\u00D6][a-z\u00E0\u00E1\u00E3\u00E7\u00E9\u00EA\u00ED\u00F0\u00F3\u00F4\u00F5\u00FA\u00FC\u00F1\u0026\-']+((\s?[0-9][0-9])*(\s?[0-9][0-9])*([-])*)*([,]*?)(\s\u0026|\sof|\sf\u00FCr|\sdes|\set|\sde\sla|\sde\s|\sdel|\sde)?\s*([A-Z\u00C1\u00C9\u00CD\u00D3\u00DA\u00DC\u00D6][.]\s*)*(e\s|y\s|of\s|f\u00FCr\s|des\s|et\s|y\sdel\s|y\sde\sla\s|de\sla\s|del\s|de\slos\s|de\s|do\s|da\s|dos\s|das\s)?){2,9}/g);
      		    //lstrParagraph.match(/((\sde\s)*?[A-Z\u002E\u00DC\u0300\u0301\u0302\u0303\u0304\u0305\u0306\u0307\u0308\u00C0\u00C1\u00C3\u00C7\u00C9\u00CA\u00CD\u00D3\u00DA\u00DC\u00D4\u00D5\u00D6][a-z\u002E\u00FC\u0300\u0301\u0303\u0308\u030B\u030E\u00E0\u00E1\u00E3\u00E7\u00E9\u00EA\u00ED\u00F0\u00F3\u00F4\u00F5\u00FA\u00FC\u00F1\-']+(\s[0-9][0-9])?([,]*?)(\sof|\sfu\u0308r|\sdes|\set|\sde\sla|\sde\s|\sdel|\sde|\svon|\svan)?\s*([A-Z\u002E\u00C1\u00C9\u00CD\u00D3\u00DA\u00DC\u00D6][.]\s*)*(of\s|fu\u0308r\s|des\s|et\s|y\sdel\s|y\sde\sla\s|de\sla\s|del\s|de\slos\s|e\s|y\s|de\s|von\s|van\s)?){2,8}/g);    		                               
     		                               
     		    // Attempt to get substring before/after regex match. In development. --timathom
@@ -418,7 +418,7 @@
     		    if( lstrUnitTitle == null || lstrUnitTitle == '' )
     			continue;
     			
-    			var lobjPossibleNamesUnit = lstrUnitTitle.match(/((\sde\s)*?[A-Z\u00DC\u0300\u0301\u0302\u0303\u0304\u0305\u0306\u0307\u0308\u00C0\u00C1\u00C3\u00C7\u00C9\u00CA\u00CD\u00D3\u00DA\u00DC\u00D4\u00D5\u00D6][a-z\u00FC\u0300\u0301\u0303\u0308\u030B\u030E\u00E0\u00E1\u00E3\u00E7\u00E9\u00EA\u00ED\u00F0\u00F3\u00F4\u00F5\u00FA\u00FC\u00F1\-',]+(\s[0-9][0-9])?([,]*?)(\sof|\sfu\u0308r|\sdes|\set|\sde\sla|\sde\s|\sdel|\sde|\svon|\svan)?\s*([A-Z\u00C1\u00C9\u00CD\u00D3\u00DA\u00DC\u00D6][.]\s*)*(of\s|fu\u0308r\s|des\s|et\s|y\sdel\s|y\sde\sla\s|de\sla\s|del\s|de\slos\s|e\s|y\s|de\s|von\s|van\s|[,]\s)?){2,8}/g);    			                            
+    			var lobjPossibleNamesUnit = lstrUnitTitle.match(/((\sde\s)*?[A-Z\u00DC\u0300\u0301\u0302\u0303\u0304\u0305\u0306\u0307\u0308\u00C0\u00C1\u00C3\u00C7\u00C9\u00CA\u00CD\u00D3\u00DA\u00DC\u00D4\u00D5\u00D6][a-z\u00FC\u0026\u0300\u0301\u0303\u0308\u030B\u030E\u00E0\u00E1\u00E3\u00E7\u00E9\u00EA\u00ED\u00F0\u00F3\u00F4\u00F5\u00FA\u00FC\u00F1\-'\.]+((\s?[0-9][0-9])*(\s?[0-9][0-9])*([-])*)*([,])*?(\s\u0026|\sof|\sf\u00FCr|\sdes|\set|\sde\sla|\sde\s|\sdel|\sde|\svon|\svan)?\s*([A-Z\u00C1\u00C9\u00CD\u00D3\u00DA\u00DC\u00D6][.]\s*)*(of\s|f\u00FCr\s|des\s|et\s|y\sdel\s|y\sde\sla\s|de\sla\s|del\s|de\slos\s|e\s|y\s|de\s|von\s|van\s|[,]\s)?){2,9}/g);    			                            
     			if ( lobjPossibleNamesUnit == null || lobjPossibleNamesUnit.length == 0 )
     			{
     			    continue;   		
@@ -452,7 +452,7 @@
     		    if( lstrIngest == null || lstrIngest == '' )
     			continue;
     			
-    			var lobjPossibleNamesIngest = lstrIngest.match(/((\sde\s)*?[A-Z\u00DC\u0300\u0301\u0302\u0303\u0304\u0305\u0306\u0307\u0308\u00C0\u00C1\u00C3\u00C7\u00C9\u00CA\u00CD\u00D3\u00DA\u00DC\u00D4\u00D5\u00D6][a-z\u00B4\u00FC\u0300\u0301\u0303\u0308\u030B\u030E\u00E0\u00E1\u00E3\u00E7\u00E9\u00EA\u00ED\u00F0\u00F3\u00F4\u00F5\u00FA\u00FC\u00F1\-',]+(\s[0-9][0-9])?([,]*?)(\sof|\sfu\u0308r|\sdes|\set|\sde\sla|\sde\s|\sdel|\sde|\svon|\svan)?\s*([A-Z\u00C1\u00C9\u00CD\u00D3\u00DA\u00DC\u00D6][.]\s*)*(e\s|y\s|of\s|fu\u0308r\s|des\s|et\s|y\sdel\s|y\sde\sla\s|de\sla\s|del\s|de\slos\s|de\s|von\s|van\s)?){2,8}/g);
+    			var lobjPossibleNamesIngest = lstrIngest.match(/((\sde\s)*?[A-Z\u00DC\u0300\u0301\u0302\u0303\u0304\u0305\u0306\u0307\u0308\u00C0\u00C1\u00C3\u00C7\u00C9\u00CA\u00CD\u00D3\u00DA\u00DC\u00D4\u00D5\u00D6][a-z\u00B4\u00FC\u0026\u0300\u0301\u0303\u0308\u030B\u030E\u00E0\u00E1\u00E3\u00E7\u00E9\u00EA\u00ED\u00F0\u00F3\u00F4\u00F5\u00FA\u00FC\u00F1\-',\.]+((\s?[0-9][0-9])*(\s?[0-9][0-9])*([-])*)*(\s\u0026|\sof|\sfu\u0308r|\sdes|\set|\sde\sla|\sde\s|\sdel|\sde|\svon|\svan)?\s*([A-Z\u00C1\u00C9\u00CD\u00D3\u00DA\u00DC\u00D6][.]\s*)*(e\s|y\s|of\s|fu\u0308r\s|des\s|et\s|y\sdel\s|y\sde\sla\s|de\sla\s|del\s|de\slos\s|de\s|von\s|van\s)?){2,9}/g);
     			
     			if ( lobjPossibleNamesIngest == null || lobjPossibleNamesIngest.length == 0 )
     			{
@@ -486,6 +486,9 @@
     	
     		if( PossibleNameList.length == 0 )
 		    {			    
+		    
+		        jQuery('html,body').animate({scrollTop:0},0); //scroll to top to view form correctly
+		        
 		        callback( 'No matches for Named Entity Recognition.' );
 		        //$('body').append("<div id=\"dialog\"><p>Canceled!</p></div>");
                 //makeDialog('#dialog', 'Results'); // display results
@@ -507,6 +510,9 @@
     					   {        					   
     					       if( lobjChosenNames.length == 0 )
     					       {    					
+    					       
+    					           jQuery('html,body').animate({scrollTop:0},0); //scroll to top to view form correctly
+    					      
     					           callback("Canceled!"); //done if no names where chosen
     					           
         					       if ( getCookie('wiki') == 'present' )   
@@ -584,6 +590,9 @@
     										     {    						    										     
     											 if( typeof lobjResultsChosen['names'] == 'undefined' || typeof lobjResultsChosen['names']['entity']['all'] == 'undefined' || lobjResultsChosen['names']['entity']['all'].length == 0 )    											 
     											 {    			
+    											 
+    											     jQuery('html,body').animate({scrollTop:0},0); //scroll to top to view form correctly
+    											 
     											     callback("Canceled!"); //finish process if no results chosen
     											     $('.viaf_arrow').html("&#10003;");
     											     $('#loading-image').remove(); 
@@ -679,7 +688,7 @@
         for(var i = 0; i < lobjPossibleNames.length; i++)
         {               
         	lstrHTML += "<tr><td><input type=\"checkbox\" class=\"ner_check\" name=\"chosen_names\" value=\"\"/></td>";
-        	lstrHTML += "<td><input type=\"text\" class=\"ner_text\" name=\"modified_names\" size=\"50\" value=\"" + lobjPossibleNames[i] + "\"/></td>";
+        	lstrHTML += "<td><input type=\"text\" class=\"ner_text\" name=\"modified_names\" size=\"60\" value=\"" + lobjPossibleNames[i] + "\"/></td>";
             lstrHTML += "<td><input type=\"button\" name=\"add\" value=\"Add New Row\" class=\"ner_empty_add pure-button pure-button-secondary\"/></td></tr>";            
         }
         
@@ -692,7 +701,7 @@
     
         // jQuery added by timathom to include "Add New Row" and "Delete Row" buttons and functionality.
      			    $("input.ner_empty_add").on('click', function() {        
-     			        var tr = "<tr><td><input type=\"checkbox\" class=\"ner_check\" name=\"chosen_names\" value=\"\" checked/></td><td><input type=\"text\" class=\"ner_text\" name=\"modified_names\" size=\"50\" value=\"\" /></td><td><input type=\"button\" name=\"rm\" value=\"Delete Row\" class=\"ner_empty_rm pure-button pure-button-secondary\"/></td></tr>";         
+     			        var tr = "<tr><td><input type=\"checkbox\" class=\"ner_check\" name=\"chosen_names\" value=\"\" checked/></td><td><input type=\"text\" class=\"ner_text\" name=\"modified_names\" size=\"60\" value=\"\" /></td><td><input type=\"button\" name=\"rm\" value=\"Delete Row\" class=\"ner_empty_rm pure-button pure-button-secondary\"/></td></tr>";         
      			        $(this).closest("tr").after(tr);
      			        
      			        $("input.ner_empty_rm").on('click', function() {        
@@ -962,7 +971,10 @@
     									 {
     									     //if cancelled because no WorldCat results matched
     									     if( lstrChosenURI == '' )
-    									     {    									
+    									     {    
+    									     
+    									     jQuery('html,body').animate({scrollTop:0},0); //scroll to top to view form correctly
+    									     
     									     callback('Canceled!');
     										 $('.worldcat_arrow').html("&#10003;");    										 
     										 return;
@@ -1213,6 +1225,8 @@
                            	   {
                            	       $('#wiki_switch').hide();
                            	   }
+                           	   
+                           	   jQuery('html,body').animate({scrollTop:0},0); //scroll to top to view form correctly
                            	   
                            	   $('body').append("<div id=\"dialog\"><p>Canceled!</p></div>");
                                makeDialog('#dialog', 'Results'); // display results

@@ -89,40 +89,40 @@
                     </xsl:otherwise>
                 </xsl:choose>
             </recordId>
-            <xsl:variable name="vEadHeaderCount" select="count(ead:ead/ead:eadheader)"/>
-            <xsl:for-each select="ead:ead/ead:eadheader">                
-            <otherRecordId>     
-                <xsl:choose>
-                    <xsl:when test="$vEadHeaderCount&gt;1">
-                        <xsl:attribute name="localType">
-                            <xsl:value-of select="concat('merged',$pShortAgencyName)"/>
-                        </xsl:attribute>
-                    </xsl:when>
-                    <xsl:otherwise>
-                        <xsl:attribute name="localType">
-                            <xsl:value-of select="$pShortAgencyName"/>
-                        </xsl:attribute>
-                    </xsl:otherwise>
-                </xsl:choose>                
-                <xsl:choose>
-                    <xsl:when test="contains(ead:eadid,'/')">
-                        <xsl:value-of select="substring-after(ead:eadid,'/')"/>
-                        <xsl:text>.</xsl:text>
-                        <xsl:value-of select="substring-after(ead:eadid/@identifier,':')"/>                                                
-                    </xsl:when>
-                    <xsl:otherwise>
-                        <xsl:value-of select="ead:eadid"/>
-                        <xsl:text>.</xsl:text>
-                        <xsl:value-of select="substring-after(ead:eadid/@identifier,':')"/>
-                    </xsl:otherwise>
-                </xsl:choose>       
-                <xsl:text>.r</xsl:text>                
-                <xsl:value-of select="substring-before($pRecordId,'-')"/> 
-            </otherRecordId>
-            </xsl:for-each>
+            <xsl:variable name="vEadHeaderCount" select="count(ead:ead/ead:eadheader)"/>            
             <xsl:choose>
                 <!-- If it's an ingested record (not created from within RAMP). -->
                 <xsl:when test="not(contains(ead:ead/ead:eadheader/ead:eadid/@identifier,'RAMP'))">
+                    <xsl:for-each select="ead:ead/ead:eadheader">                
+                        <otherRecordId>     
+                            <xsl:choose>
+                                <xsl:when test="$vEadHeaderCount&gt;1">
+                                    <xsl:attribute name="localType">
+                                        <xsl:value-of select="concat('merged',$pShortAgencyName)"/>
+                                    </xsl:attribute>
+                                </xsl:when>
+                                <xsl:otherwise>
+                                    <xsl:attribute name="localType">
+                                        <xsl:value-of select="$pShortAgencyName"/>
+                                    </xsl:attribute>
+                                </xsl:otherwise>
+                            </xsl:choose>                
+                            <xsl:choose>
+                                <xsl:when test="contains(ead:eadid,'/')">
+                                    <xsl:value-of select="substring-after(ead:eadid,'/')"/>
+                                    <xsl:text>.</xsl:text>
+                                    <xsl:value-of select="substring-after(ead:eadid/@identifier,':')"/>                                                
+                                </xsl:when>
+                                <xsl:otherwise>
+                                    <xsl:value-of select="ead:eadid"/>
+                                    <xsl:text>.</xsl:text>
+                                    <xsl:value-of select="substring-after(ead:eadid/@identifier,':')"/>
+                                </xsl:otherwise>
+                            </xsl:choose>       
+                            <xsl:text>.r</xsl:text>                
+                            <xsl:value-of select="substring-before($pRecordId,'-')"/> 
+                        </otherRecordId>
+                    </xsl:for-each>                    
                     <!-- maintenanceStatus = "derived" -->
                     <maintenanceStatus>derived</maintenanceStatus>
                 </xsl:when>
