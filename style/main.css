@@ -626,6 +626,19 @@ li.wiki_login
     background:#30ACFF;
 }
 
+#attribution {
+    margin:4%;    
+    font-size:1.2em;    
+}
+
+#attribution p {
+    display: inline;
+}
+
+#attribution img {
+    display:inline; 
+}
+
 #bioghist {
     width:100%;
 }
@@ -774,7 +787,6 @@ h1#entity_name {
 
 #exporting {
     margin-top:1%;
-    margin-bottom:4%;
 }
 
 #file_estimator {

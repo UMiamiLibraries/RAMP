@@ -149,11 +149,18 @@ print ("</select>");
   <p><a id="export_eac" href="export.php" style="margin:1%;">Export EAC-CPF Records</a></p>
   
   </div>
+  </div>
+  
+ 
 
   </div>
-
+  
+  <div id="attribution">
+  <img src="http://www.oclc.org/developer/sites/default/files/badges/logo_worldcat_16px.png" width="16" height="16" alt="Some library data on this site is provided by WorldCat, the world's largest library catalog [WorldCat.org]" />
+  <p>RAMP contains <a href="http://www.worldcat.org/">OCLC WorldCat</a> information made available under the <a href="http://opendatacommons.org/licenses/by/1.0/">ODC Attribution License</a>. The OCLC Cooperative requests that uses of WorldCat derived data contained in this work conform with the <a href="http://www.oclc.org/worldcat/community/record-use/policy/community-norms.en.html">WorldCat Community Norms</a>.</p>    
   </div>
-  <div style="margin-bottom:5%;"></div>
+  
+  
 
   <?php
   include('footer.php');
