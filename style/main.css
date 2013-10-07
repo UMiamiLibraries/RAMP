@@ -627,8 +627,10 @@ li.wiki_login
 }
 
 #attribution {
-    margin:3% 4% 4% 4%;    
-    font-size:1.2em;    
+    margin:-1% 4% 4% 4%;    
+    padding:1%;
+    font-size:1.08em;
+    border:dotted 1px black;
 }
 
 #attribution p {
@@ -778,7 +780,7 @@ h1#entity_name {
 }
 
 #export_box {
-    margin:4% 4%;
+    margin:2% 4% 4% 4%;
 }
 
 #export_eac {
@@ -971,7 +973,7 @@ button#ltselectedtext:focus {
 }
 
 #new_box {
-    margin:4% 4%;    
+    margin:2% 4% 4% 4%;    
 }
 
 #new_box h1 {
