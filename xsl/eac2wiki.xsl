@@ -952,20 +952,21 @@
                 <xsl:when test="contains($pBiogHist,'Cuban')">
                     <xsl:if
                         test="contains($pBiogHist,'exile') or contains($pBiogHist,'exiled') or contains(eac:eac-cpf/eac:cpfDescription/eac:relations/eac:resourceRelation/eac:objectXMLWrap/ead:scopecontent, 'exile')">
-                        <xsl:text>[[Category:Cuban exiles]]</xsl:text>
                         <xsl:text>&#10;</xsl:text>
+                        <xsl:text>[[Category:Cuban exiles]]</xsl:text>                        
                     </xsl:if>
                     <xsl:if test="contains($pBiogHist,'novelist') or contains($pBiogHist,'novels')">
-                        <xsl:text>[[Category:Cuban novelists]]</xsl:text>
                         <xsl:text>&#10;</xsl:text>
+                        <xsl:text>[[Category:Cuban novelists]]</xsl:text>                        
                     </xsl:if>
                     <xsl:if
                         test="contains($pBiogHist,'anthropologist') or contains($pBiogHist,'anthropology')">
-                        <xsl:text>[[Category:Cuban anthropologists]]</xsl:text>
                         <xsl:text>&#10;</xsl:text>
+                        <xsl:text>[[Category:Cuban anthropologists]]</xsl:text>                        
                     </xsl:if>
                     <!-- If the person bio is less than 5000 characters, consider it a stub. -->
                     <xsl:if test="string-length($pBiogHist) &lt; 5000">
+                        <xsl:text>&#10;</xsl:text>
                         <xsl:text>&#10;</xsl:text>
                         <xsl:text>{{Cuba-bio-stub}}</xsl:text>
                     </xsl:if>

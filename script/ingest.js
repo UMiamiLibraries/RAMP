@@ -212,7 +212,7 @@
     										     var lobjSource = typeof lobjData.source == 'undefined' ? [] : lobjData.source;
     										     
     										     
-    										     if ( lobjNameEntryList.length != 0 ) 
+    										     if ( lobjNameEntryList.length != 0 || lobjNameEntryList != '') 
     										     {    										            										         										     	
          										     for( var i = 0; i < lobjNameEntryList.length; i++ )
          										     {
@@ -236,12 +236,14 @@
     						                     }    						                     
     						                     else
     						                     {
+    						                         /*
     						                         jQuery('html,body').animate({scrollTop:0},0); //scroll to top to view form correctly
     						                         
     						                         callback('');
     						                         $('body').append("<div id=\"dialog\"><p>Skipped VIAF ingest.</p></div>");
          					                         makeDialog('#dialog', 'Results'); // display results
-    											     return;    
+    											     return;
+    											     */
     						                     }
     						                     
     										 });
@@ -302,8 +304,15 @@
         //register click event to cancel process
         $('#ingest_viaf_chosen_viaf_cancel').on('click', function()
     					    {    					        					   
+    					        					    
+                            jQuery('html,body').animate({scrollTop:0},0); //scroll to top to view form correctly
+                            
+                            $('body').append("<div id=\"dialog\"><p>Skipped VIAF ingest.</p></div>");
+                            makeDialog('#dialog', 'Results'); // display results
+                            $('.form_container').remove();
+                            callback();	    					        					   
     					    
-    					    callback('');       	    					        					   
+    					    //callback('');       	    					        					   
     						//$('.form_container').remove();
                             //$('#loading-image').remove();
                             //$('.viaf_arrow').html("&#10003;");   
