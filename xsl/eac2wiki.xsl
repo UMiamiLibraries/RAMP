@@ -26,12 +26,11 @@
                 test="eac:eac-cpf/eac:cpfDescription/eac:identity/eac:entityType[text()='person']">
                 <xsl:call-template name="tPerson"/>
             </xsl:when>
-            <!-- Records for families are not supported at this time.
+            <!-- Records for families are not supported at this time. -->
             <xsl:when
                 test="/eac:eac-cpf/eac:cpfDescription/eac:identity/eac:entityType[text()='family']">
-                <xsl:call-template name="tFamily"/>
+                <xsl:text>Conversion to wiki markup is not currently available for family records. Please choose a person or corporate body record for wiki editing.</xsl:text>
             </xsl:when>
-            -->
             <xsl:when
                 test="eac:eac-cpf/eac:cpfDescription/eac:identity/eac:entityType[text()='corporateBody']">
                 <xsl:call-template name="tCorporateBody"/>
@@ -795,7 +794,8 @@
             </xsl:when>
             <xsl:otherwise>
                 <xsl:choose>
-                    <xsl:when test="eac:eac-cpf/eac:control/eac:otherRecordId[@localType='WCI:LCCN']">
+                    <xsl:when
+                        test="eac:eac-cpf/eac:control/eac:otherRecordId[@localType='WCI:LCCN']">
                         <xsl:text>&#10;</xsl:text>
                         <xsl:text>&#10;</xsl:text>
                         <xsl:text>{{Authority control|LCCN=</xsl:text>
@@ -933,7 +933,6 @@
             <xsl:text>&#10;</xsl:text>
             <xsl:if
                 test="eac:eac-cpf/eac:cpfDescription/eac:description/eac:localDescription[@localType[contains(.,'6')]]">
-                <xsl:text>&#10;</xsl:text>                
                 <xsl:text>&lt;!-- Note: the following categories have been generated using FAST headings added from WorldCat Identities. These categories should be replaced with appropriate Wikipedia categories using the HotCat tool.</xsl:text>
                 <xsl:text>&#10;</xsl:text>
                 <xsl:text>&#10;</xsl:text>
@@ -943,27 +942,26 @@
                     <xsl:value-of select="normalize-space(.)"/>
                     <xsl:text>]]</xsl:text>
                     <xsl:text>&#10;</xsl:text>
-                </xsl:for-each>                
+                </xsl:for-each>
                 <xsl:text>&#10;</xsl:text>
                 <xsl:text>--&gt;</xsl:text>
-                <xsl:text>&#10;</xsl:text>                
+                <xsl:text>&#10;</xsl:text>
             </xsl:if>
             <!-- Output some sample thematic categories, along with stub template, if appropriate. NB: Experimental. This is an area to developed. -->
             <xsl:choose>
                 <xsl:when test="contains($pBiogHist,'Cuban')">
                     <xsl:if
                         test="contains($pBiogHist,'exile') or contains($pBiogHist,'exiled') or contains(eac:eac-cpf/eac:cpfDescription/eac:relations/eac:resourceRelation/eac:objectXMLWrap/ead:scopecontent, 'exile')">
-                        <xsl:text>&#10;</xsl:text>
-                        <xsl:text>[[Category:Cuban exiles]]</xsl:text>                        
+                        <xsl:text>[[Category:Cuban exiles]]</xsl:text>
                     </xsl:if>
                     <xsl:if test="contains($pBiogHist,'novelist') or contains($pBiogHist,'novels')">
                         <xsl:text>&#10;</xsl:text>
-                        <xsl:text>[[Category:Cuban novelists]]</xsl:text>                        
+                        <xsl:text>[[Category:Cuban novelists]]</xsl:text>
                     </xsl:if>
                     <xsl:if
                         test="contains($pBiogHist,'anthropologist') or contains($pBiogHist,'anthropology')">
                         <xsl:text>&#10;</xsl:text>
-                        <xsl:text>[[Category:Cuban anthropologists]]</xsl:text>                        
+                        <xsl:text>[[Category:Cuban anthropologists]]</xsl:text>
                     </xsl:if>
                     <!-- If the person bio is less than 5000 characters, consider it a stub. -->
                     <xsl:if test="string-length($pBiogHist) &lt; 5000">
@@ -984,7 +982,7 @@
         <xsl:if test="$pNameType='corporate'">
             <xsl:choose>
                 <xsl:when
-                    test="eac:eac-cpf/eac:cpfDescription/eac:description/eac:localDescription[@localType[contains(.,'6')]]">                    
+                    test="eac:eac-cpf/eac:cpfDescription/eac:description/eac:localDescription[@localType[contains(.,'6')]]">
                     <xsl:text>&lt;!-- Note: the following categories have been generated using FAST headings added from WorldCat Identities. These categories should be replaced with appropriate Wikipedia categories using the HotCat tool.</xsl:text>
                     <xsl:text>&#10;</xsl:text>
                     <xsl:text>&#10;</xsl:text>
@@ -995,14 +993,16 @@
                         <xsl:text>]]</xsl:text>
                         <xsl:text>&#10;</xsl:text>
                     </xsl:for-each>
-                    <xsl:text>&#10;</xsl:text>                    
-                    <xsl:text>--&gt;</xsl:text>     
                     <xsl:text>&#10;</xsl:text>
+                    <xsl:text>--&gt;</xsl:text>
+                    <xsl:text>&#10;</xsl:text>
+                    <xsl:if test="string-length($pBiogHist) &lt; 5000">
+                        <xsl:text>&#10;</xsl:text>
+                        <xsl:text>{{Org-stub}}</xsl:text>
+                    </xsl:if>
                 </xsl:when>
                 <!-- If the corporate body bio is less than 5000 characters, consider it a stub. -->
                 <xsl:when test="string-length($pBiogHist) &lt; 5000">
-                    <xsl:text>&#10;</xsl:text>
-                    <xsl:text>&#10;</xsl:text>
                     <xsl:text>{{Org-stub}}</xsl:text>
                 </xsl:when>
             </xsl:choose>
@@ -1036,7 +1036,7 @@
                 <xsl:text>&#10;</xsl:text>
                 <xsl:text>&#10;</xsl:text>
                 <xsl:text>[[Related person]]—made a similar achievement on April 4, 2005</xsl:text>
-                <xsl:text>&#10;</xsl:text>                
+                <xsl:text>&#10;</xsl:text>
                 <xsl:text> --&gt;</xsl:text>
                 <xsl:text>&#10;</xsl:text>
                 <xsl:text>&#10;</xsl:text>
@@ -1086,7 +1086,7 @@
                 <xsl:text>&#10;</xsl:text>
                 <xsl:text>&#10;</xsl:text>
                 <xsl:text>[[Related person]]—made a similar achievement on April 4, 2005</xsl:text>
-                <xsl:text>&#10;</xsl:text>                
+                <xsl:text>&#10;</xsl:text>
                 <xsl:text> --&gt;</xsl:text>
                 <xsl:text>&#10;</xsl:text>
                 <xsl:text>&#10;</xsl:text>
