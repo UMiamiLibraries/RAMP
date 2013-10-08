@@ -354,17 +354,18 @@ ul, menu, dir {
 
 .ingest-cancel {
   background:#0078e7;
+  margin-left:5px;  
 }
 
 .ingest-ok {
-  margin-left: 1%;
+  margin-left: 2%;
   background:#0078e7;
 
 }
 
 .instruction {
     margin-right: 70%;
-    margin-left: 1%;
+    margin-left: 2%;
     margin-top: 1%;
     font-size: 1.4em;
     margin-bottom: 1%;
@@ -372,7 +373,7 @@ ul, menu, dir {
 }
 
 .instruction_div {
-    margin-bottom:2%;
+    margin-bottom:2%;    
 }
 
 .menu_slice a {
@@ -507,7 +508,7 @@ ul, menu, dir {
 	font-size:1.25em;
 	line-height:1.5em;
 	left: 50%;
-    margin-left: -250px;
+    margin-left: -240px;
     position: absolute;
     top: 0;
     width: 900px;
@@ -628,7 +629,7 @@ li.wiki_login
 
 #attribution {
     margin:-1% 4% 4% 4%;    
-    padding:.5%;
+    padding:1%;
     font-size:1.08em;
     border:dotted 1px black;
 }
@@ -883,12 +884,13 @@ button#gtselectedtext:focus {
 }
 
 #ingest_worldcat_chosen_subjects {
-    margin-left:1%;
+    margin-left:2%;
     background:#0078e7;
 }
 
 #ingest_worldcat_chosen_subjects_cancel {
     background:#0078e7;
+    margin-left:5px;
 }
 
 #intro_box {

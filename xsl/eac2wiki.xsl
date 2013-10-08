@@ -933,7 +933,7 @@
             <xsl:text>&#10;</xsl:text>
             <xsl:if
                 test="eac:eac-cpf/eac:cpfDescription/eac:description/eac:localDescription[@localType[contains(.,'6')]]">
-                <xsl:text>&#10;</xsl:text>
+                <xsl:text>&#10;</xsl:text>                
                 <xsl:text>&lt;!-- Note: the following categories have been generated using FAST headings added from WorldCat Identities. These categories should be replaced with appropriate Wikipedia categories using the HotCat tool.</xsl:text>
                 <xsl:text>&#10;</xsl:text>
                 <xsl:text>&#10;</xsl:text>
@@ -945,7 +945,8 @@
                     <xsl:text>&#10;</xsl:text>
                 </xsl:for-each>                
                 <xsl:text>&#10;</xsl:text>
-                <xsl:text>--&gt;</xsl:text>                
+                <xsl:text>--&gt;</xsl:text>
+                <xsl:text>&#10;</xsl:text>                
             </xsl:if>
             <!-- Output some sample thematic categories, along with stub template, if appropriate. NB: Experimental. This is an area to developed. -->
             <xsl:choose>
@@ -983,8 +984,7 @@
         <xsl:if test="$pNameType='corporate'">
             <xsl:choose>
                 <xsl:when
-                    test="eac:eac-cpf/eac:cpfDescription/eac:description/eac:localDescription[@localType[contains(.,'6')]]">
-                    <xsl:text>&#10;</xsl:text>
+                    test="eac:eac-cpf/eac:cpfDescription/eac:description/eac:localDescription[@localType[contains(.,'6')]]">                    
                     <xsl:text>&lt;!-- Note: the following categories have been generated using FAST headings added from WorldCat Identities. These categories should be replaced with appropriate Wikipedia categories using the HotCat tool.</xsl:text>
                     <xsl:text>&#10;</xsl:text>
                     <xsl:text>&#10;</xsl:text>
@@ -996,7 +996,8 @@
                         <xsl:text>&#10;</xsl:text>
                     </xsl:for-each>
                     <xsl:text>&#10;</xsl:text>                    
-                    <xsl:text>--&gt;</xsl:text>                    
+                    <xsl:text>--&gt;</xsl:text>     
+                    <xsl:text>&#10;</xsl:text>
                 </xsl:when>
                 <!-- If the corporate body bio is less than 5000 characters, consider it a stub. -->
                 <xsl:when test="string-length($pBiogHist) &lt; 5000">
