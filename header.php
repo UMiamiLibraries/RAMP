@@ -13,7 +13,7 @@ include('conf/includes.php');
     $('html').addClass('hidden');
     $(document).ready(function() {
       $('html').show();
-      $(".modal").colorbox({iframe:true, innerWidth:750, innerHeight:450, frameborder:0});           
+      $(".modal").colorbox({iframe:true, innerWidth:850, innerHeight:600, frameborder:0});           
      });  
    </script>    
 <script src="script/main.js"></script>
@@ -31,7 +31,7 @@ include('conf/includes.php');
 
 
 <link rel="stylesheet" type="text/css" href="style/main.css"/>
-<title>RAMP Editor</title>
+<title>RAMP editor</title>
 <head>
 <body>
 <header>

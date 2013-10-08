@@ -16,7 +16,7 @@ include('classes/XsltTransform.php');
 include('php-diff/lib/Diff.php');
 include('php-diff/lib/Diff/Renderer/Html/SideBySide.php');
 
-$ramp_id = 'ramp-' . rand(0,10090294092942);
+$ramp_id = 'RAMP-' . rand(0,10090294092942);
 
 $mysqli = new mysqli($db_host, $db_user, $db_pass, $db_default, $db_port);
 if ($mysqli->connect_errno) {
@@ -211,6 +211,7 @@ if (file_exists(  $_POST["dir"] . '/' . $file_name_lower . '.xml')) {
 	$ead_convert->setAgency_code($agency_code);
 	$ead_convert->setOther_agency_code($other_agency_code);
 	$ead_convert->setAgency_name($agency_name);
+	$ead_convert->setShortAgency_name($short_agency_name);
 	$ead_convert->setServer_name($serverName);
 	$ead_convert->setLocal_url($localURL);
 	$ead_convert->setRepository_one($repositoryOne);

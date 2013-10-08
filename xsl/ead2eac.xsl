@@ -21,6 +21,7 @@
     <xsl:param name="pOtherAgencyCode"/>
     <xsl:param name="pDate"/>
     <xsl:param name="pAgencyName"/>
+    <xsl:param name="pShortAgencyName"/>
     <xsl:param name="pArchonEac"/>
     <xsl:param name="pServerName"/>
     <xsl:param name="pLocalURL"/>
@@ -80,17 +81,48 @@
         <control xmlns="urn:isbn:1-931666-33-4">
             <recordId>
                 <xsl:choose>
-                    <xsl:when test="contains(ead:ead/ead:eadheader/ead:eadid/@identifier,'ramp')">
+                    <xsl:when test="contains(ead:ead/ead:eadheader/ead:eadid/@identifier,'RAMP')">
                         <xsl:value-of select="ead:ead/ead:eadheader/ead:eadid/@identifier"/>
                     </xsl:when>
                     <xsl:otherwise>
-                        <xsl:value-of select="concat('ramp-',substring-before($pRecordId,'.'))"/>
+                        <xsl:value-of select="concat('RAMP-',substring-before($pRecordId,'.'))"/>
                     </xsl:otherwise>
                 </xsl:choose>
             </recordId>
+            <xsl:variable name="vEadHeaderCount" select="count(ead:ead/ead:eadheader)"/>            
             <xsl:choose>
                 <!-- If it's an ingested record (not created from within RAMP). -->
-                <xsl:when test="not(contains(ead:ead/ead:eadheader/ead:eadid/@identifier,'ramp'))">
+                <xsl:when test="not(contains(ead:ead/ead:eadheader/ead:eadid/@identifier,'RAMP'))">
+                    <xsl:for-each select="ead:ead/ead:eadheader">                
+                        <otherRecordId>     
+                            <xsl:choose>
+                                <xsl:when test="$vEadHeaderCount&gt;1">
+                                    <xsl:attribute name="localType">
+                                        <xsl:value-of select="concat('merged',$pShortAgencyName)"/>
+                                    </xsl:attribute>
+                                </xsl:when>
+                                <xsl:otherwise>
+                                    <xsl:attribute name="localType">
+                                        <xsl:value-of select="$pShortAgencyName"/>
+                                    </xsl:attribute>
+                                </xsl:otherwise>
+                            </xsl:choose>                
+                            <xsl:choose>
+                                <xsl:when test="contains(ead:eadid,'/')">
+                                    <xsl:value-of select="substring-after(ead:eadid,'/')"/>
+                                    <xsl:text>.</xsl:text>
+                                    <xsl:value-of select="substring-after(ead:eadid/@identifier,':')"/>                                                
+                                </xsl:when>
+                                <xsl:otherwise>
+                                    <xsl:value-of select="ead:eadid"/>
+                                    <xsl:text>.</xsl:text>
+                                    <xsl:value-of select="substring-after(ead:eadid/@identifier,':')"/>
+                                </xsl:otherwise>
+                            </xsl:choose>       
+                            <xsl:text>.r</xsl:text>                
+                            <xsl:value-of select="substring-before($pRecordId,'-')"/> 
+                        </otherRecordId>
+                    </xsl:for-each>                    
                     <!-- maintenanceStatus = "derived" -->
                     <maintenanceStatus>derived</maintenanceStatus>
                 </xsl:when>
@@ -121,7 +153,7 @@
                     <xsl:choose>
                         <!-- If it's an ingested record (not created from within RAMP). -->
                         <xsl:when
-                            test="not(contains(ead:ead/ead:eadheader/ead:eadid/@identifier,'ramp'))">
+                            test="not(contains(ead:ead/ead:eadheader/ead:eadid/@identifier,'RAMP'))">
                             <!-- eventType = "derived" -->
                             <eventType>derived</eventType>
                         </xsl:when>
@@ -139,7 +171,7 @@
                     <xsl:choose>
                         <!-- If it's an ingested record (not created from within RAMP). -->
                         <xsl:when
-                            test="not(contains(ead:ead/ead:eadheader/ead:eadid/@identifier,'ramp'))">
+                            test="not(contains(ead:ead/ead:eadheader/ead:eadid/@identifier,'RAMP'))">
                             <!-- agentType = "machine" -->
                             <agentType>machine</agentType>
                         </xsl:when>
@@ -153,7 +185,7 @@
                     <xsl:choose>
                         <!-- If it's an ingested record (not created from within RAMP). -->
                         <xsl:when
-                            test="not(contains(ead:ead/ead:eadheader/ead:eadid/@identifier,'ramp'))">
+                            test="not(contains(ead:ead/ead:eadheader/ead:eadid/@identifier,'RAMP'))">
                             <!-- Provide the appropriate eventDescription. -->
                             <eventDescription>
                                 <xsl:value-of select="$pEventDescDerive"/>
@@ -1156,34 +1188,100 @@
             <xsl:for-each select="$vFirstNode">
                 <xsl:if test="following-sibling::node()">
                     <xsl:for-each select="following-sibling::node()">
-                        <xsl:variable name="vEntType">
-                            <xsl:value-of select="local-name(.)"/>
-                        </xsl:variable>
+                        <xsl:variable name="vEntType" select="local-name(.)"/>                                                    
+                        <xsl:variable name="vCpfRel" select="@normal"/>
                         <xsl:if test="$vEntType='persname'">
                             <cpfRelation xlink:arcrole="associatedWith"
-                                xlink:role="http://RDVocab.info/uri/schema/FRBRentitiesRDA/Person"
+                                xlink:role="http://rdvocab.info/uri/schema/FRBRentitiesRDA/Person"
                                 xlink:type="simple" xmlns:xlink="http://www.w3.org/1999/xlink">
                                 <relationEntry>
-                                    <xsl:value-of select="."/>
+                                    <xsl:value-of select="normalize-space(.)"/>
                                 </relationEntry>
+                                <descriptiveNote>
+                                    <p>
+                                        <xsl:text>recordId: </xsl:text>
+                                        <xsl:choose>
+                                            <xsl:when test="contains(../../../../ead:eadheader/ead:eadid,'/')">
+                                                <xsl:value-of select="substring-after(../../../../ead:eadheader/ead:eadid,'/')"/>
+                                                <xsl:text>.</xsl:text>
+                                                <xsl:value-of select="substring-after(../../../../ead:eadheader/ead:eadid/@identifier,':')"/>                                                
+                                            </xsl:when>
+                                            <xsl:otherwise>
+                                                <xsl:value-of select="../../../../ead:eadheader/ead:eadid"/>
+                                                <xsl:text>.</xsl:text>
+                                                <xsl:value-of select="substring-after(../../../../ead:eadheader/ead:eadid/@identifier,':')"/>
+                                            </xsl:otherwise>
+                                        </xsl:choose>                                                                                    
+                                        <xsl:for-each select="following-sibling::ead:name">
+                                            <xsl:variable name="vCpfId" select="@id"></xsl:variable>
+                                            <xsl:if test=".=$vCpfRel">                                                
+                                                <xsl:value-of select="concat('.',@id)"/>
+                                            </xsl:if>
+                                        </xsl:for-each>                                        
+                                    </p>
+                                </descriptiveNote>                                
                             </cpfRelation>
                         </xsl:if>
                         <xsl:if test="$vEntType='corpname'">
                             <cpfRelation xlink:arcrole="associatedWith"
-                                xlink:role="http://RDVocab.info/uri/schema/FRBRentitiesRDA/CorporateBody"
+                                xlink:role="http://rdvocab.info/uri/schema/FRBRentitiesRDA/CorporateBody"
                                 xlink:type="simple" xmlns:xlink="http://www.w3.org/1999/xlink">
                                 <relationEntry>
-                                    <xsl:value-of select="."/>
+                                    <xsl:value-of select="normalize-space(.)"/>
                                 </relationEntry>
+                                <descriptiveNote>
+                                    <p>
+                                        <xsl:text>recordId: </xsl:text>
+                                        <xsl:choose>
+                                            <xsl:when test="contains(../../../../ead:eadheader/ead:eadid,'/')">
+                                                <xsl:value-of select="substring-after(../../../../ead:eadheader/ead:eadid,'/')"/>
+                                                <xsl:text>.</xsl:text>
+                                                <xsl:value-of select="substring-after(../../../../ead:eadheader/ead:eadid/@identifier,':')"/>                                                
+                                            </xsl:when>
+                                            <xsl:otherwise>
+                                                <xsl:value-of select="../../../../ead:eadheader/ead:eadid"/>
+                                                <xsl:text>.</xsl:text>
+                                                <xsl:value-of select="substring-after(../../../../ead:eadheader/ead:eadid/@identifier,':')"/>
+                                            </xsl:otherwise>
+                                        </xsl:choose>       
+                                        <xsl:for-each select="following-sibling::ead:name">
+                                            <xsl:if test=".=$vCpfRel">
+                                                <xsl:value-of select="concat('.',@id)"/>
+                                            </xsl:if>
+                                        </xsl:for-each>
+                                    </p>
+                                </descriptiveNote>
                             </cpfRelation>
                         </xsl:if>
                         <xsl:if test="$vEntType='famname'">
                             <cpfRelation xlink:arcrole="associatedWith"
-                                xlink:role="http://RDVocab.info/uri/schema/FRBRentitiesRDA/Family"
+                                xlink:role="http://rdvocab.info/uri/schema/FRBRentitiesRDA/Family"
                                 xlink:type="simple" xmlns:xlink="http://www.w3.org/1999/xlink">
                                 <relationEntry>
-                                    <xsl:value-of select="."/>
+                                    <xsl:value-of select="normalize-space(.)"/>
                                 </relationEntry>
+                                <descriptiveNote>
+                                    <p>
+                                        <xsl:text>recordId: </xsl:text>
+                                        <xsl:choose>
+                                            <xsl:when test="contains(../../../../ead:eadheader/ead:eadid,'/')">
+                                                <xsl:value-of select="substring-after(../../../../ead:eadheader/ead:eadid,'/')"/>
+                                                <xsl:text>.</xsl:text>
+                                                <xsl:value-of select="substring-after(../../../../ead:eadheader/ead:eadid/@identifier,':')"/>                                                
+                                            </xsl:when>
+                                            <xsl:otherwise>
+                                                <xsl:value-of select="../../../../ead:eadheader/ead:eadid"/>
+                                                <xsl:text>.</xsl:text>
+                                                <xsl:value-of select="substring-after(../../../../ead:eadheader/ead:eadid/@identifier,':')"/>
+                                            </xsl:otherwise>
+                                        </xsl:choose>       
+                                        <xsl:for-each select="following-sibling::ead:name">
+                                            <xsl:if test=".=$vCpfRel">
+                                                <xsl:value-of select="concat('.',@id)"/>
+                                            </xsl:if>
+                                        </xsl:for-each>
+                                    </p>
+                                </descriptiveNote>
                             </cpfRelation>
                         </xsl:if>
                     </xsl:for-each>
@@ -1326,7 +1424,23 @@
                     </relationEntry>
                     <objectXMLWrap>
                         <xsl:element name="archdesc" namespace="urn:isbn:1-931666-22-9">
-                            <xsl:copy-of select="parent::node()"/>
+                            <xsl:copy-of select="parent::ead:did/ead:head"/>
+                            <xsl:copy-of select="."/>
+                            <xsl:copy-of select="parent::ead:did/ead:unitid"/>
+                            <xsl:element name="origination" namespace="urn:isbn:1-931666-22-9">
+                                <xsl:attribute name="label">
+                                    <xsl:value-of select="parent::ead:did/ead:origination/@label"/>
+                                </xsl:attribute>
+                                <xsl:attribute name="encodinganalog">
+                                    <xsl:value-of select="parent::ead:did/ead:origination/@encodinganalog"/>
+                                </xsl:attribute>
+                                <xsl:for-each select="parent::ead:did/ead:origination/child::node()[not(local-name()='name')]">
+                                    <xsl:copy-of select="."/>
+                                </xsl:for-each>
+                            </xsl:element>
+                            <xsl:for-each select="parent::ead:did/ead:origination/following-sibling::node()">
+                                <xsl:copy-of select="."/>    
+                            </xsl:for-each>                                                    
                             <!-- Include Scope and Contents. -->
                             <xsl:if test="../../ead:scopecontent">
                                 <xsl:if test=". != '&#160;' ">

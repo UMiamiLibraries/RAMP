@@ -20,6 +20,7 @@ class XsltTransform {
 
       $xslt->setParameter('','pAgencyCode',$parameters['agencyCode']);
       $xslt->setParameter('','pAgencyName',$parameters['agencyName']);
+      $xslt->setParameter('','pShortAgencyName',$parameters['shortAgencyName']);
       $xslt->setParameter('','pOtherAgencyCode',$parameters['otherAgencyCode']);
       $xslt->setParameter('','pDate',$parameters['standardDateTime']);
       $xslt->setParameter('','pRecordId', preg_replace('/_/','-',$ead_id));

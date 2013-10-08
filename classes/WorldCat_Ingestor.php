@@ -387,8 +387,8 @@ class WorldCat_Ingestor extends Ingestor
 		foreach( $this->objUsefulLinks as $lobjLink )
 		{											
 		    if( $lobjLink['wiki'] != "" || $lobjLink['wiki']->length != 0) {		    
-				$lobjLinkNodeWiki['attributes']['localType'] = "dbpedia"; 												
-				$lobjLinkNodeWiki['elements'] = "WCI:" . "dbpedia:http://dbpedia.org/resource/" . $lobjLink['wiki']; 	
+				$lobjLinkNodeWiki['attributes']['localType'] = "WCI:DBpedia"; 												
+				$lobjLinkNodeWiki['elements'] = "http://dbpedia.org/resource/" . $lobjLink['wiki']; 	
 				$this->objElementList['otherRecordId'][] = $lobjLinkNodeWiki;						
 			}
 			
@@ -400,16 +400,16 @@ class WorldCat_Ingestor extends Ingestor
 				if (strpos($lobjLink['lccn'],'lccn-') === false) {
 				    $lobjLinkNodeLccn['attributes']['localType'] = "WCI";
 				} else {
-				    $lobjLinkNodeLccn['attributes']['localType'] = "lccn";
+				    $lobjLinkNodeLccn['attributes']['localType'] = "WCI:LCCN";
 				}								
 				
-				$lobjLinkNodeLccn['elements'] = "WCI:" . $lobjLink['lccn'];
+				$lobjLinkNodeLccn['elements'] = $lobjLink['lccn'];
 				$this->objElementList['otherRecordId'][] = $lobjLinkNodeLccn;				
 			}
 				
 			if( $lobjLink['viaf'] != "" || $lobjLink['viaf']->length != 0) {
-			    $lobjLinkNodeViaf['attributes']['localType'] = "VIAFId";
-				$lobjLinkNodeViaf['elements'] = "VIAFId:" . $lobjLink['viaf'];
+			    $lobjLinkNodeViaf['attributes']['localType'] = "WCI:VIAF";
+				$lobjLinkNodeViaf['elements'] = $lobjLink['viaf'];
 				$this->objElementList['otherRecordId'][] = $lobjLinkNodeViaf;
 			}				
 		}
@@ -442,7 +442,7 @@ class WorldCat_Ingestor extends Ingestor
 			    $lobjCPFRelationNode['attributes']['xlink:href'] = "http://id.loc.gov/authorities/names/" . substr(preg_replace('/-/','0',$lobjIdentity['id']),5);
 			}
 			
-			$lobjCPFRelationNode['attributes']['xlink:role'] = "http://RDVocab.info/uri/schema/FRBRentitiesRDA/Person";
+			$lobjCPFRelationNode['attributes']['xlink:role'] = "http://rdvocab.info/uri/schema/FRBRentitiesRDA/Person";
 			$lobjCPFRelationNode['attributes']['xlink:type'] = "simple";
 
             /*

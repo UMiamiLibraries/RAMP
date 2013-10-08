@@ -1,7 +1,8 @@
 <?php
 $agency_code = "ABC-D";
-$other_agency_code = "ABC";
+$other_agency_code = "XYZ";
 $agency_name = "University of ABC";
+$short_agency_name = "ABC";
 $serverName = "abc_server";
 $localURL = "http://abcuniversity.edu/?id=";
 $repositoryOne = "REPO1";

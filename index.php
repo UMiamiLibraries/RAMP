@@ -19,10 +19,10 @@ include('header.php');
     <br/>
     
     <p>
-    <a id="demo_1" href="http://www.screenr.com/DfZH" class="modal">Overview of the RAMP editor</a> <span> | </span>    
-    <a id="demo_2" href="http://www.screenr.com/YfZH" class="modal">Ingesting from VIAF</a> <span> | </span>        
-    <a id="demo_3" href="" class="modal">Ingesting from WorldCat Identities</a> (coming soon) <span> | </span>    
-    <a id="demo_4" href="" class="modal">Publishing to Wikipedia</a> (coming soon)
+    <a id="demo_1" href="http://screencast-o-matic.com/watch/cI6i3JVdFc" class="modal">Overview of the RAMP editor</a> <span> | </span>    
+    <a id="demo_3" href="http://screencast-o-matic.com/watch/cI6i3mVdbS" class="modal">Ingesting from WorldCat Identities</a> <span> | </span>        
+    <a id="demo_2" href="http://screencast-o-matic.com/watch/cI6i0oVdFl" class="modal">Ingesting from VIAF</a> <span> | </span>    
+    <a id="demo_4" href="http://screencast-o-matic.com/watch/cI6i08VdFm" class="modal">Publishing to Wikipedia</a> 
     </p>
     
     </div>
@@ -36,7 +36,7 @@ include('header.php');
   <img src="style/images/convert.png" alt="Convert" width="24px" height="24px"/>
 
   <h1>Convert EAD Records into EAC-CPF Records</h1>
- <ol><li><em>1.</em> Put your EAD files in the 'ead' folder in the RAMP root directory.</li>
+ <ol><li><em>1.</em> Place your EAD files in the 'ead' folder in the RAMP root directory.</li>
   <li><em>2.</em> Click 'Convert EAD Files.'  This will transform the EAD files
 into EAC-CPF records and store both original and newly created files in the RAMP database.</li>
 <li><em>3.</em> You may now use the RAMP editor to enhance and publish your records. </li>
@@ -149,11 +149,18 @@ print ("</select>");
   <p><a id="export_eac" href="export.php" style="margin:1%;">Export EAC-CPF Records</a></p>
   
   </div>
+  </div>
+  
+ 
 
   </div>
-
+  
+  <div id="attribution">
+  <img src="http://www.oclc.org/developer/sites/default/files/badges/logo_worldcat_16px.png" width="16" height="16" alt="Some library data on this site is provided by WorldCat, the world's largest library catalog [WorldCat.org]" />
+  <p>RAMP contains <a href="http://www.worldcat.org/">OCLC WorldCat</a> information made available under the <a href="http://opendatacommons.org/licenses/by/1.0/">ODC Attribution License</a>. The OCLC Cooperative requests that uses of WorldCat derived data contained in this work conform with the <a href="http://www.oclc.org/worldcat/community/record-use/policy/community-norms.en.html">WorldCat Community Norms</a>.</p>    
   </div>
-  <div style="margin-bottom:5%;"></div>
+  
+  
 
   <?php
   include('footer.php');
