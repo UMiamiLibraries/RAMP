@@ -19,10 +19,10 @@ include('header.php');
     <br/>
     
     <p>
-    <a id="demo_1" href="http://www.screencast.com/t/Q2XeS10YT1" class="modal">Overview of the RAMP editor</a> <span> | </span>    
-    <a id="demo_3" href="http://www.screencast.com/t/nMw4fi30j" class="modal">Ingesting from WorldCat Identities</a> <span> | </span>        
-    <a id="demo_2" href="http://www.screencast.com/t/wYPJDTh8Ccn" class="modal">Ingesting from VIAF</a> <span> | </span>    
-    <a id="demo_4" href="http://www.screencast.com/t/O53qYAtSDY" class="modal">Publishing to Wikipedia</a> 
+    <a id="demo_1" href="http://screencast-o-matic.com/watch/cI6i3JVdFc" class="modal">Overview of the RAMP editor</a> <span> | </span>    
+    <a id="demo_3" href="http://screencast-o-matic.com/watch/cI6i3mVdbS" class="modal">Ingesting from WorldCat Identities</a> <span> | </span>        
+    <a id="demo_2" href="http://screencast-o-matic.com/watch/cI6i0oVdFl" class="modal">Ingesting from VIAF</a> <span> | </span>    
+    <a id="demo_4" href="http://screencast-o-matic.com/watch/cI6i08VdFm" class="modal">Publishing to Wikipedia</a> 
     </p>
     
     </div>
