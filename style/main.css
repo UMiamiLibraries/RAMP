@@ -512,7 +512,7 @@ ul, menu, dir {
     position: absolute;
     top: 0;
     width: 900px;
-    height: 1000px;
+    /* height: 1000px; */
 }
 
 .user_help_form button {
