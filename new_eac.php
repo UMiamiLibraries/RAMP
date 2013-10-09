@@ -16,16 +16,17 @@ include('header.php');
   <p class="note">Note: new record form is still in beta. Currently, only Entity Type, Name, and Biography have been enabled. Please monitor the <a href="https://github.com/UMiamiLibraries/RAMP">RAMP GitHub repository for updates</a>.</p> 
   <label style="display:inline;">Entity Type</label>
   <select id="entity_type">
-    <option>person</option>
-    <option>corporate body</option>
-    <option>family</option>
+    <option>Person</option>
+    <option>Corporate Body</option>
+    <option>Family</option>
   </select>
   <br/>
   <br/>
-  <label>Name</label>
+  <label>Name and dates (format: Last Name, First Name, 9999-9999)</label>
   <input id="eac_name" type="text" size="49"/>
   <br/>
   <br/>
+  <!--
   <label>Dates of existence</label>
   <label style="display:inline;">From</label>
   <input id="from" type="text" disabled/>
@@ -59,15 +60,18 @@ include('header.php');
   <br/>
   <label>Language <span style="font-style:italic;">(enter each item on a new line)</span></label>
   <label>Three-letter codes and language names must be preceded by <a href="http://www.loc.gov/marc/authority/ad377.html" target="_blank">MARC 377 subfield delimiters</a> ($a, $l).</label>
-  <textarea cols="60" style="height:80px; margin-left:0; margin-bottom:1%;" id="lang" disabled></textarea>
+  <textarea cols="60" style="height:80px; margin-left:0; margin-bottom:1%;" id="lang" disabled></textarea>  
   <br/>
   <br/>
+  -->
   <label>Biography or history <span style="font-style:italic;">(enter a blank line between each paragraph)</span></label>
   <textarea cols="60" style="margin-left:0; margin-bottom:1%;" id="bioghist"></textarea>
   <br/>
   <br/>
+  <!--
   <label>Sources <span style="font-style:italic;">(enter a blank line between each source)</span></label>
   <textarea cols="60" style="height:80px; margin-left:0; margin-bottom:2%;" id="sources" disabled></textarea>
+  -->
   <br/>
   </form>
   </td>

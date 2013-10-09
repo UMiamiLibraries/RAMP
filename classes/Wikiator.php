@@ -261,7 +261,6 @@ class Wikiator
 	 */
 	public function editWikiPage( $lstrPageTitle, $lstrWikiText, $lstrEncodedTitle = '', $lstrComments = "", $lstrCaptchaID = '', $lstrCaptchaWord = '' )
 	{
-              
 		$this->strPageTitle = $lstrPageTitle;
 		$this->setWikiEditInfo($lstrEncodedTitle);
 
