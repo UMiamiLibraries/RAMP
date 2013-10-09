@@ -346,7 +346,7 @@ $(document).ready(function() {
 		    setupGetWiki();
 
   		    $('#wiki_switch').show();
-  		    $('#wiki_switch_button').unbind();
+  		    //$('#wiki_switch_button').unbind();
 
 		    wikiCheck();
 
@@ -401,8 +401,6 @@ $(document).ready(function() {
 
 
         $('#xml_switch_button').css({"background":"#0078e7"});
-	
-	    $(this).unbind();
 
     });
 
@@ -416,25 +414,7 @@ $(document).ready(function() {
     
 	editXML();
 
-
-	$('#wiki_switch_button').bind('click', function() {
-	    
-        // Set cookie for showing wiki screen on dialog close.
-        if ( getCookie('onWiki') != 'true' )
-        {
-            document.cookie = 'onWiki=true';
-        }
-        
-        $('.wiki_edit').remove();
-	    
-	    wikiCheck();
-
-        $('#xml_switch_button').css({"background":"#0078e7"});
-	    $(this).unbind();
-	});
-
     });
-
 
     function editXML() {
     	//Show the XML editor ui and wiki markup editor

@@ -24,11 +24,11 @@ function confirmWikiSubmit( callback )
 
     //display login form
     makePromptDialog('#dialog-form', 'Confirm', function(dialog)
-		     {			 
+		     {
 			 $(dialog).dialog("close");
 			 $(dialog).remove();
 			 });
-  
+
 }
 
 
@@ -67,7 +67,7 @@ function setupWikiLogin( callback )
 				    {
 					$('#wiki_login').replaceWith("<li id=\"wiki_logout\" class=\"wiki_login menu_slice\"><a href=\"#\">Wiki Logout</a></li>");
 					$("#wiki_logout").on("click", setupWikiLogout );
-				    }				
+				    }
 
 				    $('body').append("<div id=\"dialog\"><p>" + response + "</p></div>");
 				    makeDialog('#dialog', '',callback);
@@ -101,12 +101,12 @@ function setupWikiLogout()
 function setupGetWiki()
 {
     jQuery('#get_wiki').on('click', function()
-			   {			       			       
+			   {
 			       $('.main_edit').hide();
 			       $('.wiki_edit').hide();
 			       $('#wiki_switch').hide();
 			       $('#get_wiki').hide();
-			       $('#entity_name').hide();			       			       			      		      
+			       $('#entity_name').hide();
 
 			       //$('#get_wiki').after('<img id="loading-image" src="style/images/loading.gif" alt="loading"/>');
 
@@ -135,8 +135,8 @@ function setupGetWiki()
 				       var lobjeac = new eac();
 				       lobjeac.loadXMLString( lstrXML );
 
-				       var lobjNameEntryPart; 
-				       if ( lobjeac.getElement('//*[local-name()=\'control\']/*[local-name()=\'otherRecordId\'][@localType=\'WCI:DBpedia\']') ) 
+				       var lobjNameEntryPart;
+				       if ( lobjeac.getElement('//*[local-name()=\'control\']/*[local-name()=\'otherRecordId\'][@localType=\'WCI:DBpedia\']') )
 				       {
 				           lobjNameEntryPart = lobjeac.getElement('//*[local-name()=\'control\']/*[local-name()=\'otherRecordId\'][@localType=\'WCI:DBpedia\']');
 				           //= lobjeac.getElement('//*[local-name()=\'cpfDescription\']/*[local-name()=\'identity\']/*[local-name()=\'nameEntry\']/*[local-name()=\'part\']');
@@ -144,16 +144,16 @@ function setupGetWiki()
 				           eac_name = eac_name.trim();
 				           eac_name = encode_utf8(eac_name);
 				           eac_name = eac_name.substring(28);
-        				           
+
 				       }
-				       else 
+				       else
 				       {
 				           lobjNameEntryPart = lobjeac.getElement('//*[local-name()=\'cpfDescription\']/*[local-name()=\'identity\']/*[local-name()=\'nameEntry\']/*[local-name()=\'part\']');
 				           //= lobjeac.getElement('//*[local-name()=\'cpfDescription\']/*[local-name()=\'identity\']/*[local-name()=\'nameEntry\']/*[local-name()=\'part\']');
      				       eac_name = lobjNameEntryPart.childNodes[0].nodeValue;
      				       eac_name = eac_name.trim();
      				       eac_name = encode_utf8(eac_name);
-				       }				       				       				       				      
+				       }
 
 				       searchWiki(eac_name);
 				   }else
@@ -184,7 +184,7 @@ function searchWiki( lstrSearch )
     $('#wiki_switch').hide();
     $('#get_wiki').hide();
     $('#entity_name').hide();
-    
+
 
 
     $('body').append("<div id=\"dialog-form\" title=\"Wiki search\"> \
@@ -197,7 +197,7 @@ function searchWiki( lstrSearch )
 </form></div>");
 
     $('#loading-image').remove();
-   
+
 
     //propt user to enter search string for wiki search
     makePromptDialog('#dialog-form', 'Wiki Search', function(dialog)
@@ -209,14 +209,14 @@ function searchWiki( lstrSearch )
         		     $('.validate-prompt').show();
         		 }
         		 else
-        		 {        		             		     
+        		 {
         		     $('#get_wiki').hide();
-			         $('#get_wiki').after('<img id="loading-image" src="style/images/loading.gif" alt="loading"/>');			         			        			         			         
+			         $('#get_wiki').after('<img id="loading-image" src="style/images/loading.gif" alt="loading"/>');
 
-        		     lstrUserSearch = encode_utf8(lstrUserSearch);        		             		  
+        		     lstrUserSearch = encode_utf8(lstrUserSearch);
 
         		     $(dialog).dialog("close");
-			         $(dialog).remove();			         			        
+			         $(dialog).remove();
 
 			     //post to ajax wiki controller to search wiki and get results
 			     $.post('ajax/wiki_api.php', { 'action' : 'search', 'title' : lstrUserSearch }, function(response)
@@ -229,11 +229,11 @@ function searchWiki( lstrSearch )
 					{
 					    $('body').append("<div id=\"dialog\"><p>" + response + "</p></div>");
 					    makeDialog('#dialog');
-					    
+
 					    //alert(response);
 					    $('#loading-image').remove();
 					    $('#get_wiki').show();
-					    					    					  					
+
 					    return;
 					}
 
@@ -242,7 +242,7 @@ function searchWiki( lstrSearch )
 							  {
 							      //get wiki markup of chosen results
 							      getWiki(lstrChosenTitle, lstrOrigWiki);
-							      
+
 							  });
 				    });
         		 }
@@ -255,10 +255,10 @@ function searchWiki( lstrSearch )
  */
 function displayWikiSearch( lobjTitles, callback )
 {
-    
+
     $('.main_edit').hide();
     $('.wiki_edit').hide();
-    
+
     var lstrHTML = "<div class=\"form_container\" style=\"top: 45px;\"><div class=\"user_help_form\" style=\"line-height:1em;\">";
     lstrHTML += "<button id=\"get_chosen_wiki\" class=\"pure-button pure-button-secondary\">Use Selected Title</button>";
     lstrHTML += "<button id=\"get_chosen_wiki_no_match\" class=\"pure-button pure-button-secondary\">No Match (Create New)</button>";
@@ -280,7 +280,7 @@ function displayWikiSearch( lobjTitles, callback )
 
     //register click event to continue process once user choses result
     $('#get_chosen_wiki').on('click', function()
-			     {				 				 
+			     {
 
 				 if( typeof $('input[name="chosen_title"]:checked').val() == 'undefined' )
 				 {
@@ -290,17 +290,17 @@ function displayWikiSearch( lobjTitles, callback )
 				     //alert('Must choose one!');
 				     return;
 				 }
-				 
+
 				 var lstrWikiLink = $('input[name="chosen_title"]:checked').siblings('dl').children('dd').children('a').attr('href');
-                 
+
 				 callback($('input[name="chosen_title"]:checked').val(), lstrWikiLink);
-				 
+
 				 /*
 				 $('.wiki_edit').show();
-				 $('#wiki_switch').show();				 
+				 $('#wiki_switch').show();
 				 $('.form_container').remove();
 				 */
-				 
+
 				 // Hide. --timathom
 				 $('.form_container').remove();
 	             $('.main_edit').hide();
@@ -309,32 +309,32 @@ function displayWikiSearch( lobjTitles, callback )
 		         $('#wiki_switch').hide();
 		         $('#get_wiki').hide();
 		         $('#post_wiki').hide();
-				 
+
 			     });
 
     //register click event to cancel process
     $('#get_chosen_wiki_no_match').on('click', function()
 				      {
-					  
-					  callback('!new_wiki_page!');					                        
-					  
-					  $('.form_container').remove();					  
+
+					  callback('!new_wiki_page!');
+
+					  $('.form_container').remove();
 					  $('.wiki_edit').show();
 					  $('#wiki_switch').show();
 				      });
-				      
+
     //register click event to cancel process
     $('#get_chosen_wiki_cancel').on('click', function()
 				      {
-					  
-					  //callback('');					                        
-					  
+
+					  //callback('');
+
 					  $('.form_container').remove();
 					  $('#loading-image').remove();
 					  $('#entity_name').show();
 					  $('.wiki_edit').show();
 					  $('#wiki_switch').show();
-					  
+
 				      });
 }
 
@@ -343,17 +343,17 @@ function displayWikiSearch( lobjTitles, callback )
  * @method getWiki
  */
 function getWiki( lstrTitle, lstrLink )
-{    
-			     
+{
+
     //initialize title so every time new user gets wiki page, new title is saved
     mstrTitle = '';
 
     //if editor does not see any desired wiki results, append blank textarea and status is new wiki page
     if( lstrTitle == '!new_wiki_page!' )
     {
-    
+
 	mboolIsNew = true;
-	
+
 
 	$('#wikieditor').append("<div class=\"wiki_container\" style='margin: 175px 15px 15px 20px;'> \
 <button id=\"gtselectedtext\" title=\"Click in right-hand box where you want text to appear. Highlight text on left. Use arrow to transfer text (click or use keypad).\" class=\"pure-button pure-button-secondary\">&gt;</button><br /> \
@@ -367,21 +367,21 @@ function getWiki( lstrTitle, lstrLink )
 
 	setupPostWiki();
     }else
-    {        
-    
+    {
+
 	mstrTitle = lstrTitle;
-	       
+
 	//post to ajax wiki controller to get wiki markup with posted title
 	$.post('ajax/wiki_api.php', { 'action' : 'get', 'title' : lstrTitle }, function(response)
-	       {	       
-            
+	       {
+
            // Show. --timathom
            $('#entity_name').show();
 		   $('.wiki_edit').show();
 		   $('#get_wiki').show();
 		   $('#wiki_switch').show();
-		   $('#post_wiki').show();		   		  
-		   
+		   $('#post_wiki').show();
+
 		   $('#wikieditor').append("<div class=\"wiki_container\" style='margin: 175px 15px 15px 20px;'> \
 <button id=\"gtselectedtext\" class=\"pure-button ingest-cancel pure-button-secondary\" title=\"Click in right-hand box where you want text to appear. Highlight text on left. Use arrow to transfer text (click or use keypad).\" class=\"pure-button pure-button-secondary\">&gt;</button><br /> \
 <button id=\"ltselectedtext\" class=\"pure-button ingest-cancel pure-button-secondary\" title=\"Click in left-hand box where you want text to appear. Highlight text on right. Use arrow to transfer text (click or use keypad).\" class=\"pure-button pure-button-secondary\">&lt;</button></div> \
@@ -394,17 +394,17 @@ function getWiki( lstrTitle, lstrLink )
 		   /*
 		   $('#post_draft_wiki').on('click',function()
 		   {
-		       	     
-		       $postdialog.dialog('open');	
+
+		       $postdialog.dialog('open');
 		       $(this).unbind();
-		       		       
-					 
+
+
 		   });
 		   */
-				
-                    	
+
+
 		   setupPostWiki();
-		   
+
 	       });
     }
 }
@@ -413,60 +413,60 @@ function getWiki( lstrTitle, lstrLink )
  * setupPostWiki register click event to post edit to wiki
  * @method setupPostWiki
  */
- 
+
 function setupPostWiki()
 {
     $('#post_wiki, #post_draft_wiki').on('click', function()
 					 {
 					     //stored which wiki post button was clicked
-					     lobjClicked = this;						    				    
-                         
+					     lobjClicked = this;
+
                          // Added confirmation for Wiki submits. --timathom
                          var lstrHTML;
-                         
+
                          if( this.id == 'post_draft_wiki' )
                          {
-                             lstrConfirm = 'Clicking this button will create a draft subpage of your Wikipedia user account (recommended for work-in-progress). Do you want to proceed?';   
-                         }       
+                             lstrConfirm = 'Clicking this button will create a draft subpage of your Wikipedia user account (recommended for work-in-progress). Do you want to proceed?';
+                         }
                          else
                          {
                              lstrConfirm = 'Clicking this button will publish your article to a public Wikipedia page, for the world to see. Are you sure you want to proceed?';
                          }
-                         
+
                          var $postdialog = $('<div></div>')
-                         .html(lstrConfirm)                           
+                         .html(lstrConfirm)
                          .dialog({
                              autoOpen: false,
                              title : function() {
                                  $(this).text('Confirm');
                              },
-                             buttons : {                
-                                 "Yes" : function() {                                                                                       
+                             buttons : {
+                                 "Yes" : function() {
                                      setupWikiLogin(function()
-                 						 {						    
-                 						     $( lobjClicked ).click();						     						    
-                 						 });                                     
+                 						 {
+                 						     $( lobjClicked ).click();
+                 						 });
                                      $( this ).dialog( "close" );
                                  },
                                  "No" : function() {
                                      $( this ).dialog( "close" );
-                                 }                
+                                 }
                              }
-                         });                                                                                                   
-                         
+                         });
+
 					     //if user is not logged in, notify user and cancel posting process
 					     if( getCookie('ramp_wiki_li') == null || getCookie('ramp_wiki_li') != '1' )
 					     {
-					     
-						 //if not logged in, show log in screen and then try to post again						 
+
+						 //if not logged in, show log in screen and then try to post again
 						 $postdialog.dialog('open');
 						 /*
 						 setupWikiLogin(function()
-						 {						    
-						     $( lobjClicked ).click();						     						    
+						 {
+						     $( lobjClicked ).click();
 						 });
 						 */
-						 
+
 					     }else
 					     {
 						 if( mstrTitle == '' )
@@ -581,7 +581,7 @@ function getUserComments( lboolDraft )
  */
 function postWiki( lstrWiki, lstrComments, lboolDraft, lstrCaptchaAnswer, lstrCaptchaId )
 {
-    $('#edit_controls').after('<img id="loading-image" src="style/images/loading.gif" alt="loading"/>');    
+    $('#edit_controls').after('<img id="loading-image" src="style/images/loading.gif" alt="loading"/>');
     $('.wiki_edit').hide();
     $('#wiki_switch').hide();
     $('#get_wiki').hide();
@@ -600,18 +600,18 @@ function postWiki( lstrWiki, lstrComments, lboolDraft, lstrCaptchaAnswer, lstrCa
 		   {
 		       var lobjData = JSON.parse(response);
                $('#loading-image').remove();
-               $('#edit_controls').show();    
+               $('#edit_controls').show();
                $('.wiki_edit').show();
                $('#wiki_switch').show();
                $('#get_wiki').show();
-               $('#post_wiki').show();               	          
-	           $('#draft_container').show();		       
+               $('#post_wiki').show();
+	           $('#draft_container').show();
 		   }
 		   catch(e) //in this case, if response is JSON, Captcha is needed to complete edit request
 		   {
 		       $('body').append("<div id=\"dialog\"><p>" + response + "</p></div>");
 		       makeDialog('#dialog');
-		       
+
 		       $('#loading-image').remove();
 		       $('#entity_name').show();
                $('.wiki_edit').show();
@@ -623,25 +623,32 @@ function postWiki( lstrWiki, lstrComments, lboolDraft, lstrCaptchaAnswer, lstrCa
 
 		   //displays captcha question
 		   displayCaptcha( "http://en.wikipedia.org/" + lobjData.url, lobjData.id, lboolDraft );
-	       });	
+	       });
     }else
     {
 	//post to ajax wiki controller to edit posted wiki page title with posted wiki markup and captcha answer
-	$.post('ajax/wiki_api.php', { 'action' : 'post', 'title' : mstrTitle, 'isNew' : mboolIsNew, 
-				      'wiki' : lstrWiki,  'comments' : lstrComments, 'isDraft' : lboolDraft, 
-				      'captcha_ans' : lstrCaptchaAnswer, 'captcha_id' : lstrCaptchaId }, 
+	$.post('ajax/wiki_api.php', { 'action' : 'post', 'title' : mstrTitle, 'isNew' : mboolIsNew,
+				      'wiki' : lstrWiki,  'comments' : lstrComments, 'isDraft' : lboolDraft,
+				      'captcha_ans' : lstrCaptchaAnswer, 'captcha_id' : lstrCaptchaId },
 	       function(response)
 	       {
 		   try
 		   {
 		       var lobjData = JSON.parse(response);
+			   $('#loading-image').remove();
+			   $('#edit_controls').show();
+			   $('.wiki_edit').show();
+			   $('#wiki_switch').show();
+			   $('#get_wiki').show();
+			   $('#post_wiki').show();
+			   $('#draft_container').show();
 		   }
 		   catch(e) //in this case, if response is JSON, Captcha is needed to complete edit request
 		   {
 		       $('body').append("<div id=\"dialog\"><p>" + response + "</p></div>");
 		       makeDialog('#dialog');
 
-		       $('#loading-image').remove();		       
+		       $('#loading-image').remove();
 		       $('#entity_name').show();
                $('.wiki_edit').show();
                $('#get_wiki').show();
@@ -650,10 +657,10 @@ function postWiki( lstrWiki, lstrComments, lboolDraft, lstrCaptchaAnswer, lstrCa
 		       return;
 		   }
 
-		   //displays captcha question 
+		   //displays captcha question
 		   displayCaptcha( "http://en.wikipedia.org/" + lobjData.url, lobjData.id, lboolDraft );
-	       });	
-    }    
+	       });
+    }
 }
 
 /*
@@ -664,7 +671,7 @@ function displayCaptcha( lstrUrl, lstrCaptchaId, lboolDraft )
 {
     var lstrHTML = "<div class=\"form_container\" style=\"top: 50px;\"><div class=\"user_help_form\">";
 
-    lstrHTML += "<div id=\"captcha_div\"><h3 class=\"captcha\">Please Solve CAPTCHA</h3>";
+    lstrHTML += "<div id=\"captcha_div\"><h3 class=\"captcha\">Please Solve CAPTCHA</h3><br/>";
     lstrHTML += "<img class=\"captcha\" src=\"" + lstrUrl +"\" /><br/>";
     lstrHTML += "<input class=\"captcha\" id=\"captcha_input\" name=\"captcha_ans\" type=\"text\"/><br/>";
     lstrHTML += "<button id=\"try_with_captcha\" class=\"captcha pure-button pure-button-secondary\">Try again</button>";
@@ -680,9 +687,9 @@ function displayCaptcha( lstrUrl, lstrCaptchaId, lboolDraft )
 				  var lstrCaptchaAnswer = $('input[name="captcha_ans"]').val();
 
 				  postWiki( lstrWiki, 'Retry with Captcha', lboolDraft, lstrCaptchaAnswer, lstrCaptchaId );
-				                    
+
 				  $('.form_container').remove();
-								  
+
 			      });
 }
 
