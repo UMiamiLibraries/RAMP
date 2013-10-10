@@ -58,6 +58,7 @@
         <xsl:if
             test="eac:eac-cpf/eac:cpfDescription/eac:relations/eac:resourceRelation/eac:objectXMLWrap/ead:archdesc/ead:scopecontent or $pBiogHist/eac:abstract">
             <xsl:text>&lt;!-- The following info about the collection that may contain relevant historical details and that may be useful for providing a brief description of the "External link" to the finding aid from Wikipedia. This text should be deleted after relevant information has been incorporated into the Wikipedia entry: --&gt;</xsl:text>
+            <xsl:text>&#10;</xsl:text>
         </xsl:if>
         <xsl:if
             test="eac:eac-cpf/eac:cpfDescription/eac:relations/eac:resourceRelation/eac:objectXMLWrap/ead:archdesc/ead:scopecontent">
@@ -149,10 +150,10 @@
         <xsl:if
             test="eac:eac-cpf/eac:cpfDescription/eac:relations/eac:resourceRelation/eac:objectXMLWrap/ead:archdesc/ead:scopecontent or $pBiogHist/eac:abstract">
             <xsl:text>&lt;!-- The following info about the collection that may contain relevant historical details and that may be useful for providing a brief description of the "External link" to the finding aid from Wikipedia. This text should be deleted after relevant information has been incorporated into the Wikipedia entry: --&gt;</xsl:text>
+            <xsl:text>&#10;</xsl:text>
         </xsl:if>
         <xsl:if
-            test="eac:eac-cpf/eac:cpfDescription/eac:relations/eac:resourceRelation/eac:objectXMLWrap/ead:archdesc/ead:scopecontent">
-            <xsl:text>&#10;</xsl:text>
+            test="eac:eac-cpf/eac:cpfDescription/eac:relations/eac:resourceRelation/eac:objectXMLWrap/ead:archdesc/ead:scopecontent">            
             <xsl:text>&#10;</xsl:text>
             <xsl:text>&lt;!-- </xsl:text>
             <xsl:for-each
