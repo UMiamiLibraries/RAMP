@@ -494,7 +494,8 @@
                     <xsl:value-of select="normalize-space(@xlink:href)"/>
                     <xsl:text>#bioghist </xsl:text>
                     <xsl:value-of select="normalize-space(eac:sourceEntry)"/>
-                    <xsl:text>]," Miami, FL: University of Miami Libraries, [YYYY].</xsl:text>
+                    <xsl:text>]," </xsl:text>
+                    <xsl:value-of select="$pFindingAidInfo"/>
                     <xsl:text>&#10;</xsl:text>
                 </xsl:for-each>
             </xsl:when>

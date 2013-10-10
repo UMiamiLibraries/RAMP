@@ -29,6 +29,9 @@
     <!-- URL for local discovery service query. -->
     <xsl:param name="pDiscServ">http://miami.summon.serialssolutions.com/search?spellcheck=true&amp;s.q=</xsl:param>
     
+    <!-- Parameter for finding aid citation info. -->
+    <xsl:param name="pFindingAidInfo">Miami, FL: University of Miami Libraries, [YYYY].</xsl:param>
+    
     <!-- Declare variables for basic pattern matching. -->    
     <xsl:variable name="vUpper" select="'AÁÀBCDEÉÈFGHIÍJKLMNÑOÓPQRŔSTUÚÜVWXYZ'"/>
     
