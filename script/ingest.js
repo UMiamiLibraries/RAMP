@@ -1131,7 +1131,7 @@
                                                                       	 {
                                                                       	     $('#wiki_switch').hide();
                                                                       	 }
-                                                         		         //editor.getSession().setValue(lobjEac.getXML());                                                         
+                                                         		         editor.getSession().setValue(lobjEac.getXML());                                                         
                                                                          return;
                                                                     } 
                                                                     else
@@ -1151,7 +1151,7 @@
                                                                       	 {
                                                                       	     $('#wiki_switch').hide();
                                                                       	 }
-                                                                      	 //editor.getSession().setValue(lobjEac.getXML());
+                                                                      	 editor.getSession().setValue(lobjEac.getXML());
                                                                       	 return;                                                                      	 
     																 }
     																 
