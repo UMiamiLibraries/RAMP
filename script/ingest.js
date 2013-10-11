@@ -1114,7 +1114,7 @@
     																 {
     																     var Subject = lobjSubjectList[lobjChosenSubjects[i]];
     																     lobjEac.addSubjectHeading(Subject);
-    																     //editor.getSession().setValue(lobjEac.getXML());
+    																     editor.getSession().setValue(lobjEac.getXML());
     																 }
     																 
     																 if(lobjChosenSubjects.length == 0)
