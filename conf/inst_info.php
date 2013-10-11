@@ -5,7 +5,7 @@
    
    For the eac2wiki.xsl stylesheet, eac2wikiParameters.xsl contains additional parameters. In eac2wikiParameters.xsl, you will want to change the value of the following two parameters:  
    
-   (1) "pDiscServ" stores a URL for a local discovery service (like Summon) in order to add a link to the wiki markup in the "External links" section. 
+   (1) "pDiscServ" stores a URL for a local discovery service (e.g., Summon) in order to add a link to the wiki markup in the "External links" section. 
    
    (2) "pFindingAidInfo" stores publication info (like institution name, place, and date) for finding aid citations in the wiki markup "Notes and references" section. 
 
