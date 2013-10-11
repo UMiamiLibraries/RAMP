@@ -781,6 +781,18 @@
                                         select="substring-after(../../../eac:otherRecordId[@localType='WCI:LCCN'],'lccn-no')"/>
                                     <xsl:value-of select="concat('no/',translate($lccn,'-','/'))"/>
                                 </xsl:when>
+                                <xsl:when
+                                    test="contains(../../../eac:otherRecordId[@localType='WCI:LCCN'],'nr')">
+                                    <xsl:variable name="lccn"
+                                        select="substring-after(../../../eac:otherRecordId[@localType='WCI:LCCN'],'lccn-nr')"/>
+                                    <xsl:value-of select="concat('nr/',translate($lccn,'-','/'))"/>
+                                </xsl:when>
+                                <xsl:when
+                                    test="contains(../../../eac:otherRecordId[@localType='WCI:LCCN'],'sh')">
+                                    <xsl:variable name="lccn"
+                                        select="substring-after(../../../eac:otherRecordId[@localType='WCI:LCCN'],'lccn-sh')"/>
+                                    <xsl:value-of select="concat('sh/',translate($lccn,'-','/'))"/>
+                                </xsl:when>
                                 <xsl:otherwise>
                                     <xsl:variable name="lccn"
                                         select="substring-after(../../../eac:otherRecordId[@localType='WCI:LCCN'],'lccn-n')"/>
@@ -1039,7 +1051,7 @@
                 <xsl:text>&#10;</xsl:text>
                 <xsl:text>[[Related person]]—made a similar achievement on April 4, 2005</xsl:text>
                 <xsl:text>&#10;</xsl:text>
-                <xsl:text> --&gt;</xsl:text>
+                <xsl:text>--&gt;</xsl:text>
                 <xsl:text>&#10;</xsl:text>
                 <xsl:text>&#10;</xsl:text>
                 <xsl:for-each select="eac:eac-cpf/eac:cpfDescription/eac:relations/eac:cpfRelation">

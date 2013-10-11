@@ -1080,7 +1080,9 @@
     											 
     											 // Notification logic added by timathom.
     											 if(lobjSubjectList.length == 0)
-                                                 {                                                    
+                                                 {                                         
+                                                     jQuery('html,body').animate({scrollTop:0},0); //scroll to top to view form correctly
+                                                     
                                                      $('body').append("<div id=\"dialog\"><p>No matching subjects.</p><br/>" + lstrOtherRecId + lstrSources + lstrCpfResults + lstrResourceResults + "</div>");
     					                             makeDialog('#dialog', 'Results'); // display results
                                                      $('.worldcat_arrow').html("&#10003;");
@@ -1096,7 +1098,9 @@
                                                      else
                                                      {
                                                          $('#wiki_switch').hide();
-                                                     }
+                                                     }                                                     
+                                                     
+                                                     editor.getSession().setValue(lobjEac.getXML());
                                                      return;
                                                  } 
                                                  else
@@ -1110,11 +1114,14 @@
     																 {
     																     var Subject = lobjSubjectList[lobjChosenSubjects[i]];
     																     lobjEac.addSubjectHeading(Subject);
-    																     editor.getSession().setValue(lobjEac.getXML());
+    																     //editor.getSession().setValue(lobjEac.getXML());
     																 }
     																 
     																 if(lobjChosenSubjects.length == 0)
                                                                      {                                                                                                     
+                                                                         
+                                                                         jQuery('html,body').animate({scrollTop:0},0); //scroll to top to view form correctly
+                                                                         
                                                                          $('body').append("<div id=\"dialog\"><p>No subjects added.</p><br/>" + lstrOtherRecId + lstrSources + lstrCpfResults + lstrResourceResults + "</div>");
                        					                                 makeDialog('#dialog', 'Results'); // display results
                                                                          $('.worldcat_arrow').html("&#10003;");
@@ -1136,6 +1143,9 @@
                                                                     } 
                                                                     else
                                                                     {        																     
+           																 
+           																 jQuery('html,body').animate({scrollTop:0},0); //scroll to top to view form correctly
+           																 
            																 $('body').append("<div id=\"dialog\"><p>&lt;localDescription&gt; element(s) added with chosen subject(s).</p><br/>" + lstrOtherRecId + lstrSources + lstrCpfResults + lstrResourceResults + "</div>");
            					                                             makeDialog('#dialog', 'Results'); // display results    																 
            																 $('#loading-image').remove();
