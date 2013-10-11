@@ -1039,7 +1039,7 @@
                 <xsl:text>&#10;</xsl:text>
                 <xsl:text>[[Related person]]—made a similar achievement on April 4, 2005</xsl:text>
                 <xsl:text>&#10;</xsl:text>
-                <xsl:text> --&gt;</xsl:text>
+                <xsl:text>--&gt;</xsl:text>
                 <xsl:text>&#10;</xsl:text>
                 <xsl:text>&#10;</xsl:text>
                 <xsl:for-each select="eac:eac-cpf/eac:cpfDescription/eac:relations/eac:cpfRelation">
