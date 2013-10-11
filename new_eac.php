@@ -65,7 +65,7 @@ include('header.php');
   <br/>
   -->
   <label>Biography or history <span style="font-style:italic;">(enter a blank line between each paragraph)</span></label>
-  <textarea cols="60" style="margin-left:0; margin-bottom:1%;" id="bioghist"></textarea>
+  <textarea cols="60" style="margin-left:0; margin-bottom:1%; font-size:1em;" id="bioghist"></textarea>
   <br/>
   <br/>
   <!--
