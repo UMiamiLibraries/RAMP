@@ -7,7 +7,7 @@
    
    (1) "pDiscServ" stores a URL for a local discovery service (like Summon) in order to add a link to the wiki markup in the "External links" section. 
    
-   (2) "pFindingAidInfo" stores publication info (like instution name, place, and date) for finding aid citations in the wiki markup "Notes and references" section. 
+   (2) "pFindingAidInfo" stores publication info (like institution name, place, and date) for finding aid citations in the wiki markup "Notes and references" section. 
 
    --timathom
 */
