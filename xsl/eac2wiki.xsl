@@ -116,6 +116,8 @@
         </xsl:if>
         <!-- References -->
         <xsl:call-template name="tReferences"/>
+        <!-- Further reading -->
+        <xsl:call-template name="tFurther"/>
         <!-- External links -->
         <xsl:call-template name="tExternalLinks"/>
         <!-- VIAF -->
@@ -211,6 +213,8 @@
         </xsl:if>
         <!-- References -->
         <xsl:call-template name="tReferences"/>
+        <!-- Further reading -->
+        <xsl:call-template name="tFurther"/>
         <!-- External links -->
         <xsl:call-template name="tExternalLinks"/>
         <!-- VIAF -->
@@ -477,7 +481,7 @@
         </xsl:choose> -->
     </xsl:template>
 
-    <!-- Output References ("works about") section. -->
+    <!-- Output Notes and references section. Right now, only default reference is to the finding aid we've used, if any. -->
     <xsl:template name="tReferences">
         <xsl:text>&#10;</xsl:text>
         <xsl:text>==Notes and references==</xsl:text>
@@ -499,11 +503,21 @@
                     <xsl:value-of select="$pFindingAidInfo"/>
                     <xsl:text>&#10;</xsl:text>
                 </xsl:for-each>
-            </xsl:when>
+            </xsl:when>            
+            <xsl:otherwise> </xsl:otherwise>
+        </xsl:choose>
+    </xsl:template>
+    
+    <!-- Output Further reading ("works about") section.  -->
+    <xsl:template name="tFurther">
+        <xsl:text>&#10;</xsl:text>
+        <xsl:text>==Further reading==</xsl:text>
+        <xsl:text>&#10;</xsl:text>
+        <xsl:choose>
             <xsl:when
-                test="eac:eac-cpf/eac:cpfDescription/eac:relations/eac:resourceRelation[@resourceRelationType='referencedIn' and @xlink:role='resource']">
+                test="eac:eac-cpf/eac:cpfDescription/eac:relations/eac:resourceRelation[@resourceRelationType='subjectOf' and @xlink:role='resource']">
                 <xsl:for-each
-                    select="eac:eac-cpf/eac:cpfDescription/eac:relations/eac:resourceRelation[@resourceRelationType='referencedIn' and @xlink:role='resource']">
+                    select="eac:eac-cpf/eac:cpfDescription/eac:relations/eac:resourceRelation[@resourceRelationType='subjectOf' and @xlink:role='resource']">
                     <xsl:sort
                         select="translate(eac:relationEntry[@localType='creator'],'ÁÀÉÈÍÓÚÜÑáàéèíóúúüñ','AAEEIOUUNaaeeiouuun')"
                         data-type="text"/>
@@ -610,10 +624,10 @@
                 </xsl:for-each>
             </xsl:when>
             <xsl:otherwise> </xsl:otherwise>
-        </xsl:choose>
+        </xsl:choose>        
     </xsl:template>
 
-    <!-- Output Bibliography ("works by") section. -->
+    <!-- Output Works or publications ("works by") section. -->
     <xsl:template name="tPub">
         <xsl:text>&#10;</xsl:text>
         <xsl:text>==Works or publications==</xsl:text>
@@ -784,13 +798,13 @@
                                 <xsl:when
                                     test="contains(../../../eac:otherRecordId[@localType='WCI:LCCN'],'nr')">
                                     <xsl:variable name="lccn"
-                                        select="substring-after(../../../eac:otherRecordId[@localType='WCI:LCCN'],'lccn-nr')"/>
+                                        select="substring-after(../../../eac:otherRecordId[@localType='WCI:LCCN'],'lccn-no')"/>
                                     <xsl:value-of select="concat('nr/',translate($lccn,'-','/'))"/>
                                 </xsl:when>
                                 <xsl:when
                                     test="contains(../../../eac:otherRecordId[@localType='WCI:LCCN'],'sh')">
                                     <xsl:variable name="lccn"
-                                        select="substring-after(../../../eac:otherRecordId[@localType='WCI:LCCN'],'lccn-sh')"/>
+                                        select="substring-after(../../../eac:otherRecordId[@localType='WCI:LCCN'],'lccn-no')"/>
                                     <xsl:value-of select="concat('sh/',translate($lccn,'-','/'))"/>
                                 </xsl:when>
                                 <xsl:otherwise>
