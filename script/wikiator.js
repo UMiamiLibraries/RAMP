@@ -59,6 +59,8 @@ function setupWikiLogin( callback )
 
 			 $(dialog).dialog("close");
 			 $(dialog).remove();
+			 
+			 $('#edit_controls').after('<img id="loading-image" src="style/images/loading.gif" alt="loading"/>');
 
 			 //post to ajax wiki controller to log into wiki and get whether successful or not
 			 $.post('ajax/wiki_api.php', { 'action' : 'login', 'username' : lstrUserName, 'password' : lstrPassword }, function(response)
@@ -71,6 +73,8 @@ function setupWikiLogin( callback )
 
 				    $('body').append("<div id=\"dialog\"><p>" + response + "</p></div>");
 				    makeDialog('#dialog', '',callback);
+				    
+				    $('#loading-image').remove();
 
 				    return;
 				});
