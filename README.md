@@ -65,12 +65,15 @@ The RAMP editor can extract biographical and historical data from EAD finding ai
    to EAD files. This path should have appropriate permissions so that the
    script can read and write files.
    
-   Note: if you receive an error when trying to run the conversion routine, you may need to edit your php.ini settings to change the value of `short_open_tag` to 'Off.'
+   **Note**: 
    
-   After submitting the form, the script performs an XSLT transformation on
-   all the files in the folder. After a successful transformation, the
-   original EAD record is imported into the 
-   database, along with the newly created EAC-CPF record. If a duplicate EAD file is converted, the user is presented      with an interface that displays a graphical diff. The user can choose which elements are merged into the new record.
+   * If you receive a PHP error when trying to run the conversion routine, you may need to edit your `php.ini` settings to change the value of `short_open_tag` to 'Off.'
+   * For large EAD files, you may need to increase the size of the `max_allowed_packet` setting in your `my.ini` MySQL settings; for example, from '1M' to '2M.'
+   
+After submitting the form, the script performs an XSLT transformation on
+all the files in the folder. After a successful transformation, the
+original EAD record is imported into the 
+database, along with the newly created EAC-CPF record. If a duplicate EAD file is converted, the user is presented      with an interface that displays a graphical diff. The user can choose which elements to merge into the new record.
 
 ### 2.2 Creating a New EAC Record
    If you encounter a situation where there are no EAD files to import,
