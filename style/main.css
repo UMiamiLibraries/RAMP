@@ -38,7 +38,7 @@ body {
 	/* background: #F2FAFF; */
     color:#0F141A;
     font-family: "Open Sans", sans-serif;
-    font-size: .78em;
+    font-size: .8em;
 }
 
 ol, ul {
@@ -224,6 +224,7 @@ ul, menu, dir {
 .content_box select {
     margin-left:.5%;
     margin-top:.5%;
+    font-size:1em;    
 }
 
 .Differences {
@@ -314,6 +315,7 @@ ul, menu, dir {
 .ead_files {
     margin-left:.5%;
     display:block;
+    font-size:1.2em;
 }
 
 .ents {
