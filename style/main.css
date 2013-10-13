@@ -339,9 +339,8 @@ ul, menu, dir {
 }
 
 .form_note
-{
-    font-size: small;
-    font-style: italic;
+{    
+    font-style: italic;    
 }
 
 .footer {
@@ -356,13 +355,12 @@ ul, menu, dir {
 
 .ingest-cancel {
   background:#0078e7;
-  margin-left:5px;  
+  margin-left:5px;    
 }
 
 .ingest-ok {
   margin-left: 2%;
-  background:#0078e7;
-
+  background:#0078e7;  
 }
 
 .instruction {
@@ -375,7 +373,7 @@ ul, menu, dir {
 }
 
 .instruction_div {
-    margin-bottom:2%;    
+    margin-bottom:1%;    
 }
 
 .menu_slice a {
@@ -439,17 +437,17 @@ ul, menu, dir {
 }
 
 .pure-button {
-    color:white;
-}
-
-.pure_button 
-{
-    margin-top:1%;
+    color:white;       
 }
 
 .pure-button-primary {
     margin-top:.5%;
     margin-left:.5%;
+    font-size:1.06em;
+}
+
+.pure-button-secondary {
+    font-size:1em;    
 }
 
 .pure-form {
@@ -523,17 +521,26 @@ ul, menu, dir {
 }
 
 .user_help_form input {    
-    margin:.25em;
+    margin-right:.25em;
 }
 
 .user_help_form h2 {
     font-weight:bold;
-    padding:.25em;    
-    margin:0 0 1% -2px;
+      
+    margin:0 0 1% 0;
 }
 
 .user_help_form_table {
     margin-bottom:20%;
+}
+
+.user_help_form_table dd {
+    margin:1% 1% 3% 0;
+}
+
+.user_help_form_table dd a {
+    margin:1% 0 1% 0;
+    display:block;
 }
 
 .user_plain_row {            
@@ -596,8 +603,8 @@ li.wiki_login
 {
     float: right;
     font-size: 18px;
-    font-weight:800;
-    margin-top:2px;
+    font-weight:800;    
+    margin:3px 2px 2px 2px;    
 }
 
 .worldcat_arrow {
@@ -667,6 +674,10 @@ textarea#bioghist {
 
 #convert_box {
     margin:2% 4% 0 4%;
+}
+
+#convert_box h1 {
+    margin-bottom:.5%;
 }
 
 #convert_ead {
@@ -760,7 +771,12 @@ input#eac_name
 
 
 #edit_box {
-    margin:2% 4% 0 4%;
+    margin:2% 0 0 4%;
+    padding-right:0;
+}
+
+#edit_box h1 {
+    margin-bottom:1%;
 }
 
 #edit_xml {
@@ -936,6 +952,7 @@ button#ltselectedtext:focus {
 #menu a {
     color:#EBFFEB;
     text-decoration: none;
+    font-weight:800;
 }
 
 #menu_button {
@@ -1025,7 +1042,7 @@ button#ltselectedtext:focus {
 
 #select_all {
     font-style:italic !important;    
-    margin:.25em .25em .5em .25em;       
+    margin:.25em .25em .5em 0;       
 }
 
 #select_wrap {

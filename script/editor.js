@@ -459,7 +459,7 @@ $(document).ready(function() {
 	$('#menu').append("<li id=\"wiki_login\" class=\"wiki_login menu_slice\"><a href=\"#\">Wiki Login</a></li>");
     }else
     {
-	$('#menu').append("<li id=\"wiki_logout\" class=\"wiki_login menu_slice\"><a href=\"#\">Wiki Logout</a></li>");
+	$('#menu').append("<li id=\"wiki_logout\" class=\"wiki_login menu_slice\"><a href=\"#\">| Wiki Logout |</a></li>");
     }
 
     var ace_height = $(window).height() / 1.5;
