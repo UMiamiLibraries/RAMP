@@ -89,12 +89,12 @@
                     </xsl:otherwise>
                 </xsl:choose>
             </recordId>
-            <xsl:variable name="vEadHeaderCount" select="count(ead:ead/ead:eadheader)"/>            
+            <xsl:variable name="vEadHeaderCount" select="count(ead:ead/ead:eadheader)"/>
             <xsl:choose>
                 <!-- If it's an ingested record (not created from within RAMP). -->
                 <xsl:when test="not(contains(ead:ead/ead:eadheader/ead:eadid/@identifier,'RAMP'))">
-                    <xsl:for-each select="ead:ead/ead:eadheader">                
-                        <otherRecordId>     
+                    <xsl:for-each select="ead:ead/ead:eadheader">
+                        <otherRecordId>
                             <xsl:choose>
                                 <xsl:when test="$vEadHeaderCount&gt;1">
                                     <xsl:attribute name="localType">
@@ -106,23 +106,25 @@
                                         <xsl:value-of select="$pShortAgencyName"/>
                                     </xsl:attribute>
                                 </xsl:otherwise>
-                            </xsl:choose>                
+                            </xsl:choose>
                             <xsl:choose>
                                 <xsl:when test="contains(ead:eadid,'/')">
                                     <xsl:value-of select="substring-after(ead:eadid,'/')"/>
                                     <xsl:text>.</xsl:text>
-                                    <xsl:value-of select="substring-after(ead:eadid/@identifier,':')"/>                                                
+                                    <xsl:value-of
+                                        select="substring-after(ead:eadid/@identifier,':')"/>
                                 </xsl:when>
                                 <xsl:otherwise>
                                     <xsl:value-of select="ead:eadid"/>
                                     <xsl:text>.</xsl:text>
-                                    <xsl:value-of select="substring-after(ead:eadid/@identifier,':')"/>
+                                    <xsl:value-of
+                                        select="substring-after(ead:eadid/@identifier,':')"/>
                                 </xsl:otherwise>
-                            </xsl:choose>       
-                            <xsl:text>.r</xsl:text>                
-                            <xsl:value-of select="substring-before($pRecordId,'-')"/> 
+                            </xsl:choose>
+                            <xsl:text>.r</xsl:text>
+                            <xsl:value-of select="substring-before($pRecordId,'-')"/>
                         </otherRecordId>
-                    </xsl:for-each>                    
+                    </xsl:for-each>
                     <!-- maintenanceStatus = "derived" -->
                     <maintenanceStatus>derived</maintenanceStatus>
                 </xsl:when>
@@ -195,7 +197,9 @@
                         <xsl:otherwise>
                             <!-- Provide the appropriate eventDescription. -->
                             <eventDescription>
-                                <xsl:value-of select="ead:ead/ead:archdesc/ead:did/ead:note[@type='creation']"/>
+                                <xsl:value-of
+                                    select="ead:ead/ead:archdesc/ead:did/ead:note[@type='creation']"
+                                />
                             </eventDescription>
                         </xsl:otherwise>
                     </xsl:choose>
@@ -302,10 +306,53 @@
                         test="string-length(translate(normalize-space(ead:ead/ead:archdesc/ead:did/ead:origination/child::node()[1]),
                         concat($vAlpha,$vCommaSpace),''))&gt;=4">
                         <part>
-                            <xsl:value-of
-                                select="normalize-space(concat(substring-before(ead:ead/ead:archdesc/ead:did/ead:origination/child::node()[1],', '),', ',
-                                substring-before(substring-after(ead:ead/ead:archdesc/ead:did/ead:origination/child::node()[1],', '),', ')))"
-                            />
+                            <!-- Handle name strings with parentheses. -->
+                            <xsl:choose>
+                                <xsl:when
+                                    test="contains(ead:ead/ead:archdesc/ead:did/ead:origination/child::node()[1],', (')">
+                                    <xsl:value-of
+                                        select="normalize-space(concat(substring-before(ead:ead/ead:archdesc/ead:did/ead:origination/child::node()[1],', '),', ',
+                                        substring-before(substring-after(ead:ead/ead:archdesc/ead:did/ead:origination/child::node()[1],', '),', (')))"
+                                    />
+                                </xsl:when>
+                                <xsl:when
+                                    test="contains(ead:ead/ead:archdesc/ead:did/ead:origination/child::node()[1],',(')">
+                                    <xsl:value-of
+                                        select="normalize-space(concat(substring-before(ead:ead/ead:archdesc/ead:did/ead:origination/child::node()[1],', '),', ',
+                                        substring-before(substring-after(ead:ead/ead:archdesc/ead:did/ead:origination/child::node()[1],', '),',(')))"
+                                    />
+                                </xsl:when>
+                                <xsl:when
+                                    test="contains(ead:ead/ead:archdesc/ead:did/ead:origination/child::node()[1],' (')">
+                                    <xsl:value-of
+                                        select="normalize-space(concat(substring-before(ead:ead/ead:archdesc/ead:did/ead:origination/child::node()[1],', '),', ',
+                                        substring-before(substring-after(ead:ead/ead:archdesc/ead:did/ead:origination/child::node()[1],', '),' (')))"
+                                    />
+                                </xsl:when>
+                                <xsl:when
+                                    test="contains(ead:ead/ead:archdesc/ead:did/ead:origination/child::node()[1],'(')">
+                                    <xsl:value-of
+                                        select="normalize-space(concat(substring-before(ead:ead/ead:archdesc/ead:did/ead:origination/child::node()[1],', '),', ',
+                                        substring-before(substring-after(ead:ead/ead:archdesc/ead:did/ead:origination/child::node()[1],', '),'(')))"
+                                    />
+                                </xsl:when>
+                                <xsl:otherwise>
+                                    <xsl:choose>
+                                        <xsl:when
+                                            test="substring-before(substring-after(ead:ead/ead:archdesc/ead:did/ead:origination/child::node()[1],', '),', ')">
+                                            <xsl:value-of
+                                                select="normalize-space(concat(substring-before(ead:ead/ead:archdesc/ead:did/ead:origination/child::node()[1],', '),', ',
+                                                substring-before(substring-after(ead:ead/ead:archdesc/ead:did/ead:origination/child::node()[1],', '),', ')))"
+                                            />
+                                        </xsl:when>
+                                        <xsl:otherwise>
+                                            <xsl:value-of
+                                                select="normalize-space(substring-before(ead:ead/ead:archdesc/ead:did/ead:origination/child::node()[1],', '))"
+                                            />
+                                        </xsl:otherwise>
+                                    </xsl:choose>
+                                </xsl:otherwise>
+                            </xsl:choose>
                         </part>
                     </xsl:when>
                     <xsl:otherwise>
@@ -910,14 +957,18 @@
                                         test="contains(ead:ead/ead:archdesc/ead:did/ead:note[@encodinganalog='370']/ead:p,'$f')">
                                         <placeRole/>
                                         <placeEntry>
-                                            <xsl:value-of select="substring-after(ead:ead/ead:archdesc/ead:did/ead:note[@encodinganalog='370']/ead:p,'$f')"/>
+                                            <xsl:value-of
+                                                select="substring-after(ead:ead/ead:archdesc/ead:did/ead:note[@encodinganalog='370']/ead:p,'$f')"
+                                            />
                                         </placeEntry>
                                     </xsl:when>
                                     <xsl:when
                                         test="contains(ead:ead/ead:archdesc/ead:did/ead:note[@encodinganalog='370']/ead:p,'$g')">
                                         <placeRole>Place of origin</placeRole>
                                         <placeEntry>
-                                            <xsl:value-of select="substring-after(ead:ead/ead:archdesc/ead:did/ead:note[@encodinganalog='370']/ead:p,'$g')"/>
+                                            <xsl:value-of
+                                                select="substring-after(ead:ead/ead:archdesc/ead:did/ead:note[@encodinganalog='370']/ead:p,'$g')"
+                                            />
                                         </placeEntry>
                                     </xsl:when>
                                 </xsl:choose>
@@ -1168,7 +1219,7 @@
     <xsl:template match="ead:abstract">
         <xsl:value-of select="normalize-space(.)"/>
     </xsl:template>
-    
+
     <xsl:template match="ead:emph">
         <span xmlns="urn:isbn:1-931666-33-4">
             <xsl:attribute name="style">font-style:italic</xsl:attribute>
@@ -1188,7 +1239,7 @@
             <xsl:for-each select="$vFirstNode">
                 <xsl:if test="following-sibling::node()">
                     <xsl:for-each select="following-sibling::node()">
-                        <xsl:variable name="vEntType" select="local-name(.)"/>                                                    
+                        <xsl:variable name="vEntType" select="local-name(.)"/>
                         <xsl:variable name="vCpfRel" select="@normal"/>
                         <xsl:if test="$vEntType='persname'">
                             <cpfRelation xlink:arcrole="associatedWith"
@@ -1201,25 +1252,32 @@
                                     <p>
                                         <xsl:text>recordId: </xsl:text>
                                         <xsl:choose>
-                                            <xsl:when test="contains(../../../../ead:eadheader/ead:eadid,'/')">
-                                                <xsl:value-of select="substring-after(../../../../ead:eadheader/ead:eadid,'/')"/>
+                                            <xsl:when
+                                                test="contains(../../../../ead:eadheader/ead:eadid,'/')">
+                                                <xsl:value-of
+                                                  select="substring-after(../../../../ead:eadheader/ead:eadid,'/')"/>
                                                 <xsl:text>.</xsl:text>
-                                                <xsl:value-of select="substring-after(../../../../ead:eadheader/ead:eadid/@identifier,':')"/>                                                
+                                                <xsl:value-of
+                                                  select="substring-after(../../../../ead:eadheader/ead:eadid/@identifier,':')"
+                                                />
                                             </xsl:when>
                                             <xsl:otherwise>
-                                                <xsl:value-of select="../../../../ead:eadheader/ead:eadid"/>
+                                                <xsl:value-of
+                                                  select="../../../../ead:eadheader/ead:eadid"/>
                                                 <xsl:text>.</xsl:text>
-                                                <xsl:value-of select="substring-after(../../../../ead:eadheader/ead:eadid/@identifier,':')"/>
+                                                <xsl:value-of
+                                                  select="substring-after(../../../../ead:eadheader/ead:eadid/@identifier,':')"
+                                                />
                                             </xsl:otherwise>
-                                        </xsl:choose>                                                                                    
+                                        </xsl:choose>
                                         <xsl:for-each select="following-sibling::ead:name">
-                                            <xsl:variable name="vCpfId" select="@id"></xsl:variable>
-                                            <xsl:if test=".=$vCpfRel">                                                
+                                            <xsl:variable name="vCpfId" select="@id"/>
+                                            <xsl:if test=".=$vCpfRel">
                                                 <xsl:value-of select="concat('.',@id)"/>
                                             </xsl:if>
-                                        </xsl:for-each>                                        
+                                        </xsl:for-each>
                                     </p>
-                                </descriptiveNote>                                
+                                </descriptiveNote>
                             </cpfRelation>
                         </xsl:if>
                         <xsl:if test="$vEntType='corpname'">
@@ -1233,17 +1291,24 @@
                                     <p>
                                         <xsl:text>recordId: </xsl:text>
                                         <xsl:choose>
-                                            <xsl:when test="contains(../../../../ead:eadheader/ead:eadid,'/')">
-                                                <xsl:value-of select="substring-after(../../../../ead:eadheader/ead:eadid,'/')"/>
+                                            <xsl:when
+                                                test="contains(../../../../ead:eadheader/ead:eadid,'/')">
+                                                <xsl:value-of
+                                                  select="substring-after(../../../../ead:eadheader/ead:eadid,'/')"/>
                                                 <xsl:text>.</xsl:text>
-                                                <xsl:value-of select="substring-after(../../../../ead:eadheader/ead:eadid/@identifier,':')"/>                                                
+                                                <xsl:value-of
+                                                  select="substring-after(../../../../ead:eadheader/ead:eadid/@identifier,':')"
+                                                />
                                             </xsl:when>
                                             <xsl:otherwise>
-                                                <xsl:value-of select="../../../../ead:eadheader/ead:eadid"/>
+                                                <xsl:value-of
+                                                  select="../../../../ead:eadheader/ead:eadid"/>
                                                 <xsl:text>.</xsl:text>
-                                                <xsl:value-of select="substring-after(../../../../ead:eadheader/ead:eadid/@identifier,':')"/>
+                                                <xsl:value-of
+                                                  select="substring-after(../../../../ead:eadheader/ead:eadid/@identifier,':')"
+                                                />
                                             </xsl:otherwise>
-                                        </xsl:choose>       
+                                        </xsl:choose>
                                         <xsl:for-each select="following-sibling::ead:name">
                                             <xsl:if test=".=$vCpfRel">
                                                 <xsl:value-of select="concat('.',@id)"/>
@@ -1264,17 +1329,24 @@
                                     <p>
                                         <xsl:text>recordId: </xsl:text>
                                         <xsl:choose>
-                                            <xsl:when test="contains(../../../../ead:eadheader/ead:eadid,'/')">
-                                                <xsl:value-of select="substring-after(../../../../ead:eadheader/ead:eadid,'/')"/>
+                                            <xsl:when
+                                                test="contains(../../../../ead:eadheader/ead:eadid,'/')">
+                                                <xsl:value-of
+                                                  select="substring-after(../../../../ead:eadheader/ead:eadid,'/')"/>
                                                 <xsl:text>.</xsl:text>
-                                                <xsl:value-of select="substring-after(../../../../ead:eadheader/ead:eadid/@identifier,':')"/>                                                
+                                                <xsl:value-of
+                                                  select="substring-after(../../../../ead:eadheader/ead:eadid/@identifier,':')"
+                                                />
                                             </xsl:when>
                                             <xsl:otherwise>
-                                                <xsl:value-of select="../../../../ead:eadheader/ead:eadid"/>
+                                                <xsl:value-of
+                                                  select="../../../../ead:eadheader/ead:eadid"/>
                                                 <xsl:text>.</xsl:text>
-                                                <xsl:value-of select="substring-after(../../../../ead:eadheader/ead:eadid/@identifier,':')"/>
+                                                <xsl:value-of
+                                                  select="substring-after(../../../../ead:eadheader/ead:eadid/@identifier,':')"
+                                                />
                                             </xsl:otherwise>
-                                        </xsl:choose>       
+                                        </xsl:choose>
                                         <xsl:for-each select="following-sibling::ead:name">
                                             <xsl:if test=".=$vCpfRel">
                                                 <xsl:value-of select="concat('.',@id)"/>
@@ -1432,15 +1504,18 @@
                                     <xsl:value-of select="parent::ead:did/ead:origination/@label"/>
                                 </xsl:attribute>
                                 <xsl:attribute name="encodinganalog">
-                                    <xsl:value-of select="parent::ead:did/ead:origination/@encodinganalog"/>
+                                    <xsl:value-of
+                                        select="parent::ead:did/ead:origination/@encodinganalog"/>
                                 </xsl:attribute>
-                                <xsl:for-each select="parent::ead:did/ead:origination/child::node()[not(local-name()='name')]">
+                                <xsl:for-each
+                                    select="parent::ead:did/ead:origination/child::node()[not(local-name()='name')]">
                                     <xsl:copy-of select="."/>
                                 </xsl:for-each>
                             </xsl:element>
-                            <xsl:for-each select="parent::ead:did/ead:origination/following-sibling::node()">
-                                <xsl:copy-of select="."/>    
-                            </xsl:for-each>                                                    
+                            <xsl:for-each
+                                select="parent::ead:did/ead:origination/following-sibling::node()">
+                                <xsl:copy-of select="."/>
+                            </xsl:for-each>
                             <!-- Include Scope and Contents. -->
                             <xsl:if test="../../ead:scopecontent">
                                 <xsl:if test=". != '&#160;' ">
@@ -1454,8 +1529,9 @@
             <!-- Process local digital collections. -->
             <xsl:if test="ead:ead/ead:archdesc/ead:dao">
                 <xsl:for-each select="ead:ead/ead:archdesc/ead:dao">
-                    <resourceRelation xmlns="urn:isbn:1-931666-33-4" resourceRelationType="creatorOf"
-                        xlink:href="{@xlink:href}" xlink:role="archivalRecords" xlink:type="simple"
+                    <resourceRelation xmlns="urn:isbn:1-931666-33-4"
+                        resourceRelationType="creatorOf" xlink:href="{@xlink:href}"
+                        xlink:role="archivalRecords" xlink:type="simple"
                         xmlns:xlink="http://www.w3.org/1999/xlink">
                         <relationEntry>
                             <xsl:value-of select="normalize-space(ead:daodesc/ead:p)"/>
@@ -1540,16 +1616,58 @@
                         <!-- Output the birth year, if exists. -->
                         <xsl:if test="substring-before($pName,'-')">
                             <xsl:element name="fromDate" namespace="urn:isbn:1-931666-33-4">
-                                <xsl:value-of
-                                    select="normalize-space(substring-after(substring-after(substring-before($pName,'-'),', '),', '))"
-                                />
+                                <xsl:choose>
+                                    <xsl:when test="contains($pName,', (')">
+                                        <xsl:value-of
+                                            select="normalize-space(substring-after(substring-after(substring-before($pName,'-'),', '),', ('))"
+                                        />
+                                    </xsl:when>
+                                    <xsl:when test="contains($pName,',(')">
+                                        <xsl:value-of
+                                            select="normalize-space(substring-after(substring-after(substring-before($pName,'-'),', '),',('))"
+                                        />
+                                    </xsl:when>
+                                    <xsl:when test="contains($pName,' (')">
+                                        <xsl:value-of
+                                            select="normalize-space(substring-after(substring-after(substring-before($pName,'-'),', '),' ('))"
+                                        />
+                                    </xsl:when>
+                                    <xsl:when test="contains($pName,'(')">
+                                        <xsl:value-of
+                                            select="normalize-space(substring-after(substring-after(substring-before($pName,'-'),', '),'('))"
+                                        />
+                                    </xsl:when>
+                                    <xsl:otherwise>
+                                        <xsl:choose>
+                                            <xsl:when test="normalize-space(substring-after(substring-before($pName,'-'),', '))">
+                                                <xsl:value-of
+                                                    select="normalize-space(substring-after(substring-before($pName,'-'),', '))"
+                                                />
+                                            </xsl:when>
+                                            <xsl:otherwise>
+                                                <xsl:value-of
+                                                    select="normalize-space(substring-after(substring-after(substring-before($pName,'-'),', '),', '))"
+                                                />
+                                            </xsl:otherwise>
+                                        </xsl:choose>                                        
+                                    </xsl:otherwise>
+                                </xsl:choose>
                             </xsl:element>
                         </xsl:if>
                         <!-- Output the death year, if exists. -->
                         <xsl:if test="substring-after($pName,'-')">
                             <xsl:element name="toDate" namespace="urn:isbn:1-931666-33-4">
-                                <xsl:value-of select="normalize-space(substring-after($pName,'-'))"
-                                />
+                                <xsl:choose>
+                                    <xsl:when test="contains($pName,')')">
+                                        <xsl:value-of
+                                            select="normalize-space(substring-before(substring-after($pName,'-'),')'))"
+                                        />
+                                    </xsl:when>
+                                    <xsl:otherwise>
+                                        <xsl:value-of
+                                            select="normalize-space(substring-after($pName,'-'))"/>
+                                    </xsl:otherwise>
+                                </xsl:choose>
                             </xsl:element>
                         </xsl:if>
                     </xsl:element>
