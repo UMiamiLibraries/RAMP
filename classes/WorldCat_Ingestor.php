@@ -159,7 +159,10 @@ class WorldCat_Ingestor extends Ingestor
 	 */
 	public function echoJsonElementsList()
 	{
-		echo json_encode( $this->objElementList );
+	    // Filter out entities that were causing Ace Editor problems. --timathom	    
+	    $lstrEntities = array("<", ">");
+	    
+		echo str_replace($lstrEntities,"",json_encode( $this->objElementList ));
 	}
 
 	/**
@@ -489,7 +492,7 @@ class WorldCat_Ingestor extends Ingestor
 			$lobjResourceRelationNode['attributes']['resourceRelationType'] = "subjectOf";
 			$lobjResourceRelationNode['attributes']['xlink:href'] = "http://www.worldcat.org/identities/" . $lobjIdentity['id'];
 			$lobjResourceRelationNode['attributes']['xlink:role'] = "archivalRecords";
-			$lobjResourceRelationNode['attributes']['xlink:type'] = "simple";
+			$lobjResourceRelationNode['attributes']['xlink:type'] = "simple";					
 
 			if( $lobjIdentity['name'] != '' )
 				$lobjResourceRelationNode['elements']['relationEntry'] = array( "elements" => $lobjIdentity['name'] );

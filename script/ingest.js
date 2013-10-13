@@ -1,75 +1,5 @@
     $(document).ready(function()        
-    		  {    		          		          		     
-    		      //register click event that will start viaf ingest
-    		      $('#ingest_viaf').on('click', function()    					  
-    					   {
-    					       $('.main_edit').hide();
-    					       $('#wiki_switch').hide();    
-    					       $('#entity_name').hide();
-    					       
-    					       document.cookie = "onWiki="; // Unset "onWiki" cookie. --timathom
-    					       					       
-    					       // $('#main_content').prepend('<img id="loading-image" src="style/images/loading.gif" alt="loading"/>');
-    
-    					       var lstrXML = editor.getValue();
-    
-    					       //cannot start ingestion without XML being loaded
-    					       if( lstrXML == '' )
-    					       {
-    						   $('body').append("<div id=\"dialog\"><p>Must load EAC first!</p></div>");
-    						   makeDialog('#dialog', 'Error!'); //display error
-    
-    						   $('#loading-image').remove();
-    						   $('.ingest_button').show();
-    						   $('#entity_name').show();
-    						   $('.main_edit').show();
-    						   return;
-    					       }
-    
-    					       validateXML(function(lboolValid){
-    
-    						   //xml must be valid in order for viaf ingestion to begin
-    						   if(lboolValid)
-    						   {    						       
-    						       var lobjeac = new eac();
-    						       lobjeac.loadXMLString( lstrXML );
-    
-    						       //get first name entry part element in order to get name to search viaf
-    						       var lobjNameEntryPart = lobjeac.getElement('//*[local-name()=\'cpfDescription\']/*[local-name()=\'identity\']/*[local-name()=\'nameEntry\']/*[local-name()=\'part\']');
-    						       var eac_name = typeof lobjNameEntryPart.childNodes[0] == 'undefined' ? "" : lobjNameEntryPart.childNodes[0].nodeValue;
-    						       eac_name = eac_name.trim();
-    						       eac_name = encode_utf8(eac_name);
-    
-    						       ingest_viaf_NameEntry_Sources( lobjeac, eac_name, function( )
-    										      {    										          										      
-    											  
-    											  ingest_viaf_Relations(lobjeac, function( lstrMessage ){
-    											      $('body').append("<div id=\"dialog_main\"><p>" + lstrMessage + "</p></div>");
-    											      makeDialog('#dialog_main', 'Response'); //display response
-    
-    											      //    $('#loading-image').remove();
-    											      //commented out by dgonzalez because ingest can be done multiple times
-    											      //$('#ingest_viaf').attr("disabled", "disabled");
-    											    
-    											      $('.ingest_button').show();
-    											      //$('#entity_name').show();
-    											  });
-    										      });
-    						   }
-    						   else
-    						   {
-    						       //display error when xml is not valid
-    						       $('body').append("<div id=\"dialog\"><p>XML must be valid!</p></div>");
-    						       makeDialog('#dialog', 'Error!');
-    
-    						       $('#loading-image').remove();
-    						       $('.main_edit').show();
-    						       $('.ingest_button').show();
-    						       $('#entity_name').show();
-    						   }
-    					       });
-    					   });
-    
+    		  {    		          		        
     		      //register click event that will start worlcat ingestion
     		      $('#ingest_worldcat').on('click', function()
     
@@ -133,7 +63,78 @@
     							   $('#entity_name').show();
     						       }
     						   });
+    					   });
+    		  
+    		      //register click event that will start viaf ingest
+    		      $('#ingest_viaf').on('click', function()    					  
+    					   {
+    					       $('.main_edit').hide();
+    					       $('#wiki_switch').hide();    
+    					       $('#entity_name').hide();
+    					       
+    					       document.cookie = "onWiki="; // Unset "onWiki" cookie. --timathom
+    					       					       
+    					       // $('#main_content').prepend('<img id="loading-image" src="style/images/loading.gif" alt="loading"/>');
+    
+    					       var lstrXML = editor.getValue();
+    
+    					       //cannot start ingestion without XML being loaded
+    					       if( lstrXML == '' )
+    					       {
+    						   $('body').append("<div id=\"dialog\"><p>Must load EAC first!</p></div>");
+    						   makeDialog('#dialog', 'Error!'); //display error
+    
+    						   $('#loading-image').remove();
+    						   $('.ingest_button').show();
+    						   $('#entity_name').show();
+    						   $('.main_edit').show();
+    						   return;
+    					       }
+    
+    					       validateXML(function(lboolValid){
+    
+    						   //xml must be valid in order for viaf ingestion to begin
+    						   if(lboolValid)
+    						   {    						       
+    						       var lobjeac = new eac();
+    						       lobjeac.loadXMLString( lstrXML );
+    
+    						       //get first name entry part element in order to get name to search viaf    						           						      
+    						       
+    						       var lobjNameEntryPart = lobjeac.getElement('//*[local-name()=\'cpfDescription\']/*[local-name()=\'identity\']/*[local-name()=\'nameEntry\']/*[local-name()=\'part\']');    						       
+    						       var eac_name = typeof lobjNameEntryPart.childNodes[0] == 'undefined' ? "" : lobjNameEntryPart.childNodes[0].nodeValue;
+    						       eac_name = eac_name.trim();
+    						       eac_name = encode_utf8(eac_name);
+    
+    						       ingest_viaf_NameEntry_Sources( lobjeac, eac_name, function( )
+    										      {    										          										      
+    											  
+    											  ingest_viaf_Relations(lobjeac, function( lstrMessage ){
+    											      $('body').append("<div id=\"dialog_main\"><p>" + lstrMessage + "</p></div>");
+    											      makeDialog('#dialog_main', 'Response'); //display response
+    
+    											      //    $('#loading-image').remove();
+    											      //commented out by dgonzalez because ingest can be done multiple times
+    											      //$('#ingest_viaf').attr("disabled", "disabled");
+    											    
+    											      $('.ingest_button').show();
+    											      //$('#entity_name').show();
+    											  });
+    										      });
+    						   }
+    						   else
+    						   {
+    						       //display error when xml is not valid
+    						       $('body').append("<div id=\"dialog\"><p>XML must be valid!</p></div>");
+    						       makeDialog('#dialog', 'Error!');
+    
+    						       $('#loading-image').remove();
+    						       $('.main_edit').show();
+    						       $('.ingest_button').show();
+    						       $('#entity_name').show();
+    						   }
     					       });
+    					   });        		      
     		  });
     
     /*
@@ -221,6 +222,8 @@
          										     }
          
          										     lobjEac.addSource( lobjSource );
+         										     
+         										     jQuery('html,body').animate({scrollTop:0},0); //scroll to top to view form correctly
          										     
          										     $('body').append("<div id=\"dialog\"><p>&lt;source&gt; and &lt;nameEntry&gt; elements added!</p></div>");
          					                         makeDialog('#dialog', 'Results'); // display results    

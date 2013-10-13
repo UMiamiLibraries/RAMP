@@ -198,7 +198,7 @@
                             <!-- Provide the appropriate eventDescription. -->
                             <eventDescription>
                                 <xsl:value-of
-                                    select="ead:ead/ead:archdesc/ead:did/ead:note[@type='creation']"
+                                    select="ead:ead/ead:archdesc/ead:did/ead:note[@type='creation']/ead:p"
                                 />
                             </eventDescription>
                         </xsl:otherwise>
@@ -1619,34 +1619,44 @@
                                 <xsl:choose>
                                     <xsl:when test="contains($pName,', (')">
                                         <xsl:value-of
-                                            select="normalize-space(substring-after(substring-after(substring-before($pName,'-'),', '),', ('))"
+                                            select="normalize-space(substring-before(substring-after(substring-after($pName,', '),', ('),'-'))"
                                         />
                                     </xsl:when>
                                     <xsl:when test="contains($pName,',(')">
                                         <xsl:value-of
-                                            select="normalize-space(substring-after(substring-after(substring-before($pName,'-'),', '),',('))"
+                                            select="normalize-space(substring-before(substring-after(substring-after($pName,', '),',('),'-'))"
                                         />
                                     </xsl:when>
                                     <xsl:when test="contains($pName,' (')">
                                         <xsl:value-of
-                                            select="normalize-space(substring-after(substring-after(substring-before($pName,'-'),', '),' ('))"
+                                            select="normalize-space(substring-before(substring-after(substring-after($pName,', '),' ('),'-'))"
                                         />
                                     </xsl:when>
                                     <xsl:when test="contains($pName,'(')">
                                         <xsl:value-of
-                                            select="normalize-space(substring-after(substring-after(substring-before($pName,'-'),', '),'('))"
+                                            select="normalize-space(substring-before(substring-after(substring-after($pName,', '),'('),'-'))"
+                                        />
+                                    </xsl:when>
+                                    <xsl:when test="substring-after(substring-after(substring-before($pName,'-'),', '),', ')">
+                                        <xsl:value-of
+                                            select="normalize-space(substring-before(substring-after(substring-after($pName,', '),', '),'-'))"
+                                        />
+                                    </xsl:when>
+                                    <xsl:when test="substring-after(substring-after(substring-before($pName,'-'),', '),' ')">
+                                        <xsl:value-of
+                                            select="normalize-space(substring-before(substring-after(substring-after($pName,', '),' '),'-'))"
                                         />
                                     </xsl:when>
                                     <xsl:otherwise>
                                         <xsl:choose>
-                                            <xsl:when test="normalize-space(substring-after(substring-before($pName,'-'),', '))">
+                                            <xsl:when test="normalize-space(substring-before(substring-after($pName,', '),'-'))">
                                                 <xsl:value-of
-                                                    select="normalize-space(substring-after(substring-before($pName,'-'),', '))"
+                                                    select="normalize-space(substring-before(substring-after($pName,', '),'-'))"
                                                 />
                                             </xsl:when>
                                             <xsl:otherwise>
                                                 <xsl:value-of
-                                                    select="normalize-space(substring-after(substring-after(substring-before($pName,'-'),', '),', '))"
+                                                    select="normalize-space(substring-before(substring-after(substring-after($pName,', '),', '),'-'))"
                                                 />
                                             </xsl:otherwise>
                                         </xsl:choose>                                        
