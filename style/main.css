@@ -81,7 +81,7 @@ header {
     margin:0;
     width:100%;
     background:#49b6ff;
-    color:#EBFFEB;
+    color:white;
     font-family: "Open Sans",sans-serif;
     font-weight:300;
     font-size:1em;
@@ -597,6 +597,7 @@ ul, menu, dir {
 .wiki_container textarea {
     min-width:600px;
     min-height:425px;    
+    font-size:1.06em;
 }
 
 li.wiki_login
@@ -627,9 +628,9 @@ li.wiki_login
 }
 
 #addbioinfo a {
-    color:#EBFFEB;
+    color:white;
     text-decoration: none;
-
+    /* off-white: #EBFFEB */
 }
 
 #addrel {
@@ -950,7 +951,7 @@ button#ltselectedtext:focus {
 }
 
 #menu a {
-    color:#EBFFEB;
+    color:white;
     text-decoration: none;
     font-weight:800;
 }
