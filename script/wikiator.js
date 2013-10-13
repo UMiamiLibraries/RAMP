@@ -67,7 +67,7 @@ function setupWikiLogin( callback )
 				{
 				    if( response.toLowerCase().indexOf("success") != -1)
 				    {
-					$('#wiki_login').replaceWith("<li id=\"wiki_logout\" class=\"wiki_login menu_slice\"><a href=\"#\">Wiki Logout</a></li>");
+					$('#wiki_login').replaceWith("<li id=\"wiki_logout\" class=\"wiki_login menu_slice\"><a href=\"#\">| Wiki Logout |</a></li>");
 					$("#wiki_logout").on("click", setupWikiLogout );
 				    }
 
@@ -90,7 +90,7 @@ function setupWikiLogout()
     //post to ajax wiki controller to log out of wiki and get whether successful or not
     $.post('ajax/wiki_api.php', { 'action' : 'logout' }, function(response)
 	   {
-	       $('#wiki_logout').replaceWith("<li id=\"wiki_login\" class=\"wiki_login menu_slice\"><a href=\"#\">Wiki Login</a></li>");
+	       $('#wiki_logout').replaceWith("<li id=\"wiki_login\" class=\"wiki_login menu_slice\"><a href=\"#\">| Wiki Login |</a></li>");
 	       $("#wiki_login").on("click", setupWikiLogin );
 
 	       $('body').append("<div id=\"dialog\"><p>" + response + "</p></div>");
@@ -264,18 +264,22 @@ function displayWikiSearch( lobjTitles, callback )
     $('.wiki_edit').hide();
 
     var lstrHTML = "<div class=\"form_container\" style=\"top: 45px;\"><div class=\"user_help_form\" style=\"line-height:1em;\">";
+    
     lstrHTML += "<button id=\"get_chosen_wiki\" class=\"pure-button pure-button-secondary\">Use Selected Title</button>";
     lstrHTML += "<button id=\"get_chosen_wiki_no_match\" class=\"pure-button pure-button-secondary\">No Match (Create New)</button>";
     lstrHTML += "<button id=\"get_chosen_wiki_cancel\" class=\"pure-button pure-button-secondary\">Cancel</button>";
 
     lstrHTML += "<div id=\"form_wrapper\"><h2>Please choose page to import from Wikipedia:</h2><div class=\"form_note\">Wikipedia&#39;s search index is updated every morning. New pages will take a day to show up in the index.</div></div>";
 
+    lstrHTML += "<table class=\"user_help_form_table\">";
+    
     for(var i = 0; i < lobjTitles.length; i++)
     {
-	lstrHTML += "<input type=\"radio\" name=\"chosen_title\" class=\"title_chosen\" value=\"";
-	lstrHTML += lobjTitles[i].title + "\" /><span style=\"font-weight:800;\">" + lobjTitles[i]['title'] + "</span><br /><dl><dd style=\"margin-left:3px;\">" + html_decode(lobjTitles[i]['snippet']) + "</dd></dl><br /><br />";
+	lstrHTML += "<tr><td><input type=\"radio\" name=\"chosen_title\" class=\"title_chosen\" value=\"";
+	lstrHTML += lobjTitles[i].title + "\" /><span style=\"font-weight:800;\">" + lobjTitles[i]['title'] + "</span><br /><dl><dd>" + html_decode(lobjTitles[i]['snippet']) + "</dd></dl></td></tr>";
     }
 
+    lstrHTML += "</table>";
 
     lstrHTML += "</div></div>";
 
