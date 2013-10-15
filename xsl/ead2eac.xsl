@@ -309,45 +309,45 @@
                             <!-- Handle name strings with parentheses. -->
                             <xsl:choose>
                                 <xsl:when
-                                    test="contains(ead:ead/ead:archdesc/ead:did/ead:origination/child::node()[1],', (')">
+                                    test="contains(normalize-space(ead:ead/ead:archdesc/ead:did/ead:origination/child::node()[1]),', (')">
                                     <xsl:value-of
-                                        select="normalize-space(concat(substring-before(ead:ead/ead:archdesc/ead:did/ead:origination/child::node()[1],', '),', ',
-                                        substring-before(substring-after(ead:ead/ead:archdesc/ead:did/ead:origination/child::node()[1],', '),', (')))"
+                                        select="normalize-space(concat(substring-before(normalize-space(ead:ead/ead:archdesc/ead:did/ead:origination/child::node()[1]),', '),', ',
+                                        substring-before(substring-after(normalize-space(ead:ead/ead:archdesc/ead:did/ead:origination/child::node()[1]),', '),', (')))"
                                     />
                                 </xsl:when>
                                 <xsl:when
-                                    test="contains(ead:ead/ead:archdesc/ead:did/ead:origination/child::node()[1],',(')">
+                                    test="contains(normalize-space(ead:ead/ead:archdesc/ead:did/ead:origination/child::node()[1]),',(')">
                                     <xsl:value-of
-                                        select="normalize-space(concat(substring-before(ead:ead/ead:archdesc/ead:did/ead:origination/child::node()[1],', '),', ',
-                                        substring-before(substring-after(ead:ead/ead:archdesc/ead:did/ead:origination/child::node()[1],', '),',(')))"
+                                        select="normalize-space(concat(substring-before(normalize-space(ead:ead/ead:archdesc/ead:did/ead:origination/child::node()[1]),', '),', ',
+                                        substring-before(substring-after(normalize-space(ead:ead/ead:archdesc/ead:did/ead:origination/child::node()[1]),', '),',(')))"
                                     />
                                 </xsl:when>
                                 <xsl:when
-                                    test="contains(ead:ead/ead:archdesc/ead:did/ead:origination/child::node()[1],' (')">
+                                    test="contains(normalize-space(ead:ead/ead:archdesc/ead:did/ead:origination/child::node()[1]),' (')">
                                     <xsl:value-of
-                                        select="normalize-space(concat(substring-before(ead:ead/ead:archdesc/ead:did/ead:origination/child::node()[1],', '),', ',
-                                        substring-before(substring-after(ead:ead/ead:archdesc/ead:did/ead:origination/child::node()[1],', '),' (')))"
+                                        select="normalize-space(concat(substring-before(normalize-space(ead:ead/ead:archdesc/ead:did/ead:origination/child::node()[1]),', '),', ',
+                                        substring-before(substring-after(normalize-space(ead:ead/ead:archdesc/ead:did/ead:origination/child::node()[1]),', '),' (')))"
                                     />
                                 </xsl:when>
                                 <xsl:when
-                                    test="contains(ead:ead/ead:archdesc/ead:did/ead:origination/child::node()[1],'(')">
+                                    test="contains(normalize-space(ead:ead/ead:archdesc/ead:did/ead:origination/child::node()[1]),'(')">
                                     <xsl:value-of
-                                        select="normalize-space(concat(substring-before(ead:ead/ead:archdesc/ead:did/ead:origination/child::node()[1],', '),', ',
-                                        substring-before(substring-after(ead:ead/ead:archdesc/ead:did/ead:origination/child::node()[1],', '),'(')))"
+                                        select="normalize-space(concat(substring-before(normalize-space(ead:ead/ead:archdesc/ead:did/ead:origination/child::node()[1]),', '),', ',
+                                        substring-before(substring-after(normalize-space(ead:ead/ead:archdesc/ead:did/ead:origination/child::node()[1]),', '),'(')))"
                                     />
                                 </xsl:when>
                                 <xsl:otherwise>
                                     <xsl:choose>
                                         <xsl:when
-                                            test="substring-before(substring-after(ead:ead/ead:archdesc/ead:did/ead:origination/child::node()[1],', '),', ')">
+                                            test="substring-before(substring-after(normalize-space(ead:ead/ead:archdesc/ead:did/ead:origination/child::node()[1]),', '),', ')">
                                             <xsl:value-of
-                                                select="normalize-space(concat(substring-before(ead:ead/ead:archdesc/ead:did/ead:origination/child::node()[1],', '),', ',
-                                                substring-before(substring-after(ead:ead/ead:archdesc/ead:did/ead:origination/child::node()[1],', '),', ')))"
+                                                select="normalize-space(concat(substring-before(normalize-space(ead:ead/ead:archdesc/ead:did/ead:origination/child::node()[1]),', '),', ',
+                                                substring-before(substring-after(normalize-space(ead:ead/ead:archdesc/ead:did/ead:origination/child::node()[1]),', '),', ')))"
                                             />
                                         </xsl:when>
                                         <xsl:otherwise>
                                             <xsl:value-of
-                                                select="normalize-space(substring-before(ead:ead/ead:archdesc/ead:did/ead:origination/child::node()[1],', '))"
+                                                select="normalize-space(substring-before(normalize-space(ead:ead/ead:archdesc/ead:did/ead:origination/child::node()[1]),', '))"
                                             />
                                         </xsl:otherwise>
                                     </xsl:choose>
