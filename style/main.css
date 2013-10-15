@@ -414,13 +414,13 @@ ul, menu, dir {
 }
 
 .ner_empty_add {
-  margin-left: 1%;
+  margin:2% 2% 2% 1%;
   background:#0078e7;
   font-size:.8em;
 }
 
 .ner_empty_rm {
-  margin-left: 1%;
+  margin:2% 2% 2% 1%;
   background:#0078e7;
   font-size:.8em;
 }
