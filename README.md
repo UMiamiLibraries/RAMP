@@ -3,7 +3,7 @@ RAMP
 
 #### RAMP demo site: http://demo.rampeditor.info
 
-  This site has been preloaded with a set up Library of Congress finding aids, plus a couple of newly created records.
+  This site has been preloaded with a set of Library of Congress finding aids for testing, plus some newly created records.
 
 ## Introduction
 
