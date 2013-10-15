@@ -68,7 +68,7 @@ The RAMP editor can extract biographical and historical data from EAD finding ai
    **Note**: 
    
    * If you receive a PHP error when trying to run the conversion routine, you may need to edit your `php.ini` settings to change the value of `short_open_tag` to 'Off.'
-   * For large EAD files, you may need to increase the size of the `max_allowed_packet` setting in your `my.ini` MySQL settings; for example, from '1M' to '2M.'
+   * For large EAD files, you may need to increase the size of the `max_allowed_packet` setting in your `my.ini` or `my.cnf` MySQL settings; for example, from '1M' to '2M.'
    
 After submitting the form, the script performs an XSLT transformation on
 all the files in the folder. After a successful transformation, the
