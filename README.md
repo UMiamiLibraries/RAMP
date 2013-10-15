@@ -1,6 +1,10 @@
 RAMP 
 ===================
 
+## RAMP demo site: http://demo.rampeditor.info. 
+
+  This site has been preloaded with a set up Library of Congress finding aids.
+
 ## Introduction
 
   The Remixing Archival Metadata Project (RAMP) is a lightweight web-based editing tool that is intended to let users do two things: (1) generate enhanced authority records for creators of archival collections and (2) publish the content of those records as Wikipedia pages.
