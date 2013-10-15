@@ -86,7 +86,8 @@
         <xsl:if test="$pBiogHist/eac:abstract">
             <xsl:text> &lt;!-- </xsl:text>
             <xsl:value-of select="normalize-space($pBiogHist/eac:abstract)"/>
-            <xsl:text> --&gt;&#10;</xsl:text>
+            <xsl:text> --&gt;</xsl:text>
+            <xsl:text>&#10;</xsl:text>
             <xsl:text>&#10;</xsl:text>
         </xsl:if>
         <xsl:for-each select="$pBiogHist/eac:p">
@@ -176,6 +177,7 @@
             <xsl:text> &lt;!-- </xsl:text>
             <xsl:value-of select="normalize-space($pBiogHist/eac:abstract)"/>
             <xsl:text> --&gt;</xsl:text>
+            <xsl:text>&#10;</xsl:text>
             <xsl:text>&#10;</xsl:text>
         </xsl:if>
         <xsl:for-each select="$pBiogHist/eac:p">
