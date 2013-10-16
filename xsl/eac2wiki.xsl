@@ -84,11 +84,18 @@
         </xsl:if>
         -->
         <xsl:if test="$pBiogHist/eac:abstract">
-            <xsl:text> &lt;!-- </xsl:text>
+            <xsl:text>&lt;!-- </xsl:text>
             <xsl:value-of select="normalize-space($pBiogHist/eac:abstract)"/>
             <xsl:text> --&gt;</xsl:text>
             <xsl:text>&#10;</xsl:text>
-            <xsl:text>&#10;</xsl:text>
+            <xsl:choose>
+                <xsl:when test="following-sibling::eac:p">
+                    <xsl:text>&#10;</xsl:text>
+                </xsl:when>
+                <xsl:otherwise>
+                    
+                </xsl:otherwise>
+            </xsl:choose>
         </xsl:if>
         <xsl:for-each select="$pBiogHist/eac:p">
             <xsl:value-of select="normalize-space(.)"/>
@@ -175,11 +182,18 @@
             <xsl:text>&#10;</xsl:text>
         </xsl:if>
         <xsl:if test="$pBiogHist/eac:abstract">
-            <xsl:text> &lt;!-- </xsl:text>
+            <xsl:text>&lt;!-- </xsl:text>
             <xsl:value-of select="normalize-space($pBiogHist/eac:abstract)"/>
             <xsl:text> --&gt;</xsl:text>
             <xsl:text>&#10;</xsl:text>
-            <xsl:text>&#10;</xsl:text>
+            <xsl:choose>
+                <xsl:when test="following-sibling::eac:p">
+                    <xsl:text>&#10;</xsl:text>
+                </xsl:when>
+                <xsl:otherwise>
+                    
+                </xsl:otherwise>
+            </xsl:choose>
         </xsl:if>
         <xsl:for-each select="$pBiogHist/eac:p">
             <xsl:value-of select="normalize-space(.)"/>
@@ -973,15 +987,18 @@
             <xsl:text> deaths]]</xsl:text>
             <xsl:text>&#10;</xsl:text>
             <xsl:if
-                test="eac:eac-cpf/eac:cpfDescription/eac:description/eac:localDescription[@localType[contains(.,'6')]]">
+                test="eac:eac-cpf/eac:cpfDescription/eac:description/child::node()[@localType[contains(.,'6')]]">
                 <xsl:text>&#10;</xsl:text>
                 <xsl:text>&lt;!-- Note: the following categories have been generated from the original EAD finding aid or using FAST headings added from WorldCat Identities. These categories should be replaced with appropriate Wikipedia categories (for example, using the HotCat tool).</xsl:text>
                 <xsl:text>&#10;</xsl:text>
                 <xsl:text>&#10;</xsl:text>
                 <xsl:for-each
-                    select="eac:eac-cpf/eac:cpfDescription/eac:description/eac:localDescription[@localType[contains(.,'6')]]">
+                    select="eac:eac-cpf/eac:cpfDescription/eac:description/child::node()[@localType[contains(.,'6')]]">
+                    <xsl:sort
+                        select="translate(eac:term,'ÁÀÉÈÍÓÚÜÑáàéèíóúúüñ','AAEEIOUUNaaeeiouuun')"
+                        data-type="text"/>
                     <xsl:text>[[Category:</xsl:text>
-                    <xsl:value-of select="normalize-space(.)"/>
+                    <xsl:value-of select="normalize-space(eac:term)"/>
                     <xsl:text>]]</xsl:text>
                     <xsl:text>&#10;</xsl:text>
                 </xsl:for-each>
