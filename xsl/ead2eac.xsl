@@ -469,11 +469,11 @@
                         </localDescription>
                     </xsl:when>
                     <xsl:when test="@encodinganalog='656'">
-                        <localDescription localType="656">
+                        <occupation localType="656">
                             <term>
                                 <xsl:value-of select="."/>
                             </term>
-                        </localDescription>
+                        </occupation>
                     </xsl:when>
                 </xsl:choose>
             </xsl:for-each>
