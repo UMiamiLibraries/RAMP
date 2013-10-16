@@ -17,7 +17,7 @@ Read more about RAMP in _[Code4Lib Journal](http://journal.code4lib.org/articles
 
 ### 1.1 Requirements
 
-  * MySQL 5.1.5+ 
+  * MySQL 5.1.5+ (with permissions for creating triggers and stored procedures)
   * PHP 5+ 
   * php_xsl extension enabled 
   * php_curl extension enabled 
