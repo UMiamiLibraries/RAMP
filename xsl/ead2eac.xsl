@@ -436,6 +436,48 @@
                     </xsl:for-each>
                 </languagesUsed>
             </xsl:if>
+
+            <!-- Process subject headings (to be developmed further). -->
+            <xsl:for-each select="ead:ead/ead:archdesc/ead:controlaccess/ead:controlaccess/child::node()[local-name()!='head' and local-name()!='note' and local-name()!='p']">
+                <xsl:choose>
+                    <xsl:when test="@encodinganalog='700'">
+                        <localDescription localType="700">
+                            <term>
+                                <xsl:value-of select="."/>
+                            </term>
+                        </localDescription>
+                    </xsl:when>
+                    <xsl:when test="contains(@encodinganalog,'610')">
+                        <localDescription localType="610">
+                            <term>
+                                <xsl:value-of select="."/>
+                            </term>
+                        </localDescription>
+                    </xsl:when>
+                    <xsl:when test="@encodinganalog='650'">
+                        <localDescription localType="650">
+                            <term>
+                                <xsl:value-of select="."/>
+                            </term>
+                        </localDescription>
+                    </xsl:when>
+                    <xsl:when test="@encodinganalog='651'">
+                        <localDescription localType="651">
+                            <term>
+                                <xsl:value-of select="."/>
+                            </term>
+                        </localDescription>
+                    </xsl:when>
+                    <xsl:when test="@encodinganalog='656'">
+                        <localDescription localType="656">
+                            <term>
+                                <xsl:value-of select="."/>
+                            </term>
+                        </localDescription>
+                    </xsl:when>
+                </xsl:choose>
+            </xsl:for-each>
+
             <xsl:if test="ead:ead/ead:archdesc/ead:did/ead:note[@encodinganalog='377']!=''">
                 <xsl:choose>
                     <xsl:when
@@ -989,7 +1031,63 @@
                             </abstract>
                         </xsl:if>
                     </xsl:if>
-                    <!-- Attempt to match local formatting for Chronologies in Archon -->
+                    <!-- Match properly formatted chronologies -->
+                    <xsl:choose>
+                        <xsl:when test="ead:ead/ead:archdesc/ead:bioghist/ead:chronlist">
+                            <chronList>
+                                <xsl:for-each
+                                    select="ead:ead/ead:archdesc/ead:bioghist/ead:chronlist/ead:chronitem">
+                                    <xsl:variable name="vDateVal" select="normalize-space(ead:date)"/>
+                                    <chronItem>
+                                        <xsl:choose>
+                                            <xsl:when test="contains($vDateVal,'-')">
+                                                <dateRange>
+                                                  <fromDate
+                                                  standardDate="{substring-before($vDateVal,'-')}">
+                                                  <xsl:value-of
+                                                  select="substring-before($vDateVal,'-')"/>
+                                                  </fromDate>
+                                                  <toDate
+                                                  standardDate="{substring-after($vDateVal,'-')}">
+                                                  <xsl:value-of
+                                                  select="substring-after($vDateVal,'-')"/>
+                                                  </toDate>
+                                                </dateRange>
+                                            </xsl:when>
+                                            <xsl:otherwise>
+                                                <date standardDate="{$vDateVal}">
+                                                  <xsl:value-of select="$vDateVal"/>
+                                                </date>
+                                            </xsl:otherwise>
+                                        </xsl:choose>
+                                        <event>
+                                            <xsl:choose>
+                                                <xsl:when test="ead:eventgrp">
+                                                  <xsl:for-each select="ead:eventgrp/ead:event">
+                                                  <xsl:variable name="vStrLen"
+                                                  select="string-length(.)"/>
+                                                  <xsl:choose>
+                                                  <xsl:when test="substring(.,$vStrLen)=' '">
+                                                  <xsl:apply-templates select="."/>
+                                                  </xsl:when>
+                                                  <xsl:otherwise>
+                                                  <xsl:apply-templates select="."/>
+                                                  <xsl:text> </xsl:text>
+                                                  </xsl:otherwise>
+                                                  </xsl:choose>
+                                                  </xsl:for-each>
+                                                </xsl:when>
+                                                <xsl:otherwise>
+                                                  <xsl:apply-templates select="ead:event"/>
+                                                </xsl:otherwise>
+                                            </xsl:choose>
+                                        </event>
+                                    </chronItem>
+                                </xsl:for-each>
+                            </chronList>
+                        </xsl:when>
+                    </xsl:choose>
+                    <!-- Attempt to match local formatting for chronologies in Archon -->
                     <xsl:for-each select="ead:ead[1]/ead:archdesc/ead:bioghist/ead:p">
                         <xsl:choose>
                             <xsl:when test="contains(.,'Chronolog') or contains(.,'Timeline')">
@@ -1221,6 +1319,13 @@
     </xsl:template>
 
     <xsl:template match="ead:emph">
+        <span xmlns="urn:isbn:1-931666-33-4">
+            <xsl:attribute name="style">font-style:italic</xsl:attribute>
+            <xsl:value-of select="normalize-space(.)"/>
+        </span>
+    </xsl:template>
+
+    <xsl:template match="ead:title">
         <span xmlns="urn:isbn:1-931666-33-4">
             <xsl:attribute name="style">font-style:italic</xsl:attribute>
             <xsl:value-of select="normalize-space(.)"/>
@@ -1637,29 +1742,32 @@
                                             select="normalize-space(substring-before(substring-after(substring-after($pName,', '),'('),'-'))"
                                         />
                                     </xsl:when>
-                                    <xsl:when test="substring-after(substring-after(substring-before($pName,'-'),', '),', ')">
+                                    <xsl:when
+                                        test="substring-after(substring-after(substring-before($pName,'-'),', '),', ')">
                                         <xsl:value-of
                                             select="normalize-space(substring-before(substring-after(substring-after($pName,', '),', '),'-'))"
                                         />
                                     </xsl:when>
-                                    <xsl:when test="substring-after(substring-after(substring-before($pName,'-'),', '),' ')">
+                                    <xsl:when
+                                        test="substring-after(substring-after(substring-before($pName,'-'),', '),' ')">
                                         <xsl:value-of
                                             select="normalize-space(substring-before(substring-after(substring-after($pName,', '),' '),'-'))"
                                         />
                                     </xsl:when>
                                     <xsl:otherwise>
                                         <xsl:choose>
-                                            <xsl:when test="normalize-space(substring-before(substring-after($pName,', '),'-'))">
+                                            <xsl:when
+                                                test="normalize-space(substring-before(substring-after($pName,', '),'-'))">
                                                 <xsl:value-of
-                                                    select="normalize-space(substring-before(substring-after($pName,', '),'-'))"
+                                                  select="normalize-space(substring-before(substring-after($pName,', '),'-'))"
                                                 />
                                             </xsl:when>
                                             <xsl:otherwise>
                                                 <xsl:value-of
-                                                    select="normalize-space(substring-before(substring-after(substring-after($pName,', '),', '),'-'))"
+                                                  select="normalize-space(substring-before(substring-after(substring-after($pName,', '),', '),'-'))"
                                                 />
                                             </xsl:otherwise>
-                                        </xsl:choose>                                        
+                                        </xsl:choose>
                                     </xsl:otherwise>
                                 </xsl:choose>
                             </xsl:element>
