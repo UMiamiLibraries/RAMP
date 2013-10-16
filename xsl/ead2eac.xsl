@@ -1071,7 +1071,7 @@
                                                   <xsl:value-of select="normalize-space(.)"/>
                                                   </xsl:when>
                                                   <xsl:otherwise>
-                                                  <xsl:apply-templates select="."/>
+                                                  <xsl:value-of select="normalize-space(.)"/>
                                                   <xsl:text> </xsl:text>
                                                   </xsl:otherwise>
                                                   </xsl:choose>
