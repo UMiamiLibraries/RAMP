@@ -15,7 +15,7 @@ include('header.php');
     <br/>
     <br/>
     <div id="demos">
-    <p>Read more about RAMP in <span style="font-style:italic"><a href="http://journal.code4lib.org/articles/8962">Code4Lib Journal</span></a>.</p>
+    <p>Read more about RAMP in <span style="font-style:italic"><a href="http://journal.code4lib.org/articles/8962" target="_blank">Code4Lib Journal</span></a>.</p>
     <br/>
     <p>Watch RAMP demo videos:</p>
     <br/>    
