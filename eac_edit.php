@@ -99,8 +99,8 @@ print ("</select>");
 
 
 <div id="wiki_switch"> 
-  <button id="wiki_switch_button" class="pure-button pure-button-primary">Wiki</button> 
-  <button id="xml_switch_button" class="pure-button pure-button-primary">XML</button> 
+  <button id="xml_switch_button" class="pure-button pure-button-primary">XML</button>
+  <button id="wiki_switch_button" class="pure-button pure-button-primary">Wiki</button>   
 </div>
 
 

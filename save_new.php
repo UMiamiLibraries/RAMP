@@ -102,7 +102,7 @@ if (file_exists(  $_POST["dir"] . '/' . $file_name_lower . '.xml')) {
 		</eadheader>
 		<frontmatter>
 		            </frontmatter>
-		            <archdesc audience="external" relatedencoding="MARC21">
+		            <archdesc audience="external" relatedencoding="MARC21" level="otherlevel">
 		               <did>
 		                     <origination label="Creator" encodinganalog="245$c">
 		                     <persname encodinganalog="100"  source="local">' . $entname .
@@ -110,7 +110,7 @@ if (file_exists(  $_POST["dir"] . '/' . $file_name_lower . '.xml')) {
 
 			'</persname>
 		                           </origination>
-		                           <note type="creation">Record created in RAMP.</note>
+		                           <note type="creation"><p>Record created in RAMP.</p></note>
 		      </did>
 		               <bioghist encodinganalog="545">
 		                  <p>' . $bioghist . '</p>
@@ -145,12 +145,12 @@ if (file_exists(  $_POST["dir"] . '/' . $file_name_lower . '.xml')) {
 		</eadheader>
 		<frontmatter>
 		            </frontmatter>
-		            <archdesc audience="external" relatedencoding="MARC21">
+		            <archdesc audience="external" relatedencoding="MARC21" level="otherlevel">
 		               <did>
 		                     <origination label="Creator" encodinganalog="245$c">
 		                     <corpname encodinganalog="100"  source="local">' . $entname . '</corpname>
 		                           </origination>
-		                           <note type="creation">Record created in RAMP.</note>
+		                           <note type="creation"><p>Record created in RAMP.</p></note>
 		      </did>
 		               <bioghist encodinganalog="545">
 		<p>' . $bioghist . '</p>
@@ -182,12 +182,12 @@ if (file_exists(  $_POST["dir"] . '/' . $file_name_lower . '.xml')) {
 		</eadheader>
 		<frontmatter>
 		            </frontmatter>
-		            <archdesc audience="external" relatedencoding="MARC21">
+		            <archdesc audience="external" relatedencoding="MARC21" level="otherlevel">
 		               <did>
 		                     <origination label="Creator" encodinganalog="245$c">
 		                     <famname  source="local">' . $entname . '</famname>
 		                           </origination>
-		                           <note type="creation">Record created in RAMP.</note>
+		                           <note type="creation"><p>Record created in RAMP.</p></note>
 		      </did>
 		               <bioghist encodinganalog="545">
 		<p>' . $bioghist .

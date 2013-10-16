@@ -1,75 +1,5 @@
     $(document).ready(function()        
-    		  {    		          		          		     
-    		      //register click event that will start viaf ingest
-    		      $('#ingest_viaf').on('click', function()    					  
-    					   {
-    					       $('.main_edit').hide();
-    					       $('#wiki_switch').hide();    
-    					       $('#entity_name').hide();
-    					       
-    					       document.cookie = "onWiki="; // Unset "onWiki" cookie. --timathom
-    					       					       
-    					       // $('#main_content').prepend('<img id="loading-image" src="style/images/loading.gif" alt="loading"/>');
-    
-    					       var lstrXML = editor.getValue();
-    
-    					       //cannot start ingestion without XML being loaded
-    					       if( lstrXML == '' )
-    					       {
-    						   $('body').append("<div id=\"dialog\"><p>Must load EAC first!</p></div>");
-    						   makeDialog('#dialog', 'Error!'); //display error
-    
-    						   $('#loading-image').remove();
-    						   $('.ingest_button').show();
-    						   $('#entity_name').show();
-    						   $('.main_edit').show();
-    						   return;
-    					       }
-    
-    					       validateXML(function(lboolValid){
-    
-    						   //xml must be valid in order for viaf ingestion to begin
-    						   if(lboolValid)
-    						   {    						       
-    						       var lobjeac = new eac();
-    						       lobjeac.loadXMLString( lstrXML );
-    
-    						       //get first name entry part element in order to get name to search viaf
-    						       var lobjNameEntryPart = lobjeac.getElement('//*[local-name()=\'cpfDescription\']/*[local-name()=\'identity\']/*[local-name()=\'nameEntry\']/*[local-name()=\'part\']');
-    						       var eac_name = typeof lobjNameEntryPart.childNodes[0] == 'undefined' ? "" : lobjNameEntryPart.childNodes[0].nodeValue;
-    						       eac_name = eac_name.trim();
-    						       eac_name = encode_utf8(eac_name);
-    
-    						       ingest_viaf_NameEntry_Sources( lobjeac, eac_name, function( )
-    										      {    										          										      
-    											  
-    											  ingest_viaf_Relations(lobjeac, function( lstrMessage ){
-    											      $('body').append("<div id=\"dialog_main\"><p>" + lstrMessage + "</p></div>");
-    											      makeDialog('#dialog_main', 'Response'); //display response
-    
-    											      //    $('#loading-image').remove();
-    											      //commented out by dgonzalez because ingest can be done multiple times
-    											      //$('#ingest_viaf').attr("disabled", "disabled");
-    											    
-    											      $('.ingest_button').show();
-    											      //$('#entity_name').show();
-    											  });
-    										      });
-    						   }
-    						   else
-    						   {
-    						       //display error when xml is not valid
-    						       $('body').append("<div id=\"dialog\"><p>XML must be valid!</p></div>");
-    						       makeDialog('#dialog', 'Error!');
-    
-    						       $('#loading-image').remove();
-    						       $('.main_edit').show();
-    						       $('.ingest_button').show();
-    						       $('#entity_name').show();
-    						   }
-    					       });
-    					   });
-    
+    		  {    		          		        
     		      //register click event that will start worlcat ingestion
     		      $('#ingest_worldcat').on('click', function()
     
@@ -133,7 +63,78 @@
     							   $('#entity_name').show();
     						       }
     						   });
+    					   });
+    		  
+    		      //register click event that will start viaf ingest
+    		      $('#ingest_viaf').on('click', function()    					  
+    					   {
+    					       $('.main_edit').hide();
+    					       $('#wiki_switch').hide();    
+    					       $('#entity_name').hide();
+    					       
+    					       document.cookie = "onWiki="; // Unset "onWiki" cookie. --timathom
+    					       					       
+    					       // $('#main_content').prepend('<img id="loading-image" src="style/images/loading.gif" alt="loading"/>');
+    
+    					       var lstrXML = editor.getValue();
+    
+    					       //cannot start ingestion without XML being loaded
+    					       if( lstrXML == '' )
+    					       {
+    						   $('body').append("<div id=\"dialog\"><p>Must load EAC first!</p></div>");
+    						   makeDialog('#dialog', 'Error!'); //display error
+    
+    						   $('#loading-image').remove();
+    						   $('.ingest_button').show();
+    						   $('#entity_name').show();
+    						   $('.main_edit').show();
+    						   return;
+    					       }
+    
+    					       validateXML(function(lboolValid){
+    
+    						   //xml must be valid in order for viaf ingestion to begin
+    						   if(lboolValid)
+    						   {    						       
+    						       var lobjeac = new eac();
+    						       lobjeac.loadXMLString( lstrXML );
+    
+    						       //get first name entry part element in order to get name to search viaf    						           						      
+    						       
+    						       var lobjNameEntryPart = lobjeac.getElement('//*[local-name()=\'cpfDescription\']/*[local-name()=\'identity\']/*[local-name()=\'nameEntry\']/*[local-name()=\'part\']');    						       
+    						       var eac_name = typeof lobjNameEntryPart.childNodes[0] == 'undefined' ? "" : lobjNameEntryPart.childNodes[0].nodeValue;
+    						       eac_name = eac_name.trim();
+    						       eac_name = encode_utf8(eac_name);
+    
+    						       ingest_viaf_NameEntry_Sources( lobjeac, eac_name, function( )
+    										      {    										          										      
+    											  
+    											  ingest_viaf_Relations(lobjeac, function( lstrMessage ){
+    											      $('body').append("<div id=\"dialog_main\"><p>" + lstrMessage + "</p></div>");
+    											      makeDialog('#dialog_main', 'Response'); //display response
+    
+    											      //    $('#loading-image').remove();
+    											      //commented out by dgonzalez because ingest can be done multiple times
+    											      //$('#ingest_viaf').attr("disabled", "disabled");
+    											    
+    											      $('.ingest_button').show();
+    											      //$('#entity_name').show();
+    											  });
+    										      });
+    						   }
+    						   else
+    						   {
+    						       //display error when xml is not valid
+    						       $('body').append("<div id=\"dialog\"><p>XML must be valid!</p></div>");
+    						       makeDialog('#dialog', 'Error!');
+    
+    						       $('#loading-image').remove();
+    						       $('.main_edit').show();
+    						       $('.ingest_button').show();
+    						       $('#entity_name').show();
+    						   }
     					       });
+    					   });        		      
     		  });
     
     /*
@@ -222,6 +223,8 @@
          
          										     lobjEac.addSource( lobjSource );
          										     
+         										     jQuery('html,body').animate({scrollTop:0},0); //scroll to top to view form correctly
+         										     
          										     $('body').append("<div id=\"dialog\"><p>&lt;source&gt; and &lt;nameEntry&gt; elements added!</p></div>");
          					                         makeDialog('#dialog', 'Results'); // display results    
 
@@ -261,10 +264,10 @@
     {
         var lstrHTML = "<div class=\"form_container\">";
           
-        lstrHTML += "<div class=\"instruction_div\"><h2 class=\"instruction\" style=\"font-weight:800; font-size:1.5em;\">Authority Control: Ingest from VIAF</h2><p class=\"instruction\">The purpose of this step is to get a unique identifier from the Virtual International Authority File (<a href=\"http://viaf.org\" title=\"Link to the Virtual International Authority File\" target=\"_blank\">VIAF</a>) for the entity you are working with, and then do Named Entity Recognition on the text of the entity's bio or finding aid in order to encode relationships.</p><p class=\"instruction\">The list on the right was retrieved from VIAF. Please examine the name(s) to see whether there is an appropriate match for the entity you are working with.</p><p class=\"instruction\">If you click on a name, you will be taken to its VIAF page, which may include additional information that will help you decide whether it is an appropriate match.</p><p class=\"instruction\">If there is not a good match, click \"Cancel\" to proceed to the next step (Named Entity Recognition).</p></div>";
+        lstrHTML += "<div class=\"instruction_div\"><h2 class=\"instruction\" style=\"font-weight:800; font-size:1.5em;\">Authority Control: Ingest from VIAF</h2><p class=\"instruction\">The purpose of this step is to get a unique identifier from the Virtual International Authority File (<a href=\"http://viaf.org\" title=\"Link to the Virtual International Authority File\" target=\"_blank\">VIAF</a>) for the entity you are working with, and then do Named Entity Recognition on the text of its EAC-CPF record and EAD finding aid in order to encode relationships.</p><p class=\"instruction\">The list on the right was retrieved from VIAF. Please examine the name(s) to see whether there is an appropriate match for the current entity.</p><p class=\"instruction\">If you click on a name, you will be taken to its VIAF page, which may include additional information that will help you decide whether it is an appropriate match.</p><p class=\"instruction\">If there is not a good match, click \"Cancel\" to proceed to the next step (Named Entity Recognition).</p></div>";
     
-        lstrHTML += "<button id=\"ingest_viaf_chosen_viaf\" class=\"pure-button ingest-ok pure-button-secondary\">Use Selected VIAF</button>";
-        lstrHTML += "&nbsp;<button id=\"ingest_viaf_chosen_viaf_cancel\" class=\"pure-button ingest-cancel pure-button-secondary\">Cancel</button>";
+        lstrHTML += "<button id=\"ingest_viaf_chosen_viaf\" class=\"pure-button ingest-ok pure-button-secondary\" style=\"font-size:1.06em;\">Use Selected VIAF</button>";
+        lstrHTML += "&nbsp;<button id=\"ingest_viaf_chosen_viaf_cancel\" class=\"pure-button ingest-cancel pure-button-secondary\" style=\"font-size:1.06em;\">Cancel</button>";
     
     
         lstrHTML += "<div class=\"user_help_form\">";
@@ -678,11 +681,11 @@
     {
         var lstrHTML = "<div class=\"form_container\">";
      
-        lstrHTML += "<div class=\"instruction_div\"><h2 class=\"instruction\" style=\"font-weight:800; font-size:1.5em;\">Named Entity Recognition</h2><p class=\"instruction\">These names have been extracted from this entity\'s finding aid or biography. Select names that you would like to look up in VIAF.</p><p class=\"instruction\">In the next step, you will be able to make a final selection to create &lt;cpfRelation&gt; elements, with associated VIAF IDs, in the EAC-CPF record.</p><p class=\"instruction\">Each name can be edited to improve the search query, if appropriate. When editing, it is best to put names in inverted order (Last Name, First Name).</p><p class=\"instruction\">If names need to be split, or if you have additional names to add, you may click \"Add New Row\" to input appropriate data.</p><p class=\"instruction\">Note that geographical places are not included in VIAF and so should be ignored at present.</p><p class=\"instruction\" style=\"font-style:italic\">Note that if you select several names to look up, your query may take some time to run.</p></div>";
+        lstrHTML += "<div class=\"instruction_div\"><h2 class=\"instruction\" style=\"font-weight:800; font-size:1.5em;\">Named Entity Recognition</h2><p class=\"instruction\">These names have been extracted from this entity\'s EAC-CPF record or EAD finding aid. Select names that you would like to look up in VIAF.</p><p class=\"instruction\">In the next step, you can make a final selection to create cpfRelation elements, with associated VIAF IDs, in the EAC-CPF record.</p><p class=\"instruction\">Each name can be edited to improve the search query, if appropriate. When editing, it is best to put names in inverted order (Last Name, First Name).</p><p class=\"instruction\">If names need to be split, or if you have additional names to add, you can click \"Add New Row\" to input appropriate data.</p><p class=\"instruction\">Note that geographical places are not included in VIAF and so should be ignored.</p><p class=\"instruction\" style=\"font-style:italic\">Note that if you select several names to look up, your query may take some time to run.</p></div>";
     
     
-        lstrHTML += "<button id=\"ingest_viaf_chosen_names_relations\" class=\"pure-button ingest-ok pure-button-secondary\">Use Selected Names</button>";
-        lstrHTML += "&nbsp;<button id=\"ingest_viaf_chosen_names_relations_cancel\" class=\"pure-button ingest-cancel pure-button-secondary\">Cancel</button>";
+        lstrHTML += "<button id=\"ingest_viaf_chosen_names_relations\" class=\"pure-button ingest-ok pure-button-secondary\" style=\"font-size:1.06em;\">Use Selected Names</button>";
+        lstrHTML += "&nbsp;<button id=\"ingest_viaf_chosen_names_relations_cancel\" class=\"pure-button ingest-cancel pure-button-secondary\" style=\"font-size:1.06em;\">Cancel</button>";
     
     
         lstrHTML += "<div class=\"user_help_form\">";
@@ -701,7 +704,7 @@
         }
         
     
-        lstrHTML += "</table>"
+        lstrHTML += "</table>";
     
         lstrHTML += "</div></div>";
     
@@ -778,10 +781,10 @@
     function display_viaf_results_form( lobjViafResults, callback )
     {
         var lstrHTML = "<div class=\"form_container\">";
-        lstrHTML += "<div class=\"instruction_div\"><h2 class=\"instruction\" style=\"font-weight:800; font-size:1.5em;\">Named Entity Recognition</h2><p class=\"instruction\">Based on your selections, these are the possible matches (if any) that we were able to retrieve from VIAF. Results are sorted by the number of library holdings associated with each name in the VIAF database.</p><p class=\"instruction\">Please note that when there are several possibilities, you may need to look at each one before choosing.</p><p class=\"instruction\">Some results are obviously unrelated, but others may be harder to differentiate. Be aware that even if a name seems to match your original selection, it may be a false hit.</p><p class=\"instruction\">When in doubt, please click on a name to visit its VIAF page and look for additional information. If a name already has a corresponding Wikipedia article (there may be a link from the VIAF page), check there to see which VIAF ID has been used, and then select the name that corresponds to that VIAF ID.</p><p class=\"instruction\">If there are no appropriate matches from VIAF, you may add a custom &lt;cpfRelation&gt; using the original search string.</p></div>";
+        lstrHTML += "<div class=\"instruction_div\"><h2 class=\"instruction\" style=\"font-weight:800; font-size:1.5em;\">Named Entity Recognition</h2><p class=\"instruction\">Based on your selections, these are the possible matches (if any) that we were able to retrieve from VIAF. Results are sorted by the number of library holdings associated with each name in the VIAF dataset.</p><p class=\"instruction\">Please note that when there are several possibilities, you may need to look at each one before choosing.</p><p class=\"instruction\">Some results are obviously unrelated, but others may be harder to differentiate. Be aware that even if a name seems to match your original selection, it may be a false hit.</p><p class=\"instruction\">When in doubt, please click on a name to visit its VIAF page and look for additional information. If a name already has a corresponding Wikipedia article, select the name that corresponds to that VIAF ID.</p><p class=\"instruction\">If there are no appropriate matches from VIAF, you can add a custom cpfRelation using the original search string.</p></div>";
        
-        lstrHTML += "<button id=\"ingest_viaf_add_relations\" class=\"pure-button ingest-ok pure-button-secondary\">Use Selected Results</button>";
-        lstrHTML += "&nbsp;<button id=\"ingest_viaf_add_relations_cancel\" class=\"pure-button ingest-cancel pure-button-secondary\">Cancel</button>";
+        lstrHTML += "<button id=\"ingest_viaf_add_relations\" class=\"pure-button ingest-ok pure-button-secondary\" style=\"font-size:1.06em;\">Use Selected Results</button>";
+        lstrHTML += "&nbsp;<button id=\"ingest_viaf_add_relations_cancel\" class=\"pure-button ingest-cancel pure-button-secondary\" style=\"font-size:1.06em;\">Cancel</button>";
     
         lstrHTML += "<div class=\"user_help_form\">";
     
@@ -1080,7 +1083,9 @@
     											 
     											 // Notification logic added by timathom.
     											 if(lobjSubjectList.length == 0)
-                                                 {                                                    
+                                                 {                                         
+                                                     jQuery('html,body').animate({scrollTop:0},0); //scroll to top to view form correctly
+                                                     
                                                      $('body').append("<div id=\"dialog\"><p>No matching subjects.</p><br/>" + lstrOtherRecId + lstrSources + lstrCpfResults + lstrResourceResults + "</div>");
     					                             makeDialog('#dialog', 'Results'); // display results
                                                      $('.worldcat_arrow').html("&#10003;");
@@ -1096,7 +1101,9 @@
                                                      else
                                                      {
                                                          $('#wiki_switch').hide();
-                                                     }
+                                                     }                                                     
+                                                     
+                                                     editor.getSession().setValue(lobjEac.getXML());
                                                      return;
                                                  } 
                                                  else
@@ -1115,6 +1122,9 @@
     																 
     																 if(lobjChosenSubjects.length == 0)
                                                                      {                                                                                                     
+                                                                         
+                                                                         jQuery('html,body').animate({scrollTop:0},0); //scroll to top to view form correctly
+                                                                         
                                                                          $('body').append("<div id=\"dialog\"><p>No subjects added.</p><br/>" + lstrOtherRecId + lstrSources + lstrCpfResults + lstrResourceResults + "</div>");
                        					                                 makeDialog('#dialog', 'Results'); // display results
                                                                          $('.worldcat_arrow').html("&#10003;");
@@ -1131,11 +1141,14 @@
                                                                       	 {
                                                                       	     $('#wiki_switch').hide();
                                                                       	 }
-                                                         		         //editor.getSession().setValue(lobjEac.getXML());                                                         
+                                                         		         editor.getSession().setValue(lobjEac.getXML());                                                         
                                                                          return;
                                                                     } 
                                                                     else
                                                                     {        																     
+           																 
+           																 jQuery('html,body').animate({scrollTop:0},0); //scroll to top to view form correctly
+           																 
            																 $('body').append("<div id=\"dialog\"><p>&lt;localDescription&gt; element(s) added with chosen subject(s).</p><br/>" + lstrOtherRecId + lstrSources + lstrCpfResults + lstrResourceResults + "</div>");
            					                                             makeDialog('#dialog', 'Results'); // display results    																 
            																 $('#loading-image').remove();
@@ -1151,7 +1164,7 @@
                                                                       	 {
                                                                       	     $('#wiki_switch').hide();
                                                                       	 }
-                                                                      	 //editor.getSession().setValue(lobjEac.getXML());
+                                                                      	 editor.getSession().setValue(lobjEac.getXML());
                                                                       	 return;                                                                      	 
     																 }
     																 
@@ -1172,11 +1185,11 @@
     {
         var lstrHTML = "<div class=\"form_container\">";
     
-     lstrHTML += "<div class=\"instruction_div\"><h2 class=\"instruction\" style=\"font-weight:800; font-size:1.5em;\">Ingest from WorldCat Identities</h2><p class=\"instruction\">This step draws on <a href=\"http://worldcat.org/identities/\" title=\"Link to WorldCat Identities\" target=\"_blank\">WorldCat Identities</a> to pull in a variety of data (works by, works about, related entities, and subject headings) associated with the entity you are working with.</p><p class=\"instruction\">The list on the right presents possible matches from WorldCat Identities. Please examine them to select the best match for the current entity.</p><p class=\"instruction\">If you click on a name, you will be taken to its WorldCat Identities page, which may include additional information that will help you decide whether it is an appropriate match. In general, the page with the most information will be the best match.</p><p class=\"instruction\">If there is no appropriate match, click \"Cancel\" to return to the edit screen.</p></div>";
+     lstrHTML += "<div class=\"instruction_div\"><h2 class=\"instruction\" style=\"font-weight:800; font-size:1.5em;\">Ingest from WorldCat Identities</h2><p class=\"instruction\">This step draws on <a href=\"http://worldcat.org/identities/\" title=\"Link to WorldCat Identities\" target=\"_blank\">WorldCat Identities</a> to pull in a variety of data (works by, works about, related entities, and subject headings) associated with the current entity.</p><p class=\"instruction\">The list on the right presents possible matches from WorldCat Identities. Please examine them to select the best match.</p><p class=\"instruction\">If you click on a name, you will be taken to its WorldCat Identities page, which may include additional information that will help you decide whether it is an appropriate match. In general, the page with an \"lccn\" in its URL will be the best match.</p><p class=\"instruction\">If there is no appropriate match, click \"Cancel\" to return to the edit screen.</p><p class=\"instruction\"><span style=\"font-weight:800;\">Note</span>: for relations, the default is \"Person.\" If corporate bodies are included in the data from WorldCat, you will need to change the cpfRelation/@xlink:role to \"CorporateBody.\"</p></div>";
     
     
-        lstrHTML += "<button id=\"ingest_worldcat_chosen_uri\" class=\"pure-button ingest-ok pure-button-secondary\">Use Selected WorldCat Identity</button>";
-        lstrHTML += "&nbsp;<button id=\"ingest_worldcat_chosen_uri_cancel\" class=\"pure-button ingest-cancel pure-button-secondary\">Cancel</button>";
+        lstrHTML += "<button id=\"ingest_worldcat_chosen_uri\" class=\"pure-button ingest-ok pure-button-secondary\" style=\"font-size:1.06em;\">Use Selected WorldCat Identity</button>";
+        lstrHTML += "&nbsp;<button id=\"ingest_worldcat_chosen_uri_cancel\" class=\"pure-button ingest-cancel pure-button-secondary\" style=\"font-size:1.06em;\">Cancel</button>";
     
         lstrHTML += "<div class=\"user_help_form\">";
     
@@ -1251,11 +1264,11 @@
     function display_possible_worldcat_subjects( lobjPossibleSubjects, callback )
     {
         var lstrHTML = "<div class=\"form_container\">";
-        lstrHTML += "<div class=\"instruction_div\"><h2 class=\"instruction\" style=\"font-weight:800; font-size:1.5em;\">Ingest from WorldCat Identities</h2><p class=\"instruction\">Here is a list of FAST subject headings from this entity's WorldCat Identities page. Select appropriate headings to add to your EAC-CPF record.</p><p class=\"instruction\">These headings will be transformed to wiki markup and, when publishing to Wikipedia, should be replaced with appropriate Wikipedia categories (using the HotCat tool).</p><p class=\"instruction\">If there are no appropriate matches, click \"Cancel\" to return to the edit screen.</p></div>";
+        lstrHTML += "<div class=\"instruction_div\"><h2 class=\"instruction\" style=\"font-weight:800; font-size:1.5em;\">Ingest from WorldCat Identities</h2><p class=\"instruction\">Here is a list of FAST subject headings from this entity's WorldCat Identities page. Select appropriate headings to add to your EAC-CPF record.</p><p class=\"instruction\">These headings will later be transformed to wiki markup categories and, when publishing to Wikipedia, should be replaced with appropriate Wikipedia categories (for example, using the <a href=\"http://en.wikipedia.org/wiki/Wikipedia:HotCat\" target=\"_blank\">HotCat</a> tool).</p><p class=\"instruction\">If there are no appropriate matches, click \"Cancel\" to return to the edit screen.</p></div>";
      
-        lstrHTML += "<button id=\"ingest_worldcat_chosen_subjects\" class=\"pure-button pure-button-secondary\">Use Selected Subjects</button>";
+        lstrHTML += "<button id=\"ingest_worldcat_chosen_subjects\" class=\"pure-button pure-button-secondary\" style=\"font-size:1.06em;\">Use Selected Subjects</button>";
     
-        lstrHTML += "&nbsp;<button id=\"ingest_worldcat_chosen_subjects_cancel\" class=\"pure-button pure-button-secondary\">Cancel</button>";  
+        lstrHTML += "&nbsp;<button id=\"ingest_worldcat_chosen_subjects_cancel\" class=\"pure-button pure-button-secondary\" style=\"font-size:1.06em;\">Cancel</button>";  
     
         lstrHTML += "<div class=\"user_help_form\">";
     

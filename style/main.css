@@ -38,7 +38,7 @@ body {
 	/* background: #F2FAFF; */
     color:#0F141A;
     font-family: "Open Sans", sans-serif;
-    font-size: .78em;
+    font-size: .8em;
 }
 
 ol, ul {
@@ -81,7 +81,7 @@ header {
     margin:0;
     width:100%;
     background:#49b6ff;
-    color:#EBFFEB;
+    color:white;
     font-family: "Open Sans",sans-serif;
     font-weight:300;
     font-size:1em;
@@ -201,7 +201,7 @@ ul, menu, dir {
 }
 
 .content_box {
-    font-size:1.2em;
+    font-size:1.1em;
     padding: 2%;
 }
 
@@ -224,6 +224,7 @@ ul, menu, dir {
 .content_box select {
     margin-left:.5%;
     margin-top:.5%;
+    font-size:1.1em;    
 }
 
 .Differences {
@@ -314,6 +315,7 @@ ul, menu, dir {
 .ead_files {
     margin-left:.5%;
     display:block;
+    font-size:1.2em;
 }
 
 .ents {
@@ -337,9 +339,8 @@ ul, menu, dir {
 }
 
 .form_note
-{
-    font-size: small;
-    font-style: italic;
+{    
+    font-style: italic;    
 }
 
 .footer {
@@ -354,13 +355,12 @@ ul, menu, dir {
 
 .ingest-cancel {
   background:#0078e7;
-  margin-left:5px;  
+  margin-left:5px;    
 }
 
 .ingest-ok {
   margin-left: 2%;
-  background:#0078e7;
-
+  background:#0078e7;  
 }
 
 .instruction {
@@ -373,7 +373,7 @@ ul, menu, dir {
 }
 
 .instruction_div {
-    margin-bottom:2%;    
+    margin-bottom:1%;    
 }
 
 .menu_slice a {
@@ -414,13 +414,13 @@ ul, menu, dir {
 }
 
 .ner_empty_add {
-  margin-left: 1%;
+  margin:2% 2% 2% 1%;
   background:#0078e7;
   font-size:.8em;
 }
 
 .ner_empty_rm {
-  margin-left: 1%;
+  margin:2% 2% 2% 1%;
   background:#0078e7;
   font-size:.8em;
 }
@@ -437,17 +437,17 @@ ul, menu, dir {
 }
 
 .pure-button {
-    color:white;
-}
-
-.pure_button 
-{
-    margin-top:1%;
+    color:white;       
 }
 
 .pure-button-primary {
     margin-top:.5%;
     margin-left:.5%;
+    font-size:1.06em;
+}
+
+.pure-button-secondary {
+    font-size:.9em;    
 }
 
 .pure-form {
@@ -504,7 +504,7 @@ ul, menu, dir {
 }
 
 .user_help_form {
-    padding:.5em;
+    padding:.5%;
 	font-size:1.25em;
 	line-height:1.5em;
 	left: 50%;
@@ -521,17 +521,26 @@ ul, menu, dir {
 }
 
 .user_help_form input {    
-    margin:.25em;
+    margin-right:.25em;
 }
 
 .user_help_form h2 {
     font-weight:bold;
-    padding:.25em;    
-    margin:0 0 1% -2px;
+      
+    margin:0 0 1% 0;
 }
 
 .user_help_form_table {
     margin-bottom:20%;
+}
+
+.user_help_form_table dd {
+    margin:1% 1% 3% 0;
+}
+
+.user_help_form_table dd a {
+    margin:1% 0 1% 0;
+    display:block;
 }
 
 .user_plain_row {            
@@ -588,14 +597,15 @@ ul, menu, dir {
 .wiki_container textarea {
     min-width:600px;
     min-height:425px;    
+    font-size:1.06em;
 }
 
 li.wiki_login
 {
     float: right;
     font-size: 18px;
-    font-weight:800;
-    margin-top:2px;
+    font-weight:800;    
+    margin:3px 2px 2px 2px;    
 }
 
 .worldcat_arrow {
@@ -618,9 +628,9 @@ li.wiki_login
 }
 
 #addbioinfo a {
-    color:#EBFFEB;
+    color:white;
     text-decoration: none;
-
+    /* off-white: #EBFFEB */
 }
 
 #addrel {
@@ -667,6 +677,10 @@ textarea#bioghist {
     margin:2% 4% 0 4%;
 }
 
+#convert_box h1 {
+    margin-bottom:.5%;
+}
+
 #convert_ead {
     margin:1%;
     font-size:1.4em;
@@ -686,7 +700,7 @@ textarea#bioghist {
 }
 
 #demos p {
-    font-size:.9em;
+    font-size:1em;
 }
 
 #demo_links {
@@ -738,7 +752,6 @@ input#eac_name
 }
 
 #editor {
-
     position: absolute;
     top: 0;
     right: 0;
@@ -758,7 +771,11 @@ input#eac_name
 
 
 #edit_box {
-    margin:2% 4% 0 4%;
+    margin:2% 2% 0 4%;    
+}
+
+#edit_box h1 {
+    margin-bottom:1%;
 }
 
 #edit_xml {
@@ -894,7 +911,7 @@ button#gtselectedtext:focus {
 }
 
 #intro_box {
-    font-size:1.5em;
+    font-size:1.4em;
     margin:1% 2% 1% 2%;
     padding-bottom:2%;
     border-bottom:dotted black 1px;
@@ -932,8 +949,9 @@ button#ltselectedtext:focus {
 }
 
 #menu a {
-    color:#EBFFEB;
+    color:white;
     text-decoration: none;
+    font-weight:800;
 }
 
 #menu_button {
@@ -1023,7 +1041,7 @@ button#ltselectedtext:focus {
 
 #select_all {
     font-style:italic !important;    
-    margin:.25em .25em .5em .25em;       
+    margin:.25em .25em .5em 0;       
 }
 
 #select_wrap {
