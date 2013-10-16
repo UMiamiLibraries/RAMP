@@ -1068,7 +1068,7 @@
                                                   select="string-length(.)"/>
                                                   <xsl:choose>
                                                   <xsl:when test="substring(.,$vStrLen)=' '">
-                                                  <xsl:apply-templates select="."/>
+                                                  <xsl:value-of select="normalize-space(.)"/>
                                                   </xsl:when>
                                                   <xsl:otherwise>
                                                   <xsl:apply-templates select="."/>
@@ -1078,7 +1078,7 @@
                                                   </xsl:for-each>
                                                 </xsl:when>
                                                 <xsl:otherwise>
-                                                  <xsl:apply-templates select="ead:event"/>
+                                                    <xsl:value-of select="normalize-space(ead:event)"/>
                                                 </xsl:otherwise>
                                             </xsl:choose>
                                         </event>
