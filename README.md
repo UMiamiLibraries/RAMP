@@ -3,13 +3,15 @@ RAMP
 
 #### RAMP demo site: http://demo.rampeditor.info
 
-  This site has been preloaded with a set of Library of Congress finding aids for testing, plus some newly created records.
+This site has been preloaded with a set of Library of Congress finding aids for testing, plus some newly created records.
 
 ## Introduction
 
   The Remixing Archival Metadata Project (RAMP) is a lightweight web-based editing tool that is intended to let users do two things: (1) generate enhanced authority records for creators of archival collections and (2) publish the content of those records as Wikipedia pages.
 
 The RAMP editor can extract biographical and historical data from EAD finding aids to create new authority records for persons, corporate bodies, and families associated with archival and special collections (using the EAC-CPF format). It can then let users enhance those records with additional data from sources like VIAF and WorldCat Identities. Finally, it can transform those records into wiki markup so that users can edit them directly, merge them with any existing Wikipedia pages, and publish them to Wikipedia through its API.
+
+Read more about RAMP in _[Code4Lib Journal](http://journal.code4lib.org/articles/8962)_.
 
 ## 1 Installation
 
@@ -87,7 +89,7 @@ database, along with the newly created EAC-CPF record. If a duplicate EAD file i
    be able to write a stub EAD file necessary to create a new EAC record. 
 
 ### 2.3 Editing EAC Files
-   The 'Edit' link displays a select box that includes a list of names.
+   The 'Edit' link displays a select box taht includes a list of names.
    Selecting a name loads their EAC record into the editor. A user can
    manually edit the EAC XML in the editor. 
    During the editing process, the files are monitored and sent to a
