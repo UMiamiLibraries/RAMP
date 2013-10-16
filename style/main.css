@@ -201,7 +201,7 @@ ul, menu, dir {
 }
 
 .content_box {
-    font-size:1.2em;
+    font-size:1.1em;
     padding: 2%;
 }
 
@@ -700,7 +700,7 @@ textarea#bioghist {
 }
 
 #demos p {
-    font-size:.9em;
+    font-size:1em;
 }
 
 #demo_links {
@@ -913,7 +913,7 @@ button#gtselectedtext:focus {
 }
 
 #intro_box {
-    font-size:1.5em;
+    font-size:1.4em;
     margin:1% 2% 1% 2%;
     padding-bottom:2%;
     border-bottom:dotted black 1px;
