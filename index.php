@@ -15,16 +15,16 @@ include('header.php');
     <br/>
     <br/>
     <div id="demos">
-    <p>RAMP demo videos:</p>
+    <p>Read more about RAMP in <span style="font-style:italic"><a href="http://journal.code4lib.org/articles/8962">Code4Lib Journal</span></a>.</p>
     <br/>
-    
+    <p>Watch RAMP demo videos:</p>
+    <br/>    
     <p>
     <a id="demo_1" href="http://screencast-o-matic.com/watch/cI6i3JVdFc" class="modal">Overview of the RAMP editor</a> <span> | </span>    
     <a id="demo_3" href="http://screencast-o-matic.com/watch/cI6i3mVdbS" class="modal">Ingesting from WorldCat Identities</a> <span> | </span>        
     <a id="demo_2" href="http://screencast-o-matic.com/watch/cI6i0oVdFl" class="modal">Ingesting from VIAF</a> <span> | </span>    
     <a id="demo_4" href="http://screencast-o-matic.com/watch/cI6i08VdFm" class="modal">Publishing to Wikipedia</a> 
     </p>
-    
     </div>
     </div>   
   </div>
