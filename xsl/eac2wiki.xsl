@@ -38,7 +38,7 @@
         </xsl:choose>
     </xsl:template>
 
-    <!-- Templates for persons. -->
+    <!-- Call templates for persons. -->
     <xsl:template name="tPerson">
         <!-- Infobox -->
         <xsl:call-template name="tPersonInfobox"/>
@@ -58,6 +58,7 @@
         <xsl:if
             test="eac:eac-cpf/eac:cpfDescription/eac:relations/eac:resourceRelation/eac:objectXMLWrap/ead:archdesc/ead:scopecontent or $pBiogHist/eac:abstract">
             <xsl:text>&lt;!-- The following info about the collection that may contain relevant historical details and that may be useful for providing a brief description of the "External link" to the finding aid from Wikipedia. This text should be deleted after relevant information has been incorporated into the Wikipedia entry: --&gt;</xsl:text>
+            <xsl:text>&#10;</xsl:text>
         </xsl:if>
         <xsl:if
             test="eac:eac-cpf/eac:cpfDescription/eac:relations/eac:resourceRelation/eac:objectXMLWrap/ead:archdesc/ead:scopecontent">
@@ -83,10 +84,18 @@
         </xsl:if>
         -->
         <xsl:if test="$pBiogHist/eac:abstract">
-            <xsl:text> &lt;!-- </xsl:text>
+            <xsl:text>&lt;!-- </xsl:text>
             <xsl:value-of select="normalize-space($pBiogHist/eac:abstract)"/>
-            <xsl:text> --&gt;&#10;</xsl:text>
+            <xsl:text> --&gt;</xsl:text>
             <xsl:text>&#10;</xsl:text>
+            <xsl:choose>
+                <xsl:when test="following-sibling::eac:p">
+                    <xsl:text>&#10;</xsl:text>
+                </xsl:when>
+                <xsl:otherwise>
+                    
+                </xsl:otherwise>
+            </xsl:choose>
         </xsl:if>
         <xsl:for-each select="$pBiogHist/eac:p">
             <xsl:value-of select="normalize-space(.)"/>
@@ -107,7 +116,8 @@
         <!-- Publications -->
         <xsl:call-template name="tPub"/>
         <!-- Relations -->
-        <xsl:if test="eac:eac-cpf/eac:cpfDescription/eac:relations/eac:cpfRelation">
+        <xsl:if
+            test="eac:eac-cpf/eac:cpfDescription/eac:relations/eac:cpfRelation | eac:eac-cpf/eac:cpfDescription/eac:description/eac:localDescription[@localType[contains(.,'7')]] | eac:eac-cpf/eac:cpfDescription/eac:description/eac:localDescription[@localType[contains(.,'610')]]">
             <xsl:call-template name="tRelations">
                 <xsl:with-param name="pNameType">person</xsl:with-param>
                 <xsl:with-param name="pPersName" select="$pPersName"/>
@@ -115,6 +125,8 @@
         </xsl:if>
         <!-- References -->
         <xsl:call-template name="tReferences"/>
+        <!-- Further reading -->
+        <xsl:call-template name="tFurther"/>
         <!-- External links -->
         <xsl:call-template name="tExternalLinks"/>
         <!-- VIAF -->
@@ -129,7 +141,7 @@
         </xsl:call-template>
     </xsl:template>
 
-    <!-- Templates for corporate bodies. -->
+    <!-- Call templates for corporate bodies. -->
     <xsl:template name="tCorporateBody">
         <!-- Infobox -->
         <xsl:call-template name="tCBodyInfobox"/>
@@ -149,10 +161,10 @@
         <xsl:if
             test="eac:eac-cpf/eac:cpfDescription/eac:relations/eac:resourceRelation/eac:objectXMLWrap/ead:archdesc/ead:scopecontent or $pBiogHist/eac:abstract">
             <xsl:text>&lt;!-- The following info about the collection that may contain relevant historical details and that may be useful for providing a brief description of the "External link" to the finding aid from Wikipedia. This text should be deleted after relevant information has been incorporated into the Wikipedia entry: --&gt;</xsl:text>
+            <xsl:text>&#10;</xsl:text>
         </xsl:if>
         <xsl:if
             test="eac:eac-cpf/eac:cpfDescription/eac:relations/eac:resourceRelation/eac:objectXMLWrap/ead:archdesc/ead:scopecontent">
-            <xsl:text>&#10;</xsl:text>
             <xsl:text>&#10;</xsl:text>
             <xsl:text>&lt;!-- </xsl:text>
             <xsl:for-each
@@ -170,10 +182,18 @@
             <xsl:text>&#10;</xsl:text>
         </xsl:if>
         <xsl:if test="$pBiogHist/eac:abstract">
-            <xsl:text> &lt;!-- </xsl:text>
+            <xsl:text>&lt;!-- </xsl:text>
             <xsl:value-of select="normalize-space($pBiogHist/eac:abstract)"/>
             <xsl:text> --&gt;</xsl:text>
             <xsl:text>&#10;</xsl:text>
+            <xsl:choose>
+                <xsl:when test="following-sibling::eac:p">
+                    <xsl:text>&#10;</xsl:text>
+                </xsl:when>
+                <xsl:otherwise>
+                    
+                </xsl:otherwise>
+            </xsl:choose>
         </xsl:if>
         <xsl:for-each select="$pBiogHist/eac:p">
             <xsl:value-of select="normalize-space(.)"/>
@@ -202,7 +222,8 @@
         <!-- Publications -->
         <xsl:call-template name="tPub"/>
         <!-- Relations -->
-        <xsl:if test="eac:eac-cpf/eac:cpfDescription/eac:relations/eac:cpfRelation">
+        <xsl:if
+            test="eac:eac-cpf/eac:cpfDescription/eac:relations/eac:cpfRelation | eac:eac-cpf/eac:cpfDescription/eac:description/eac:localDescription[@localType[contains(.,'7')]] | eac:eac-cpf/eac:cpfDescription/eac:description/eac:localDescription[@localType[contains(.,'610')]]">
             <xsl:call-template name="tRelations">
                 <xsl:with-param name="pNameType">corporate</xsl:with-param>
                 <xsl:with-param name="pCorpName" select="$pCorpName"/>
@@ -210,6 +231,8 @@
         </xsl:if>
         <!-- References -->
         <xsl:call-template name="tReferences"/>
+        <!-- Further reading -->
+        <xsl:call-template name="tFurther"/>
         <!-- External links -->
         <xsl:call-template name="tExternalLinks"/>
         <!-- VIAF -->
@@ -435,6 +458,7 @@
         </xsl:for-each>
         <xsl:text>&#10;</xsl:text>
         <xsl:text>{{timeline-end}}</xsl:text>
+        <xsl:text>&#10;</xsl:text>
         <!-- Alternative timeline formatting
         <xsl:choose>
             <xsl:when
@@ -476,7 +500,7 @@
         </xsl:choose> -->
     </xsl:template>
 
-    <!-- Output References ("works about") section. -->
+    <!-- Output "Notes and references" section. Right now, only default reference is to the finding aid we've used, if any. -->
     <xsl:template name="tReferences">
         <xsl:text>&#10;</xsl:text>
         <xsl:text>==Notes and references==</xsl:text>
@@ -488,20 +512,39 @@
                 <xsl:for-each
                     select="eac:eac-cpf/eac:control/eac:sources/eac:source[eac:sourceEntry]">
                     <xsl:text>&#10;</xsl:text>
-                    <xsl:value-of
-                        select="normalize-space(substring-after(eac:objectXMLWrap/ead:eadheader/ead:filedesc/ead:titlestmt/ead:author,'Finding Aid Authors: '))"/>
-                    <xsl:text> "[</xsl:text>
+                    <xsl:choose>
+                        <xsl:when
+                            test="normalize-space(substring-after(eac:objectXMLWrap/ead:eadheader/ead:filedesc/ead:titlestmt/ead:author,'Finding Aid Authors:'))">
+                            <xsl:value-of
+                                select="normalize-space(substring-after(eac:objectXMLWrap/ead:eadheader/ead:filedesc/ead:titlestmt/ead:author,'Finding Aid Authors:'))"/>
+                            <xsl:text>"[</xsl:text>
+                        </xsl:when>
+                        <xsl:otherwise>
+                            <xsl:text>"[</xsl:text>
+                        </xsl:otherwise>
+                    </xsl:choose>
                     <xsl:value-of select="normalize-space(@xlink:href)"/>
                     <xsl:text>#bioghist </xsl:text>
                     <xsl:value-of select="normalize-space(eac:sourceEntry)"/>
-                    <xsl:text>]," Miami, FL: University of Miami Libraries, [YYYY].</xsl:text>
+                    <xsl:text>]," </xsl:text>
+                    <xsl:value-of select="$pFindingAidInfo"/>
                     <xsl:text>&#10;</xsl:text>
                 </xsl:for-each>
             </xsl:when>
+            <xsl:otherwise> </xsl:otherwise>
+        </xsl:choose>
+    </xsl:template>
+
+    <!-- Output "Further reading" ("works about") section.  -->
+    <xsl:template name="tFurther">
+        <xsl:text>&#10;</xsl:text>
+        <xsl:text>==Further reading==</xsl:text>
+        <xsl:text>&#10;</xsl:text>
+        <xsl:choose>
             <xsl:when
-                test="eac:eac-cpf/eac:cpfDescription/eac:relations/eac:resourceRelation[@resourceRelationType='referencedIn' and @xlink:role='resource']">
+                test="eac:eac-cpf/eac:cpfDescription/eac:relations/eac:resourceRelation[@resourceRelationType='subjectOf' and @xlink:role='resource']">
                 <xsl:for-each
-                    select="eac:eac-cpf/eac:cpfDescription/eac:relations/eac:resourceRelation[@resourceRelationType='referencedIn' and @xlink:role='resource']">
+                    select="eac:eac-cpf/eac:cpfDescription/eac:relations/eac:resourceRelation[@resourceRelationType='subjectOf' and @xlink:role='resource']">
                     <xsl:sort
                         select="translate(eac:relationEntry[@localType='creator'],'ÁÀÉÈÍÓÚÜÑáàéèíóúúüñ','AAEEIOUUNaaeeiouuun')"
                         data-type="text"/>
@@ -611,7 +654,7 @@
         </xsl:choose>
     </xsl:template>
 
-    <!-- Output Bibliography ("works by") section. -->
+    <!-- Output "Works or publications" ("works by") section. -->
     <xsl:template name="tPub">
         <xsl:text>&#10;</xsl:text>
         <xsl:text>==Works or publications==</xsl:text>
@@ -678,7 +721,7 @@
         </xsl:choose>
     </xsl:template>
 
-    <!-- Output External links section. -->
+    <!-- Output "External links" section. -->
     <xsl:template name="tExternalLinks">
         <xsl:text>&#10;</xsl:text>
         <xsl:text>==External links==</xsl:text>
@@ -758,7 +801,7 @@
         </xsl:choose>
     </xsl:template>
 
-    <!-- Get VIAF ID and/or LCCN, if available. -->
+    <!-- Output VIAF ID and/or LCCN, if available. -->
     <xsl:template name="tVIAF">
         <xsl:choose>
             <xsl:when
@@ -778,6 +821,18 @@
                                     <xsl:variable name="lccn"
                                         select="substring-after(../../../eac:otherRecordId[@localType='WCI:LCCN'],'lccn-no')"/>
                                     <xsl:value-of select="concat('no/',translate($lccn,'-','/'))"/>
+                                </xsl:when>
+                                <xsl:when
+                                    test="contains(../../../eac:otherRecordId[@localType='WCI:LCCN'],'nr')">
+                                    <xsl:variable name="lccn"
+                                        select="substring-after(../../../eac:otherRecordId[@localType='WCI:LCCN'],'lccn-nr')"/>
+                                    <xsl:value-of select="concat('nr/',translate($lccn,'-','/'))"/>
+                                </xsl:when>
+                                <xsl:when
+                                    test="contains(../../../eac:otherRecordId[@localType='WCI:LCCN'],'sh')">
+                                    <xsl:variable name="lccn"
+                                        select="substring-after(../../../eac:otherRecordId[@localType='WCI:LCCN'],'lccn-sh')"/>
+                                    <xsl:value-of select="concat('sh/',translate($lccn,'-','/'))"/>
                                 </xsl:when>
                                 <xsl:otherwise>
                                     <xsl:variable name="lccn"
@@ -824,7 +879,7 @@
         </xsl:choose>
     </xsl:template>
 
-    <!-- Parse PersonDate template. -->
+    <!-- Output PersonDate template. -->
     <xsl:template name="tPersonData">
         <xsl:param name="pPersName" select="$pPersName"/>
         <xsl:text>&#10;</xsl:text>
@@ -932,14 +987,18 @@
             <xsl:text> deaths]]</xsl:text>
             <xsl:text>&#10;</xsl:text>
             <xsl:if
-                test="eac:eac-cpf/eac:cpfDescription/eac:description/eac:localDescription[@localType[contains(.,'6')]]">
-                <xsl:text>&lt;!-- Note: the following categories have been generated using FAST headings added from WorldCat Identities. These categories should be replaced with appropriate Wikipedia categories using the HotCat tool.</xsl:text>
+                test="eac:eac-cpf/eac:cpfDescription/eac:description/child::node()[@localType[contains(.,'6')]]">
+                <xsl:text>&#10;</xsl:text>
+                <xsl:text>&lt;!-- Note: the following categories have been generated from the original EAD finding aid or using FAST headings added from WorldCat Identities. These categories should be replaced with appropriate Wikipedia categories (for example, using the HotCat tool).</xsl:text>
                 <xsl:text>&#10;</xsl:text>
                 <xsl:text>&#10;</xsl:text>
                 <xsl:for-each
-                    select="eac:eac-cpf/eac:cpfDescription/eac:description/eac:localDescription[@localType[contains(.,'6')]]">
+                    select="eac:eac-cpf/eac:cpfDescription/eac:description/child::node()[@localType[contains(.,'6')]]">
+                    <xsl:sort
+                        select="translate(eac:term,'ÁÀÉÈÍÓÚÜÑáàéèíóúúüñ','AAEEIOUUNaaeeiouuun')"
+                        data-type="text"/>
                     <xsl:text>[[Category:</xsl:text>
-                    <xsl:value-of select="normalize-space(.)"/>
+                    <xsl:value-of select="normalize-space(eac:term)"/>
                     <xsl:text>]]</xsl:text>
                     <xsl:text>&#10;</xsl:text>
                 </xsl:for-each>
@@ -1009,8 +1068,8 @@
         </xsl:if>
     </xsl:template>
 
-    <!-- Temporarily, provide a list of cpfRelations so that users can explore possibilities for links from other pages. 
-         NB: Experimental. This is an area to developed. -->
+    <!-- Temporarily, provide a list of related enties from subject headings or cpfRelations so that users can explore possibilities for links from other pages. 
+         NB: This is an area to developed. -->
     <xsl:template name="tRelations">
         <xsl:param name="pNameType"/>
         <xsl:text>&#10;</xsl:text>
@@ -1023,10 +1082,7 @@
                     <xsl:with-param name="pNameType">person</xsl:with-param>
                     <xsl:with-param name="pPersName" select="$pPersName"/>
                 </xsl:call-template>
-                <xsl:text> may be associated with the following entities. These names were extracted from the &lt;cpfRelation&gt; elements in the EAC-CPF record and may be useful for creating links to this page from other Wikipedia pages. Some names may be duplicates; however, different name forms can useful for testing whether an entity has an existing page on Wikipedia.</xsl:text>
-                <xsl:text>&#10;</xsl:text>
-                <xsl:text>&#10;</xsl:text>
-                <xsl:text>Uncomment this section to see whether these entities have existing Wikipedia pages.</xsl:text>
+                <xsl:text> may be associated with the following entities. These names were extracted from appropriate subject headings or from the &lt;cpfRelation&gt; elements in the EAC-CPF record. They may be useful for creating links to this page from other Wikipedia pages. Some names may be duplicates; however, different name forms can useful for testing whether an entity has an existing page on Wikipedia.</xsl:text>
                 <xsl:text>&#10;</xsl:text>
                 <xsl:text>&#10;</xsl:text>
                 <xsl:text>The 'See also' section should not link to pages that do not exist (red links) nor to disambiguation pages (unless used for further disambiguation in a disambiguation page).</xsl:text>
@@ -1037,9 +1093,24 @@
                 <xsl:text>&#10;</xsl:text>
                 <xsl:text>[[Related person]]—made a similar achievement on April 4, 2005</xsl:text>
                 <xsl:text>&#10;</xsl:text>
-                <xsl:text> --&gt;</xsl:text>
+                <xsl:text>--&gt;</xsl:text>
                 <xsl:text>&#10;</xsl:text>
                 <xsl:text>&#10;</xsl:text>
+                <xsl:for-each
+                    select="eac:eac-cpf/eac:cpfDescription/eac:description/eac:localDescription">
+                    <xsl:sort
+                        select="translate(eac:term,'ÁÀÉÈÍÓÚÜÑáàéèíóúúüñ','AAEEIOUUNaaeeiouuun')"
+                        data-type="text"/>
+                    <xsl:if test="contains(@localType,'610') or contains(@localType,'7')">
+                        <xsl:text>*[[</xsl:text>
+                        <xsl:call-template name="tParseName2">
+                            <xsl:with-param name="pNameType">person</xsl:with-param>
+                            <xsl:with-param name="pPersName" select="eac:term"/>
+                        </xsl:call-template>
+                        <xsl:text>]]</xsl:text>
+                        <xsl:text>&#10;</xsl:text>
+                    </xsl:if>
+                </xsl:for-each>
                 <xsl:for-each select="eac:eac-cpf/eac:cpfDescription/eac:relations/eac:cpfRelation">
                     <xsl:sort
                         select="translate(eac:relationEntry[1],'ÁÀÉÈÍÓÚÜÑáàéèíóúúüñ','AAEEIOUUNaaeeiouuun')"
@@ -1123,7 +1194,7 @@
         </xsl:choose>
     </xsl:template>
 
-    <!-- Parse Infobox names and related info. -->
+    <!-- Template for parsing Infobox names and related info. -->
     <xsl:template name="tParseName">
         <xsl:param name="pNameType"/>
         <xsl:param name="pPersName" select="$pPersName"/>
@@ -1298,13 +1369,16 @@
         </xsl:if>
     </xsl:template>
 
-    <!-- Parse names for the article lede. -->
+    <!-- General template for parsing names and dates. -->
     <xsl:template name="tParseName2">
         <xsl:param name="pNameType"/>
         <xsl:param name="pPersName"/>
         <xsl:param name="pCorpName"/>
         <!-- Parse names for people first. -->
         <xsl:if test="$pNameType='person'">
+            <!-- Set variables to strip trailing period. -->
+            <xsl:variable name="vPersNameLength" select="string-length($pPersName)"/>
+            <xsl:variable name="vPersNameVal" select="substring($pPersName,$vPersNameLength)"/>
             <xsl:choose>
                 <!-- If the name contains dates ... -->
                 <xsl:when
@@ -1312,9 +1386,33 @@
                     <!-- ... then reverse the order of the name parts accordingly. -->
                     <xsl:choose>
                         <xsl:when
-                            test="contains(substring-after(normalize-space($pPersName),', '), ' ') and not(contains(substring-after(normalize-space($pPersName),', '), ', '))">
+                            test="contains(substring-after(normalize-space($pPersName),', '), ' ') and not(contains(substring-after(normalize-space($pPersName),', '), ', ')) and not(contains(substring-after(normalize-space($pPersName),', '), ' b ')) and not(contains(substring-after(normalize-space($pPersName),', '), ' b. '))">
                             <xsl:value-of
                                 select="substring-before(substring-after(normalize-space($pPersName),', '),' ')"/>
+                            <xsl:text> </xsl:text>
+                            <xsl:value-of
+                                select="substring-before(normalize-space($pPersName),', ')"/>
+                        </xsl:when>
+                        <xsl:when
+                            test="contains(substring-after(normalize-space($pPersName),', '), ' b. ') and not(contains(substring-after(normalize-space($pPersName),', '), ', '))">
+                            <xsl:value-of
+                                select="substring-before(substring-after(normalize-space($pPersName),', '),' b. ')"/>
+                            <xsl:text> </xsl:text>
+                            <xsl:value-of
+                                select="substring-before(normalize-space($pPersName),', ')"/>
+                        </xsl:when>
+                        <xsl:when
+                            test="contains(substring-after(normalize-space($pPersName),', '), ' b ') and not(contains(substring-after(normalize-space($pPersName),', '), ', '))">
+                            <xsl:value-of
+                                select="substring-before(substring-after(normalize-space($pPersName),', '),' b ')"/>
+                            <xsl:text> </xsl:text>
+                            <xsl:value-of
+                                select="substring-before(normalize-space($pPersName),', ')"/>
+                        </xsl:when>
+                        <xsl:when
+                            test="contains(substring-after(normalize-space($pPersName),', '), ', b ')">
+                            <xsl:value-of
+                                select="substring-before(substring-after(normalize-space($pPersName),', '),', b ')"/>
                             <xsl:text> </xsl:text>
                             <xsl:value-of
                                 select="substring-before(normalize-space($pPersName),', ')"/>
@@ -1344,7 +1442,18 @@
                     <!-- If the name does not include dates ... -->
                     <xsl:choose>
                         <xsl:when test="contains($pPersName,', ')">
-                            <xsl:value-of select="substring-after(normalize-space($pPersName),', ')"/>
+                            <!-- Strip any trailing period. -->
+                            <xsl:choose>
+                                <xsl:when test="substring($pPersName,$vPersNameLength)='.'">
+                                    <xsl:value-of
+                                        select="substring-after(substring-before(normalize-space($pPersName),$vPersNameVal),', ')"
+                                    />
+                                </xsl:when>
+                                <xsl:otherwise>
+                                    <xsl:value-of
+                                        select="substring-after(normalize-space($pPersName),', ')"/>
+                                </xsl:otherwise>
+                            </xsl:choose>
                             <xsl:text> </xsl:text>
                             <xsl:value-of
                                 select="substring-before(normalize-space($pPersName),', ')"/>
@@ -1364,7 +1473,7 @@
         </xsl:if>
     </xsl:template>
 
-    <!-- Parse names for links to library discovery service. Spaces must be translated for Wikipedia to recognize the link. -->
+    <!-- Template for parse names in external link to library discovery service. Blank space must be translated to "+" in order for Wikipedia to recognize the link. -->
     <xsl:template name="tParseName3">
         <xsl:param name="pNameType"/>
         <xsl:param name="pCorpName"/>
@@ -1465,7 +1574,7 @@
         </xsl:if>
     </xsl:template>
 
-    <!-- If the name contains a four-digit number (we assume a date)... -->
+    <!-- Template for parsing names and dates of main entity. -->
     <xsl:template name="tNameDateParser">
         <xsl:param name="pBirthYr"/>
         <xsl:param name="pDeathYr"/>

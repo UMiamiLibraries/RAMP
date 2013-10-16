@@ -98,10 +98,10 @@ if(isset($_POST['action']))
 				setcookie( 'ramp_wiki_li', '1', 0, Wikiator::getEacBase() );
 				setcookie( 'ramp_wiki_un', $_POST['username'], 0, Wikiator::getEacBase() );
 
-				echo "Login Successful!";
+				echo "Login successful!";
 			}else
 			{
-				echo "Login Failed!";
+				echo "Login failed!";
 			}
 			break;
 		case 'logout':

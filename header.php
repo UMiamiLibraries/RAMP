@@ -50,7 +50,7 @@ include('conf/includes.php');
 	<li id="ead_convert" class='menu_slice'><a href="ead_convert.php">Convert</a></li>
         <li><img src="style/images/edit_white.png" width="24px" height="24px"></img></li>
 
-	<li id="eac_edit" class="menu_slice"><a href="#">Edit</a></li>
+	<li id="eac_edit" class="menu_slice"><a href="#">View / Edit</a></li>
         <li><img src="style/images/new_white.png" width="24px" height="24px"></img></li>
 
 	<li id="new_eac" class="menu_slice"><a href="new_eac.php">New</a></li>
