@@ -495,9 +495,16 @@
                 <xsl:for-each
                     select="eac:eac-cpf/eac:control/eac:sources/eac:source[eac:sourceEntry]">
                     <xsl:text>&#10;</xsl:text>
-                    <xsl:value-of
-                        select="normalize-space(substring-after(eac:objectXMLWrap/ead:eadheader/ead:filedesc/ead:titlestmt/ead:author,'Finding Aid Authors: '))"/>
-                    <xsl:text> "[</xsl:text>
+                    <xsl:choose>
+                        <xsl:when test="normalize-space(substring-after(eac:objectXMLWrap/ead:eadheader/ead:filedesc/ead:titlestmt/ead:author,'Finding Aid Authors:'))">
+                            <xsl:value-of
+                                select="normalize-space(substring-after(eac:objectXMLWrap/ead:eadheader/ead:filedesc/ead:titlestmt/ead:author,'Finding Aid Authors:'))"/>
+                            <xsl:text>"[</xsl:text>
+                        </xsl:when>
+                        <xsl:otherwise>
+                            <xsl:text>"[</xsl:text>
+                        </xsl:otherwise>
+                    </xsl:choose>                                        
                     <xsl:value-of select="normalize-space(@xlink:href)"/>
                     <xsl:text>#bioghist </xsl:text>
                     <xsl:value-of select="normalize-space(eac:sourceEntry)"/>
