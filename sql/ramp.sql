@@ -134,7 +134,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = '' */ ;
 DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `get_wiki`(IN ead_xml_path VARCHAR(200))
+CREATE PROCEDURE `get_wiki`(IN ead_xml_path VARCHAR(200))
     DETERMINISTIC
 BEGIN
 SELECT eac_id from eac WHERE ead_file LIKE  CONCAT("%",ead_xml_path,"%") INTO @eac_id;
@@ -155,11 +155,11 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = '' */ ;
 DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `insert_wiki`(IN wikitext MEDIUMTEXT, IN ead_xml_path VARCHAR(200))
+CREATE PROCEDURE `insert_wiki`(IN wikitext MEDIUMTEXT, IN ead_xml_path VARCHAR(200))
     DETERMINISTIC
 BEGIN
 SELECT eac_id from eac WHERE ead_file LIKE  CONCAT("%",ead_xml_path,"%") INTO @eac_id;
-INSERT INTO ead_eac.mediawiki (wiki_text,eac_id) VALUES (wikitext, @eac_id) 
+INSERT INTO ead_eac.mediawiki (wiki_text,eac_id) VALUES (wikitext, @eac_id)
 ON DUPLICATE KEY UPDATE mediawiki.wiki_text = wikitext;
 END ;;
 DELIMITER ;
@@ -177,7 +177,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = '' */ ;
 DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `update_wiki`(IN wikitext MEDIUMTEXT, IN ead_xml_path VARCHAR(200))
+CREATE PROCEDURE `update_wiki`(IN wikitext MEDIUMTEXT, IN ead_xml_path VARCHAR(200))
     DETERMINISTIC
 BEGIN
 SELECT eac_id from eac WHERE ead_file LIKE  CONCAT("%",ead_xml_path,"%") INTO @eac_id;
