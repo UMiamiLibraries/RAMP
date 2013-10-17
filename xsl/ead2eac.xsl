@@ -1690,7 +1690,7 @@
                                 <xsl:value-of
                                     select="normalize-space(ead:unitdate[@type='inclusive'])"/>
                                 <xsl:if test="ead:unitdate[@type='bulk']">
-                                    <xsl:text>; </xsl:text>
+                                    <xsl:text> </xsl:text>
                                     <xsl:value-of
                                         select="normalize-space(ead:unitdate[@type='bulk'])"/>
                                 </xsl:if>
