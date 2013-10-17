@@ -119,8 +119,7 @@
         <xsl:if
             test="eac:eac-cpf/eac:cpfDescription/eac:relations/eac:cpfRelation | eac:eac-cpf/eac:cpfDescription/eac:description/eac:localDescription[@localType[contains(.,'7')]] | eac:eac-cpf/eac:cpfDescription/eac:description/eac:localDescription[@localType[contains(.,'610')]]">
             <xsl:call-template name="tRelations">
-                <xsl:with-param name="pNameType">person</xsl:with-param>
-                <xsl:with-param name="pPersName" select="$pPersName"/>
+                <xsl:with-param name="pNameType">person</xsl:with-param>                
             </xsl:call-template>
         </xsl:if>
         <!-- References -->
@@ -1123,11 +1122,20 @@
                     <xsl:sort
                         select="translate(eac:term,'ÁÀÉÈÍÓÚÜÑáàéèíóúúüñ','AAEEIOUUNaaeeiouuun')"
                         data-type="text"/>
-                    <xsl:if test="contains(@localType,'610') or contains(@localType,'7')">
+                    <xsl:if test="contains(@localType,'7')">
                         <xsl:text>*[[</xsl:text>
                         <xsl:call-template name="tParseName2">
                             <xsl:with-param name="pNameType">person</xsl:with-param>
                             <xsl:with-param name="pPersName" select="eac:term"/>
+                        </xsl:call-template>
+                        <xsl:text>]]</xsl:text>
+                        <xsl:text>&#10;</xsl:text>
+                    </xsl:if>
+                    <xsl:if test="contains(@localType,'610')">
+                        <xsl:text>*[[</xsl:text>
+                        <xsl:call-template name="tParseName2">
+                            <xsl:with-param name="pNameType">corporate</xsl:with-param>
+                            <xsl:with-param name="pCorpName" select="eac:term"/>
                         </xsl:call-template>
                         <xsl:text>]]</xsl:text>
                         <xsl:text>&#10;</xsl:text>
