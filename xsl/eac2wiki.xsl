@@ -282,8 +282,30 @@
         <xsl:choose>
             <xsl:when
                 test="/eac:eac-cpf/eac:cpfDescription/eac:description/eac:occupation/eac:term != ''">
-                <xsl:value-of
-                    select="normalize-space(/eac:eac-cpf/eac:cpfDescription/eac:description/eac:occupation/eac:term)"/>
+                <xsl:for-each select="/eac:eac-cpf/eac:cpfDescription/eac:description/eac:occupation">
+                    <xsl:variable name="vOccupationLen" select="string-length(eac:term)"/>
+                    <xsl:variable name="vOccupation-1" select="substring(eac:term,$vOccupationLen,$vOccupationLen)"/>
+                    <xsl:choose>
+                        <xsl:when test="position()!=last()">
+                            <xsl:choose>
+                                <xsl:when test="$vOccupation-1='.'">
+                                    <xsl:value-of
+                                        select="normalize-space(eac:term)"/>
+                                    <xsl:text> </xsl:text>        
+                                </xsl:when>
+                                <xsl:otherwise>
+                                    <xsl:value-of
+                                        select="normalize-space(eac:term)"/>
+                                    <xsl:text>; </xsl:text>                                    
+                                </xsl:otherwise>
+                            </xsl:choose>                            
+                        </xsl:when>
+                        <xsl:otherwise>
+                            <xsl:value-of
+                                select="normalize-space(eac:term)"/>                            
+                        </xsl:otherwise>
+                    </xsl:choose>                                        
+                </xsl:for-each>                
                 <xsl:text>&#10;</xsl:text>
             </xsl:when>
             <xsl:otherwise>
