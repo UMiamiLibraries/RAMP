@@ -50,6 +50,24 @@
 
     <xsl:variable name="vQuote">"</xsl:variable>
 
+    <xsl:variable name="vDates"
+        select="string-length(translate(normalize-space(ead:ead/ead:archdesc/ead:did/ead:origination/child::node()[1]),
+        concat($vAlpha,$vCommaSpace),''))"/>
+    <xsl:variable name="vNameStringLen"
+        select="string-length(normalize-space(ead:ead/ead:archdesc/ead:did/ead:origination/child::node()[1]))"/>
+    <xsl:variable name="vNameString"
+        select="substring(normalize-space(ead:ead/ead:archdesc/ead:did/ead:origination/child::node()[1]),1,$vNameStringLen)"/>
+    <xsl:variable name="vNameString-1"
+        select="substring(normalize-space(ead:ead/ead:archdesc/ead:did/ead:origination/child::node()[1]),$vNameStringLen, $vNameStringLen)"/>
+    <xsl:variable name="vNameString-6"
+        select="substring(normalize-space(ead:ead/ead:archdesc/ead:did/ead:origination/child::node()[1]),1,$vNameStringLen -6)"/>
+    <xsl:variable name="vNameString-8"
+        select="substring(normalize-space(ead:ead/ead:archdesc/ead:did/ead:origination/child::node()[1]),1,$vNameStringLen -8)"/>
+    <xsl:variable name="vNameString-10"
+        select="substring(normalize-space(ead:ead/ead:archdesc/ead:did/ead:origination/child::node()[1]),1,$vNameStringLen -10)"/>
+    <xsl:variable name="vNameString-12"
+        select="substring(normalize-space(ead:ead/ead:archdesc/ead:did/ead:origination/child::node()[1]),1,$vNameStringLen -12)"/>
+
     <xsl:strip-space elements="*"/>
     <xsl:output method="xml" encoding="UTF-8" indent="yes"/>
 
@@ -306,52 +324,43 @@
                         test="string-length(translate(normalize-space(ead:ead/ead:archdesc/ead:did/ead:origination/child::node()[1]),
                         concat($vAlpha,$vCommaSpace),''))&gt;=4">
                         <part>
-                            <!-- Handle name strings with parentheses. -->
                             <xsl:choose>
-                                <xsl:when
-                                    test="contains(normalize-space(ead:ead/ead:archdesc/ead:did/ead:origination/child::node()[1]),', (')">
-                                    <xsl:value-of
-                                        select="normalize-space(concat(substring-before(normalize-space(ead:ead/ead:archdesc/ead:did/ead:origination/child::node()[1]),', '),', ',
-                                        substring-before(substring-after(normalize-space(ead:ead/ead:archdesc/ead:did/ead:origination/child::node()[1]),', '),', (')))"
-                                    />
-                                </xsl:when>
-                                <xsl:when
-                                    test="contains(normalize-space(ead:ead/ead:archdesc/ead:did/ead:origination/child::node()[1]),',(')">
-                                    <xsl:value-of
-                                        select="normalize-space(concat(substring-before(normalize-space(ead:ead/ead:archdesc/ead:did/ead:origination/child::node()[1]),', '),', ',
-                                        substring-before(substring-after(normalize-space(ead:ead/ead:archdesc/ead:did/ead:origination/child::node()[1]),', '),',(')))"
-                                    />
-                                </xsl:when>
-                                <xsl:when
-                                    test="contains(normalize-space(ead:ead/ead:archdesc/ead:did/ead:origination/child::node()[1]),' (')">
-                                    <xsl:value-of
-                                        select="normalize-space(concat(substring-before(normalize-space(ead:ead/ead:archdesc/ead:did/ead:origination/child::node()[1]),', '),', ',
-                                        substring-before(substring-after(normalize-space(ead:ead/ead:archdesc/ead:did/ead:origination/child::node()[1]),', '),' (')))"
-                                    />
-                                </xsl:when>
-                                <xsl:when
-                                    test="contains(normalize-space(ead:ead/ead:archdesc/ead:did/ead:origination/child::node()[1]),'(')">
-                                    <xsl:value-of
-                                        select="normalize-space(concat(substring-before(normalize-space(ead:ead/ead:archdesc/ead:did/ead:origination/child::node()[1]),', '),', ',
-                                        substring-before(substring-after(normalize-space(ead:ead/ead:archdesc/ead:did/ead:origination/child::node()[1]),', '),'(')))"
-                                    />
-                                </xsl:when>
-                                <xsl:otherwise>
+                                <xsl:when test="$vDates=8">
                                     <xsl:choose>
-                                        <xsl:when
-                                            test="substring-before(substring-after(normalize-space(ead:ead/ead:archdesc/ead:did/ead:origination/child::node()[1]),', '),', ')">
+                                        <xsl:when test="$vNameString-1=')'">
                                             <xsl:value-of
-                                                select="normalize-space(concat(substring-before(normalize-space(ead:ead/ead:archdesc/ead:did/ead:origination/child::node()[1]),', '),', ',
-                                                substring-before(substring-after(normalize-space(ead:ead/ead:archdesc/ead:did/ead:origination/child::node()[1]),', '),', ')))"
-                                            />
+                                                select="substring-before($vNameString-10,',')"/>
+                                            <xsl:text>, </xsl:text>
+                                            <xsl:value-of
+                                                select="substring-after($vNameString-12,', ')"/>
                                         </xsl:when>
                                         <xsl:otherwise>
                                             <xsl:value-of
-                                                select="normalize-space(substring-before(normalize-space(ead:ead/ead:archdesc/ead:did/ead:origination/child::node()[1]),', '))"
-                                            />
-                                        </xsl:otherwise>
+                                                select="substring-before($vNameString-10,',')"/>
+                                            <xsl:text>, </xsl:text>
+                                            <xsl:value-of
+                                                select="substring-after($vNameString-10,', ')"/>
+                                        </xsl:otherwise>                                        
                                     </xsl:choose>
-                                </xsl:otherwise>
+                                </xsl:when>
+                                <xsl:when test="$vDates=4">
+                                    <xsl:choose>
+                                        <xsl:when test="$vNameString-1=')'">
+                                            <xsl:value-of
+                                                select="substring-before($vNameString-6,',')"/>
+                                            <xsl:text>, </xsl:text>
+                                            <xsl:value-of
+                                                select="substring-after($vNameString-8,', ')"/>
+                                        </xsl:when>
+                                        <xsl:otherwise>
+                                            <xsl:value-of
+                                                select="substring-before($vNameString-6,',')"/>
+                                            <xsl:text>, </xsl:text>
+                                            <xsl:value-of
+                                                select="substring-after($vNameString-6,', ')"/>
+                                        </xsl:otherwise>                                        
+                                    </xsl:choose>
+                                </xsl:when>
                             </xsl:choose>
                         </part>
                     </xsl:when>
@@ -438,7 +447,8 @@
             </xsl:if>
 
             <!-- Process subject headings (to be developmed further). -->
-            <xsl:for-each select="ead:ead/ead:archdesc/ead:controlaccess/ead:controlaccess/child::node()[local-name()!='head' and local-name()!='note' and local-name()!='p']">
+            <xsl:for-each
+                select="ead:ead/ead:archdesc/ead:controlaccess/ead:controlaccess/child::node()[local-name()!='head' and local-name()!='note' and local-name()!='p']">
                 <xsl:choose>
                     <xsl:when test="@encodinganalog='700'">
                         <localDescription localType="700">
@@ -1078,7 +1088,8 @@
                                                   </xsl:for-each>
                                                 </xsl:when>
                                                 <xsl:otherwise>
-                                                    <xsl:value-of select="normalize-space(ead:event)"/>
+                                                  <xsl:value-of select="normalize-space(ead:event)"
+                                                  />
                                                 </xsl:otherwise>
                                             </xsl:choose>
                                         </event>
@@ -1721,71 +1732,17 @@
                         <!-- Output the birth year, if exists. -->
                         <xsl:if test="substring-before($pName,'-')">
                             <xsl:element name="fromDate" namespace="urn:isbn:1-931666-33-4">
-                                <xsl:choose>
-                                    <xsl:when test="contains($pName,', (')">
-                                        <xsl:value-of
-                                            select="normalize-space(substring-before(substring-after(substring-after($pName,', '),', ('),'-'))"
-                                        />
-                                    </xsl:when>
-                                    <xsl:when test="contains($pName,',(')">
-                                        <xsl:value-of
-                                            select="normalize-space(substring-before(substring-after(substring-after($pName,', '),',('),'-'))"
-                                        />
-                                    </xsl:when>
-                                    <xsl:when test="contains($pName,' (')">
-                                        <xsl:value-of
-                                            select="normalize-space(substring-before(substring-after(substring-after($pName,', '),' ('),'-'))"
-                                        />
-                                    </xsl:when>
-                                    <xsl:when test="contains($pName,'(')">
-                                        <xsl:value-of
-                                            select="normalize-space(substring-before(substring-after(substring-after($pName,', '),'('),'-'))"
-                                        />
-                                    </xsl:when>
-                                    <xsl:when
-                                        test="substring-after(substring-after(substring-before($pName,'-'),', '),', ')">
-                                        <xsl:value-of
-                                            select="normalize-space(substring-before(substring-after(substring-after($pName,', '),', '),'-'))"
-                                        />
-                                    </xsl:when>
-                                    <xsl:when
-                                        test="substring-after(substring-after(substring-before($pName,'-'),', '),' ')">
-                                        <xsl:value-of
-                                            select="normalize-space(substring-before(substring-after(substring-after($pName,', '),' '),'-'))"
-                                        />
-                                    </xsl:when>
-                                    <xsl:otherwise>
-                                        <xsl:choose>
-                                            <xsl:when
-                                                test="normalize-space(substring-before(substring-after($pName,', '),'-'))">
-                                                <xsl:value-of
-                                                  select="normalize-space(substring-before(substring-after($pName,', '),'-'))"
-                                                />
-                                            </xsl:when>
-                                            <xsl:otherwise>
-                                                <xsl:value-of
-                                                  select="normalize-space(substring-before(substring-after(substring-after($pName,', '),', '),'-'))"
-                                                />
-                                            </xsl:otherwise>
-                                        </xsl:choose>
-                                    </xsl:otherwise>
-                                </xsl:choose>
+                                <xsl:value-of
+                                    select="translate(substring-before($pName,'-'),concat($vAlpha,$vCommaSpace),'')"
+                                />
                             </xsl:element>
                         </xsl:if>
                         <!-- Output the death year, if exists. -->
                         <xsl:if test="substring-after($pName,'-')">
                             <xsl:element name="toDate" namespace="urn:isbn:1-931666-33-4">
-                                <xsl:choose>
-                                    <xsl:when test="contains($pName,')')">
-                                        <xsl:value-of
-                                            select="normalize-space(substring-before(substring-after($pName,'-'),')'))"
-                                        />
-                                    </xsl:when>
-                                    <xsl:otherwise>
-                                        <xsl:value-of
-                                            select="normalize-space(substring-after($pName,'-'))"/>
-                                    </xsl:otherwise>
-                                </xsl:choose>
+                                <xsl:value-of
+                                    select="translate(substring-after($pName,'-'),concat($vAlpha,$vCommaSpace),'')"
+                                />
                             </xsl:element>
                         </xsl:if>
                     </xsl:element>
