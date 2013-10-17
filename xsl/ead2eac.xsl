@@ -338,145 +338,154 @@
             <!-- If the first nameEntry contains a four-digit number (we assume a date)... -->
             <nameEntry xmlns="urn:isbn:1-931666-33-4">                                    
                 <xsl:choose>
-                    <xsl:when
-                        test="string-length(translate(normalize-space(ead:ead/ead:archdesc/ead:did/ead:origination/child::node()[1]),
-                        concat($vAlpha,$vCommaSpace),''))&gt;=4">
+                    <xsl:when test="ead:ead/ead:archdesc/ead:did/ead:origination/child::node()[1]/@normal">
                         <part>
-                            <xsl:choose>
-                                <xsl:when test="$vDates=8">
-                                    <xsl:choose>
-                                        <xsl:when test="$vNameString-1=')'">
-                                            <xsl:value-of
-                                                select="substring-before($vNameString-10,',')"/>
-                                            <xsl:text>, </xsl:text>
-                                            <xsl:choose>
-                                                <xsl:when
-                                                  test="contains(substring-after($vNameString-12,', '),',')">
-                                                  <xsl:value-of
-                                                  select="substring-before(substring-after($vNameString-12,', '),',')"
-                                                  />
-                                                </xsl:when>
-                                                <xsl:otherwise>
-                                                  <xsl:value-of
-                                                  select="substring-after($vNameString-12,', ')"/>
-                                                </xsl:otherwise>
-                                            </xsl:choose>
-                                        </xsl:when>
-                                        <xsl:otherwise>
-                                            <xsl:value-of
-                                                select="substring-before($vNameString-10,',')"/>
-                                            <xsl:text>, </xsl:text>
-                                            <xsl:choose>
-                                                <xsl:when
-                                                  test="contains(substring-after($vNameString-10,', '),',')">
-                                                  <xsl:value-of
-                                                  select="substring-before(substring-after($vNameString-10,', '),',')"
-                                                  />
-                                                </xsl:when>
-                                                <xsl:otherwise>
-                                                  <xsl:value-of
-                                                  select="substring-after($vNameString-10,', ')"/>
-                                                </xsl:otherwise>
-                                            </xsl:choose>
-                                        </xsl:otherwise>
-                                    </xsl:choose>
-                                </xsl:when>
-                                <xsl:when test="$vDates=4 or $vDates=5">
-                                    <xsl:choose>
-                                        <xsl:when test="$vNameString-1=')'">
-                                            <xsl:value-of
-                                                select="substring-before($vNameString-6,',')"/>
-                                            <xsl:text>, </xsl:text>
-                                            <xsl:choose>
-                                                <xsl:when
-                                                  test="contains(substring-after($vNameString-8,', '),',')">
-                                                  <xsl:choose>
-                                                  <xsl:when test="contains($vNameString,' b. ')">
-                                                  <xsl:value-of
-                                                  select="substring-after(substring-before($vNameString,', b. '),', ')"
-                                                  />
-                                                  </xsl:when>
-                                                  <xsl:when test="contains($vNameString,' b ')">
-                                                  <xsl:value-of
-                                                  select="substring-after(substring-before($vNameString,', b '),', ')"
-                                                  />
-                                                  </xsl:when>
-                                                  <xsl:when test="contains($vNameString,' d. ')">
-                                                  <xsl:value-of
-                                                  select="substring-after(substring-before($vNameString,', d. '),', ')"
-                                                  />
-                                                  </xsl:when>
-                                                  <xsl:when test="contains($vNameString,' d ')">
-                                                  <xsl:value-of
-                                                  select="substring-after(substring-before($vNameString,', d '),', ')"
-                                                  />
-                                                  </xsl:when>
-                                                  <xsl:otherwise>
-                                                  <xsl:value-of
-                                                  select="substring-before(substring-after($vNameString-8,', '),',')"
-                                                  />
-                                                  </xsl:otherwise>
-                                                  </xsl:choose>
-                                                </xsl:when>
-                                                <xsl:otherwise>
-                                                  <xsl:value-of
-                                                  select="substring-after($vNameString-8,', ')"/>
-                                                </xsl:otherwise>
-                                            </xsl:choose>
-                                        </xsl:when>
-                                        <xsl:otherwise>
-                                            <xsl:value-of
-                                                select="substring-before($vNameString-6,',')"/>
-                                            <xsl:text>, </xsl:text>
-                                            <xsl:choose>
-                                                <xsl:when
-                                                  test="contains(substring-after($vNameString-6,', '),',')">
-                                                  <xsl:choose>
-                                                  <xsl:when test="contains($vNameString-6,' b. ')">
-                                                  <xsl:value-of
-                                                  select="substring-after(substring-before($vNameString,', b. '),', ')"
-                                                  />
-                                                  </xsl:when>
-                                                  <xsl:when test="contains($vNameString-6,' b ')">
-                                                  <xsl:value-of
-                                                  select="substring-after(substring-before($vNameString,', b '),', ')"
-                                                  />
-                                                  </xsl:when>
-                                                  <xsl:when test="contains($vNameString-6,' d. ')">
-                                                  <xsl:value-of
-                                                  select="substring-after(substring-before($vNameString,', d. '),', ')"
-                                                  />
-                                                  </xsl:when>
-                                                  <xsl:when test="contains($vNameString-6,' d ')">
-                                                  <xsl:value-of
-                                                  select="substring-after(substring-before($vNameString,', d '),', ')"
-                                                  />
-                                                  </xsl:when>
-                                                  <xsl:otherwise>
-                                                  <xsl:value-of
-                                                  select="substring-before(substring-after($vNameString-6,', '),',')"
-                                                  />
-                                                  </xsl:otherwise>
-                                                  </xsl:choose>
-                                                </xsl:when>
-                                                <xsl:otherwise>
-                                                  <xsl:value-of
-                                                  select="substring-after($vNameString-6,', ')"/>
-                                                </xsl:otherwise>
-                                            </xsl:choose>
-                                        </xsl:otherwise>
-                                    </xsl:choose>
-                                </xsl:when>
-                            </xsl:choose>
+                            <xsl:value-of select="ead:ead/ead:archdesc/ead:did/ead:origination/child::node()[1]/@normal"/>
                         </part>
                     </xsl:when>
                     <xsl:otherwise>
-                        <part>
-                            <xsl:value-of
-                                select="normalize-space(ead:ead/ead:archdesc/ead:did/ead:origination/child::node()[1])"
-                            />
-                        </part>
-                    </xsl:otherwise>
+                        <xsl:choose>
+                            <xsl:when
+                                test="string-length(translate(normalize-space(ead:ead/ead:archdesc/ead:did/ead:origination/child::node()[1]),
+                                concat($vAlpha,$vCommaSpace),''))&gt;=4">
+                                <part>
+                                    <xsl:choose>
+                                        <xsl:when test="$vDates=8">
+                                            <xsl:choose>
+                                                <xsl:when test="$vNameString-1=')'">
+                                                    <xsl:value-of
+                                                        select="substring-before($vNameString-10,',')"/>
+                                                    <xsl:text>, </xsl:text>
+                                                    <xsl:choose>
+                                                        <xsl:when
+                                                            test="contains(substring-after($vNameString-12,', '),',')">
+                                                            <xsl:value-of
+                                                                select="substring-before(substring-after($vNameString-12,', '),',')"
+                                                            />
+                                                        </xsl:when>
+                                                        <xsl:otherwise>
+                                                            <xsl:value-of
+                                                                select="substring-after($vNameString-12,', ')"/>
+                                                        </xsl:otherwise>
+                                                    </xsl:choose>
+                                                </xsl:when>
+                                                <xsl:otherwise>
+                                                    <xsl:value-of
+                                                        select="substring-before($vNameString-10,',')"/>
+                                                    <xsl:text>, </xsl:text>
+                                                    <xsl:choose>
+                                                        <xsl:when
+                                                            test="contains(substring-after($vNameString-10,', '),',')">
+                                                            <xsl:value-of
+                                                                select="substring-before(substring-after($vNameString-10,', '),',')"
+                                                            />
+                                                        </xsl:when>
+                                                        <xsl:otherwise>
+                                                            <xsl:value-of
+                                                                select="substring-after($vNameString-10,', ')"/>
+                                                        </xsl:otherwise>
+                                                    </xsl:choose>
+                                                </xsl:otherwise>
+                                            </xsl:choose>
+                                        </xsl:when>
+                                        <xsl:when test="$vDates=4 or $vDates=5">
+                                            <xsl:choose>
+                                                <xsl:when test="$vNameString-1=')'">
+                                                    <xsl:value-of
+                                                        select="substring-before($vNameString-6,',')"/>
+                                                    <xsl:text>, </xsl:text>
+                                                    <xsl:choose>
+                                                        <xsl:when
+                                                            test="contains(substring-after($vNameString-8,', '),',')">
+                                                            <xsl:choose>
+                                                                <xsl:when test="contains($vNameString,' b. ')">
+                                                                    <xsl:value-of
+                                                                        select="substring-after(substring-before($vNameString,', b. '),', ')"
+                                                                    />
+                                                                </xsl:when>
+                                                                <xsl:when test="contains($vNameString,' b ')">
+                                                                    <xsl:value-of
+                                                                        select="substring-after(substring-before($vNameString,', b '),', ')"
+                                                                    />
+                                                                </xsl:when>
+                                                                <xsl:when test="contains($vNameString,' d. ')">
+                                                                    <xsl:value-of
+                                                                        select="substring-after(substring-before($vNameString,', d. '),', ')"
+                                                                    />
+                                                                </xsl:when>
+                                                                <xsl:when test="contains($vNameString,' d ')">
+                                                                    <xsl:value-of
+                                                                        select="substring-after(substring-before($vNameString,', d '),', ')"
+                                                                    />
+                                                                </xsl:when>
+                                                                <xsl:otherwise>
+                                                                    <xsl:value-of
+                                                                        select="substring-before(substring-after($vNameString-8,', '),',')"
+                                                                    />
+                                                                </xsl:otherwise>
+                                                            </xsl:choose>
+                                                        </xsl:when>
+                                                        <xsl:otherwise>
+                                                            <xsl:value-of
+                                                                select="substring-after($vNameString-8,', ')"/>
+                                                        </xsl:otherwise>
+                                                    </xsl:choose>
+                                                </xsl:when>
+                                                <xsl:otherwise>
+                                                    <xsl:value-of
+                                                        select="substring-before($vNameString-6,',')"/>
+                                                    <xsl:text>, </xsl:text>
+                                                    <xsl:choose>
+                                                        <xsl:when
+                                                            test="contains(substring-after($vNameString-6,', '),',')">
+                                                            <xsl:choose>
+                                                                <xsl:when test="contains($vNameString-6,' b. ')">
+                                                                    <xsl:value-of
+                                                                        select="substring-after(substring-before($vNameString,', b. '),', ')"
+                                                                    />
+                                                                </xsl:when>
+                                                                <xsl:when test="contains($vNameString-6,' b ')">
+                                                                    <xsl:value-of
+                                                                        select="substring-after(substring-before($vNameString,', b '),', ')"
+                                                                    />
+                                                                </xsl:when>
+                                                                <xsl:when test="contains($vNameString-6,' d. ')">
+                                                                    <xsl:value-of
+                                                                        select="substring-after(substring-before($vNameString,', d. '),', ')"
+                                                                    />
+                                                                </xsl:when>
+                                                                <xsl:when test="contains($vNameString-6,' d ')">
+                                                                    <xsl:value-of
+                                                                        select="substring-after(substring-before($vNameString,', d '),', ')"
+                                                                    />
+                                                                </xsl:when>
+                                                                <xsl:otherwise>
+                                                                    <xsl:value-of
+                                                                        select="substring-before(substring-after($vNameString-6,', '),',')"
+                                                                    />
+                                                                </xsl:otherwise>
+                                                            </xsl:choose>
+                                                        </xsl:when>
+                                                        <xsl:otherwise>
+                                                            <xsl:value-of
+                                                                select="substring-after($vNameString-6,', ')"/>
+                                                        </xsl:otherwise>
+                                                    </xsl:choose>
+                                                </xsl:otherwise>
+                                            </xsl:choose>
+                                        </xsl:when>
+                                    </xsl:choose>
+                                </part>
+                            </xsl:when>
+                            <xsl:otherwise>
+                                <part>
+                                    <xsl:value-of
+                                        select="normalize-space(ead:ead/ead:archdesc/ead:did/ead:origination/child::node()[1])"
+                                    />
+                                </part>
+                            </xsl:otherwise>
+                        </xsl:choose>
+                    </xsl:otherwise>                    
                 </xsl:choose>
                 <xsl:if test="ead:ead/ead:archdesc/ead:did/ead:origination/child::node()[1]/@source">
                     <authorizedForm>
