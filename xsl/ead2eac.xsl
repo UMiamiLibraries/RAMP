@@ -53,22 +53,21 @@
     <xsl:variable name="vApos">'</xsl:variable>
 
     <xsl:variable name="vDates"
-        select="string-length(translate(normalize-space(ead:ead/ead:archdesc/ead:did/ead:origination/child::node()[1]),
-        concat($vAlpha,$vCommaSpace,$vApos),''))"/>
+        select="string-length(translate(normalize-space(//ead:archdesc/ead:did/ead:origination/child::node()[1]),concat($vAlpha,$vCommaSpace,$vApos),''))"/>        
     <xsl:variable name="vNameStringLen"
-        select="string-length(normalize-space(ead:ead/ead:archdesc/ead:did/ead:origination/child::node()[1]))"/>
+        select="string-length(normalize-space(//ead:archdesc/ead:did/ead:origination/child::node()[1]))"/>
     <xsl:variable name="vNameString"
-        select="substring(normalize-space(ead:ead/ead:archdesc/ead:did/ead:origination/child::node()[1]),1,$vNameStringLen)"/>
+        select="substring(normalize-space(//ead:archdesc/ead:did/ead:origination/child::node()[1]),1,$vNameStringLen)"/>
     <xsl:variable name="vNameString-1"
-        select="substring(normalize-space(ead:ead/ead:archdesc/ead:did/ead:origination/child::node()[1]),$vNameStringLen, $vNameStringLen)"/>
+        select="substring(normalize-space(//ead:archdesc/ead:did/ead:origination/child::node()[1]),$vNameStringLen, $vNameStringLen)"/>
     <xsl:variable name="vNameString-6"
-        select="substring(normalize-space(ead:ead/ead:archdesc/ead:did/ead:origination/child::node()[1]),1,$vNameStringLen -6)"/>
+        select="substring(normalize-space(//ead:archdesc/ead:did/ead:origination/child::node()[1]),1,$vNameStringLen -6)"/>
     <xsl:variable name="vNameString-8"
-        select="substring(normalize-space(ead:ead/ead:archdesc/ead:did/ead:origination/child::node()[1]),1,$vNameStringLen -8)"/>
+        select="substring(normalize-space(//ead:archdesc/ead:did/ead:origination/child::node()[1]),1,$vNameStringLen -8)"/>
     <xsl:variable name="vNameString-10"
-        select="substring(normalize-space(ead:ead/ead:archdesc/ead:did/ead:origination/child::node()[1]),1,$vNameStringLen -10)"/>
+        select="substring(normalize-space(//ead:archdesc/ead:did/ead:origination/child::node()[1]),1,$vNameStringLen -10)"/>
     <xsl:variable name="vNameString-12"
-        select="substring(normalize-space(ead:ead/ead:archdesc/ead:did/ead:origination/child::node()[1]),1,$vNameStringLen -12)"/>
+        select="substring(normalize-space(//ead:archdesc/ead:did/ead:origination/child::node()[1]),1,$vNameStringLen -12)"/>
 
     <xsl:strip-space elements="*"/>
     <xsl:output method="xml" encoding="UTF-8" indent="yes"/>
@@ -112,7 +111,7 @@
             <xsl:variable name="vEadHeaderCount" select="count(ead:ead/ead:eadheader)"/>
             <xsl:choose>
                 <!-- If it's an ingested record (not created from within RAMP). -->
-                <xsl:when test="not(contains(ead:ead/ead:eadheader/ead:eadid/@identifier,'RAMP'))">
+                <xsl:when test="not(contains(ead:ead/ead:eadheader/ead:eadid/@identifier,'RAMP'))">                    
                     <xsl:for-each select="ead:ead/ead:eadheader">
                         <otherRecordId>
                             <xsl:choose>
@@ -144,7 +143,7 @@
                             <xsl:text>.r</xsl:text>
                             <xsl:value-of select="substring-before($pRecordId,'-')"/>
                         </otherRecordId>
-                    </xsl:for-each>
+                    </xsl:for-each>                    
                     <!-- maintenanceStatus = "derived" -->
                     <maintenanceStatus>derived</maintenanceStatus>
                 </xsl:when>
@@ -297,7 +296,16 @@
     <!-- Process top-level cpfDescription element. -->
     <xsl:template name="cpfDescription">
         <cpfDescription xmlns="urn:isbn:1-931666-33-4">
-            <xsl:call-template name="identity"/>
+            <xsl:call-template name="identity">
+                <xsl:with-param name="vDates" select="$vDates"/>
+                <xsl:with-param name="vNameString" select="$vNameString"/>
+                <xsl:with-param name="vNameStringLen" select="$vNameStringLen"/>
+                <xsl:with-param name="vNameString-1" select="$vNameString-1"/>
+                <xsl:with-param name="vNameString-6" select="$vNameString-6"/>
+                <xsl:with-param name="vNameString-8" select="$vNameString-8"/>
+                <xsl:with-param name="vNameString-10" select="$vNameString-10"/>
+                <xsl:with-param name="vNameString-12" select="$vNameString-12"/>
+            </xsl:call-template>
             <xsl:call-template name="description"/>
             <xsl:call-template name="relations"/>
         </cpfDescription>
@@ -305,6 +313,14 @@
 
     <!-- Process identity element. -->
     <xsl:template name="identity">
+        <xsl:param name="vDates"/>
+        <xsl:param name="vNameString"/>
+        <xsl:param name="vNameStringLen"/>
+        <xsl:param name="vNameString-1"/>
+        <xsl:param name="vNameString-6"/>
+        <xsl:param name="vNameString-8"/>
+        <xsl:param name="vNameString-10"/>
+        <xsl:param name="vNameString-12"/>
         <!-- Check for entity type. -->
         <identity xmlns="urn:isbn:1-931666-33-4">
             <xsl:if
@@ -320,7 +336,7 @@
                 <entityType>family</entityType>
             </xsl:if>
             <!-- If the first nameEntry contains a four-digit number (we assume a date)... -->
-            <nameEntry xmlns="urn:isbn:1-931666-33-4">
+            <nameEntry xmlns="urn:isbn:1-931666-33-4">                                    
                 <xsl:choose>
                     <xsl:when
                         test="string-length(translate(normalize-space(ead:ead/ead:archdesc/ead:did/ead:origination/child::node()[1]),
@@ -1823,11 +1839,22 @@
                         <!-- Output the birth year, if exists. -->
                         <xsl:choose>
                             <xsl:when test="substring-before($pName,'-')!=''">
-                                <xsl:element name="fromDate" namespace="urn:isbn:1-931666-33-4">
-                                    <xsl:value-of
-                                        select="translate(substring-before($pName,'-'),concat($vAlpha,$vCommaSpace,$vApos),'')"
-                                    />
-                                </xsl:element>
+                                <xsl:choose>
+                                    <xsl:when test="contains(substring-after($pName,'-'),'-')">
+                                        <xsl:element name="fromDate" namespace="urn:isbn:1-931666-33-4">
+                                            <xsl:value-of
+                                                select="translate(substring-before(substring-after($pName,'-'),'-'),concat($vAlpha,$vCommaSpace,$vApos),'')"
+                                            />
+                                        </xsl:element>
+                                    </xsl:when>
+                                    <xsl:otherwise>
+                                        <xsl:element name="fromDate" namespace="urn:isbn:1-931666-33-4">
+                                            <xsl:value-of
+                                                select="translate(substring-before($pName,'-'),concat($vAlpha,$vCommaSpace,$vApos),'')"
+                                            />
+                                        </xsl:element>
+                                    </xsl:otherwise>
+                                </xsl:choose>                                
                             </xsl:when>
                             <xsl:when test="contains($pName,' b ')">
                                 <xsl:element name="fromDate" namespace="urn:isbn:1-931666-33-4">
@@ -1843,11 +1870,22 @@
                         <xsl:choose>
                             <!-- Output the death year, if exists. -->
                             <xsl:when test="substring-after($pName,'-')!=''">
-                                <xsl:element name="toDate" namespace="urn:isbn:1-931666-33-4">
-                                    <xsl:value-of
-                                        select="translate(substring-after($pName,'-'),concat($vAlpha,$vCommaSpace,$vApos),'')"
-                                    />
-                                </xsl:element>
+                                <xsl:choose>
+                                    <xsl:when test="contains(substring-after($pName,'-'),'-')">
+                                        <xsl:element name="fromDate" namespace="urn:isbn:1-931666-33-4">
+                                            <xsl:value-of
+                                                select="translate(substring-after(substring-after($pName,'-'),'-'),concat($vAlpha,$vCommaSpace,$vApos),'')"
+                                            />
+                                        </xsl:element>
+                                    </xsl:when>
+                                    <xsl:otherwise>
+                                        <xsl:element name="fromDate" namespace="urn:isbn:1-931666-33-4">
+                                            <xsl:value-of
+                                                select="translate(substring-after($pName,'-'),concat($vAlpha,$vCommaSpace,$vApos),'')"
+                                            />
+                                        </xsl:element>
+                                    </xsl:otherwise>
+                                </xsl:choose>
                             </xsl:when>
                             <xsl:when test="contains($pName,' d ')">
                                 <xsl:element name="toDate" namespace="urn:isbn:1-931666-33-4">
