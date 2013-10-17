@@ -1872,14 +1872,14 @@
                             <xsl:when test="substring-after($pName,'-')!=''">
                                 <xsl:choose>
                                     <xsl:when test="contains(substring-after($pName,'-'),'-')">
-                                        <xsl:element name="fromDate" namespace="urn:isbn:1-931666-33-4">
+                                        <xsl:element name="toDate" namespace="urn:isbn:1-931666-33-4">
                                             <xsl:value-of
                                                 select="translate(substring-after(substring-after($pName,'-'),'-'),concat($vAlpha,$vCommaSpace,$vApos),'')"
                                             />
                                         </xsl:element>
                                     </xsl:when>
                                     <xsl:otherwise>
-                                        <xsl:element name="fromDate" namespace="urn:isbn:1-931666-33-4">
+                                        <xsl:element name="toDate" namespace="urn:isbn:1-931666-33-4">
                                             <xsl:value-of
                                                 select="translate(substring-after($pName,'-'),concat($vAlpha,$vCommaSpace,$vApos),'')"
                                             />
