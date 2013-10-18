@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xsl:stylesheet xmlns:ead="urn:isbn:1-931666-22-9" xmlns:eac="urn:isbn:1-931666-33-4"
+<xsl:stylesheet xmlns="urn:isbn:1-931666-33-4" xmlns:ead="urn:isbn:1-931666-22-9" 
     xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xlink="http://www.w3.org/1999/xlink"
+    xmlns:xlink="http://www.w3.org/1999/xlink"
     xmlns:exsl="http://exslt.org/common" xmlns:str="http://exslt.org/strings"
-    extension-element-prefixes="exsl str" exclude-result-prefixes="eac xsi" version="1.0">
+    extension-element-prefixes="exsl str" exclude-result-prefixes="ead" version="1.0">
 
     <!--
         Author: Timothy A. Thompson
@@ -50,24 +50,7 @@
 
     <xsl:variable name="vQuote">"</xsl:variable>
 
-    <xsl:variable name="vApos">'</xsl:variable>
-
-    <xsl:variable name="vDates"
-        select="string-length(translate(normalize-space(//ead:archdesc/ead:did/ead:origination/child::node()[1]),concat($vAlpha,$vCommaSpace,$vApos),''))"/>
-    <xsl:variable name="vNameStringLen"
-        select="string-length(normalize-space(//ead:archdesc/ead:did/ead:origination/child::node()[1]))"/>
-    <xsl:variable name="vNameString"
-        select="substring(normalize-space(//ead:archdesc/ead:did/ead:origination/child::node()[1]),1,$vNameStringLen)"/>
-    <xsl:variable name="vNameString-1"
-        select="substring(normalize-space(//ead:archdesc/ead:did/ead:origination/child::node()[1]),$vNameStringLen, $vNameStringLen)"/>
-    <xsl:variable name="vNameString-6"
-        select="substring(normalize-space(//ead:archdesc/ead:did/ead:origination/child::node()[1]),1,$vNameStringLen -6)"/>
-    <xsl:variable name="vNameString-8"
-        select="substring(normalize-space(//ead:archdesc/ead:did/ead:origination/child::node()[1]),1,$vNameStringLen -8)"/>
-    <xsl:variable name="vNameString-10"
-        select="substring(normalize-space(//ead:archdesc/ead:did/ead:origination/child::node()[1]),1,$vNameStringLen -10)"/>
-    <xsl:variable name="vNameString-12"
-        select="substring(normalize-space(//ead:archdesc/ead:did/ead:origination/child::node()[1]),1,$vNameStringLen -12)"/>
+    <xsl:variable name="vApos">'</xsl:variable>   
 
     <xsl:strip-space elements="*"/>
     <xsl:output method="xml" encoding="UTF-8" indent="yes"/>
@@ -299,16 +282,7 @@
     <!-- Process top-level cpfDescription element. -->
     <xsl:template name="cpfDescription">
         <cpfDescription xmlns="urn:isbn:1-931666-33-4">
-            <xsl:call-template name="identity">
-                <xsl:with-param name="vDates" select="$vDates"/>
-                <xsl:with-param name="vNameString" select="$vNameString"/>
-                <xsl:with-param name="vNameStringLen" select="$vNameStringLen"/>
-                <xsl:with-param name="vNameString-1" select="$vNameString-1"/>
-                <xsl:with-param name="vNameString-6" select="$vNameString-6"/>
-                <xsl:with-param name="vNameString-8" select="$vNameString-8"/>
-                <xsl:with-param name="vNameString-10" select="$vNameString-10"/>
-                <xsl:with-param name="vNameString-12" select="$vNameString-12"/>
-            </xsl:call-template>
+            <xsl:call-template name="identity"/>                            
             <xsl:call-template name="description"/>
             <xsl:call-template name="relations"/>
         </cpfDescription>
@@ -316,14 +290,22 @@
 
     <!-- Process identity element. -->
     <xsl:template name="identity">
-        <xsl:param name="vDates"/>
-        <xsl:param name="vNameString"/>
-        <xsl:param name="vNameStringLen"/>
-        <xsl:param name="vNameString-1"/>
-        <xsl:param name="vNameString-6"/>
-        <xsl:param name="vNameString-8"/>
-        <xsl:param name="vNameString-10"/>
-        <xsl:param name="vNameString-12"/>
+        <xsl:variable name="vDates"
+            select="string-length(translate(normalize-space(//ead:archdesc/ead:did/ead:origination/child::node()[1]),concat($vAlpha,$vCommaSpace,$vApos),''))"/>
+        <xsl:variable name="vNameStringLen"
+            select="string-length(normalize-space(//ead:archdesc/ead:did/ead:origination/child::node()[1]))"/>
+        <xsl:variable name="vNameString"
+            select="substring(normalize-space(//ead:archdesc/ead:did/ead:origination/child::node()[1]),1,$vNameStringLen)"/>
+        <xsl:variable name="vNameString-1"
+            select="substring(normalize-space(//ead:archdesc/ead:did/ead:origination/child::node()[1]),$vNameStringLen, $vNameStringLen)"/>
+        <xsl:variable name="vNameString-6"
+            select="substring(normalize-space(//ead:archdesc/ead:did/ead:origination/child::node()[1]),1,$vNameStringLen -6)"/>
+        <xsl:variable name="vNameString-8"
+            select="substring(normalize-space(//ead:archdesc/ead:did/ead:origination/child::node()[1]),1,$vNameStringLen -8)"/>
+        <xsl:variable name="vNameString-10"
+            select="substring(normalize-space(//ead:archdesc/ead:did/ead:origination/child::node()[1]),1,$vNameStringLen -10)"/>
+        <xsl:variable name="vNameString-12"
+            select="substring(normalize-space(//ead:archdesc/ead:did/ead:origination/child::node()[1]),1,$vNameStringLen -12)"/>
         <!-- Check for entity type. -->
         <identity xmlns="urn:isbn:1-931666-33-4">
             <xsl:if
@@ -339,7 +321,7 @@
                 <entityType>family</entityType>
             </xsl:if>
             <!-- If the first nameEntry contains a four-digit number (we assume a date)... -->
-            <nameEntry xmlns="urn:isbn:1-931666-33-4">
+            <nameEntry>
                 <xsl:choose>
                     <xsl:when
                         test="ead:ead/ead:archdesc/ead:did/ead:origination/child::node()[1]/@normal">
@@ -552,7 +534,7 @@
                     </localDescription>
                 </xsl:if>
             </xsl:if>
-            <xsl:if test="ead:ead/ead:archdesc/ead:did/ead:langmaterial/ead:language!=''">
+            <xsl:if test="ead:ead/ead:archdesc/ead:did/ead:langmaterial/ead:language!=''">                
                 <languagesUsed>
                     <xsl:for-each
                         select="ead:ead/ead:archdesc/ead:did/ead:langmaterial/ead:language">
