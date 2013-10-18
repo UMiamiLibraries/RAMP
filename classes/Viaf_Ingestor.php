@@ -221,7 +221,7 @@ class Viaf_Ingestor extends Ingestor
 			if($lobjResult === FALSE || $lobjResult->length == 0)
 			{
 			    $lobjcpfRelation = array(
-					   			"attributes" => array( "xlink:arcrole" => "",	
+					   			"attributes" => array( "cpfRelationType" => "",	
 													   "xlink:role" => "" ),
 								"elements" => array( "relationEntry" => array (																																										
 																		"elements" => $lstrOrigName
@@ -248,7 +248,7 @@ class Viaf_Ingestor extends Ingestor
 				    $lstrResultName = $lobjResult3->item($i)->nodeValue;
 http://www.viaf.org/viaf/
 				    $lobjcpfRelation = array(
-					   			"attributes" => array( "xlink:arcrole" => "associatedWith",
+					   			"attributes" => array( "cpfRelationType" => "associative",
 													   "xlink:href" => "http://viaf.org/viaf/$this->strViafID",
 													   "xlink:role" => "http://rdvocab.info/uri/schema/FRBRentitiesRDA/" . $lstrType,
 													   "xlink:type" => "simple" ),
@@ -272,7 +272,7 @@ http://www.viaf.org/viaf/
 		         
 		        // Include original name for selection, in case VIAF results are not a good match.
 			    $lobjcpfRelation = array(
-					   			"attributes" => array( "xlink:arcrole" => "",	
+					   			"attributes" => array( "cpfRelationType" => "",	
 													   "xlink:role" => "" ),
 								"elements" => array( "relationEntry" => array (																																										
 																		"elements" => $lstrOrigName
