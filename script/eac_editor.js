@@ -304,9 +304,9 @@ function ead()
 		    lobjAttributes["xlink:role"] = lobjRoles;		    		        		        		    		    
 		}		
 		
-		if ( lobjAttributes["xlink:arcrole"] == '' )
+		if ( lobjAttributes["cpfRelationType"] == '' )
 		{		    		   
-		    lobjAttributes["xlink:arcrole"] = lobjRels;		    		        		        		    		    
+		    lobjAttributes["cpfRelationType"] = lobjRels;		    		        		        		    		    
 		}
 		
 		var lobjCPFRelationNode = this.createElement( 'cpfRelation', lobjAttributes, lobjElements );		

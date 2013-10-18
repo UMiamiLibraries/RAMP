@@ -434,7 +434,7 @@ class WorldCat_Ingestor extends Ingestor
 			if(preg_match( "/^nc-/", $lobjIdentity['id'] ) > 0)
 				continue;
 
-			$lobjCPFRelationNode['attributes']['xlink:arcrole'] = "associatedWith";
+			$lobjCPFRelationNode['attributes']['cpfRelationType'] = "associative";
 			
 			if( strpos( $lobjIdentity['id'], 'lccn') === false )
 			{
