@@ -875,7 +875,7 @@
                         <xsl:variable name="vEntType" select="local-name(.)"/>
                         <xsl:variable name="vCpfRel" select="@normal"/>
                         <xsl:if test="$vEntType='persname'">
-                            <cpfRelation xlink:arcrole="associatedWith"
+                            <cpfRelation cpfRelationType="associative"
                                 xlink:role="http://rdvocab.info/uri/schema/FRBRentitiesRDA/Person"
                                 xlink:type="simple" xmlns:xlink="http://www.w3.org/1999/xlink">
                                 <relationEntry>
@@ -914,7 +914,7 @@
                             </cpfRelation>
                         </xsl:if>
                         <xsl:if test="$vEntType='corpname'">
-                            <cpfRelation xlink:arcrole="associatedWith"
+                            <cpfRelation cpfRelationType="associative"
                                 xlink:role="http://rdvocab.info/uri/schema/FRBRentitiesRDA/CorporateBody"
                                 xlink:type="simple" xmlns:xlink="http://www.w3.org/1999/xlink">
                                 <relationEntry>
@@ -953,7 +953,7 @@
                             </cpfRelation>
                         </xsl:if>
                         <xsl:if test="$vEntType='famname'">
-                            <cpfRelation xlink:arcrole="associatedWith"
+                            <cpfRelation cpfRelationType="associative"
                                 xlink:role="http://rdvocab.info/uri/schema/FRBRentitiesRDA/Family"
                                 xlink:type="simple" xmlns:xlink="http://www.w3.org/1999/xlink">
                                 <relationEntry>
