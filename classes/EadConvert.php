@@ -313,7 +313,7 @@ class EadConvert {
   }
 
   private function name_check() {
-    // This function checks to see if the EAD file has a defined name -- either persname or corpname
+    // This function checks to see if the EAD file has a defined name
 
     $xpath = new DOMXPath($this->XMLDOM);
     // Create a new xpath
@@ -323,7 +323,7 @@ class EadConvert {
 
     $xpath->registerNamespace("eac","urn:isbn:1-931666-33-4");
     
-    $xpath_results = $xpath->evaluate('boolean(//ead:ead/ead:archdesc/ead:did/ead:origination[ead:persname|ead:corpname|ead:famname]|//eac:eac-cpf/eac:cpfDescription/eac:identity/eac:nameEntry/eac:part)');
+    $xpath_results = $xpath->evaluate('boolean(//eac:eac-cpf/eac:cpfDescription/eac:identity/eac:nameEntry[1]/eac:part|//ead:ead/ead:archdesc/ead:did/ead:origination[ead:persname|ead:corpname|ead:famname])');
 
     // Eval the xpath
 

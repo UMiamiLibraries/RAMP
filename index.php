@@ -66,7 +66,7 @@ if ($mysqli->connect_errno) {
 
 
 
-$results = $mysqli->query ("SELECT ead_file, ExtractValue(eac_xml, '/descendant-or-self::part[1]') AS 'Name', substring_index(ead_file, '/', -1) AS 'SortHelp'
+$results = $mysqli->query ("SELECT ead_file, ExtractValue(eac_xml, '//nameEntry[1]/part') AS 'Name', substring_index(ead_file, '/', -1) AS 'SortHelp'
 							FROM ead_eac.eac
 							ORDER BY CASE WHEN Name = '' THEN SortHelp ELSE Name END ASC");
 
@@ -81,6 +81,7 @@ echo "<option value=''></option>";
 while ($row = $results->fetch_assoc()) {
   $name = $row["Name"];
   $file_name = $row["ead_file"];
+  
   $file_name_display = htmlentities(basename($file_name));
   if($row["Name"]) {
 
