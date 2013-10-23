@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xsl:stylesheet xmlns="urn:isbn:1-931666-33-4" xmlns:eac="urn:isbn:1-931666-33-4" xmlns:ead="urn:isbn:1-931666-22-9"
+<xsl:stylesheet xmlns:eac="urn:isbn:1-931666-33-4" xmlns:ead="urn:isbn:1-931666-22-9"
     xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:xlink="http://www.w3.org/1999/xlink"
     xmlns:exsl="http://exslt.org/common" xmlns:str="http://exslt.org/strings"
-    extension-element-prefixes="exsl str" exclude-result-prefixes="ead" version="1.0">
+    extension-element-prefixes="exsl str" exclude-result-prefixes="eac ead" version="1.0">
 
     <!--
         Author: Timothy A. Thompson
@@ -71,7 +71,8 @@
             <!-- Case to accommodate local merged EADs, which contain faux EAD wrapper elements. -->
             <xsl:when test="/ead:ead/ead:ead">
                 <xsl:for-each select="ead:ead">
-                    <eac-cpf xmlns="urn:isbn:1-931666-33-4"
+                    <eac-cpf 
+                        xmlns="urn:isbn:1-931666-33-4"
                         xmlns:xlink="http://www.w3.org/1999/xlink"
                         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
                         xsi:schemaLocation="urn:isbn:1-931666-33-4 http://eac.staatsbibliothek-berlin.de/schema/cpf.xsd">
@@ -81,7 +82,9 @@
                 </xsl:for-each>
             </xsl:when>
             <xsl:otherwise>
-                <eac-cpf xmlns="urn:isbn:1-931666-33-4" xmlns:xlink="http://www.w3.org/1999/xlink"
+                <eac-cpf
+                    xmlns="urn:isbn:1-931666-33-4"
+                    xmlns:xlink="http://www.w3.org/1999/xlink"
                     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
                     xsi:schemaLocation="urn:isbn:1-931666-33-4 http://eac.staatsbibliothek-berlin.de/schema/cpf.xsd">
                     <xsl:call-template name="control"/>
@@ -227,7 +230,7 @@
     <!-- Process source elements. -->
     <xsl:template name="sources">
         <xsl:if test="ead:ead/ead:eadheader/ead:filedesc!=''">
-            <sources xmlns="urn:isbn:1-931666-33-4">
+            <sources >
                 <xsl:if test="ead:ead/ead:eadheader/ead:filedesc!=''">
                     <xsl:for-each
                         select="ead:ead/ead:eadheader/ead:filedesc/ead:titlestmt/ead:titleproper[not(@type='filing')]">
@@ -849,14 +852,14 @@
     </xsl:template>
 
     <xsl:template match="ead:emph">
-        <span xmlns="urn:isbn:1-931666-33-4">
+        <span>
             <xsl:attribute name="style">font-style:italic</xsl:attribute>
             <xsl:value-of select="normalize-space(.)"/>
         </span>
     </xsl:template>
 
     <xsl:template match="ead:title">
-        <span xmlns="urn:isbn:1-931666-33-4">
+        <span>
             <xsl:attribute name="style">font-style:italic</xsl:attribute>
             <xsl:value-of select="normalize-space(.)"/>
         </span>
@@ -999,7 +1002,7 @@
 
             <!-- For local archival collections, output EAD snippet in objectXMLWrap. -->
             <xsl:for-each select="ead:ead/ead:archdesc/ead:did/ead:unittitle">
-                <resourceRelation xmlns="urn:isbn:1-931666-33-4" resourceRelationType="creatorOf"
+                <resourceRelation resourceRelationType="creatorOf"
                     xlink:href="{concat($pLocalURL,substring-after(../../../ead:eadheader/ead:eadid/@identifier,':'))}"
                     xlink:role="archivalRecords" xlink:type="simple"
                     xmlns:xlink="http://www.w3.org/1999/xlink">
@@ -1057,7 +1060,7 @@
             <!-- Process local digital collections. -->
             <xsl:if test="ead:ead/ead:archdesc/ead:dao">
                 <xsl:for-each select="ead:ead/ead:archdesc/ead:dao">
-                    <resourceRelation xmlns="urn:isbn:1-931666-33-4"
+                    <resourceRelation
                         resourceRelationType="creatorOf" xlink:href="{@xlink:href}"
                         xlink:role="archivalRecords" xlink:type="simple"
                         xmlns:xlink="http://www.w3.org/1999/xlink">
@@ -1079,7 +1082,7 @@
                     select="ead:ead/ead:archdesc/ead:descgrp/ead:relatedmaterial/ead:p/ead:extref">
                     <xsl:choose>
                         <xsl:when test="contains(@href,$pServerName)">
-                            <resourceRelation xmlns="urn:isbn:1-931666-33-4" xlink:href="{@href}"
+                            <resourceRelation xlink:href="{@href}"
                                 xlink:role="archivalRecords" xlink:type="simple">
                                 <relationEntry>
                                     <xsl:value-of select="normalize-space(.)"/>
@@ -1088,7 +1091,7 @@
                         </xsl:when>
                         <xsl:otherwise>
                             <xsl:if test="not(contains(@href,$pServerName))">
-                                <resourceRelation xmlns="urn:isbn:1-931666-33-4"
+                                <resourceRelation 
                                     xlink:href="{@href}" xlink:role="resource" xlink:type="simple">
                                     <relationEntry>
                                         <xsl:value-of select="normalize-space(.)"/>
@@ -1104,7 +1107,7 @@
                     <xsl:variable name="vRelatedCollection"
                         select="translate(normalize-space(.),$vUpper,$vLower)"/>
                     <xsl:if test="not(substring(.,string-length(.))=':')">
-                        <resourceRelation xmlns="urn:isbn:1-931666-33-4">
+                        <resourceRelation >
                             <xsl:if test="contains($vRelatedCollection,'http:')">
                                 <xsl:attribute name="xlink:href">
                                     <xsl:value-of
