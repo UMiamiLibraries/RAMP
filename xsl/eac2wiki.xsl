@@ -304,9 +304,9 @@
         <xsl:text>&#09;&#09;= </xsl:text>
         <xsl:choose>
             <xsl:when
-                test="/eac:eac-cpf/eac:cpfDescription/eac:description/eac:occupation/eac:term != ''">
+                test="/eac:eac-cpf/eac:cpfDescription/eac:description/eac:occupation/eac:term != '' or /eac:eac-cpf/eac:cpfDescription/eac:description/eac:occupations/eac:occupation/eac:term != ''">
                 <xsl:for-each
-                    select="/eac:eac-cpf/eac:cpfDescription/eac:description/eac:occupation">
+                    select="/eac:eac-cpf/eac:cpfDescription/eac:description/eac:occupation|/eac:eac-cpf/eac:cpfDescription/eac:description/eac:occupations/eac:occupation">
                     <xsl:variable name="vOccupationLen" select="string-length(eac:term)"/>
                     <xsl:variable name="vOccupation-1"
                         select="substring(eac:term,$vOccupationLen,$vOccupationLen)"/>

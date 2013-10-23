@@ -71,7 +71,9 @@
             <!-- Case to accommodate local merged EADs, which contain faux EAD wrapper elements. -->
             <xsl:when test="/ead:ead/ead:ead">
                 <xsl:for-each select="ead:ead">
-                    <eac-cpf xmlns:xlink="http://www.w3.org/1999/xlink"
+                    <eac-cpf
+                        xmlns="urn:isbn:1-931666-33-4"
+                        xmlns:xlink="http://www.w3.org/1999/xlink"
                         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
                         xsi:schemaLocation="urn:isbn:1-931666-33-4 http://eac.staatsbibliothek-berlin.de/schema/cpf.xsd">
                         <xsl:call-template name="control"/>
@@ -80,7 +82,9 @@
                 </xsl:for-each>
             </xsl:when>
             <xsl:otherwise>
-                <eac-cpf xmlns:xlink="http://www.w3.org/1999/xlink"
+                <eac-cpf 
+                    xmlns="urn:isbn:1-931666-33-4"
+                    xmlns:xlink="http://www.w3.org/1999/xlink"
                     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
                     xsi:schemaLocation="urn:isbn:1-931666-33-4 http://eac.staatsbibliothek-berlin.de/schema/cpf.xsd">
                     <xsl:call-template name="control"/>
