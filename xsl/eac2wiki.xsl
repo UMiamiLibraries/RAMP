@@ -1086,7 +1086,7 @@
             <xsl:choose>
                 <xsl:when
                     test="eac:eac-cpf/eac:cpfDescription/eac:description/eac:localDescription[@localType[contains(.,'6')]|@localType='subject']">
-                    <xsl:text>&lt;!-- Note: the following categories have been generated using FAST headings added from WorldCat Identities. These categories should be replaced with appropriate Wikipedia categories using the HotCat tool.</xsl:text>
+                    <xsl:text>&lt;!-- Note: the following categories have been generated from the original EAD finding aid or using FAST headings added from WorldCat Identities. These categories should be replaced with appropriate Wikipedia categories (for example, using the HotCat tool).</xsl:text>
                     <xsl:text>&#10;</xsl:text>
                     <xsl:text>&#10;</xsl:text>
                     <xsl:for-each
