@@ -321,7 +321,9 @@ class EadConvert {
     $xpath->registerNamespace("ead","urn:isbn:1-931666-22-9");
     // Register the EAD namespace
 
-    $xpath_results = $xpath->evaluate('boolean(//ead:ead/ead:archdesc/ead:did/ead:origination[ead:persname|ead:corpname|ead:famname])');
+    $xpath->registerNamespace("eac","urn:isbn:1-931666-33-4");
+    
+    $xpath_results = $xpath->evaluate('boolean(//ead:ead/ead:archdesc/ead:did/ead:origination[ead:persname|ead:corpname|ead:famname]|//eac:eac-cpf/eac:cpfDescription/eac:identity/eac:nameEntry/eac:part)');
 
     // Eval the xpath
 
