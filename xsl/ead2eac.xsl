@@ -542,7 +542,7 @@
                             <list>
                                 <xsl:for-each select="ead:item">
                                     <item>
-                                        <xsl:value-of select="normalize-space(.)"/>
+                                        <xsl:apply-templates/>
                                     </item>
                                 </xsl:for-each>
                             </list>
@@ -861,6 +861,10 @@
             <xsl:attribute name="style">font-style:italic</xsl:attribute>
             <xsl:value-of select="normalize-space(.)"/>
         </span>
+    </xsl:template>
+    
+    <xsl:template match="ead:item">
+        <xsl:value-of select="normalize-space(.)"/>
     </xsl:template>
 
     <xsl:template match="ead:title">
