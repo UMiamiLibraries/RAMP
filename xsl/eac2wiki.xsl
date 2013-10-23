@@ -97,7 +97,7 @@
         </xsl:if>
         <xsl:for-each select="$pBiogHist/eac:p">
             <xsl:value-of select="normalize-space(.)"/>
-            <xsl:if test="following-sibling::*[1][self::eac:list]">    
+            <xsl:if test="following-sibling::*[1][self::eac:list]">
                 <xsl:text>&#10;</xsl:text>
                 <xsl:text>&#10;</xsl:text>
                 <xsl:for-each select="following-sibling::*[1][self::eac:list]/eac:item">
@@ -107,8 +107,7 @@
                             <xsl:text>&#10;</xsl:text>
                             <xsl:text>&#10;</xsl:text>
                         </xsl:when>
-                        <xsl:otherwise>                            
-                        </xsl:otherwise>
+                        <xsl:otherwise> </xsl:otherwise>
                     </xsl:choose>
                 </xsl:for-each>
             </xsl:if>
@@ -121,7 +120,7 @@
                     <xsl:text>&#10;</xsl:text>
                 </xsl:otherwise>
             </xsl:choose>
-        </xsl:for-each>       
+        </xsl:for-each>
         <!-- Timeline -->
         <xsl:if test="$pBiogHist/eac:chronList/eac:chronItem">
             <xsl:call-template name="tTimeline"/>
@@ -130,7 +129,7 @@
         <xsl:call-template name="tPub"/>
         <!-- Relations -->
         <xsl:if
-            test="eac:eac-cpf/eac:cpfDescription/eac:relations/eac:cpfRelation | eac:eac-cpf/eac:cpfDescription/eac:description/eac:localDescription[@localType[contains(.,'7')]] | eac:eac-cpf/eac:cpfDescription/eac:description/eac:localDescription[@localType[contains(.,'610')]]">
+            test="eac:eac-cpf/eac:cpfDescription/eac:relations/eac:cpfRelation | eac:eac-cpf/eac:cpfDescription/eac:description/eac:localDescription[@localType='subject'] | eac:eac-cpf/eac:cpfDescription/eac:description/eac:localDescription[@localType[contains(.,'7')]] | eac:eac-cpf/eac:cpfDescription/eac:description/eac:localDescription[@localType[contains(.,'610')]]">
             <xsl:call-template name="tRelations">
                 <xsl:with-param name="pNameType">person</xsl:with-param>
             </xsl:call-template>
@@ -207,7 +206,7 @@
         </xsl:if>
         <xsl:for-each select="$pBiogHist/eac:p[.!='']">
             <xsl:value-of select="normalize-space(.)"/>
-            <xsl:if test="following-sibling::*[1][self::eac:list]">    
+            <xsl:if test="following-sibling::*[1][self::eac:list]">
                 <xsl:text>&#10;</xsl:text>
                 <xsl:text>&#10;</xsl:text>
                 <xsl:for-each select="following-sibling::*[1][self::eac:list]/eac:item">
@@ -217,8 +216,7 @@
                             <xsl:text>&#10;</xsl:text>
                             <xsl:text>&#10;</xsl:text>
                         </xsl:when>
-                        <xsl:otherwise>                            
-                        </xsl:otherwise>
+                        <xsl:otherwise> </xsl:otherwise>
                     </xsl:choose>
                 </xsl:for-each>
             </xsl:if>
@@ -248,7 +246,7 @@
         <xsl:call-template name="tPub"/>
         <!-- Relations -->
         <xsl:if
-            test="eac:eac-cpf/eac:cpfDescription/eac:relations/eac:cpfRelation | eac:eac-cpf/eac:cpfDescription/eac:description/eac:localDescription[@localType[contains(.,'7')]] | eac:eac-cpf/eac:cpfDescription/eac:description/eac:localDescription[@localType[contains(.,'610')]]">
+            test="eac:eac-cpf/eac:cpfDescription/eac:relations/eac:cpfRelation | eac:eac-cpf/eac:cpfDescription/eac:description/eac:localDescription[@localType='subject'] | eac:eac-cpf/eac:cpfDescription/eac:description/eac:localDescription[@localType[contains(.,'7')]] | eac:eac-cpf/eac:cpfDescription/eac:description/eac:localDescription[@localType[contains(.,'610')]]">
             <xsl:call-template name="tRelations">
                 <xsl:with-param name="pNameType">corporate</xsl:with-param>
                 <xsl:with-param name="pCorpName" select="$pCorpName"/>
@@ -1033,13 +1031,13 @@
             <xsl:text> deaths]]</xsl:text>
             <xsl:text>&#10;</xsl:text>
             <xsl:if
-                test="eac:eac-cpf/eac:cpfDescription/eac:description/child::node()[@localType[contains(.,'6')]]">
+                test="eac:eac-cpf/eac:cpfDescription/eac:description/child::node()[@localType[contains(.,'6')]|@localType='subject']">
                 <xsl:text>&#10;</xsl:text>
                 <xsl:text>&lt;!-- Note: the following categories have been generated from the original EAD finding aid or using FAST headings added from WorldCat Identities. These categories should be replaced with appropriate Wikipedia categories (for example, using the HotCat tool).</xsl:text>
                 <xsl:text>&#10;</xsl:text>
                 <xsl:text>&#10;</xsl:text>
                 <xsl:for-each
-                    select="eac:eac-cpf/eac:cpfDescription/eac:description/child::node()[@localType[contains(.,'6')]]">
+                    select="eac:eac-cpf/eac:cpfDescription/eac:description/child::node()[@localType[contains(.,'6')]|@localType='subject']">
                     <xsl:sort
                         select="translate(eac:term,'ÁÀÉÈÍÓÚÜÑáàéèíóúúüñ','AAEEIOUUNaaeeiouuun')"
                         data-type="text"/>
@@ -1087,12 +1085,15 @@
         <xsl:if test="$pNameType='corporate'">
             <xsl:choose>
                 <xsl:when
-                    test="eac:eac-cpf/eac:cpfDescription/eac:description/eac:localDescription[@localType[contains(.,'6')]]">
+                    test="eac:eac-cpf/eac:cpfDescription/eac:description/eac:localDescription[@localType[contains(.,'6')]|@localType='subject']">
                     <xsl:text>&lt;!-- Note: the following categories have been generated using FAST headings added from WorldCat Identities. These categories should be replaced with appropriate Wikipedia categories using the HotCat tool.</xsl:text>
                     <xsl:text>&#10;</xsl:text>
                     <xsl:text>&#10;</xsl:text>
                     <xsl:for-each
-                        select="eac:eac-cpf/eac:cpfDescription/eac:description/eac:localDescription[@localType[contains(.,'6')]]">
+                        select="eac:eac-cpf/eac:cpfDescription/eac:description/eac:localDescription[@localType[contains(.,'6')]|@localType='subject']">
+                        <xsl:sort
+                            select="translate(eac:term,'ÁÀÉÈÍÓÚÜÑáàéèíóúúüñ','AAEEIOUUNaaeeiouuun')"
+                            data-type="text"/>
                         <xsl:text>[[Category:</xsl:text>
                         <xsl:value-of select="normalize-space(.)"/>
                         <xsl:text>]]</xsl:text>
@@ -1614,7 +1615,8 @@
                                     select="concat($pDiscServ,translate($pCorpName,',. ','+++'))"/>
                             </xsl:when>
                             <xsl:otherwise>
-                                <xsl:value-of select="concat($pDiscServ,translate($pCorpName,' ','+'))"/>
+                                <xsl:value-of
+                                    select="concat($pDiscServ,translate($pCorpName,' ','+'))"/>
                             </xsl:otherwise>
                         </xsl:choose>
                     </xsl:otherwise>
@@ -1692,5 +1694,5 @@
             </xsl:otherwise>
         </xsl:choose>
     </xsl:template>
-    
+
 </xsl:stylesheet>
