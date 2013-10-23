@@ -71,8 +71,7 @@
             <!-- Case to accommodate local merged EADs, which contain faux EAD wrapper elements. -->
             <xsl:when test="/ead:ead/ead:ead">
                 <xsl:for-each select="ead:ead">
-                    <eac-cpf 
-                        xmlns:xlink="http://www.w3.org/1999/xlink"
+                    <eac-cpf xmlns:xlink="http://www.w3.org/1999/xlink"
                         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
                         xsi:schemaLocation="urn:isbn:1-931666-33-4 http://eac.staatsbibliothek-berlin.de/schema/cpf.xsd">
                         <xsl:call-template name="control"/>
@@ -81,7 +80,7 @@
                 </xsl:for-each>
             </xsl:when>
             <xsl:otherwise>
-                <eac-cpf  xmlns:xlink="http://www.w3.org/1999/xlink"
+                <eac-cpf xmlns:xlink="http://www.w3.org/1999/xlink"
                     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
                     xsi:schemaLocation="urn:isbn:1-931666-33-4 http://eac.staatsbibliothek-berlin.de/schema/cpf.xsd">
                     <xsl:call-template name="control"/>
@@ -227,7 +226,7 @@
     <!-- Process source elements. -->
     <xsl:template name="sources">
         <xsl:if test="ead:ead/ead:eadheader/ead:filedesc!=''">
-            <sources >
+            <sources>
                 <xsl:if test="ead:ead/ead:eadheader/ead:filedesc!=''">
                     <xsl:for-each
                         select="ead:ead/ead:eadheader/ead:filedesc/ead:titlestmt/ead:titleproper[not(@type='filing')]">
@@ -265,7 +264,7 @@
 
     <!-- Process top-level cpfDescription element. -->
     <xsl:template name="cpfDescription">
-        <cpfDescription >
+        <cpfDescription>
             <xsl:call-template name="identity"/>
             <xsl:call-template name="description"/>
             <xsl:call-template name="relations"/>
@@ -539,6 +538,15 @@
                     </xsl:if>
                     <!-- Match properly formatted chronologies -->
                     <xsl:choose>
+                        <xsl:when test="ead:ead/ead:archdesc/ead:bioghist/ead:list">
+                            <list>
+                                <xsl:for-each select="ead:item">
+                                    <item>
+                                        <xsl:value-of select="normalize-space(.)"/>
+                                    </item>
+                                </xsl:for-each>
+                            </list>
+                        </xsl:when>
                         <xsl:when test="ead:ead/ead:archdesc/ead:bioghist/ead:chronlist">
                             <chronList>
                                 <xsl:for-each
@@ -1057,8 +1065,7 @@
             <!-- Process local digital collections. -->
             <xsl:if test="ead:ead/ead:archdesc/ead:dao">
                 <xsl:for-each select="ead:ead/ead:archdesc/ead:dao">
-                    <resourceRelation
-                        resourceRelationType="creatorOf" xlink:href="{@xlink:href}"
+                    <resourceRelation resourceRelationType="creatorOf" xlink:href="{@xlink:href}"
                         xlink:role="archivalRecords" xlink:type="simple"
                         xmlns:xlink="http://www.w3.org/1999/xlink">
                         <relationEntry>
@@ -1079,8 +1086,8 @@
                     select="ead:ead/ead:archdesc/ead:descgrp/ead:relatedmaterial/ead:p/ead:extref">
                     <xsl:choose>
                         <xsl:when test="contains(@href,$pServerName)">
-                            <resourceRelation xlink:href="{@href}"
-                                xlink:role="archivalRecords" xlink:type="simple">
+                            <resourceRelation xlink:href="{@href}" xlink:role="archivalRecords"
+                                xlink:type="simple">
                                 <relationEntry>
                                     <xsl:value-of select="normalize-space(.)"/>
                                 </relationEntry>
@@ -1088,8 +1095,8 @@
                         </xsl:when>
                         <xsl:otherwise>
                             <xsl:if test="not(contains(@href,$pServerName))">
-                                <resourceRelation 
-                                    xlink:href="{@href}" xlink:role="resource" xlink:type="simple">
+                                <resourceRelation xlink:href="{@href}" xlink:role="resource"
+                                    xlink:type="simple">
                                     <relationEntry>
                                         <xsl:value-of select="normalize-space(.)"/>
                                     </relationEntry>
@@ -1104,7 +1111,7 @@
                     <xsl:variable name="vRelatedCollection"
                         select="translate(normalize-space(.),$vUpper,$vLower)"/>
                     <xsl:if test="not(substring(.,string-length(.))=':')">
-                        <resourceRelation >
+                        <resourceRelation>
                             <xsl:if test="contains($vRelatedCollection,'http:')">
                                 <xsl:attribute name="xlink:href">
                                     <xsl:value-of

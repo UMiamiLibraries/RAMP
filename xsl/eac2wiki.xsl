@@ -92,13 +92,26 @@
                 <xsl:when test="following-sibling::eac:p">
                     <xsl:text>&#10;</xsl:text>
                 </xsl:when>
-                <xsl:otherwise>
-                    
-                </xsl:otherwise>
+                <xsl:otherwise> </xsl:otherwise>
             </xsl:choose>
         </xsl:if>
         <xsl:for-each select="$pBiogHist/eac:p">
             <xsl:value-of select="normalize-space(.)"/>
+            <xsl:if test="following-sibling::*[1][self::eac:list]">    
+                <xsl:text>&#10;</xsl:text>
+                <xsl:text>&#10;</xsl:text>
+                <xsl:for-each select="following-sibling::*[1][self::eac:list]/eac:item">
+                    <xsl:value-of select="normalize-space(.)"/>
+                    <xsl:choose>
+                        <xsl:when test="position()!=last()">
+                            <xsl:text>&#10;</xsl:text>
+                            <xsl:text>&#10;</xsl:text>
+                        </xsl:when>
+                        <xsl:otherwise>                            
+                        </xsl:otherwise>
+                    </xsl:choose>
+                </xsl:for-each>
+            </xsl:if>
             <xsl:choose>
                 <xsl:when test="position()!=last()">
                     <xsl:text>&#10;</xsl:text>
@@ -109,6 +122,20 @@
                 </xsl:otherwise>
             </xsl:choose>
         </xsl:for-each>
+        <xsl:if test="$pBiogHist/eac:list">
+            <xsl:for-each select="$pBiogHist/eac:list/eac:item">
+                <xsl:apply-templates select="."/>
+                <xsl:choose>
+                    <xsl:when test="position()!=last()">
+                        <xsl:text>&#10;</xsl:text>
+                        <xsl:text>&#10;</xsl:text>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <xsl:text>&#10;</xsl:text>
+                    </xsl:otherwise>
+                </xsl:choose>
+            </xsl:for-each>
+        </xsl:if>
         <!-- Timeline -->
         <xsl:if test="$pBiogHist/eac:chronList/eac:chronItem">
             <xsl:call-template name="tTimeline"/>
@@ -119,7 +146,7 @@
         <xsl:if
             test="eac:eac-cpf/eac:cpfDescription/eac:relations/eac:cpfRelation | eac:eac-cpf/eac:cpfDescription/eac:description/eac:localDescription[@localType[contains(.,'7')]] | eac:eac-cpf/eac:cpfDescription/eac:description/eac:localDescription[@localType[contains(.,'610')]]">
             <xsl:call-template name="tRelations">
-                <xsl:with-param name="pNameType">person</xsl:with-param>                
+                <xsl:with-param name="pNameType">person</xsl:with-param>
             </xsl:call-template>
         </xsl:if>
         <!-- References -->
@@ -189,13 +216,26 @@
                 <xsl:when test="following-sibling::eac:p">
                     <xsl:text>&#10;</xsl:text>
                 </xsl:when>
-                <xsl:otherwise>
-                    
-                </xsl:otherwise>
+                <xsl:otherwise> </xsl:otherwise>
             </xsl:choose>
         </xsl:if>
-        <xsl:for-each select="$pBiogHist/eac:p">
+        <xsl:for-each select="$pBiogHist/eac:p[.!='']">
             <xsl:value-of select="normalize-space(.)"/>
+            <xsl:if test="following-sibling::*[1][self::eac:list]">    
+                <xsl:text>&#10;</xsl:text>
+                <xsl:text>&#10;</xsl:text>
+                <xsl:for-each select="following-sibling::*[1][self::eac:list]/eac:item">
+                    <xsl:value-of select="normalize-space(.)"/>
+                    <xsl:choose>
+                        <xsl:when test="position()!=last()">
+                            <xsl:text>&#10;</xsl:text>
+                            <xsl:text>&#10;</xsl:text>
+                        </xsl:when>
+                        <xsl:otherwise>                            
+                        </xsl:otherwise>
+                    </xsl:choose>
+                </xsl:for-each>
+            </xsl:if>
             <xsl:choose>
                 <xsl:when test="position()!=last()">
                     <xsl:text>&#10;</xsl:text>
@@ -281,30 +321,29 @@
         <xsl:choose>
             <xsl:when
                 test="/eac:eac-cpf/eac:cpfDescription/eac:description/eac:occupation/eac:term != ''">
-                <xsl:for-each select="/eac:eac-cpf/eac:cpfDescription/eac:description/eac:occupation">
+                <xsl:for-each
+                    select="/eac:eac-cpf/eac:cpfDescription/eac:description/eac:occupation">
                     <xsl:variable name="vOccupationLen" select="string-length(eac:term)"/>
-                    <xsl:variable name="vOccupation-1" select="substring(eac:term,$vOccupationLen,$vOccupationLen)"/>
+                    <xsl:variable name="vOccupation-1"
+                        select="substring(eac:term,$vOccupationLen,$vOccupationLen)"/>
                     <xsl:choose>
                         <xsl:when test="position()!=last()">
                             <xsl:choose>
                                 <xsl:when test="$vOccupation-1='.'">
-                                    <xsl:value-of
-                                        select="normalize-space(eac:term)"/>
-                                    <xsl:text> </xsl:text>        
+                                    <xsl:value-of select="normalize-space(eac:term)"/>
+                                    <xsl:text> </xsl:text>
                                 </xsl:when>
                                 <xsl:otherwise>
-                                    <xsl:value-of
-                                        select="normalize-space(eac:term)"/>
-                                    <xsl:text>; </xsl:text>                                    
+                                    <xsl:value-of select="normalize-space(eac:term)"/>
+                                    <xsl:text>; </xsl:text>
                                 </xsl:otherwise>
-                            </xsl:choose>                            
+                            </xsl:choose>
                         </xsl:when>
                         <xsl:otherwise>
-                            <xsl:value-of
-                                select="normalize-space(eac:term)"/>                            
+                            <xsl:value-of select="normalize-space(eac:term)"/>
                         </xsl:otherwise>
-                    </xsl:choose>                                        
-                </xsl:for-each>                
+                    </xsl:choose>
+                </xsl:for-each>
                 <xsl:text>&#10;</xsl:text>
             </xsl:when>
             <xsl:otherwise>
@@ -1589,7 +1628,7 @@
                                     select="concat($pDiscServ,translate($pCorpName,',. ','+++'))"/>
                             </xsl:when>
                             <xsl:otherwise>
-                                <xsl:value-of select="concat($pDiscServ,$pCorpName)"/>
+                                <xsl:value-of select="concat($pDiscServ,translate($pCorpName,' ','+'))"/>
                             </xsl:otherwise>
                         </xsl:choose>
                     </xsl:otherwise>
@@ -1666,6 +1705,10 @@
                 </xsl:if>
             </xsl:otherwise>
         </xsl:choose>
+    </xsl:template>
+
+    <xsl:template match="eac:list/eac:item">
+        <xsl:value-of select="normalize-space(.)"/>
     </xsl:template>
 
 </xsl:stylesheet>
