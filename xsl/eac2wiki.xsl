@@ -121,21 +121,7 @@
                     <xsl:text>&#10;</xsl:text>
                 </xsl:otherwise>
             </xsl:choose>
-        </xsl:for-each>
-        <xsl:if test="$pBiogHist/eac:list">
-            <xsl:for-each select="$pBiogHist/eac:list/eac:item">
-                <xsl:apply-templates select="."/>
-                <xsl:choose>
-                    <xsl:when test="position()!=last()">
-                        <xsl:text>&#10;</xsl:text>
-                        <xsl:text>&#10;</xsl:text>
-                    </xsl:when>
-                    <xsl:otherwise>
-                        <xsl:text>&#10;</xsl:text>
-                    </xsl:otherwise>
-                </xsl:choose>
-            </xsl:for-each>
-        </xsl:if>
+        </xsl:for-each>        
         <!-- Timeline -->
         <xsl:if test="$pBiogHist/eac:chronList/eac:chronItem">
             <xsl:call-template name="tTimeline"/>
