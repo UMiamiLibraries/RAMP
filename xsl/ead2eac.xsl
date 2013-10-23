@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xsl:stylesheet xmlns="urn:isbn:1-931666-33-4" xmlns:ead="urn:isbn:1-931666-22-9"
+<xsl:stylesheet xmlns="urn:isbn:1-931666-33-4" xmlns:eac="urn:isbn:1-931666-33-4" xmlns:ead="urn:isbn:1-931666-22-9"
     xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:xlink="http://www.w3.org/1999/xlink"
     xmlns:exsl="http://exslt.org/common" xmlns:str="http://exslt.org/strings"
     extension-element-prefixes="exsl str" exclude-result-prefixes="ead" version="1.0">
@@ -65,6 +65,9 @@
     <!-- Call the top-level templates. -->
     <xsl:template match="/">
         <xsl:choose>
+            <xsl:when test="/eac:eac-cpf">
+                <xsl:copy-of select="@*|node()"/>
+            </xsl:when>
             <!-- Case to accommodate local merged EADs, which contain faux EAD wrapper elements. -->
             <xsl:when test="/ead:ead/ead:ead">
                 <xsl:for-each select="ead:ead">
@@ -875,7 +878,7 @@
                         <xsl:variable name="vEntType" select="local-name(.)"/>
                         <xsl:variable name="vCpfRel" select="@normal"/>
                         <xsl:if test="$vEntType='persname'">
-                            <cpfRelation cpfRelationType="associative"
+                            <cpfRelation xlink:arcrole="associatedWith"
                                 xlink:role="http://rdvocab.info/uri/schema/FRBRentitiesRDA/Person"
                                 xlink:type="simple" xmlns:xlink="http://www.w3.org/1999/xlink">
                                 <relationEntry>
@@ -914,7 +917,7 @@
                             </cpfRelation>
                         </xsl:if>
                         <xsl:if test="$vEntType='corpname'">
-                            <cpfRelation cpfRelationType="associative"
+                            <cpfRelation xlink:arcrole="associatedWith"
                                 xlink:role="http://rdvocab.info/uri/schema/FRBRentitiesRDA/CorporateBody"
                                 xlink:type="simple" xmlns:xlink="http://www.w3.org/1999/xlink">
                                 <relationEntry>
@@ -953,7 +956,7 @@
                             </cpfRelation>
                         </xsl:if>
                         <xsl:if test="$vEntType='famname'">
-                            <cpfRelation cpfRelationType="associative"
+                            <cpfRelation xlink:arcrole="associatedWith"
                                 xlink:role="http://rdvocab.info/uri/schema/FRBRentitiesRDA/Family"
                                 xlink:type="simple" xmlns:xlink="http://www.w3.org/1999/xlink">
                                 <relationEntry>
