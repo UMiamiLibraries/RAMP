@@ -96,7 +96,7 @@
 
     <!-- Process top-level control element. -->
     <xsl:template name="control">
-        <control>
+        <control xmlns="urn:isbn:1-931666-33-4">
             <recordId>
                 <xsl:choose>
                     <xsl:when test="contains(ead:ead/ead:eadheader/ead:eadid/@identifier,'RAMP')">
@@ -268,7 +268,7 @@
 
     <!-- Process top-level cpfDescription element. -->
     <xsl:template name="cpfDescription">
-        <cpfDescription>
+        <cpfDescription xmlns="urn:isbn:1-931666-33-4">
             <xsl:call-template name="identity"/>
             <xsl:call-template name="description"/>
             <xsl:call-template name="relations"/>
@@ -296,7 +296,7 @@
             select="substring(normalize-space(//ead:archdesc/ead:did/ead:origination/child::node()[1]),1,$vNameStringLen -12)"/>
 
         <!-- Check for entity type. -->
-        <identity>
+        <identity xmlns="urn:isbn:1-931666-33-4">
             <xsl:if
                 test="ead:ead/ead:archdesc/ead:did/ead:origination/child::node()[1][local-name()='persname']">
                 <entityType>person</entityType>
@@ -479,7 +479,7 @@
 
     <!-- Process description element. -->
     <xsl:template name="description">
-        <description>
+        <description xmlns="urn:isbn:1-931666-33-4">
             <!-- Call template for parsing dates. -->
             <xsl:call-template name="tExistDates">
                 <xsl:with-param name="pName"
@@ -884,7 +884,7 @@
 
     <!-- Process relation elements. -->
     <xsl:template name="relations">
-        <relations>
+        <relations xmlns="urn:isbn:1-931666-33-4">
             <!-- Turn associated creators into cpfRelation elements. -->
             <xsl:variable name="vFirstNode"
                 select="ead:ead/ead:archdesc/ead:did/ead:origination/child::node()[1]"/>
