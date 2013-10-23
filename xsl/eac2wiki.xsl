@@ -1707,8 +1707,4 @@
         </xsl:choose>
     </xsl:template>
 
-    <xsl:template match="eac:list/eac:item">
-        <xsl:value-of select="normalize-space(.)"/>
-    </xsl:template>
-
 </xsl:stylesheet>
