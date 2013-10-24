@@ -1053,13 +1053,13 @@
                 <xsl:text>&#10;</xsl:text>
             </xsl:if>
             <xsl:if
-                test="eac:eac-cpf/eac:cpfDescription/eac:description/child::node()[@localType[contains(.,'6')]|@localType='subject']">
+                test="eac:eac-cpf/eac:cpfDescription/eac:description/eac:localDescription[@localType[contains(.,'6')]]|eac:eac-cpf/eac:cpfDescription/eac:description/eac:localDescription[@localType='subject']">
                 <xsl:text>&#10;</xsl:text>
                 <xsl:text>&lt;!-- Note: the following categories have been generated from the original EAD finding aid or using FAST headings added from WorldCat Identities. These categories should be replaced with appropriate Wikipedia categories (for example, using the HotCat tool).</xsl:text>
                 <xsl:text>&#10;</xsl:text>
                 <xsl:text>&#10;</xsl:text>
                 <xsl:for-each
-                    select="eac:eac-cpf/eac:cpfDescription/eac:description/child::node()[@localType[contains(.,'6')]|@localType='subject']">
+                    select="eac:eac-cpf/eac:cpfDescription/eac:description/eac:localDescription[@localType[contains(.,'6')]]|eac:eac-cpf/eac:cpfDescription/eac:description/eac:localDescription[@localType='subject']">
                     <xsl:sort
                         select="translate(eac:term,'ÁÀÉÈÍÓÚÜÑáàéèíóúúüñ','AAEEIOUUNaaeeiouuun')"
                         data-type="text"/>
