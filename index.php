@@ -37,7 +37,7 @@ include('header.php');
 
   <h1>Convert EAD Files into EAC-CPF or Import EAC-CPF Files</h1>
  <ol><li><em>1.</em> Place your files in the 'ead' folder in the RAMP root directory.</li>
-  <li><em>2.</em> Click 'Convert Files.'  This will transform the EAD files
+  <li><em>2.</em> Click 'Import Files.'  This will transform the EAD files
 into EAC-CPF records or import existing EAC-CPF records as-is, storing both original and newly created files in the RAMP database.</li>
 <li><em>3.</em> You may now use the RAMP editor to enhance and publish your records. </li>
 <br/>
