@@ -1173,7 +1173,7 @@
                         data-type="text"/>
                     <xsl:choose>
                         <xsl:when
-                            test="@xlink:role='http://rdvocab.info/uri/schema/FRBRentitiesRDA/Person'">
+                            test="contains(eac:relationEntry,', ')">
                             <xsl:text>*[[</xsl:text>
                             <xsl:call-template name="tParseName2">
                                 <xsl:with-param name="pNameType">person</xsl:with-param>
