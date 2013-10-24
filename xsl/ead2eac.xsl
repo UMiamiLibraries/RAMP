@@ -309,7 +309,7 @@
                 test="ead:ead/ead:archdesc/ead:did/ead:origination/child::node()[1][local-name()='famname']">
                 <entityType>family</entityType>
             </xsl:if>
-            <nameEntry>
+            <nameEntry scriptCode="Latn" xml:lang="en">
                 <xsl:choose>
                     <!-- For Archon-exported EADs, use the value of the @normal attribute. -->
                     <xsl:when
