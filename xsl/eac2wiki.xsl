@@ -59,6 +59,7 @@
             test="eac:eac-cpf/eac:cpfDescription/eac:relations/eac:resourceRelation/eac:objectXMLWrap/ead:archdesc/ead:scopecontent or $pBiogHist/eac:abstract">
             <xsl:text>&lt;!-- The following info about the collection that may contain relevant historical details and that may be useful for providing a brief description of the "External link" to the finding aid from Wikipedia. This text should be deleted after relevant information has been incorporated into the Wikipedia entry: --&gt;</xsl:text>
             <xsl:text>&#10;</xsl:text>
+            <xsl:text>&#10;</xsl:text>
         </xsl:if>
         <xsl:if
             test="eac:eac-cpf/eac:cpfDescription/eac:relations/eac:resourceRelation/eac:objectXMLWrap/ead:archdesc/ead:scopecontent">
@@ -78,15 +79,11 @@
             <xsl:text> --&gt;&#10;</xsl:text>
             <xsl:text>&#10;</xsl:text>
         </xsl:if>
-        <!--
-        <xsl:if
-            test="not(eac:eac-cpf/eac:cpfDescription/eac:relations/eac:resourceRelation/eac:objectXMLWrap/ead:scopecontent)">            
-        </xsl:if>
-        -->
         <xsl:if test="$pBiogHist/eac:abstract">
             <xsl:text>&lt;!-- </xsl:text>
             <xsl:value-of select="normalize-space($pBiogHist/eac:abstract)"/>
             <xsl:text> --&gt;</xsl:text>
+            <xsl:text>&#10;</xsl:text>
             <xsl:text>&#10;</xsl:text>
             <xsl:choose>
                 <xsl:when test="following-sibling::eac:p">
@@ -173,6 +170,7 @@
             test="eac:eac-cpf/eac:cpfDescription/eac:relations/eac:resourceRelation/eac:objectXMLWrap/ead:archdesc/ead:scopecontent or $pBiogHist/eac:abstract">
             <xsl:text>&lt;!-- The following info about the collection that may contain relevant historical details and that may be useful for providing a brief description of the "External link" to the finding aid from Wikipedia. This text should be deleted after relevant information has been incorporated into the Wikipedia entry: --&gt;</xsl:text>
             <xsl:text>&#10;</xsl:text>
+            <xsl:text>&#10;</xsl:text>
         </xsl:if>
         <xsl:if
             test="eac:eac-cpf/eac:cpfDescription/eac:relations/eac:resourceRelation/eac:objectXMLWrap/ead:archdesc/ead:scopecontent">
@@ -196,6 +194,7 @@
             <xsl:text>&lt;!-- </xsl:text>
             <xsl:value-of select="normalize-space($pBiogHist/eac:abstract)"/>
             <xsl:text> --&gt;</xsl:text>
+            <xsl:text>&#10;</xsl:text>
             <xsl:text>&#10;</xsl:text>
             <xsl:choose>
                 <xsl:when test="following-sibling::eac:p">
@@ -558,10 +557,10 @@
                     <xsl:text>&#10;</xsl:text>
                     <xsl:choose>
                         <xsl:when
-                            test="normalize-space(substring-after(eac:objectXMLWrap/ead:eadheader/ead:filedesc/ead:titlestmt/ead:author,'Finding Aid Authors:'))">
+                            test="//ead:author">
                             <xsl:value-of
-                                select="normalize-space(substring-after(eac:objectXMLWrap/ead:eadheader/ead:filedesc/ead:titlestmt/ead:author,'Finding Aid Authors:'))"/>
-                            <xsl:text>"[</xsl:text>
+                                select="normalize-space(//ead:author)"/>
+                            <xsl:text>. "[</xsl:text>
                         </xsl:when>
                         <xsl:otherwise>
                             <xsl:text>"[</xsl:text>
@@ -573,6 +572,23 @@
                     <xsl:text>]," </xsl:text>
                     <xsl:value-of select="$pFindingAidInfo"/>
                     <xsl:text>&#10;</xsl:text>
+                </xsl:for-each>
+            </xsl:when>
+            <xsl:when test="//eac:citation">
+                <!-- Add any citation elements. -->
+                <xsl:for-each select="//eac:citation">                    
+                    <xsl:choose>
+                        <xsl:when test="contains(.,'http')">
+                            <xsl:text>[</xsl:text>
+                            <xsl:value-of select="normalize-space(.)"/>
+                            <xsl:text>]</xsl:text>
+                            <xsl:text>&#10;</xsl:text>
+                        </xsl:when>
+                        <xsl:otherwise>
+                            <xsl:value-of select="normalize-space(.)"/>
+                            <xsl:text>&#10;</xsl:text>
+                        </xsl:otherwise>
+                    </xsl:choose>
                 </xsl:for-each>
             </xsl:when>
             <xsl:otherwise> </xsl:otherwise>
@@ -1018,18 +1034,24 @@
         <xsl:param name="pBiogHist"/>
         <xsl:text>&#10;</xsl:text>
         <xsl:if test="$pNameType='person'">
-            <xsl:text>[[Category:</xsl:text>
-            <xsl:call-template name="tNameDateParser">
-                <xsl:with-param name="pBirthYr" select="'true'"/>
-            </xsl:call-template>
-            <xsl:text> births]]</xsl:text>
-            <xsl:text>&#10;</xsl:text>
-            <xsl:text>[[Category:</xsl:text>
-            <xsl:call-template name="tNameDateParser">
-                <xsl:with-param name="pDeathYr" select="'true'"/>
-            </xsl:call-template>
-            <xsl:text> deaths]]</xsl:text>
-            <xsl:text>&#10;</xsl:text>
+            <xsl:if
+                test="eac:eac-cpf/eac:cpfDescription/eac:description/eac:existDates/eac:dateRange/eac:fromDate!=''">
+                <xsl:text>[[Category:</xsl:text>
+                <xsl:call-template name="tNameDateParser">
+                    <xsl:with-param name="pBirthYr" select="'true'"/>
+                </xsl:call-template>
+                <xsl:text> births]]</xsl:text>
+                <xsl:text>&#10;</xsl:text>
+            </xsl:if>
+            <xsl:if
+                test="eac:eac-cpf/eac:cpfDescription/eac:description/eac:existDates/eac:dateRange/eac:toDate!=''">
+                <xsl:text>[[Category:</xsl:text>
+                <xsl:call-template name="tNameDateParser">
+                    <xsl:with-param name="pDeathYr" select="'true'"/>
+                </xsl:call-template>
+                <xsl:text> deaths]]</xsl:text>
+                <xsl:text>&#10;</xsl:text>
+            </xsl:if>
             <xsl:if
                 test="eac:eac-cpf/eac:cpfDescription/eac:description/child::node()[@localType[contains(.,'6')]|@localType='subject']">
                 <xsl:text>&#10;</xsl:text>
@@ -1172,8 +1194,7 @@
                         select="translate(eac:relationEntry[1],'ÁÀÉÈÍÓÚÜÑáàéèíóúúüñ','AAEEIOUUNaaeeiouuun')"
                         data-type="text"/>
                     <xsl:choose>
-                        <xsl:when
-                            test="contains(eac:relationEntry,', ')">
+                        <xsl:when test="contains(eac:relationEntry,', ')">
                             <xsl:text>*[[</xsl:text>
                             <xsl:call-template name="tParseName2">
                                 <xsl:with-param name="pNameType">person</xsl:with-param>
