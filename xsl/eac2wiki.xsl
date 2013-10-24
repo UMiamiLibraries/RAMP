@@ -472,7 +472,7 @@
     <!-- Output timeline, if available. -->
     <xsl:template name="tTimeline">
         <xsl:text>&#10;</xsl:text>
-        <xsl:text>==Chronology==</xsl:text>
+        <xsl:text>==Timeline==</xsl:text>
         <xsl:text>&#10;</xsl:text>
         <xsl:text>{{timeline-start}}</xsl:text>
         <xsl:for-each select="$pBiogHist/eac:chronList/eac:chronItem">
