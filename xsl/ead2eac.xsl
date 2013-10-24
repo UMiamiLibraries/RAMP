@@ -230,7 +230,7 @@
     <!-- Process source elements. -->
     <xsl:template name="sources">
         <xsl:if test="ead:ead/ead:eadheader/ead:filedesc!=''">
-            <sources>
+            <sources xmlns="urn:isbn:1-931666-33-4">
                 <xsl:if test="ead:ead/ead:eadheader/ead:filedesc!=''">
                     <xsl:for-each
                         select="ead:ead/ead:eadheader/ead:filedesc/ead:titlestmt/ead:titleproper[not(@type='filing')]">
@@ -742,42 +742,42 @@
             select="exsl:node-set($vSubjCheck)/ead:name[not(.=preceding-sibling::ead:name)]">
             <xsl:choose>
                 <xsl:when test="@encodinganalog='700'">
-                    <localDescription localType="700">
+                    <localDescription localType="700" xmlns="urn:isbn:1-931666-33-4">
                         <term>
                             <xsl:value-of select="."/>
                         </term>
                     </localDescription>
                 </xsl:when>
                 <xsl:when test="contains(@encodinganalog,'600')">
-                    <localDescription localType="600">
+                    <localDescription localType="600" xmlns="urn:isbn:1-931666-33-4">
                         <term>
                             <xsl:value-of select="."/>
                         </term>
                     </localDescription>
                 </xsl:when>
                 <xsl:when test="contains(@encodinganalog,'610')">
-                    <localDescription localType="610">
+                    <localDescription localType="610" xmlns="urn:isbn:1-931666-33-4">
                         <term>
                             <xsl:value-of select="."/>
                         </term>
                     </localDescription>
                 </xsl:when>
                 <xsl:when test="@encodinganalog='650'">
-                    <localDescription localType="650">
+                    <localDescription localType="650" xmlns="urn:isbn:1-931666-33-4">
                         <term>
                             <xsl:value-of select="."/>
                         </term>
                     </localDescription>
                 </xsl:when>
                 <xsl:when test="@encodinganalog='651'">
-                    <localDescription localType="651">
+                    <localDescription localType="651" xmlns="urn:isbn:1-931666-33-4">
                         <term>
                             <xsl:value-of select="."/>
                         </term>
                     </localDescription>
                 </xsl:when>
                 <xsl:when test="@encodinganalog='656'">
-                    <occupation localType="656">
+                    <occupation localType="656" xmlns="urn:isbn:1-931666-33-4">
                         <term>
                             <xsl:value-of select="."/>
                         </term>
