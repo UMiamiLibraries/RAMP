@@ -89,17 +89,17 @@ function convertEad( lstrDir, lobjUnprocessed, lstrDiffs )
   <div class="pure-u-1">
   <div class="content_box">
 
-  <h1 id="convert_message">On this page you can convert EAD files that you have placed in the 'ead' folder during the install process.</h1>
+  <h1 id="convert_message">On this page you can convert EAD files or import EAC-CPF files that you have placed in the 'ead' folder during the install process.</h1>
 
   <form action="ead_convert_class.php">
 
   <input type="hidden" name='dir' value="<?php echo $ead_path ?>"></input>
-  <button type="button" id="convertEad2Eac" name="convertEad2Eac" class="pure-button pure-button-primary">Convert</button>
+  <button type="button" id="convertEad2Eac" name="convertEad2Eac" class="pure-button pure-button-primary">Import</button>
   <span id="file_estimator" style="display: none;"></span>
   <div id="results"></div>
   </form>
 
-    <h1> After conversion you can export and download the records.</h1>
+    <h1> After importing you can export and download the records.</h1>
     <div id="exporting"></div>
   </div>
 

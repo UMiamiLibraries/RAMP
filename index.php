@@ -44,7 +44,7 @@ into EAC-CPF records or import existing EAC-CPF records as-is, storing both orig
 <li>Note: If you run this on a folder that already has files, it will look for new and changed EAC-CPF files. If files
 are changed, you will be presented with a 'diff' screen to merge changes. </li></ol>
   <br/>
-  <p><a href="ead_convert.php" id="convert_ead">Convert Files</a></p>
+  <p><a href="ead_convert.php" id="convert_ead">Import Files</a></p>
 
   <p>
   </p>
