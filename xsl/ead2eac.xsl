@@ -38,7 +38,7 @@
     <xsl:variable name="vLower" select="'aáàäbcdeéèfghiíjklmnñoópqrstuúüvwxyz'"/>
 
     <xsl:variable name="vAlpha" select="concat($vUpper,$vLower,$vPunct)"/>
-    
+
     <xsl:variable name="vAlpha2" select="concat($vUpper,$vLower,$vPunct2)"/>
 
     <xsl:variable name="vDigits" select="'0123456789'"/>
@@ -46,7 +46,7 @@
     <xsl:variable name="vPunct" select="'$;:.¿?!()[]-“”’'"/>
 
     <xsl:variable name="vPunct2" select="'$;:.¿?!()[]“”’'"/>
-    
+
     <xsl:variable name="vPunct3" select="',.'"/>
 
     <xsl:variable name="vCommaSpace" select="', '"/>
@@ -131,8 +131,7 @@
             <xsl:variable name="vEadHeaderCount" select="count(ead:ead/ead:eadheader)"/>
             <xsl:choose>
                 <!-- If it's an ingested record (not created from within RAMP). -->
-                <xsl:when test="not(contains(ead:ead/ead:eadheader/ead:eadid/@identifier,'RAMP'))">
-                    <!--
+                <xsl:when test="not(contains(ead:ead/ead:eadheader/ead:eadid/@identifier,'RAMP'))">                    
                     <xsl:for-each select="ead:ead/ead:eadheader">
                         <otherRecordId>
                             <xsl:choose>
@@ -164,8 +163,7 @@
                             <xsl:text>.r</xsl:text>
                             <xsl:value-of select="substring-before($pRecordId,'-')"/>
                         </otherRecordId>
-                    </xsl:for-each>
-                    -->
+                    </xsl:for-each>                    
                     <!-- maintenanceStatus = "derived" -->
                     <maintenanceStatus>derived</maintenanceStatus>
                 </xsl:when>
@@ -260,7 +258,7 @@
                         <source xlink:type="simple"
                             xlink:href="{concat($pLocalURL,substring-after(../../../ead:eadid/@identifier,':'))}">
                             <sourceEntry>
-                                <xsl:value-of select="."/>
+                                <xsl:value-of select="normalize-space(.)"/>
                             </sourceEntry>
                             <objectXMLWrap>
                                 <eadheader xmlns="urn:isbn:1-931666-22-9">
@@ -272,7 +270,7 @@
                                             <publicationstmt>
                                                 <p>
                                                   <xsl:value-of
-                                                  select="../../../../ead:archdesc/ead:did/ead:note/ead:p[2]"
+                                                  select="normalize-space(../../../../ead:archdesc/ead:did/ead:note/ead:p[2])"
                                                   />
                                                 </p>
                                             </publicationstmt>
@@ -534,7 +532,7 @@
 
             <!-- Call template for subjects. -->
             <xsl:call-template name="tControlAccess"/>
-            
+
             <xsl:call-template name="tOccupations"/>
 
             <!-- Process biogHist element. -->
@@ -790,32 +788,35 @@
                             <xsl:value-of select="."/>
                         </term>
                     </occupation>
-                </xsl:when>                
+                </xsl:when>
             </xsl:choose>
         </xsl:for-each>
     </xsl:template>
-    
+
     <!-- Template for matching any epithets in name strings and adding to <occupation> elements. -->
-    <xsl:template name="tOccupations">        
+    <xsl:template name="tOccupations">
         <xsl:choose>
             <xsl:when test="substring-after($vNameString,$vDates)!=''">
                 <xsl:choose>
                     <xsl:when test="contains(substring-after($vNameString,$vDates),',')">
-                        <occupation xmlns="urn:isbn:1-931666-33-4">
-                            <term>
-                                <xsl:value-of
-                                    select="normalize-space(substring-before(substring-after(substring-after($vNameString,$vDates),','),','))"
-                                />
-                            </term>
-                        </occupation>
-                        <occupation xmlns="urn:isbn:1-931666-33-4">
-                            <term>
-                                <xsl:value-of select="normalize-space(translate(substring(substring-after(substring-after(substring-after($vNameString,$vDates),','),','),2,1),$vLower,$vUpper))"/>
-                                <xsl:value-of
-                                    select="normalize-space(substring(substring-after(substring-after(substring-after($vNameString,$vDates),','),','),3))"
-                                />
-                            </term>
-                        </occupation>
+                        <occupations xmlns="urn:isbn:1-931666-33-4">
+                            <occupation>
+                                <term>
+                                    <xsl:value-of
+                                        select="normalize-space(substring-before(substring-after(substring-after($vNameString,$vDates),','),','))"
+                                    />
+                                </term>
+                            </occupation>
+                            <occupation>
+                                <term>
+                                    <xsl:value-of
+                                        select="normalize-space(translate(substring(substring-after(substring-after(substring-after($vNameString,$vDates),','),','),2,1),$vLower,$vUpper))"/>
+                                    <xsl:value-of
+                                        select="normalize-space(substring(substring-after(substring-after(substring-after($vNameString,$vDates),','),','),3))"
+                                    />
+                                </term>
+                            </occupation>
+                        </occupations>
                     </xsl:when>
                     <xsl:otherwise>
                         <occupation>
@@ -826,7 +827,7 @@
                             </term>
                         </occupation>
                     </xsl:otherwise>
-                </xsl:choose>                
+                </xsl:choose>
             </xsl:when>
         </xsl:choose>
     </xsl:template>
@@ -1069,8 +1070,8 @@
                             <xsl:when test=".">
                                 <xsl:value-of select="normalize-space(.)"/>
                                 <xsl:if test="not(contains(.,','))">
-                                    <xsl:text>, </xsl:text>    
-                                </xsl:if>                                
+                                    <xsl:text>, </xsl:text>
+                                </xsl:if>
                                 <xsl:value-of
                                     select="normalize-space(ead:unitdate[@type='inclusive'])"/>
                                 <xsl:if test="ead:unitdate[@type='bulk']">
