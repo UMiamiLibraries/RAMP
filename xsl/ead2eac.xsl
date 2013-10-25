@@ -80,13 +80,14 @@
         select="//ead:ead[1]/ead:archdesc/ead:did/ead:langmaterial/ead:language"/>
 
     <!-- Define a key for Muenchian grouping of subject elements. -->
-    <xsl:key name="kSubjCheck" match="ead:controlaccess/ead:controlaccess"
-        use="child::node()[local-name()!='head']"/>
+    <xsl:key name="kSubjCheck" match="//ead:controlaccess" use="child::node()[local-name()!='head']"/>
 
     <!-- Define variable for occupations. -->
     <xsl:variable name="vOccupation"
-        select="//ead:ead/ead:archdesc/ead:controlaccess/ead:controlaccess/ead:occupation"/>
+        select="//ead:ead/ead:archdesc//ead:controlaccess/ead:occupation"/>
     <xsl:variable name="vOccuCount" select="count(//ead:occupation)"/>
+
+    <xsl:variable name="vGeog" select="//ead:ead/ead:archdesc//ead:controlaccess/ead:geogname"/>
 
     <xsl:strip-space elements="*"/>
     <xsl:output method="xml" encoding="UTF-8" indent="yes"/>
@@ -136,7 +137,7 @@
             <xsl:variable name="vEadHeaderCount" select="count(ead:ead/ead:eadheader)"/>
             <xsl:choose>
                 <!-- If it's an ingested record (not created from within RAMP). -->
-                <xsl:when test="not(contains(ead:ead/ead:eadheader/ead:eadid/@identifier,'RAMP'))">                           
+                <xsl:when test="not(contains(ead:ead/ead:eadheader/ead:eadid/@identifier,'RAMP'))">                    
                     <xsl:for-each select="ead:ead/ead:eadheader">
                         <otherRecordId>
                             <xsl:choose>
@@ -538,8 +539,6 @@
             <!-- Call template for subjects. -->
             <xsl:call-template name="tControlAccess"/>
 
-            <xsl:call-template name="tOccupations"/>
-
             <!-- Process biogHist element. -->
             <xsl:if test="ead:ead/ead:archdesc/ead:bioghist">
                 <biogHist>
@@ -735,84 +734,90 @@
     </xsl:template>
 
     <!-- Template for processing subjects. -->
-    <xsl:template match="ead:ead/ead:archdesc/ead:controlaccess/ead:controlaccess"
-        name="tControlAccess">
+    <xsl:template match="ead:ead/ead:archdesc//ead:controlaccess" name="tControlAccess">
         <!-- Store the results of Muenchian grouping inside a variable. -->
         <xsl:variable name="vSubjCheck">
             <xsl:for-each
-                select="ead:ead/ead:archdesc/ead:controlaccess/ead:controlaccess[count(. | key('kSubjCheck', child::node()[local-name()!='head'])[1]) = 1]">
+                select="ead:ead/ead:archdesc//ead:controlaccess[count(. | key('kSubjCheck', child::node()[local-name()!='head'])[1]) = 1]">
                 <xsl:for-each select="child::node()[local-name()!='head']">
-                    <ead:name encodinganalog="{@encodinganalog}">
+                    <ead:name encodinganalog="{@encodinganalog}" type="{local-name()}">
                         <xsl:value-of select="."/>
                     </ead:name>
                 </xsl:for-each>
             </xsl:for-each>
         </xsl:variable>
         <!-- Then do a second pass over the node set using the EXSL node-set function. -->
-        <localDescriptions localType="subjects" xmlns="urn:isbn:1-931666-33-4">
-            <xsl:for-each
-                select="exsl:node-set($vSubjCheck)/ead:name[not(.=preceding-sibling::ead:name)]">
-                <xsl:choose>
-                    <xsl:when test="@encodinganalog='700'">
-                        <localDescription localType="700">
-                            <term>
-                                <xsl:value-of select="."/>
-                            </term>
-                        </localDescription>
-                    </xsl:when>
-                    <xsl:when test="contains(@encodinganalog,'600')">
-                        <localDescription localType="600">
-                            <term>
-                                <xsl:value-of select="."/>
-                            </term>
-                        </localDescription>
-                    </xsl:when>
-                    <xsl:when test="contains(@encodinganalog,'610')">
-                        <localDescription localType="610">
-                            <term>
-                                <xsl:value-of select="."/>
-                            </term>
-                        </localDescription>
-                    </xsl:when>
-                    <xsl:when test="@encodinganalog='650'">
-                        <localDescription localType="650">
-                            <term>
-                                <xsl:value-of select="."/>
-                            </term>
-                        </localDescription>
-                    </xsl:when>
-                    <xsl:when test="@encodinganalog='651'">
-                        <localDescription localType="651">
-                            <term>
-                                <xsl:value-of select="."/>
-                            </term>
-                        </localDescription>
-                    </xsl:when>
-                </xsl:choose>
-            </xsl:for-each>
-        </localDescriptions>
-        <xsl:choose>
-            <xsl:when test="$vOccuCount&gt;1">
-                <occupations xmlns="urn:isbn:1-931666-33-4">
-                    <xsl:for-each select="$vOccupation">
-                        <occupation localType="656">
-                            <term>
-                                <xsl:value-of select="normalize-space(.)"/>
-                            </term>
-                        </occupation>
-                    </xsl:for-each>
-                </occupations>
-            </xsl:when>
-            <xsl:otherwise>
-                <xsl:if test="$vOccuCount=1">
-                    <occupation localType="656" xmlns="urn:isbn:1-931666-33-4">
+        <xsl:for-each
+            select="exsl:node-set($vSubjCheck)/ead:name[not(.=preceding-sibling::ead:name)]">
+            <xsl:choose>
+                <xsl:when test="@encodinganalog='700'">
+                    <localDescription localType="700" xmlns="urn:isbn:1-931666-33-4">
                         <term>
-                            <xsl:value-of select="normalize-space($vOccupation)"/>
+                            <xsl:value-of select="."/>
                         </term>
-                    </occupation>
-                </xsl:if>
-            </xsl:otherwise>
-        </xsl:choose>
+                    </localDescription>
+                </xsl:when>
+                <xsl:when test="contains(@encodinganalog,'600')">
+                    <localDescription localType="600" xmlns="urn:isbn:1-931666-33-4">
+                        <term>
+                            <xsl:value-of select="."/>
+                        </term>
+                    </localDescription>
+                </xsl:when>
+                <xsl:when test="contains(@encodinganalog,'610')">
+                    <localDescription localType="610" xmlns="urn:isbn:1-931666-33-4">
+                        <term>
+                            <xsl:value-of select="."/>
+                        </term>
+                    </localDescription>
+                </xsl:when>
+                <xsl:when test="@encodinganalog='650'">
+                    <localDescription localType="650" xmlns="urn:isbn:1-931666-33-4">
+                        <term>
+                            <xsl:value-of select="."/>
+                        </term>
+                    </localDescription>
+                </xsl:when>
+                <xsl:when test="@encodinganalog='651'">
+                    <localDescription localType="651" xmlns="urn:isbn:1-931666-33-4">
+                        <term>
+                            <xsl:value-of select="."/>
+                        </term>
+                    </localDescription>
+                </xsl:when>
+                <xsl:when test="@type='subject'">
+                    <localDescription localType="subject" xmlns="urn:isbn:1-931666-33-4">
+                        <term>
+                            <xsl:value-of select="."/>
+                        </term>
+                    </localDescription>
+                </xsl:when>
+                <xsl:when test="@type='persname' and .!=$vNameString">                    
+                    <localDescription localType="subject" xmlns="urn:isbn:1-931666-33-4">
+                        <term>
+                            <xsl:value-of select="."/>
+                        </term>
+                    </localDescription>
+                </xsl:when>
+            </xsl:choose>
+        </xsl:for-each>
+        <xsl:for-each select="$vOccupation">
+            <occupation localType="656" xmlns="urn:isbn:1-931666-33-4">
+                <term>
+                    <xsl:value-of select="normalize-space(.)"/>
+                </term>
+            </occupation>
+        </xsl:for-each>
+        <xsl:if test="$vDates!=''">
+            <xsl:call-template name="tOccupations"/>
+        </xsl:if>
+        <xsl:for-each select="$vGeog">
+            <place xmlns="urn:isbn:1-931666-33-4">
+                <placeEntry>
+                    <xsl:value-of select="normalize-space(.)"/>
+                </placeEntry>
+            </place>
+        </xsl:for-each>
     </xsl:template>
 
     <!-- Template for matching any epithets in name strings and adding to <occupation> elements. -->
@@ -821,29 +826,27 @@
             <xsl:when test="substring-after($vNameString,$vDates)!=''">
                 <xsl:choose>
                     <xsl:when test="contains(substring-after($vNameString,$vDates),',')">
-                        <occupations xmlns="urn:isbn:1-931666-33-4">
-                            <occupation>
-                                <term>
-                                    <xsl:value-of
-                                        select="normalize-space(translate(substring(substring-before(substring-after(substring-after($vNameString,$vDates),','),','),2,1),$vLower,$vUpper))"/>
-                                    <xsl:value-of
-                                        select="normalize-space(substring(substring-before(substring-after(substring-after($vNameString,$vDates),','),','),3))"
-                                    />
-                                </term>
-                            </occupation>
-                            <occupation>
-                                <term>
-                                    <xsl:value-of
-                                        select="normalize-space(translate(substring(substring-after(substring-after(substring-after($vNameString,$vDates),','),','),2,1),$vLower,$vUpper))"/>
-                                    <xsl:value-of
-                                        select="normalize-space(substring(substring-after(substring-after(substring-after($vNameString,$vDates),','),','),3))"
-                                    />
-                                </term>
-                            </occupation>
-                        </occupations>
+                        <occupation xmlns="urn:isbn:1-931666-33-4">
+                            <term>
+                                <xsl:value-of
+                                    select="normalize-space(translate(substring(substring-before(substring-after(substring-after($vNameString,$vDates),','),','),2,1),$vLower,$vUpper))"/>
+                                <xsl:value-of
+                                    select="normalize-space(substring(substring-before(substring-after(substring-after($vNameString,$vDates),','),','),3))"
+                                />
+                            </term>
+                        </occupation>
+                        <occupation xmlns="urn:isbn:1-931666-33-4">
+                            <term>
+                                <xsl:value-of
+                                    select="normalize-space(translate(substring(substring-after(substring-after(substring-after($vNameString,$vDates),','),','),2,1),$vLower,$vUpper))"/>
+                                <xsl:value-of
+                                    select="normalize-space(substring(substring-after(substring-after(substring-after($vNameString,$vDates),','),','),3))"
+                                />
+                            </term>
+                        </occupation>
                     </xsl:when>
                     <xsl:otherwise>
-                        <occupation>
+                        <occupation xmlns="urn:isbn:1-931666-33-4">
                             <term>
                                 <xsl:value-of
                                     select="substring-after(substring-after($vNameString,$vDates),',')"
