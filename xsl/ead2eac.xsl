@@ -132,6 +132,7 @@
             <xsl:choose>
                 <!-- If it's an ingested record (not created from within RAMP). -->
                 <xsl:when test="not(contains(ead:ead/ead:eadheader/ead:eadid/@identifier,'RAMP'))">
+                    <!--
                     <xsl:for-each select="ead:ead/ead:eadheader">
                         <otherRecordId>
                             <xsl:choose>
@@ -164,6 +165,7 @@
                             <xsl:value-of select="substring-before($pRecordId,'-')"/>
                         </otherRecordId>
                     </xsl:for-each>
+                    -->
                     <!-- maintenanceStatus = "derived" -->
                     <maintenanceStatus>derived</maintenanceStatus>
                 </xsl:when>
@@ -313,7 +315,7 @@
                 test="ead:ead/ead:archdesc/ead:did/ead:origination/child::node()[1][local-name()='famname']">
                 <entityType>family</entityType>
             </xsl:if>
-            <nameEntry>
+            <nameEntry scriptCode="Latn" xml:lang="en">
                 <xsl:choose>
                     <!-- For Archon-exported EADs, use the value of the @normal attribute. -->
                     <xsl:when
