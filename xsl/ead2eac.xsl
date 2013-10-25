@@ -136,7 +136,7 @@
             <xsl:variable name="vEadHeaderCount" select="count(ead:ead/ead:eadheader)"/>
             <xsl:choose>
                 <!-- If it's an ingested record (not created from within RAMP). -->
-                <xsl:when test="not(contains(ead:ead/ead:eadheader/ead:eadid/@identifier,'RAMP'))">                         
+                <xsl:when test="not(contains(ead:ead/ead:eadheader/ead:eadid/@identifier,'RAMP'))">                           
                     <xsl:for-each select="ead:ead/ead:eadheader">
                         <otherRecordId>
                             <xsl:choose>
@@ -168,7 +168,7 @@
                             <xsl:text>.r</xsl:text>
                             <xsl:value-of select="substring-before($pRecordId,'-')"/>
                         </otherRecordId>
-                    </xsl:for-each>                                       
+                    </xsl:for-each>                                  
                     <!-- maintenanceStatus = "derived" -->
                     <maintenanceStatus>derived</maintenanceStatus>
                 </xsl:when>
@@ -805,9 +805,9 @@
             </xsl:when>
             <xsl:otherwise>
                 <xsl:if test="$vOccuCount=1">
-                    <occupation localType="656">
+                    <occupation localType="656" xmlns="urn:isbn:1-931666-33-4">
                         <term>
-                            <xsl:value-of select="normalize-space(.)"/>
+                            <xsl:value-of select="normalize-space($vOccupation)"/>
                         </term>
                     </occupation>
                 </xsl:if>
