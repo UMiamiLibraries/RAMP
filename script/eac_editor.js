@@ -347,7 +347,7 @@ function ead()
 
 		var lobjSubjectHeadingNode = this.createElement( 'localDescription', lobjAttributes, lobjElements );
 
-		this.addElement( 'localDescription', lobjSubjectHeadingNode, '//*[local-name()=\'cpfDescription\']/*[local-name()=\'description\']/*[local-name()=\'biogHist\']', true );
+		this.addElement( 'localDescription', lobjSubjectHeadingNode, '//*[local-name()=\'cpfDescription\']/*[local-name()=\'description\']//*[local-name()=\'localDescription\']|//*[local-name()=\'biogHist\']', true );
 	}
 
 	/*
