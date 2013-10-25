@@ -38,18 +38,42 @@
     <xsl:variable name="vLower" select="'aáàäbcdeéèfghiíjklmnñoópqrstuúüvwxyz'"/>
 
     <xsl:variable name="vAlpha" select="concat($vUpper,$vLower,$vPunct)"/>
+    
+    <xsl:variable name="vAlpha2" select="concat($vUpper,$vLower,$vPunct2)"/>
 
     <xsl:variable name="vDigits" select="'0123456789'"/>
 
     <xsl:variable name="vPunct" select="'$;:.¿?!()[]-“”’'"/>
 
-    <xsl:variable name="vPunct2" select="',.'"/>
+    <xsl:variable name="vPunct2" select="'$;:.¿?!()[]“”’'"/>
+    
+    <xsl:variable name="vPunct3" select="',.'"/>
 
     <xsl:variable name="vCommaSpace" select="', '"/>
 
     <xsl:variable name="vQuote">"</xsl:variable>
 
     <xsl:variable name="vApos">'</xsl:variable>
+
+    <!-- Define variables for crude regex matching of dates. -->
+    <xsl:variable name="vDates"
+        select="translate(normalize-space(//ead:archdesc/ead:did/ead:origination/child::node()[1]),concat($vAlpha2,$vCommaSpace,$vApos),'')"/>
+    <xsl:variable name="vDatesLen"
+        select="string-length(translate(normalize-space(//ead:archdesc/ead:did/ead:origination/child::node()[1]),concat($vAlpha,$vCommaSpace,$vApos),''))"/>
+    <xsl:variable name="vNameStringLen"
+        select="string-length(normalize-space(//ead:archdesc/ead:did/ead:origination/child::node()[1]))"/>
+    <xsl:variable name="vNameString"
+        select="substring(normalize-space(//ead:archdesc/ead:did/ead:origination/child::node()[1]),1,$vNameStringLen)"/>
+    <xsl:variable name="vNameString-1"
+        select="substring(normalize-space(//ead:archdesc/ead:did/ead:origination/child::node()[1]),$vNameStringLen, $vNameStringLen)"/>
+    <xsl:variable name="vNameString-6"
+        select="substring(normalize-space(//ead:archdesc/ead:did/ead:origination/child::node()[1]),1,$vNameStringLen -6)"/>
+    <xsl:variable name="vNameString-8"
+        select="substring(normalize-space(//ead:archdesc/ead:did/ead:origination/child::node()[1]),1,$vNameStringLen -8)"/>
+    <xsl:variable name="vNameString-10"
+        select="substring(normalize-space(//ead:archdesc/ead:did/ead:origination/child::node()[1]),1,$vNameStringLen -10)"/>
+    <xsl:variable name="vNameString-12"
+        select="substring(normalize-space(//ead:archdesc/ead:did/ead:origination/child::node()[1]),1,$vNameStringLen -12)"/>
 
     <!-- Define a variable to help de-dupe language elements. -->
     <xsl:variable name="vLangCheck"
@@ -71,31 +95,28 @@
             <!-- Case to accommodate local merged EADs, which contain faux EAD wrapper elements. -->
             <xsl:when test="/ead:ead/ead:ead">
                 <xsl:for-each select="ead:ead">
-                    <eac-cpf
-                        xmlns="urn:isbn:1-931666-33-4"
+                    <eac-cpf xmlns="urn:isbn:1-931666-33-4"
                         xmlns:xlink="http://www.w3.org/1999/xlink"
                         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
                         xsi:schemaLocation="urn:isbn:1-931666-33-4 http://eac.staatsbibliothek-berlin.de/schema/cpf.xsd">
-                        <xsl:call-template name="control"/>
-                        <xsl:call-template name="cpfDescription"/>
+                        <xsl:call-template name="tControl"/>
+                        <xsl:call-template name="tCpfDescription"/>
                     </eac-cpf>
                 </xsl:for-each>
             </xsl:when>
             <xsl:otherwise>
-                <eac-cpf 
-                    xmlns="urn:isbn:1-931666-33-4"
-                    xmlns:xlink="http://www.w3.org/1999/xlink"
+                <eac-cpf xmlns="urn:isbn:1-931666-33-4" xmlns:xlink="http://www.w3.org/1999/xlink"
                     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
                     xsi:schemaLocation="urn:isbn:1-931666-33-4 http://eac.staatsbibliothek-berlin.de/schema/cpf.xsd">
-                    <xsl:call-template name="control"/>
-                    <xsl:call-template name="cpfDescription"/>
+                    <xsl:call-template name="tControl"/>
+                    <xsl:call-template name="tCpfDescription"/>
                 </eac-cpf>
             </xsl:otherwise>
         </xsl:choose>
     </xsl:template>
 
     <!-- Process top-level control element. -->
-    <xsl:template name="control">
+    <xsl:template name="tControl">
         <control xmlns="urn:isbn:1-931666-33-4">
             <recordId>
                 <xsl:choose>
@@ -223,12 +244,12 @@
                     </xsl:choose>
                 </maintenanceEvent>
             </maintenanceHistory>
-            <xsl:call-template name="sources"/>
+            <xsl:call-template name="tSources"/>
         </control>
     </xsl:template>
 
     <!-- Process source elements. -->
-    <xsl:template name="sources">
+    <xsl:template name="tSources">
         <xsl:if test="ead:ead/ead:eadheader/ead:filedesc!=''">
             <sources xmlns="urn:isbn:1-931666-33-4">
                 <xsl:if test="ead:ead/ead:eadheader/ead:filedesc!=''">
@@ -267,33 +288,16 @@
     </xsl:template>
 
     <!-- Process top-level cpfDescription element. -->
-    <xsl:template name="cpfDescription">
+    <xsl:template name="tCpfDescription">
         <cpfDescription xmlns="urn:isbn:1-931666-33-4">
-            <xsl:call-template name="identity"/>
-            <xsl:call-template name="description"/>
-            <xsl:call-template name="relations"/>
+            <xsl:call-template name="tIdentity"/>
+            <xsl:call-template name="tDescription"/>
+            <xsl:call-template name="tRelations"/>
         </cpfDescription>
     </xsl:template>
 
     <!-- Process identity element. -->
-    <xsl:template name="identity">
-        <!-- Define variables for crude regex matching of dates. -->
-        <xsl:variable name="vDates"
-            select="string-length(translate(normalize-space(//ead:archdesc/ead:did/ead:origination/child::node()[1]),concat($vAlpha,$vCommaSpace,$vApos),''))"/>
-        <xsl:variable name="vNameStringLen"
-            select="string-length(normalize-space(//ead:archdesc/ead:did/ead:origination/child::node()[1]))"/>
-        <xsl:variable name="vNameString"
-            select="substring(normalize-space(//ead:archdesc/ead:did/ead:origination/child::node()[1]),1,$vNameStringLen)"/>
-        <xsl:variable name="vNameString-1"
-            select="substring(normalize-space(//ead:archdesc/ead:did/ead:origination/child::node()[1]),$vNameStringLen, $vNameStringLen)"/>
-        <xsl:variable name="vNameString-6"
-            select="substring(normalize-space(//ead:archdesc/ead:did/ead:origination/child::node()[1]),1,$vNameStringLen -6)"/>
-        <xsl:variable name="vNameString-8"
-            select="substring(normalize-space(//ead:archdesc/ead:did/ead:origination/child::node()[1]),1,$vNameStringLen -8)"/>
-        <xsl:variable name="vNameString-10"
-            select="substring(normalize-space(//ead:archdesc/ead:did/ead:origination/child::node()[1]),1,$vNameStringLen -10)"/>
-        <xsl:variable name="vNameString-12"
-            select="substring(normalize-space(//ead:archdesc/ead:did/ead:origination/child::node()[1]),1,$vNameStringLen -12)"/>
+    <xsl:template name="tIdentity">
 
         <!-- Check for entity type. -->
         <identity xmlns="urn:isbn:1-931666-33-4">
@@ -309,7 +313,7 @@
                 test="ead:ead/ead:archdesc/ead:did/ead:origination/child::node()[1][local-name()='famname']">
                 <entityType>family</entityType>
             </xsl:if>
-            <nameEntry scriptCode="Latn" xml:lang="en">
+            <nameEntry>
                 <xsl:choose>
                     <!-- For Archon-exported EADs, use the value of the @normal attribute. -->
                     <xsl:when
@@ -328,7 +332,7 @@
                                 concat($vAlpha,$vCommaSpace),''))&gt;=4">
                                 <part>
                                     <xsl:choose>
-                                        <xsl:when test="$vDates=8">
+                                        <xsl:when test="$vDatesLen=8">
                                             <xsl:choose>
                                                 <xsl:when test="$vNameString-1=')'">
                                                   <xsl:value-of
@@ -366,7 +370,7 @@
                                                 </xsl:otherwise>
                                             </xsl:choose>
                                         </xsl:when>
-                                        <xsl:when test="$vDates=4 or $vDates=5">
+                                        <xsl:when test="$vDatesLen=4 or $vDatesLen=5">
                                             <xsl:choose>
                                                 <xsl:when test="$vNameString-1=')'">
                                                   <xsl:value-of
@@ -478,7 +482,7 @@
     </xsl:template>
 
     <!-- Process description element. -->
-    <xsl:template name="description">
+    <xsl:template name="tDescription">
         <description xmlns="urn:isbn:1-931666-33-4">
             <!-- Call template for parsing dates. -->
             <xsl:call-template name="tExistDates">
@@ -494,7 +498,7 @@
                         <languagesUsed>
                             <languageUsed>
                                 <language languageCode="{$vLangCheck/@langcode}">
-                                    <xsl:value-of select="$vLangCheck"/>
+                                    <xsl:value-of select="normalize-space($vLangCheck)"/>
                                 </language>
                                 <!-- The majority of cases will be Latin, but will otherwise need to be modified. -->
                                 <script scriptCode="Latn">Latin</script>
@@ -503,7 +507,7 @@
                                 select="ead:ead/ead:archdesc/ead:did/ead:langmaterial/ead:language[.!=$vLangCheck]">
                                 <languageUsed>
                                     <language languageCode="{./@langcode}">
-                                        <xsl:value-of select="."/>
+                                        <xsl:value-of select="normalize-space(.)"/>
                                     </language>
                                     <script scriptCode="Latn">Latin</script>
                                 </languageUsed>
@@ -516,7 +520,7 @@
                                 select="ead:ead/ead:archdesc/ead:did/ead:langmaterial/ead:language">
                                 <languageUsed>
                                     <language languageCode="{./@langcode}">
-                                        <xsl:value-of select="."/>
+                                        <xsl:value-of select="normalize-space(.)"/>
                                     </language>
                                     <script scriptCode="Latn">Latin</script>
                                 </languageUsed>
@@ -527,7 +531,9 @@
             </xsl:if>
 
             <!-- Call template for subjects. -->
-            <xsl:call-template name="controlAccess"/>
+            <xsl:call-template name="tControlAccess"/>
+            
+            <xsl:call-template name="tOccupations"/>
 
             <!-- Process biogHist element. -->
             <xsl:if test="ead:ead/ead:archdesc/ead:bioghist">
@@ -700,7 +706,7 @@
                                         <xsl:if test=".!=' ' and .!=''">
                                             <xsl:choose>
                                                 <xsl:when test="contains(.,'\n')">
-                                                  <xsl:call-template name="lineSplitter">
+                                                  <xsl:call-template name="tLineSplitter">
                                                   <xsl:with-param name="line"
                                                   select="normalize-space(.)"/>
                                                   <xsl:with-param name="element">p</xsl:with-param>
@@ -725,7 +731,7 @@
 
     <!-- Template for processing subjects. -->
     <xsl:template match="ead:ead/ead:archdesc/ead:controlaccess/ead:controlaccess"
-        name="controlAccess">
+        name="tControlAccess">
         <!-- Store the results of Muenchian grouping inside a variable. -->
         <xsl:variable name="vSubjCheck">
             <xsl:for-each
@@ -742,53 +748,89 @@
             select="exsl:node-set($vSubjCheck)/ead:name[not(.=preceding-sibling::ead:name)]">
             <xsl:choose>
                 <xsl:when test="@encodinganalog='700'">
-                    <localDescription localType="700" xmlns="urn:isbn:1-931666-33-4">
+                    <localDescription localType="700">
                         <term>
                             <xsl:value-of select="."/>
                         </term>
                     </localDescription>
                 </xsl:when>
                 <xsl:when test="contains(@encodinganalog,'600')">
-                    <localDescription localType="600" xmlns="urn:isbn:1-931666-33-4">
+                    <localDescription localType="600">
                         <term>
                             <xsl:value-of select="."/>
                         </term>
                     </localDescription>
                 </xsl:when>
                 <xsl:when test="contains(@encodinganalog,'610')">
-                    <localDescription localType="610" xmlns="urn:isbn:1-931666-33-4">
+                    <localDescription localType="610">
                         <term>
                             <xsl:value-of select="."/>
                         </term>
                     </localDescription>
                 </xsl:when>
                 <xsl:when test="@encodinganalog='650'">
-                    <localDescription localType="650" xmlns="urn:isbn:1-931666-33-4">
+                    <localDescription localType="650">
                         <term>
                             <xsl:value-of select="."/>
                         </term>
                     </localDescription>
                 </xsl:when>
                 <xsl:when test="@encodinganalog='651'">
-                    <localDescription localType="651" xmlns="urn:isbn:1-931666-33-4">
+                    <localDescription localType="651">
                         <term>
                             <xsl:value-of select="."/>
                         </term>
                     </localDescription>
                 </xsl:when>
                 <xsl:when test="@encodinganalog='656'">
-                    <occupation localType="656" xmlns="urn:isbn:1-931666-33-4">
+                    <occupation localType="656">
                         <term>
                             <xsl:value-of select="."/>
                         </term>
                     </occupation>
-                </xsl:when>
+                </xsl:when>                
             </xsl:choose>
         </xsl:for-each>
     </xsl:template>
+    
+    <!-- Template for matching any epithets in name strings and adding to <occupation> elements. -->
+    <xsl:template name="tOccupations">        
+        <xsl:choose>
+            <xsl:when test="substring-after($vNameString,$vDates)!=''">
+                <xsl:choose>
+                    <xsl:when test="contains(substring-after($vNameString,$vDates),',')">
+                        <occupation xmlns="urn:isbn:1-931666-33-4">
+                            <term>
+                                <xsl:value-of
+                                    select="normalize-space(substring-before(substring-after(substring-after($vNameString,$vDates),','),','))"
+                                />
+                            </term>
+                        </occupation>
+                        <occupation xmlns="urn:isbn:1-931666-33-4">
+                            <term>
+                                <xsl:value-of select="normalize-space(translate(substring(substring-after(substring-after(substring-after($vNameString,$vDates),','),','),2,1),$vLower,$vUpper))"/>
+                                <xsl:value-of
+                                    select="normalize-space(substring(substring-after(substring-after(substring-after($vNameString,$vDates),','),','),3))"
+                                />
+                            </term>
+                        </occupation>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <occupation>
+                            <term>
+                                <xsl:value-of
+                                    select="substring-after(substring-after($vNameString,$vDates),',')"
+                                />
+                            </term>
+                        </occupation>
+                    </xsl:otherwise>
+                </xsl:choose>                
+            </xsl:when>
+        </xsl:choose>
+    </xsl:template>
 
     <!-- Recursive template to turn "\n\n" into <p> tags. Used for processing biography from new record form. To be developed further. -->
-    <xsl:template name="lineSplitter">
+    <xsl:template name="tLineSplitter">
         <xsl:param name="line"/>
         <xsl:param name="element"/>
         <xsl:param name="element2"/>
@@ -801,7 +843,7 @@
                                 <xsl:value-of select="substring-before($line,'\n')"/>
                             </xsl:element>
                         </xsl:element>
-                        <xsl:call-template name="lineSplitter">
+                        <xsl:call-template name="tLineSplitter">
                             <xsl:with-param name="line" select="substring-after($line,'\n')"/>
                             <xsl:with-param name="element" select="$element"/>
                             <xsl:with-param name="element2" select="$element2"/>
@@ -817,7 +859,7 @@
                                 <xsl:value-of select="substring-before($line,'\n\n')"/>
                             </xsl:element>
                         </xsl:element>
-                        <xsl:call-template name="lineSplitter">
+                        <xsl:call-template name="tLineSplitter">
                             <xsl:with-param name="line" select="substring-after($line,'\n\n')"/>
                             <xsl:with-param name="element" select="$element"/>
                             <xsl:with-param name="element2" select="$element2"/>
@@ -827,7 +869,7 @@
                         <xsl:element name="{$element}" namespace="urn:isbn:1-931666-33-4">
                             <xsl:value-of select="substring-before(normalize-space($line),'\n\n')"/>
                         </xsl:element>
-                        <xsl:call-template name="lineSplitter">
+                        <xsl:call-template name="tLineSplitter">
                             <xsl:with-param name="line"
                                 select="substring-after(normalize-space($line),'\n\n')"/>
                             <xsl:with-param name="element" select="$element"/>
@@ -861,18 +903,18 @@
     </xsl:template>
 
     <xsl:template match="ead:emph">
-        <span>
+        <span xmlns="urn:isbn:1-931666-33-4">
             <xsl:attribute name="style">font-style:italic</xsl:attribute>
             <xsl:value-of select="normalize-space(.)"/>
         </span>
     </xsl:template>
-    
+
     <xsl:template match="ead:item">
         <xsl:value-of select="normalize-space(.)"/>
     </xsl:template>
 
     <xsl:template match="ead:title">
-        <span>
+        <span xmlns="urn:isbn:1-931666-33-4">
             <xsl:attribute name="style">font-style:italic</xsl:attribute>
             <xsl:value-of select="normalize-space(.)"/>
         </span>
@@ -883,7 +925,7 @@
     </xsl:template>
 
     <!-- Process relation elements. -->
-    <xsl:template name="relations">
+    <xsl:template name="tRelations">
         <relations xmlns="urn:isbn:1-931666-33-4">
             <!-- Turn associated creators into cpfRelation elements. -->
             <xsl:variable name="vFirstNode"
@@ -1023,8 +1065,10 @@
                         <xsl:choose>
                             <!-- Process inclusive and bulk dates. -->
                             <xsl:when test=".">
-                                <xsl:value-of select="normalize-space(text())"/>
-                                <xsl:text>, </xsl:text>
+                                <xsl:value-of select="normalize-space(.)"/>
+                                <xsl:if test="not(contains(.,','))">
+                                    <xsl:text>, </xsl:text>    
+                                </xsl:if>                                
                                 <xsl:value-of
                                     select="normalize-space(ead:unitdate[@type='inclusive'])"/>
                                 <xsl:if test="ead:unitdate[@type='bulk']">
