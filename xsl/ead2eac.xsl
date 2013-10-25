@@ -803,7 +803,9 @@
                             <occupation>
                                 <term>
                                     <xsl:value-of
-                                        select="normalize-space(substring-before(substring-after(substring-after($vNameString,$vDates),','),','))"
+                                        select="normalize-space(translate(substring(substring-before(substring-after(substring-after($vNameString,$vDates),','),','),2,1),$vLower,$vUpper))"/>
+                                    <xsl:value-of
+                                        select="normalize-space(substring(substring-before(substring-after(substring-after($vNameString,$vDates),','),','),3))"
                                     />
                                 </term>
                             </occupation>
