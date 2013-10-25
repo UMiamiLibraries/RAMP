@@ -136,7 +136,7 @@
             <xsl:variable name="vEadHeaderCount" select="count(ead:ead/ead:eadheader)"/>
             <xsl:choose>
                 <!-- If it's an ingested record (not created from within RAMP). -->
-                <xsl:when test="not(contains(ead:ead/ead:eadheader/ead:eadid/@identifier,'RAMP'))">
+                <xsl:when test="not(contains(ead:ead/ead:eadheader/ead:eadid/@identifier,'RAMP'))">                    
                     <xsl:for-each select="ead:ead/ead:eadheader">
                         <otherRecordId>
                             <xsl:choose>
@@ -168,7 +168,7 @@
                             <xsl:text>.r</xsl:text>
                             <xsl:value-of select="substring-before($pRecordId,'-')"/>
                         </otherRecordId>
-                    </xsl:for-each>
+                    </xsl:for-each>                    
                     <!-- maintenanceStatus = "derived" -->
                     <maintenanceStatus>derived</maintenanceStatus>
                 </xsl:when>
@@ -737,7 +737,6 @@
     <!-- Template for processing subjects. -->
     <xsl:template match="ead:ead/ead:archdesc/ead:controlaccess/ead:controlaccess"
         name="tControlAccess">
-        <xsl:param name="pOccupation"/>
         <!-- Store the results of Muenchian grouping inside a variable. -->
         <xsl:variable name="vSubjCheck">
             <xsl:for-each
@@ -805,24 +804,22 @@
                 </occupations>
             </xsl:when>
             <xsl:otherwise>
-                <occupation localType="656">
-                    <term>
-                        <xsl:value-of select="normalize-space(.)"/>
-                    </term>
-                </occupation>
+                <xsl:if test="$vOccuCount&lt;=1">
+                    <occupation localType="656">
+                        <term>
+                            <xsl:value-of select="normalize-space(.)"/>
+                        </term>
+                    </occupation>
+                </xsl:if>
             </xsl:otherwise>
         </xsl:choose>
     </xsl:template>
 
     <!-- Template for matching any epithets in name strings and adding to <occupation> elements. -->
     <xsl:template name="tOccupations">
-        <xsl:param name="pOccupation"/>
         <xsl:choose>
             <xsl:when test="substring-after($vNameString,$vDates)!=''">
                 <xsl:choose>
-                    <xsl:when test="$pOccupation!=''">
-                        <xsl:for-each select="$pOccupation"> </xsl:for-each>
-                    </xsl:when>
                     <xsl:when test="contains(substring-after($vNameString,$vDates),',')">
                         <occupations xmlns="urn:isbn:1-931666-33-4">
                             <occupation>
