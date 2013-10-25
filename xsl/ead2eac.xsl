@@ -83,6 +83,11 @@
     <xsl:key name="kSubjCheck" match="ead:controlaccess/ead:controlaccess"
         use="child::node()[local-name()!='head']"/>
 
+    <!-- Define variable for occupations. -->
+    <xsl:variable name="vOccupation"
+        select="//ead:ead/ead:archdesc/ead:controlaccess/ead:controlaccess/ead:occupation"/>
+    <xsl:variable name="vOccuCount" select="count(//ead:occupation)"/>
+
     <xsl:strip-space elements="*"/>
     <xsl:output method="xml" encoding="UTF-8" indent="yes"/>
 
@@ -131,7 +136,7 @@
             <xsl:variable name="vEadHeaderCount" select="count(ead:ead/ead:eadheader)"/>
             <xsl:choose>
                 <!-- If it's an ingested record (not created from within RAMP). -->
-                <xsl:when test="not(contains(ead:ead/ead:eadheader/ead:eadid/@identifier,'RAMP'))">                    
+                <xsl:when test="not(contains(ead:ead/ead:eadheader/ead:eadid/@identifier,'RAMP'))">
                     <xsl:for-each select="ead:ead/ead:eadheader">
                         <otherRecordId>
                             <xsl:choose>
@@ -163,7 +168,7 @@
                             <xsl:text>.r</xsl:text>
                             <xsl:value-of select="substring-before($pRecordId,'-')"/>
                         </otherRecordId>
-                    </xsl:for-each>                    
+                    </xsl:for-each>
                     <!-- maintenanceStatus = "derived" -->
                     <maintenanceStatus>derived</maintenanceStatus>
                 </xsl:when>
@@ -732,6 +737,7 @@
     <!-- Template for processing subjects. -->
     <xsl:template match="ead:ead/ead:archdesc/ead:controlaccess/ead:controlaccess"
         name="tControlAccess">
+        <xsl:param name="pOccupation"/>
         <!-- Store the results of Muenchian grouping inside a variable. -->
         <xsl:variable name="vSubjCheck">
             <xsl:for-each
@@ -744,60 +750,79 @@
             </xsl:for-each>
         </xsl:variable>
         <!-- Then do a second pass over the node set using the EXSL node-set function. -->
-        <xsl:for-each
-            select="exsl:node-set($vSubjCheck)/ead:name[not(.=preceding-sibling::ead:name)]">
-            <xsl:choose>
-                <xsl:when test="@encodinganalog='700'">
-                    <localDescription localType="700">
-                        <term>
-                            <xsl:value-of select="."/>
-                        </term>
-                    </localDescription>
-                </xsl:when>
-                <xsl:when test="contains(@encodinganalog,'600')">
-                    <localDescription localType="600">
-                        <term>
-                            <xsl:value-of select="."/>
-                        </term>
-                    </localDescription>
-                </xsl:when>
-                <xsl:when test="contains(@encodinganalog,'610')">
-                    <localDescription localType="610">
-                        <term>
-                            <xsl:value-of select="."/>
-                        </term>
-                    </localDescription>
-                </xsl:when>
-                <xsl:when test="@encodinganalog='650'">
-                    <localDescription localType="650">
-                        <term>
-                            <xsl:value-of select="."/>
-                        </term>
-                    </localDescription>
-                </xsl:when>
-                <xsl:when test="@encodinganalog='651'">
-                    <localDescription localType="651">
-                        <term>
-                            <xsl:value-of select="."/>
-                        </term>
-                    </localDescription>
-                </xsl:when>
-                <xsl:when test="@encodinganalog='656'">
-                    <occupation localType="656">
-                        <term>
-                            <xsl:value-of select="."/>
-                        </term>
-                    </occupation>
-                </xsl:when>
-            </xsl:choose>
-        </xsl:for-each>
+        <localDescriptions localType="subjects" xmlns="urn:isbn:1-931666-33-4">
+            <xsl:for-each
+                select="exsl:node-set($vSubjCheck)/ead:name[not(.=preceding-sibling::ead:name)]">
+                <xsl:choose>
+                    <xsl:when test="@encodinganalog='700'">
+                        <localDescription localType="700">
+                            <term>
+                                <xsl:value-of select="."/>
+                            </term>
+                        </localDescription>
+                    </xsl:when>
+                    <xsl:when test="contains(@encodinganalog,'600')">
+                        <localDescription localType="600">
+                            <term>
+                                <xsl:value-of select="."/>
+                            </term>
+                        </localDescription>
+                    </xsl:when>
+                    <xsl:when test="contains(@encodinganalog,'610')">
+                        <localDescription localType="610">
+                            <term>
+                                <xsl:value-of select="."/>
+                            </term>
+                        </localDescription>
+                    </xsl:when>
+                    <xsl:when test="@encodinganalog='650'">
+                        <localDescription localType="650">
+                            <term>
+                                <xsl:value-of select="."/>
+                            </term>
+                        </localDescription>
+                    </xsl:when>
+                    <xsl:when test="@encodinganalog='651'">
+                        <localDescription localType="651">
+                            <term>
+                                <xsl:value-of select="."/>
+                            </term>
+                        </localDescription>
+                    </xsl:when>
+                </xsl:choose>
+            </xsl:for-each>
+        </localDescriptions>
+        <xsl:choose>
+            <xsl:when test="$vOccuCount&gt;1">
+                <occupations xmlns="urn:isbn:1-931666-33-4">
+                    <xsl:for-each select="$vOccupation">
+                        <occupation localType="656">
+                            <term>
+                                <xsl:value-of select="normalize-space(.)"/>
+                            </term>
+                        </occupation>
+                    </xsl:for-each>
+                </occupations>
+            </xsl:when>
+            <xsl:otherwise>
+                <occupation localType="656">
+                    <term>
+                        <xsl:value-of select="normalize-space(.)"/>
+                    </term>
+                </occupation>
+            </xsl:otherwise>
+        </xsl:choose>
     </xsl:template>
 
     <!-- Template for matching any epithets in name strings and adding to <occupation> elements. -->
     <xsl:template name="tOccupations">
+        <xsl:param name="pOccupation"/>
         <xsl:choose>
             <xsl:when test="substring-after($vNameString,$vDates)!=''">
                 <xsl:choose>
+                    <xsl:when test="$pOccupation!=''">
+                        <xsl:for-each select="$pOccupation"> </xsl:for-each>
+                    </xsl:when>
                     <xsl:when test="contains(substring-after($vNameString,$vDates),',')">
                         <occupations xmlns="urn:isbn:1-931666-33-4">
                             <occupation>
