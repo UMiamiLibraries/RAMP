@@ -154,6 +154,12 @@ ul, menu, dir {
     
 }
 
+.add_empty_element {
+  margin:2% 2% 2% 1%;
+  background:#0078e7;
+  font-size:.8em;
+}
+
 .arrow {
     width: 70px;
     height: 16px;
@@ -458,6 +464,12 @@ ul, menu, dir {
 .pure-u-1 p {
 	margin-left:1.25em;
 	font-size: 1em;
+}
+
+.rm_empty_element {
+  margin:2% 2% 2% 1%;
+  background:#0078e7;
+  font-size:.8em;
 }
 
 .save_arrow {
