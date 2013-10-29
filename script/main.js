@@ -42,7 +42,8 @@ $('.ead_files').change(function () {
 console.log(this.value);
 document.cookie = "ead_file=" + this.value;
 document.cookie = "ead_file_last=" + this.value;
-document.cookie = "entity_name=" + this.options[this.selectedIndex].innerHTML;
+document.cookie = "entity_name=" + $(this).children("option:selected").text();
+//this.options[this.selectedIndex].innerHTML;
 document.cookie = "saved="; // Unset "saved" cookie. --timathom
 document.cookie = "wiki="; // Unset "wiki" cookie. --timathom
 
