@@ -24,115 +24,8 @@ if ($mysqli->connect_errno) {
 }
 
 // Basic input validation
-stripslashes_array($_POST);
-$cleanedArray = array();
-
-foreach ($_POST as $post_name => $post_val) {
-    if ($post_name == "type") {
-        checkCharacters($post_val);
-    }                   
-    if ($post_name == "entity") {
-        checkCharacters($post_val);
-    }    
-    if ($post_name == "name") {
-        checkCharacters($post_val);
-    }
-    if ($post_name == "from") {
-        checkCharacters($post_val);
-    }    
-    if ($post_name == "to") {
-        checkCharacters($post_val);
-    }        
-    if ($post_name == "genders") {
-        checkCharacters($post_val);
-    }
-    if ($post_name == "genderDatesFrom") {
-        checkCharacters($post_val);
-    }    
-    if ($post_name == "genderDatesTo") {
-        checkCharacters($post_val);
-    }        
-    if ($post_name == "langNames") {
-        checkCharacters($post_val);
-    }    
-    if ($post_name == "langCodes") {
-        checkCharacters($post_val);
-    }    
-    if ($post_name == "subjects") {
-        checkCharacters($post_val);
-    }    
-    if ($post_name == "genre") {
-        checkCharacters($post_val);
-    }    
-    if ($post_name == "occupations") {
-        checkCharacters($post_val);
-    }    
-    if ($post_name == "occuDatesFrom") {
-        checkCharacters($post_val);
-    }    
-    if ($post_name == "occuDatesTo") {
-        checkCharacters($post_val);
-    }    
-    if ($post_name == "placeEntries") {
-        checkCharacters($post_val);
-    }    
-    if ($post_name == "placeRoles") {
-        checkCharacters($post_val);
-    }    
-    if ($post_name == "placeDatesFrom") {
-        checkCharacters($post_val);
-    }    
-    if ($post_name == "placeDatesTo") {
-        checkCharacters($post_val);
-    }    
-    if ($post_name == "abstract") {
-        
-        // Remove newline characters.                
-        $post_val = trim(preg_replace('/\n+/', '&#10;', $post_val));
-        
-        checkCharacters($post_val);                               
-    }                  
-    if ($post_name == "bioghist") {
-        
-        // Remove newline characters.                
-        $post_val = trim(preg_replace('/\n+/', '&#10;', $post_val));                        
-        
-        // Decode special chars to get <p> tags.
-        $post_val = htmlspecialchars_decode($post_val);
-        
-        // Re-encode for &amp;                     
-        $post_val = preg_replace('/&/', '&amp;', $post_val);
-                        
-        checkCharacters($post_val);                                                             
-    }    
-    if ($post_name == "citations") {
-        checkCharacters($post_val);
-    }
-    if ($post_name == "cpfs") {
-        checkCharacters($post_val);
-    }
-    if ($post_name == "cpfIDs") {
-        checkCharacters($post_val);
-    }
-    if ($post_name == "cpfNotes") {
-        checkCharacters($post_val);
-    }
-    if ($post_name == "resources") {
-        checkCharacters($post_val);
-    }
-    if ($post_name == "resourceIDs") {
-        checkCharacters($post_val);
-    }
-    if ($post_name == "resourceNotes") {
-        checkCharacters($post_val);
-    }
-    if ($post_name == "sources") {
-        checkCharacters($post_val);
-    }
-           
-    $cleanedArray[$post_name] = $post_val;
-    
-} 
+$cleanedArray = $_POST;
+stripslashes_array($cleanedArray, $mysqli);
 
 // Set array counters.
 $countGenders = sizeof($cleanedArray['genders']);
@@ -215,12 +108,12 @@ $placeDateFrom = $cleanedArray["placeDatesFrom"];
 $placeDateTo = $cleanedArray["placeDatesTo"];
 $abstract = $cleanedArray["abstract"];
 
-if ($cleanedArray["bioghist"] == '') {   
+if ($cleanedArray["bioghist"] == '') {
     $bioghist = "<p></p>";
 }
 else
 {
-    $bioghist = $cleanedArray["bioghist"];    
+    $bioghist = $cleanedArray["bioghist"];
 }
 
 $citation = $cleanedArray["citations"];
@@ -415,13 +308,13 @@ if (file_exists(  $_POST["dir"] . '/' . $file_name_lower . '.xml')) {
 
   echo "A record with this name already exists.";
 
-} else {  
+} else {
   touch(  $_POST["dir"] . '/' . $file_name_lower . '.xml');
 
   $f = fopen(  $_POST["dir"] . '/' . $file_name_lower . '.xml', "w");
 
   $ead_doc = new DOMDocument();
-  $ead_doc->formatOutput = true; 
+  $ead_doc->formatOutput = true;
 
   switch(strtolower( $type )) {
 
@@ -450,9 +343,9 @@ if (file_exists(  $_POST["dir"] . '/' . $file_name_lower . '.xml')) {
 
 			'</persname>
 		                           </origination>
-		                           <note type="creation"><p>Record created in RAMP.</p></note>' . 
-		                           		                           
-		                           $fromVal . 
+		                           <note type="creation"><p>Record created in RAMP.</p></note>' .
+
+		                           $fromVal .
 		                           $toVal .
 		                           $genderVal .
 		                           $genderDateFromVal .
@@ -465,7 +358,7 @@ if (file_exists(  $_POST["dir"] . '/' . $file_name_lower . '.xml')) {
 		                           $occuDateFromVal .
 		                           $occuDateToVal .
 		                           $placeRoleVal .
-		                           $placeEntryVal .		                           
+		                           $placeEntryVal .
 		                           $placeDateFromVal .
 		                           $placeDateToVal .
 		                           $citationVal .
@@ -476,9 +369,9 @@ if (file_exists(  $_POST["dir"] . '/' . $file_name_lower . '.xml')) {
 		                           $resourceIDVal .
 		                           $resourceNoteVal .
 		                           $sourceVal .
-		                           		                          		                           		                           		                         
+
 		                           '<abstract>' . $abstract . '</abstract>
-		                           </did>		               		               
+		                           </did>
 		               <bioghist encodinganalog="545">' . $bioghist . '</bioghist>
 		   </archdesc>
 		</ead>
@@ -514,8 +407,8 @@ if (file_exists(  $_POST["dir"] . '/' . $file_name_lower . '.xml')) {
 		                     <corpname encodinganalog="100"  source="local">' . $entname . '</corpname>
 		                           </origination>
 		                           <note type="creation"><p>Record created in RAMP.</p></note>' .
-		                           		                           
-		                           $fromVal . 
+
+		                           $fromVal .
 		                           $toVal .
 		                           $langNameVal .
 		                           $langCodeVal .
@@ -525,7 +418,7 @@ if (file_exists(  $_POST["dir"] . '/' . $file_name_lower . '.xml')) {
 		                           $occuDateFromVal .
 		                           $occuDateToVal .
 		                           $placeRoleVal .
-		                           $placeEntryVal .		                           
+		                           $placeEntryVal .
 		                           $placeDateFromVal .
 		                           $placeDateToVal .
 		                           $citationVal .
@@ -536,10 +429,10 @@ if (file_exists(  $_POST["dir"] . '/' . $file_name_lower . '.xml')) {
 		                           $resourceIDVal .
 		                           $resourceNoteVal .
 		                           $sourceVal .
-		                           		                          		                           		                           		                         
+
 		                           '<abstract>' . $abstract . '</abstract>
-		                           </did>		               		               
-		               <bioghist encodinganalog="545">' . $bioghist . '</bioghist>		                          
+		                           </did>
+		               <bioghist encodinganalog="545">' . $bioghist . '</bioghist>
 		   </archdesc>
 		</ead>
 		');
@@ -573,8 +466,8 @@ if (file_exists(  $_POST["dir"] . '/' . $file_name_lower . '.xml')) {
 		                     <famname  source="local">' . $entname . '</famname>
 		                           </origination>
 		                           <note type="creation"><p>Record created in RAMP.</p></note>' .
- 		                           		                           
-		                           $fromVal . 
+
+		                           $fromVal .
 		                           $toVal .
 		                           $langNameVal .
 		                           $langCodeVal .
@@ -584,7 +477,7 @@ if (file_exists(  $_POST["dir"] . '/' . $file_name_lower . '.xml')) {
 		                           $occuDateFromVal .
 		                           $occuDateToVal .
 		                           $placeRoleVal .
-		                           $placeEntryVal .		                           
+		                           $placeEntryVal .
 		                           $placeDateFromVal .
 		                           $placeDateToVal .
 		                           $citationVal .
@@ -595,10 +488,10 @@ if (file_exists(  $_POST["dir"] . '/' . $file_name_lower . '.xml')) {
 		                           $resourceIDVal .
 		                           $resourceNoteVal .
 		                           $sourceVal .
-		                           		                          		                           		                           		                         
+
 		                           '<abstract>' . $abstract . '</abstract>
-		                           </did>		               		               
-		               <bioghist encodinganalog="545">' . $bioghist . '</bioghist>		      		     		              		
+		                           </did>
+		               <bioghist encodinganalog="545">' . $bioghist . '</bioghist>
 		   </archdesc>
 		</ead>
 		');
@@ -632,38 +525,39 @@ if (file_exists(  $_POST["dir"] . '/' . $file_name_lower . '.xml')) {
 }
 
 // Function for basic validation of character input.
-function checkCharacters($input) {   
-    $patterns = array();
+function checkCharacters($mysqli, $input) {
+    /*$patterns = array();
     $patterns[0] = '/&lt;p&gt;/';
     $patterns[1] = '/&lt;/p&gt;/';
-    
+
     $replacements = array();
     $replacements[0] = '<p>';
     $replacements[1] = '</p>';
-    
-    $input = preg_replace($patterns, $replacements, $input);
-     
-    $input = trim($input);    
-    $input = strip_tags($input,"<p>");    
-    $input = mysqli_real_escape_string($mysqli,$input);    
-    //$found = preg_match("/^[a-zA-Z]$/", $input);		
+
+    $input = preg_replace($patterns, $replacements, $input);*/
+
+    $input = trim($input);
+    $input = strip_tags($input,"<p>");
+    $input = mysqli_real_escape_string($mysqli,$input);
+    //$found = preg_match("/^[a-zA-Z]$/", $input);
     //return $found;
     return $input;
-           
+
 }
 
 // http://php.net/manual/en/function.stripslashes.php by StefanoAI
-function stripslashes_array(&$arr) {
+function stripslashes_array(&$arr, $mysqli) {
     foreach ($arr as $k => &$v) {
-        $nk = stripslashes(htmlspecialchars(strip_tags($k,"<p>")));
-        if ($nk != $k) {
-            $arr[$nk] = &$v;
-            unset($arr[$k]);
-        }
+    	if( $k == 'dir' )
+    		continue;
         if (is_array($v)) {
             stripslashes_array($v);
         } else {
-            $arr[$nk] = stripslashes(htmlspecialchars(strip_tags($v,"<p>")));
+        	$arr[$k] = trim($arr[$k]);
+            $arr[$k] = stripslashes(htmlspecialchars(strip_tags($v,"<p>")));
+        	$arr[$k] = preg_replace('#&lt;(/?[pi])&gt;#', '<$1>', $arr[$k]);
+        	$arr[$k] = preg_replace('/\n+/', '&#10;', $arr[$k]);
+        	$arr[$k] = mysqli_real_escape_string($mysqli,$arr[$k]);
         }
     }
 }
