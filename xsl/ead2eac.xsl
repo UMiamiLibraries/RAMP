@@ -1599,7 +1599,7 @@
                             test="../following-sibling::ead:note[@type='resourceID'][@label=$vResourceLabel]">
                             <resourceRelation xmlns="urn:isbn:1-931666-33-4"
                                 resourceRelationType="creatorOf"
-                                xlink:href="{normalize-space(../following-sibling::ead:note[@type='resourceID'][@label=$vResourceLabel]/ead:p)}">
+                                xml:id="{normalize-space(../following-sibling::ead:note[@type='resourceID'][@label=$vResourceLabel]/ead:p)}">
                                 <relationEntry>
                                     <xsl:value-of select="normalize-space(.)"/>
                                 </relationEntry>

@@ -664,11 +664,11 @@
                         </xsl:choose>
                         <xsl:choose>
                             <xsl:when
-                                test="contains(../@xlink:href,'oclc/ocn') and following-sibling::eac:relationEntry[@localType='isbn']">
+                                test="contains(../@xlink:href,'oclc/') and following-sibling::eac:relationEntry[@localType='isbn']">
                                 <xsl:value-of select="normalize-space(.)"/>
                                 <xsl:text>''. </xsl:text>
                                 <xsl:text>{{OCLC|</xsl:text>
-                                <xsl:value-of select="substring-after(../@xlink:href,'oclc/ocn')"/>
+                                <xsl:value-of select="substring-after(../@xlink:href,'oclc/')"/>
                                 <xsl:text>}}, </xsl:text>
                                 <xsl:text>ISBN </xsl:text>
                                 <xsl:value-of
@@ -676,15 +676,15 @@
                                 />
                             </xsl:when>
                             <xsl:when
-                                test="contains(../@xlink:href,'oclc/ocn') and not(following-sibling::eac:relationEntry[@localType='isbn'])">
+                                test="contains(../@xlink:href,'oclc/') and not(following-sibling::eac:relationEntry[@localType='isbn'])">
                                 <xsl:value-of select="normalize-space(.)"/>
                                 <xsl:text>''. </xsl:text>
                                 <xsl:text>{{OCLC|</xsl:text>
-                                <xsl:value-of select="substring-after(../@xlink:href,'oclc/ocn')"/>
+                                <xsl:value-of select="substring-after(../@xlink:href,'oclc/')"/>
                                 <xsl:text>}}</xsl:text>
                             </xsl:when>
                             <xsl:when
-                                test="following-sibling::eac:relationEntry[@localType='isbn'] and not(contains(../@xlink:href,'oclc/ocn'))">
+                                test="following-sibling::eac:relationEntry[@localType='isbn'] and not(contains(../@xlink:href,'oclc/'))">
                                 <xsl:value-of select="normalize-space(.)"/>
                                 <xsl:text>''. </xsl:text>
                                 <xsl:text>ISBN </xsl:text>
@@ -755,21 +755,21 @@
                     </xsl:choose>
                     <xsl:choose>
                         <xsl:when
-                            test="contains(@xlink:href,'oclc/ocn') and eac:relationEntry[@localType='isbn']">
+                            test="contains(@xlink:href,'oclc/') and eac:relationEntry[@localType='isbn']">
                             <xsl:text>{{OCLC|</xsl:text>
-                            <xsl:value-of select="substring-after(@xlink:href,'oclc/ocn')"/>
+                            <xsl:value-of select="substring-after(@xlink:href,'oclc/')"/>
                             <xsl:text>}}, </xsl:text>
                             <xsl:text>ISBN </xsl:text>
                             <xsl:value-of select="eac:relationEntry[@localType='isbn']"/>
                         </xsl:when>
                         <xsl:when
-                            test="contains(@xlink:href,'oclc/ocn') and not(eac:relationEntry[@localType='isbn'])">
+                            test="contains(@xlink:href,'oclc/') and not(eac:relationEntry[@localType='isbn'])">
                             <xsl:text>{{OCLC|</xsl:text>
-                            <xsl:value-of select="substring-after(@xlink:href,'oclc/ocn')"/>
+                            <xsl:value-of select="substring-after(@xlink:href,'oclc/')"/>
                             <xsl:text>}}</xsl:text>
                         </xsl:when>
                         <xsl:when
-                            test="eac:relationEntry[@localType='isbn'] and not(contains(@xlink:href,'oclc/ocn'))">
+                            test="eac:relationEntry[@localType='isbn'] and not(contains(@xlink:href,'oclc/'))">
                             <xsl:text>ISBN </xsl:text>
                             <xsl:value-of select="eac:relationEntry[@localType='isbn']"/>
                         </xsl:when>
@@ -830,9 +830,9 @@
                         </xsl:when>
                         <xsl:otherwise>
                             <xsl:choose>
-                                <xsl:when test="contains(@xlink:href,'oclc/ocn')">
+                                <xsl:when test="contains(@xlink:href,'oclc/')">
                                     <xsl:value-of
-                                        select="normalize-space(concat(substring-before(@xlink:href,'ocn'),substring-after(@xlink:href,'ocn')))"
+                                        select="normalize-space(@xlink:href)"
                                     />
                                 </xsl:when>
                                 <xsl:otherwise>

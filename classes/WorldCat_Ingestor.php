@@ -516,7 +516,7 @@ class WorldCat_Ingestor extends Ingestor
 				$lobjResourceRelationNode['attributes']['localType'] = "isbn";*/
 
 			$lobjResourceRelationNode['attributes']['resourceRelationType'] = "creatorOf";
-			$lobjResourceRelationNode['attributes']['xlink:href'] = "http://worldcat.org/oclc/" . preg_replace( "[^0-9]", "", $lobjCitation['oclcnum'] );
+			$lobjResourceRelationNode['attributes']['xlink:href'] = "http://worldcat.org/oclc/" . preg_replace( "[^0-9]", "", substr($lobjCitation['oclcnum'],3) );
 			$lobjResourceRelationNode['attributes']['xlink:role'] = $lobjCitation['record_type'] == "mixd" ? "archivalRecords" : "resource";
 			$lobjResourceRelationNode['attributes']['xlink:type'] = "simple";
 
@@ -557,7 +557,7 @@ class WorldCat_Ingestor extends Ingestor
 			$lobjResourceRelationNode = array();
 
 			$lobjResourceRelationNode['attributes']['resourceRelationType'] = "subjectOf";
-			$lobjResourceRelationNode['attributes']['xlink:href'] = "http://worldcat.org/oclc/" . preg_replace( "[^0-9]", "", $lobjCitation['oclcnum'] );
+			$lobjResourceRelationNode['attributes']['xlink:href'] = "http://worldcat.org/oclc/" . preg_replace( "[^0-9]", "", substr($lobjCitation['oclcnum'],3) );
 			$lobjResourceRelationNode['attributes']['xlink:role'] = $lobjCitation['record_type'] == "mixd" ? "archivalRecords" : "resource";
 			$lobjResourceRelationNode['attributes']['xlink:type'] = "simple";
 
