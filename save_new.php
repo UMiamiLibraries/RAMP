@@ -301,7 +301,7 @@ for ($i = 0; $i < $countSources; $i++) {
 }
 
 // Check name.
-// Exit and return message if file name is empty or no entity type selected
+// Exit and return message if file name is empty or no entity type selected.
 if (file_exists(  $_POST["dir"] . '/' . $file_name_lower . '.xml')) {
 
   echo "A record with this name already exists.";
