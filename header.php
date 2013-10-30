@@ -19,6 +19,7 @@ include('conf/includes.php');
 <script src="script/main.js"></script>
 <script src="script/select2/select2.min.js"></script>
 <script src="script/colorbox-master/jquery.colorbox-min.js"></script>
+<script src="script/verify.notify.min.js"></script>
 <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script>
 <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" type="text/css"/>
 <link rel="stylesheet" href="style/colorbox-master/example1/colorbox.css" type="text/css"/>

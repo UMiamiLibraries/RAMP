@@ -41,7 +41,7 @@ jQuery(document).ready(function()
     <table class="new_eac_inner">
       <tr>
       <td>
-      <select class="entity_type">
+      <select class="entity_type" data-validate="required">
         <option> </option>
         <option>Person</option>
         <option>Corporate Body</option>
@@ -63,16 +63,16 @@ jQuery(document).ready(function()
   <tr>
     <td>
       <label>Name (Last Name, First Name)</label>
-      <input class="eac_name" type="text" size="49"/>
+      <input class="eac_name" type="text" size="50" data-validate="required"/>
     </td>
   <tr>
   <tr>
     <td>
     <label>Dates of existence</label>
       <label style="display:inline;">From</label>
-      <input class="from" type="text"/>
+      <input class="from" type="text" data-validate="regex([a-zA-Z][0-9],Your date contains invalid characters)"/>
       <label style="display:inline;">To</label>
-      <input class="to" type="text"/>
+      <input class="to" type="text" data-validate="regex([a-zA-Z][0-9],Your date contains invalid characters)"/>
     </td>
   </tr>
   </table>
@@ -108,9 +108,9 @@ jQuery(document).ready(function()
     <td style="width:100%;">
     <label>Associated dates (if applicable)</label>
       <label style="display:inline;">From</label>
-      <input class="genderDatesFrom" type="text"/>
+      <input class="genderDatesFrom" type="text" data-validate="regex([a-zA-Z][0-9],Your date contains invalid characters)"/>
       <label style="display:inline;">To</label>
-      <input class="genderDatesTo" type="text"/>
+      <input class="genderDatesTo" type="text" data-validate="regex([a-zA-Z][0-9],Your date contains invalid characters)"/>
     </td>
   </tr>
   </table>
@@ -130,7 +130,7 @@ jQuery(document).ready(function()
       });
     });
     $("input.add_empty_gender").on('click', function () {
-      var tr = "<tr class=\"new_element multilvl\"><td><table style=\"width:100%;\"><tr><td style=\"width:100%;\"><select class=\"genders\"><option></option><option>female</option><option>male</option><option>other</option></select></td></tr><tr class=\"new_element\"><td><label>Associated dates</label><label style=\"display:inline;\">From </label><input class=\"genderDatesFrom\" type=\"text\" /><label style=\"display:inline;\"> To </label><input class=\"genderDatesTo\" type=\"text\"/></table></td></tr>";
+      var tr = "<tr class=\"new_element multilvl\"><td><table style=\"width:100%;\"><tr><td style=\"width:100%;\"><select class=\"genders\"><option></option><option>female</option><option>male</option><option>other</option></select></td></tr><tr class=\"new_element\"><td><label>Associated dates</label><label style=\"display:inline;\">From </label><input class=\"genderDatesFrom\" type=\"text\" data-validate="regex([a-zA-Z][0-9],Your date contains invalid characters)"/><label style=\"display:inline;\"> To </label><input class=\"genderDatesTo\" type=\"text\" data-validate="regex([a-zA-Z][0-9],Your date contains invalid characters)"/></table></td></tr>";
       $(this).closest("tr").siblings(".insert_before").before(tr);
     });
   </script>
@@ -162,7 +162,7 @@ jQuery(document).ready(function()
       <label style="display:inline;">Name </label>
       <input type="text" class="lang langNames"/>
       <label style="display:inline;">Code <span style="font-style:italic;">(abc) </span></label>
-      <input type="text" class="lang langCodes"/>
+      <input type="text" class="lang langCodes" data-validate="regex(/^[a-z]{3}$/,Should be a three-letter ISO 639-2 code)"/>
     </td>
   </tr>
 
@@ -179,7 +179,7 @@ jQuery(document).ready(function()
       });
     });
     $("input.add_empty_lang").on('click', function () {
-      var tr = "<tr class=\"new_element\"><td><label style=\"display:inline;\">Name </label><input type=\"text\" class=\"langNames\" name=\"new_lang_name\" value=\"\"/><label style=\"display:inline;\"> Code <span style=\"font-style:italic;\">(abc) </span></label><input type=\"text\" class=\"langCodes\" name=\"new_lang_code\" value=\"\" /></td></tr>";
+      var tr = "<tr class=\"new_element\"><td><label style=\"display:inline;\">Name </label><input type=\"text\" class=\"langNames\" name=\"new_lang_name\" value=\"\"/><label style=\"display:inline;\"> Code <span style=\"font-style:italic;\">(abc) </span></label><input type=\"text\" class=\"langCodes\" name=\"new_lang_code\" value=\"\" data-validate=\"regex(/^[a-z]{3}$/,Should be a three-letter ISO 639-2 code)\"/></td></tr>";
       $(this).closest("tr").siblings(".insert_before").before(tr);
     });
   </script>
@@ -290,9 +290,9 @@ jQuery(document).ready(function()
     <td>
     <label>Associated dates</label>
       <label style="display:inline;">From</label>
-      <input class="occuDatesFrom" type="text"/>
+      <input class="occuDatesFrom" type="text" data-validate="regex([a-zA-Z][0-9],Your date contains invalid characters)"/>
       <label style="display:inline;">To</label>
-      <input class="occuDatesTo" type="text"/>
+      <input class="occuDatesTo" type="text" data-validate="regex([a-zA-Z][0-9],Your date contains invalid characters)"/>
     </td>
   </tr>
   </table>
@@ -312,7 +312,7 @@ jQuery(document).ready(function()
       });
     });
     $("input.add_empty_occu").on('click', function () {
-      var tr = "<tr class=\"new_element multilvl\"><td><table><tr><td><label>Occupation or activity</label><input type=\"text\" size=\"65\" class=\"occupations\"/></td></tr><tr class=\"new_element\"><td><label>Associated dates</label><label style=\"display:inline;\">From </label><input class=\"occuDatesFrom\" type=\"text\" /><label style=\"display:inline;\"> To </label><input class=\"occuDatesTo\" type=\"text\"/></table></td></tr>";
+      var tr = "<tr class=\"new_element multilvl\"><td><table><tr><td><label>Occupation or activity</label><input type=\"text\" size=\"65\" class=\"occupations\"/></td></tr><tr class=\"new_element\"><td><label>Associated dates</label><label style=\"display:inline;\">From </label><input class=\"occuDatesFrom\" type=\"text\" data-validate=\"regex([a-zA-Z][0-9],Your date contains invalid characters)\"/><label style=\"display:inline;\"> To </label><input class=\"occuDatesTo\" type=\"text\" data-validate=\"regex([a-zA-Z][0-9],Your date contains invalid characters)\"/></table></td></tr>";
       $(this).closest("tr").siblings(".insert_before").before(tr);
     });
   </script>
@@ -347,9 +347,9 @@ jQuery(document).ready(function()
     <td>
     <label>Associated dates</label>
       <label style="display:inline;">From</label>
-      <input class="placeDatesFrom" type="text"/>
+      <input class="placeDatesFrom" type="text" data-validate="regex([a-zA-Z][0-9],Your date contains invalid characters)"/>
       <label style="display:inline;">To</label>
-      <input class="placeDatesTo" type="text"/>
+      <input class="placeDatesTo" type="text" data-validate="regex([a-zA-Z][0-9],Your date contains invalid characters)"/>
     </td>
   </tr>
   </table>
@@ -369,7 +369,7 @@ jQuery(document).ready(function()
       });
     });
     $("input.add_empty_place").on('click', function () {
-      var tr = "<tr class=\"new_element multilvl\"><td><table><tr><td><label>Place</label><input type=\"text\" size=\"65\" class=\"placeEntries\"/><label>Place role</label><input type=\"text\" size=\"65\" class=\"placeRoles\"/></td></tr><tr class=\"new_element\"><td><label>Associated dates</label><label style=\"display:inline;\">From </label><input class=\"placeDatesFrom\" type=\"text\" /><label style=\"display:inline;\"> To </label><input class=\"placeDatesTo\" type=\"text\"/></table></td></tr>";
+      var tr = "<tr class=\"new_element multilvl\"><td><table><tr><td><label>Place</label><input type=\"text\" size=\"65\" class=\"placeEntries\"/><label>Place role</label><input type=\"text\" size=\"65\" class=\"placeRoles\"/></td></tr><tr class=\"new_element\"><td><label>Associated dates</label><label style=\"display:inline;\">From </label><input class=\"placeDatesFrom\" type=\"text\" data-validate=\"regex([a-zA-Z][0-9],Your date contains invalid characters)\"/><label style=\"display:inline;\"> To </label><input class=\"placeDatesTo\" type=\"text\" data-validate=\"regex([a-zA-Z][0-9],Your date contains invalid characters)\"/></table></td></tr>";
       $(this).closest("tr").siblings(".insert_before").before(tr);
     });
   </script>

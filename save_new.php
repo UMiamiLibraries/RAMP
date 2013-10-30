@@ -59,10 +59,13 @@ $file_name_lower = preg_replace('/[^a-zA-Z0-9-_]/', '', $file_name_lower);
 $file_name_lower = iconv('utf-8', "us-ascii//TRANSLIT", $file_name_lower);
 $file_name_lower = preg_replace('/[^a-zA-Z0-9-_\.]/', '', $file_name_lower);
 
-//exit and return message if file name is empty
+//exit and return message if file name is empty or no entity type selected
 if( $file_name_lower == "" )
 	die( "Record not saved. File name is empty." );
+if( $cleanedArray["entity"] == "" )
+	die( "Record not saved. Must choose an entity type." );
 
+// New arrays for multivalue form elements.
 $gender = array();
 $genderDateFrom = array();
 $genderDateTo = array();
@@ -316,6 +319,7 @@ if (file_exists(  $_POST["dir"] . '/' . $file_name_lower . '.xml')) {
   $ead_doc = new DOMDocument();
   $ead_doc->formatOutput = true;
 
+  // Create faux EADs.
   switch(strtolower( $type )) {
 
   case 'person':
@@ -502,6 +506,7 @@ if (file_exists(  $_POST["dir"] . '/' . $file_name_lower . '.xml')) {
     break;
   }
 
+  // Save file.
   fwrite($f, $ead_doc->saveXML());
 
     $ead_convert = new EadConvert( $_POST["dir"] );
@@ -524,28 +529,7 @@ if (file_exists(  $_POST["dir"] . '/' . $file_name_lower . '.xml')) {
 
 }
 
-// Function for basic validation of character input.
-function checkCharacters($mysqli, $input) {
-    /*$patterns = array();
-    $patterns[0] = '/&lt;p&gt;/';
-    $patterns[1] = '/&lt;/p&gt;/';
-
-    $replacements = array();
-    $replacements[0] = '<p>';
-    $replacements[1] = '</p>';
-
-    $input = preg_replace($patterns, $replacements, $input);*/
-
-    $input = trim($input);
-    $input = strip_tags($input,"<p>");
-    $input = mysqli_real_escape_string($mysqli,$input);
-    //$found = preg_match("/^[a-zA-Z]$/", $input);
-    //return $found;
-    return $input;
-
-}
-
-// http://php.net/manual/en/function.stripslashes.php by StefanoAI
+// Function for basic validation of form input. Adapted from http://php.net/manual/en/function.stripslashes.php by StefanoAI.
 function stripslashes_array(&$arr, $mysqli) {
     foreach ($arr as $k => &$v) {
     	if( $k == 'dir' )
