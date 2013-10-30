@@ -3,7 +3,7 @@
     xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:xlink="http://www.w3.org/1999/xlink"
     xmlns:exsl="http://exslt.org/common" xmlns:str="http://exslt.org/strings"
     extension-element-prefixes="exsl str" exclude-result-prefixes="eac ead" version="1.0">
-    
+
     <!--
         Author: Timothy A. Thompson
         University of Miami Libraries
@@ -129,10 +129,10 @@
 
     <xsl:strip-space elements="*"/>
     <xsl:output method="xml" encoding="UTF-8" indent="yes"/>
-    
+
     <!-- Call the top-level templates. -->
     <xsl:template match="/">
-        <xsl:processing-instruction name="xml-stylesheet">href="ramp_style.xslt" type="text/xsl"</xsl:processing-instruction>               
+        <xsl:processing-instruction name="xml-stylesheet">href="ramp_style.xslt" type="text/xsl"</xsl:processing-instruction>
         <xsl:choose>
             <xsl:when test="/eac:eac-cpf">
                 <xsl:copy-of select="@*|node()"/>
@@ -543,7 +543,7 @@
                 <xsl:with-param name="pName"
                     select="normalize-space(ead:ead/ead:archdesc/ead:did/ead:origination/child::node()[1])"
                 />
-            </xsl:call-template>            
+            </xsl:call-template>
 
             <!-- De-dupe language elements, if needed. -->
             <xsl:if
@@ -759,20 +759,9 @@
                                         test="not(preceding-sibling::ead:p[contains(.,'Chronolog')]) 
                                         and (string-length(substring(.,1,4)) = string-length(translate(substring(.,1,4),$vDigits,'')))">
                                         <xsl:if test=".!=' ' and .!=''">
-                                            <xsl:choose>
-                                                <xsl:when test="contains(.,'\n')">
-                                                  <xsl:call-template name="tLineSplitter">
-                                                  <xsl:with-param name="line"
-                                                  select="normalize-space(.)"/>
-                                                  <xsl:with-param name="element">p</xsl:with-param>
-                                                  </xsl:call-template>
-                                                </xsl:when>
-                                                <xsl:otherwise>
-                                                  <p>
-                                                  <xsl:apply-templates/>
-                                                  </p>
-                                                </xsl:otherwise>
-                                            </xsl:choose>
+                                            <p>
+                                                <xsl:apply-templates/>
+                                            </p>
                                         </xsl:if>
                                     </xsl:if>
                                 </xsl:if>
@@ -915,7 +904,7 @@
         </xsl:choose>
     </xsl:template>
 
-    <!-- Recursive template to turn "\n\n" into <p> tags. Used for processing biography from new record form. To be developed further. -->
+    <!-- Not currently using. Recursive template to turn "\n\n" into <p> tags. Was originally used for processing biography from new record form. -->
     <xsl:template name="tLineSplitter">
         <xsl:param name="line"/>
         <xsl:param name="element"/>
@@ -1007,7 +996,9 @@
     </xsl:template>
 
     <xsl:template match="ead:p">
-        <xsl:value-of select="normalize-space(.)"/>
+        <xsl:for-each select=".">
+            <xsl:value-of select="normalize-space(.)"/>
+        </xsl:for-each>
     </xsl:template>
 
     <!-- Process relation elements. -->
