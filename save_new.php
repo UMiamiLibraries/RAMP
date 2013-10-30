@@ -59,12 +59,6 @@ $file_name_lower = preg_replace('/[^a-zA-Z0-9-_]/', '', $file_name_lower);
 $file_name_lower = iconv('utf-8', "us-ascii//TRANSLIT", $file_name_lower);
 $file_name_lower = preg_replace('/[^a-zA-Z0-9-_\.]/', '', $file_name_lower);
 
-//exit and return message if file name is empty or no entity type selected
-if( $file_name_lower == "" )
-	die( "Record not saved. File name is empty." );
-if( $cleanedArray["entity"] == "" )
-	die( "Record not saved. Must choose an entity type." );
-
 // New arrays for multivalue form elements.
 $gender = array();
 $genderDateFrom = array();
@@ -307,10 +301,22 @@ for ($i = 0; $i < $countSources; $i++) {
 }
 
 // Check name.
+// Exit and return message if file name is empty or no entity type selected
 if (file_exists(  $_POST["dir"] . '/' . $file_name_lower . '.xml')) {
 
   echo "A record with this name already exists.";
 
+}
+elseif( $file_name_lower == "" ) {    
+	echo "Record not saved. File name is empty.";	
+	
+	if( $cleanedArray["entity"] == "" ) {
+	   echo " Must choose an entity type.";	   
+    }
+    
+}
+elseif( $cleanedArray["entity"] == "" ) {
+    echo "Record not saved. Must choose an entity type.";	
 } else {
   touch(  $_POST["dir"] . '/' . $file_name_lower . '.xml');
 

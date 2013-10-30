@@ -130,7 +130,7 @@ jQuery(document).ready(function()
       });
     });
     $("input.add_empty_gender").on('click', function () {
-      var tr = "<tr class=\"new_element multilvl\"><td><table style=\"width:100%;\"><tr><td style=\"width:100%;\"><select class=\"genders\"><option></option><option>female</option><option>male</option><option>other</option></select></td></tr><tr class=\"new_element\"><td><label>Associated dates</label><label style=\"display:inline;\">From </label><input class=\"genderDatesFrom\" type=\"text\" data-validate="regex([a-zA-Z][0-9],Your date contains invalid characters)"/><label style=\"display:inline;\"> To </label><input class=\"genderDatesTo\" type=\"text\" data-validate="regex([a-zA-Z][0-9],Your date contains invalid characters)"/></table></td></tr>";
+      var tr = "<tr class=\"new_element multilvl\"><td><table style=\"width:100%;\"><tr><td style=\"width:100%;\"><select class=\"genders\"><option></option><option>female</option><option>male</option><option>other</option></select></td></tr><tr class=\"new_element\"><td><label>Associated dates</label><label style=\"display:inline;\">From </label><input class=\"genderDatesFrom\" type=\"text\" data-validate=\"regex([a-zA-Z][0-9],Your date contains invalid characters)\"/><label style=\"display:inline;\"> To </label><input class=\"genderDatesTo\" type=\"text\" data-validate=\"regex([a-zA-Z][0-9],Your date contains invalid characters)\"/></table></td></tr>";
       $(this).closest("tr").siblings(".insert_before").before(tr);
     });
   </script>
@@ -753,7 +753,7 @@ jQuery(document).ready(function()
 
 	      $savedialog.html(data).dialog('open');
 
-        if( data != 'A record with this name already exists.' )
+        if( data != 'A record with this name already exists.' && data != 'Record not saved. File name is empty.' && data != 'Record not saved. File name is empty. Must choose an entity type.' && data != 'Record not saved. Must choose an entity type.' )
         {
           function slowreload() {
             location.reload();
