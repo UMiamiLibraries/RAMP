@@ -562,7 +562,7 @@ jQuery(document).ready(function()
       });
     });
     $("input.add_empty_res").on('click', function () {
-      var tr = "<tr class=\"new_element multilvl\"><td><table style=\"width:100%;\"><tr><td style=\"width:100%;\"><label style=\"display:inline;\">Resource relation type </label><select class=\"resourceTypes\"><option>creatorOf</option><option>subjectOf</option></select></td></tr><tr><td><input type=\"text\" size=\"65\" class=\"resources\" name=\"new_resource\" value=\"\"/><label>Unique identifier <span style=\"font-style:italic;\"></span></label><input type=\"text\" class=\"resourceIDs\"/><label>Note <span style=\"font-style:italic;\"></span></label><input type=\"text\" class=\"resourceNotes\" size=\"65\"/></td></tr></table></td></tr>";
+      var tr = "<tr class=\"new_element multilvl\"><td><table style=\"width:100%;\"><tr><td style=\"width:100%;\"><label style=\"display:inline;\">Resource relation type </label><select class=\"resourceTypes\"><option>creatorOf</option><option>subjectOf</option><option>other</option></select></td></tr><tr><td><input type=\"text\" size=\"65\" class=\"resources\" name=\"new_resource\" value=\"\"/><label>Unique identifier <span style=\"font-style:italic;\"></span></label><input type=\"text\" class=\"resourceIDs\"/><label>Note <span style=\"font-style:italic;\"></span></label><input type=\"text\" class=\"resourceNotes\" size=\"65\"/></td></tr></table></td></tr>";
       $(this).closest("tr").siblings(".insert_before").before(tr);
     });
   </script>
