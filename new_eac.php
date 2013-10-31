@@ -817,7 +817,7 @@ jQuery(document).ready(function()
           
 	      $savedialog.html(data).dialog('open');	      
 
-        if( data != 'A record with this name already exists.' && data != 'Record not saved. File name is empty.' && data != 'Record not saved. File name is empty and must choose an entity type.' && data != 'Record not saved. Must choose an entity type.' )
+        if( data != 'A record with this name already exists.' && data != 'Record not saved. File name is empty.' && data != 'Record not saved. File name is empty. You must also choose an entity type.' && data != 'Record not saved. Must choose an entity type.' )
         {
         
           function slowreload() {
