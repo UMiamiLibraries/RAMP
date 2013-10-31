@@ -56,7 +56,7 @@ jQuery(document).ready(function()
       </table>
     </td>
   </tr>
-  <tr>
+  <tr class="labelHeader">
     <td>
       <label class="multi">Name and dates <span style="font-style:italic;"></span></label>
     </td>
