@@ -1531,7 +1531,7 @@
     <xsl:template name="tCpfs">
         <xsl:if test="$vCpf!=''">
             <xsl:for-each select="$vCpf">
-                <xsl:variable name="vCpfLabel" select="../@label"/>                
+                <xsl:variable name="vCpfLabel" select="../@label"/>
                 <xsl:if
                     test="../following-sibling::ead:note[@type='cpfID'][@label=$vCpfLabel]/ead:p!=''">
                     <cpfRelation xmlns="urn:isbn:1-931666-33-4"
@@ -1578,7 +1578,7 @@
     <xsl:template name="tResources">
         <xsl:if test="$vResource!=''">
             <xsl:for-each select="$vResource">
-                <xsl:variable name="vResourceLabel" select="../@label"/>                
+                <xsl:variable name="vResourceLabel" select="../@label"/>
                 <xsl:if
                     test="../following-sibling::ead:note[@type='resourceID'][@label=$vResourceLabel]/ead:p!=''">
                     <cpfRelation xmlns="urn:isbn:1-931666-33-4"
@@ -1587,17 +1587,17 @@
                         <relationEntry>
                             <xsl:value-of select="normalize-space(.)"/>
                         </relationEntry>
+                        <xsl:if
+                            test="../following-sibling::ead:note[@type='resourceNote'][@label=$vResourceLabel]/ead:p!=''">
+                            <descriptiveNote xmlns="urn:isbn:1-931666-33-4">
+                                <p>
+                                    <xsl:value-of
+                                        select="normalize-space(../following-sibling::ead:note[@type='resourceNote'][@label=$vResourceLabel]/ead:p)"
+                                    />
+                                </p>
+                            </descriptiveNote>
+                        </xsl:if>
                     </cpfRelation>
-                    <xsl:if
-                        test="../following-sibling::ead:note[@type='resourceNote'][@label=$vResourceLabel]/ead:p!=''">
-                        <descriptiveNote xmlns="urn:isbn:1-931666-33-4">
-                            <p>
-                                <xsl:value-of
-                                    select="normalize-space(../following-sibling::ead:note[@type='resourceNote'][@label=$vResourceLabel]/ead:p)"
-                                />
-                            </p>
-                        </descriptiveNote>
-                    </xsl:if>
                 </xsl:if>
                 <xsl:if
                     test="../following-sibling::ead:note[@type='resourceID'][@label=$vResourceLabel]/ead:p=''">
@@ -1606,18 +1606,18 @@
                         <relationEntry>
                             <xsl:value-of select="normalize-space(.)"/>
                         </relationEntry>
+                        <xsl:if
+                            test="../following-sibling::ead:note[@type='resourceID'][@label=$vResourceLabel]/ead:p!=''">
+                            <descriptiveNote xmlns="urn:isbn:1-931666-33-4">
+                                <p>
+                                    <xsl:value-of
+                                        select="normalize-space(../following-sibling::ead:note[@type='resourceNote'][@label=$vResourceLabel]/ead:p)"
+                                    />
+                                </p>
+                            </descriptiveNote>
+                        </xsl:if>
                     </cpfRelation>
-                    <xsl:if
-                        test="../following-sibling::ead:note[@type='resourceID'][@label=$vResourceLabel]/ead:p!=''">
-                        <descriptiveNote xmlns="urn:isbn:1-931666-33-4">
-                            <p>
-                                <xsl:value-of
-                                    select="normalize-space(../following-sibling::ead:note[@type='resourceNote'][@label=$vResourceLabel]/ead:p)"
-                                />
-                            </p>
-                        </descriptiveNote>
-                    </xsl:if>
-                </xsl:if>                
+                </xsl:if>
             </xsl:for-each>
         </xsl:if>
     </xsl:template>
