@@ -534,7 +534,8 @@ jQuery(document).ready(function()
       <label style="display:inline;">Resource relation type</label>
       <select class="resourceTypes">        
         <option>creatorOf</option>
-        <option>subjectOf</option>        
+        <option>subjectOf</option>
+        <option>other</option>        
       </select>
     </td>
   </tr>
