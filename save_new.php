@@ -24,16 +24,21 @@ if ($mysqli->connect_errno) {
 }
 
 // Basic input validation
+$cleanedArray = array();
 $cleanedArray = $_POST;
+//print_r($cleanedArray);
+
 stripslashes_array($cleanedArray, $mysqli);
+print_r($cleanedArray);
 
 // Set array counters.
 $countGenders = sizeof($cleanedArray['genders']);
 $countGenderDatesFrom = sizeof($cleanedArray['genderDatesFrom']);
 $countGenderDatesTo = sizeof($cleanedArray['genderDatesTo']);
 $countLangNames = sizeof($cleanedArray['langNames']);
-$countLangNames = sizeof($cleanedArray['langNames']);
 $countLangCodes = sizeof($cleanedArray['langCodes']);
+$countScriptNames = sizeof($cleanedArray['scriptNames']);
+$countScriptCodes = sizeof($cleanedArray['scriptCodes']);
 $countSubjects = sizeof($cleanedArray['subjects']);
 $countGenres = sizeof($cleanedArray['genres']);
 $countOccupations = sizeof($cleanedArray['occupations']);
@@ -44,9 +49,11 @@ $countPlaceRoles = sizeof($cleanedArray['placeRoles']);
 $countPlaceDatesFrom = sizeof($cleanedArray['placeDatesFrom']);
 $countPlaceDatesTo = sizeof($cleanedArray['placeDatesTo']);
 $countCitations = sizeof($cleanedArray['citations']);
+$countCpfTypes = sizeof($cleanedArray['cpfTypes']);
 $countCpfs = sizeof($cleanedArray['cpfs']);
 $countCpfIDs = sizeof($cleanedArray['cpfIDs']);
 $countCpfNotes = sizeof($cleanedArray['cpfNotes']);
+$countresourceTypes = sizeof($cleanedArray['resourceTypes']);
 $countResources = sizeof($cleanedArray['resources']);
 $countResourceIDs = sizeof($cleanedArray['resourceIDs']);
 $countResourceNotes = sizeof($cleanedArray['resourceNotes']);
@@ -65,6 +72,8 @@ $genderDateFrom = array();
 $genderDateTo = array();
 $langName = array();
 $langCode = array();
+$scriptName = array();
+$scriptCode = array();
 $subject = array();
 $genre = array();
 $occupation = array();
@@ -75,9 +84,11 @@ $placeRole = array();
 $placeDateTo = array();
 $placeDateFrom = array();
 $citation = array();
+$cpfType = array();
 $cpf = array();
 $cpfID = array();
 $cpfNote = array();
+$resourceType = array();
 $resource = array();
 $resourceID = array();
 $resourceNote = array();
@@ -94,6 +105,8 @@ $genderDateFrom = $cleanedArray["genderDatesFrom"];
 $genderDateTo = $cleanedArray["genderDatesTo"];
 $langName = $cleanedArray["langNames"];
 $langCode = $cleanedArray["langCodes"];
+$scriptName = $cleanedArray["scriptNames"];
+$scriptCode = $cleanedArray["scriptCodes"];
 $subject = $cleanedArray["subjects"];
 $genre = $cleanedArray["genres"];
 $occupation = $cleanedArray["occupations"];
@@ -114,9 +127,11 @@ else
 }
 
 $citation = $cleanedArray["citations"];
+$cpfType = $cleanedArray["cpfTypes"];
 $cpf = $cleanedArray["cpfs"];
 $cpfID = $cleanedArray["cpfIDs"];
 $cpfNote = $cleanedArray["cpfNotes"];
+$resourceType = $cleanedArray["resourceTypes"];
 $resource = $cleanedArray["resources"];
 $resourceID = $cleanedArray["resourceIDs"];
 $resourceNote = $cleanedArray["resourceNotes"];
@@ -162,6 +177,22 @@ for ($i = 0; $i < $countLangCodes; $i++) {
   $langCodeVal .= "<note type='langCode' label='_" . $i . "'><p>";
   $langCodeVal .= $langCode[$i];
   $langCodeVal .= "</p></note>";
+}
+
+$scriptNameVal = '';
+
+for ($i = 0; $i < $countScriptNames; $i++) {
+  $scriptNameVal .= "<note type='scriptName' label='_" . $i . "'><p>";
+  $scriptNameVal .= $scriptName[$i];
+  $scriptNameVal .= "</p></note>";
+}
+
+$scriptCodeVal = '';
+
+for ($i = 0; $i < $countScriptCodes; $i++) {
+  $scriptCodeVal .= "<note type='scriptCode' label='_" . $i . "'><p>";
+  $scriptCodeVal .= $scriptCode[$i];
+  $scriptCodeVal .= "</p></note>";
 }
 
 $subjectVal = '';
@@ -244,6 +275,14 @@ for ($i = 0; $i < $countCitations; $i++) {
   $citationVal .= "</p></note>";
 }
 
+$cpfTypeVal = '';
+
+for ($i = 0; $i < $countCpfTypes; $i++) {
+  $cpfTypeVal .= "<note type='cpfType' label='_" . $i . "'><p>";
+  $cpfTypeVal .= $cpfType[$i];
+  $cpfTypeVal .= "</p></note>";
+}
+
 $cpfVal = '';
 
 for ($i = 0; $i < $countCpfs; $i++) {
@@ -268,6 +307,14 @@ for ($i = 0; $i < $countCpfNotes; $i++) {
   $cpfNoteVal .= "</p></note>";
 }
 
+$resourceTypeVal = '';
+
+for ($i = 0; $i < $countresourceTypes; $i++) {
+  $resourceTypeVal .= "<note type='resourceType' label='_" . $i . "'><p>";
+  $resourceTypeVal .= $resourceType[$i];
+  $resourceTypeVal .= "</p></note>";
+}
+
 $resourceVal = '';
 
 for ($i = 0; $i < $countResources; $i++) {
@@ -288,7 +335,7 @@ $resourceNoteVal = '';
 
 for ($i = 0; $i < $countResourceNotes; $i++) {
   $resourceNoteVal .= "<note type='resourceID' label='_" . $i . "'><p>";
-  $resourceNoteVal .= $resourceID[$i];
+  $resourceNoteVal .= $resourceNote[$i];
   $resourceNoteVal .= "</p></note>";
 }
 
@@ -308,10 +355,10 @@ if (file_exists(  $_POST["dir"] . '/' . $file_name_lower . '.xml')) {
 
 }
 elseif( $file_name_lower == "" ) {    
-	echo "Record not saved. File name is empty.";	
+	echo "Record not saved. File name is empty and";	
 	
 	if( $cleanedArray["entity"] == "" ) {
-	   echo " Must choose an entity type.";	   
+	   echo " must choose an entity type.";	   
     }
     
 }
@@ -362,6 +409,8 @@ elseif( $cleanedArray["entity"] == "" ) {
 		                           $genderDateToVal .
 		                           $langNameVal .
 		                           $langCodeVal .
+		                           $scriptNameVal .
+		                           $scriptCodeVal .
 		                           $subjectVal .
 		                           $genreVal .
 		                           $occupationVal .
@@ -371,11 +420,13 @@ elseif( $cleanedArray["entity"] == "" ) {
 		                           $placeEntryVal .
 		                           $placeDateFromVal .
 		                           $placeDateToVal .
-		                           $citationVal .
+		                           $citationVal .		                           
 		                           $cpfVal .
+		                           $cpfTypeVal .
 		                           $cpfIDVal .
-		                           $cpfNoteVal .
+		                           $cpfNoteVal .		                           
 		                           $resourceVal .
+		                           $resourceTypeVal .
 		                           $resourceIDVal .
 		                           $resourceNoteVal .
 		                           $sourceVal .
@@ -422,6 +473,8 @@ elseif( $cleanedArray["entity"] == "" ) {
 		                           $toVal .
 		                           $langNameVal .
 		                           $langCodeVal .
+		                           $scriptNameVal .
+		                           $scriptCodeVal .
 		                           $subjectVal .
 		                           $genreVal .
 		                           $occupationVal .
@@ -431,11 +484,13 @@ elseif( $cleanedArray["entity"] == "" ) {
 		                           $placeEntryVal .
 		                           $placeDateFromVal .
 		                           $placeDateToVal .
-		                           $citationVal .
+		                           $citationVal .		                           
 		                           $cpfVal .
+		                           $cpfTypeVal .
 		                           $cpfIDVal .
-		                           $cpfNoteVal .
+		                           $cpfNoteVal .		                           
 		                           $resourceVal .
+		                           $resourceTypeVal .
 		                           $resourceIDVal .
 		                           $resourceNoteVal .
 		                           $sourceVal .
@@ -481,6 +536,8 @@ elseif( $cleanedArray["entity"] == "" ) {
 		                           $toVal .
 		                           $langNameVal .
 		                           $langCodeVal .
+		                           $scriptNameVal .
+		                           $scriptCodeVal .
 		                           $subjectVal .
 		                           $genreVal .
 		                           $occupationVal .
@@ -490,11 +547,13 @@ elseif( $cleanedArray["entity"] == "" ) {
 		                           $placeEntryVal .
 		                           $placeDateFromVal .
 		                           $placeDateToVal .
-		                           $citationVal .
+		                           $citationVal .		                           
 		                           $cpfVal .
+		                           $cpfTypeVal .
 		                           $cpfIDVal .
-		                           $cpfNoteVal .
+		                           $cpfNoteVal .		                           
 		                           $resourceVal .
+		                           $resourceTypeVal .
 		                           $resourceIDVal .
 		                           $resourceNoteVal .
 		                           $sourceVal .
@@ -536,6 +595,18 @@ elseif( $cleanedArray["entity"] == "" ) {
 }
 
 // Function for basic validation of form input. Adapted from http://php.net/manual/en/function.stripslashes.php by StefanoAI.
+function clean_array(&$array, $clean) {
+    foreach ($array as $key => &$val) {
+    	if( $key == 'dir' )
+    		continue;
+        if (is_array($val)) {
+            clean_array($val);
+        } else {
+        	$array[$key] = $clean[$key];            
+        }
+    }
+}
+
 function stripslashes_array(&$arr, $mysqli) {
     foreach ($arr as $k => &$v) {
     	if( $k == 'dir' )

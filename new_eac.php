@@ -13,9 +13,13 @@ include('header.php');
 
 jQuery(document).ready(function()
 {
+
   $('input[type="text"]').val('');
-  $('select').val('');
+  $('select').val(''); 
   $('textarea').val('');
+  $('.scriptNames').val('Latin');
+  $('.scriptCodes').val('Latn');
+    
 });
 
 </script>
@@ -61,8 +65,28 @@ jQuery(document).ready(function()
   <td>
   <table class="new_eac_inner">
   <tr>
-    <td>
-      <label>Name (Last Name, First Name)</label>
+    <td>    
+    <script>
+    $( ".entity_type" ).change(function() {
+        var str = "";
+        $(this).children( "option:selected" ).each(function() {
+            str += $( this ).text();
+        });
+        if ( str == 'Person' ) 
+        {        
+            $( "#persName" ).text( "Name of person (Last Name, First Name)" );
+        }
+        else if ( str == 'Corporate Body' )
+        {
+            $( "#persName" ).text( "Name of corporate body" );
+        }        
+        else
+        {
+            $( "#persName" ).text( "Name of family" );
+        }
+        }).trigger( "change" );                       
+    </script>
+      <label id="persName">Name</label>
       <input class="eac_name" type="text" size="50" data-validate="required"/>
     </td>
   <tr>
@@ -70,9 +94,9 @@ jQuery(document).ready(function()
     <td>
     <label>Dates of existence</label>
       <label style="display:inline;">From</label>
-      <input class="from" type="text" data-validate="regex([a-zA-Z][0-9],Your date contains invalid characters)"/>
+      <input class="from" type="text"/>
       <label style="display:inline;">To</label>
-      <input class="to" type="text" data-validate="regex([a-zA-Z][0-9],Your date contains invalid characters)"/>
+      <input class="to" type="text"/>
     </td>
   </tr>
   </table>
@@ -108,9 +132,9 @@ jQuery(document).ready(function()
     <td style="width:100%;">
     <label>Associated dates (if applicable)</label>
       <label style="display:inline;">From</label>
-      <input class="genderDatesFrom" type="text" data-validate="regex([a-zA-Z][0-9],Your date contains invalid characters)"/>
+      <input class="genderDatesFrom" type="text"/>
       <label style="display:inline;">To</label>
-      <input class="genderDatesTo" type="text" data-validate="regex([a-zA-Z][0-9],Your date contains invalid characters)"/>
+      <input class="genderDatesTo" type="text"/>
     </td>
   </tr>
   </table>
@@ -130,7 +154,7 @@ jQuery(document).ready(function()
       });
     });
     $("input.add_empty_gender").on('click', function () {
-      var tr = "<tr class=\"new_element multilvl\"><td><table style=\"width:100%;\"><tr><td style=\"width:100%;\"><select class=\"genders\"><option></option><option>female</option><option>male</option><option>other</option></select></td></tr><tr class=\"new_element\"><td><label>Associated dates</label><label style=\"display:inline;\">From </label><input class=\"genderDatesFrom\" type=\"text\" data-validate=\"regex([a-zA-Z][0-9],Your date contains invalid characters)\"/><label style=\"display:inline;\"> To </label><input class=\"genderDatesTo\" type=\"text\" data-validate=\"regex([a-zA-Z][0-9],Your date contains invalid characters)\"/></table></td></tr>";
+      var tr = "<tr class=\"new_element multilvl\"><td><table style=\"width:100%;\"><tr><td style=\"width:100%;\"><select class=\"genders\"><option></option><option>female</option><option>male</option><option>other</option></select></td></tr><tr><td><label>Associated dates (if applicable)</label><label style=\"display:inline;\">From </label><input class=\"genderDatesFrom\" type=\"text\"/><label style=\"display:inline;\"> To </label><input class=\"genderDatesTo\" type=\"text\"/></td></tr></table></td></tr>";
       $(this).closest("tr").siblings(".insert_before").before(tr);
     });
   </script>
@@ -139,7 +163,7 @@ jQuery(document).ready(function()
   </tr>
   <tr>
     <td>
-      <label class="multi">Languages <span style="font-style:italic;"></span></label>
+      <label class="multi">Languages associated with this entity <span style="font-style:italic;"></span></label>
     </td>
   </tr>
   <tr>
@@ -159,10 +183,18 @@ jQuery(document).ready(function()
   </tr>
   <tr>
     <td>
-      <label style="display:inline;">Name </label>
+      <label style="display:inline;">Language name </label>
       <input type="text" class="lang langNames"/>
-      <label style="display:inline;">Code <span style="font-style:italic;">(abc) </span></label>
-      <input type="text" class="lang langCodes" data-validate="regex(/^[a-z]{3}$/,Should be a three-letter ISO 639-2 code)"/>
+      <label style="display:inline;">Language code <span style="font-style:italic;">(abc) </span></label>
+      <input type="text" class="lang langCodes" size="4" data-validate="regex(^[a-z]{3}$,Should be a three-letter ISO 639-2 code)"/>      
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <label style="display:inline;">Script name <span style="font-style:italic;"></span></label>
+      <input type="text" value="Latin" class="script scriptNames">
+      <label style="display:inline;">Script code <span style="font-style:italic;">(Abcd) </span></label>
+      <input type="text" class="script scriptCodes" size="5" value="Latn" data-validate="regex(^[A-Z]{1}[a-z]{3}$,Should be a four-letter ISO 15924 code)"/>
     </td>
   </tr>
 
@@ -179,7 +211,7 @@ jQuery(document).ready(function()
       });
     });
     $("input.add_empty_lang").on('click', function () {
-      var tr = "<tr class=\"new_element\"><td><label style=\"display:inline;\">Name </label><input type=\"text\" class=\"langNames\" name=\"new_lang_name\" value=\"\"/><label style=\"display:inline;\"> Code <span style=\"font-style:italic;\">(abc) </span></label><input type=\"text\" class=\"langCodes\" name=\"new_lang_code\" value=\"\" data-validate=\"regex(/^[a-z]{3}$/,Should be a three-letter ISO 639-2 code)\"/></td></tr>";
+      var tr = "<tr class=\"new_element multilvl\"><td><table style=\"width:100%;\"><tr><td style=\"width:100%;\"><label style=\"display:inline;\">Language name </label><input type=\"text\" class=\"langNames\" name=\"new_lang_name\" value=\"\"/><label style=\"display:inline;\"> Language code <span style=\"font-style:italic;\">(abc) </span></label><input type=\"text\" class=\"langCodes\" name=\"new_lang_code\" value=\"\" size=\"4\" data-validate=\"regex(^[a-z]{3}$,Should be a three-letter ISO 639-2 code)\"/></td></tr><tr><td><label style=\"display:inline;\">Script name <span style=\"font-style:italic;\"></span></label><input type=\"text\" class=\"script scriptNames\" value=\"Latin\"/><label style=\"display:inline;\"> Script code <span style=\"font-style:italic;\">(Abcd) </span></label><input type=\"text\" class=\"script scriptCodes\" size=\"5\" value=\"Latn\" data-validate=\"regex(^[A-Z]{1}[a-z]{3}$,Should be a four-letter ISO 15924 code)\"/></td></tr></table></tr></td>";
       $(this).closest("tr").siblings(".insert_before").before(tr);
     });
   </script>
@@ -290,9 +322,9 @@ jQuery(document).ready(function()
     <td>
     <label>Associated dates</label>
       <label style="display:inline;">From</label>
-      <input class="occuDatesFrom" type="text" data-validate="regex([a-zA-Z][0-9],Your date contains invalid characters)"/>
+      <input class="occuDatesFrom" type="text"/>
       <label style="display:inline;">To</label>
-      <input class="occuDatesTo" type="text" data-validate="regex([a-zA-Z][0-9],Your date contains invalid characters)"/>
+      <input class="occuDatesTo" type="text"/>
     </td>
   </tr>
   </table>
@@ -312,7 +344,7 @@ jQuery(document).ready(function()
       });
     });
     $("input.add_empty_occu").on('click', function () {
-      var tr = "<tr class=\"new_element multilvl\"><td><table><tr><td><label>Occupation or activity</label><input type=\"text\" size=\"65\" class=\"occupations\"/></td></tr><tr class=\"new_element\"><td><label>Associated dates</label><label style=\"display:inline;\">From </label><input class=\"occuDatesFrom\" type=\"text\" data-validate=\"regex([a-zA-Z][0-9],Your date contains invalid characters)\"/><label style=\"display:inline;\"> To </label><input class=\"occuDatesTo\" type=\"text\" data-validate=\"regex([a-zA-Z][0-9],Your date contains invalid characters)\"/></table></td></tr>";
+      var tr = "<tr class=\"new_element multilvl\"><td><table><tr><td><label>Occupation or activity</label><input type=\"text\" size=\"65\" class=\"occupations\"/></td></tr><tr class=\"new_element\"><td><label>Associated dates</label><label style=\"display:inline;\">From </label><input class=\"occuDatesFrom\" type=\"text\"/><label style=\"display:inline;\"> To </label><input class=\"occuDatesTo\" type=\"text\"/></table></td></tr>";
       $(this).closest("tr").siblings(".insert_before").before(tr);
     });
   </script>
@@ -347,9 +379,9 @@ jQuery(document).ready(function()
     <td>
     <label>Associated dates</label>
       <label style="display:inline;">From</label>
-      <input class="placeDatesFrom" type="text" data-validate="regex([a-zA-Z][0-9],Your date contains invalid characters)"/>
+      <input class="placeDatesFrom" type="text"/>
       <label style="display:inline;">To</label>
-      <input class="placeDatesTo" type="text" data-validate="regex([a-zA-Z][0-9],Your date contains invalid characters)"/>
+      <input class="placeDatesTo" type="text"/>
     </td>
   </tr>
   </table>
@@ -369,7 +401,7 @@ jQuery(document).ready(function()
       });
     });
     $("input.add_empty_place").on('click', function () {
-      var tr = "<tr class=\"new_element multilvl\"><td><table><tr><td><label>Place</label><input type=\"text\" size=\"65\" class=\"placeEntries\"/><label>Place role</label><input type=\"text\" size=\"65\" class=\"placeRoles\"/></td></tr><tr class=\"new_element\"><td><label>Associated dates</label><label style=\"display:inline;\">From </label><input class=\"placeDatesFrom\" type=\"text\" data-validate=\"regex([a-zA-Z][0-9],Your date contains invalid characters)\"/><label style=\"display:inline;\"> To </label><input class=\"placeDatesTo\" type=\"text\" data-validate=\"regex([a-zA-Z][0-9],Your date contains invalid characters)\"/></table></td></tr>";
+      var tr = "<tr class=\"new_element multilvl\"><td><table><tr><td><label>Place</label><input type=\"text\" size=\"65\" class=\"placeEntries\"/><label>Place role</label><input type=\"text\" size=\"65\" class=\"placeRoles\"/></td></tr><tr class=\"new_element\"><td><label>Associated dates</label><label style=\"display:inline;\">From </label><input class=\"placeDatesFrom\" type=\"text\"/><label style=\"display:inline;\"> To </label><input class=\"placeDatesTo\" type=\"text\"/></table></td></tr>";
       $(this).closest("tr").siblings(".insert_before").before(tr);
     });
   </script>
@@ -425,7 +457,6 @@ jQuery(document).ready(function()
       <input type="text" size="65" class="citations"/>
     </td>
   </tr>
-
   <tr class="insert_before" style="display:none;">
     <td></td>
   </tr>
@@ -451,12 +482,29 @@ jQuery(document).ready(function()
       <label class="multi">Related entities <span style="font-style:italic;"></span></label>
     </td>
   </tr>
+  
   <tr>
   <td>
   <table class="new_eac_inner">
   <tr>
     <td>
       <input type="button" name="addCpf" value="Add New Entry" class="add_empty_element add_empty_cpf pure-button pure-button-secondary" style="border:none;"/>
+    </td>
+  </tr>
+  <tr>
+    <td style="width:100%;">
+      <label style="display:inline;">CPF relation type</label>
+      <select class="cpfTypes">
+        <option>associative</option>
+        <option>identity</option>
+        <option>hierarchical</option>
+        <option>hierarchical-parent</option>
+        <option>hierarchical-child</option>
+        <option>temporal</option>
+        <option>temporal-earlier</option>
+        <option>temporal-later</option>
+        <option>family</option>               
+      </select>
     </td>
   </tr>
   <tr>
@@ -482,7 +530,7 @@ jQuery(document).ready(function()
       });
     });
     $("input.add_empty_cpf").on('click', function () {
-      var tr = "<tr class=\"new_element\"><td><input type=\"text\" size=\"65\" class=\"cpfs\"/><label>Unique identifier <span style=\"font-style:italic;\"></span></label><input type=\"text\" class=\"cpfIDs\"/><label>Note <span style=\"font-style:italic;\"></span></label><input type=\"text\" class=\"cpfNotes\" size=\"65\"/></td></tr>";
+      var tr = "<tr class=\"new_element multilvl\"><td><table style=\"width:100%;\"><tr><td style=\"width:100%;\"><label style=\"display:inline;\">CPF relation type </label><select class=\"cpfTypes\"><option>associative</option><option>identity</option><option>hierarchical</option><option>hierarchical-parent</option><option>hierarchical-child</option><option>temporal</option><option>temporal-earlier</option><option>temporal-later</option><option>family</option></select></td></tr><tr><td><input type=\"text\" size=\"65\" class=\"cpfs\"/><label>Unique identifier <span style=\"font-style:italic;\"></span></label><input type=\"text\" class=\"cpfIDs\"/><label>Note <span style=\"font-style:italic;\"></span></label><input type=\"text\" class=\"cpfNotes\" size=\"65\"/></td></tr></table></td></tr>";
       $(this).closest("tr").siblings(".insert_before").before(tr);
     });
   </script>
@@ -500,6 +548,15 @@ jQuery(document).ready(function()
   <tr>
     <td>
       <input type="button" name="addRes" value="Add New Entry" class="add_empty_element add_empty_res pure-button pure-button-secondary" style="border:none;"/>
+    </td>
+  </tr>
+  <tr>
+    <td style="width:100%;">
+      <label style="display:inline;">Resource relation type</label>
+      <select class="resourceTypes">        
+        <option>creatorOf</option>
+        <option>subjectOf</option>        
+      </select>
     </td>
   </tr>
   <tr>
@@ -525,7 +582,7 @@ jQuery(document).ready(function()
       });
     });
     $("input.add_empty_res").on('click', function () {
-      var tr = "<tr class=\"new_element\"><td><input type=\"text\" size=\"65\" class=\"resources\" name=\"new_resource\" value=\"\"/><label>Unique identifier <span style=\"font-style:italic;\"></span></label><input type=\"text\" class=\"resourceIDs\"/><label>Note <span style=\"font-style:italic;\"></span></label><input type=\"text\" class=\"resourceNotes\" size=\"65\"/></td></tr>";
+      var tr = "<tr class=\"new_element multilvl\"><td><table style=\"width:100%;\"><tr><td style=\"width:100%;\"><label style=\"display:inline;\">Resource relation type </label><select class=\"resourceTypes\"><option>creatorOf</option><option>subjectOf</option></select></td></tr><tr><td><input type=\"text\" size=\"65\" class=\"resources\" name=\"new_resource\" value=\"\"/><label>Unique identifier <span style=\"font-style:italic;\"></span></label><input type=\"text\" class=\"resourceIDs\"/><label>Note <span style=\"font-style:italic;\"></span></label><input type=\"text\" class=\"resourceNotes\" size=\"65\"/></td></tr></table></td></tr>";
       $(this).closest("tr").siblings(".insert_before").before(tr);
     });
   </script>
@@ -534,7 +591,7 @@ jQuery(document).ready(function()
   </tr>
   <tr>
     <td>
-      <label class="multi">Sources <span style="font-style:italic;"></span></label>
+      <label class="multi">Sources for this record<span style="font-style:italic;"></span></label>
     </td>
   </tr>
   <tr>
@@ -577,6 +634,8 @@ jQuery(document).ready(function()
   </tr>
   <tr>
     <td>
+        <a href="#title" id="back">Back to top</a>
+    
       <button id="submit_new" class="pure-button pure-button-primary">Create</button>
     </td>
   </tr>
@@ -597,6 +656,7 @@ jQuery(document).ready(function()
         buttons: {
           "OK" : function () {
             $( this ).dialog( "close" );
+            jQuery('html,body').animate({scrollTop: 0},0);
           }
         }
     });
@@ -607,6 +667,8 @@ jQuery(document).ready(function()
   lobjFormElements['genderDatesTo'] = [];
   lobjFormElements['langNames'] = [];
   lobjFormElements['langCodes'] = [];
+  lobjFormElements['scriptNames'] = [];
+  lobjFormElements['scriptCodes'] = [];
   lobjFormElements['subjects'] = [];
   lobjFormElements['genres'] = [];
   lobjFormElements['occupations'] = [];
@@ -617,9 +679,11 @@ jQuery(document).ready(function()
   lobjFormElements['placeDatesFrom'] = [];
   lobjFormElements['placeDatesTo'] = [];
   lobjFormElements['citations'] = [];
+  lobjFormElements['cpfTypes'] = [];
   lobjFormElements['cpfs'] = [];
   lobjFormElements['cpfIDs'] = [];
   lobjFormElements['cpfNotes'] = [];
+  lobjFormElements['resourceTypes'] = [];
   lobjFormElements['resources'] = [];
   lobjFormElements['resourceIDs'] = [];
   lobjFormElements['resourceNotes'] = [];
@@ -647,6 +711,14 @@ jQuery(document).ready(function()
 
       $('.langCodes').each(function () {
           lobjFormElements['langCodes'].push($(this).val());
+      });
+      
+      $('.scriptNames').each(function () {
+          lobjFormElements['scriptNames'].push($(this).val());
+      });
+
+      $('.scriptCodes').each(function () {
+          lobjFormElements['scriptCodes'].push($(this).val());
       });
 
       $('.subjects').each(function () {
@@ -689,6 +761,10 @@ jQuery(document).ready(function()
           lobjFormElements['citations'].push($(this).val());
       });
 
+      $('.cpfTypes').each(function () {
+          lobjFormElements['cpfTypes'].push($(this).val());
+      });
+
       $('.cpfs').each(function () {
           lobjFormElements['cpfs'].push($(this).val());
       });
@@ -699,6 +775,10 @@ jQuery(document).ready(function()
 
       $('.cpfNotes').each(function () {
           lobjFormElements['cpfNotes'].push($(this).val());
+      });
+      
+      $('.resourceTypes').each(function () {
+          lobjFormElements['resourceTypes'].push($(this).val());
       });
 
       $('.resources').each(function () {
@@ -728,6 +808,8 @@ jQuery(document).ready(function()
 	    genderDatesTo: lobjFormElements['genderDatesTo'],
 	    langNames: lobjFormElements['langNames'],
 	    langCodes: lobjFormElements['langCodes'],
+	    scriptNames: lobjFormElements['scriptNames'],
+	    scriptCodes: lobjFormElements['scriptCodes'],
 	    subjects: lobjFormElements['subjects'],
 	    genres: lobjFormElements['genres'],
 	    occupations: lobjFormElements['occupations'],
@@ -740,9 +822,11 @@ jQuery(document).ready(function()
 	    abstract: $('.abstract').val(),
 	    bioghist: $('.bioghist').val(),
 	    citations: lobjFormElements['citations'],
+	    cpfTypes: lobjFormElements['cpfTypes'],
 	    cpfs: lobjFormElements['cpfs'],
 	    cpfIDs: lobjFormElements['cpfIDs'],
 	    cpfNotes: lobjFormElements['cpfNotes'],
+	    resourceTypes: lobjFormElements['resourceTypes'],
 	    resources: lobjFormElements['resources'],
 	    resourceIDs: lobjFormElements['resourceIDs'],
 	    resourceNotes: lobjFormElements['resourceNotes'],
@@ -750,20 +834,23 @@ jQuery(document).ready(function()
       	dir : <?php echo  '"' . addslashes($ead_path) . '"'; ?>
 
 	    }, function (data) {
+          
+	      $savedialog.html(data).dialog('open');	      
 
-	      $savedialog.html(data).dialog('open');
-
-        if( data != 'A record with this name already exists.' && data != 'Record not saved. File name is empty.' && data != 'Record not saved. File name is empty. Must choose an entity type.' && data != 'Record not saved. Must choose an entity type.' )
+        if( data != 'A record with this name already exists.' && data != 'Record not saved. File name is empty.' && data != 'Record not saved. File name is empty and must choose an entity type.' && data != 'Record not saved. Must choose an entity type.' )
         {
+        
           function slowreload() {
             location.reload();
-          }
+            jQuery('html,body').animate({scrollTop: 0},0);
+          }                    
           
           window.setTimeout(slowreload, 1000);
+          
         }
-
+          
       });
-
+    
     });
 
 </script>

@@ -926,7 +926,7 @@
                     <xsl:when test="$element2!=''">
                         <xsl:element name="{$element}" namespace="urn:isbn:1-931666-33-4">
                             <xsl:element name="{$element2}" namespace="urn:isbn:1-931666-33-4">
-                                <xsl:value-of select="substring-before($line,'\n')"/>
+                                <xsl:value-of select="normalize-space(substring-before($line,'\n'))"/>
                             </xsl:element>
                         </xsl:element>
                         <xsl:call-template name="tLineSplitter">
@@ -942,7 +942,7 @@
                     <xsl:when test="$element2!=''">
                         <xsl:element name="{$element}" namespace="urn:isbn:1-931666-33-4">
                             <xsl:element name="{$element2}" namespace="urn:isbn:1-931666-33-4">
-                                <xsl:value-of select="substring-before($line,'\n\n')"/>
+                                <xsl:value-of select="normalize-space(substring-before($line,'\n\n'))"/>
                             </xsl:element>
                         </xsl:element>
                         <xsl:call-template name="tLineSplitter">
@@ -953,11 +953,11 @@
                     </xsl:when>
                     <xsl:otherwise>
                         <xsl:element name="{$element}" namespace="urn:isbn:1-931666-33-4">
-                            <xsl:value-of select="substring-before(normalize-space($line),'\n\n')"/>
+                            <xsl:value-of select="normalize-space(substring-before($line,'\n\n'))"/>
                         </xsl:element>
                         <xsl:call-template name="tLineSplitter">
                             <xsl:with-param name="line"
-                                select="substring-after(normalize-space($line),'\n\n')"/>
+                                select="normalize-space(substring-after($line,'\n\n'))"/>
                             <xsl:with-param name="element" select="$element"/>
                             <xsl:with-param name="element2" select="$element2"/>
                         </xsl:call-template>
