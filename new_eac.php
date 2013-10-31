@@ -96,11 +96,11 @@ jQuery(document).ready(function()
         }
         else if ( str == 'Corporate Body' )
         {
-            $( "#persName" ).text( "Name of corporate body" );
+            $( "#persName" ).text( "Name of corporate body" );            
         }        
         else
         {
-            $( "#persName" ).text( "Name of family" );
+            $( "#persName" ).text( "Name of family" );            
         }
         }).trigger( "change" );                       
     </script>
@@ -323,7 +323,7 @@ jQuery(document).ready(function()
       });
     });
     $("input.add_empty_occu").on('click', function () {
-      var tr = "<tr class=\"new_element multilvl\"><td><table><tr><td><label>Occupation or activity</label><input type=\"text\" size=\"65\" class=\"occupations\"/></td></tr><tr class=\"new_element\"><td><label>Associated dates</label><label style=\"display:inline;\">From </label><input class=\"occuDatesFrom\" type=\"text\"/><label style=\"display:inline;\"> To </label><input class=\"occuDatesTo\" type=\"text\"/></table></td></tr>";
+      var tr = "<tr class=\"new_element multilvl\"><td><table><tr><td><label>Occupation or activity</label><input type=\"text\" size=\"65\" class=\"occupations\"/></td></tr><tr><td><label>Associated dates</label><label style=\"display:inline;\">From </label><input class=\"occuDatesFrom\" type=\"text\"/><label style=\"display:inline;\"> To </label><input class=\"occuDatesTo\" type=\"text\"/></td></tr></table></td></tr>";
       $(this).closest("tr").siblings(".insert_before").before(tr);
     });
   </script>
@@ -380,7 +380,7 @@ jQuery(document).ready(function()
       });
     });
     $("input.add_empty_place").on('click', function () {
-      var tr = "<tr class=\"new_element multilvl\"><td><table><tr><td><label>Place</label><input type=\"text\" size=\"65\" class=\"placeEntries\"/><label>Place role</label><input type=\"text\" size=\"65\" class=\"placeRoles\"/></td></tr><tr class=\"new_element\"><td><label>Associated dates</label><label style=\"display:inline;\">From </label><input class=\"placeDatesFrom\" type=\"text\"/><label style=\"display:inline;\"> To </label><input class=\"placeDatesTo\" type=\"text\"/></table></td></tr>";
+      var tr = "<tr class=\"new_element multilvl\"><td><table><tr><td><label>Place</label><input type=\"text\" size=\"65\" class=\"placeEntries\"/><label>Place role</label><input type=\"text\" size=\"65\" class=\"placeRoles\"/></td></tr><tr><td><label>Associated dates</label><label style=\"display:inline;\">From </label><input class=\"placeDatesFrom\" type=\"text\"/><label style=\"display:inline;\"> To </label><input class=\"placeDatesTo\" type=\"text\"/></td></tr></table></td></tr>";
       $(this).closest("tr").siblings(".insert_before").before(tr);
     });
   </script>
