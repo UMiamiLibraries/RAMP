@@ -72,9 +72,26 @@ jQuery(document).ready(function()
         $(this).children( "option:selected" ).each(function() {
             str += $( this ).text();
         });
+        // Add person specific fields (e.g., gender).
         if ( str == 'Person' ) 
         {        
             $( "#persName" ).text( "Name of person (Last Name, First Name)" );
+            $( "#new_eac_inner_class").addClass("new_eac_inner");
+            $( "#genderFields" ).addClass("new_eac_inner_2");
+            $( "#genderFields" ).html("<tr><td style=\"width:100%;\"><select class=\"genders\"><option></option><option>female</option><option>male</option><option>other</option></select></td></tr><tr><td style=\"width:100%;\"><label>Associated dates (if applicable)</label><label style=\"display:inline;\"> From </label><input class=\"genderDatesFrom\" type=\"text\"/><label style=\"display:inline;\"> To </label><input class=\"genderDatesTo\" type=\"text\"/></td></tr>");
+            $( "#genderLabel").html("<td><label class=\"multi\">Gender <span style=\"font-style:italic;\"></span></label></td>");
+            $( "#genderButton").html("<td><input type=\"button\" name=\"addGender\" value=\"Add New Entry\" class=\"add_empty_element add_empty_gender pure-button pure-button-secondary\" style=\"border:none;\"/></td>");                        
+            $("input.add_empty_gender").one('click', function () {
+              var rm = "<input type=\"button\" name=\"rm\" value=\"Delete Entry\" class=\"rm_empty_element rm_empty_gender pure-button pure-button-secondary\" style=\"border:none;\"/>";
+              $(this).after(rm);
+              $("input.rm_empty_gender").on('click', function () {
+                $(".new_element:last").remove();
+              });
+            });
+          $("input.add_empty_gender").on('click', function () {
+            var tr = "<tr class=\"new_element multilvl\"><td><table style=\"width:100%;\"><tr><td style=\"width:100%;\"><select class=\"genders\"><option></option><option>female</option><option>male</option><option>other</option></select></td></tr><tr><td><label>Associated dates (if applicable)</label><label style=\"display:inline;\">From </label><input class=\"genderDatesFrom\" type=\"text\"/><label style=\"display:inline;\"> To </label><input class=\"genderDatesTo\" type=\"text\"/></td></tr></table></td></tr>";
+            $(this).closest("tr").siblings(".insert_before").before(tr);
+          });
         }
         else if ( str == 'Corporate Body' )
         {
@@ -102,41 +119,19 @@ jQuery(document).ready(function()
   </table>
   </td>
   </tr>
-  <tr>
-    <td>
-      <label class="multi">Gender <span style="font-style:italic;"></span></label>
-    </td>
+  <tr id="genderLabel">
+    
   </tr>
   <tr>
   <td>
-  <table class="new_eac_inner">
-  <tr>
-    <td>
-      <input type="button" name="addGender" value="Add New Entry" class="add_empty_element add_empty_gender pure-button pure-button-secondary" style="border:none;"/>
-    </td>
+  <table id="new_eac_inner_class">
+  <tr id="genderButton">
+    
   </tr>
   <tr class="multilvl">
   <td>
-  <table class="new_eac_inner_2" style="width:100%;">
-  <tr>
-    <td style="width:100%;">
-      <select class="genders">
-        <option></option>
-        <option>female</option>
-        <option>male</option>
-        <option>other</option>
-      </select>
-    </td>
-  </tr>
-  <tr>
-    <td style="width:100%;">
-    <label>Associated dates (if applicable)</label>
-      <label style="display:inline;">From</label>
-      <input class="genderDatesFrom" type="text"/>
-      <label style="display:inline;">To</label>
-      <input class="genderDatesTo" type="text"/>
-    </td>
-  </tr>
+  <table id="genderFields" style="width:100%;">
+  
   </table>
   </td>
   </tr>
@@ -146,17 +141,7 @@ jQuery(document).ready(function()
   </tr>
 
   <script>
-    $("input.add_empty_gender").one('click', function () {
-        var rm = "<input type=\"button\" name=\"rm\" value=\"Delete Entry\" class=\"rm_empty_element rm_empty_gender pure-button pure-button-secondary\" style=\"border:none;\"/>";
-        $(this).after(rm);
-        $("input.rm_empty_gender").on('click', function () {
-        $(".new_element:last").remove();
-      });
-    });
-    $("input.add_empty_gender").on('click', function () {
-      var tr = "<tr class=\"new_element multilvl\"><td><table style=\"width:100%;\"><tr><td style=\"width:100%;\"><select class=\"genders\"><option></option><option>female</option><option>male</option><option>other</option></select></td></tr><tr><td><label>Associated dates (if applicable)</label><label style=\"display:inline;\">From </label><input class=\"genderDatesFrom\" type=\"text\"/><label style=\"display:inline;\"> To </label><input class=\"genderDatesTo\" type=\"text\"/></td></tr></table></td></tr>";
-      $(this).closest("tr").siblings(".insert_before").before(tr);
-    });
+   
   </script>
   </table>
   </td>

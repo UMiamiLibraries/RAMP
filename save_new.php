@@ -26,10 +26,8 @@ if ($mysqli->connect_errno) {
 // Basic input validation
 $cleanedArray = array();
 $cleanedArray = $_POST;
-//print_r($cleanedArray);
 
 stripslashes_array($cleanedArray, $mysqli);
-print_r($cleanedArray);
 
 // Set array counters.
 $countGenders = sizeof($cleanedArray['genders']);
@@ -611,8 +609,8 @@ function stripslashes_array(&$arr, $mysqli) {
     foreach ($arr as $k => &$v) {
     	if( $k == 'dir' )
     		continue;
-        if (is_array($v)) {
-            stripslashes_array($v);
+        if (is_array($v)) {            
+            stripslashes_array($v, $mysqli);
         } else {
         	$arr[$k] = trim($arr[$k]);
             $arr[$k] = stripslashes(htmlspecialchars(strip_tags($v,"<p>")));
