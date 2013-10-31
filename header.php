@@ -26,6 +26,7 @@ include('conf/includes.php');
 <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,600' rel='stylesheet' type='text/css'>
 <link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.2.1/pure-min.css">
 <link rel="stylesheet" href="script/select2/select2.css">
+<link rel="shortcut icon" href="style/image.ico"/>
 
 </style>
 
