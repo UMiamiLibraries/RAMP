@@ -353,10 +353,10 @@ if (file_exists(  $_POST["dir"] . '/' . $file_name_lower . '.xml')) {
 
 }
 elseif( $file_name_lower == "" ) {    
-	echo "Record not saved. File name is empty and";	
+	echo "Record not saved. File name is empty.";	
 	
 	if( $cleanedArray["entity"] == "" ) {
-	   echo " must choose an entity type.";	   
+	   echo " You must also choose an entity type.";	   
     }
     
 }
