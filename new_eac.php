@@ -35,7 +35,7 @@ jQuery(document).ready(function()
 <td>
 <form id="new_eac_form">
   <table>
-    <tr>
+    <tr class="labelHeader">
       <td>
         <label class="multi">Entity type <span style="font-style:italic;"></span></label>
       </td>
@@ -78,7 +78,8 @@ jQuery(document).ready(function()
             $( "#persName" ).text( "Name of person (Last Name, First Name)" );
             $( "#new_eac_inner_class").addClass("new_eac_inner");
             $( "#genderFields" ).addClass("new_eac_inner_2");
-            $( "#genderFields" ).html("<tr><td style=\"width:100%;\"><select class=\"genders\"><option></option><option>female</option><option>male</option><option>other</option></select></td></tr><tr><td style=\"width:100%;\"><label>Associated dates (if applicable)</label><label style=\"display:inline;\"> From </label><input class=\"genderDatesFrom\" type=\"text\"/><label style=\"display:inline;\"> To </label><input class=\"genderDatesTo\" type=\"text\"/></td></tr>");
+            $( "#genderLabel").addClass("labelHeader");
+            $( "#genderFields" ).html("<tr><td style=\"width:100%;\"><select class=\"genders\"><option></option><option>female</option><option>male</option><option>other</option></select></td></tr><tr><td style=\"width:100%;\"><label>Associated dates (if applicable)</label><label style=\"display:inline;\"> From </label><input class=\"genderDatesFrom\" type=\"text\"/><label style=\"display:inline;\"> To </label><input class=\"genderDatesTo\" type=\"text\"/></td></tr>");            
             $( "#genderLabel").html("<td><label class=\"multi\">Gender <span style=\"font-style:italic;\"></span></label></td>");
             $( "#genderButton").html("<td><input type=\"button\" name=\"addGender\" value=\"Add New Entry\" class=\"add_empty_element add_empty_gender pure-button pure-button-secondary\" style=\"border:none;\"/></td>");                        
             $("input.add_empty_gender").one('click', function () {
@@ -146,21 +147,14 @@ jQuery(document).ready(function()
   </table>
   </td>
   </tr>
-  <tr>
+  <tr class="labelHeader">
     <td>
       <label class="multi">Languages associated with this entity <span style="font-style:italic;"></span></label>
     </td>
   </tr>
   <tr>
   <td>
-  <table class="new_eac_inner">
-  <!--
-  <tr>
-    <td>
-      <label class="multi">Languages <span style="font-style:italic;"></span></label>
-    </td>
-  </tr>
-  -->
+  <table class="new_eac_inner"> 
   <tr>
     <td>
       <input type="button" name="addLang" value="Add New Entry" class="add_empty_element add_empty_lang pure-button pure-button-secondary" style="border:none;"/>
@@ -203,7 +197,7 @@ jQuery(document).ready(function()
   </table>
   </td>
   </tr>
-  <tr>
+  <tr class="labelHeader">
     <td>
       <label class="multi">Subjects <span style="font-style:italic;"></span></label>
     </td>
@@ -242,7 +236,7 @@ jQuery(document).ready(function()
   </table>
   </td>
   </tr>
-  <tr>
+  <tr class="labelHeader">
     <td>
       <label class="multi">Genres <span style="font-style:italic;"></span></label>
     </td>
@@ -281,7 +275,7 @@ jQuery(document).ready(function()
   </table>
   </td>
   </tr>
-  <tr>
+  <tr class="labelHeader">
     <td>
       <label class="multi">Occupations or fields of activity and associated dates <span style="font-style:italic;"></span></label>
     </td>
@@ -336,7 +330,7 @@ jQuery(document).ready(function()
   </table>
   </td>
   </tr>
-  <tr>
+  <tr class="labelHeader">
     <td>
       <label class="multi">Places and associated dates <span style="font-style:italic;"></span></label>
     </td>
@@ -393,7 +387,7 @@ jQuery(document).ready(function()
   </table>
   </td>
   </tr>
-  <tr>
+  <tr class="labelHeader">
     <td>
       <label class="multi">Biography or history <span style="font-style:italic;"></span></label>
     </td>
@@ -424,7 +418,7 @@ jQuery(document).ready(function()
   </table>
   </td>
   </tr>
-  <tr>
+  <tr class="labelHeader">
     <td>
       <label class="multi">Citations <span style="font-style:italic;"></span></label>
     </td>
@@ -462,7 +456,7 @@ jQuery(document).ready(function()
   </table>
   </td>
   </tr>
-  <tr>
+  <tr class="labelHeader">
     <td>
       <label class="multi">Related entities <span style="font-style:italic;"></span></label>
     </td>
@@ -522,7 +516,7 @@ jQuery(document).ready(function()
   </table>
   </td>
   </tr>
-  <tr>
+  <tr class="labelHeader">
     <td>
       <label class="multi">Related resources <span style="font-style:italic;"></span></label>
     </td>
@@ -574,7 +568,7 @@ jQuery(document).ready(function()
   </table>
   </td>
   </tr>
-  <tr>
+  <tr class="labelHeader">
     <td>
       <label class="multi">Sources for this record<span style="font-style:italic;"></span></label>
     </td>

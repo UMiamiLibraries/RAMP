@@ -1357,7 +1357,7 @@
 
     <xsl:template name="tGenders">
         <xsl:if test="$vGender!=''">
-            <xsl:for-each select="$vGender">
+            <xsl:for-each select="$vGender[.!='']">
                 <xsl:variable name="vGenderLabel" select="../@label"/>
                 <localDescription localType="gender" xmlns="urn:isbn:1-931666-33-4">
                     <term>
@@ -1390,7 +1390,7 @@
 
     <xsl:template name="tLangs">
         <xsl:if test="$vLangName!=''">
-            <xsl:for-each select="$vLangName">
+            <xsl:for-each select="$vLangName[.!='']">
                 <xsl:variable name="vLangNameLabel" select="../@label"/>
                 <languageUsed xmlns="urn:isbn:1-931666-33-4">
                     <xsl:choose>
@@ -1419,7 +1419,7 @@
 
     <xsl:template name="tSubjects">
         <xsl:if test="$vSubject!=''">
-            <xsl:for-each select="$vSubject">
+            <xsl:for-each select="$vSubject[.!='']">
                 <localDescription localType="subject" xmlns="urn:isbn:1-931666-33-4">
                     <term>
                         <xsl:value-of select="normalize-space(.)"/>
@@ -1431,7 +1431,7 @@
 
     <xsl:template name="tGenres">
         <xsl:if test="$vGenre!=''">
-            <xsl:for-each select="$vGenre">
+            <xsl:for-each select="$vGenre[.!='']">
                 <localDescription localType="genre" xmlns="urn:isbn:1-931666-33-4">
                     <term>
                         <xsl:value-of select="normalize-space(.)"/>
@@ -1443,7 +1443,7 @@
 
     <xsl:template name="tOccupationsNew">
         <xsl:if test="$vOccupationNew!=''">
-            <xsl:for-each select="$vOccupationNew">
+            <xsl:for-each select="$vOccupationNew[.!='']">
                 <xsl:variable name="vOccuLabel" select="../@label"/>
                 <occupation xmlns="urn:isbn:1-931666-33-4">
                     <term>
@@ -1476,7 +1476,7 @@
 
     <xsl:template name="tPlaces">
         <xsl:if test="$vPlaceRole!=''">
-            <xsl:for-each select="$vPlaceRole">
+            <xsl:for-each select="$vPlaceRole[.!='']">
                 <xsl:variable name="vPlaceRoleLabel" select="../@label"/>
                 <place xmlns="urn:isbn:1-931666-33-4">
                     <placeRole>
@@ -1520,7 +1520,7 @@
 
     <xsl:template name="tCitations">
         <xsl:if test="$vCitation!=''">
-            <xsl:for-each select="$vCitation">
+            <xsl:for-each select="$vCitation[.!='']">
                 <citation xmlns="urn:isbn:1-931666-33-4">
                     <xsl:value-of select="normalize-space(.)"/>
                 </citation>
@@ -1530,7 +1530,7 @@
 
     <xsl:template name="tCpfs">
         <xsl:if test="$vCpf!=''">
-            <xsl:for-each select="$vCpf">
+            <xsl:for-each select="$vCpf[.!='']">
                 <xsl:variable name="vCpfLabel" select="../@label"/>
                 <xsl:if
                     test="../following-sibling::ead:note[@type='cpfID'][@label=$vCpfLabel]/ead:p!=''">
@@ -1577,12 +1577,12 @@
 
     <xsl:template name="tResources">
         <xsl:if test="$vResource!=''">
-            <xsl:for-each select="$vResource">
+            <xsl:for-each select="$vResource[.!='']">
                 <xsl:variable name="vResourceLabel" select="../@label"/>
                 <xsl:if
                     test="../following-sibling::ead:note[@type='resourceID'][@label=$vResourceLabel]/ead:p!=''">
                     <resourceRelation xmlns="urn:isbn:1-931666-33-4"
-                        cpfRelationType="{normalize-space(../following-sibling::ead:note[@type='resourceType'][@label=$vResourceLabel]/ead:p)}"
+                        resourceRelationType="{normalize-space(../following-sibling::ead:note[@type='resourceType'][@label=$vResourceLabel]/ead:p)}"
                         xml:id="{normalize-space(../following-sibling::ead:note[@type='resourceID'][@label=$vResourceLabel]/ead:p)}">
                         <relationEntry>
                             <xsl:value-of select="normalize-space(.)"/>
@@ -1602,7 +1602,7 @@
                 <xsl:if
                     test="../following-sibling::ead:note[@type='resourceID'][@label=$vResourceLabel]/ead:p=''">
                     <resourceRelation xmlns="urn:isbn:1-931666-33-4"
-                        cpfRelationType="{normalize-space(../following-sibling::ead:note[@type='resourceType'][@label=$vResourceLabel]/ead:p)}">
+                        resourceRelationType="{normalize-space(../following-sibling::ead:note[@type='resourceType'][@label=$vResourceLabel]/ead:p)}">
                         <relationEntry>
                             <xsl:value-of select="normalize-space(.)"/>
                         </relationEntry>
@@ -1624,7 +1624,7 @@
 
     <xsl:template name="tSourcesNew">
         <xsl:if test="$vSource!=''">
-            <xsl:for-each select="$vSource">
+            <xsl:for-each select="$vSource[.!='']">
                 <source xmlns="urn:isbn:1-931666-33-4">
                     <sourceEntry>
                         <xsl:value-of select="normalize-space(.)"/>

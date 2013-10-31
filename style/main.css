@@ -385,6 +385,11 @@ ul, menu, dir {
     margin-bottom:1%;    
 }
 
+.labelHeader {
+    border-top:dotted black 1px !important;
+    border-bottom:dotted black 1px !important;
+}
+
 .menu_slice a {
     font-weight:300;
 }
@@ -444,7 +449,7 @@ ul, menu, dir {
 }
 
 .new_eac_inner {    
-    border:dotted black 1px;
+    
     margin-bottom:2%;    
     width:100%;      
 }
@@ -1058,11 +1063,18 @@ button#ltselectedtext:focus {
     margin-left:.5%;    
     font-size:1.25em;
     width:100%;    
+    
+}
+
+#new_eac_form > table {    
+    border-right:dotted black 1px;
+    border-bottom:dotted black 1px;
+    
 }
 
 #new_eac_form input {
     margin-bottom:2%;
-    border:inset black 1px;
+    border:inset black 1px;    
 }
 
 
@@ -1076,7 +1088,7 @@ button#ltselectedtext:focus {
 }
 
 #new_eac_form table {
-    width:100%;
+    width:100%;              
 }
 
 
@@ -1085,6 +1097,7 @@ button#ltselectedtext:focus {
 }
 
 #new_eac_form tr {
+    border:none;
         
 }
 
@@ -1101,16 +1114,24 @@ button#ltselectedtext:focus {
     width:60%;
 }
 
-#new_eac_table td {
-    
-}
-
 #new_eac_table h1 {
     font-weight:700;
     font-size:1.8em;
     margin-bottom:2%;
     padding-bottom:1%;
     border-bottom:dotted black 1px;
+}
+
+#new_eac_table table {
+    
+}
+
+#new_eac_table td {
+    
+}
+
+#new_eac_table tr {
+    
 }
 
 #plainText {
