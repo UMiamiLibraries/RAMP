@@ -21,12 +21,12 @@ include('conf/includes.php');
 <script src="script/colorbox-master/jquery.colorbox-min.js"></script>
 <script src="script/verify.notify.min.js"></script>
 <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script>
+<link rel="shortcut icon" href="style/images/favicon.ico"/>
 <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" type="text/css"/>
 <link rel="stylesheet" href="style/colorbox-master/example1/colorbox.css" type="text/css"/>
 <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,600' rel='stylesheet' type='text/css'>
 <link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.2.1/pure-min.css">
 <link rel="stylesheet" href="script/select2/select2.css">
-<link rel="shortcut icon" href="style/image.ico"/>
 
 </style>
 
