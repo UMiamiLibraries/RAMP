@@ -1724,14 +1724,14 @@
             <xsl:choose>
                 <xsl:when test="../following-sibling::ead:note[@type='scriptCode']/ead:p=''">
                     <script xmlns="urn:isbn:1-931666-33-4">
-                            <xsl:value-of select="normalize-space(.)"/>
+                            <xsl:value-of select="normalize-space($vScriptName)"/>
                     </script>
                 </xsl:when>
                 <xsl:otherwise>
                     <xsl:if
                         test="../following-sibling::ead:note[@type='scriptCode'][@label=$vLangNameLabel]">
                         <script scriptCode="{normalize-space(../following-sibling::ead:note[@type='scriptCode'][@label=$vLangNameLabel]/ead:p)}" xmlns="urn:isbn:1-931666-33-4">
-                                <xsl:value-of select="normalize-space(.)"/>
+                                <xsl:value-of select="normalize-space($vScriptName)"/>
                         </script>
                     </xsl:if>
                 </xsl:otherwise>

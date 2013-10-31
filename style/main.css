@@ -696,6 +696,14 @@ li.wiki_login
     display:inline; 
 }
 
+#back {
+    display:inline-block;
+    margin-top:2%;
+    margin-left:1%;
+    font-size:1.2em;
+    
+}
+
 #bioghist {
     width:100%;
 }
@@ -1148,6 +1156,7 @@ button#ltselectedtext:focus {
     margin-bottom:2%;
     width:auto;
     float:right;
+    font-size:1.2em;
         
 }
 
