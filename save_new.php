@@ -291,7 +291,7 @@ $cpfVal = '';
 
 for ($i = 0; $i < $countCpfs; $i++) {
   $cpfVal .= "<note type='cpf' label='_" . $i . "'><p>";
-  $cpfVal .= $cpf[$i];
+  $cpfVal .= $cpf[$i]; 
   $cpfVal .= "</p></note>";
 }
 
@@ -622,32 +622,27 @@ elseif( $cleanedArray["entity"] == "" ) {
 }
 
 // Function for basic validation of form input. Adapted from http://php.net/manual/en/function.stripslashes.php by StefanoAI.
-function clean_array(&$array, $clean) {
-    foreach ($array as $key => &$val) {
-    	if( $key == 'dir' )
-    		continue;
-        if (is_array($val)) {
-            clean_array($val);
-        } else {
-        	$array[$key] = $clean[$key];            
-        }
-    }
-}
-
 function stripslashes_array(&$arr, $mysqli) {
     foreach ($arr as $k => &$v) {
-    	if( $k == 'dir' )
+        if( $k == 'dir' ) {
     		continue;
-        if (is_array($v)) {            
-            stripslashes_array($v, $mysqli);
-        } else {
-        	$arr[$k] = trim($arr[$k]);
-            $arr[$k] = stripslashes(htmlspecialchars(strip_tags($v,"<p>")));
-        	$arr[$k] = preg_replace('#&lt;(/?[pi])&gt;#', '<$1>', $arr[$k]);
-        	$arr[$k] = preg_replace('/\n+/', '&#10;', $arr[$k]);
-        	$arr[$k] = mysqli_real_escape_string($mysqli,$arr[$k]);
         }
-    }
+        if (is_array($v)) {
+            foreach ($v as $vk => &$vv) {            
+                $v[$vk] = trim($vv);
+                $v[$vk] = stripslashes(htmlspecialchars(strip_tags($vv,"<p>")));
+                $v[$vk] = preg_replace('#&lt;(/?[pi])&gt;#', '<$1>', $vv);
+                $v[$vk] = preg_replace('/\n+/', '&#10;', $vv);
+                $v[$vk] = mysqli_real_escape_string($mysqli,$vv);
+            }
+        } else {
+            $arr[$k] = trim($v);
+            $arr[$k] = stripslashes(htmlspecialchars(strip_tags($v,"<p>")));
+            $arr[$k] = preg_replace('#&lt;(/?[pi])&gt;#', '<$1>', $v);
+            $arr[$k] = preg_replace('/\n+/', '&#10;', $v);
+            $arr[$k] = mysqli_real_escape_string($mysqli,$v);    	         
+        }
+    }    
 }
-
+    
 ?>
