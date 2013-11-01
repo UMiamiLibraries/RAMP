@@ -544,11 +544,11 @@ jQuery(document).ready(function()
   <tr>
     <td>
       <input type="text" size="65" class="resources"/>
-      <label>Unique identifier <span style="font-style:italic;"></span></label>
+      <label>Unique identifier <span style="font-style:italic;">(@xml:id)</span></label>
       <input type="text" size="65" class="resourceIDs"/>
       <label>URI <span style="font-style:italic;">(@xlink:href)</span></label>
       <input type="text" size="65" class="resourceURIs"/>
-      <label>Note <span style="font-style:italic;">(@xml:id)</span></label>
+      <label>Note <span style="font-style:italic;"></span></label>
       <input type="text" class="resourceNotes" size="65"/>
     </td>
   </tr>
