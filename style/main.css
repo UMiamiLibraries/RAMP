@@ -717,6 +717,10 @@ textarea#bioghist {
     height:200px;
 }
 
+#box_wrapper {
+    margin-bottom:6%;
+}
+
 #captcha_div {
     width:auto;
     float:left;    

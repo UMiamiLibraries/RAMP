@@ -15,7 +15,7 @@ include('header.php');
     <br/>
     <br/>
     <div id="demos">
-    <p>Read more about RAMP in <span style="font-style:italic"><a href="http://journal.code4lib.org/articles/8962" target="_blank">Code4Lib Journal</span></a>. | Download the source code from <a href="https://github.com/UMiamiLibraries/RAMP" target="_blank">GitHub</a>.</p>
+    <p>Read more about RAMP in <span style="font-style:italic"><a href="http://journal.code4lib.org/articles/8962" target="_blank">Code4Lib Journal</span></a>.</p>
     <br/>
     <p>Watch RAMP demo videos:</p>
     <br/>    
@@ -30,7 +30,7 @@ include('header.php');
   </div>
 </div>
 
-<div class="pure-g-r">
+<div class="pure-g-r" id="box_wrapper">
   <div class="pure-u-1-2">
   <div class="content_box" id="convert_box">
   <img src="style/images/convert.png" alt="Convert" width="24px" height="24px"/>
@@ -108,19 +108,12 @@ print ("</select>");
 
 
 ?>
-<div class="content_box" style="width:auto; margin-top:2%; border:dotted black 1px;">
-<p>This demo installation has been preloaded with a set of Library of Congress finding aids. Please note that data on this website is temporary and may be modified or refreshed.</p>
-</div>
- <div id="attribution">
+<div id="attribution">
   <img src="http://www.oclc.org/developer/sites/default/files/badges/logo_worldcat_16px.png" width="16" height="16" alt="Some library data on this site is provided by WorldCat, the world's largest library catalog [WorldCat.org]" />
   <p>RAMP contains <a href="http://www.worldcat.org/">OCLC WorldCat</a> information made available under the <a href="http://opendatacommons.org/licenses/by/1.0/">ODC Attribution License</a>. The OCLC Cooperative requests that uses of WorldCat derived data contained in this work conform with the <a href="http://www.oclc.org/worldcat/community/record-use/policy/community-norms.en.html">WorldCat Community Norms</a>.</p>    
-  </div>
 </div>
 </div>
-
-
-
-
+</div>
 
 <div class="pure-u-1-2">
   <div class="content_box" id="new_box">
@@ -166,7 +159,6 @@ print ("</select>");
  
 
   </div>
-  
   
 
   <?php
