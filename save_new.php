@@ -50,10 +50,12 @@ $countCitations = sizeof($cleanedArray['citations']);
 $countCpfTypes = sizeof($cleanedArray['cpfTypes']);
 $countCpfs = sizeof($cleanedArray['cpfs']);
 $countCpfIDs = sizeof($cleanedArray['cpfIDs']);
+$countCpfURIs = sizeof($cleanedArray['cpfURIs']);
 $countCpfNotes = sizeof($cleanedArray['cpfNotes']);
 $countresourceTypes = sizeof($cleanedArray['resourceTypes']);
 $countResources = sizeof($cleanedArray['resources']);
 $countResourceIDs = sizeof($cleanedArray['resourceIDs']);
+$countResourceURIs = sizeof($cleanedArray['resourceURIs']);
 $countResourceNotes = sizeof($cleanedArray['resourceNotes']);
 $countSources = sizeof($cleanedArray['sources']);
 
@@ -85,10 +87,12 @@ $citation = array();
 $cpfType = array();
 $cpf = array();
 $cpfID = array();
+$cpfURI = array();
 $cpfNote = array();
 $resourceType = array();
 $resource = array();
 $resourceID = array();
+$resourceURI = array();
 $resourceNote = array();
 $source = array();
 
@@ -128,10 +132,12 @@ $citation = $cleanedArray["citations"];
 $cpfType = $cleanedArray["cpfTypes"];
 $cpf = $cleanedArray["cpfs"];
 $cpfID = $cleanedArray["cpfIDs"];
+$cpfURI = $cleanedArray["cpfURIs"];
 $cpfNote = $cleanedArray["cpfNotes"];
 $resourceType = $cleanedArray["resourceTypes"];
 $resource = $cleanedArray["resources"];
 $resourceID = $cleanedArray["resourceIDs"];
+$resourceURI = $cleanedArray["resourceURIs"];
 $resourceNote = $cleanedArray["resourceNotes"];
 $source = $cleanedArray["sources"];
 
@@ -297,6 +303,15 @@ for ($i = 0; $i < $countCpfIDs; $i++) {
   $cpfIDVal .= "</p></note>";
 }
 
+
+$cpfURIVal = '';
+
+for ($i = 0; $i < $countCpfURIs; $i++) {
+  $cpfURIVal .= "<note type='cpfURI' label='_" . $i . "'><p>";
+  $cpfURIVal .= $cpfURI[$i];
+  $cpfURIVal .= "</p></note>";
+}
+
 $cpfNoteVal = '';
 
 for ($i = 0; $i < $countCpfNotes; $i++) {
@@ -329,10 +344,18 @@ for ($i = 0; $i < $countResourceIDs; $i++) {
   $resourceIDVal .= "</p></note>";
 }
 
+$resourceURIVal = '';
+
+for ($i = 0; $i < $countResourceURIs; $i++) {
+  $resourceURIVal .= "<note type='resourceURI' label='_" . $i . "'><p>";
+  $resourceURIVal .= $resourceURI[$i];
+  $resourceURIVal .= "</p></note>";
+}
+
 $resourceNoteVal = '';
 
 for ($i = 0; $i < $countResourceNotes; $i++) {
-  $resourceNoteVal .= "<note type='resourceID' label='_" . $i . "'><p>";
+  $resourceNoteVal .= "<note type='resourceNote' label='_" . $i . "'><p>";
   $resourceNoteVal .= $resourceNote[$i];
   $resourceNoteVal .= "</p></note>";
 }
@@ -422,10 +445,12 @@ elseif( $cleanedArray["entity"] == "" ) {
 		                           $cpfVal .
 		                           $cpfTypeVal .
 		                           $cpfIDVal .
+		                           $cpfURIVal .
 		                           $cpfNoteVal .		                           
 		                           $resourceVal .
 		                           $resourceTypeVal .
 		                           $resourceIDVal .
+		                           $resourceURIVal .
 		                           $resourceNoteVal .
 		                           $sourceVal .
 
@@ -486,10 +511,12 @@ elseif( $cleanedArray["entity"] == "" ) {
 		                           $cpfVal .
 		                           $cpfTypeVal .
 		                           $cpfIDVal .
+		                           $cpfURIVal .
 		                           $cpfNoteVal .		                           
 		                           $resourceVal .
 		                           $resourceTypeVal .
 		                           $resourceIDVal .
+		                           $resourceURIVal .
 		                           $resourceNoteVal .
 		                           $sourceVal .
 
@@ -549,10 +576,12 @@ elseif( $cleanedArray["entity"] == "" ) {
 		                           $cpfVal .
 		                           $cpfTypeVal .
 		                           $cpfIDVal .
+		                           $cpfURIVal .
 		                           $cpfNoteVal .		                           
 		                           $resourceVal .
 		                           $resourceTypeVal .
 		                           $resourceIDVal .
+		                           $resourceURIVal .
 		                           $resourceNoteVal .
 		                           $sourceVal .
 

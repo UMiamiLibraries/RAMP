@@ -489,8 +489,10 @@ jQuery(document).ready(function()
   <tr>
     <td>
       <input type="text" size="65" class="cpfs"/>
-      <label>Unique identifier <span style="font-style:italic;"></span></label>
-      <input type="text" class="cpfIDs"/>
+      <label>Unique identifier <span style="font-style:italic;">(@xml:id)</span></label>
+      <input type="text" size="65" class="cpfIDs"/>
+      <label>URI <span style="font-style:italic;">(@xlink:href)</span></label>
+      <input type="text" size="65" class="cpfURIs"/>
       <label>Note <span style="font-style:italic;"></span></label>
       <input type="text" class="cpfNotes" size="65"/>
     </td>
@@ -509,7 +511,7 @@ jQuery(document).ready(function()
       });
     });
     $("input.add_empty_cpf").on('click', function () {
-      var tr = "<tr class=\"new_element multilvl\"><td><table style=\"width:100%;\"><tr><td style=\"width:100%;\"><label style=\"display:inline;\">CPF relation type </label><select class=\"cpfTypes\"><option>associative</option><option>identity</option><option>hierarchical</option><option>hierarchical-parent</option><option>hierarchical-child</option><option>temporal</option><option>temporal-earlier</option><option>temporal-later</option><option>family</option></select></td></tr><tr><td><input type=\"text\" size=\"65\" class=\"cpfs\"/><label>Unique identifier <span style=\"font-style:italic;\"></span></label><input type=\"text\" class=\"cpfIDs\"/><label>Note <span style=\"font-style:italic;\"></span></label><input type=\"text\" class=\"cpfNotes\" size=\"65\"/></td></tr></table></td></tr>";
+      var tr = "<tr class=\"new_element multilvl\"><td><table style=\"width:100%;\"><tr><td style=\"width:100%;\"><label style=\"display:inline;\">CPF relation type </label><select class=\"cpfTypes\"><option>associative</option><option>identity</option><option>hierarchical</option><option>hierarchical-parent</option><option>hierarchical-child</option><option>temporal</option><option>temporal-earlier</option><option>temporal-later</option><option>family</option></select></td></tr><tr><td><input type=\"text\" size=\"65\" class=\"cpfs\"/><label>Unique identifier <span style=\"font-style:italic;\">(@xml:id)</span></label><input type=\"text\" size=\"65\" class=\"cpfIDs\"/><label> URI <span style=\"font-style:italic;\">(@xlink:href)</span></label><input type=\"text\" size=\"65\" class=\"cpfURIs\"/><label> Note <span style=\"font-style:italic;\"></span></label><input type=\"text\" class=\"cpfNotes\" size=\"65\"/></td></tr></table></td></tr>";
       $(this).closest("tr").siblings(".insert_before").before(tr);
     });
   </script>
@@ -543,7 +545,9 @@ jQuery(document).ready(function()
     <td>
       <input type="text" size="65" class="resources"/>
       <label>Unique identifier <span style="font-style:italic;"></span></label>
-      <input type="text" class="resourceIDs"/>
+      <input type="text" size="65" class="resourceIDs"/>
+      <label>URI <span style="font-style:italic;">(@xlink:href)</span></label>
+      <input type="text" size="65" class="resourceURIs"/>
       <label>Note <span style="font-style:italic;"></span></label>
       <input type="text" class="resourceNotes" size="65"/>
     </td>
@@ -562,7 +566,7 @@ jQuery(document).ready(function()
       });
     });
     $("input.add_empty_res").on('click', function () {
-      var tr = "<tr class=\"new_element multilvl\"><td><table style=\"width:100%;\"><tr><td style=\"width:100%;\"><label style=\"display:inline;\">Resource relation type </label><select class=\"resourceTypes\"><option>creatorOf</option><option>subjectOf</option><option>other</option></select></td></tr><tr><td><input type=\"text\" size=\"65\" class=\"resources\" name=\"new_resource\" value=\"\"/><label>Unique identifier <span style=\"font-style:italic;\"></span></label><input type=\"text\" class=\"resourceIDs\"/><label>Note <span style=\"font-style:italic;\"></span></label><input type=\"text\" class=\"resourceNotes\" size=\"65\"/></td></tr></table></td></tr>";
+      var tr = "<tr class=\"new_element multilvl\"><td><table style=\"width:100%;\"><tr><td style=\"width:100%;\"><label style=\"display:inline;\">Resource relation type </label><select class=\"resourceTypes\"><option>creatorOf</option><option>subjectOf</option><option>other</option></select></td></tr><tr><td><input type=\"text\" size=\"65\" class=\"resources\" name=\"new_resource\" value=\"\"/><label>Unique identifier <span style=\"font-style:italic;\"></span></label><input type=\"text\" size=\"65\" class=\"resourceIDs\"/><label> URI <span style=\"font-style:italic;\">(@xlink:href)</span></label><input type=\"text\" size=\"65\" class=\"resourceURIs\"/><label> Note <span style=\"font-style:italic;\"></span></label><input type=\"text\" class=\"resourceNotes\" size=\"65\"/></td></tr></table></td></tr>";
       $(this).closest("tr").siblings(".insert_before").before(tr);
     });
   </script>
@@ -662,10 +666,12 @@ jQuery(document).ready(function()
   lobjFormElements['cpfTypes'] = [];
   lobjFormElements['cpfs'] = [];
   lobjFormElements['cpfIDs'] = [];
+  lobjFormElements['cpfURIs'] = [];
   lobjFormElements['cpfNotes'] = [];
   lobjFormElements['resourceTypes'] = [];
   lobjFormElements['resources'] = [];
   lobjFormElements['resourceIDs'] = [];
+  lobjFormElements['resourceURIs'] = [];
   lobjFormElements['resourceNotes'] = [];
   lobjFormElements['sources'] = [];
 
@@ -749,8 +755,12 @@ jQuery(document).ready(function()
           lobjFormElements['cpfs'].push($(this).val());
       });
 
-       $('.cpfIDs').each(function () {
+      $('.cpfIDs').each(function () {
           lobjFormElements['cpfIDs'].push($(this).val());
+      });
+      
+      $('.cpfURIs').each(function () {
+          lobjFormElements['cpfURIs'].push($(this).val());
       });
 
       $('.cpfNotes').each(function () {
@@ -767,6 +777,10 @@ jQuery(document).ready(function()
 
       $('.resourceIDs').each(function () {
           lobjFormElements['resourceIDs'].push($(this).val());
+      });
+      
+      $('.resourceURIs').each(function () {
+          lobjFormElements['resourceURIs'].push($(this).val());
       });
 
       $('.resourceNotes').each(function () {
@@ -805,10 +819,12 @@ jQuery(document).ready(function()
 	    cpfTypes: lobjFormElements['cpfTypes'],
 	    cpfs: lobjFormElements['cpfs'],
 	    cpfIDs: lobjFormElements['cpfIDs'],
+	    cpfURIs: lobjFormElements['cpfURIs'],
 	    cpfNotes: lobjFormElements['cpfNotes'],
 	    resourceTypes: lobjFormElements['resourceTypes'],
 	    resources: lobjFormElements['resources'],
 	    resourceIDs: lobjFormElements['resourceIDs'],
+	    resourceURIs: lobjFormElements['resourceURIs'],
 	    resourceNotes: lobjFormElements['resourceNotes'],
 	    sources: lobjFormElements['sources'],
       	dir : <?php echo  '"' . addslashes($ead_path) . '"'; ?>
