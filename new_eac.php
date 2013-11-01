@@ -420,7 +420,7 @@ jQuery(document).ready(function()
   </tr>
   <tr class="labelHeader">
     <td>
-      <label class="multi">Citations <span style="font-style:italic;"></span></label>
+      <label class="multi">Citations for biography/history<span style="font-style:italic;"></span></label>
     </td>
   </tr>
   <tr>
