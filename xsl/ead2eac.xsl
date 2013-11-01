@@ -1534,42 +1534,87 @@
                 <xsl:variable name="vCpfLabel" select="../@label"/>
                 <xsl:if
                     test="../following-sibling::ead:note[@type='cpfID'][@label=$vCpfLabel]/ead:p!=''">
-                    <cpfRelation xmlns="urn:isbn:1-931666-33-4"
-                        cpfRelationType="{normalize-space(../following-sibling::ead:note[@type='cpfType'][@label=$vCpfLabel]/ead:p)}"
-                        xml:id="{normalize-space(../following-sibling::ead:note[@type='cpfID'][@label=$vCpfLabel]/ead:p)}">
-                        <relationEntry>
-                            <xsl:value-of select="normalize-space(.)"/>
-                        </relationEntry>
-                        <xsl:if
-                            test="../following-sibling::ead:note[@type='cpfNote'][@label=$vCpfLabel]/ead:p!=''">
-                            <descriptiveNote xmlns="urn:isbn:1-931666-33-4">
-                                <p>
-                                    <xsl:value-of
-                                        select="normalize-space(../following-sibling::ead:note[@type='cpfNote'][@label=$vCpfLabel]/ead:p)"
-                                    />
-                                </p>
-                            </descriptiveNote>
-                        </xsl:if>
-                    </cpfRelation>
+                    <xsl:choose>
+                        <xsl:when
+                            test="normalize-space(../following-sibling::ead:note[@type='cpfType'][@label=$vCpfLabel]/ead:p)!=''">
+                            <cpfRelation xmlns="urn:isbn:1-931666-33-4"
+                                cpfRelationType="{normalize-space(../following-sibling::ead:note[@type='cpfType'][@label=$vCpfLabel]/ead:p)}"
+                                xml:id="{normalize-space(../following-sibling::ead:note[@type='cpfID'][@label=$vCpfLabel]/ead:p)}">
+                                <relationEntry>
+                                    <xsl:value-of select="normalize-space(.)"/>
+                                </relationEntry>
+                                <xsl:if
+                                    test="../following-sibling::ead:note[@type='cpfNote'][@label=$vCpfLabel]/ead:p!=''">
+                                    <descriptiveNote xmlns="urn:isbn:1-931666-33-4">
+                                        <p>
+                                            <xsl:value-of
+                                                select="normalize-space(../following-sibling::ead:note[@type='cpfNote'][@label=$vCpfLabel]/ead:p)"
+                                            />
+                                        </p>
+                                    </descriptiveNote>
+                                </xsl:if>
+                            </cpfRelation>
+                        </xsl:when>
+                        <xsl:otherwise>
+                            <cpfRelation xmlns="urn:isbn:1-931666-33-4"
+                                xml:id="{normalize-space(../following-sibling::ead:note[@type='cpfID'][@label=$vCpfLabel]/ead:p)}">
+                                <relationEntry>
+                                    <xsl:value-of select="normalize-space(.)"/>
+                                </relationEntry>
+                                <xsl:if
+                                    test="../following-sibling::ead:note[@type='cpfNote'][@label=$vCpfLabel]/ead:p!=''">
+                                    <descriptiveNote xmlns="urn:isbn:1-931666-33-4">
+                                        <p>
+                                            <xsl:value-of
+                                                select="normalize-space(../following-sibling::ead:note[@type='cpfNote'][@label=$vCpfLabel]/ead:p)"
+                                            />
+                                        </p>
+                                    </descriptiveNote>
+                                </xsl:if>
+                            </cpfRelation>
+                        </xsl:otherwise>
+                    </xsl:choose>
                 </xsl:if>
                 <xsl:if
                     test="../following-sibling::ead:note[@type='cpfID'][@label=$vCpfLabel]/ead:p=''">
-                    <cpfRelation xmlns="urn:isbn:1-931666-33-4"
-                        cpfRelationType="{normalize-space(../following-sibling::ead:note[@type='cpfType'][@label=$vCpfLabel]/ead:p)}">
-                        <relationEntry>
-                            <xsl:value-of select="normalize-space(.)"/>
-                        </relationEntry>
-                        <xsl:if
-                            test="../following-sibling::ead:note[@type='cpfID'][@label=$vCpfLabel]/ead:p!=''">
-                            <descriptiveNote xmlns="urn:isbn:1-931666-33-4">
-                                <p>
-                                    <xsl:value-of
-                                        select="normalize-space(../following-sibling::ead:note[@type='cpfNote'][@label=$vCpfLabel]/ead:p)"
-                                    />
-                                </p>
-                            </descriptiveNote>
-                        </xsl:if>
-                    </cpfRelation>
+                    <xsl:choose>
+                        <xsl:when
+                            test="normalize-space(../following-sibling::ead:note[@type='cpfType'][@label=$vCpfLabel]/ead:p)!=''">
+                            <cpfRelation xmlns="urn:isbn:1-931666-33-4"
+                                cpfRelationType="{normalize-space(../following-sibling::ead:note[@type='cpfType'][@label=$vCpfLabel]/ead:p)}">
+                                <relationEntry>
+                                    <xsl:value-of select="normalize-space(.)"/>
+                                </relationEntry>
+                                <xsl:if
+                                    test="../following-sibling::ead:note[@type='cpfID'][@label=$vCpfLabel]/ead:p!=''">
+                                    <descriptiveNote xmlns="urn:isbn:1-931666-33-4">
+                                        <p>
+                                            <xsl:value-of
+                                                select="normalize-space(../following-sibling::ead:note[@type='cpfNote'][@label=$vCpfLabel]/ead:p)"
+                                            />
+                                        </p>
+                                    </descriptiveNote>
+                                </xsl:if>
+                            </cpfRelation>
+                        </xsl:when>
+                        <xsl:otherwise>
+                            <cpfRelation xmlns="urn:isbn:1-931666-33-4">
+                                <relationEntry>
+                                    <xsl:value-of select="normalize-space(.)"/>
+                                </relationEntry>
+                                <xsl:if
+                                    test="../following-sibling::ead:note[@type='cpfID'][@label=$vCpfLabel]/ead:p!=''">
+                                    <descriptiveNote xmlns="urn:isbn:1-931666-33-4">
+                                        <p>
+                                            <xsl:value-of
+                                                select="normalize-space(../following-sibling::ead:note[@type='cpfNote'][@label=$vCpfLabel]/ead:p)"
+                                            />
+                                        </p>
+                                    </descriptiveNote>
+                                </xsl:if>
+                            </cpfRelation>
+                        </xsl:otherwise>
+                    </xsl:choose>
                 </xsl:if>
             </xsl:for-each>
         </xsl:if>
@@ -1581,42 +1626,87 @@
                 <xsl:variable name="vResourceLabel" select="../@label"/>
                 <xsl:if
                     test="../following-sibling::ead:note[@type='resourceID'][@label=$vResourceLabel]/ead:p!=''">
-                    <resourceRelation xmlns="urn:isbn:1-931666-33-4"
-                        resourceRelationType="{normalize-space(../following-sibling::ead:note[@type='resourceType'][@label=$vResourceLabel]/ead:p)}"
-                        xml:id="{normalize-space(../following-sibling::ead:note[@type='resourceID'][@label=$vResourceLabel]/ead:p)}">
-                        <relationEntry>
-                            <xsl:value-of select="normalize-space(.)"/>
-                        </relationEntry>
-                        <xsl:if
-                            test="../following-sibling::ead:note[@type='resourceNote'][@label=$vResourceLabel]/ead:p!=''">
-                            <descriptiveNote xmlns="urn:isbn:1-931666-33-4">
-                                <p>
-                                    <xsl:value-of
-                                        select="normalize-space(../following-sibling::ead:note[@type='resourceNote'][@label=$vResourceLabel]/ead:p)"
-                                    />
-                                </p>
-                            </descriptiveNote>
-                        </xsl:if>
-                    </resourceRelation>
+                    <xsl:choose>
+                        <xsl:when
+                            test="normalize-space(../following-sibling::ead:note[@type='resourceType'][@label=$vResourceLabel]/ead:p)!=''">
+                            <resourceRelation xmlns="urn:isbn:1-931666-33-4"
+                                resourceRelationType="{normalize-space(../following-sibling::ead:note[@type='resourceType'][@label=$vResourceLabel]/ead:p)}"
+                                xml:id="{normalize-space(../following-sibling::ead:note[@type='resourceID'][@label=$vResourceLabel]/ead:p)}">
+                                <relationEntry>
+                                    <xsl:value-of select="normalize-space(.)"/>
+                                </relationEntry>
+                                <xsl:if
+                                    test="../following-sibling::ead:note[@type='resourceNote'][@label=$vResourceLabel]/ead:p!=''">
+                                    <descriptiveNote xmlns="urn:isbn:1-931666-33-4">
+                                        <p>
+                                            <xsl:value-of
+                                                select="normalize-space(../following-sibling::ead:note[@type='resourceNote'][@label=$vResourceLabel]/ead:p)"
+                                            />
+                                        </p>
+                                    </descriptiveNote>
+                                </xsl:if>
+                            </resourceRelation>
+                        </xsl:when>
+                        <xsl:otherwise>
+                            <resourceRelation xmlns="urn:isbn:1-931666-33-4"
+                                xml:id="{normalize-space(../following-sibling::ead:note[@type='resourceID'][@label=$vResourceLabel]/ead:p)}">
+                                <relationEntry>
+                                    <xsl:value-of select="normalize-space(.)"/>
+                                </relationEntry>
+                                <xsl:if
+                                    test="../following-sibling::ead:note[@type='resourceNote'][@label=$vResourceLabel]/ead:p!=''">
+                                    <descriptiveNote xmlns="urn:isbn:1-931666-33-4">
+                                        <p>
+                                            <xsl:value-of
+                                                select="normalize-space(../following-sibling::ead:note[@type='resourceNote'][@label=$vResourceLabel]/ead:p)"
+                                            />
+                                        </p>
+                                    </descriptiveNote>
+                                </xsl:if>
+                            </resourceRelation>
+                        </xsl:otherwise>
+                    </xsl:choose>
                 </xsl:if>
                 <xsl:if
                     test="../following-sibling::ead:note[@type='resourceID'][@label=$vResourceLabel]/ead:p=''">
-                    <resourceRelation xmlns="urn:isbn:1-931666-33-4"
-                        resourceRelationType="{normalize-space(../following-sibling::ead:note[@type='resourceType'][@label=$vResourceLabel]/ead:p)}">
-                        <relationEntry>
-                            <xsl:value-of select="normalize-space(.)"/>
-                        </relationEntry>
-                        <xsl:if
-                            test="../following-sibling::ead:note[@type='resourceID'][@label=$vResourceLabel]/ead:p!=''">
-                            <descriptiveNote xmlns="urn:isbn:1-931666-33-4">
-                                <p>
-                                    <xsl:value-of
-                                        select="normalize-space(../following-sibling::ead:note[@type='resourceNote'][@label=$vResourceLabel]/ead:p)"
-                                    />
-                                </p>
-                            </descriptiveNote>
-                        </xsl:if>
-                    </resourceRelation>
+                    <xsl:choose>
+                        <xsl:when
+                            test="normalize-space(../following-sibling::ead:note[@type='resourceType'][@label=$vResourceLabel]/ead:p)!=''">
+                            <resourceRelation xmlns="urn:isbn:1-931666-33-4"
+                                resourceRelationType="{normalize-space(../following-sibling::ead:note[@type='resourceType'][@label=$vResourceLabel]/ead:p)}">
+                                <relationEntry>
+                                    <xsl:value-of select="normalize-space(.)"/>
+                                </relationEntry>
+                                <xsl:if
+                                    test="../following-sibling::ead:note[@type='resourceID'][@label=$vResourceLabel]/ead:p!=''">
+                                    <descriptiveNote xmlns="urn:isbn:1-931666-33-4">
+                                        <p>
+                                            <xsl:value-of
+                                                select="normalize-space(../following-sibling::ead:note[@type='resourceNote'][@label=$vResourceLabel]/ead:p)"
+                                            />
+                                        </p>
+                                    </descriptiveNote>
+                                </xsl:if>
+                            </resourceRelation>
+                        </xsl:when>
+                        <xsl:otherwise>
+                            <resourceRelation xmlns="urn:isbn:1-931666-33-4">
+                                <relationEntry>
+                                    <xsl:value-of select="normalize-space(.)"/>
+                                </relationEntry>
+                                <xsl:if
+                                    test="../following-sibling::ead:note[@type='resourceID'][@label=$vResourceLabel]/ead:p!=''">
+                                    <descriptiveNote xmlns="urn:isbn:1-931666-33-4">
+                                        <p>
+                                            <xsl:value-of
+                                                select="normalize-space(../following-sibling::ead:note[@type='resourceNote'][@label=$vResourceLabel]/ead:p)"
+                                            />
+                                        </p>
+                                    </descriptiveNote>
+                                </xsl:if>
+                            </resourceRelation>
+                        </xsl:otherwise>
+                    </xsl:choose>
                 </xsl:if>
             </xsl:for-each>
         </xsl:if>
