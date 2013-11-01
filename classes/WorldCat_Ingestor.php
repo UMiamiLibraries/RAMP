@@ -358,11 +358,22 @@ class WorldCat_Ingestor extends Ingestor
 	private function createSubjectElements()
 	{
 		$lobjSubjectNode = array();
-
+        
+        // Flatten MARC tags to "genre" and "subject."
 		foreach( $this->objAssociatedSubjects as $lobjSubject )
 		{
-			if( $lobjSubject['type'] != "")
-				$lobjSubjectNode['attributes']['localType'] = $lobjSubject['type'];
+			if( $lobjSubject['type'] != "") {
+			    if ($lobjSubject['type'] == '655') {
+			    
+				    $lobjSubjectNode['attributes']['localType'] = "genre";
+				
+				} else {
+				
+				    $lobjSubjectNode['attributes']['localType'] = "subject";
+				    
+				}
+				
+            }
 
 			if( $lobjSubject['id'] != "" )
 				$lobjSubjectNode['elements']['term']['attributes']['xml:id'] = $lobjSubject['id'];
