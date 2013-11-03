@@ -362,6 +362,11 @@ ul, menu, dir {
     z-index:501;
 }
 
+.genders {
+    margin:0 !important;
+    padding:0 !important;
+}
+
 .ingest-cancel {
   background:#0078e7;
   margin-left:5px;    
