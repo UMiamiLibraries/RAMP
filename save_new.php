@@ -443,10 +443,14 @@ elseif( $cleanedArray["entity"] == "" ) {
 
 			'</persname>
 		                           </origination>
-		                           <note type="creation"><p>Record created in RAMP.</p></note>' .
-
-		                           $fromVal .
-		                           $toVal .
+		                           <note type="creation"><p>Record created in RAMP.</p></note>
+		                           
+                                   <note type="from"><p>' .
+		                           $from .
+		                           '</p></note>' .
+		                           '<note type="to"><p>' .
+		                           $to .
+		                           '</p></note>' .
 		                           $genderVal .
 		                           $genderDateFromVal .
 		                           $genderDateToVal .

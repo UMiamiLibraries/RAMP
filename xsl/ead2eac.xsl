@@ -90,6 +90,8 @@
     <xsl:variable name="vGeog" select="//ead:ead/ead:archdesc//ead:controlaccess/ead:geogname"/>
 
     <!-- Variables for new record form data. -->
+    <xsl:variable name="vFrom" select="ead:ead/ead:archdesc/ead:did/ead:note[@type='from']/ead:p"/>
+    <xsl:variable name="vTo" select="ead:ead/ead:archdesc/ead:did/ead:note[@type='to']/ead:p"/>
     <xsl:variable name="vGender"
         select="ead:ead/ead:archdesc/ead:did/ead:note[@type='gender']/ead:p"/>
     <xsl:variable name="vGenderDateFrom"
@@ -180,7 +182,7 @@
             <xsl:variable name="vEadHeaderCount" select="count(ead:ead/ead:eadheader)"/>
             <xsl:choose>
                 <!-- If it's an ingested record (not created from within RAMP). -->
-                <xsl:when test="not(contains(ead:ead/ead:eadheader/ead:eadid/@identifier,'RAMP'))">                    
+                <xsl:when test="not(contains(ead:ead/ead:eadheader/ead:eadid/@identifier,'RAMP'))">
                     <xsl:for-each select="ead:ead/ead:eadheader">
                         <otherRecordId>
                             <xsl:choose>
@@ -212,7 +214,7 @@
                             <xsl:text>.r</xsl:text>
                             <xsl:value-of select="substring-before($pRecordId,'-')"/>
                         </otherRecordId>
-                    </xsl:for-each>                                  
+                    </xsl:for-each>
                     <!-- maintenanceStatus = "derived" -->
                     <maintenanceStatus>derived</maintenanceStatus>
                 </xsl:when>
@@ -1348,6 +1350,44 @@
                     </xsl:element>
                 </xsl:element>
             </xsl:when>
+            <xsl:when test="ead:ead/ead:archdesc/ead:did/ead:note[@type='from']/ead:p!=''">
+                <existDates xmlns="urn:isbn:1-931666-33-4">
+                    <dateRange>
+                        <fromDate>
+                            <xsl:value-of
+                                select="normalize-space(ead:ead/ead:archdesc/ead:did/ead:note[@type='from']/ead:p)"
+                            />
+                        </fromDate>
+                        <xsl:if test="ead:ead/ead:archdesc/ead:did/ead:note[@type='to']/ead:p!=''">
+                            <toDate>
+                                <xsl:value-of
+                                    select="normalize-space(ead:ead/ead:archdesc/ead:did/ead:note[@type='to']/ead:p)"
+                                />
+                            </toDate>
+                        </xsl:if>
+                    </dateRange>
+                </existDates>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:if test="ead:ead/ead:archdesc/ead:did/ead:note[@type='to']/ead:p!=''">
+                    <existDates xmlns="urn:isbn:1-931666-33-4">
+                        <dateRange>
+                            <fromDate>
+                                <xsl:value-of
+                                    select="normalize-space(ead:ead/ead:archdesc/ead:did/ead:note[@type='from']/ead:p)"
+                                />
+                            </fromDate>
+                            <xsl:if test="../following-sibling::ead:note[@type='to']/ead:p!=''">
+                                <toDate>
+                                    <xsl:value-of
+                                        select="normalize-space(ead:ead/ead:archdesc/ead:did/ead:note[@type='to']/ead:p)"
+                                    />
+                                </toDate>
+                            </xsl:if>
+                        </dateRange>
+                    </existDates>
+                </xsl:if>
+            </xsl:otherwise>
         </xsl:choose>
     </xsl:template>
 
