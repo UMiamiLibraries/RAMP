@@ -2117,7 +2117,7 @@
                                                   <xsl:value-of select="normalize-space(.)"/>
                                                 </relationEntry>
                                                 <xsl:if
-                                                    test="../following-sibling::ead:note[@type='resourceNote'][@label=$vResourceLabel]/ead:p!=''">
+                                                  test="../following-sibling::ead:note[@type='resourceNote'][@label=$vResourceLabel]/ead:p!=''">
                                                   <descriptiveNote xmlns="urn:isbn:1-931666-33-4">
                                                   <p>
                                                   <xsl:value-of
@@ -2142,7 +2142,7 @@
                                                   <xsl:value-of select="normalize-space(.)"/>
                                                 </relationEntry>
                                                 <xsl:if
-                                                    test="../following-sibling::ead:note[@type='resourceNote'][@label=$vResourceLabel]/ead:p!=''">
+                                                  test="../following-sibling::ead:note[@type='resourceNote'][@label=$vResourceLabel]/ead:p!=''">
                                                   <descriptiveNote xmlns="urn:isbn:1-931666-33-4">
                                                   <p>
                                                   <xsl:value-of
@@ -2160,7 +2160,7 @@
                                                   <xsl:value-of select="normalize-space(.)"/>
                                                 </relationEntry>
                                                 <xsl:if
-                                                    test="../following-sibling::ead:note[@type='resourceNote'][@label=$vResourceLabel]/ead:p!=''">
+                                                  test="../following-sibling::ead:note[@type='resourceNote'][@label=$vResourceLabel]/ead:p!=''">
                                                   <descriptiveNote xmlns="urn:isbn:1-931666-33-4">
                                                   <p>
                                                   <xsl:value-of
