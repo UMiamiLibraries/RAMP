@@ -391,9 +391,7 @@ ul, menu, dir {
 
 .labelHeaderReq {
     border-top:dotted black 1px !important;
-    border-bottom:dotted black 1px !important;    
-    padding-top:1%;
-    padding-bottom:2%;
+    border-bottom:dotted black 1px !important;        
 }
 
 .labelHeader td {
