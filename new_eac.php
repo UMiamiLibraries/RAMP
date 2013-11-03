@@ -19,6 +19,22 @@ jQuery(document).ready(function()
   $('textarea').val('');
   $('.scriptNames').val('Latin');
   $('.scriptCodes').val('Latn');
+  
+  $(".content").hide();
+    		  
+  // Toggle the sections with class "content."
+  
+  $(".header").click(function()
+  {
+    $(this).next(".content").slideToggle(500);				            
+      if ($(this).children("button").hasClass('on')) {
+        $(this).children("button").removeClass('on').addClass('off').fadeTo("slow", 0.5);
+    } else if ($(this).children("button").hasClass('off')) {
+        $(this).children("button").removeClass('off').addClass('on').fadeTo("slow", 1.0);
+    } else {
+        $(this).children("button").addClass('on').fadeTo("slow", 1.0);
+    }  		
+  });		
     
 });
 
@@ -471,7 +487,7 @@ jQuery(document).ready(function()
     </td>
   </tr>
   <tr>
-    <td style="width:100%;">
+    <td style="width:50%">
       <label style="display:inline;">CPF relation type</label>
       <select class="cpfTypes">
         <option>associative</option>
@@ -484,7 +500,13 @@ jQuery(document).ready(function()
         <option>temporal-later</option>
         <option>family</option>               
       </select>
-    </td>
+      <label style="display:inline;">CPF relation role </label>
+      <select class="cpfRoles">
+        <option>CorporateBody</option>
+        <option>Person</option>
+        <option>Family</option>                      
+      </select>
+    </td>    
   </tr>
   <tr>
     <td>
@@ -511,7 +533,7 @@ jQuery(document).ready(function()
       });
     });
     $("input.add_empty_cpf").on('click', function () {
-      var tr = "<tr class=\"new_element multilvl\"><td><table style=\"width:100%;\"><tr><td style=\"width:100%;\"><label style=\"display:inline;\">CPF relation type </label><select class=\"cpfTypes\"><option>associative</option><option>identity</option><option>hierarchical</option><option>hierarchical-parent</option><option>hierarchical-child</option><option>temporal</option><option>temporal-earlier</option><option>temporal-later</option><option>family</option></select></td></tr><tr><td><input type=\"text\" size=\"65\" class=\"cpfs\"/><label>Unique identifier <span style=\"font-style:italic;\">(@xml:id)</span></label><input type=\"text\" size=\"65\" class=\"cpfIDs\"/><label> URI <span style=\"font-style:italic;\">(@xlink:href)</span></label><input type=\"text\" size=\"65\" class=\"cpfURIs\"/><label> Note <span style=\"font-style:italic;\"></span></label><input type=\"text\" class=\"cpfNotes\" size=\"65\"/></td></tr></table></td></tr>";
+      var tr = "<tr class=\"new_element multilvl\"><td><table style=\"width:100%;\"><tr><td style=\"width:100%;\"><label style=\"display:inline;\">CPF relation type </label><select class=\"cpfTypes\"><option>associative</option><option>identity</option><option>hierarchical</option><option>hierarchical-parent</option><option>hierarchical-child</option><option>temporal</option><option>temporal-earlier</option><option>temporal-later</option><option>family</option></select><label style=\"display:inline;\"> CPF relation role </label><select class=\"cpfRoles\"><option>CorporateBody</option><option>Person</option><option>Family</option></select></td></tr><tr><td><input type=\"text\" size=\"65\" class=\"cpfs\"/><label>Unique identifier <span style=\"font-style:italic;\">(@xml:id)</span></label><input type=\"text\" size=\"65\" class=\"cpfIDs\"/><label> URI <span style=\"font-style:italic;\">(@xlink:href)</span></label><input type=\"text\" size=\"65\" class=\"cpfURIs\"/><label> Note <span style=\"font-style:italic;\"></span></label><input type=\"text\" class=\"cpfNotes\" size=\"65\"/></td></tr></table></td></tr>";
       $(this).closest("tr").siblings(".insert_before").before(tr);
     });
   </script>
@@ -538,6 +560,11 @@ jQuery(document).ready(function()
         <option>creatorOf</option>
         <option>subjectOf</option>
         <option>other</option>        
+      </select>
+      <label style="display:inline;">Resource relation role </label>
+      <select class="resourceRoles">
+        <option>archivalRecords</option>
+        <option>resource</option>                             
       </select>
     </td>
   </tr>
@@ -566,7 +593,7 @@ jQuery(document).ready(function()
       });
     });
     $("input.add_empty_res").on('click', function () {
-      var tr = "<tr class=\"new_element multilvl\"><td><table style=\"width:100%;\"><tr><td style=\"width:100%;\"><label style=\"display:inline;\">Resource relation type </label><select class=\"resourceTypes\"><option>creatorOf</option><option>subjectOf</option><option>other</option></select></td></tr><tr><td><input type=\"text\" size=\"65\" class=\"resources\" name=\"new_resource\" value=\"\"/><label>Unique identifier <span style=\"font-style:italic;\">(@xml:id)</span></label><input type=\"text\" size=\"65\" class=\"resourceIDs\"/><label> URI <span style=\"font-style:italic;\">(@xlink:href)</span></label><input type=\"text\" size=\"65\" class=\"resourceURIs\"/><label> Note <span style=\"font-style:italic;\"></span></label><input type=\"text\" class=\"resourceNotes\" size=\"65\"/></td></tr></table></td></tr>";
+      var tr = "<tr class=\"new_element multilvl\"><td><table style=\"width:100%;\"><tr><td style=\"width:100%;\"><label style=\"display:inline;\">Resource relation type </label><select class=\"resourceTypes\"><option>creatorOf</option><option>subjectOf</option><option>other</option></select><label style=\"display:inline;\"> Resource relation role </label><select class=\"resourceRoles\"><option>archivalRecords</option><option>resource</option></select></td></tr><tr><td><input type=\"text\" size=\"65\" class=\"resources\" name=\"new_resource\" value=\"\"/><label>Unique identifier <span style=\"font-style:italic;\">(@xml:id)</span></label><input type=\"text\" size=\"65\" class=\"resourceIDs\"/><label> URI <span style=\"font-style:italic;\">(@xlink:href)</span></label><input type=\"text\" size=\"65\" class=\"resourceURIs\"/><label> Note <span style=\"font-style:italic;\"></span></label><input type=\"text\" class=\"resourceNotes\" size=\"65\"/></td></tr></table></td></tr>";
       $(this).closest("tr").siblings(".insert_before").before(tr);
     });
   </script>
@@ -664,11 +691,13 @@ jQuery(document).ready(function()
   lobjFormElements['placeDatesTo'] = [];
   lobjFormElements['citations'] = [];
   lobjFormElements['cpfTypes'] = [];
+  lobjFormElements['cpfRoles'] = [];
   lobjFormElements['cpfs'] = [];
   lobjFormElements['cpfIDs'] = [];
   lobjFormElements['cpfURIs'] = [];
   lobjFormElements['cpfNotes'] = [];
   lobjFormElements['resourceTypes'] = [];
+  lobjFormElements['resourceRoles'] = [];
   lobjFormElements['resources'] = [];
   lobjFormElements['resourceIDs'] = [];
   lobjFormElements['resourceURIs'] = [];
@@ -750,6 +779,10 @@ jQuery(document).ready(function()
       $('.cpfTypes').each(function () {
           lobjFormElements['cpfTypes'].push($(this).val());
       });
+      
+      $('.cpfRoles').each(function () {
+          lobjFormElements['cpfRoles'].push($(this).val());
+      });
 
       $('.cpfs').each(function () {
           lobjFormElements['cpfs'].push($(this).val());
@@ -769,6 +802,10 @@ jQuery(document).ready(function()
       
       $('.resourceTypes').each(function () {
           lobjFormElements['resourceTypes'].push($(this).val());
+      });
+      
+      $('.resourceRoles').each(function () {
+          lobjFormElements['resourceRoles'].push($(this).val());
       });
 
       $('.resources').each(function () {
@@ -817,11 +854,13 @@ jQuery(document).ready(function()
 	    bioghist: $('.bioghist').val(),
 	    citations: lobjFormElements['citations'],
 	    cpfTypes: lobjFormElements['cpfTypes'],
+	    cpfRoles: lobjFormElements['cpfRoles'],
 	    cpfs: lobjFormElements['cpfs'],
 	    cpfIDs: lobjFormElements['cpfIDs'],
 	    cpfURIs: lobjFormElements['cpfURIs'],
 	    cpfNotes: lobjFormElements['cpfNotes'],
 	    resourceTypes: lobjFormElements['resourceTypes'],
+	    resourceRoles: lobjFormElements['resourceRoles'],
 	    resources: lobjFormElements['resources'],
 	    resourceIDs: lobjFormElements['resourceIDs'],
 	    resourceURIs: lobjFormElements['resourceURIs'],

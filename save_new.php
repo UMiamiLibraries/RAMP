@@ -48,11 +48,13 @@ $countPlaceDatesFrom = sizeof($cleanedArray['placeDatesFrom']);
 $countPlaceDatesTo = sizeof($cleanedArray['placeDatesTo']);
 $countCitations = sizeof($cleanedArray['citations']);
 $countCpfTypes = sizeof($cleanedArray['cpfTypes']);
+$countCpfRoles = sizeof($cleanedArray['cpfRoles']);
 $countCpfs = sizeof($cleanedArray['cpfs']);
 $countCpfIDs = sizeof($cleanedArray['cpfIDs']);
 $countCpfURIs = sizeof($cleanedArray['cpfURIs']);
 $countCpfNotes = sizeof($cleanedArray['cpfNotes']);
-$countresourceTypes = sizeof($cleanedArray['resourceTypes']);
+$countResourceTypes = sizeof($cleanedArray['resourceTypes']);
+$countResourceRoles = sizeof($cleanedArray['resourceRoles']);
 $countResources = sizeof($cleanedArray['resources']);
 $countResourceIDs = sizeof($cleanedArray['resourceIDs']);
 $countResourceURIs = sizeof($cleanedArray['resourceURIs']);
@@ -85,11 +87,13 @@ $placeDateTo = array();
 $placeDateFrom = array();
 $citation = array();
 $cpfType = array();
+$cpfRole = array();
 $cpf = array();
 $cpfID = array();
 $cpfURI = array();
 $cpfNote = array();
 $resourceType = array();
+$resourceRole = array();
 $resource = array();
 $resourceID = array();
 $resourceURI = array();
@@ -130,11 +134,13 @@ else
 
 $citation = $cleanedArray["citations"];
 $cpfType = $cleanedArray["cpfTypes"];
+$cpfRole = $cleanedArray["cpfRoles"];
 $cpf = $cleanedArray["cpfs"];
 $cpfID = $cleanedArray["cpfIDs"];
 $cpfURI = $cleanedArray["cpfURIs"];
 $cpfNote = $cleanedArray["cpfNotes"];
 $resourceType = $cleanedArray["resourceTypes"];
+$resourceRole = $cleanedArray["resourceRoles"];
 $resource = $cleanedArray["resources"];
 $resourceID = $cleanedArray["resourceIDs"];
 $resourceURI = $cleanedArray["resourceURIs"];
@@ -287,6 +293,14 @@ for ($i = 0; $i < $countCpfTypes; $i++) {
   $cpfTypeVal .= "</p></note>";
 }
 
+$cpfRoleVal = '';
+
+for ($i = 0; $i < $countCpfRoles; $i++) {
+  $cpfRoleVal .= "<note type='cpfRole' label='_" . $i . "'><p>";
+  $cpfRoleVal .= $cpfRole[$i];
+  $cpfRoleVal .= "</p></note>";
+}
+
 $cpfVal = '';
 
 for ($i = 0; $i < $countCpfs; $i++) {
@@ -322,10 +336,18 @@ for ($i = 0; $i < $countCpfNotes; $i++) {
 
 $resourceTypeVal = '';
 
-for ($i = 0; $i < $countresourceTypes; $i++) {
+for ($i = 0; $i < $countResourceTypes; $i++) {
   $resourceTypeVal .= "<note type='resourceType' label='_" . $i . "'><p>";
   $resourceTypeVal .= $resourceType[$i];
   $resourceTypeVal .= "</p></note>";
+}
+
+$resourceRoleVal = '';
+
+for ($i = 0; $i < $countResourceRoles; $i++) {
+  $resourceRoleVal .= "<note type='resourceRole' label='_" . $i . "'><p>";
+  $resourceRoleVal .= $resourceRole[$i];
+  $resourceRoleVal .= "</p></note>";
 }
 
 $resourceVal = '';
@@ -444,11 +466,13 @@ elseif( $cleanedArray["entity"] == "" ) {
 		                           $citationVal .		                           
 		                           $cpfVal .
 		                           $cpfTypeVal .
+		                           $cpfRoleVal .
 		                           $cpfIDVal .
 		                           $cpfURIVal .
 		                           $cpfNoteVal .		                           
 		                           $resourceVal .
 		                           $resourceTypeVal .
+		                           $resourceRoleVal .
 		                           $resourceIDVal .
 		                           $resourceURIVal .
 		                           $resourceNoteVal .
@@ -510,11 +534,13 @@ elseif( $cleanedArray["entity"] == "" ) {
 		                           $citationVal .		                           
 		                           $cpfVal .
 		                           $cpfTypeVal .
+		                           $cpfRoleVal .
 		                           $cpfIDVal .
 		                           $cpfURIVal .
 		                           $cpfNoteVal .		                           
 		                           $resourceVal .
 		                           $resourceTypeVal .
+		                           $resourceRoleVal .
 		                           $resourceIDVal .
 		                           $resourceURIVal .
 		                           $resourceNoteVal .
@@ -575,11 +601,13 @@ elseif( $cleanedArray["entity"] == "" ) {
 		                           $citationVal .		                           
 		                           $cpfVal .
 		                           $cpfTypeVal .
+		                           $cpfRoleVal .
 		                           $cpfIDVal .
 		                           $cpfURIVal .
 		                           $cpfNoteVal .		                           
 		                           $resourceVal .
 		                           $resourceTypeVal .
+		                           $resourceRoleVal .
 		                           $resourceIDVal .
 		                           $resourceURIVal .
 		                           $resourceNoteVal .
