@@ -18,24 +18,10 @@ jQuery(document).ready(function()
   $('select').val(''); 
   $('textarea').val('');
   $('.scriptNames').val('Latin');
-  $('.scriptCodes').val('Latn');
+  $('.scriptCodes').val('Latn');      
   
-  $(".content").hide();
-    		  
-  // Toggle the sections with class "content."
-  
-  $(".header").click(function()
-  {
-    $(this).next(".content").slideToggle(500);				            
-      if ($(this).children("button").hasClass('on')) {
-        $(this).children("button").removeClass('on').addClass('off').fadeTo("slow", 0.5);
-    } else if ($(this).children("button").hasClass('off')) {
-        $(this).children("button").removeClass('off').addClass('on').fadeTo("slow", 1.0);
-    } else {
-        $(this).children("button").addClass('on').fadeTo("slow", 1.0);
-    }  		
-  });		
-    
+  $('.content').hide();     
+        
 });
 
 </script>
@@ -51,11 +37,11 @@ jQuery(document).ready(function()
 <td>
 <form id="new_eac_form">
   <table>
-    <tr class="labelHeader">
+    <tr class="labelHeaderReq">
       <td>
         <label class="multi">Entity type <span style="font-style:italic;"></span></label>
       </td>
-     </tr>
+    </tr>
     <tr>
     <td>
     <table class="new_eac_inner">
@@ -69,10 +55,10 @@ jQuery(document).ready(function()
       </select>
       </td>
       </tr>
-      </table>
+    </table>
     </td>
   </tr>
-  <tr class="labelHeader">
+  <tr class="labelHeaderReq">
     <td>
       <label class="multi">Name and dates <span style="font-style:italic;"></span></label>
     </td>
@@ -82,23 +68,32 @@ jQuery(document).ready(function()
   <table class="new_eac_inner">
   <tr>
     <td>    
-    <script>
-    $( ".entity_type" ).change(function() {
+    <script>               
+    
+    $( ".entity_type" ).change(function() {                                                        
+                                                                                               
         var str = "";
         $(this).children( "option:selected" ).each(function() {
-            str += $( this ).text();
-        });
+            str += $( this ).text();     
+                   
+        });                
+        
         // Add person specific fields (e.g., gender).
+        
         if ( str == 'Person' ) 
-        {        
-            $( "#persName" ).text( "Name of person (Last Name, First Name)" );
-            $( "#new_eac_inner_class").addClass("new_eac_inner");
+        {                    
+            
+            $( "#persName" ).text( "Name of person (Last Name, First Name)" );   
+            
+            $( "#genderLabel").show();                                                                                           
+            
+            $( "#new_eac_inner_class").addClass("new_eac_inner");            
             $( "#genderFields" ).addClass("new_eac_inner_2");
-            $( "#genderLabel").addClass("labelHeader");
-            $( "#genderFields" ).html("<tr><td style=\"width:100%;\"><select class=\"genders\"><option></option><option>female</option><option>male</option><option>other</option></select></td></tr><tr><td style=\"width:100%;\"><label>Associated dates (if applicable)</label><label style=\"display:inline;\"> From </label><input class=\"genderDatesFrom\" type=\"text\"/><label style=\"display:inline;\"> To </label><input class=\"genderDatesTo\" type=\"text\"/></td></tr>");            
-            $( "#genderLabel").html("<td><label class=\"multi\">Gender <span style=\"font-style:italic;\"></span></label></td>");
+            $( "#genderLabel").addClass("labelHeader");            
+            $( "#genderFields" ).html("<tr><td style=\"width:100%;\"><select class=\"genders\"><option></option><option>female</option><option>male</option><option>other</option></select></td></tr><tr><td style=\"width:100%;\"><label>Associated dates (if applicable)</label><label style=\"display:inline;\"> From </label><input class=\"genderDatesFrom\" type=\"text\" data-validate=\"regex(^[0-9]{4}$,Are you sure your date is formatted correctly?)\" /><label style=\"display:inline;\"> To </label><input class=\"genderDatesTo\" type=\"text\" data-validate=\"regex(^[0-9]{4}$,Are you sure your date is formatted correctly?)\"/></td></tr>");            
+            $( "#genderLabel").html("<td><button></button><label class=\"multi\">Gender <span style=\"font-style:italic;\"></span></label></td>");                                              
             $( "#genderButton").html("<td><input type=\"button\" name=\"addGender\" value=\"Add New Entry\" class=\"add_empty_element add_empty_gender pure-button pure-button-secondary\" style=\"border:none;\"/></td>");                        
-            $("input.add_empty_gender").one('click', function () {
+            $( "input.add_empty_gender" ).one('click', function () {
               var rm = "<input type=\"button\" name=\"rm\" value=\"Delete Entry\" class=\"rm_empty_element rm_empty_gender pure-button pure-button-secondary\" style=\"border:none;\"/>";
               $(this).after(rm);
               $("input.rm_empty_gender").on('click', function () {
@@ -106,19 +101,83 @@ jQuery(document).ready(function()
               });
             });
           $("input.add_empty_gender").on('click', function () {
-            var tr = "<tr class=\"new_element multilvl\"><td><table style=\"width:100%;\"><tr><td style=\"width:100%;\"><select class=\"genders\"><option></option><option>female</option><option>male</option><option>other</option></select></td></tr><tr><td><label>Associated dates (if applicable)</label><label style=\"display:inline;\">From </label><input class=\"genderDatesFrom\" type=\"text\"/><label style=\"display:inline;\"> To </label><input class=\"genderDatesTo\" type=\"text\"/></td></tr></table></td></tr>";
+            var tr = "<tr class=\"new_element multilvl\"><td><table style=\"width:100%;\"><tr><td style=\"width:100%;\"><select class=\"genders\"><option></option><option>female</option><option>male</option><option>other</option></select></td></tr><tr><td><label>Associated dates (if applicable)</label><label style=\"display:inline;\">From </label><input class=\"genderDatesFrom\" type=\"text\" data-validate=\"regex(^[0-9]{4}$,Are you sure your date is formatted correctly?)\"/><label style=\"display:inline;\"> To </label><input class=\"genderDatesTo\" type=\"text\" data-validate=\"regex(^[0-9]{4}$,Are you sure your date is formatted correctly?)\"/></td></tr></table></td></tr>";
             $(this).closest("tr").siblings(".insert_before").before(tr);
+            
           });
+          
+          $(".labelHeader").off("click");
+          
+          // Toggle the sections with content class.                                                 	             
+            
+          $(".labelHeader").click(function()
+          {
+            $(this).next("tr").children("td").children(".content").slideToggle(000);				            
+              if ($(this).children("td").children("button").hasClass('on')) {
+                $(this).children("td").children("button").removeClass('on').addClass('off').fadeTo("slow", 0.5);
+            } else if ($(this).children("td").children("button").hasClass('off')) {
+                $(this).children("td").children("button").removeClass('off').addClass('on').fadeTo("slow", 1.0);
+            } else {
+                $(this).children("td").children("button").addClass('on').fadeTo("slow", 1.0);
+            }  		
+          });
+                              
         }
         else if ( str == 'Corporate Body' )
-        {
-            $( "#persName" ).text( "Name of corporate body" );            
+        {            
+            
+            $( "#persName" ).text( "Name of corporate body" );                                              
+            
+            $( "#genderLabel").hide();
+            
+            $( "#new_eac_inner_class").hide();     
+            
+            $(".labelHeader").off("click");
+          
+            // Toggle the sections with content class.                                                 	             
+            
+            $(".labelHeader").click(function()
+            {
+              $(this).next("tr").children("td").children(".content").slideToggle(000);				            
+                if ($(this).children("td").children("button").hasClass('on')) {
+                  $(this).children("td").children("button").removeClass('on').addClass('off').fadeTo("slow", 0.5);
+              } else if ($(this).children("td").children("button").hasClass('off')) {
+                  $(this).children("td").children("button").removeClass('off').addClass('on').fadeTo("slow", 1.0);
+              } else {
+                  $(this).children("td").children("button").addClass('on').fadeTo("slow", 1.0);
+              }  		
+            });           
+                            
         }        
-        else
-        {
-            $( "#persName" ).text( "Name of family" );            
+        else if ( str == 'Family' )
+        {                       
+        
+            $( "#persName" ).text( "Name of family" );                                              
+            
+            $( "#genderLabel").hide();
+            
+            $( "#new_eac_inner_class").hide();    
+            
+            $(".labelHeader").off("click");
+          
+            // Toggle the sections with content class.                                                 	             
+            
+            $(".labelHeader").click(function()
+            {
+              $(this).next("tr").children("td").children(".content").slideToggle(000);				            
+                if ($(this).children("td").children("button").hasClass('on')) {
+                  $(this).children("td").children("button").removeClass('on').addClass('off').fadeTo("slow", 0.5);
+              } else if ($(this).children("td").children("button").hasClass('off')) {
+                  $(this).children("td").children("button").removeClass('off').addClass('on').fadeTo("slow", 1.0);
+              } else {
+                  $(this).children("td").children("button").addClass('on').fadeTo("slow", 1.0);
+              }  		
+            });                                                                          
+                            		                                 
         }
-        }).trigger( "change" );                       
+        
+        }).trigger( "change" );   
+        
     </script>
       <label id="persName">Name</label>
       <input class="eac_name" type="text" size="50" data-validate="required"/>
@@ -128,9 +187,9 @@ jQuery(document).ready(function()
     <td>
     <label>Dates of existence</label>
       <label style="display:inline;">From</label>
-      <input class="from" type="text"/>
+      <input class="from" type="text" data-validate="regex(^[0-9]{4}$,Are you sure your date is formatted correctly?)"/>
       <label style="display:inline;">To</label>
-      <input class="to" type="text"/>
+      <input class="to" type="text" data-validate="regex(^[0-9]{4}$,Are you sure your date is formatted correctly?)"/>
     </td>
   </tr>
   </table>
@@ -141,7 +200,7 @@ jQuery(document).ready(function()
   </tr>
   <tr>
   <td>
-  <table id="new_eac_inner_class">
+  <table id="new_eac_inner_class" class="content">
   <tr id="genderButton">
     
   </tr>
@@ -165,12 +224,13 @@ jQuery(document).ready(function()
   </tr>
   <tr class="labelHeader">
     <td>
+      <button></button>
       <label class="multi">Languages associated with this entity <span style="font-style:italic;"></span></label>
     </td>
   </tr>
   <tr>
   <td>
-  <table class="new_eac_inner"> 
+  <table class="new_eac_inner content"> 
   <tr>
     <td>
       <input type="button" name="addLang" value="Add New Entry" class="add_empty_element add_empty_lang pure-button pure-button-secondary" style="border:none;"/>
@@ -215,12 +275,13 @@ jQuery(document).ready(function()
   </tr>
   <tr class="labelHeader">
     <td>
+      <button></button>
       <label class="multi">Subjects <span style="font-style:italic;"></span></label>
     </td>
   </tr>
   <tr>
   <td>
-  <table class="new_eac_inner">
+  <table class="new_eac_inner content">
   <tr>
     <td>
       <input type="button" name="addSubject" value="Add New Entry" class="add_empty_element add_empty_subj pure-button pure-button-secondary" style="border:none;"/>
@@ -228,7 +289,7 @@ jQuery(document).ready(function()
   </tr>
   <tr>
     <td>
-      <input type="text" size="65" class="subjects"/>
+      <input type="text" size="75" class="subjects"/>
     </td>
   </tr>
 
@@ -245,7 +306,7 @@ jQuery(document).ready(function()
       });
     });
     $("input.add_empty_subj").on('click', function () {
-      var tr = "<tr class=\"new_element\"><td><input type=\"text\" size=\"65\" class=\"subjects\"/></td></tr>";
+      var tr = "<tr class=\"new_element\"><td><input type=\"text\" size=\"75\" class=\"subjects\"/></td></tr>";
       $(this).closest("tr").siblings(".insert_before").before(tr);
     });
   </script>
@@ -254,12 +315,13 @@ jQuery(document).ready(function()
   </tr>
   <tr class="labelHeader">
     <td>
+      <button></button>
       <label class="multi">Genres <span style="font-style:italic;"></span></label>
     </td>
   </tr>
   <tr>
   <td>
-  <table class="new_eac_inner">
+  <table class="new_eac_inner content">
   <tr>
     <td>
       <input type="button" name="addGenre" value="Add New Entry" class="add_empty_element add_empty_genre pure-button pure-button-secondary" style="border:none;"/>
@@ -267,7 +329,7 @@ jQuery(document).ready(function()
   </tr>
   <tr>
     <td>
-      <input type="text" size="65" class="genres"/>
+      <input type="text" size="75" class="genres"/>
     </td>
   </tr>
 
@@ -284,7 +346,7 @@ jQuery(document).ready(function()
       });
     });
     $("input.add_empty_genre").on('click', function () {
-      var tr = "<tr class=\"new_element\"><td><input type=\"text\" size=\"65\" class=\"genres\"/></td></tr>";
+      var tr = "<tr class=\"new_element\"><td><input type=\"text\" size=\"75\" class=\"genres\"/></td></tr>";
       $(this).closest("tr").siblings(".insert_before").before(tr);
     });
   </script>
@@ -293,12 +355,13 @@ jQuery(document).ready(function()
   </tr>
   <tr class="labelHeader">
     <td>
+      <button></button>
       <label class="multi">Occupations or fields of activity and associated dates <span style="font-style:italic;"></span></label>
     </td>
   </tr>
   <tr>
   <td>
-  <table class="new_eac_inner">
+  <table class="new_eac_inner content">
   <tr>
     <td>
       <input type="button" name="addOccu" value="Add New Entry" class="add_empty_element add_empty_occu pure-button pure-button-secondary" style="border:none;"/>
@@ -310,16 +373,16 @@ jQuery(document).ready(function()
   <tr>
     <td>
       <label>Occupation or activity</label>
-      <input type="text" size="65" class="occupations"/>
+      <input type="text" size="75" class="occupations"/>
     </td>
   </tr>
   <tr>
     <td>
     <label>Associated dates</label>
       <label style="display:inline;">From</label>
-      <input class="occuDatesFrom" type="text"/>
+      <input class="occuDatesFrom" type="text" data-validate="regex(^[0-9]{4}$,Are you sure your date is formatted correctly?)"/>
       <label style="display:inline;">To</label>
-      <input class="occuDatesTo" type="text"/>
+      <input class="occuDatesTo" type="text" data-validate="regex(^[0-9]{4}$,Are you sure your date is formatted correctly?)"/>
     </td>
   </tr>
   </table>
@@ -339,7 +402,7 @@ jQuery(document).ready(function()
       });
     });
     $("input.add_empty_occu").on('click', function () {
-      var tr = "<tr class=\"new_element multilvl\"><td><table><tr><td><label>Occupation or activity</label><input type=\"text\" size=\"65\" class=\"occupations\"/></td></tr><tr><td><label>Associated dates</label><label style=\"display:inline;\">From </label><input class=\"occuDatesFrom\" type=\"text\"/><label style=\"display:inline;\"> To </label><input class=\"occuDatesTo\" type=\"text\"/></td></tr></table></td></tr>";
+      var tr = "<tr class=\"new_element multilvl\"><td><table><tr><td><label>Occupation or activity</label><input type=\"text\" size=\"75\" class=\"occupations\"/></td></tr><tr><td><label>Associated dates</label><label style=\"display:inline;\">From </label><input class=\"occuDatesFrom\" type=\"text\" data-validate=\"regex(^[0-9]{4}$,Are you sure your date is formatted correctly?)\"/><label style=\"display:inline;\"> To </label><input class=\"occuDatesTo\" type=\"text\" data-validate=\"regex(^[0-9]{4}$,Are you sure your date is formatted correctly?)\"/></td></tr></table></td></tr>";
       $(this).closest("tr").siblings(".insert_before").before(tr);
     });
   </script>
@@ -348,12 +411,13 @@ jQuery(document).ready(function()
   </tr>
   <tr class="labelHeader">
     <td>
+      <button></button>
       <label class="multi">Places and associated dates <span style="font-style:italic;"></span></label>
     </td>
   </tr>
   <tr>
   <td>
-  <table class="new_eac_inner">
+  <table class="new_eac_inner content">
   <tr>
     <td>
       <input type="button" name="addPlace" value="Add New Entry" class="add_empty_element add_empty_place pure-button pure-button-secondary" style="border:none;"/>
@@ -365,18 +429,18 @@ jQuery(document).ready(function()
   <tr>
     <td>
       <label>Place</label>
-      <input type="text" size="65" class="placeEntries"/>
+      <input class="placeEntries" type="text" size="75"/>
       <label>Place role</label>
-      <input type="text" size="65" class="placeRoles"/>
+      <input class="placeRoles" type="text" size="75"/>
     </td>
   </tr>
   <tr>
     <td>
     <label>Associated dates</label>
       <label style="display:inline;">From</label>
-      <input class="placeDatesFrom" type="text"/>
+      <input class="placeDatesFrom" type="text" data-validate="regex(^[0-9]{4}$,Are you sure your date is formatted correctly?)"/>
       <label style="display:inline;">To</label>
-      <input class="placeDatesTo" type="text"/>
+      <input class="placeDatesTo" type="text" data-validate="regex(^[0-9]{4}$,Are you sure your date is formatted correctly?)"/>
     </td>
   </tr>
   </table>
@@ -396,7 +460,7 @@ jQuery(document).ready(function()
       });
     });
     $("input.add_empty_place").on('click', function () {
-      var tr = "<tr class=\"new_element multilvl\"><td><table><tr><td><label>Place</label><input type=\"text\" size=\"65\" class=\"placeEntries\"/><label>Place role</label><input type=\"text\" size=\"65\" class=\"placeRoles\"/></td></tr><tr><td><label>Associated dates</label><label style=\"display:inline;\">From </label><input class=\"placeDatesFrom\" type=\"text\"/><label style=\"display:inline;\"> To </label><input class=\"placeDatesTo\" type=\"text\"/></td></tr></table></td></tr>";
+      var tr = "<tr class=\"new_element multilvl\"><td><table><tr><td><label>Place</label><input type=\"text\" size=\"75\" class=\"placeEntries\"/><label>Place role</label><input type=\"text\" size=\"75\" class=\"placeRoles\"/></td></tr><tr><td><label>Associated dates</label><label style=\"display:inline;\">From </label><input class=\"placeDatesFrom\" type=\"text\" data-validate=\"regex(^[0-9]{4}$,Are you sure your date is formatted correctly?)\"/><label style=\"display:inline;\"> To </label><input class=\"placeDatesTo\" type=\"text\" data-validate=\"regex(^[0-9]{4}$,Are you sure your date is formatted correctly?)\"/></td></tr></table></td></tr>";
       $(this).closest("tr").siblings(".insert_before").before(tr);
     });
   </script>
@@ -405,12 +469,13 @@ jQuery(document).ready(function()
   </tr>
   <tr class="labelHeader">
     <td>
+      <button></button>
       <label class="multi">Biography or history <span style="font-style:italic;"></span></label>
     </td>
   </tr>
   <tr>
   <td>
-  <table class="new_eac_inner">
+  <table class="new_eac_inner content">
   <tr>
     <td>
       <label class="multi">Abstract <span style="font-style:italic;"></span></label>
@@ -418,7 +483,7 @@ jQuery(document).ready(function()
   </tr>
   <tr>
     <td>
-      <textarea cols="65" style="height:100px; margin-left:0; margin-bottom:1%; font-size:1em;" class="abstract"></textarea>
+      <textarea cols="75" style="height:100px; margin-left:0; margin-bottom:1%; font-size:1em;" class="abstract"></textarea>
     </td>
   </tr>
   <tr>
@@ -428,7 +493,7 @@ jQuery(document).ready(function()
   </tr>
   <tr>
     <td>
-      <textarea cols="65" style="margin-left:0; margin-bottom:1%; font-size:1em;" class="bioghist"></textarea>
+      <textarea cols="75" style="margin-left:0; margin-bottom:1%; font-size:1em;" class="bioghist"></textarea>
     </td>
   </tr>
   </table>
@@ -436,12 +501,13 @@ jQuery(document).ready(function()
   </tr>
   <tr class="labelHeader">
     <td>
+      <button></button>
       <label class="multi">Citations for biography/history<span style="font-style:italic;"></span></label>
     </td>
   </tr>
   <tr>
   <td>
-  <table class="new_eac_inner">
+  <table class="new_eac_inner content">
   <tr>
     <td>
       <input type="button" name="addCite" value="Add New Entry" class="add_empty_element add_empty_cite pure-button pure-button-secondary" style="border:none;"/>
@@ -449,7 +515,7 @@ jQuery(document).ready(function()
   </tr>
   <tr>
     <td>
-      <input type="text" size="65" class="citations"/>
+      <input type="text" size="75" class="citations"/>
     </td>
   </tr>
   <tr class="insert_before" style="display:none;">
@@ -465,7 +531,7 @@ jQuery(document).ready(function()
       });
     });
     $("input.add_empty_cite").on('click', function () {
-      var tr = "<tr class=\"new_element\"><td><input type=\"text\" size=\"65\" class=\"citations\"/></td></tr>";
+      var tr = "<tr class=\"new_element\"><td><input type=\"text\" size=\"75\" class=\"citations\"/></td></tr>";
       $(this).closest("tr").siblings(".insert_before").before(tr);
     });
   </script>
@@ -474,13 +540,14 @@ jQuery(document).ready(function()
   </tr>
   <tr class="labelHeader">
     <td>
+      <button></button>
       <label class="multi">Related entities <span style="font-style:italic;"></span></label>
     </td>
   </tr>
   
   <tr>
   <td>
-  <table class="new_eac_inner">
+  <table class="new_eac_inner content">
   <tr>
     <td>
       <input type="button" name="addCpf" value="Add New Entry" class="add_empty_element add_empty_cpf pure-button pure-button-secondary" style="border:none;"/>
@@ -510,13 +577,13 @@ jQuery(document).ready(function()
   </tr>
   <tr>
     <td>
-      <input type="text" size="65" class="cpfs"/>
+      <input type="text" size="75" class="cpfs"/>
       <label>Unique identifier <span style="font-style:italic;">(@xml:id)</span></label>
-      <input type="text" size="65" class="cpfIDs"/>
+      <input type="text" size="75" class="cpfIDs"/>
       <label>URI <span style="font-style:italic;">(@xlink:href)</span></label>
-      <input type="text" size="65" class="cpfURIs"/>
+      <input type="text" size="75" class="cpfURIs"/>
       <label>Note <span style="font-style:italic;"></span></label>
-      <input type="text" class="cpfNotes" size="65"/>
+      <input type="text" class="cpfNotes" size="75"/>
     </td>
   </tr>
 
@@ -533,7 +600,7 @@ jQuery(document).ready(function()
       });
     });
     $("input.add_empty_cpf").on('click', function () {
-      var tr = "<tr class=\"new_element multilvl\"><td><table style=\"width:100%;\"><tr><td style=\"width:100%;\"><label style=\"display:inline;\">CPF relation type </label><select class=\"cpfTypes\"><option>associative</option><option>identity</option><option>hierarchical</option><option>hierarchical-parent</option><option>hierarchical-child</option><option>temporal</option><option>temporal-earlier</option><option>temporal-later</option><option>family</option></select><label style=\"display:inline;\"> CPF relation role </label><select class=\"cpfRoles\"><option>CorporateBody</option><option>Person</option><option>Family</option></select></td></tr><tr><td><input type=\"text\" size=\"65\" class=\"cpfs\"/><label>Unique identifier <span style=\"font-style:italic;\">(@xml:id)</span></label><input type=\"text\" size=\"65\" class=\"cpfIDs\"/><label> URI <span style=\"font-style:italic;\">(@xlink:href)</span></label><input type=\"text\" size=\"65\" class=\"cpfURIs\"/><label> Note <span style=\"font-style:italic;\"></span></label><input type=\"text\" class=\"cpfNotes\" size=\"65\"/></td></tr></table></td></tr>";
+      var tr = "<tr class=\"new_element multilvl\"><td><table style=\"width:100%;\"><tr><td style=\"width:100%;\"><label style=\"display:inline;\">CPF relation type </label><select class=\"cpfTypes\"><option>associative</option><option>identity</option><option>hierarchical</option><option>hierarchical-parent</option><option>hierarchical-child</option><option>temporal</option><option>temporal-earlier</option><option>temporal-later</option><option>family</option></select><label style=\"display:inline;\"> CPF relation role </label><select class=\"cpfRoles\"><option>CorporateBody</option><option>Person</option><option>Family</option></select></td></tr><tr><td><input type=\"text\" size=\"75\" class=\"cpfs\"/><label>Unique identifier <span style=\"font-style:italic;\">(@xml:id)</span></label><input type=\"text\" size=\"75\" class=\"cpfIDs\"/><label> URI <span style=\"font-style:italic;\">(@xlink:href)</span></label><input type=\"text\" size=\"75\" class=\"cpfURIs\"/><label> Note <span style=\"font-style:italic;\"></span></label><input type=\"text\" class=\"cpfNotes\" size=\"75\"/></td></tr></table></td></tr>";
       $(this).closest("tr").siblings(".insert_before").before(tr);
     });
   </script>
@@ -542,12 +609,13 @@ jQuery(document).ready(function()
   </tr>
   <tr class="labelHeader">
     <td>
+      <button></button>
       <label class="multi">Related resources <span style="font-style:italic;"></span></label>
     </td>
   </tr>
   <tr>
   <td>
-  <table class="new_eac_inner">
+  <table class="new_eac_inner content">
   <tr>
     <td>
       <input type="button" name="addRes" value="Add New Entry" class="add_empty_element add_empty_res pure-button pure-button-secondary" style="border:none;"/>
@@ -570,13 +638,13 @@ jQuery(document).ready(function()
   </tr>
   <tr>
     <td>
-      <input type="text" size="65" class="resources"/>
+      <input type="text" size="75" class="resources"/>
       <label>Unique identifier <span style="font-style:italic;">(@xml:id)</span></label>
-      <input type="text" size="65" class="resourceIDs"/>
+      <input type="text" size="75" class="resourceIDs"/>
       <label>URI <span style="font-style:italic;">(@xlink:href)</span></label>
-      <input type="text" size="65" class="resourceURIs"/>
+      <input type="text" size="75" class="resourceURIs"/>
       <label>Note <span style="font-style:italic;"></span></label>
-      <input type="text" class="resourceNotes" size="65"/>
+      <input type="text" class="resourceNotes" size="75"/>
     </td>
   </tr>
 
@@ -593,7 +661,7 @@ jQuery(document).ready(function()
       });
     });
     $("input.add_empty_res").on('click', function () {
-      var tr = "<tr class=\"new_element multilvl\"><td><table style=\"width:100%;\"><tr><td style=\"width:100%;\"><label style=\"display:inline;\">Resource relation type </label><select class=\"resourceTypes\"><option>creatorOf</option><option>subjectOf</option><option>other</option></select><label style=\"display:inline;\"> Resource relation role </label><select class=\"resourceRoles\"><option>archivalRecords</option><option>resource</option></select></td></tr><tr><td><input type=\"text\" size=\"65\" class=\"resources\" name=\"new_resource\" value=\"\"/><label>Unique identifier <span style=\"font-style:italic;\">(@xml:id)</span></label><input type=\"text\" size=\"65\" class=\"resourceIDs\"/><label> URI <span style=\"font-style:italic;\">(@xlink:href)</span></label><input type=\"text\" size=\"65\" class=\"resourceURIs\"/><label> Note <span style=\"font-style:italic;\"></span></label><input type=\"text\" class=\"resourceNotes\" size=\"65\"/></td></tr></table></td></tr>";
+      var tr = "<tr class=\"new_element multilvl\"><td><table style=\"width:100%;\"><tr><td style=\"width:100%;\"><label style=\"display:inline;\">Resource relation type </label><select class=\"resourceTypes\"><option>creatorOf</option><option>subjectOf</option><option>other</option></select><label style=\"display:inline;\"> Resource relation role </label><select class=\"resourceRoles\"><option>archivalRecords</option><option>resource</option></select></td></tr><tr><td><input type=\"text\" size=\"75\" class=\"resources\" name=\"new_resource\" value=\"\"/><label>Unique identifier <span style=\"font-style:italic;\">(@xml:id)</span></label><input type=\"text\" size=\"75\" class=\"resourceIDs\"/><label> URI <span style=\"font-style:italic;\">(@xlink:href)</span></label><input type=\"text\" size=\"75\" class=\"resourceURIs\"/><label> Note <span style=\"font-style:italic;\"></span></label><input type=\"text\" class=\"resourceNotes\" size=\"75\"/></td></tr></table></td></tr>";
       $(this).closest("tr").siblings(".insert_before").before(tr);
     });
   </script>
@@ -602,12 +670,13 @@ jQuery(document).ready(function()
   </tr>
   <tr class="labelHeader">
     <td>
+      <button></button>
       <label class="multi">Sources for this record<span style="font-style:italic;"></span></label>
     </td>
   </tr>
   <tr>
   <td>
-  <table class="new_eac_inner">
+  <table class="new_eac_inner content">
   <tr>
     <td>
       <input type="button" name="addRes" value="Add New Entry" class="add_empty_element add_empty_sour pure-button pure-button-secondary" style="border:none;"/>
@@ -615,7 +684,7 @@ jQuery(document).ready(function()
   </tr>
   <tr>
     <td>
-      <input type="text" size="65" class="sources"/>
+      <input type="text" size="75" class="sources"/>
     </td>
   </tr>
 
@@ -632,7 +701,7 @@ jQuery(document).ready(function()
       });
     });
     $("input.add_empty_sour").on('click', function () {
-      var tr = "<tr class=\"new_element\"><td><input type=\"text\" size=\"65\" class=\"sources\"/></td></tr>";
+      var tr = "<tr class=\"new_element\"><td><input type=\"text\" size=\"75\" class=\"sources\"/></td></tr>";
       $(this).closest("tr").siblings(".insert_before").before(tr);
     });
   </script>

@@ -385,9 +385,37 @@ ul, menu, dir {
     margin-bottom:1%;    
 }
 
-.labelHeader {
+.labelHeader label {
+    cursor: pointer;
+}
+
+.labelHeaderReq {
     border-top:dotted black 1px !important;
-    border-bottom:dotted black 1px !important;
+    border-bottom:dotted black 1px !important;    
+    padding-top:1%;
+    padding-bottom:2%;
+}
+
+.labelHeader td {
+    border-top:dotted black 1px !important;
+    border-bottom:dotted black 1px !important;    
+    padding-top:1%;
+    padding-bottom:2%;
+}
+
+.labelHeader button {
+	background:url(images/show.png);
+	background-repeat:no-repeat;
+	background-position:right center;
+	overflow:hidden;
+	width:27px;
+	height:16px;
+	border:none;
+	float:right;
+	margin-top:1%;
+	cursor:pointer;
+	background-size: auto 12px; 
+    opacity:0.5;	
 }
 
 .menu_slice a {
@@ -477,6 +505,20 @@ ul, menu, dir {
 .notifyjs-bootstrap-error {
     background-color:#D9EDF7;
     color:#3A87AD;
+}
+
+button.on {
+	background:url(images/hide.png);
+	background-repeat:no-repeat;
+	background-position:right center;
+	overflow:hidden;
+	width:27px;
+	height:16px;
+	border:none;
+	float:right;
+	margin-top:1%;
+	cursor:pointer;
+	background-size: auto 12px;    
 }
 
 .pure-button {
@@ -1070,10 +1112,8 @@ button#ltselectedtext:focus {
     
 }
 
-#new_eac_form > table {    
-    border-right:dotted black 1px;
-    border-bottom:dotted black 1px;
-    
+#new_eac_form > table {        
+    border-bottom:dotted black 1px;    
 }
 
 #new_eac_form input {

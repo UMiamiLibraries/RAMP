@@ -180,8 +180,7 @@
             <xsl:variable name="vEadHeaderCount" select="count(ead:ead/ead:eadheader)"/>
             <xsl:choose>
                 <!-- If it's an ingested record (not created from within RAMP). -->
-                <xsl:when test="not(contains(ead:ead/ead:eadheader/ead:eadid/@identifier,'RAMP'))">
-                    <!--
+                <xsl:when test="not(contains(ead:ead/ead:eadheader/ead:eadid/@identifier,'RAMP'))">                    
                     <xsl:for-each select="ead:ead/ead:eadheader">
                         <otherRecordId>
                             <xsl:choose>
@@ -213,8 +212,7 @@
                             <xsl:text>.r</xsl:text>
                             <xsl:value-of select="substring-before($pRecordId,'-')"/>
                         </otherRecordId>
-                    </xsl:for-each>              
-                    -->
+                    </xsl:for-each>                                  
                     <!-- maintenanceStatus = "derived" -->
                     <maintenanceStatus>derived</maintenanceStatus>
                 </xsl:when>
@@ -756,24 +754,16 @@
                                         test="not(preceding-sibling::ead:p[contains(.,'Chronolog')]) 
                                         and (string-length(substring(.,1,4)) = string-length(translate(substring(.,1,4),$vDigits,'')))">
                                         <xsl:if test=".!=' ' and .!=''">
-                                            <xsl:choose>
-                                                <xsl:when test="contains(.,'\n')">
-                                                  <xsl:call-template name="tLineSplitter">
-                                                  <xsl:with-param name="line"
-                                                  select="normalize-space(.)"/>
-                                                  <xsl:with-param name="element">p</xsl:with-param>
-                                                  </xsl:call-template>
-                                                </xsl:when>
-                                                <xsl:otherwise>
-                                                  <xsl:apply-templates select="."/>
-                                                </xsl:otherwise>
-                                            </xsl:choose>
+                                            <xsl:apply-templates select="."/>
                                         </xsl:if>
                                     </xsl:if>
                                 </xsl:if>
                             </xsl:otherwise>
                         </xsl:choose>
                     </xsl:for-each>
+                    <xsl:if test="ead:ead/ead:archdesc/ead:bioghist/text()">
+                        <xsl:apply-templates select="ead:ead/ead:archdesc/ead:bioghist/text()"/>
+                    </xsl:if>
                     <xsl:call-template name="tCitations"/>
                 </biogHist>
             </xsl:if>
@@ -910,7 +900,7 @@
         </xsl:choose>
     </xsl:template>
 
-    <!-- Recursive template to turn "\n\n" into <p> tags. Used for processing biography from new record form. To be developed further. -->
+    <!-- Recursive template to turn "\n\n" into <p> tags. Formerly used for processing biography from new record form. Now defunct. -->
     <xsl:template name="tLineSplitter">
         <xsl:param name="line"/>
         <xsl:param name="element"/>
@@ -987,6 +977,12 @@
         </abstract>
     </xsl:template>
 
+    <xsl:template match="ead:bioghist/text()">
+        <p xmlns="urn:isbn:1-931666-33-4">
+            <xsl:value-of select="normalize-space(.)"/>
+        </p>
+    </xsl:template>
+
     <xsl:template match="ead:emph">
         <span xmlns="urn:isbn:1-931666-33-4">
             <xsl:attribute name="style">font-style:italic</xsl:attribute>
@@ -1000,17 +996,17 @@
         </item>
     </xsl:template>
 
+    <xsl:template match="ead:p">
+        <p xmlns="urn:isbn:1-931666-33-4">
+            <xsl:value-of select="normalize-space(.)"/>
+        </p>
+    </xsl:template>
+
     <xsl:template match="ead:title">
         <span xmlns="urn:isbn:1-931666-33-4">
             <xsl:attribute name="style">font-style:italic</xsl:attribute>
             <xsl:value-of select="normalize-space(.)"/>
         </span>
-    </xsl:template>
-
-    <xsl:template match="ead:p">
-        <p xmlns="urn:isbn:1-931666-33-4">
-            <xsl:value-of select="normalize-space(.)"/>
-        </p>
     </xsl:template>
 
     <!-- Process relation elements. -->
