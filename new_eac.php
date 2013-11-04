@@ -92,14 +92,18 @@ jQuery(document).ready(function()
         
         if ( str == 'Person' ) 
         {                    
+            $("#entName").text('');
+            $(".chooseNameInput").remove();
+            $("#nameField").children(".namePartLabel").remove();
+            $("#nameField").children(".nameNoPartLabel").remove();
+            $(".eac_name").remove();
+            $(".eac_name_authorized").remove();
             
-            $( "#entName" ).text( "Name of person" );   
-            
-            $(".eac_name").remove();                        
-            
+            //$( "#entName" ).text( "Name of person" );   
+                                                            
             $("#addPersNameButtons").html("<input type=\"button\" name=\"addNameParts\" value=\"Name Parts\" class=\"add_empty_element add_empty_name_parts pure-button pure-button-secondary\" style=\"border:none;\"/><input type=\"button\" name=\"addNameNoParts\" value=\"Single Field\" class=\"add_empty_element add_empty_name_no_parts pure-button pure-button-secondary\" style=\"border:none;\"/>");                        
             
-            $("#nameField").children("#entName").after("<span class=\"chooseNameInput\" style=\"font-style:italic\">Click above to choose an input type.</span>");
+            $("#nameField").children("#entName").after("<label class=\"namePartLabel\"> Name of person </label><label class=\"namePartLabel\"> Surname </label><input class=\"eac_name eac_name_part_1\" type=\"text\" size=\"75\" data-validate=\"required\"/><label class=\"namePartLabel\"> Forename </label><input class=\"eac_name eac_name_part_2\" type=\"text\" size=\"75\" data-validate=\"required\"/><label class=\"namePartLabel\"> Form of name authorized by <span style=\"font-style:italic\">(for example: \"lcnaf\" or \"local\") </span></label><input class=\"eac_name_authorized\" type=\"text\" size=\"25\"/>");
                                     
             $( "#genderLabel").show();                                                                                           
             
@@ -119,11 +123,7 @@ jQuery(document).ready(function()
             $("input.add_empty_gender").on('click', function () {
               var tr = "<tr class=\"new_element multilvl\"><td><table style=\"width:100%;\"><tr><td style=\"width:100%;\"><select class=\"genders\"><option></option><option>female</option><option>male</option><option>other</option></select></td></tr><tr><td><label>Associated dates (if applicable)</label><label style=\"display:inline;\">From </label><input class=\"genderDatesFrom\" type=\"text\" data-validate=\"regex(^[0-9]{4}$,Are you sure your date is formatted correctly?)\"/><label style=\"display:inline;\"> To </label><input class=\"genderDatesTo\" type=\"text\" data-validate=\"regex(^[0-9]{4}$,Are you sure your date is formatted correctly?)\"/></td></tr></table></td></tr>";
               $(this).closest("tr").siblings(".insert_before").before(tr);            
-            });                     
-            
-            $("#nameField").children(".namePartLabel").remove();
-            $("#nameField").children(".nameNoPartLabel").remove();
-            $(".eac_name_authorized").remove();
+            });                                             
                                               
             $( "input.add_empty_name_no_parts" ).on('click', function () {
               $("#entName").text('');
