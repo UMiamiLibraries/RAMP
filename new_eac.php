@@ -7,6 +7,7 @@
 */
 
 include('header.php');
+
 ?>
 
 <script>
@@ -23,8 +24,10 @@ jQuery(document).ready(function()
   $("#addPersNameButtons").children("input").remove();
   
   $('.content').hide();     
-        
+      
 });
+  
+  
 
 </script>
 
@@ -700,7 +703,7 @@ jQuery(document).ready(function()
   <tr>
     <td style="width:100%;">
       <label style="display:inline;">Resource relation type</label>
-      <select class="resourceTypes">        
+      <select id="origResourceTypes" class="resourceTypes">        
         <option>creatorOf</option>
         <option>subjectOf</option>
         <option>other</option>        
@@ -715,7 +718,10 @@ jQuery(document).ready(function()
   <tr>
     <td>
       <label>Name of resource <span style="font-style:italic;"></span></label>
-      <input type="text" size="75" class="resources"/>
+      <input type="text" size="75" id="origR" class="origResources resources"/>
+      
+      
+      
       <label>Unique identifier <span style="font-style:italic;">(@xml:id)</span></label>
       <input type="text" size="75" class="resourceIDs"/>
       <label>URI <span style="font-style:italic;">(@xlink:href)</span></label>
@@ -729,19 +735,116 @@ jQuery(document).ready(function()
     <td></td>
   </tr>
 
-  <script>
+  <script>       
+  
+    var iter = 1; 
+    
     $("input.add_empty_res").one('click', function () {
         var rm = "<input type=\"button\" name=\"rm\" value=\"Delete Entry\" class=\"rm_empty_element rm_empty_res pure-button pure-button-secondary\" style=\"border:none;\"/>";
         $(this).after(rm);
         $("input.rm_empty_res").on('click', function () {
-        $(".new_element:last").remove();
-      });
-    });
+            $(".new_element:last").remove();
+        });
+    });        
+    
     $("input.add_empty_res").on('click', function () {
-      var tr = "<tr class=\"new_element multilvl\"><td><table style=\"width:100%;\"><tr><td style=\"width:100%;\"><label style=\"display:inline;\">Resource relation type </label><select class=\"resourceTypes\"><option>creatorOf</option><option>subjectOf</option><option>other</option></select><label style=\"display:inline;\"> Resource relation role </label><select class=\"resourceRoles\"><option>archivalRecords</option><option>resource</option></select></td></tr><tr><td><label>Name of resource <span style=\"font-style:italic;\"></span></label><input type=\"text\" size=\"75\" class=\"resources\" name=\"new_resource\" value=\"\"/><label>Unique identifier <span style=\"font-style:italic;\">(@xml:id)</span></label><input type=\"text\" size=\"75\" class=\"resourceIDs\"/><label> URI <span style=\"font-style:italic;\">(@xlink:href)</span></label><input type=\"text\" size=\"75\" class=\"resourceURIs\"/><label> Note <span style=\"font-style:italic;\"></span></label><input type=\"text\" class=\"resourceNotes\" size=\"75\"/></td></tr></table></td></tr>";
+      var tr = "<tr class=\"new_element multilvl\"><td><table style=\"width:100%;\"><tr><td style=\"width:100%;\"><label style=\"display:inline;\">Resource relation type </label><select id=\"newRT_" + iter++ + "\" class=\"resourceTypes newResourceTypes\"><option> </option><option>creatorOf</option><option>subjectOf</option><option>other</option></select><label style=\"display:inline;\"> Resource relation role </label><select class=\"resourceRoles\"><option> </option><option>archivalRecords</option><option>resource</option></select></td></tr><tr><td><label>Name of resource <span style=\"font-style:italic;\"></span></label><input type=\"text\" size=\"75\" id=\"newR_" + iter++ + "\" class=\"newResources resources\" name=\"new_resource\" value=\"\"/><label>Unique identifier <span style=\"font-style:italic;\">(@xml:id)</span></label><input type=\"text\" size=\"75\" class=\"resourceIDs\"/><label> URI <span style=\"font-style:italic;\">(@xlink:href)</span></label><input type=\"text\" size=\"75\" class=\"resourceURIs\"/><label> Note <span style=\"font-style:italic;\"></span></label><input type=\"text\" class=\"resourceNotes\" size=\"75\"/></td></tr></table></td></tr>";                 
       $(this).closest("tr").siblings(".insert_before").before(tr);
+                           
     });
-  </script>
+                                                                            
+        $(".new_eac_inner").off("change", "#origResourceTypes");                     
+        $(".new_eac_inner").off("change", ".newResourceTypes");
+                
+        $(".new_eac_inner").on("change", "#origResourceTypes", function() {                                                                       
+                                                                                               
+            var str3 = "";
+            $("#origResourceTypes").children( "option:selected" ).each(function() {
+                str3 += $( this ).text();     
+                       
+            });                
+                    
+            
+            if ( str3 == 'creatorOf' ) 
+            {                    
+             
+                $("#origResourceCreators").remove();      
+                $("#origResourceCreatorLabel").remove();
+                $("#origR").after("<label id=\"origResourceCreatorLabel\" class=\"resourceCreatorLabel\" style=\"display:none;\">Creator of resource <span style=\"font-style:italic;\"></span></label><input type=\"text\" size=\"75\" id=\"origResourceCreators\" class=\"resourceCreators\" style=\"display:none;\"/>");
+                                             
+            }
+            else if ( str3 == 'subjectOf' )
+            {            
+                
+                $("#origResourceCreators").remove();
+                $("#origResourceCreatorLabel").remove();
+                $("#origR").after("<label id=\"origResourceCreatorLabel\" class=\"resourceCreatorLabel\">Creator of resource <span style=\"font-style:italic;\"></span></label><input type=\"text\" size=\"75\" id=\"origResourceCreators\" class=\"resourceCreators\"/>");                
+                                           
+            }        
+            else if ( str3 == 'other' )
+            {                       
+            
+                $("#origResourceCreators").remove();
+                $("#origResourceCreatorLabel").remove();
+                $("#origR").after("<label id=\"origResourceCreatorLabel\" class=\"resourceCreatorLabel\">Creator of resource <span style=\"font-style:italic;\"></span></label><input type=\"text\" size=\"75\" id=\"origResourceCreators\" class=\"resourceCreators\"/>");                                                                   
+                                		                                 
+            }
+        
+        }).trigger( "change" );   
+                                                     
+        $(".new_eac_inner").on("change", ".newResourceTypes", function() {
+  
+              var str2 = "";    
+              var idValR = "";                      
+              var idValRT = "";
+              var idValRC = "";
+              var idValRCL = "";              
+              
+              $(this).each(function() {
+                
+                idValR = $(this).closest("td").closest("tr").siblings("tr").children("td").children(".newResources").attr("id");
+                idValRT = $(this).attr("id");  
+                idValRC = $(this).closest("td").closest("tr").siblings("tr").children("td").children(".newResourceCreatorLabel").attr("id");
+                idValRCL = $(this).closest("td").closest("tr").siblings("tr").children("td").children(".newResourceCreators").attr("id");                       
+                                                              
+                $('#' + idValRT).children( "option:selected" ).each(function() {
+                    str2 += $( this ).text();     
+                           
+                });                
+                      
+              
+              if ( str2 == 'creatorOf' ) 
+              {                                                
+               
+                  $(this).closest("td").closest("tr").siblings("tr").children("td").children('#' + idValRC).remove();                                          
+                  $(this).closest("td").closest("tr").siblings("tr").children("td").children('#' + idValRCL).remove();
+                  
+                  $(this).closest("td").closest("tr").siblings("tr").children("td").children('#' + idValR).after("<label id=\"newRCL_" + iter++ + "\" class=\"newResourceCreatorLabel resourceCreatorLabel\" style=\"display:none;\">Creator of resource <span style=\"font-style:italic;\"></span></label><input type=\"text\" size=\"75\" id=\"newRC_" + iter++ + "\" class=\"newResourceCreators resourceCreators\" style=\"display:none;\"/>");
+                                                                 
+              }
+              else if ( str2 == 'subjectOf' )
+              {            
+
+                  $(this).closest("td").closest("tr").siblings("tr").children("td").children('#' + idValRC).remove();                                          
+                  $(this).closest("td").closest("tr").siblings("tr").children("td").children('#' + idValRCL).remove();
+                
+                  $(this).closest("td").closest("tr").siblings("tr").children("td").children('#' + idValR).after("<label id=\"newRCL_" + iter++ + "\" class=\"newResourceCreatorLabel resourceCreatorLabel\">Creator of resource <span style=\"font-style:italic;\"></span></label><input type=\"text\" size=\"75\" id=\"newRC_" + iter++ + "\" class=\"newResourceCreators resourceCreators\"/>");                                     
+              }        
+              else if ( str2 == 'other' )
+              {                       
+                  
+                    $(this).closest("td").closest("tr").siblings("tr").children("td").children('#' + idValRC).remove();                                          
+                    $(this).closest("td").closest("tr").siblings("tr").children("td").children('#' + idValRCL).remove();
+                  
+                    $(this).closest("td").closest("tr").siblings("tr").children("td").children('#' + idValR).after("<label id=\"newRCL_" + iter++ + "\" class=\"newResourceCreatorLabel resourceCreatorLabel\">Creator of resource <span style=\"font-style:italic;\"></span></label><input type=\"text\" size=\"75\" id=\"newRC_" + iter++ + "\" class=\"newResourceCreators resourceCreators\"/>");
+                                              		                               
+              }
+                                             
+            });
+          
+          }).trigger( "change" );                                 
+               
+    </script>
   </table>
   </td>
   </tr>
@@ -849,6 +952,7 @@ jQuery(document).ready(function()
   lobjFormElements['resourceTypes'] = [];
   lobjFormElements['resourceRoles'] = [];
   lobjFormElements['resources'] = [];
+  lobjFormElements['resourceCreators'] = [];
   lobjFormElements['resourceIDs'] = [];
   lobjFormElements['resourceURIs'] = [];
   lobjFormElements['resourceNotes'] = [];
@@ -977,6 +1081,10 @@ jQuery(document).ready(function()
       $('.resources').each(function () {
           lobjFormElements['resources'].push($(this).val());
       });
+      
+      $('.resourceCreators').each(function () {
+          lobjFormElements['resourceCreators'].push($(this).val());
+      });
 
       $('.resourceIDs').each(function () {
           lobjFormElements['resourceIDs'].push($(this).val());
@@ -1039,6 +1147,7 @@ jQuery(document).ready(function()
 	    resourceTypes: lobjFormElements['resourceTypes'],
 	    resourceRoles: lobjFormElements['resourceRoles'],
 	    resources: lobjFormElements['resources'],
+	    resourceCreators: lobjFormElements['resourceCreators'],
 	    resourceIDs: lobjFormElements['resourceIDs'],
 	    resourceURIs: lobjFormElements['resourceURIs'],
 	    resourceNotes: lobjFormElements['resourceNotes'],

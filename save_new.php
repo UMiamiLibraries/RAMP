@@ -60,6 +60,7 @@ $countCpfNotes = sizeof($cleanedArray['cpfNotes']);
 $countResourceTypes = sizeof($cleanedArray['resourceTypes']);
 $countResourceRoles = sizeof($cleanedArray['resourceRoles']);
 $countResources = sizeof($cleanedArray['resources']);
+$countResourceCreators = sizeof($cleanedArray['resourceCreators']);
 $countResourceIDs = sizeof($cleanedArray['resourceIDs']);
 $countResourceURIs = sizeof($cleanedArray['resourceURIs']);
 $countResourceNotes = sizeof($cleanedArray['resourceNotes']);
@@ -145,6 +146,7 @@ $cpfNote = array();
 $resourceType = array();
 $resourceRole = array();
 $resource = array();
+$resourceCreator = array();
 $resourceID = array();
 $resourceURI = array();
 $resourceNote = array();
@@ -198,6 +200,7 @@ $cpfNote = $cleanedArray["cpfNotes"];
 $resourceType = $cleanedArray["resourceTypes"];
 $resourceRole = $cleanedArray["resourceRoles"];
 $resource = $cleanedArray["resources"];
+$resourceCreator = $cleanedArray["resourceCreators"];
 $resourceID = $cleanedArray["resourceIDs"];
 $resourceURI = $cleanedArray["resourceURIs"];
 $resourceNote = $cleanedArray["resourceNotes"];
@@ -446,6 +449,14 @@ for ($i = 0; $i < $countResources; $i++) {
   $resourceVal .= "</p></note>";
 }
 
+$resourceCreatorVal = '';
+
+for ($i = 0; $i < $countResourceCreators; $i++) {
+  $resourceCreatorVal .= "<note type='resourceCreator' label='_" . $i . "'><p>";
+  $resourceCreatorVal .= $resourceCreator[$i];
+  $resourceCreatorVal .= "</p></note>";
+}
+
 $resourceIDVal = '';
 
 for ($i = 0; $i < $countResourceIDs; $i++) {
@@ -574,6 +585,7 @@ elseif( $cleanedArray["entity"] == "" ) {
 		                           $cpfURIVal .
 		                           $cpfNoteVal .		                           
 		                           $resourceVal .
+		                           $resourceCreatorVal .
 		                           $resourceTypeVal .
 		                           $resourceRoleVal .
 		                           $resourceIDVal .
@@ -658,6 +670,7 @@ elseif( $cleanedArray["entity"] == "" ) {
 		                           $cpfURIVal .
 		                           $cpfNoteVal .		                           
 		                           $resourceVal .
+		                           $resourceCreatorVal .
 		                           $resourceTypeVal .
 		                           $resourceRoleVal .
 		                           $resourceIDVal .
@@ -741,6 +754,7 @@ elseif( $cleanedArray["entity"] == "" ) {
 		                           $cpfURIVal .
 		                           $cpfNoteVal .		                           
 		                           $resourceVal .
+		                           $resourceCreatorVal .
 		                           $resourceTypeVal .
 		                           $resourceRoleVal .
 		                           $resourceIDVal .
