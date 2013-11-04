@@ -160,7 +160,7 @@ jQuery(document).ready(function()
         {            
             
             $("#entName").text('');
-            $("#chooseNameInput").remove();
+            $(".chooseNameInput").remove();
                         
             $( "#entName" ).text( "Name of corporate body" ); 
             
@@ -199,7 +199,7 @@ jQuery(document).ready(function()
         {                       
         
             $("#entName").text('');
-            $("#chooseNameInput").remove();
+            $(".chooseNameInput").remove();
             
             $( "#entName" ).text( "Name of family" );   
             
