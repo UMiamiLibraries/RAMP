@@ -652,6 +652,7 @@ jQuery(document).ready(function()
   </tr>
   <tr>
     <td>
+      <label>Name of entity <span style="font-style:italic;"></span></label>
       <input type="text" size="75" class="cpfs"/>
       <label>Unique identifier <span style="font-style:italic;">(@xml:id)</span></label>
       <input type="text" size="75" class="cpfIDs"/>
@@ -675,7 +676,7 @@ jQuery(document).ready(function()
       });
     });
     $("input.add_empty_cpf").on('click', function () {
-      var tr = "<tr class=\"new_element multilvl\"><td><table style=\"width:100%;\"><tr><td style=\"width:100%;\"><label style=\"display:inline;\">CPF relation type </label><select class=\"cpfTypes\"><option>associative</option><option>identity</option><option>hierarchical</option><option>hierarchical-parent</option><option>hierarchical-child</option><option>temporal</option><option>temporal-earlier</option><option>temporal-later</option><option>family</option></select><label style=\"display:inline;\"> CPF relation role </label><select class=\"cpfRoles\"><option>CorporateBody</option><option>Person</option><option>Family</option></select></td></tr><tr><td><input type=\"text\" size=\"75\" class=\"cpfs\"/><label>Unique identifier <span style=\"font-style:italic;\">(@xml:id)</span></label><input type=\"text\" size=\"75\" class=\"cpfIDs\"/><label> URI <span style=\"font-style:italic;\">(@xlink:href)</span></label><input type=\"text\" size=\"75\" class=\"cpfURIs\"/><label> Note <span style=\"font-style:italic;\"></span></label><input type=\"text\" class=\"cpfNotes\" size=\"75\"/></td></tr></table></td></tr>";
+      var tr = "<tr class=\"new_element multilvl\"><td><table style=\"width:100%;\"><tr><td style=\"width:100%;\"><label style=\"display:inline;\">CPF relation type </label><select class=\"cpfTypes\"><option>associative</option><option>identity</option><option>hierarchical</option><option>hierarchical-parent</option><option>hierarchical-child</option><option>temporal</option><option>temporal-earlier</option><option>temporal-later</option><option>family</option></select><label style=\"display:inline;\"> CPF relation role </label><select class=\"cpfRoles\"><option>CorporateBody</option><option>Person</option><option>Family</option></select></td></tr><tr><td><label>Name of entity <span style=\"font-style:italic;\"></span></label><input type=\"text\" size=\"75\" class=\"cpfs\"/><label>Unique identifier <span style=\"font-style:italic;\">(@xml:id)</span></label><input type=\"text\" size=\"75\" class=\"cpfIDs\"/><label> URI <span style=\"font-style:italic;\">(@xlink:href)</span></label><input type=\"text\" size=\"75\" class=\"cpfURIs\"/><label> Note <span style=\"font-style:italic;\"></span></label><input type=\"text\" class=\"cpfNotes\" size=\"75\"/></td></tr></table></td></tr>";
       $(this).closest("tr").siblings(".insert_before").before(tr);
     });
   </script>
@@ -713,6 +714,7 @@ jQuery(document).ready(function()
   </tr>
   <tr>
     <td>
+      <label>Name of resource <span style="font-style:italic;"></span></label>
       <input type="text" size="75" class="resources"/>
       <label>Unique identifier <span style="font-style:italic;">(@xml:id)</span></label>
       <input type="text" size="75" class="resourceIDs"/>
@@ -736,7 +738,7 @@ jQuery(document).ready(function()
       });
     });
     $("input.add_empty_res").on('click', function () {
-      var tr = "<tr class=\"new_element multilvl\"><td><table style=\"width:100%;\"><tr><td style=\"width:100%;\"><label style=\"display:inline;\">Resource relation type </label><select class=\"resourceTypes\"><option>creatorOf</option><option>subjectOf</option><option>other</option></select><label style=\"display:inline;\"> Resource relation role </label><select class=\"resourceRoles\"><option>archivalRecords</option><option>resource</option></select></td></tr><tr><td><input type=\"text\" size=\"75\" class=\"resources\" name=\"new_resource\" value=\"\"/><label>Unique identifier <span style=\"font-style:italic;\">(@xml:id)</span></label><input type=\"text\" size=\"75\" class=\"resourceIDs\"/><label> URI <span style=\"font-style:italic;\">(@xlink:href)</span></label><input type=\"text\" size=\"75\" class=\"resourceURIs\"/><label> Note <span style=\"font-style:italic;\"></span></label><input type=\"text\" class=\"resourceNotes\" size=\"75\"/></td></tr></table></td></tr>";
+      var tr = "<tr class=\"new_element multilvl\"><td><table style=\"width:100%;\"><tr><td style=\"width:100%;\"><label style=\"display:inline;\">Resource relation type </label><select class=\"resourceTypes\"><option>creatorOf</option><option>subjectOf</option><option>other</option></select><label style=\"display:inline;\"> Resource relation role </label><select class=\"resourceRoles\"><option>archivalRecords</option><option>resource</option></select></td></tr><tr><td><label>Name of resource <span style=\"font-style:italic;\"></span></label><input type=\"text\" size=\"75\" class=\"resources\" name=\"new_resource\" value=\"\"/><label>Unique identifier <span style=\"font-style:italic;\">(@xml:id)</span></label><input type=\"text\" size=\"75\" class=\"resourceIDs\"/><label> URI <span style=\"font-style:italic;\">(@xlink:href)</span></label><input type=\"text\" size=\"75\" class=\"resourceURIs\"/><label> Note <span style=\"font-style:italic;\"></span></label><input type=\"text\" class=\"resourceNotes\" size=\"75\"/></td></tr></table></td></tr>";
       $(this).closest("tr").siblings(".insert_before").before(tr);
     });
   </script>
