@@ -518,12 +518,72 @@
                                 </part>
                             </xsl:when>
                             <xsl:otherwise>
-                                <!-- For corporate bodies, output the string as is. -->
-                                <part>
-                                    <xsl:value-of
-                                        select="normalize-space(ead:ead/ead:archdesc/ead:did/ead:origination/child::node()[1])"
-                                    />
-                                </part>
+                                <xsl:choose>
+                                    <xsl:when
+                                        test="ead:ead/ead:archdesc/ead:did/ead:origination/ead:persname[@encodinganalog='100_1']!=''">
+                                        <part localType="surname">
+                                            <xsl:value-of
+                                                select="normalize-space(ead:ead/ead:archdesc/ead:did/ead:origination/ead:persname[@encodinganalog='100_1'])"
+                                            />
+                                        </part>
+                                        <xsl:if
+                                            test="ead:ead/ead:archdesc/ead:did/ead:origination/ead:persname[@encodinganalog='100_0']!=''">
+                                            <part localType="forename">
+                                                <xsl:value-of
+                                                  select="normalize-space(ead:ead/ead:archdesc/ead:did/ead:origination/ead:persname[@encodinganalog='100_0'])"
+                                                />
+                                            </part>
+                                        </xsl:if>
+                                        <xsl:if
+                                            test="ead:ead/ead:archdesc/ead:did/ead:note[@type='nameAuth']/ead:p!=''">
+                                            <authorizedForm>
+                                                <xsl:value-of
+                                                  select="normalize-space(ead:ead/ead:archdesc/ead:did/ead:note[@type='nameAuth']/ead:p)"
+                                                />
+                                            </authorizedForm>
+                                        </xsl:if>
+                                    </xsl:when>
+                                    <xsl:when
+                                        test="ead:ead/ead:archdesc/ead:did/ead:origination/ead:persname[@encodinganalog='100_0']!=''">
+                                        <xsl:if
+                                            test="ead:ead/ead:archdesc/ead:did/ead:origination/ead:persname[@encodinganalog='100_1']!=''">
+                                            <part localType="surname">
+                                                <xsl:value-of
+                                                  select="normalize-space(ead:ead/ead:archdesc/ead:did/ead:origination/ead:persname[@encodinganalog='100_1'])"
+                                                />
+                                            </part>
+                                        </xsl:if>
+                                        <part localType="forename">
+                                            <xsl:value-of
+                                                select="normalize-space(ead:ead/ead:archdesc/ead:did/ead:origination/ead:persname[@encodinganalog='100_0'])"
+                                            />
+                                        </part>
+                                        <xsl:if
+                                            test="ead:ead/ead:archdesc/ead:did/ead:note[@type='nameAuth']/ead:p!=''">
+                                            <authorizedForm>
+                                                <xsl:value-of
+                                                  select="normalize-space(ead:ead/ead:archdesc/ead:did/ead:note[@type='nameAuth']/ead:p)"
+                                                />
+                                            </authorizedForm>
+                                        </xsl:if>
+                                    </xsl:when>
+                                    <xsl:otherwise>
+                                        <!-- Output the string as is. -->
+                                        <part>
+                                            <xsl:value-of
+                                                select="normalize-space(ead:ead/ead:archdesc/ead:did/ead:origination/child::node()[1])"
+                                            />
+                                        </part>
+                                        <xsl:if
+                                            test="ead:ead/ead:archdesc/ead:did/ead:note[@type='nameAuth']/ead:p!=''">
+                                            <authorizedForm>
+                                                <xsl:value-of
+                                                  select="normalize-space(ead:ead/ead:archdesc/ead:did/ead:note[@type='nameAuth']/ead:p)"
+                                                />
+                                            </authorizedForm>
+                                        </xsl:if>
+                                    </xsl:otherwise>
+                                </xsl:choose>
                             </xsl:otherwise>
                         </xsl:choose>
                     </xsl:otherwise>
@@ -1019,7 +1079,8 @@
                 select="ead:ead/ead:archdesc/ead:did/ead:origination/child::node()[1]"/>
             <xsl:for-each select="$vFirstNode">
                 <xsl:if test="following-sibling::node()">
-                    <xsl:for-each select="following-sibling::node()">
+                    <xsl:for-each
+                        select="following-sibling::node()[not(@encodinganalog='100_0') and not(@encodinganalog='100_1')]">
                         <xsl:variable name="vEntType" select="local-name(.)"/>
                         <xsl:variable name="vCpfRel" select="@normal"/>
                         <xsl:if test="$vEntType='persname'">
@@ -1353,17 +1414,43 @@
             <xsl:when test="ead:ead/ead:archdesc/ead:did/ead:note[@type='from']/ead:p!=''">
                 <existDates xmlns="urn:isbn:1-931666-33-4">
                     <dateRange>
-                        <fromDate>
-                            <xsl:value-of
-                                select="normalize-space(ead:ead/ead:archdesc/ead:did/ead:note[@type='from']/ead:p)"
-                            />
-                        </fromDate>
+                        <xsl:choose>
+                            <xsl:when
+                                test="ead:ead/ead:archdesc/ead:did/ead:note[@type='standardFrom']/ead:p!=''">
+                                <fromDate
+                                    standardDate="{normalize-space(ead:ead/ead:archdesc/ead:did/ead:note[@type='standardFrom']/ead:p)}">
+                                    <xsl:value-of
+                                        select="normalize-space(ead:ead/ead:archdesc/ead:did/ead:note[@type='from']/ead:p)"
+                                    />
+                                </fromDate>
+                            </xsl:when>
+                            <xsl:otherwise>
+                                <fromDate>
+                                    <xsl:value-of
+                                        select="normalize-space(ead:ead/ead:archdesc/ead:did/ead:note[@type='from']/ead:p)"
+                                    />
+                                </fromDate>
+                            </xsl:otherwise>
+                        </xsl:choose>
                         <xsl:if test="ead:ead/ead:archdesc/ead:did/ead:note[@type='to']/ead:p!=''">
-                            <toDate>
-                                <xsl:value-of
-                                    select="normalize-space(ead:ead/ead:archdesc/ead:did/ead:note[@type='to']/ead:p)"
-                                />
-                            </toDate>
+                            <xsl:choose>
+                                <xsl:when
+                                    test="ead:ead/ead:archdesc/ead:did/ead:note[@type='standardTo']/ead:p!=''">
+                                    <toDate
+                                        standardDate="{normalize-space(ead:ead/ead:archdesc/ead:did/ead:note[@type='standardTo']/ead:p)}">
+                                        <xsl:value-of
+                                            select="normalize-space(ead:ead/ead:archdesc/ead:did/ead:note[@type='to']/ead:p)"
+                                        />
+                                    </toDate>
+                                </xsl:when>
+                                <xsl:otherwise>
+                                    <toDate>
+                                        <xsl:value-of
+                                            select="normalize-space(ead:ead/ead:archdesc/ead:did/ead:note[@type='to']/ead:p)"
+                                        />
+                                    </toDate>
+                                </xsl:otherwise>
+                            </xsl:choose>
                         </xsl:if>
                     </dateRange>
                 </existDates>
@@ -1372,18 +1459,24 @@
                 <xsl:if test="ead:ead/ead:archdesc/ead:did/ead:note[@type='to']/ead:p!=''">
                     <existDates xmlns="urn:isbn:1-931666-33-4">
                         <dateRange>
-                            <fromDate>
-                                <xsl:value-of
-                                    select="normalize-space(ead:ead/ead:archdesc/ead:did/ead:note[@type='from']/ead:p)"
-                                />
-                            </fromDate>
-                            <xsl:if test="../following-sibling::ead:note[@type='to']/ead:p!=''">
-                                <toDate>
-                                    <xsl:value-of
-                                        select="normalize-space(ead:ead/ead:archdesc/ead:did/ead:note[@type='to']/ead:p)"
-                                    />
-                                </toDate>
-                            </xsl:if>
+                            <xsl:choose>
+                                <xsl:when
+                                    test="ead:ead/ead:archdesc/ead:did/ead:note[@type='standardTo']/ead:p!=''">
+                                    <toDate
+                                        standardDate="{normalize-space(ead:ead/ead:archdesc/ead:did/ead:note[@type='standardTo']/ead:p)}">
+                                        <xsl:value-of
+                                            select="normalize-space(ead:ead/ead:archdesc/ead:did/ead:note[@type='to']/ead:p)"
+                                        />
+                                    </toDate>
+                                </xsl:when>
+                                <xsl:otherwise>
+                                    <toDate>
+                                        <xsl:value-of
+                                            select="normalize-space(ead:ead/ead:archdesc/ead:did/ead:note[@type='to']/ead:p)"
+                                        />
+                                    </toDate>
+                                </xsl:otherwise>
+                            </xsl:choose>
                         </dateRange>
                     </existDates>
                 </xsl:if>
@@ -1485,26 +1578,80 @@
                     <term>
                         <xsl:value-of select="normalize-space(.)"/>
                     </term>
-                    <xsl:if test="../following-sibling::ead:note[@type='occuDateFrom']/ead:p!=''">
-                        <dateRange>
-                            <xsl:if
-                                test="../following-sibling::ead:note[@type='occuDateFrom'][@label=$vOccuLabel]">
-                                <fromDate>
-                                    <xsl:value-of
-                                        select="normalize-space(../following-sibling::ead:note[@type='occuDateFrom'][@label=$vOccuLabel]/ead:p)"
-                                    />
-                                </fromDate>
-                            </xsl:if>
+                    <xsl:choose>
+                        <xsl:when
+                            test="../following-sibling::ead:note[@type='occuDateFrom']/ead:p!=''">
+                            <dateRange>
+                                <xsl:if
+                                    test="../following-sibling::ead:note[@type='occuDateFrom'][@label=$vOccuLabel]">
+                                    <xsl:choose>
+                                        <xsl:when
+                                            test="../following-sibling::ead:note[@type='occuStandardFrom'][@label=$vOccuLabel]/ead:p!=''">
+                                            <fromDate
+                                                standardDate="{normalize-space(../following-sibling::ead:note[@type='occuStandardFrom'][@label=$vOccuLabel]/ead:p)}">
+                                                <xsl:value-of
+                                                  select="normalize-space(../following-sibling::ead:note[@type='occuDateFrom'][@label=$vOccuLabel]/ead:p)"
+                                                />
+                                            </fromDate>
+                                        </xsl:when>
+                                        <xsl:otherwise>
+                                            <fromDate>
+                                                <xsl:value-of
+                                                  select="normalize-space(../following-sibling::ead:note[@type='occuDateFrom'][@label=$vOccuLabel]/ead:p)"
+                                                />
+                                            </fromDate>
+                                        </xsl:otherwise>
+                                    </xsl:choose>
+                                </xsl:if>
+                                <xsl:if
+                                    test="../following-sibling::ead:note[@type='occuDateTo'][@label=$vOccuLabel]">
+                                    <xsl:choose>
+                                        <xsl:when
+                                            test="../following-sibling::ead:note[@type='occuStandardTo'][@label=$vOccuLabel]/ead:p!=''">
+                                            <toDate
+                                                standardDate="{normalize-space(../following-sibling::ead:note[@type='occuStandardTo'][@label=$vOccuLabel]/ead:p)}">
+                                                <xsl:value-of
+                                                  select="normalize-space(../following-sibling::ead:note[@type='occuDateTo'][@label=$vOccuLabel]/ead:p)"
+                                                />
+                                            </toDate>
+                                        </xsl:when>
+                                        <xsl:otherwise>
+                                            <toDate>
+                                                <xsl:value-of
+                                                  select="normalize-space(../following-sibling::ead:note[@type='occuDateTo'][@label=$vOccuLabel]/ead:p)"
+                                                />
+                                            </toDate>
+                                        </xsl:otherwise>
+                                    </xsl:choose>
+                                </xsl:if>
+                            </dateRange>
+                        </xsl:when>
+                        <xsl:otherwise>
                             <xsl:if
                                 test="../following-sibling::ead:note[@type='occuDateTo'][@label=$vOccuLabel]">
-                                <toDate>
-                                    <xsl:value-of
-                                        select="normalize-space(../following-sibling::ead:note[@type='occuDateTo'][@label=$vOccuLabel]/ead:p)"
-                                    />
-                                </toDate>
+                                <dateRange>
+                                    <xsl:choose>
+                                        <xsl:when
+                                            test="../following-sibling::ead:note[@type='occuStandardTo'][@label=$vOccuLabel]/ead:p!=''">
+                                            <toDate
+                                                standardDate="{normalize-space(../following-sibling::ead:note[@type='occuStandardTo'][@label=$vOccuLabel]/ead:p)}">
+                                                <xsl:value-of
+                                                  select="normalize-space(../following-sibling::ead:note[@type='occuDateTo'][@label=$vOccuLabel]/ead:p)"
+                                                />
+                                            </toDate>
+                                        </xsl:when>
+                                        <xsl:otherwise>
+                                            <toDate>
+                                                <xsl:value-of
+                                                  select="normalize-space(../following-sibling::ead:note[@type='occuDateTo'][@label=$vOccuLabel]/ead:p)"
+                                                />
+                                            </toDate>
+                                        </xsl:otherwise>
+                                    </xsl:choose>
+                                </dateRange>
                             </xsl:if>
-                        </dateRange>
-                    </xsl:if>
+                        </xsl:otherwise>
+                    </xsl:choose>
                 </occupation>
             </xsl:for-each>
         </xsl:if>
@@ -1527,27 +1674,80 @@
                                 />
                             </xsl:if>
                         </placeEntry>
-                        <xsl:if
-                            test="../following-sibling::ead:note[@type='placeDateFrom']/ead:p!=''">
-                            <dateRange>
+                        <xsl:choose>
+                            <xsl:when
+                                test="../following-sibling::ead:note[@type='placeDateFrom']/ead:p!=''">
+                                <dateRange>
+                                    <xsl:if
+                                        test="../following-sibling::ead:note[@type='placeDateFrom'][@label=$vPlaceRoleLabel]">
+                                        <xsl:choose>
+                                            <xsl:when
+                                                test="../following-sibling::ead:note[@type='placeStandardFrom'][@label=$vPlaceRoleLabel]/ead:p!=''">
+                                                <fromDate
+                                                  standardDate="{normalize-space(../following-sibling::ead:note[@type='placeStandardFrom'][@label=$vPlaceRoleLabel]/ead:p)}">
+                                                  <xsl:value-of
+                                                  select="normalize-space(../following-sibling::ead:note[@type='placeDateFrom'][@label=$vPlaceRoleLabel]/ead:p)"
+                                                  />
+                                                </fromDate>
+                                            </xsl:when>
+                                            <xsl:otherwise>
+                                                <fromDate>
+                                                  <xsl:value-of
+                                                  select="normalize-space(../following-sibling::ead:note[@type='placeDateFrom'][@label=$vPlaceRoleLabel]/ead:p)"
+                                                  />
+                                                </fromDate>
+                                            </xsl:otherwise>
+                                        </xsl:choose>
+                                    </xsl:if>
+                                    <xsl:if
+                                        test="../following-sibling::ead:note[@type='placeDateTo'][@label=$vPlaceRoleLabel]/ead:p!=''">
+                                        <xsl:choose>
+                                            <xsl:when
+                                                test="../following-sibling::ead:note[@type='placeStandardTo'][@label=$vPlaceRoleLabel]/ead:p!=''">
+                                                <toDate
+                                                  standardDate="{normalize-space(../following-sibling::ead:note[@type='placeStandardTo'][@label=$vPlaceRoleLabel]/ead:p)}">
+                                                  <xsl:value-of
+                                                  select="normalize-space(../following-sibling::ead:note[@type='placeDateTo'][@label=$vPlaceRoleLabel]/ead:p)"
+                                                  />
+                                                </toDate>
+                                            </xsl:when>
+                                            <xsl:otherwise>
+                                                <toDate>
+                                                  <xsl:value-of
+                                                  select="normalize-space(../following-sibling::ead:note[@type='placeDateTo'][@label=$vPlaceRoleLabel]/ead:p)"
+                                                  />
+                                                </toDate>
+                                            </xsl:otherwise>
+                                        </xsl:choose>
+                                    </xsl:if>
+                                </dateRange>
+                            </xsl:when>
+                            <xsl:otherwise>
                                 <xsl:if
-                                    test="../following-sibling::ead:note[@type='placeDateFrom'][@label=$vPlaceRoleLabel]">
-                                    <fromDate>
-                                        <xsl:value-of
-                                            select="normalize-space(../following-sibling::ead:note[@type='placeDateFrom'][@label=$vPlaceRoleLabel]/ead:p)"
-                                        />
-                                    </fromDate>
+                                    test="../following-sibling::ead:note[@type='placeDateTo'][@label=$vPlaceRoleLabel]/ead:p!=''">
+                                    <dateRange>
+                                        <xsl:choose>
+                                            <xsl:when
+                                                test="../following-sibling::ead:note[@type='placeStandardTo'][@label=$vPlaceRoleLabel]/ead:p!=''">
+                                                <toDate
+                                                  standardDate="{normalize-space(../following-sibling::ead:note[@type='placeStandardTo'][@label=$vPlaceRoleLabel]/ead:p)}">
+                                                  <xsl:value-of
+                                                  select="normalize-space(../following-sibling::ead:note[@type='placeDateTo'][@label=$vPlaceRoleLabel]/ead:p)"
+                                                  />
+                                                </toDate>
+                                            </xsl:when>
+                                            <xsl:otherwise>
+                                                <toDate>
+                                                  <xsl:value-of
+                                                  select="normalize-space(../following-sibling::ead:note[@type='placeDateTo'][@label=$vPlaceRoleLabel]/ead:p)"
+                                                  />
+                                                </toDate>
+                                            </xsl:otherwise>
+                                        </xsl:choose>
+                                    </dateRange>
                                 </xsl:if>
-                                <xsl:if
-                                    test="../following-sibling::ead:note[@type='placeDateTo'][@label=$vPlaceRoleLabel]">
-                                    <toDate>
-                                        <xsl:value-of
-                                            select="normalize-space(../following-sibling::ead:note[@type='placeDateTo'][@label=$vPlaceRoleLabel]/ead:p)"
-                                        />
-                                    </toDate>
-                                </xsl:if>
-                            </dateRange>
-                        </xsl:if>
+                            </xsl:otherwise>
+                        </xsl:choose>
                     </xsl:if>
                 </place>
             </xsl:for-each>

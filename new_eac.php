@@ -18,7 +18,9 @@ jQuery(document).ready(function()
   $('select').val(''); 
   $('textarea').val('');
   $('.scriptNames').val('Latin');
-  $('.scriptCodes').val('Latn');      
+  $('.scriptCodes').val('Latn');       
+  
+  $("#addPersNameButtons").children("input").remove();
   
   $('.content').hide();     
         
@@ -66,8 +68,13 @@ jQuery(document).ready(function()
   <tr>
   <td>
   <table class="new_eac_inner">
+  <tr id="nameTable">
+    <td id="addPersNameButtons">
+      
+    </td>
+  </tr>
   <tr>
-    <td>    
+    <td id="nameField">    
     <script>               
     
     $( ".entity_type" ).change(function() {                                                        
@@ -83,8 +90,14 @@ jQuery(document).ready(function()
         if ( str == 'Person' ) 
         {                    
             
-            $( "#persName" ).text( "Name of person (Last Name, First Name)" );   
+            $( "#entName" ).text( "Name of person" );   
             
+            $(".eac_name").remove();                        
+            
+            $("#addPersNameButtons").html("<input type=\"button\" name=\"addNameParts\" value=\"Name Parts\" class=\"add_empty_element add_empty_name_parts pure-button pure-button-secondary\" style=\"border:none;\"/><input type=\"button\" name=\"addNameNoParts\" value=\"Single Field\" class=\"add_empty_element add_empty_name_no_parts pure-button pure-button-secondary\" style=\"border:none;\"/>");                        
+            
+            $("#nameField").children("#entName").after("<span class=\"chooseNameInput\" style=\"font-style:italic\">Click above to choose an input type.</span>");
+                                    
             $( "#genderLabel").show();                                                                                           
             
             $( "#new_eac_inner_class").addClass("new_eac_inner");            
@@ -100,13 +113,34 @@ jQuery(document).ready(function()
                 $(".new_element:last").remove();
               });
             });
-          $("input.add_empty_gender").on('click', function () {
-            var tr = "<tr class=\"new_element multilvl\"><td><table style=\"width:100%;\"><tr><td style=\"width:100%;\"><select class=\"genders\"><option></option><option>female</option><option>male</option><option>other</option></select></td></tr><tr><td><label>Associated dates (if applicable)</label><label style=\"display:inline;\">From </label><input class=\"genderDatesFrom\" type=\"text\" data-validate=\"regex(^[0-9]{4}$,Are you sure your date is formatted correctly?)\"/><label style=\"display:inline;\"> To </label><input class=\"genderDatesTo\" type=\"text\" data-validate=\"regex(^[0-9]{4}$,Are you sure your date is formatted correctly?)\"/></td></tr></table></td></tr>";
-            $(this).closest("tr").siblings(".insert_before").before(tr);
+            $("input.add_empty_gender").on('click', function () {
+              var tr = "<tr class=\"new_element multilvl\"><td><table style=\"width:100%;\"><tr><td style=\"width:100%;\"><select class=\"genders\"><option></option><option>female</option><option>male</option><option>other</option></select></td></tr><tr><td><label>Associated dates (if applicable)</label><label style=\"display:inline;\">From </label><input class=\"genderDatesFrom\" type=\"text\" data-validate=\"regex(^[0-9]{4}$,Are you sure your date is formatted correctly?)\"/><label style=\"display:inline;\"> To </label><input class=\"genderDatesTo\" type=\"text\" data-validate=\"regex(^[0-9]{4}$,Are you sure your date is formatted correctly?)\"/></td></tr></table></td></tr>";
+              $(this).closest("tr").siblings(".insert_before").before(tr);            
+            });                     
             
-          });
-          
-          $(".labelHeader").off("click");
+            $("#nameField").children(".namePartLabel").remove();
+            $("#nameField").children(".nameNoPartLabel").remove();
+            $(".eac_name_authorized").remove();
+                                              
+            $( "input.add_empty_name_no_parts" ).on('click', function () {
+              $("#entName").text('');
+              $(".chooseNameInput").remove();
+              $("#nameField").children(".namePartLabel").remove();
+              $("#nameField").children(".nameNoPartLabel").remove();                                
+              $("#nameField").children("input").remove();                                                  
+              $("#nameField").children("#entName").after("<label class=\"nameNoPartLabel\"> Name of person </label><input class=\"eac_name eac_name_no_parts\" type=\"text\" size=\"75\" data-validate=\"required\"/> <label class=\"nameNoPartLabel\"> Form of name authorized by <span style=\"font-style:italic\">(for example: \"lcnaf\" or \"local\") </span></label><input class=\"eac_name_authorized\" type=\"text\" size=\"25\"/>");                                        
+            });                                                                    
+            
+            $( "input.add_empty_name_parts" ).on('click', function () {         
+              $("#entName").text('');
+              $(".chooseNameInput").remove();
+              $("#nameField").children(".nameNoPartLabel").remove();                   
+              $("#nameField").children(".namePartLabel").remove();                      
+              $("#nameField").children("input").remove();                                  
+              $("#nameField").children("#entName").after("<label class=\"namePartLabel\"> Name of person </label><label class=\"namePartLabel\"> Surname </label><input class=\"eac_name eac_name_part_1\" type=\"text\" size=\"75\" data-validate=\"required\"/><label class=\"namePartLabel\"> Forename </label><input class=\"eac_name eac_name_part_2\" type=\"text\" size=\"75\" data-validate=\"required\"/><label class=\"namePartLabel\"> Form of name authorized by <span style=\"font-style:italic\">(for example: \"lcnaf\" or \"local\") </span></label><input class=\"eac_name_authorized\" type=\"text\" size=\"25\"/>");                             
+            });           
+
+            $(".labelHeader").off("click");
           
           // Toggle the sections with content class.                                                 	             
             
@@ -120,13 +154,26 @@ jQuery(document).ready(function()
             } else {
                 $(this).children("td").children("button").addClass('on').fadeTo("slow", 1.0);
             }  		
-          });
-                              
+          });                             
         }
         else if ( str == 'Corporate Body' )
         {            
             
-            $( "#persName" ).text( "Name of corporate body" );                                              
+            $("#entName").text('');
+            $("#chooseNameInput").remove();
+                        
+            $( "#entName" ).text( "Name of corporate body" ); 
+            
+            $(".eac_name").remove();                        
+                        
+            $("#nameField").children(".namePartLabel").remove();
+            $("#nameField").children(".nameNoPartLabel").remove();
+            $("#nameField").children("input").remove();
+            $(".eac_name_authorized").remove();
+            
+            $("#addPersNameButtons").children("input").remove();
+            
+            $("#nameField").children("#entName").after("<input class=\"eac_name eac_corp_name\" type=\"text\" size=\"75\" data-validate=\"required\"/><label class=\"nameNoPartLabel\"> Form of name authorized by <span style=\"font-style:italic\">(for example: \"lcnaf\" or \"local\") </span></label><input class=\"eac_name_authorized\" type=\"text\" size=\"25\"/>");                                             
             
             $( "#genderLabel").hide();
             
@@ -146,13 +193,26 @@ jQuery(document).ready(function()
               } else {
                   $(this).children("td").children("button").addClass('on').fadeTo("slow", 1.0);
               }  		
-            });           
-                            
+            });                                       
         }        
         else if ( str == 'Family' )
         {                       
         
-            $( "#persName" ).text( "Name of family" );                                              
+            $("#entName").text('');
+            $("#chooseNameInput").remove();
+            
+            $( "#entName" ).text( "Name of family" );   
+            
+            $(".eac_name").remove();                        
+                        
+            $("#nameField").children(".namePartLabel").remove();
+            $("#nameField").children(".nameNoPartLabel").remove();
+            $("#nameField").children("input").remove();
+            $(".eac_name_authorized").remove();
+            
+            $("#addPersNameButtons").children("input").remove();
+            
+            $("#nameField").children("#entName").after("<input class=\"eac_name eac_fam_name\" type=\"text\" size=\"75\" data-validate=\"required\"/><label class=\"nameNoPartLabel\"> Form of name authorized by <span style=\"font-style:italic\">(for example: \"lcnaf\" or \"local\") </span></label><input class=\"eac_name_authorized\" type=\"text\" size=\"25\"/>");                                           
             
             $( "#genderLabel").hide();
             
@@ -179,17 +239,23 @@ jQuery(document).ready(function()
         }).trigger( "change" );   
         
     </script>
-      <label id="persName">Name</label>
-      <input class="eac_name" type="text" size="50" data-validate="required"/>
+      <label id="entName">Name <span class="chooseNameInput" style="display:block;margin-top:1%;font-weight:500;font-style:italic">Please choose an entity type.</span></label>
+      
+            
     </td>
   <tr>
   <tr>
     <td>
-    <label>Dates of existence</label>
-      <label style="display:inline;">From</label>
-      <input class="from" type="text" data-validate="regex(^[0-9]{4}$,Are you sure your date is formatted correctly?)"/>
-      <label style="display:inline;">To</label>
-      <input class="to" type="text" data-validate="regex(^[0-9]{4}$,Are you sure your date is formatted correctly?)"/>
+      <label>Dates of existence</label>
+      <label>From</label>
+      <input class="from" type="text" size="50"/>
+      <label> Standard date <span style="font-style:italic">(ISO 8601)</span></label>
+      <input class="standardFrom" type="text" size="15"/>
+      <br/>
+      <label>To</label>
+      <input class="to" type="text" size="50"/>
+      <label> Standard date <span style="font-style:italic">(ISO 8601)</span></label>
+      <input class="standardTo" type="text" size="15"/>
     </td>
   </tr>
   </table>
@@ -378,11 +444,15 @@ jQuery(document).ready(function()
   </tr>
   <tr>
     <td>
-    <label>Associated dates</label>
-      <label style="display:inline;">From</label>
-      <input class="occuDatesFrom" type="text" data-validate="regex(^[0-9]{4}$,Are you sure your date is formatted correctly?)"/>
-      <label style="display:inline;">To</label>
-      <input class="occuDatesTo" type="text" data-validate="regex(^[0-9]{4}$,Are you sure your date is formatted correctly?)"/>
+      <label>Associated dates</label>
+      <label>From</label>
+      <input class="occuDatesFrom" type="text" size="50"/>
+      <label> Standard date <span style="font-style:italic">(ISO 8601)</span></label>
+      <input class="occuStandardFrom" type="text" size="15"/>      
+      <label>To</label>
+      <input class="occuDatesTo" type="text" size="50"/>
+      <label> Standard date <span style="font-style:italic">(ISO 8601)</span></label>
+      <input class="occuStandardTo" type="text" size="15"/>            
     </td>
   </tr>
   </table>
@@ -402,7 +472,7 @@ jQuery(document).ready(function()
       });
     });
     $("input.add_empty_occu").on('click', function () {
-      var tr = "<tr class=\"new_element multilvl\"><td><table><tr><td><label>Occupation or activity</label><input type=\"text\" size=\"75\" class=\"occupations\"/></td></tr><tr><td><label>Associated dates</label><label style=\"display:inline;\">From </label><input class=\"occuDatesFrom\" type=\"text\" data-validate=\"regex(^[0-9]{4}$,Are you sure your date is formatted correctly?)\"/><label style=\"display:inline;\"> To </label><input class=\"occuDatesTo\" type=\"text\" data-validate=\"regex(^[0-9]{4}$,Are you sure your date is formatted correctly?)\"/></td></tr></table></td></tr>";
+      var tr = "<tr class=\"new_element multilvl\"><td><table><tr><td><label>Occupation or activity</label><input type=\"text\" size=\"75\" class=\"occupations\"/></td></tr><tr><td><label>Associated dates</label><label>From </label><input class=\"occuDatesFrom\" type=\"text\" size=\"50\"/><label> Standard date <span style=\"font-style:italic\">(ISO 8601) </span></label><input class=\"occuStandardFrom\" type=\"text\" size=\"15\"/><br/><label>To </label><input class=\"occuDatesTo\" type=\"text\" size=\"50\"/><label> Standard date <span style=\"font-style:italic\">(ISO 8601) </span></label><input class=\"occuStandardTo\" type=\"text\" size=\"15\"/></td></tr></table></td></tr>";
       $(this).closest("tr").siblings(".insert_before").before(tr);
     });
   </script>
@@ -436,11 +506,16 @@ jQuery(document).ready(function()
   </tr>
   <tr>
     <td>
-    <label>Associated dates</label>
-      <label style="display:inline;">From</label>
-      <input class="placeDatesFrom" type="text" data-validate="regex(^[0-9]{4}$,Are you sure your date is formatted correctly?)"/>
-      <label style="display:inline;">To</label>
-      <input class="placeDatesTo" type="text" data-validate="regex(^[0-9]{4}$,Are you sure your date is formatted correctly?)"/>
+      <label>Associated dates</label>
+      <label>From </label>
+      <input class="placeDatesFrom" type="text" size="50"/>
+      <label> Standard date <span style="font-style:italic">(ISO 8601) </span></label>
+      <input class="placeStandardFrom" type="text" size="15"/>
+      <br/>
+      <label>To </label>
+      <input class="placeDatesTo" type="text" size="50"/>
+      <label> Standard date <span style="font-style:italic">(ISO 8601) </span></label>
+      <input class="placeStandardTo" type="text" size="15"/>               
     </td>
   </tr>
   </table>
@@ -460,7 +535,7 @@ jQuery(document).ready(function()
       });
     });
     $("input.add_empty_place").on('click', function () {
-      var tr = "<tr class=\"new_element multilvl\"><td><table><tr><td><label>Place</label><input type=\"text\" size=\"75\" class=\"placeEntries\"/><label>Place role</label><input type=\"text\" size=\"75\" class=\"placeRoles\"/></td></tr><tr><td><label>Associated dates</label><label style=\"display:inline;\">From </label><input class=\"placeDatesFrom\" type=\"text\" data-validate=\"regex(^[0-9]{4}$,Are you sure your date is formatted correctly?)\"/><label style=\"display:inline;\"> To </label><input class=\"placeDatesTo\" type=\"text\" data-validate=\"regex(^[0-9]{4}$,Are you sure your date is formatted correctly?)\"/></td></tr></table></td></tr>";
+      var tr = "<tr class=\"new_element multilvl\"><td><table><tr><td><label>Place</label><input type=\"text\" size=\"75\" class=\"placeEntries\"/><label>Place role</label><input type=\"text\" size=\"75\" class=\"placeRoles\"/></td></tr><tr><td><label>Associated dates</label><label>From </label><input class=\"placeDatesFrom\" type=\"text\" size=\"50\"/><label> Standard date <span style=\"font-style:italic\">(ISO 8601) </span></label><input class=\"placeStandardFrom\" type=\"text\" size=\"15\"/><br/><label>To </label><input class=\"placeDatesTo\" type=\"text\" size=\"50\"/><label> Standard date <span style=\"font-style:italic\">(ISO 8601) </span></label><input class=\"placeStandardTo\" type=\"text\" size=\"15\"/></td></tr></table></td></tr>";
       $(this).closest("tr").siblings(".insert_before").before(tr);
     });
   </script>
@@ -741,7 +816,7 @@ jQuery(document).ready(function()
         }
     });
 
-  var lobjFormElements = [];
+  var lobjFormElements = [];    
   lobjFormElements['genders'] = [];
   lobjFormElements['genderDatesFrom'] = [];
   lobjFormElements['genderDatesTo'] = [];
@@ -753,11 +828,15 @@ jQuery(document).ready(function()
   lobjFormElements['genres'] = [];
   lobjFormElements['occupations'] = [];
   lobjFormElements['occuDatesFrom'] = [];
+  lobjFormElements['occuStandardFrom'] = [];
   lobjFormElements['occuDatesTo'] = [];
+  lobjFormElements['occuStandardTo'] = [];
   lobjFormElements['placeEntries'] = [];
   lobjFormElements['placeRoles'] = [];
   lobjFormElements['placeDatesFrom'] = [];
+  lobjFormElements['placeStandardFrom'] = [];
   lobjFormElements['placeDatesTo'] = [];
+  lobjFormElements['placeStandardTo'] = [];
   lobjFormElements['citations'] = [];
   lobjFormElements['cpfTypes'] = [];
   lobjFormElements['cpfRoles'] = [];
@@ -775,7 +854,7 @@ jQuery(document).ready(function()
 
 
   $('#submit_new').click(function() {
-      $('#results').html('');
+      $('#results').html('');                  
 
       $('.genders').each(function () {
           lobjFormElements['genders'].push($(this).val());
@@ -820,9 +899,17 @@ jQuery(document).ready(function()
       $('.occuDatesFrom').each(function () {
           lobjFormElements['occuDatesFrom'].push($(this).val());
       });
+      
+      $('.occuStandardFrom').each(function () {
+          lobjFormElements['occuStandardFrom'].push($(this).val());
+      });
 
       $('.occuDatesTo').each(function () {
           lobjFormElements['occuDatesTo'].push($(this).val());
+      });
+      
+      $('.occuStandardTo').each(function () {
+          lobjFormElements['occuStandardTo'].push($(this).val());
       });
 
       $('.placeEntries').each(function () {
@@ -836,9 +923,17 @@ jQuery(document).ready(function()
       $('.placeDatesFrom').each(function () {
           lobjFormElements['placeDatesFrom'].push($(this).val());
       });
+      
+      $('.placeStandardFrom').each(function () {
+          lobjFormElements['placeStandardFrom'].push($(this).val());
+      });
 
       $('.placeDatesTo').each(function () {
           lobjFormElements['placeDatesTo'].push($(this).val());
+      });
+      
+      $('.placeStandardTo').each(function () {
+          lobjFormElements['placeStandardTo'].push($(this).val());
       });
 
       $('.citations').each(function () {
@@ -899,10 +994,17 @@ jQuery(document).ready(function()
 
       $.post("save_new.php", {
         type: $('.entity_type').val(),
-	    entity: $('.entity_type').val(),
-	    name: $('.eac_name').val(),
+	    entity: $('.entity_type').val(),	    
+	    surname: $('.eac_name_part_1').val(),
+	    forename: $('.eac_name_part_2').val(),
+        noPartsName: $('.eac_name_no_parts').val(),
+        corpName: $('.eac_corp_name').val(),
+        famName: $('.eac_fam_name').val(),
+        nameAuth: $('.eac_name_authorized').val(),
 	    from: $('.from').val(),
+	    standardFrom: $('.standardFrom').val(),
 	    to: $('.to').val(),
+	    standardTo: $('.standardTo').val(),
 	    genders: lobjFormElements['genders'],
 	    genderDatesFrom: lobjFormElements['genderDatesFrom'],
 	    genderDatesTo: lobjFormElements['genderDatesTo'],
@@ -914,11 +1016,15 @@ jQuery(document).ready(function()
 	    genres: lobjFormElements['genres'],
 	    occupations: lobjFormElements['occupations'],
 	    occuDatesFrom: lobjFormElements['occuDatesFrom'],
+	    occuStandardFrom: lobjFormElements['occuStandardFrom'],
 	    occuDatesTo: lobjFormElements['occuDatesTo'],
+	    occuStandardTo: lobjFormElements['occuStandardTo'],
 	    placeEntries: lobjFormElements['placeEntries'],
 	    placeRoles: lobjFormElements['placeRoles'],
 	    placeDatesFrom: lobjFormElements['placeDatesFrom'],
+	    placeStandardFrom: lobjFormElements['placeStandardFrom'],
 	    placeDatesTo: lobjFormElements['placeDatesTo'],
+	    placeStandardTo: lobjFormElements['placeStandardTo'],
 	    abstract: $('.abstract').val(),
 	    bioghist: $('.bioghist').val(),
 	    citations: lobjFormElements['citations'],
@@ -937,8 +1043,7 @@ jQuery(document).ready(function()
 	    sources: lobjFormElements['sources'],
       	dir : <?php echo  '"' . addslashes($ead_path) . '"'; ?>
 
-	    }, function (data) {
-          
+	    }, function (data) {          
 	      $savedialog.html(data).dialog('open');	      
 
         if( data != 'A record with this name already exists.' && data != 'Record not saved. File name is empty.' && data != 'Record not saved. File name is empty. You must also choose an entity type.' && data != 'Record not saved. Must choose an entity type.' )

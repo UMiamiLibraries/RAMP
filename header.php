@@ -67,13 +67,9 @@ if ($mysqli->connect_errno) {
   echo "Failed to connect to MySQL: (" . $mysqli->connect_errno . ") " . $mysqli->connect_error;
 }
 
-
-
-$results = $mysqli->query ("SELECT ead_file, ExtractValue(eac_xml, '/descendant-or-self::part[1]') AS 'Name', substring_index(ead_file, '/', -1) AS 'SortHelp'
+$results = $mysqli->query ("SELECT ead_file, CONCAT(ExtractValue(eac_xml, '//nameEntry[1]/part[1]'),', ',ExtractValue(eac_xml, '//nameEntry[1]/part[2]')) AS 'Name', substring_index(ead_file, '/', -1) AS 'SortHelp'
 							FROM ead_eac.eac
 							ORDER BY CASE WHEN Name = '' THEN SortHelp ELSE Name END ASC");
-
-
 
 echo  "<select class='ead_files'>";
 
@@ -84,10 +80,11 @@ echo "<option value=''></option>";
 while ($row = $results->fetch_assoc()) {
   $name = $row["Name"];
   $file_name = $row["ead_file"];
+  
   $file_name_display = htmlentities(basename($file_name));
   if($row["Name"]) {
 
-    print "<option value='$file_name'>$name</option>";
+    print "<option value='$file_name'>" . rtrim($name,', ') ."</option>";
 
   } else {
 
@@ -96,8 +93,6 @@ while ($row = $results->fetch_assoc()) {
   }
 
 }
-
-
 
 //	foreach ($files as $file) {
 

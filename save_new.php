@@ -41,11 +41,15 @@ $countSubjects = sizeof($cleanedArray['subjects']);
 $countGenres = sizeof($cleanedArray['genres']);
 $countOccupations = sizeof($cleanedArray['occupations']);
 $countOccuDatesFrom = sizeof($cleanedArray['occuDatesFrom']);
+$countOccuStandardFrom = sizeof($cleanedArray['occuStandardFrom']);
 $countOccuDatesTo = sizeof($cleanedArray['occuDatesTo']);
+$countOccuStandardTo = sizeof($cleanedArray['occuStandardTo']);
 $countPlaceEntries = sizeof($cleanedArray['placeEntries']);
 $countPlaceRoles = sizeof($cleanedArray['placeRoles']);
 $countPlaceDatesFrom = sizeof($cleanedArray['placeDatesFrom']);
+$countPlaceStandardFrom = sizeof($cleanedArray['placeStandardFrom']);
 $countPlaceDatesTo = sizeof($cleanedArray['placeDatesTo']);
+$countPlaceStandardTo = sizeof($cleanedArray['placeStandardTo']);
 $countCitations = sizeof($cleanedArray['citations']);
 $countCpfTypes = sizeof($cleanedArray['cpfTypes']);
 $countCpfRoles = sizeof($cleanedArray['cpfRoles']);
@@ -61,8 +65,50 @@ $countResourceURIs = sizeof($cleanedArray['resourceURIs']);
 $countResourceNotes = sizeof($cleanedArray['resourceNotes']);
 $countSources = sizeof($cleanedArray['sources']);
 
+// Create name variables;
+$surname = $cleanedArray["surname"];
+$forename =  $cleanedArray["forename"];
+$noPartName = $cleanedArray["noPartsName"];
+$corpName = $cleanedArray["corpName"];
+$famName = $cleanedArray["famName"];
+
 //make file name valid utf8
-$file_name = $cleanedArray["name"];
+if ($surname != '') {    
+               
+    $file_name = $surname;
+    
+    if ($forename != '') {                
+     
+        $file_name .= ' ';
+        $file_name .= $cleanedArray["forename"];
+          
+    }
+           
+}
+elseif ($forename != '') {    
+               
+    $file_name = $forename;        
+           
+}  
+
+elseif ($noPartName != '') {
+    
+    $file_name = $cleanedArray["noPartsName"];
+
+}
+
+elseif ($corpName != '') {
+    
+    $file_name = $cleanedArray["corpName"];
+
+}
+
+elseif ($famName != '') {
+    
+    $file_name = $cleanedArray["famName"];
+
+}
+
 $file_name_lower = strtolower(str_replace(' ', '_', $file_name));
 $file_name_lower = preg_replace('/[^a-zA-Z0-9-_]/', '', $file_name_lower);
 $file_name_lower = iconv('utf-8', "us-ascii//TRANSLIT", $file_name_lower);
@@ -80,11 +126,15 @@ $subject = array();
 $genre = array();
 $occupation = array();
 $occuDateFrom = array();
+$occuStandardFrom = array();
 $occuDateTo = array();
+$occuStandardTo = array();
 $placeEntry = array();
 $placeRole = array();
-$placeDateTo = array();
 $placeDateFrom = array();
+$placeStandardFrom = array();
+$placeDateTo = array();
+$placeStandardTo = array();
 $citation = array();
 $cpfType = array();
 $cpfRole = array();
@@ -103,9 +153,11 @@ $source = array();
 // Assign variables to cleaned array.
 $type = $cleanedArray["type"];
 $entity = $cleanedArray["entity"];
-$entname = $cleanedArray["name"];
+$nameAuth = $cleanedArray["nameAuth"];
 $from = $cleanedArray["from"];
+$standardFrom = $cleanedArray["standardFrom"];
 $to = $cleanedArray["to"];
+$standardTo = $cleanedArray["standardTo"];
 $gender = $cleanedArray["genders"];
 $genderDateFrom = $cleanedArray["genderDatesFrom"];
 $genderDateTo = $cleanedArray["genderDatesTo"];
@@ -117,11 +169,15 @@ $subject = $cleanedArray["subjects"];
 $genre = $cleanedArray["genres"];
 $occupation = $cleanedArray["occupations"];
 $occuDateFrom = $cleanedArray["occuDatesFrom"];
+$occuStandardFrom = $cleanedArray["occuStandardFrom"];
 $occuDateTo = $cleanedArray["occuDatesTo"];
+$occuStandardTo = $cleanedArray["occuStandardTo"];
 $placeEntry = $cleanedArray["placeEntries"];
 $placeRole = $cleanedArray["placeRoles"];
 $placeDateFrom = $cleanedArray["placeDatesFrom"];
+$placeStandardFrom = $cleanedArray["placeStandardFrom"];
 $placeDateTo = $cleanedArray["placeDatesTo"];
+$placeStandardTo = $cleanedArray["placeStandardTo"];
 $abstract = $cleanedArray["abstract"];
 
 if ($cleanedArray["bioghist"] == '') {
@@ -237,12 +293,28 @@ for ($i = 0; $i < $countOccuDatesFrom; $i++) {
   $occuDateFromVal .= "</p></note>";
 }
 
+$occuStandardFromVal = '';
+
+for ($i = 0; $i < $countOccuStandardFrom; $i++) {
+  $occuStandardFromVal .= "<note type='occuStandardFrom' label='_" . $i . "'><p>";
+  $occuStandardFromVal .= $occuStandardFrom[$i];
+  $occuStandardFromVal .= "</p></note>";
+}
+
 $occuDateToVal = '';
 
 for ($i = 0; $i < $countOccuDatesTo; $i++) {
   $occuDateToVal .= "<note type='occuDateTo' label='_" . $i . "'><p>";
   $occuDateToVal .= $occuDateTo[$i];
   $occuDateToVal .= "</p></note>";
+}
+
+$occuStandardToVal = '';
+
+for ($i = 0; $i < $countOccuStandardTo; $i++) {
+  $occuStandardToVal .= "<note type='occuStandardTo' label='_" . $i . "'><p>";
+  $occuStandardToVal .= $occuStandardTo[$i];
+  $occuStandardToVal .= "</p></note>";
 }
 
 $placeEntryVal = '';
@@ -269,12 +341,28 @@ for ($i = 0; $i < $countPlaceDatesFrom; $i++) {
   $placeDateFromVal .= "</p></note>";
 }
 
+$placeStandardFromVal = '';
+
+for ($i = 0; $i < $countPlaceStandardFrom; $i++) {
+  $placeStandardFromVal .= "<note type='placeStandardFrom' label='_" . $i . "'><p>";
+  $placeStandardFromVal .= $placeStandardFrom[$i];
+  $placeStandardFromVal .= "</p></note>";
+}
+
 $placeDateToVal = '';
 
 for ($i = 0; $i < $countPlaceDatesTo; $i++) {
   $placeDateToVal .= "<note type='placeDateTo' label='_" . $i . "'><p>";
   $placeDateToVal .= $placeDateTo[$i];
   $placeDateToVal .= "</p></note>";
+}
+
+$placeStandardToVal = '';
+
+for ($i = 0; $i < $countPlaceStandardTo; $i++) {
+  $placeStandardToVal .= "<note type='placeStandardTo' label='_" . $i . "'><p>";
+  $placeStandardToVal .= $placeStandardTo[$i];
+  $placeStandardToVal .= "</p></note>";
 }
 
 $citationVal = '';
@@ -438,18 +526,25 @@ elseif( $cleanedArray["entity"] == "" ) {
 		            <archdesc audience="external" relatedencoding="MARC21" level="otherlevel">
 		               <did>
 		                     <origination label="Creator" encodinganalog="245$c">
-		                     <persname encodinganalog="100"  source="local">' . $entname .
-
-
-			'</persname>
-		                           </origination>
-		                           <note type="creation"><p>Record created in RAMP.</p></note>
-		                           
+		                         <persname encodinganalog="100">' . $noPartName . '</persname>
+		                         <persname encodinganalog="100_1">' . $surname . '</persname>
+		                         <persname encodinganalog="100_0">' . $forename . '</persname>
+		                     </origination>
+		                           <note type="creation"><p>Record created in RAMP.</p></note>		                           
+		                           <note type="nameAuth"><p>' .
+		                           $nameAuth .
+		                           '</p></note>
                                    <note type="from"><p>' .
 		                           $from .
 		                           '</p></note>' .
 		                           '<note type="to"><p>' .
 		                           $to .
+		                           '</p></note>
+		                           <note type="standardFrom"><p>' .
+		                           $standardFrom .
+		                           '</p></note>' .
+		                           '<note type="standardTo"><p>' .
+		                           $standardTo .
 		                           '</p></note>' .
 		                           $genderVal .
 		                           $genderDateFromVal .
@@ -462,11 +557,15 @@ elseif( $cleanedArray["entity"] == "" ) {
 		                           $genreVal .
 		                           $occupationVal .
 		                           $occuDateFromVal .
+		                           $occuStandardFromVal .
 		                           $occuDateToVal .
+		                           $occuStandardToVal .
 		                           $placeRoleVal .
 		                           $placeEntryVal .
 		                           $placeDateFromVal .
+		                           $placeStandardFromVal .
 		                           $placeDateToVal .
+		                           $placeStandardToVal .
 		                           $citationVal .		                           
 		                           $cpfVal .
 		                           $cpfTypeVal .
@@ -516,12 +615,24 @@ elseif( $cleanedArray["entity"] == "" ) {
 		            <archdesc audience="external" relatedencoding="MARC21" level="otherlevel">
 		               <did>
 		                     <origination label="Creator" encodinganalog="245$c">
-		                     <corpname encodinganalog="100"  source="local">' . $entname . '</corpname>
+		                     <corpname encodinganalog="110">' . $corpName . '</corpname>
 		                           </origination>
-		                           <note type="creation"><p>Record created in RAMP.</p></note>' .
-
-		                           $fromVal .
-		                           $toVal .
+		                           <note type="creation"><p>Record created in RAMP.</p></note>
+                                   <note type="nameAuth"><p>' .
+		                           $nameAuth .
+		                           '</p></note>
+                                   <note type="from"><p>' .
+		                           $from .
+		                           '</p></note>' .
+		                           '<note type="to"><p>' .
+		                           $to .
+		                           '</p></note>
+		                           <note type="standardFrom"><p>' .
+		                           $standardFrom .
+		                           '</p></note>' .
+		                           '<note type="standardTo"><p>' .
+		                           $standardTo .
+		                           '</p></note>' .		                           
 		                           $langNameVal .
 		                           $langCodeVal .
 		                           $scriptNameVal .
@@ -530,11 +641,15 @@ elseif( $cleanedArray["entity"] == "" ) {
 		                           $genreVal .
 		                           $occupationVal .
 		                           $occuDateFromVal .
+		                           $occuStandardFromVal .
 		                           $occuDateToVal .
+		                           $occuStandardToVal .
 		                           $placeRoleVal .
 		                           $placeEntryVal .
 		                           $placeDateFromVal .
+		                           $placeStandardFromVal .
 		                           $placeDateToVal .
+		                           $placeStandardToVal .
 		                           $citationVal .		                           
 		                           $cpfVal .
 		                           $cpfTypeVal .
@@ -583,12 +698,24 @@ elseif( $cleanedArray["entity"] == "" ) {
 		            <archdesc audience="external" relatedencoding="MARC21" level="otherlevel">
 		               <did>
 		                     <origination label="Creator" encodinganalog="245$c">
-		                     <famname  source="local">' . $entname . '</famname>
+		                     <famname encodinganalog="100_3">' . $famName . '</famname>
 		                           </origination>
-		                           <note type="creation"><p>Record created in RAMP.</p></note>' .
-
-		                           $fromVal .
-		                           $toVal .
+		                           <note type="creation"><p>Record created in RAMP.</p></note>		                           
+		                           <note type="nameAuth"><p>' .
+		                           $nameAuth .
+		                           '</p></note>
+                                   <note type="from"><p>' .
+		                           $from .
+		                           '</p></note>' .
+		                           '<note type="to"><p>' .
+		                           $to .
+		                           '</p></note>
+		                           <note type="standardFrom"><p>' .
+		                           $standardFrom .
+		                           '</p></note>' .
+		                           '<note type="standardTo"><p>' .
+		                           $standardTo .
+		                           '</p></note>' .		                           
 		                           $langNameVal .
 		                           $langCodeVal .
 		                           $scriptNameVal .
@@ -597,11 +724,15 @@ elseif( $cleanedArray["entity"] == "" ) {
 		                           $genreVal .
 		                           $occupationVal .
 		                           $occuDateFromVal .
+		                           $occuStandardFromVal .
 		                           $occuDateToVal .
+		                           $occuStandardToVal .
 		                           $placeRoleVal .
 		                           $placeEntryVal .
 		                           $placeDateFromVal .
+		                           $placeStandardFromVal .
 		                           $placeDateToVal .
+		                           $placeStandardToVal .
 		                           $citationVal .		                           
 		                           $cpfVal .
 		                           $cpfTypeVal .
