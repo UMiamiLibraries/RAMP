@@ -579,12 +579,13 @@
                 <xsl:for-each select="//eac:citation">                    
                     <xsl:choose>
                         <xsl:when test="contains(.,'http')">
-                            <xsl:text>[</xsl:text>
+                            <xsl:text>*[</xsl:text>
                             <xsl:value-of select="normalize-space(.)"/>
                             <xsl:text>]</xsl:text>
                             <xsl:text>&#10;</xsl:text>
                         </xsl:when>
                         <xsl:otherwise>
+                        	<xsl:text>*</xsl:text>
                             <xsl:value-of select="normalize-space(.)"/>
                             <xsl:text>&#10;</xsl:text>
                         </xsl:otherwise>
@@ -858,6 +859,47 @@
                     <xsl:text>&#10;</xsl:text>
                 </xsl:for-each>
             </xsl:when>
+        	<xsl:otherwise>
+        		<xsl:for-each
+        			select="eac:eac-cpf/eac:cpfDescription/eac:relations/eac:resourceRelation[@resourceRelationType='other' and @xlink:role='resource']">
+        			<xsl:sort
+        				select="translate(eac:relationEntry,'ÁÀÉÈÍÓÚÜÑáàéèíóúúüñ','AAEEIOUUNaaeeiouuun')"
+        				data-type="text"/>
+        			<xsl:text>*[</xsl:text>
+        			<xsl:choose>
+        				<xsl:when test="contains(@xlink:href,' ')">
+        					<xsl:value-of select="normalize-space(translate(@xlink:href,' ','+'))"/>
+        				</xsl:when>
+        				<xsl:otherwise>
+        					<xsl:choose>
+        						<xsl:when test="contains(@xlink:href,'oclc/')">
+        							<xsl:value-of
+        								select="normalize-space(@xlink:href)"
+        							/>
+        						</xsl:when>
+        						<xsl:otherwise>
+        							<xsl:value-of select="normalize-space(@xlink:href)"/>
+        						</xsl:otherwise>
+        					</xsl:choose>
+        				</xsl:otherwise>
+        			</xsl:choose>
+        			<xsl:text> </xsl:text>
+        			<xsl:choose>
+        				<xsl:when test="contains(normalize-space(eac:relationEntry),' . ')">
+        					<xsl:value-of
+        						select="normalize-space(substring-before(eac:relationEntry,' . '))"/>
+        					<xsl:text>] </xsl:text>
+        					<xsl:value-of
+        						select="normalize-space(substring-after(eac:relationEntry,' . '))"/>
+        				</xsl:when>
+        				<xsl:otherwise>
+        					<xsl:value-of select="normalize-space(eac:relationEntry)"/>
+        					<xsl:text>]</xsl:text>
+        				</xsl:otherwise>
+        			</xsl:choose>
+        			<xsl:text>&#10;</xsl:text>
+        		</xsl:for-each>
+        	</xsl:otherwise>
         </xsl:choose>
     </xsl:template>
 
