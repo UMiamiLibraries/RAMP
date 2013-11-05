@@ -1672,894 +1672,896 @@
         <xsl:if test="$vResource!=''">
             <xsl:for-each select="$vResource[.!='']">
                 <xsl:variable name="vResourceLabel" select="../@label" />
-                <xsl:if test="../following-sibling::ead:note[@type='resourceID'][@label=$vResourceLabel]/ead:p!=''">
-                    <xsl:choose>
-                        <xsl:when test="normalize-space(../following-sibling::ead:note[@type='resourceType'][@label=$vResourceLabel]/ead:p)!=''">
-                            <xsl:choose>
-                                <xsl:when test="normalize-space(../following-sibling::ead:note[@type='resourceURI'][@label=$vResourceLabel]/ead:p)!=''">
-                                    <xsl:choose>
-                                        <xsl:when test="normalize-space(../following-sibling::ead:note[@type='resourceRole'][@label=$vResourceLabel]/ead:p)!=''">
-                                            <xsl:choose>
-                                                <xsl:when test="normalize-space(../following-sibling::ead:note[@type='resourceCreator'][@label=$vResourceLabel]/ead:p)!=''">
-                                                    <resourceRelation xmlns="urn:isbn:1-931666-33-4" resourceRelationType="{normalize-space(../following-sibling::ead:note[@type='resourceType'][@label=$vResourceLabel]/ead:p)}" xml:id="{normalize-space(../following-sibling::ead:note[@type='resourceID'][@label=$vResourceLabel]/ead:p)}" xlink:href="{normalize-space(../following-sibling::ead:note[@type='resourceURI'][@label=$vResourceLabel]/ead:p)}" xlink:role="{normalize-space(../following-sibling::ead:note[@type='resourceRole'][@label=$vResourceLabel]/ead:p)}" xlink:type="simple">
-                                                        <relationEntry localType="title">
-                                                            <xsl:value-of select="normalize-space(.)" />
-                                                        </relationEntry>
-                                                        <relationEntry localType="creator">
-                                                            <xsl:value-of select="normalize-space(../following-sibling::ead:note[@type='resourceCreator'][@label=$vResourceLabel]/ead:p)" />
-                                                        </relationEntry>
-                                                        <xsl:if test="../following-sibling::ead:note[@type='resourceNote'][@label=$vResourceLabel]/ead:p!=''">
-                                                            <descriptiveNote>
-                                                                <p>
-                                                                    <xsl:value-of select="normalize-space(../following-sibling::ead:note[@type='resourceNote'][@label=$vResourceLabel]/ead:p)" />
-                                                                </p>
-                                                            </descriptiveNote>
-                                                        </xsl:if>
-                                                    </resourceRelation>
-                                                </xsl:when>
-                                                <xsl:otherwise>
-                                                    <resourceRelation xmlns="urn:isbn:1-931666-33-4" resourceRelationType="{normalize-space(../following-sibling::ead:note[@type='resourceType'][@label=$vResourceLabel]/ead:p)}" xml:id="{normalize-space(../following-sibling::ead:note[@type='resourceID'][@label=$vResourceLabel]/ead:p)}" xlink:href="{normalize-space(../following-sibling::ead:note[@type='resourceURI'][@label=$vResourceLabel]/ead:p)}" xlink:role="{normalize-space(../following-sibling::ead:note[@type='resourceRole'][@label=$vResourceLabel]/ead:p)}" xlink:type="simple">
-                                                        <relationEntry localType="title">
-                                                            <xsl:value-of select="normalize-space(.)" />
-                                                        </relationEntry>
-                                                        <xsl:if test="../following-sibling::ead:note[@type='resourceType'][@label=$vResourceLabel]/ead:p='creatorOf'">
-                                                            <xsl:choose>
-                                                                <xsl:when test="//ead:origination/child::node()[2][@encodinganalog='100_1']!=''">
-                                                                    <relationEntry localType="creator">
-                                                                        <xsl:value-of select="normalize-space(//ead:origination/child::node()[2][@encodinganalog='100_1'])" />
-                                                                        <xsl:if test="//ead:origination/child::node()[3][@encodinganalog='100_0']!=''">
-                                                                            <xsl:text>,</xsl:text>
-                                                                            <xsl:value-of select="normalize-space(//ead:origination/child::node()[3][@encodinganalog='100_0'])" />
-                                                                        </xsl:if>
-                                                                    </relationEntry>
-                                                                </xsl:when>
-                                                                <xsl:otherwise>
-                                                                    <xsl:choose>
-                                                                        <xsl:when test="//ead:origination/child::node()[3][@encodinganalog='100_0']!=''">
-                                                                            <xsl:value-of select="normalize-space(//ead:origination/child::node()[3][@encodinganalog='100_0'])" />
-                                                                        </xsl:when>
-                                                                        <xsl:otherwise>
-                                                                            <relationEntry localType="creator">
-                                                                                <xsl:value-of select="normalize-space(//ead:origination/child::node()[1])" />
-                                                                            </relationEntry>
-                                                                        </xsl:otherwise>
-                                                                    </xsl:choose>
-                                                                </xsl:otherwise>
-                                                            </xsl:choose>
-                                                        </xsl:if>
-                                                        <xsl:if test="../following-sibling::ead:note[@type='resourceNote'][@label=$vResourceLabel]/ead:p!=''">
-                                                            <descriptiveNote>
-                                                                <p>
-                                                                    <xsl:value-of select="normalize-space(../following-sibling::ead:note[@type='resourceNote'][@label=$vResourceLabel]/ead:p)" />
-                                                                </p>
-                                                            </descriptiveNote>
-                                                        </xsl:if>
-                                                    </resourceRelation>
-                                                </xsl:otherwise>
-                                            </xsl:choose>
-                                        </xsl:when>
-                                        <xsl:otherwise>
-                                            <xsl:choose>
-                                                <xsl:when test="normalize-space(../following-sibling::ead:note[@type='resourceCreator'][@label=$vResourceLabel]/ead:p)!=''">
-                                                    <resourceRelation xmlns="urn:isbn:1-931666-33-4" resourceRelationType="{normalize-space(../following-sibling::ead:note[@type='resourceType'][@label=$vResourceLabel]/ead:p)}" xml:id="{normalize-space(../following-sibling::ead:note[@type='resourceID'][@label=$vResourceLabel]/ead:p)}" xlink:href="{normalize-space(../following-sibling::ead:note[@type='resourceURI'][@label=$vResourceLabel]/ead:p)}" xlink:role="{normalize-space(../following-sibling::ead:note[@type='resourceRole'][@label=$vResourceLabel]/ead:p)}" xlink:type="simple">
-                                                        <relationEntry localType="title">
-                                                            <xsl:value-of select="normalize-space(.)" />
-                                                        </relationEntry>
-                                                        <relationEntry localType="creator">
-                                                            <xsl:value-of select="normalize-space(../following-sibling::ead:note[@type='resourceCreator'][@label=$vResourceLabel]/ead:p)" />
-                                                        </relationEntry>
-                                                        <xsl:if test="../following-sibling::ead:note[@type='resourceNote'][@label=$vResourceLabel]/ead:p!=''">
-                                                            <descriptiveNote>
-                                                                <p>
-                                                                    <xsl:value-of select="normalize-space(../following-sibling::ead:note[@type='resourceNote'][@label=$vResourceLabel]/ead:p)" />
-                                                                </p>
-                                                            </descriptiveNote>
-                                                        </xsl:if>
-                                                    </resourceRelation>
-                                                </xsl:when>
-                                                <xsl:otherwise>
-                                                    <resourceRelation xmlns="urn:isbn:1-931666-33-4" resourceRelationType="{normalize-space(../following-sibling::ead:note[@type='resourceType'][@label=$vResourceLabel]/ead:p)}" xml:id="{normalize-space(../following-sibling::ead:note[@type='resourceID'][@label=$vResourceLabel]/ead:p)}" xlink:href="{normalize-space(../following-sibling::ead:note[@type='resourceURI'][@label=$vResourceLabel]/ead:p)}" xlink:role="{normalize-space(../following-sibling::ead:note[@type='resourceRole'][@label=$vResourceLabel]/ead:p)}" xlink:type="simple">
-                                                        <relationEntry localType="title">
-                                                            <xsl:value-of select="normalize-space(.)" />
-                                                        </relationEntry>
-                                                    	<xsl:if test="../following-sibling::ead:note[@type='resourceType'][@label=$vResourceLabel]/ead:p='creatorOf'">
-                                                    		<xsl:choose>
-                                                    			<xsl:when test="//ead:origination/child::node()[2][@encodinganalog='100_1']!=''">
-                                                    				<relationEntry localType="creator">
-                                                    					<xsl:value-of select="normalize-space(//ead:origination/child::node()[2][@encodinganalog='100_1'])" />
-                                                    					<xsl:if test="//ead:origination/child::node()[3][@encodinganalog='100_0']!=''">
-                                                    						<xsl:text>,</xsl:text>
-                                                    						<xsl:value-of select="normalize-space(//ead:origination/child::node()[3][@encodinganalog='100_0'])" />
-                                                    					</xsl:if>
-                                                    				</relationEntry>
-                                                    			</xsl:when>
-                                                    			<xsl:otherwise>
-                                                    				<xsl:choose>
-                                                    					<xsl:when test="//ead:origination/child::node()[3][@encodinganalog='100_0']!=''">
-                                                    						<xsl:value-of select="normalize-space(//ead:origination/child::node()[3][@encodinganalog='100_0'])" />
-                                                    					</xsl:when>
-                                                    					<xsl:otherwise>
-                                                    						<relationEntry localType="creator">
-                                                    							<xsl:value-of select="normalize-space(//ead:origination/child::node()[1])" />
-                                                    						</relationEntry>
-                                                    					</xsl:otherwise>
-                                                    				</xsl:choose>
-                                                    			</xsl:otherwise>
-                                                    		</xsl:choose>
-                                                    	</xsl:if>
-                                                        <xsl:if test="../following-sibling::ead:note[@type='resourceNote'][@label=$vResourceLabel]/ead:p!=''">
-                                                            <descriptiveNote>
-                                                                <p>
-                                                                    <xsl:value-of select="normalize-space(../following-sibling::ead:note[@type='resourceNote'][@label=$vResourceLabel]/ead:p)" />
-                                                                </p>
-                                                            </descriptiveNote>
-                                                        </xsl:if>
-                                                    </resourceRelation>
-                                                </xsl:otherwise>
-                                            </xsl:choose>
-                                        </xsl:otherwise>
-                                    </xsl:choose>
-                                </xsl:when>
-                                <xsl:otherwise>
-                                    <xsl:choose>
-                                        <xsl:when test="normalize-space(../following-sibling::ead:note[@type='resourceRole'][@label=$vResourceLabel]/ead:p)!=''">
-                                            <xsl:choose>
-                                                <xsl:when test="normalize-space(../following-sibling::ead:note[@type='resourceCreator'][@label=$vResourceLabel]/ead:p)!=''">
-                                                    <resourceRelation xmlns="urn:isbn:1-931666-33-4" resourceRelationType="{normalize-space(../following-sibling::ead:note[@type='resourceType'][@label=$vResourceLabel]/ead:p)}" xml:id="{normalize-space(../following-sibling::ead:note[@type='resourceID'][@label=$vResourceLabel]/ead:p)}" xlink:href="{normalize-space(../following-sibling::ead:note[@type='resourceURI'][@label=$vResourceLabel]/ead:p)}" xlink:role="{normalize-space(../following-sibling::ead:note[@type='resourceRole'][@label=$vResourceLabel]/ead:p)}" xlink:type="simple">
-                                                        <relationEntry localType="title">
-                                                            <xsl:value-of select="normalize-space(.)" />
-                                                        </relationEntry>
-                                                        <relationEntry localType="creator">
-                                                            <xsl:value-of select="normalize-space(../following-sibling::ead:note[@type='resourceCreator'][@label=$vResourceLabel]/ead:p)" />
-                                                        </relationEntry>
-                                                        <xsl:if test="../following-sibling::ead:note[@type='resourceNote'][@label=$vResourceLabel]/ead:p!=''">
-                                                            <descriptiveNote>
-                                                                <p>
-                                                                    <xsl:value-of select="normalize-space(../following-sibling::ead:note[@type='resourceNote'][@label=$vResourceLabel]/ead:p)" />
-                                                                </p>
-                                                            </descriptiveNote>
-                                                        </xsl:if>
-                                                    </resourceRelation>
-                                                </xsl:when>
-                                                <xsl:otherwise>
-                                                    <resourceRelation xmlns="urn:isbn:1-931666-33-4" resourceRelationType="{normalize-space(../following-sibling::ead:note[@type='resourceType'][@label=$vResourceLabel]/ead:p)}" xml:id="{normalize-space(../following-sibling::ead:note[@type='resourceID'][@label=$vResourceLabel]/ead:p)}" xlink:href="{normalize-space(../following-sibling::ead:note[@type='resourceURI'][@label=$vResourceLabel]/ead:p)}" xlink:role="{normalize-space(../following-sibling::ead:note[@type='resourceRole'][@label=$vResourceLabel]/ead:p)}" xlink:type="simple">
-                                                        <relationEntry localType="title">
-                                                            <xsl:value-of select="normalize-space(.)" />
-                                                        </relationEntry>
-                                                    	<xsl:if test="../following-sibling::ead:note[@type='resourceType'][@label=$vResourceLabel]/ead:p='creatorOf'">
-                                                    		<xsl:choose>
-                                                    			<xsl:when test="//ead:origination/child::node()[2][@encodinganalog='100_1']!=''">
-                                                    				<relationEntry localType="creator">
-                                                    					<xsl:value-of select="normalize-space(//ead:origination/child::node()[2][@encodinganalog='100_1'])" />
-                                                    					<xsl:if test="//ead:origination/child::node()[3][@encodinganalog='100_0']!=''">
-                                                    						<xsl:text>,</xsl:text>
-                                                    						<xsl:value-of select="normalize-space(//ead:origination/child::node()[3][@encodinganalog='100_0'])" />
-                                                    					</xsl:if>
-                                                    				</relationEntry>
-                                                    			</xsl:when>
-                                                    			<xsl:otherwise>
-                                                    				<xsl:choose>
-                                                    					<xsl:when test="//ead:origination/child::node()[3][@encodinganalog='100_0']!=''">
-                                                    						<xsl:value-of select="normalize-space(//ead:origination/child::node()[3][@encodinganalog='100_0'])" />
-                                                    					</xsl:when>
-                                                    					<xsl:otherwise>
-                                                    						<relationEntry localType="creator">
-                                                    							<xsl:value-of select="normalize-space(//ead:origination/child::node()[1])" />
-                                                    						</relationEntry>
-                                                    					</xsl:otherwise>
-                                                    				</xsl:choose>
-                                                    			</xsl:otherwise>
-                                                    		</xsl:choose>
-                                                    	</xsl:if>
-                                                        <xsl:if test="../following-sibling::ead:note[@type='resourceNote'][@label=$vResourceLabel]/ead:p!=''">
-                                                            <descriptiveNote>
-                                                                <p>
-                                                                    <xsl:value-of select="normalize-space(../following-sibling::ead:note[@type='resourceNote'][@label=$vResourceLabel]/ead:p)" />
-                                                                </p>
-                                                            </descriptiveNote>
-                                                        </xsl:if>
-                                                    </resourceRelation>
-                                                </xsl:otherwise>
-                                            </xsl:choose>
-                                        </xsl:when>
-                                        <xsl:otherwise>
-                                            <xsl:choose>
-                                                <xsl:when test="normalize-space(../following-sibling::ead:note[@type='resourceCreator'][@label=$vResourceLabel]/ead:p)!=''">
-                                                    <resourceRelation xmlns="urn:isbn:1-931666-33-4" resourceRelationType="{normalize-space(../following-sibling::ead:note[@type='resourceType'][@label=$vResourceLabel]/ead:p)}" xml:id="{normalize-space(../following-sibling::ead:note[@type='resourceID'][@label=$vResourceLabel]/ead:p)}" xlink:href="{normalize-space(../following-sibling::ead:note[@type='resourceURI'][@label=$vResourceLabel]/ead:p)}" xlink:role="{normalize-space(../following-sibling::ead:note[@type='resourceRole'][@label=$vResourceLabel]/ead:p)}" xlink:type="simple">
-                                                        <relationEntry localType="title">
-                                                            <xsl:value-of select="normalize-space(.)" />
-                                                        </relationEntry>
-                                                        <relationEntry localType="creator">
-                                                            <xsl:value-of select="normalize-space(../following-sibling::ead:note[@type='resourceCreator'][@label=$vResourceLabel]/ead:p)" />
-                                                        </relationEntry>
-                                                        <xsl:if test="../following-sibling::ead:note[@type='resourceNote'][@label=$vResourceLabel]/ead:p!=''">
-                                                            <descriptiveNote>
-                                                                <p>
-                                                                    <xsl:value-of select="normalize-space(../following-sibling::ead:note[@type='resourceNote'][@label=$vResourceLabel]/ead:p)" />
-                                                                </p>
-                                                            </descriptiveNote>
-                                                        </xsl:if>
-                                                    </resourceRelation>
-                                                </xsl:when>
-                                                <xsl:otherwise>
-                                                    <resourceRelation xmlns="urn:isbn:1-931666-33-4" resourceRelationType="{normalize-space(../following-sibling::ead:note[@type='resourceType'][@label=$vResourceLabel]/ead:p)}" xml:id="{normalize-space(../following-sibling::ead:note[@type='resourceID'][@label=$vResourceLabel]/ead:p)}" xlink:href="{normalize-space(../following-sibling::ead:note[@type='resourceURI'][@label=$vResourceLabel]/ead:p)}" xlink:role="{normalize-space(../following-sibling::ead:note[@type='resourceRole'][@label=$vResourceLabel]/ead:p)}" xlink:type="simple">
-                                                        <relationEntry localType="title">
-                                                            <xsl:value-of select="normalize-space(.)" />
-                                                        </relationEntry>
-                                                    	<xsl:if test="../following-sibling::ead:note[@type='resourceType'][@label=$vResourceLabel]/ead:p='creatorOf'">
-                                                    		<xsl:choose>
-                                                    			<xsl:when test="//ead:origination/child::node()[2][@encodinganalog='100_1']!=''">
-                                                    				<relationEntry localType="creator">
-                                                    					<xsl:value-of select="normalize-space(//ead:origination/child::node()[2][@encodinganalog='100_1'])" />
-                                                    					<xsl:if test="//ead:origination/child::node()[3][@encodinganalog='100_0']!=''">
-                                                    						<xsl:text>,</xsl:text>
-                                                    						<xsl:value-of select="normalize-space(//ead:origination/child::node()[3][@encodinganalog='100_0'])" />
-                                                    					</xsl:if>
-                                                    				</relationEntry>
-                                                    			</xsl:when>
-                                                    			<xsl:otherwise>
-                                                    				<xsl:choose>
-                                                    					<xsl:when test="//ead:origination/child::node()[3][@encodinganalog='100_0']!=''">
-                                                    						<xsl:value-of select="normalize-space(//ead:origination/child::node()[3][@encodinganalog='100_0'])" />
-                                                    					</xsl:when>
-                                                    					<xsl:otherwise>
-                                                    						<relationEntry localType="creator">
-                                                    							<xsl:value-of select="normalize-space(//ead:origination/child::node()[1])" />
-                                                    						</relationEntry>
-                                                    					</xsl:otherwise>
-                                                    				</xsl:choose>
-                                                    			</xsl:otherwise>
-                                                    		</xsl:choose>
-                                                    	</xsl:if>
-                                                        <xsl:if test="../following-sibling::ead:note[@type='resourceNote'][@label=$vResourceLabel]/ead:p!=''">
-                                                            <descriptiveNote>
-                                                                <p>
-                                                                    <xsl:value-of select="normalize-space(../following-sibling::ead:note[@type='resourceNote'][@label=$vResourceLabel]/ead:p)" />
-                                                                </p>
-                                                            </descriptiveNote>
-                                                        </xsl:if>
-                                                    </resourceRelation>
-                                                </xsl:otherwise>
-                                            </xsl:choose>
-                                        </xsl:otherwise>
-                                    </xsl:choose>
-                                </xsl:otherwise>
-                            </xsl:choose>
-                        </xsl:when>
-                        <xsl:otherwise>
-                            <xsl:choose>
-                                <xsl:when test="normalize-space(../following-sibling::ead:note[@type='resourceURI'][@label=$vResourceLabel]/ead:p)!=''">
-                                    <xsl:choose>
-                                        <xsl:when test="normalize-space(../following-sibling::ead:note[@type='resourceRole'][@label=$vResourceLabel]/ead:p)!=''">
-                                            <xsl:choose>
-                                                <xsl:when test="normalize-space(../following-sibling::ead:note[@type='resourceCreator'][@label=$vResourceLabel]/ead:p)!=''">
-                                                    <resourceRelation xmlns="urn:isbn:1-931666-33-4" resourceRelationType="{normalize-space(../following-sibling::ead:note[@type='resourceType'][@label=$vResourceLabel]/ead:p)}" xml:id="{normalize-space(../following-sibling::ead:note[@type='resourceID'][@label=$vResourceLabel]/ead:p)}" xlink:href="{normalize-space(../following-sibling::ead:note[@type='resourceURI'][@label=$vResourceLabel]/ead:p)}" xlink:role="{normalize-space(../following-sibling::ead:note[@type='resourceRole'][@label=$vResourceLabel]/ead:p)}" xlink:type="simple">
-                                                        <relationEntry localType="title">
-                                                            <xsl:value-of select="normalize-space(.)" />
-                                                        </relationEntry>
-                                                        <relationEntry localType="creator">
-                                                            <xsl:value-of select="normalize-space(../following-sibling::ead:note[@type='resourceCreator'][@label=$vResourceLabel]/ead:p)" />
-                                                        </relationEntry>
-                                                        <xsl:if test="../following-sibling::ead:note[@type='resourceNote'][@label=$vResourceLabel]/ead:p!=''">
-                                                            <descriptiveNote>
-                                                                <p>
-                                                                    <xsl:value-of select="normalize-space(../following-sibling::ead:note[@type='resourceNote'][@label=$vResourceLabel]/ead:p)" />
-                                                                </p>
-                                                            </descriptiveNote>
-                                                        </xsl:if>
-                                                    </resourceRelation>
-                                                </xsl:when>
-                                                <xsl:otherwise>
-                                                    <resourceRelation xmlns="urn:isbn:1-931666-33-4" resourceRelationType="{normalize-space(../following-sibling::ead:note[@type='resourceType'][@label=$vResourceLabel]/ead:p)}" xml:id="{normalize-space(../following-sibling::ead:note[@type='resourceID'][@label=$vResourceLabel]/ead:p)}" xlink:href="{normalize-space(../following-sibling::ead:note[@type='resourceURI'][@label=$vResourceLabel]/ead:p)}" xlink:role="{normalize-space(../following-sibling::ead:note[@type='resourceRole'][@label=$vResourceLabel]/ead:p)}" xlink:type="simple">
-                                                        <relationEntry localType="title">
-                                                            <xsl:value-of select="normalize-space(.)" />
-                                                        </relationEntry>
-                                                    	<xsl:if test="../following-sibling::ead:note[@type='resourceType'][@label=$vResourceLabel]/ead:p='creatorOf'">
-                                                    		<xsl:choose>
-                                                    			<xsl:when test="//ead:origination/child::node()[2][@encodinganalog='100_1']!=''">
-                                                    				<relationEntry localType="creator">
-                                                    					<xsl:value-of select="normalize-space(//ead:origination/child::node()[2][@encodinganalog='100_1'])" />
-                                                    					<xsl:if test="//ead:origination/child::node()[3][@encodinganalog='100_0']!=''">
-                                                    						<xsl:text>,</xsl:text>
-                                                    						<xsl:value-of select="normalize-space(//ead:origination/child::node()[3][@encodinganalog='100_0'])" />
-                                                    					</xsl:if>
-                                                    				</relationEntry>
-                                                    			</xsl:when>
-                                                    			<xsl:otherwise>
-                                                    				<xsl:choose>
-                                                    					<xsl:when test="//ead:origination/child::node()[3][@encodinganalog='100_0']!=''">
-                                                    						<xsl:value-of select="normalize-space(//ead:origination/child::node()[3][@encodinganalog='100_0'])" />
-                                                    					</xsl:when>
-                                                    					<xsl:otherwise>
-                                                    						<relationEntry localType="creator">
-                                                    							<xsl:value-of select="normalize-space(//ead:origination/child::node()[1])" />
-                                                    						</relationEntry>
-                                                    					</xsl:otherwise>
-                                                    				</xsl:choose>
-                                                    			</xsl:otherwise>
-                                                    		</xsl:choose>
-                                                    	</xsl:if>
-                                                        <xsl:if test="../following-sibling::ead:note[@type='resourceNote'][@label=$vResourceLabel]/ead:p!=''">
-                                                            <descriptiveNote>
-                                                                <p>
-                                                                    <xsl:value-of select="normalize-space(../following-sibling::ead:note[@type='resourceNote'][@label=$vResourceLabel]/ead:p)" />
-                                                                </p>
-                                                            </descriptiveNote>
-                                                        </xsl:if>
-                                                    </resourceRelation>
-                                                </xsl:otherwise>
-                                            </xsl:choose>
-                                        </xsl:when>
-                                        <xsl:otherwise>
-                                            <xsl:choose>
-                                                <xsl:when test="normalize-space(../following-sibling::ead:note[@type='resourceCreator'][@label=$vResourceLabel]/ead:p)!=''">
-                                                    <resourceRelation xmlns="urn:isbn:1-931666-33-4" resourceRelationType="{normalize-space(../following-sibling::ead:note[@type='resourceType'][@label=$vResourceLabel]/ead:p)}" xml:id="{normalize-space(../following-sibling::ead:note[@type='resourceID'][@label=$vResourceLabel]/ead:p)}" xlink:href="{normalize-space(../following-sibling::ead:note[@type='resourceURI'][@label=$vResourceLabel]/ead:p)}" xlink:role="{normalize-space(../following-sibling::ead:note[@type='resourceRole'][@label=$vResourceLabel]/ead:p)}" xlink:type="simple">
-                                                        <relationEntry localType="title">
-                                                            <xsl:value-of select="normalize-space(.)" />
-                                                        </relationEntry>
-                                                        <relationEntry localType="creator">
-                                                            <xsl:value-of select="normalize-space(../following-sibling::ead:note[@type='resourceCreator'][@label=$vResourceLabel]/ead:p)" />
-                                                        </relationEntry>
-                                                        <xsl:if test="../following-sibling::ead:note[@type='resourceNote'][@label=$vResourceLabel]/ead:p!=''">
-                                                            <descriptiveNote>
-                                                                <p>
-                                                                    <xsl:value-of select="normalize-space(../following-sibling::ead:note[@type='resourceNote'][@label=$vResourceLabel]/ead:p)" />
-                                                                </p>
-                                                            </descriptiveNote>
-                                                        </xsl:if>
-                                                    </resourceRelation>
-                                                </xsl:when>
-                                                <xsl:otherwise>
-                                                    <resourceRelation xmlns="urn:isbn:1-931666-33-4" resourceRelationType="{normalize-space(../following-sibling::ead:note[@type='resourceType'][@label=$vResourceLabel]/ead:p)}" xml:id="{normalize-space(../following-sibling::ead:note[@type='resourceID'][@label=$vResourceLabel]/ead:p)}" xlink:href="{normalize-space(../following-sibling::ead:note[@type='resourceURI'][@label=$vResourceLabel]/ead:p)}" xlink:role="{normalize-space(../following-sibling::ead:note[@type='resourceRole'][@label=$vResourceLabel]/ead:p)}" xlink:type="simple">
-                                                        <relationEntry localType="title">
-                                                            <xsl:value-of select="normalize-space(.)" />
-                                                        </relationEntry>
-                                                    	<xsl:if test="../following-sibling::ead:note[@type='resourceType'][@label=$vResourceLabel]/ead:p='creatorOf'">
-                                                    		<xsl:choose>
-                                                    			<xsl:when test="//ead:origination/child::node()[2][@encodinganalog='100_1']!=''">
-                                                    				<relationEntry localType="creator">
-                                                    					<xsl:value-of select="normalize-space(//ead:origination/child::node()[2][@encodinganalog='100_1'])" />
-                                                    					<xsl:if test="//ead:origination/child::node()[3][@encodinganalog='100_0']!=''">
-                                                    						<xsl:text>,</xsl:text>
-                                                    						<xsl:value-of select="normalize-space(//ead:origination/child::node()[3][@encodinganalog='100_0'])" />
-                                                    					</xsl:if>
-                                                    				</relationEntry>
-                                                    			</xsl:when>
-                                                    			<xsl:otherwise>
-                                                    				<xsl:choose>
-                                                    					<xsl:when test="//ead:origination/child::node()[3][@encodinganalog='100_0']!=''">
-                                                    						<xsl:value-of select="normalize-space(//ead:origination/child::node()[3][@encodinganalog='100_0'])" />
-                                                    					</xsl:when>
-                                                    					<xsl:otherwise>
-                                                    						<relationEntry localType="creator">
-                                                    							<xsl:value-of select="normalize-space(//ead:origination/child::node()[1])" />
-                                                    						</relationEntry>
-                                                    					</xsl:otherwise>
-                                                    				</xsl:choose>
-                                                    			</xsl:otherwise>
-                                                    		</xsl:choose>
-                                                    	</xsl:if>
-                                                        <xsl:if test="../following-sibling::ead:note[@type='resourceNote'][@label=$vResourceLabel]/ead:p!=''">
-                                                            <descriptiveNote>
-                                                                <p>
-                                                                    <xsl:value-of select="normalize-space(../following-sibling::ead:note[@type='resourceNote'][@label=$vResourceLabel]/ead:p)" />
-                                                                </p>
-                                                            </descriptiveNote>
-                                                        </xsl:if>
-                                                    </resourceRelation>
-                                                </xsl:otherwise>
-                                            </xsl:choose>
-                                        </xsl:otherwise>
-                                    </xsl:choose>
-                                </xsl:when>
-                                <xsl:otherwise>
-                                    <xsl:choose>
-                                        <xsl:when test="normalize-space(../following-sibling::ead:note[@type='resourceRole'][@label=$vResourceLabel]/ead:p)!=''">
-                                            <xsl:choose>
-                                                <xsl:when test="normalize-space(../following-sibling::ead:note[@type='resourceCreator'][@label=$vResourceLabel]/ead:p)!=''">
-                                                    <resourceRelation xmlns="urn:isbn:1-931666-33-4" resourceRelationType="{normalize-space(../following-sibling::ead:note[@type='resourceType'][@label=$vResourceLabel]/ead:p)}" xml:id="{normalize-space(../following-sibling::ead:note[@type='resourceID'][@label=$vResourceLabel]/ead:p)}" xlink:href="{normalize-space(../following-sibling::ead:note[@type='resourceURI'][@label=$vResourceLabel]/ead:p)}" xlink:role="{normalize-space(../following-sibling::ead:note[@type='resourceRole'][@label=$vResourceLabel]/ead:p)}" xlink:type="simple">
-                                                        <relationEntry localType="title">
-                                                            <xsl:value-of select="normalize-space(.)" />
-                                                        </relationEntry>
-                                                        <relationEntry localType="creator">
-                                                            <xsl:value-of select="normalize-space(../following-sibling::ead:note[@type='resourceCreator'][@label=$vResourceLabel]/ead:p)" />
-                                                        </relationEntry>
-                                                        <xsl:if test="../following-sibling::ead:note[@type='resourceNote'][@label=$vResourceLabel]/ead:p!=''">
-                                                            <descriptiveNote>
-                                                                <p>
-                                                                    <xsl:value-of select="normalize-space(../following-sibling::ead:note[@type='resourceNote'][@label=$vResourceLabel]/ead:p)" />
-                                                                </p>
-                                                            </descriptiveNote>
-                                                        </xsl:if>
-                                                    </resourceRelation>
-                                                </xsl:when>
-                                                <xsl:otherwise>
-                                                    <resourceRelation xmlns="urn:isbn:1-931666-33-4" resourceRelationType="{normalize-space(../following-sibling::ead:note[@type='resourceType'][@label=$vResourceLabel]/ead:p)}" xml:id="{normalize-space(../following-sibling::ead:note[@type='resourceID'][@label=$vResourceLabel]/ead:p)}" xlink:href="{normalize-space(../following-sibling::ead:note[@type='resourceURI'][@label=$vResourceLabel]/ead:p)}" xlink:role="{normalize-space(../following-sibling::ead:note[@type='resourceRole'][@label=$vResourceLabel]/ead:p)}" xlink:type="simple">
-                                                        <relationEntry localType="title">
-                                                            <xsl:value-of select="normalize-space(.)" />
-                                                        </relationEntry>
-                                                    	<xsl:if test="../following-sibling::ead:note[@type='resourceType'][@label=$vResourceLabel]/ead:p='creatorOf'">
-                                                    		<xsl:choose>
-                                                    			<xsl:when test="//ead:origination/child::node()[2][@encodinganalog='100_1']!=''">
-                                                    				<relationEntry localType="creator">
-                                                    					<xsl:value-of select="normalize-space(//ead:origination/child::node()[2][@encodinganalog='100_1'])" />
-                                                    					<xsl:if test="//ead:origination/child::node()[3][@encodinganalog='100_0']!=''">
-                                                    						<xsl:text>,</xsl:text>
-                                                    						<xsl:value-of select="normalize-space(//ead:origination/child::node()[3][@encodinganalog='100_0'])" />
-                                                    					</xsl:if>
-                                                    				</relationEntry>
-                                                    			</xsl:when>
-                                                    			<xsl:otherwise>
-                                                    				<xsl:choose>
-                                                    					<xsl:when test="//ead:origination/child::node()[3][@encodinganalog='100_0']!=''">
-                                                    						<xsl:value-of select="normalize-space(//ead:origination/child::node()[3][@encodinganalog='100_0'])" />
-                                                    					</xsl:when>
-                                                    					<xsl:otherwise>
-                                                    						<relationEntry localType="creator">
-                                                    							<xsl:value-of select="normalize-space(//ead:origination/child::node()[1])" />
-                                                    						</relationEntry>
-                                                    					</xsl:otherwise>
-                                                    				</xsl:choose>
-                                                    			</xsl:otherwise>
-                                                    		</xsl:choose>
-                                                    	</xsl:if>
-                                                        <xsl:if test="../following-sibling::ead:note[@type='resourceNote'][@label=$vResourceLabel]/ead:p!=''">
-                                                            <descriptiveNote>
-                                                                <p>
-                                                                    <xsl:value-of select="normalize-space(../following-sibling::ead:note[@type='resourceNote'][@label=$vResourceLabel]/ead:p)" />
-                                                                </p>
-                                                            </descriptiveNote>
-                                                        </xsl:if>
-                                                    </resourceRelation>
-                                                </xsl:otherwise>
-                                            </xsl:choose>
-                                        </xsl:when>
-                                        <xsl:otherwise>
-                                            <xsl:choose>
-                                                <xsl:when test="normalize-space(../following-sibling::ead:note[@type='resourceCreator'][@label=$vResourceLabel]/ead:p)!=''">
-                                                    <resourceRelation xmlns="urn:isbn:1-931666-33-4" resourceRelationType="{normalize-space(../following-sibling::ead:note[@type='resourceType'][@label=$vResourceLabel]/ead:p)}" xml:id="{normalize-space(../following-sibling::ead:note[@type='resourceID'][@label=$vResourceLabel]/ead:p)}" xlink:href="{normalize-space(../following-sibling::ead:note[@type='resourceURI'][@label=$vResourceLabel]/ead:p)}" xlink:role="{normalize-space(../following-sibling::ead:note[@type='resourceRole'][@label=$vResourceLabel]/ead:p)}" xlink:type="simple">
-                                                        <relationEntry localType="title">
-                                                            <xsl:value-of select="normalize-space(.)" />
-                                                        </relationEntry>
-                                                        <relationEntry localType="creator">
-                                                            <xsl:value-of select="normalize-space(../following-sibling::ead:note[@type='resourceCreator'][@label=$vResourceLabel]/ead:p)" />
-                                                        </relationEntry>
-                                                        <xsl:if test="../following-sibling::ead:note[@type='resourceNote'][@label=$vResourceLabel]/ead:p!=''">
-                                                            <descriptiveNote>
-                                                                <p>
-                                                                    <xsl:value-of select="normalize-space(../following-sibling::ead:note[@type='resourceNote'][@label=$vResourceLabel]/ead:p)" />
-                                                                </p>
-                                                            </descriptiveNote>
-                                                        </xsl:if>
-                                                    </resourceRelation>
-                                                </xsl:when>
-                                                <xsl:otherwise>
-                                                    <resourceRelation xmlns="urn:isbn:1-931666-33-4" resourceRelationType="{normalize-space(../following-sibling::ead:note[@type='resourceType'][@label=$vResourceLabel]/ead:p)}" xml:id="{normalize-space(../following-sibling::ead:note[@type='resourceID'][@label=$vResourceLabel]/ead:p)}" xlink:href="{normalize-space(../following-sibling::ead:note[@type='resourceURI'][@label=$vResourceLabel]/ead:p)}" xlink:role="{normalize-space(../following-sibling::ead:note[@type='resourceRole'][@label=$vResourceLabel]/ead:p)}" xlink:type="simple">
-                                                        <relationEntry localType="title">
-                                                            <xsl:value-of select="normalize-space(.)" />
-                                                        </relationEntry>
-                                                    	<xsl:if test="../following-sibling::ead:note[@type='resourceType'][@label=$vResourceLabel]/ead:p='creatorOf'">
-                                                    		<xsl:choose>
-                                                    			<xsl:when test="//ead:origination/child::node()[2][@encodinganalog='100_1']!=''">
-                                                    				<relationEntry localType="creator">
-                                                    					<xsl:value-of select="normalize-space(//ead:origination/child::node()[2][@encodinganalog='100_1'])" />
-                                                    					<xsl:if test="//ead:origination/child::node()[3][@encodinganalog='100_0']!=''">
-                                                    						<xsl:text>,</xsl:text>
-                                                    						<xsl:value-of select="normalize-space(//ead:origination/child::node()[3][@encodinganalog='100_0'])" />
-                                                    					</xsl:if>
-                                                    				</relationEntry>
-                                                    			</xsl:when>
-                                                    			<xsl:otherwise>
-                                                    				<xsl:choose>
-                                                    					<xsl:when test="//ead:origination/child::node()[3][@encodinganalog='100_0']!=''">
-                                                    						<xsl:value-of select="normalize-space(//ead:origination/child::node()[3][@encodinganalog='100_0'])" />
-                                                    					</xsl:when>
-                                                    					<xsl:otherwise>
-                                                    						<relationEntry localType="creator">
-                                                    							<xsl:value-of select="normalize-space(//ead:origination/child::node()[1])" />
-                                                    						</relationEntry>
-                                                    					</xsl:otherwise>
-                                                    				</xsl:choose>
-                                                    			</xsl:otherwise>
-                                                    		</xsl:choose>
-                                                    	</xsl:if>
-                                                        <xsl:if test="../following-sibling::ead:note[@type='resourceNote'][@label=$vResourceLabel]/ead:p!=''">
-                                                            <descriptiveNote>
-                                                                <p>
-                                                                    <xsl:value-of select="normalize-space(../following-sibling::ead:note[@type='resourceNote'][@label=$vResourceLabel]/ead:p)" />
-                                                                </p>
-                                                            </descriptiveNote>
-                                                        </xsl:if>
-                                                    </resourceRelation>
-                                                </xsl:otherwise>
-                                            </xsl:choose>
-                                        </xsl:otherwise>
-                                    </xsl:choose>
-                                </xsl:otherwise>
-                            </xsl:choose>
-                        </xsl:otherwise>
-                    </xsl:choose>
-                </xsl:if>
-                <xsl:if test="../following-sibling::ead:note[@type='resourceID'][@label=$vResourceLabel]/ead:p=''">
-                    <xsl:choose>
-                        <xsl:when test="normalize-space(../following-sibling::ead:note[@type='resourceType'][@label=$vResourceLabel]/ead:p)!=''">
-                            <xsl:choose>
-                                <xsl:when test="normalize-space(../following-sibling::ead:note[@type='resourceURI'][@label=$vResourceLabel]/ead:p)!=''">
-                                    <xsl:choose>
-                                        <xsl:when test="normalize-space(../following-sibling::ead:note[@type='resourceRole'][@label=$vResourceLabel]/ead:p)!=''">
-                                            <xsl:choose>
-                                                <xsl:when test="normalize-space(../following-sibling::ead:note[@type='resourceCreator'][@label=$vResourceLabel]/ead:p)!=''">
-                                                    <resourceRelation xmlns="urn:isbn:1-931666-33-4" resourceRelationType="{normalize-space(../following-sibling::ead:note[@type='resourceType'][@label=$vResourceLabel]/ead:p)}" xml:id="{normalize-space(../following-sibling::ead:note[@type='resourceID'][@label=$vResourceLabel]/ead:p)}" xlink:href="{normalize-space(../following-sibling::ead:note[@type='resourceURI'][@label=$vResourceLabel]/ead:p)}" xlink:role="{normalize-space(../following-sibling::ead:note[@type='resourceRole'][@label=$vResourceLabel]/ead:p)}" xlink:type="simple">
-                                                        <relationEntry localType="title">
-                                                            <xsl:value-of select="normalize-space(.)" />
-                                                        </relationEntry>
-                                                        <relationEntry localType="creator">
-                                                            <xsl:value-of select="normalize-space(../following-sibling::ead:note[@type='resourceCreator'][@label=$vResourceLabel]/ead:p)" />
-                                                        </relationEntry>
-                                                        <xsl:if test="../following-sibling::ead:note[@type='resourceNote'][@label=$vResourceLabel]/ead:p!=''">
-                                                            <descriptiveNote>
-                                                                <p>
-                                                                    <xsl:value-of select="normalize-space(../following-sibling::ead:note[@type='resourceNote'][@label=$vResourceLabel]/ead:p)" />
-                                                                </p>
-                                                            </descriptiveNote>
-                                                        </xsl:if>
-                                                    </resourceRelation>
-                                                </xsl:when>
-                                                <xsl:otherwise>
-                                                    <resourceRelation xmlns="urn:isbn:1-931666-33-4" resourceRelationType="{normalize-space(../following-sibling::ead:note[@type='resourceType'][@label=$vResourceLabel]/ead:p)}" xml:id="{normalize-space(../following-sibling::ead:note[@type='resourceID'][@label=$vResourceLabel]/ead:p)}" xlink:href="{normalize-space(../following-sibling::ead:note[@type='resourceURI'][@label=$vResourceLabel]/ead:p)}" xlink:role="{normalize-space(../following-sibling::ead:note[@type='resourceRole'][@label=$vResourceLabel]/ead:p)}" xlink:type="simple">
-                                                        <relationEntry localType="title">
-                                                            <xsl:value-of select="normalize-space(.)" />
-                                                        </relationEntry>
-                                                    	<xsl:if test="../following-sibling::ead:note[@type='resourceType'][@label=$vResourceLabel]/ead:p='creatorOf'">
-                                                    		<xsl:choose>
-                                                    			<xsl:when test="//ead:origination/child::node()[2][@encodinganalog='100_1']!=''">
-                                                    				<relationEntry localType="creator">
-                                                    					<xsl:value-of select="normalize-space(//ead:origination/child::node()[2][@encodinganalog='100_1'])" />
-                                                    					<xsl:if test="//ead:origination/child::node()[3][@encodinganalog='100_0']!=''">
-                                                    						<xsl:text>,</xsl:text>
-                                                    						<xsl:value-of select="normalize-space(//ead:origination/child::node()[3][@encodinganalog='100_0'])" />
-                                                    					</xsl:if>
-                                                    				</relationEntry>
-                                                    			</xsl:when>
-                                                    			<xsl:otherwise>
-                                                    				<xsl:choose>
-                                                    					<xsl:when test="//ead:origination/child::node()[3][@encodinganalog='100_0']!=''">
-                                                    						<xsl:value-of select="normalize-space(//ead:origination/child::node()[3][@encodinganalog='100_0'])" />
-                                                    					</xsl:when>
-                                                    					<xsl:otherwise>
-                                                    						<relationEntry localType="creator">
-                                                    							<xsl:value-of select="normalize-space(//ead:origination/child::node()[1])" />
-                                                    						</relationEntry>
-                                                    					</xsl:otherwise>
-                                                    				</xsl:choose>
-                                                    			</xsl:otherwise>
-                                                    		</xsl:choose>
-                                                    	</xsl:if>
-                                                        <xsl:if test="../following-sibling::ead:note[@type='resourceNote'][@label=$vResourceLabel]/ead:p!=''">
-                                                            <descriptiveNote>
-                                                                <p>
-                                                                    <xsl:value-of select="normalize-space(../following-sibling::ead:note[@type='resourceNote'][@label=$vResourceLabel]/ead:p)" />
-                                                                </p>
-                                                            </descriptiveNote>
-                                                        </xsl:if>
-                                                    </resourceRelation>
-                                                </xsl:otherwise>
-                                            </xsl:choose>
-                                        </xsl:when>
-                                        <xsl:otherwise>
-                                            <xsl:choose>
-                                                <xsl:when test="normalize-space(../following-sibling::ead:note[@type='resourceCreator'][@label=$vResourceLabel]/ead:p)!=''">
-                                                    <resourceRelation xmlns="urn:isbn:1-931666-33-4" resourceRelationType="{normalize-space(../following-sibling::ead:note[@type='resourceType'][@label=$vResourceLabel]/ead:p)}" xml:id="{normalize-space(../following-sibling::ead:note[@type='resourceID'][@label=$vResourceLabel]/ead:p)}" xlink:href="{normalize-space(../following-sibling::ead:note[@type='resourceURI'][@label=$vResourceLabel]/ead:p)}" xlink:role="{normalize-space(../following-sibling::ead:note[@type='resourceRole'][@label=$vResourceLabel]/ead:p)}" xlink:type="simple">
-                                                        <relationEntry localType="title">
-                                                            <xsl:value-of select="normalize-space(.)" />
-                                                        </relationEntry>
-                                                        <relationEntry localType="creator">
-                                                            <xsl:value-of select="normalize-space(../following-sibling::ead:note[@type='resourceCreator'][@label=$vResourceLabel]/ead:p)" />
-                                                        </relationEntry>
-                                                        <xsl:if test="../following-sibling::ead:note[@type='resourceNote'][@label=$vResourceLabel]/ead:p!=''">
-                                                            <descriptiveNote>
-                                                                <p>
-                                                                    <xsl:value-of select="normalize-space(../following-sibling::ead:note[@type='resourceNote'][@label=$vResourceLabel]/ead:p)" />
-                                                                </p>
-                                                            </descriptiveNote>
-                                                        </xsl:if>
-                                                    </resourceRelation>
-                                                </xsl:when>
-                                                <xsl:otherwise>
-                                                    <resourceRelation xmlns="urn:isbn:1-931666-33-4" resourceRelationType="{normalize-space(../following-sibling::ead:note[@type='resourceType'][@label=$vResourceLabel]/ead:p)}" xml:id="{normalize-space(../following-sibling::ead:note[@type='resourceID'][@label=$vResourceLabel]/ead:p)}" xlink:href="{normalize-space(../following-sibling::ead:note[@type='resourceURI'][@label=$vResourceLabel]/ead:p)}" xlink:role="{normalize-space(../following-sibling::ead:note[@type='resourceRole'][@label=$vResourceLabel]/ead:p)}" xlink:type="simple">
-                                                        <relationEntry localType="title">
-                                                            <xsl:value-of select="normalize-space(.)" />
-                                                        </relationEntry>
-                                                    	<xsl:if test="../following-sibling::ead:note[@type='resourceType'][@label=$vResourceLabel]/ead:p='creatorOf'">
-                                                    		<xsl:choose>
-                                                    			<xsl:when test="//ead:origination/child::node()[2][@encodinganalog='100_1']!=''">
-                                                    				<relationEntry localType="creator">
-                                                    					<xsl:value-of select="normalize-space(//ead:origination/child::node()[2][@encodinganalog='100_1'])" />
-                                                    					<xsl:if test="//ead:origination/child::node()[3][@encodinganalog='100_0']!=''">
-                                                    						<xsl:text>,</xsl:text>
-                                                    						<xsl:value-of select="normalize-space(//ead:origination/child::node()[3][@encodinganalog='100_0'])" />
-                                                    					</xsl:if>
-                                                    				</relationEntry>
-                                                    			</xsl:when>
-                                                    			<xsl:otherwise>
-                                                    				<xsl:choose>
-                                                    					<xsl:when test="//ead:origination/child::node()[3][@encodinganalog='100_0']!=''">
-                                                    						<xsl:value-of select="normalize-space(//ead:origination/child::node()[3][@encodinganalog='100_0'])" />
-                                                    					</xsl:when>
-                                                    					<xsl:otherwise>
-                                                    						<relationEntry localType="creator">
-                                                    							<xsl:value-of select="normalize-space(//ead:origination/child::node()[1])" />
-                                                    						</relationEntry>
-                                                    					</xsl:otherwise>
-                                                    				</xsl:choose>
-                                                    			</xsl:otherwise>
-                                                    		</xsl:choose>
-                                                    	</xsl:if>
-                                                        <xsl:if test="../following-sibling::ead:note[@type='resourceNote'][@label=$vResourceLabel]/ead:p!=''">
-                                                            <descriptiveNote>
-                                                                <p>
-                                                                    <xsl:value-of select="normalize-space(../following-sibling::ead:note[@type='resourceNote'][@label=$vResourceLabel]/ead:p)" />
-                                                                </p>
-                                                            </descriptiveNote>
-                                                        </xsl:if>
-                                                    </resourceRelation>
-                                                </xsl:otherwise>
-                                            </xsl:choose>
-                                        </xsl:otherwise>
-                                    </xsl:choose>
-                                </xsl:when>
-                                <xsl:otherwise>
-                                    <xsl:choose>
-                                        <xsl:when test="normalize-space(../following-sibling::ead:note[@type='resourceRole'][@label=$vResourceLabel]/ead:p)!=''">
-                                            <xsl:choose>
-                                                <xsl:when test="normalize-space(../following-sibling::ead:note[@type='resourceCreator'][@label=$vResourceLabel]/ead:p)!=''">
-                                                    <resourceRelation xmlns="urn:isbn:1-931666-33-4" resourceRelationType="{normalize-space(../following-sibling::ead:note[@type='resourceType'][@label=$vResourceLabel]/ead:p)}" xml:id="{normalize-space(../following-sibling::ead:note[@type='resourceID'][@label=$vResourceLabel]/ead:p)}" xlink:href="{normalize-space(../following-sibling::ead:note[@type='resourceURI'][@label=$vResourceLabel]/ead:p)}" xlink:role="{normalize-space(../following-sibling::ead:note[@type='resourceRole'][@label=$vResourceLabel]/ead:p)}" xlink:type="simple">
-                                                        <relationEntry localType="title">
-                                                            <xsl:value-of select="normalize-space(.)" />
-                                                        </relationEntry>
-                                                        <relationEntry localType="creator">
-                                                            <xsl:value-of select="normalize-space(../following-sibling::ead:note[@type='resourceCreator'][@label=$vResourceLabel]/ead:p)" />
-                                                        </relationEntry>
-                                                        <xsl:if test="../following-sibling::ead:note[@type='resourceNote'][@label=$vResourceLabel]/ead:p!=''">
-                                                            <descriptiveNote>
-                                                                <p>
-                                                                    <xsl:value-of select="normalize-space(../following-sibling::ead:note[@type='resourceNote'][@label=$vResourceLabel]/ead:p)" />
-                                                                </p>
-                                                            </descriptiveNote>
-                                                        </xsl:if>
-                                                    </resourceRelation>
-                                                </xsl:when>
-                                                <xsl:otherwise>
-                                                    <resourceRelation xmlns="urn:isbn:1-931666-33-4" resourceRelationType="{normalize-space(../following-sibling::ead:note[@type='resourceType'][@label=$vResourceLabel]/ead:p)}" xml:id="{normalize-space(../following-sibling::ead:note[@type='resourceID'][@label=$vResourceLabel]/ead:p)}" xlink:href="{normalize-space(../following-sibling::ead:note[@type='resourceURI'][@label=$vResourceLabel]/ead:p)}" xlink:role="{normalize-space(../following-sibling::ead:note[@type='resourceRole'][@label=$vResourceLabel]/ead:p)}" xlink:type="simple">
-                                                        <relationEntry localType="title">
-                                                            <xsl:value-of select="normalize-space(.)" />
-                                                        </relationEntry>
-                                                    	<xsl:if test="../following-sibling::ead:note[@type='resourceType'][@label=$vResourceLabel]/ead:p='creatorOf'">
-                                                    		<xsl:choose>
-                                                    			<xsl:when test="//ead:origination/child::node()[2][@encodinganalog='100_1']!=''">
-                                                    				<relationEntry localType="creator">
-                                                    					<xsl:value-of select="normalize-space(//ead:origination/child::node()[2][@encodinganalog='100_1'])" />
-                                                    					<xsl:if test="//ead:origination/child::node()[3][@encodinganalog='100_0']!=''">
-                                                    						<xsl:text>,</xsl:text>
-                                                    						<xsl:value-of select="normalize-space(//ead:origination/child::node()[3][@encodinganalog='100_0'])" />
-                                                    					</xsl:if>
-                                                    				</relationEntry>
-                                                    			</xsl:when>
-                                                    			<xsl:otherwise>
-                                                    				<xsl:choose>
-                                                    					<xsl:when test="//ead:origination/child::node()[3][@encodinganalog='100_0']!=''">
-                                                    						<xsl:value-of select="normalize-space(//ead:origination/child::node()[3][@encodinganalog='100_0'])" />
-                                                    					</xsl:when>
-                                                    					<xsl:otherwise>
-                                                    						<relationEntry localType="creator">
-                                                    							<xsl:value-of select="normalize-space(//ead:origination/child::node()[1])" />
-                                                    						</relationEntry>
-                                                    					</xsl:otherwise>
-                                                    				</xsl:choose>
-                                                    			</xsl:otherwise>
-                                                    		</xsl:choose>
-                                                    	</xsl:if>
-                                                        <xsl:if test="../following-sibling::ead:note[@type='resourceNote'][@label=$vResourceLabel]/ead:p!=''">
-                                                            <descriptiveNote>
-                                                                <p>
-                                                                    <xsl:value-of select="normalize-space(../following-sibling::ead:note[@type='resourceNote'][@label=$vResourceLabel]/ead:p)" />
-                                                                </p>
-                                                            </descriptiveNote>
-                                                        </xsl:if>
-                                                    </resourceRelation>
-                                                </xsl:otherwise>
-                                            </xsl:choose>
-                                        </xsl:when>
-                                        <xsl:otherwise>
-                                            <xsl:choose>
-                                                <xsl:when test="normalize-space(../following-sibling::ead:note[@type='resourceCreator'][@label=$vResourceLabel]/ead:p)!=''">
-                                                    <resourceRelation xmlns="urn:isbn:1-931666-33-4" resourceRelationType="{normalize-space(../following-sibling::ead:note[@type='resourceType'][@label=$vResourceLabel]/ead:p)}" xml:id="{normalize-space(../following-sibling::ead:note[@type='resourceID'][@label=$vResourceLabel]/ead:p)}" xlink:href="{normalize-space(../following-sibling::ead:note[@type='resourceURI'][@label=$vResourceLabel]/ead:p)}" xlink:role="{normalize-space(../following-sibling::ead:note[@type='resourceRole'][@label=$vResourceLabel]/ead:p)}" xlink:type="simple">
-                                                        <relationEntry localType="title">
-                                                            <xsl:value-of select="normalize-space(.)" />
-                                                        </relationEntry>
-                                                        <relationEntry localType="creator">
-                                                            <xsl:value-of select="normalize-space(../following-sibling::ead:note[@type='resourceCreator'][@label=$vResourceLabel]/ead:p)" />
-                                                        </relationEntry>
-                                                        <xsl:if test="../following-sibling::ead:note[@type='resourceNote'][@label=$vResourceLabel]/ead:p!=''">
-                                                            <descriptiveNote>
-                                                                <p>
-                                                                    <xsl:value-of select="normalize-space(../following-sibling::ead:note[@type='resourceNote'][@label=$vResourceLabel]/ead:p)" />
-                                                                </p>
-                                                            </descriptiveNote>
-                                                        </xsl:if>
-                                                    </resourceRelation>
-                                                </xsl:when>
-                                                <xsl:otherwise>
-                                                    <resourceRelation xmlns="urn:isbn:1-931666-33-4" resourceRelationType="{normalize-space(../following-sibling::ead:note[@type='resourceType'][@label=$vResourceLabel]/ead:p)}" xml:id="{normalize-space(../following-sibling::ead:note[@type='resourceID'][@label=$vResourceLabel]/ead:p)}" xlink:href="{normalize-space(../following-sibling::ead:note[@type='resourceURI'][@label=$vResourceLabel]/ead:p)}" xlink:role="{normalize-space(../following-sibling::ead:note[@type='resourceRole'][@label=$vResourceLabel]/ead:p)}" xlink:type="simple">
-                                                        <relationEntry localType="title">
-                                                            <xsl:value-of select="normalize-space(.)" />
-                                                        </relationEntry>
-                                                    	<xsl:if test="../following-sibling::ead:note[@type='resourceType'][@label=$vResourceLabel]/ead:p='creatorOf'">
-                                                    		<xsl:choose>
-                                                    			<xsl:when test="//ead:origination/child::node()[2][@encodinganalog='100_1']!=''">
-                                                    				<relationEntry localType="creator">
-                                                    					<xsl:value-of select="normalize-space(//ead:origination/child::node()[2][@encodinganalog='100_1'])" />
-                                                    					<xsl:if test="//ead:origination/child::node()[3][@encodinganalog='100_0']!=''">
-                                                    						<xsl:text>,</xsl:text>
-                                                    						<xsl:value-of select="normalize-space(//ead:origination/child::node()[3][@encodinganalog='100_0'])" />
-                                                    					</xsl:if>
-                                                    				</relationEntry>
-                                                    			</xsl:when>
-                                                    			<xsl:otherwise>
-                                                    				<xsl:choose>
-                                                    					<xsl:when test="//ead:origination/child::node()[3][@encodinganalog='100_0']!=''">
-                                                    						<xsl:value-of select="normalize-space(//ead:origination/child::node()[3][@encodinganalog='100_0'])" />
-                                                    					</xsl:when>
-                                                    					<xsl:otherwise>
-                                                    						<relationEntry localType="creator">
-                                                    							<xsl:value-of select="normalize-space(//ead:origination/child::node()[1])" />
-                                                    						</relationEntry>
-                                                    					</xsl:otherwise>
-                                                    				</xsl:choose>
-                                                    			</xsl:otherwise>
-                                                    		</xsl:choose>
-                                                    	</xsl:if>
-                                                        <xsl:if test="../following-sibling::ead:note[@type='resourceNote'][@label=$vResourceLabel]/ead:p!=''">
-                                                            <descriptiveNote>
-                                                                <p>
-                                                                    <xsl:value-of select="normalize-space(../following-sibling::ead:note[@type='resourceNote'][@label=$vResourceLabel]/ead:p)" />
-                                                                </p>
-                                                            </descriptiveNote>
-                                                        </xsl:if>
-                                                    </resourceRelation>
-                                                </xsl:otherwise>
-                                            </xsl:choose>
-                                        </xsl:otherwise>
-                                    </xsl:choose>
-                                </xsl:otherwise>
-                            </xsl:choose>
-                        </xsl:when>
-                        <xsl:otherwise>
-                            <xsl:choose>
-                                <xsl:when test="normalize-space(../following-sibling::ead:note[@type='resourceRole'][@label=$vResourceLabel]/ead:p)!=''">
-                                    <xsl:choose>
-                                        <xsl:when test="normalize-space(../following-sibling::ead:note[@type='resourceCreator'][@label=$vResourceLabel]/ead:p)!=''">
-                                            <resourceRelation xmlns="urn:isbn:1-931666-33-4" resourceRelationType="{normalize-space(../following-sibling::ead:note[@type='resourceType'][@label=$vResourceLabel]/ead:p)}" xml:id="{normalize-space(../following-sibling::ead:note[@type='resourceID'][@label=$vResourceLabel]/ead:p)}" xlink:href="{normalize-space(../following-sibling::ead:note[@type='resourceURI'][@label=$vResourceLabel]/ead:p)}" xlink:role="{normalize-space(../following-sibling::ead:note[@type='resourceRole'][@label=$vResourceLabel]/ead:p)}" xlink:type="simple">
-                                                <relationEntry localType="title">
-                                                    <xsl:value-of select="normalize-space(.)" />
-                                                </relationEntry>
-                                                <relationEntry localType="creator">
-                                                    <xsl:value-of select="normalize-space(../following-sibling::ead:note[@type='resourceCreator'][@label=$vResourceLabel]/ead:p)" />
-                                                </relationEntry>
-                                                <xsl:if test="../following-sibling::ead:note[@type='resourceNote'][@label=$vResourceLabel]/ead:p!=''">
-                                                    <descriptiveNote>
-                                                        <p>
-                                                            <xsl:value-of select="normalize-space(../following-sibling::ead:note[@type='resourceNote'][@label=$vResourceLabel]/ead:p)" />
-                                                        </p>
-                                                    </descriptiveNote>
-                                                </xsl:if>
-                                            </resourceRelation>
-                                        </xsl:when>
-                                        <xsl:otherwise>
-                                            <resourceRelation xmlns="urn:isbn:1-931666-33-4" resourceRelationType="{normalize-space(../following-sibling::ead:note[@type='resourceType'][@label=$vResourceLabel]/ead:p)}" xml:id="{normalize-space(../following-sibling::ead:note[@type='resourceID'][@label=$vResourceLabel]/ead:p)}" xlink:href="{normalize-space(../following-sibling::ead:note[@type='resourceURI'][@label=$vResourceLabel]/ead:p)}" xlink:role="{normalize-space(../following-sibling::ead:note[@type='resourceRole'][@label=$vResourceLabel]/ead:p)}" xlink:type="simple">
-                                                <relationEntry localType="title">
-                                                    <xsl:value-of select="normalize-space(.)" />
-                                                </relationEntry>
-                                            	<xsl:if test="../following-sibling::ead:note[@type='resourceType'][@label=$vResourceLabel]/ead:p='creatorOf'">
-                                            		<xsl:choose>
-                                            			<xsl:when test="//ead:origination/child::node()[2][@encodinganalog='100_1']!=''">
-                                            				<relationEntry localType="creator">
-                                            					<xsl:value-of select="normalize-space(//ead:origination/child::node()[2][@encodinganalog='100_1'])" />
-                                            					<xsl:if test="//ead:origination/child::node()[3][@encodinganalog='100_0']!=''">
-                                            						<xsl:text>,</xsl:text>
-                                            						<xsl:value-of select="normalize-space(//ead:origination/child::node()[3][@encodinganalog='100_0'])" />
-                                            					</xsl:if>
-                                            				</relationEntry>
-                                            			</xsl:when>
-                                            			<xsl:otherwise>
-                                            				<xsl:choose>
-                                            					<xsl:when test="//ead:origination/child::node()[3][@encodinganalog='100_0']!=''">
-                                            						<xsl:value-of select="normalize-space(//ead:origination/child::node()[3][@encodinganalog='100_0'])" />
-                                            					</xsl:when>
-                                            					<xsl:otherwise>
-                                            						<relationEntry localType="creator">
-                                            							<xsl:value-of select="normalize-space(//ead:origination/child::node()[1])" />
-                                            						</relationEntry>
-                                            					</xsl:otherwise>
-                                            				</xsl:choose>
-                                            			</xsl:otherwise>
-                                            		</xsl:choose>
-                                            	</xsl:if>
-                                                <xsl:if test="../following-sibling::ead:note[@type='resourceNote'][@label=$vResourceLabel]/ead:p!=''">
-                                                    <descriptiveNote>
-                                                        <p>
-                                                            <xsl:value-of select="normalize-space(../following-sibling::ead:note[@type='resourceNote'][@label=$vResourceLabel]/ead:p)" />
-                                                        </p>
-                                                    </descriptiveNote>
-                                                </xsl:if>
-                                            </resourceRelation>
-                                        </xsl:otherwise>
-                                    </xsl:choose>
-                                </xsl:when>
-                                <xsl:otherwise>
-                                    <xsl:choose>
-                                        <xsl:when test="normalize-space(../following-sibling::ead:note[@type='resourceCreator'][@label=$vResourceLabel]/ead:p)!=''">
-                                            <resourceRelation xmlns="urn:isbn:1-931666-33-4" resourceRelationType="{normalize-space(../following-sibling::ead:note[@type='resourceType'][@label=$vResourceLabel]/ead:p)}" xml:id="{normalize-space(../following-sibling::ead:note[@type='resourceID'][@label=$vResourceLabel]/ead:p)}" xlink:href="{normalize-space(../following-sibling::ead:note[@type='resourceURI'][@label=$vResourceLabel]/ead:p)}" xlink:role="{normalize-space(../following-sibling::ead:note[@type='resourceRole'][@label=$vResourceLabel]/ead:p)}" xlink:type="simple">
-                                                <relationEntry localType="title">
-                                                    <xsl:value-of select="normalize-space(.)" />
-                                                </relationEntry>
-                                                <relationEntry localType="creator">
-                                                    <xsl:value-of select="normalize-space(../following-sibling::ead:note[@type='resourceCreator'][@label=$vResourceLabel]/ead:p)" />
-                                                </relationEntry>
-                                                <xsl:if test="../following-sibling::ead:note[@type='resourceNote'][@label=$vResourceLabel]/ead:p!=''">
-                                                    <descriptiveNote>
-                                                        <p>
-                                                            <xsl:value-of select="normalize-space(../following-sibling::ead:note[@type='resourceNote'][@label=$vResourceLabel]/ead:p)" />
-                                                        </p>
-                                                    </descriptiveNote>
-                                                </xsl:if>
-                                            </resourceRelation>
-                                        </xsl:when>
-                                        <xsl:otherwise>
-                                            <resourceRelation xmlns="urn:isbn:1-931666-33-4" resourceRelationType="{normalize-space(../following-sibling::ead:note[@type='resourceType'][@label=$vResourceLabel]/ead:p)}" xml:id="{normalize-space(../following-sibling::ead:note[@type='resourceID'][@label=$vResourceLabel]/ead:p)}" xlink:href="{normalize-space(../following-sibling::ead:note[@type='resourceURI'][@label=$vResourceLabel]/ead:p)}" xlink:role="{normalize-space(../following-sibling::ead:note[@type='resourceRole'][@label=$vResourceLabel]/ead:p)}" xlink:type="simple">
-                                                <relationEntry localType="title">
-                                                    <xsl:value-of select="normalize-space(.)" />
-                                                </relationEntry>
-                                            	<xsl:if test="../following-sibling::ead:note[@type='resourceType'][@label=$vResourceLabel]/ead:p='creatorOf'">
-                                            		<xsl:choose>
-                                            			<xsl:when test="//ead:origination/child::node()[2][@encodinganalog='100_1']!=''">
-                                            				<relationEntry localType="creator">
-                                            					<xsl:value-of select="normalize-space(//ead:origination/child::node()[2][@encodinganalog='100_1'])" />
-                                            					<xsl:if test="//ead:origination/child::node()[3][@encodinganalog='100_0']!=''">
-                                            						<xsl:text>,</xsl:text>
-                                            						<xsl:value-of select="normalize-space(//ead:origination/child::node()[3][@encodinganalog='100_0'])" />
-                                            					</xsl:if>
-                                            				</relationEntry>
-                                            			</xsl:when>
-                                            			<xsl:otherwise>
-                                            				<xsl:choose>
-                                            					<xsl:when test="//ead:origination/child::node()[3][@encodinganalog='100_0']!=''">
-                                            						<xsl:value-of select="normalize-space(//ead:origination/child::node()[3][@encodinganalog='100_0'])" />
-                                            					</xsl:when>
-                                            					<xsl:otherwise>
-                                            						<relationEntry localType="creator">
-                                            							<xsl:value-of select="normalize-space(//ead:origination/child::node()[1])" />
-                                            						</relationEntry>
-                                            					</xsl:otherwise>
-                                            				</xsl:choose>
-                                            			</xsl:otherwise>
-                                            		</xsl:choose>
-                                            	</xsl:if>
-                                                <xsl:if test="../following-sibling::ead:note[@type='resourceNote'][@label=$vResourceLabel]/ead:p!=''">
-                                                    <descriptiveNote>
-                                                        <p>
-                                                            <xsl:value-of select="normalize-space(../following-sibling::ead:note[@type='resourceNote'][@label=$vResourceLabel]/ead:p)" />
-                                                        </p>
-                                                    </descriptiveNote>
-                                                </xsl:if>
-                                            </resourceRelation>
-                                        </xsl:otherwise>
-                                    </xsl:choose>
-                                </xsl:otherwise>
-                            </xsl:choose>
-                        </xsl:otherwise>
-                    </xsl:choose>
-                </xsl:if>
+                <xsl:choose>
+                    <xsl:when test="../following-sibling::ead:note[@type='resourceID'][@label=$vResourceLabel]/ead:p!=''">
+                        <xsl:choose>
+                            <xsl:when test="normalize-space(../following-sibling::ead:note[@type='resourceType'][@label=$vResourceLabel]/ead:p)!=''">
+                                <xsl:choose>
+                                    <xsl:when test="normalize-space(../following-sibling::ead:note[@type='resourceURI'][@label=$vResourceLabel]/ead:p)!=''">
+                                        <xsl:choose>
+                                            <xsl:when test="normalize-space(../following-sibling::ead:note[@type='resourceRole'][@label=$vResourceLabel]/ead:p)!=''">
+                                                <xsl:choose>
+                                                    <xsl:when test="normalize-space(../following-sibling::ead:note[@type='resourceCreator'][@label=$vResourceLabel]/ead:p)!=''">
+                                                        <resourceRelation xmlns="urn:isbn:1-931666-33-4" resourceRelationType="{normalize-space(../following-sibling::ead:note[@type='resourceType'][@label=$vResourceLabel]/ead:p)}" xml:id="{normalize-space(../following-sibling::ead:note[@type='resourceID'][@label=$vResourceLabel]/ead:p)}" xlink:href="{normalize-space(../following-sibling::ead:note[@type='resourceURI'][@label=$vResourceLabel]/ead:p)}" xlink:role="{normalize-space(../following-sibling::ead:note[@type='resourceRole'][@label=$vResourceLabel]/ead:p)}" xlink:type="simple">
+                                                            <relationEntry localType="title">
+                                                                <xsl:value-of select="normalize-space(.)" />
+                                                            </relationEntry>
+                                                            <relationEntry localType="creator">
+                                                                <xsl:value-of select="normalize-space(../following-sibling::ead:note[@type='resourceCreator'][@label=$vResourceLabel]/ead:p)" />
+                                                            </relationEntry>
+                                                            <xsl:if test="../following-sibling::ead:note[@type='resourceNote'][@label=$vResourceLabel]/ead:p!=''">
+                                                                <descriptiveNote>
+                                                                    <p>
+                                                                        <xsl:value-of select="normalize-space(../following-sibling::ead:note[@type='resourceNote'][@label=$vResourceLabel]/ead:p)" />
+                                                                    </p>
+                                                                </descriptiveNote>
+                                                            </xsl:if>
+                                                        </resourceRelation>
+                                                    </xsl:when>
+                                                    <xsl:otherwise>
+                                                        <resourceRelation xmlns="urn:isbn:1-931666-33-4" resourceRelationType="{normalize-space(../following-sibling::ead:note[@type='resourceType'][@label=$vResourceLabel]/ead:p)}" xml:id="{normalize-space(../following-sibling::ead:note[@type='resourceID'][@label=$vResourceLabel]/ead:p)}" xlink:href="{normalize-space(../following-sibling::ead:note[@type='resourceURI'][@label=$vResourceLabel]/ead:p)}" xlink:role="{normalize-space(../following-sibling::ead:note[@type='resourceRole'][@label=$vResourceLabel]/ead:p)}" xlink:type="simple">
+                                                            <relationEntry localType="title">
+                                                                <xsl:value-of select="normalize-space(.)" />
+                                                            </relationEntry>
+                                                            <xsl:if test="../following-sibling::ead:note[@type='resourceType'][@label=$vResourceLabel]/ead:p='creatorOf'">
+                                                                <xsl:choose>
+                                                                    <xsl:when test="//ead:origination/child::node()[2][@encodinganalog='100_1']!=''">
+                                                                        <relationEntry localType="creator">
+                                                                            <xsl:value-of select="normalize-space(//ead:origination/child::node()[2][@encodinganalog='100_1'])" />
+                                                                            <xsl:if test="//ead:origination/child::node()[3][@encodinganalog='100_0']!=''">
+                                                                                <xsl:text>,</xsl:text>
+                                                                                <xsl:value-of select="normalize-space(//ead:origination/child::node()[3][@encodinganalog='100_0'])" />
+                                                                            </xsl:if>
+                                                                        </relationEntry>
+                                                                    </xsl:when>
+                                                                    <xsl:otherwise>
+                                                                        <xsl:choose>
+                                                                            <xsl:when test="//ead:origination/child::node()[3][@encodinganalog='100_0']!=''">
+                                                                                <xsl:value-of select="normalize-space(//ead:origination/child::node()[3][@encodinganalog='100_0'])" />
+                                                                            </xsl:when>
+                                                                            <xsl:otherwise>
+                                                                                <relationEntry localType="creator">
+                                                                                    <xsl:value-of select="normalize-space(//ead:origination/child::node()[1])" />
+                                                                                </relationEntry>
+                                                                            </xsl:otherwise>
+                                                                        </xsl:choose>
+                                                                    </xsl:otherwise>
+                                                                </xsl:choose>
+                                                            </xsl:if>
+                                                            <xsl:if test="../following-sibling::ead:note[@type='resourceNote'][@label=$vResourceLabel]/ead:p!=''">
+                                                                <descriptiveNote>
+                                                                    <p>
+                                                                        <xsl:value-of select="normalize-space(../following-sibling::ead:note[@type='resourceNote'][@label=$vResourceLabel]/ead:p)" />
+                                                                    </p>
+                                                                </descriptiveNote>
+                                                            </xsl:if>
+                                                        </resourceRelation>
+                                                    </xsl:otherwise>
+                                                </xsl:choose>
+                                            </xsl:when>
+                                            <xsl:otherwise>
+                                                <xsl:choose>
+                                                    <xsl:when test="normalize-space(../following-sibling::ead:note[@type='resourceCreator'][@label=$vResourceLabel]/ead:p)!=''">
+                                                        <resourceRelation xmlns="urn:isbn:1-931666-33-4" resourceRelationType="{normalize-space(../following-sibling::ead:note[@type='resourceType'][@label=$vResourceLabel]/ead:p)}" xml:id="{normalize-space(../following-sibling::ead:note[@type='resourceID'][@label=$vResourceLabel]/ead:p)}" xlink:href="{normalize-space(../following-sibling::ead:note[@type='resourceURI'][@label=$vResourceLabel]/ead:p)}" xlink:role="{normalize-space(../following-sibling::ead:note[@type='resourceRole'][@label=$vResourceLabel]/ead:p)}" xlink:type="simple">
+                                                            <relationEntry localType="title">
+                                                                <xsl:value-of select="normalize-space(.)" />
+                                                            </relationEntry>
+                                                            <relationEntry localType="creator">
+                                                                <xsl:value-of select="normalize-space(../following-sibling::ead:note[@type='resourceCreator'][@label=$vResourceLabel]/ead:p)" />
+                                                            </relationEntry>
+                                                            <xsl:if test="../following-sibling::ead:note[@type='resourceNote'][@label=$vResourceLabel]/ead:p!=''">
+                                                                <descriptiveNote>
+                                                                    <p>
+                                                                        <xsl:value-of select="normalize-space(../following-sibling::ead:note[@type='resourceNote'][@label=$vResourceLabel]/ead:p)" />
+                                                                    </p>
+                                                                </descriptiveNote>
+                                                            </xsl:if>
+                                                        </resourceRelation>
+                                                    </xsl:when>
+                                                    <xsl:otherwise>
+                                                        <resourceRelation xmlns="urn:isbn:1-931666-33-4" resourceRelationType="{normalize-space(../following-sibling::ead:note[@type='resourceType'][@label=$vResourceLabel]/ead:p)}" xml:id="{normalize-space(../following-sibling::ead:note[@type='resourceID'][@label=$vResourceLabel]/ead:p)}" xlink:href="{normalize-space(../following-sibling::ead:note[@type='resourceURI'][@label=$vResourceLabel]/ead:p)}" xlink:role="{normalize-space(../following-sibling::ead:note[@type='resourceRole'][@label=$vResourceLabel]/ead:p)}" xlink:type="simple">
+                                                            <relationEntry localType="title">
+                                                                <xsl:value-of select="normalize-space(.)" />
+                                                            </relationEntry>
+                                                            <xsl:if test="../following-sibling::ead:note[@type='resourceType'][@label=$vResourceLabel]/ead:p='creatorOf'">
+                                                                <xsl:choose>
+                                                                    <xsl:when test="//ead:origination/child::node()[2][@encodinganalog='100_1']!=''">
+                                                                        <relationEntry localType="creator">
+                                                                            <xsl:value-of select="normalize-space(//ead:origination/child::node()[2][@encodinganalog='100_1'])" />
+                                                                            <xsl:if test="//ead:origination/child::node()[3][@encodinganalog='100_0']!=''">
+                                                                                <xsl:text>,</xsl:text>
+                                                                                <xsl:value-of select="normalize-space(//ead:origination/child::node()[3][@encodinganalog='100_0'])" />
+                                                                            </xsl:if>
+                                                                        </relationEntry>
+                                                                    </xsl:when>
+                                                                    <xsl:otherwise>
+                                                                        <xsl:choose>
+                                                                            <xsl:when test="//ead:origination/child::node()[3][@encodinganalog='100_0']!=''">
+                                                                                <xsl:value-of select="normalize-space(//ead:origination/child::node()[3][@encodinganalog='100_0'])" />
+                                                                            </xsl:when>
+                                                                            <xsl:otherwise>
+                                                                                <relationEntry localType="creator">
+                                                                                    <xsl:value-of select="normalize-space(//ead:origination/child::node()[1])" />
+                                                                                </relationEntry>
+                                                                            </xsl:otherwise>
+                                                                        </xsl:choose>
+                                                                    </xsl:otherwise>
+                                                                </xsl:choose>
+                                                            </xsl:if>
+                                                            <xsl:if test="../following-sibling::ead:note[@type='resourceNote'][@label=$vResourceLabel]/ead:p!=''">
+                                                                <descriptiveNote>
+                                                                    <p>
+                                                                        <xsl:value-of select="normalize-space(../following-sibling::ead:note[@type='resourceNote'][@label=$vResourceLabel]/ead:p)" />
+                                                                    </p>
+                                                                </descriptiveNote>
+                                                            </xsl:if>
+                                                        </resourceRelation>
+                                                    </xsl:otherwise>
+                                                </xsl:choose>
+                                            </xsl:otherwise>
+                                        </xsl:choose>
+                                    </xsl:when>
+                                    <xsl:otherwise>
+                                        <xsl:choose>
+                                            <xsl:when test="normalize-space(../following-sibling::ead:note[@type='resourceRole'][@label=$vResourceLabel]/ead:p)!=''">
+                                                <xsl:choose>
+                                                    <xsl:when test="normalize-space(../following-sibling::ead:note[@type='resourceCreator'][@label=$vResourceLabel]/ead:p)!=''">
+                                                        <resourceRelation xmlns="urn:isbn:1-931666-33-4" resourceRelationType="{normalize-space(../following-sibling::ead:note[@type='resourceType'][@label=$vResourceLabel]/ead:p)}" xml:id="{normalize-space(../following-sibling::ead:note[@type='resourceID'][@label=$vResourceLabel]/ead:p)}" xlink:href="{normalize-space(../following-sibling::ead:note[@type='resourceURI'][@label=$vResourceLabel]/ead:p)}" xlink:role="{normalize-space(../following-sibling::ead:note[@type='resourceRole'][@label=$vResourceLabel]/ead:p)}" xlink:type="simple">
+                                                            <relationEntry localType="title">
+                                                                <xsl:value-of select="normalize-space(.)" />
+                                                            </relationEntry>
+                                                            <relationEntry localType="creator">
+                                                                <xsl:value-of select="normalize-space(../following-sibling::ead:note[@type='resourceCreator'][@label=$vResourceLabel]/ead:p)" />
+                                                            </relationEntry>
+                                                            <xsl:if test="../following-sibling::ead:note[@type='resourceNote'][@label=$vResourceLabel]/ead:p!=''">
+                                                                <descriptiveNote>
+                                                                    <p>
+                                                                        <xsl:value-of select="normalize-space(../following-sibling::ead:note[@type='resourceNote'][@label=$vResourceLabel]/ead:p)" />
+                                                                    </p>
+                                                                </descriptiveNote>
+                                                            </xsl:if>
+                                                        </resourceRelation>
+                                                    </xsl:when>
+                                                    <xsl:otherwise>
+                                                        <resourceRelation xmlns="urn:isbn:1-931666-33-4" resourceRelationType="{normalize-space(../following-sibling::ead:note[@type='resourceType'][@label=$vResourceLabel]/ead:p)}" xml:id="{normalize-space(../following-sibling::ead:note[@type='resourceID'][@label=$vResourceLabel]/ead:p)}" xlink:href="{normalize-space(../following-sibling::ead:note[@type='resourceURI'][@label=$vResourceLabel]/ead:p)}" xlink:role="{normalize-space(../following-sibling::ead:note[@type='resourceRole'][@label=$vResourceLabel]/ead:p)}" xlink:type="simple">
+                                                            <relationEntry localType="title">
+                                                                <xsl:value-of select="normalize-space(.)" />
+                                                            </relationEntry>
+                                                            <xsl:if test="../following-sibling::ead:note[@type='resourceType'][@label=$vResourceLabel]/ead:p='creatorOf'">
+                                                                <xsl:choose>
+                                                                    <xsl:when test="//ead:origination/child::node()[2][@encodinganalog='100_1']!=''">
+                                                                        <relationEntry localType="creator">
+                                                                            <xsl:value-of select="normalize-space(//ead:origination/child::node()[2][@encodinganalog='100_1'])" />
+                                                                            <xsl:if test="//ead:origination/child::node()[3][@encodinganalog='100_0']!=''">
+                                                                                <xsl:text>,</xsl:text>
+                                                                                <xsl:value-of select="normalize-space(//ead:origination/child::node()[3][@encodinganalog='100_0'])" />
+                                                                            </xsl:if>
+                                                                        </relationEntry>
+                                                                    </xsl:when>
+                                                                    <xsl:otherwise>
+                                                                        <xsl:choose>
+                                                                            <xsl:when test="//ead:origination/child::node()[3][@encodinganalog='100_0']!=''">
+                                                                                <xsl:value-of select="normalize-space(//ead:origination/child::node()[3][@encodinganalog='100_0'])" />
+                                                                            </xsl:when>
+                                                                            <xsl:otherwise>
+                                                                                <relationEntry localType="creator">
+                                                                                    <xsl:value-of select="normalize-space(//ead:origination/child::node()[1])" />
+                                                                                </relationEntry>
+                                                                            </xsl:otherwise>
+                                                                        </xsl:choose>
+                                                                    </xsl:otherwise>
+                                                                </xsl:choose>
+                                                            </xsl:if>
+                                                            <xsl:if test="../following-sibling::ead:note[@type='resourceNote'][@label=$vResourceLabel]/ead:p!=''">
+                                                                <descriptiveNote>
+                                                                    <p>
+                                                                        <xsl:value-of select="normalize-space(../following-sibling::ead:note[@type='resourceNote'][@label=$vResourceLabel]/ead:p)" />
+                                                                    </p>
+                                                                </descriptiveNote>
+                                                            </xsl:if>
+                                                        </resourceRelation>
+                                                    </xsl:otherwise>
+                                                </xsl:choose>
+                                            </xsl:when>
+                                            <xsl:otherwise>
+                                                <xsl:choose>
+                                                    <xsl:when test="normalize-space(../following-sibling::ead:note[@type='resourceCreator'][@label=$vResourceLabel]/ead:p)!=''">
+                                                        <resourceRelation xmlns="urn:isbn:1-931666-33-4" resourceRelationType="{normalize-space(../following-sibling::ead:note[@type='resourceType'][@label=$vResourceLabel]/ead:p)}" xml:id="{normalize-space(../following-sibling::ead:note[@type='resourceID'][@label=$vResourceLabel]/ead:p)}" xlink:href="{normalize-space(../following-sibling::ead:note[@type='resourceURI'][@label=$vResourceLabel]/ead:p)}" xlink:role="{normalize-space(../following-sibling::ead:note[@type='resourceRole'][@label=$vResourceLabel]/ead:p)}" xlink:type="simple">
+                                                            <relationEntry localType="title">
+                                                                <xsl:value-of select="normalize-space(.)" />
+                                                            </relationEntry>
+                                                            <relationEntry localType="creator">
+                                                                <xsl:value-of select="normalize-space(../following-sibling::ead:note[@type='resourceCreator'][@label=$vResourceLabel]/ead:p)" />
+                                                            </relationEntry>
+                                                            <xsl:if test="../following-sibling::ead:note[@type='resourceNote'][@label=$vResourceLabel]/ead:p!=''">
+                                                                <descriptiveNote>
+                                                                    <p>
+                                                                        <xsl:value-of select="normalize-space(../following-sibling::ead:note[@type='resourceNote'][@label=$vResourceLabel]/ead:p)" />
+                                                                    </p>
+                                                                </descriptiveNote>
+                                                            </xsl:if>
+                                                        </resourceRelation>
+                                                    </xsl:when>
+                                                    <xsl:otherwise>
+                                                        <resourceRelation xmlns="urn:isbn:1-931666-33-4" resourceRelationType="{normalize-space(../following-sibling::ead:note[@type='resourceType'][@label=$vResourceLabel]/ead:p)}" xml:id="{normalize-space(../following-sibling::ead:note[@type='resourceID'][@label=$vResourceLabel]/ead:p)}" xlink:href="{normalize-space(../following-sibling::ead:note[@type='resourceURI'][@label=$vResourceLabel]/ead:p)}" xlink:role="{normalize-space(../following-sibling::ead:note[@type='resourceRole'][@label=$vResourceLabel]/ead:p)}" xlink:type="simple">
+                                                            <relationEntry localType="title">
+                                                                <xsl:value-of select="normalize-space(.)" />
+                                                            </relationEntry>
+                                                            <xsl:if test="../following-sibling::ead:note[@type='resourceType'][@label=$vResourceLabel]/ead:p='creatorOf'">
+                                                                <xsl:choose>
+                                                                    <xsl:when test="//ead:origination/child::node()[2][@encodinganalog='100_1']!=''">
+                                                                        <relationEntry localType="creator">
+                                                                            <xsl:value-of select="normalize-space(//ead:origination/child::node()[2][@encodinganalog='100_1'])" />
+                                                                            <xsl:if test="//ead:origination/child::node()[3][@encodinganalog='100_0']!=''">
+                                                                                <xsl:text>,</xsl:text>
+                                                                                <xsl:value-of select="normalize-space(//ead:origination/child::node()[3][@encodinganalog='100_0'])" />
+                                                                            </xsl:if>
+                                                                        </relationEntry>
+                                                                    </xsl:when>
+                                                                    <xsl:otherwise>
+                                                                        <xsl:choose>
+                                                                            <xsl:when test="//ead:origination/child::node()[3][@encodinganalog='100_0']!=''">
+                                                                                <xsl:value-of select="normalize-space(//ead:origination/child::node()[3][@encodinganalog='100_0'])" />
+                                                                            </xsl:when>
+                                                                            <xsl:otherwise>
+                                                                                <relationEntry localType="creator">
+                                                                                    <xsl:value-of select="normalize-space(//ead:origination/child::node()[1])" />
+                                                                                </relationEntry>
+                                                                            </xsl:otherwise>
+                                                                        </xsl:choose>
+                                                                    </xsl:otherwise>
+                                                                </xsl:choose>
+                                                            </xsl:if>
+                                                            <xsl:if test="../following-sibling::ead:note[@type='resourceNote'][@label=$vResourceLabel]/ead:p!=''">
+                                                                <descriptiveNote>
+                                                                    <p>
+                                                                        <xsl:value-of select="normalize-space(../following-sibling::ead:note[@type='resourceNote'][@label=$vResourceLabel]/ead:p)" />
+                                                                    </p>
+                                                                </descriptiveNote>
+                                                            </xsl:if>
+                                                        </resourceRelation>
+                                                    </xsl:otherwise>
+                                                </xsl:choose>
+                                            </xsl:otherwise>
+                                        </xsl:choose>
+                                    </xsl:otherwise>
+                                </xsl:choose>
+                            </xsl:when>
+                            <xsl:otherwise>
+                                <xsl:choose>
+                                    <xsl:when test="normalize-space(../following-sibling::ead:note[@type='resourceURI'][@label=$vResourceLabel]/ead:p)!=''">
+                                        <xsl:choose>
+                                            <xsl:when test="normalize-space(../following-sibling::ead:note[@type='resourceRole'][@label=$vResourceLabel]/ead:p)!=''">
+                                                <xsl:choose>
+                                                    <xsl:when test="normalize-space(../following-sibling::ead:note[@type='resourceCreator'][@label=$vResourceLabel]/ead:p)!=''">
+                                                        <resourceRelation xmlns="urn:isbn:1-931666-33-4" resourceRelationType="{normalize-space(../following-sibling::ead:note[@type='resourceType'][@label=$vResourceLabel]/ead:p)}" xml:id="{normalize-space(../following-sibling::ead:note[@type='resourceID'][@label=$vResourceLabel]/ead:p)}" xlink:href="{normalize-space(../following-sibling::ead:note[@type='resourceURI'][@label=$vResourceLabel]/ead:p)}" xlink:role="{normalize-space(../following-sibling::ead:note[@type='resourceRole'][@label=$vResourceLabel]/ead:p)}" xlink:type="simple">
+                                                            <relationEntry localType="title">
+                                                                <xsl:value-of select="normalize-space(.)" />
+                                                            </relationEntry>
+                                                            <relationEntry localType="creator">
+                                                                <xsl:value-of select="normalize-space(../following-sibling::ead:note[@type='resourceCreator'][@label=$vResourceLabel]/ead:p)" />
+                                                            </relationEntry>
+                                                            <xsl:if test="../following-sibling::ead:note[@type='resourceNote'][@label=$vResourceLabel]/ead:p!=''">
+                                                                <descriptiveNote>
+                                                                    <p>
+                                                                        <xsl:value-of select="normalize-space(../following-sibling::ead:note[@type='resourceNote'][@label=$vResourceLabel]/ead:p)" />
+                                                                    </p>
+                                                                </descriptiveNote>
+                                                            </xsl:if>
+                                                        </resourceRelation>
+                                                    </xsl:when>
+                                                    <xsl:otherwise>
+                                                        <resourceRelation xmlns="urn:isbn:1-931666-33-4" resourceRelationType="{normalize-space(../following-sibling::ead:note[@type='resourceType'][@label=$vResourceLabel]/ead:p)}" xml:id="{normalize-space(../following-sibling::ead:note[@type='resourceID'][@label=$vResourceLabel]/ead:p)}" xlink:href="{normalize-space(../following-sibling::ead:note[@type='resourceURI'][@label=$vResourceLabel]/ead:p)}" xlink:role="{normalize-space(../following-sibling::ead:note[@type='resourceRole'][@label=$vResourceLabel]/ead:p)}" xlink:type="simple">
+                                                            <relationEntry localType="title">
+                                                                <xsl:value-of select="normalize-space(.)" />
+                                                            </relationEntry>
+                                                            <xsl:if test="../following-sibling::ead:note[@type='resourceType'][@label=$vResourceLabel]/ead:p='creatorOf'">
+                                                                <xsl:choose>
+                                                                    <xsl:when test="//ead:origination/child::node()[2][@encodinganalog='100_1']!=''">
+                                                                        <relationEntry localType="creator">
+                                                                            <xsl:value-of select="normalize-space(//ead:origination/child::node()[2][@encodinganalog='100_1'])" />
+                                                                            <xsl:if test="//ead:origination/child::node()[3][@encodinganalog='100_0']!=''">
+                                                                                <xsl:text>,</xsl:text>
+                                                                                <xsl:value-of select="normalize-space(//ead:origination/child::node()[3][@encodinganalog='100_0'])" />
+                                                                            </xsl:if>
+                                                                        </relationEntry>
+                                                                    </xsl:when>
+                                                                    <xsl:otherwise>
+                                                                        <xsl:choose>
+                                                                            <xsl:when test="//ead:origination/child::node()[3][@encodinganalog='100_0']!=''">
+                                                                                <xsl:value-of select="normalize-space(//ead:origination/child::node()[3][@encodinganalog='100_0'])" />
+                                                                            </xsl:when>
+                                                                            <xsl:otherwise>
+                                                                                <relationEntry localType="creator">
+                                                                                    <xsl:value-of select="normalize-space(//ead:origination/child::node()[1])" />
+                                                                                </relationEntry>
+                                                                            </xsl:otherwise>
+                                                                        </xsl:choose>
+                                                                    </xsl:otherwise>
+                                                                </xsl:choose>
+                                                            </xsl:if>
+                                                            <xsl:if test="../following-sibling::ead:note[@type='resourceNote'][@label=$vResourceLabel]/ead:p!=''">
+                                                                <descriptiveNote>
+                                                                    <p>
+                                                                        <xsl:value-of select="normalize-space(../following-sibling::ead:note[@type='resourceNote'][@label=$vResourceLabel]/ead:p)" />
+                                                                    </p>
+                                                                </descriptiveNote>
+                                                            </xsl:if>
+                                                        </resourceRelation>
+                                                    </xsl:otherwise>
+                                                </xsl:choose>
+                                            </xsl:when>
+                                            <xsl:otherwise>
+                                                <xsl:choose>
+                                                    <xsl:when test="normalize-space(../following-sibling::ead:note[@type='resourceCreator'][@label=$vResourceLabel]/ead:p)!=''">
+                                                        <resourceRelation xmlns="urn:isbn:1-931666-33-4" resourceRelationType="{normalize-space(../following-sibling::ead:note[@type='resourceType'][@label=$vResourceLabel]/ead:p)}" xml:id="{normalize-space(../following-sibling::ead:note[@type='resourceID'][@label=$vResourceLabel]/ead:p)}" xlink:href="{normalize-space(../following-sibling::ead:note[@type='resourceURI'][@label=$vResourceLabel]/ead:p)}" xlink:role="{normalize-space(../following-sibling::ead:note[@type='resourceRole'][@label=$vResourceLabel]/ead:p)}" xlink:type="simple">
+                                                            <relationEntry localType="title">
+                                                                <xsl:value-of select="normalize-space(.)" />
+                                                            </relationEntry>
+                                                            <relationEntry localType="creator">
+                                                                <xsl:value-of select="normalize-space(../following-sibling::ead:note[@type='resourceCreator'][@label=$vResourceLabel]/ead:p)" />
+                                                            </relationEntry>
+                                                            <xsl:if test="../following-sibling::ead:note[@type='resourceNote'][@label=$vResourceLabel]/ead:p!=''">
+                                                                <descriptiveNote>
+                                                                    <p>
+                                                                        <xsl:value-of select="normalize-space(../following-sibling::ead:note[@type='resourceNote'][@label=$vResourceLabel]/ead:p)" />
+                                                                    </p>
+                                                                </descriptiveNote>
+                                                            </xsl:if>
+                                                        </resourceRelation>
+                                                    </xsl:when>
+                                                    <xsl:otherwise>
+                                                        <resourceRelation xmlns="urn:isbn:1-931666-33-4" resourceRelationType="{normalize-space(../following-sibling::ead:note[@type='resourceType'][@label=$vResourceLabel]/ead:p)}" xml:id="{normalize-space(../following-sibling::ead:note[@type='resourceID'][@label=$vResourceLabel]/ead:p)}" xlink:href="{normalize-space(../following-sibling::ead:note[@type='resourceURI'][@label=$vResourceLabel]/ead:p)}" xlink:role="{normalize-space(../following-sibling::ead:note[@type='resourceRole'][@label=$vResourceLabel]/ead:p)}" xlink:type="simple">
+                                                            <relationEntry localType="title">
+                                                                <xsl:value-of select="normalize-space(.)" />
+                                                            </relationEntry>
+                                                            <xsl:if test="../following-sibling::ead:note[@type='resourceType'][@label=$vResourceLabel]/ead:p='creatorOf'">
+                                                                <xsl:choose>
+                                                                    <xsl:when test="//ead:origination/child::node()[2][@encodinganalog='100_1']!=''">
+                                                                        <relationEntry localType="creator">
+                                                                            <xsl:value-of select="normalize-space(//ead:origination/child::node()[2][@encodinganalog='100_1'])" />
+                                                                            <xsl:if test="//ead:origination/child::node()[3][@encodinganalog='100_0']!=''">
+                                                                                <xsl:text>,</xsl:text>
+                                                                                <xsl:value-of select="normalize-space(//ead:origination/child::node()[3][@encodinganalog='100_0'])" />
+                                                                            </xsl:if>
+                                                                        </relationEntry>
+                                                                    </xsl:when>
+                                                                    <xsl:otherwise>
+                                                                        <xsl:choose>
+                                                                            <xsl:when test="//ead:origination/child::node()[3][@encodinganalog='100_0']!=''">
+                                                                                <xsl:value-of select="normalize-space(//ead:origination/child::node()[3][@encodinganalog='100_0'])" />
+                                                                            </xsl:when>
+                                                                            <xsl:otherwise>
+                                                                                <relationEntry localType="creator">
+                                                                                    <xsl:value-of select="normalize-space(//ead:origination/child::node()[1])" />
+                                                                                </relationEntry>
+                                                                            </xsl:otherwise>
+                                                                        </xsl:choose>
+                                                                    </xsl:otherwise>
+                                                                </xsl:choose>
+                                                            </xsl:if>
+                                                            <xsl:if test="../following-sibling::ead:note[@type='resourceNote'][@label=$vResourceLabel]/ead:p!=''">
+                                                                <descriptiveNote>
+                                                                    <p>
+                                                                        <xsl:value-of select="normalize-space(../following-sibling::ead:note[@type='resourceNote'][@label=$vResourceLabel]/ead:p)" />
+                                                                    </p>
+                                                                </descriptiveNote>
+                                                            </xsl:if>
+                                                        </resourceRelation>
+                                                    </xsl:otherwise>
+                                                </xsl:choose>
+                                            </xsl:otherwise>
+                                        </xsl:choose>
+                                    </xsl:when>
+                                    <xsl:otherwise>
+                                        <xsl:choose>
+                                            <xsl:when test="normalize-space(../following-sibling::ead:note[@type='resourceRole'][@label=$vResourceLabel]/ead:p)!=''">
+                                                <xsl:choose>
+                                                    <xsl:when test="normalize-space(../following-sibling::ead:note[@type='resourceCreator'][@label=$vResourceLabel]/ead:p)!=''">
+                                                        <resourceRelation xmlns="urn:isbn:1-931666-33-4" resourceRelationType="{normalize-space(../following-sibling::ead:note[@type='resourceType'][@label=$vResourceLabel]/ead:p)}" xml:id="{normalize-space(../following-sibling::ead:note[@type='resourceID'][@label=$vResourceLabel]/ead:p)}" xlink:href="{normalize-space(../following-sibling::ead:note[@type='resourceURI'][@label=$vResourceLabel]/ead:p)}" xlink:role="{normalize-space(../following-sibling::ead:note[@type='resourceRole'][@label=$vResourceLabel]/ead:p)}" xlink:type="simple">
+                                                            <relationEntry localType="title">
+                                                                <xsl:value-of select="normalize-space(.)" />
+                                                            </relationEntry>
+                                                            <relationEntry localType="creator">
+                                                                <xsl:value-of select="normalize-space(../following-sibling::ead:note[@type='resourceCreator'][@label=$vResourceLabel]/ead:p)" />
+                                                            </relationEntry>
+                                                            <xsl:if test="../following-sibling::ead:note[@type='resourceNote'][@label=$vResourceLabel]/ead:p!=''">
+                                                                <descriptiveNote>
+                                                                    <p>
+                                                                        <xsl:value-of select="normalize-space(../following-sibling::ead:note[@type='resourceNote'][@label=$vResourceLabel]/ead:p)" />
+                                                                    </p>
+                                                                </descriptiveNote>
+                                                            </xsl:if>
+                                                        </resourceRelation>
+                                                    </xsl:when>
+                                                    <xsl:otherwise>
+                                                        <resourceRelation xmlns="urn:isbn:1-931666-33-4" resourceRelationType="{normalize-space(../following-sibling::ead:note[@type='resourceType'][@label=$vResourceLabel]/ead:p)}" xml:id="{normalize-space(../following-sibling::ead:note[@type='resourceID'][@label=$vResourceLabel]/ead:p)}" xlink:href="{normalize-space(../following-sibling::ead:note[@type='resourceURI'][@label=$vResourceLabel]/ead:p)}" xlink:role="{normalize-space(../following-sibling::ead:note[@type='resourceRole'][@label=$vResourceLabel]/ead:p)}" xlink:type="simple">
+                                                            <relationEntry localType="title">
+                                                                <xsl:value-of select="normalize-space(.)" />
+                                                            </relationEntry>
+                                                            <xsl:if test="../following-sibling::ead:note[@type='resourceType'][@label=$vResourceLabel]/ead:p='creatorOf'">
+                                                                <xsl:choose>
+                                                                    <xsl:when test="//ead:origination/child::node()[2][@encodinganalog='100_1']!=''">
+                                                                        <relationEntry localType="creator">
+                                                                            <xsl:value-of select="normalize-space(//ead:origination/child::node()[2][@encodinganalog='100_1'])" />
+                                                                            <xsl:if test="//ead:origination/child::node()[3][@encodinganalog='100_0']!=''">
+                                                                                <xsl:text>,</xsl:text>
+                                                                                <xsl:value-of select="normalize-space(//ead:origination/child::node()[3][@encodinganalog='100_0'])" />
+                                                                            </xsl:if>
+                                                                        </relationEntry>
+                                                                    </xsl:when>
+                                                                    <xsl:otherwise>
+                                                                        <xsl:choose>
+                                                                            <xsl:when test="//ead:origination/child::node()[3][@encodinganalog='100_0']!=''">
+                                                                                <xsl:value-of select="normalize-space(//ead:origination/child::node()[3][@encodinganalog='100_0'])" />
+                                                                            </xsl:when>
+                                                                            <xsl:otherwise>
+                                                                                <relationEntry localType="creator">
+                                                                                    <xsl:value-of select="normalize-space(//ead:origination/child::node()[1])" />
+                                                                                </relationEntry>
+                                                                            </xsl:otherwise>
+                                                                        </xsl:choose>
+                                                                    </xsl:otherwise>
+                                                                </xsl:choose>
+                                                            </xsl:if>
+                                                            <xsl:if test="../following-sibling::ead:note[@type='resourceNote'][@label=$vResourceLabel]/ead:p!=''">
+                                                                <descriptiveNote>
+                                                                    <p>
+                                                                        <xsl:value-of select="normalize-space(../following-sibling::ead:note[@type='resourceNote'][@label=$vResourceLabel]/ead:p)" />
+                                                                    </p>
+                                                                </descriptiveNote>
+                                                            </xsl:if>
+                                                        </resourceRelation>
+                                                    </xsl:otherwise>
+                                                </xsl:choose>
+                                            </xsl:when>
+                                            <xsl:otherwise>
+                                                <xsl:choose>
+                                                    <xsl:when test="normalize-space(../following-sibling::ead:note[@type='resourceCreator'][@label=$vResourceLabel]/ead:p)!=''">
+                                                        <resourceRelation xmlns="urn:isbn:1-931666-33-4" resourceRelationType="{normalize-space(../following-sibling::ead:note[@type='resourceType'][@label=$vResourceLabel]/ead:p)}" xml:id="{normalize-space(../following-sibling::ead:note[@type='resourceID'][@label=$vResourceLabel]/ead:p)}" xlink:href="{normalize-space(../following-sibling::ead:note[@type='resourceURI'][@label=$vResourceLabel]/ead:p)}" xlink:role="{normalize-space(../following-sibling::ead:note[@type='resourceRole'][@label=$vResourceLabel]/ead:p)}" xlink:type="simple">
+                                                            <relationEntry localType="title">
+                                                                <xsl:value-of select="normalize-space(.)" />
+                                                            </relationEntry>
+                                                            <relationEntry localType="creator">
+                                                                <xsl:value-of select="normalize-space(../following-sibling::ead:note[@type='resourceCreator'][@label=$vResourceLabel]/ead:p)" />
+                                                            </relationEntry>
+                                                            <xsl:if test="../following-sibling::ead:note[@type='resourceNote'][@label=$vResourceLabel]/ead:p!=''">
+                                                                <descriptiveNote>
+                                                                    <p>
+                                                                        <xsl:value-of select="normalize-space(../following-sibling::ead:note[@type='resourceNote'][@label=$vResourceLabel]/ead:p)" />
+                                                                    </p>
+                                                                </descriptiveNote>
+                                                            </xsl:if>
+                                                        </resourceRelation>
+                                                    </xsl:when>
+                                                    <xsl:otherwise>
+                                                        <resourceRelation xmlns="urn:isbn:1-931666-33-4" resourceRelationType="{normalize-space(../following-sibling::ead:note[@type='resourceType'][@label=$vResourceLabel]/ead:p)}" xml:id="{normalize-space(../following-sibling::ead:note[@type='resourceID'][@label=$vResourceLabel]/ead:p)}" xlink:href="{normalize-space(../following-sibling::ead:note[@type='resourceURI'][@label=$vResourceLabel]/ead:p)}" xlink:role="{normalize-space(../following-sibling::ead:note[@type='resourceRole'][@label=$vResourceLabel]/ead:p)}" xlink:type="simple">
+                                                            <relationEntry localType="title">
+                                                                <xsl:value-of select="normalize-space(.)" />
+                                                            </relationEntry>
+                                                            <xsl:if test="../following-sibling::ead:note[@type='resourceType'][@label=$vResourceLabel]/ead:p='creatorOf'">
+                                                                <xsl:choose>
+                                                                    <xsl:when test="//ead:origination/child::node()[2][@encodinganalog='100_1']!=''">
+                                                                        <relationEntry localType="creator">
+                                                                            <xsl:value-of select="normalize-space(//ead:origination/child::node()[2][@encodinganalog='100_1'])" />
+                                                                            <xsl:if test="//ead:origination/child::node()[3][@encodinganalog='100_0']!=''">
+                                                                                <xsl:text>,</xsl:text>
+                                                                                <xsl:value-of select="normalize-space(//ead:origination/child::node()[3][@encodinganalog='100_0'])" />
+                                                                            </xsl:if>
+                                                                        </relationEntry>
+                                                                    </xsl:when>
+                                                                    <xsl:otherwise>
+                                                                        <xsl:choose>
+                                                                            <xsl:when test="//ead:origination/child::node()[3][@encodinganalog='100_0']!=''">
+                                                                                <xsl:value-of select="normalize-space(//ead:origination/child::node()[3][@encodinganalog='100_0'])" />
+                                                                            </xsl:when>
+                                                                            <xsl:otherwise>
+                                                                                <relationEntry localType="creator">
+                                                                                    <xsl:value-of select="normalize-space(//ead:origination/child::node()[1])" />
+                                                                                </relationEntry>
+                                                                            </xsl:otherwise>
+                                                                        </xsl:choose>
+                                                                    </xsl:otherwise>
+                                                                </xsl:choose>
+                                                            </xsl:if>
+                                                            <xsl:if test="../following-sibling::ead:note[@type='resourceNote'][@label=$vResourceLabel]/ead:p!=''">
+                                                                <descriptiveNote>
+                                                                    <p>
+                                                                        <xsl:value-of select="normalize-space(../following-sibling::ead:note[@type='resourceNote'][@label=$vResourceLabel]/ead:p)" />
+                                                                    </p>
+                                                                </descriptiveNote>
+                                                            </xsl:if>
+                                                        </resourceRelation>
+                                                    </xsl:otherwise>
+                                                </xsl:choose>
+                                            </xsl:otherwise>
+                                        </xsl:choose>
+                                    </xsl:otherwise>
+                                </xsl:choose>
+                            </xsl:otherwise>
+                        </xsl:choose>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <xsl:choose>
+                            <xsl:when test="normalize-space(../following-sibling::ead:note[@type='resourceType'][@label=$vResourceLabel]/ead:p)!=''">
+                                <xsl:choose>
+                                    <xsl:when test="normalize-space(../following-sibling::ead:note[@type='resourceURI'][@label=$vResourceLabel]/ead:p)!=''">
+                                        <xsl:choose>
+                                            <xsl:when test="normalize-space(../following-sibling::ead:note[@type='resourceRole'][@label=$vResourceLabel]/ead:p)!=''">
+                                                <xsl:choose>
+                                                    <xsl:when test="normalize-space(../following-sibling::ead:note[@type='resourceCreator'][@label=$vResourceLabel]/ead:p)!=''">
+                                                        <resourceRelation xmlns="urn:isbn:1-931666-33-4" resourceRelationType="{normalize-space(../following-sibling::ead:note[@type='resourceType'][@label=$vResourceLabel]/ead:p)}" xml:id="{normalize-space(../following-sibling::ead:note[@type='resourceID'][@label=$vResourceLabel]/ead:p)}" xlink:href="{normalize-space(../following-sibling::ead:note[@type='resourceURI'][@label=$vResourceLabel]/ead:p)}" xlink:role="{normalize-space(../following-sibling::ead:note[@type='resourceRole'][@label=$vResourceLabel]/ead:p)}" xlink:type="simple">
+                                                            <relationEntry localType="title">
+                                                                <xsl:value-of select="normalize-space(.)" />
+                                                            </relationEntry>
+                                                            <relationEntry localType="creator">
+                                                                <xsl:value-of select="normalize-space(../following-sibling::ead:note[@type='resourceCreator'][@label=$vResourceLabel]/ead:p)" />
+                                                            </relationEntry>
+                                                            <xsl:if test="../following-sibling::ead:note[@type='resourceNote'][@label=$vResourceLabel]/ead:p!=''">
+                                                                <descriptiveNote>
+                                                                    <p>
+                                                                        <xsl:value-of select="normalize-space(../following-sibling::ead:note[@type='resourceNote'][@label=$vResourceLabel]/ead:p)" />
+                                                                    </p>
+                                                                </descriptiveNote>
+                                                            </xsl:if>
+                                                        </resourceRelation>
+                                                    </xsl:when>
+                                                    <xsl:otherwise>
+                                                        <resourceRelation xmlns="urn:isbn:1-931666-33-4" resourceRelationType="{normalize-space(../following-sibling::ead:note[@type='resourceType'][@label=$vResourceLabel]/ead:p)}" xml:id="{normalize-space(../following-sibling::ead:note[@type='resourceID'][@label=$vResourceLabel]/ead:p)}" xlink:href="{normalize-space(../following-sibling::ead:note[@type='resourceURI'][@label=$vResourceLabel]/ead:p)}" xlink:role="{normalize-space(../following-sibling::ead:note[@type='resourceRole'][@label=$vResourceLabel]/ead:p)}" xlink:type="simple">
+                                                            <relationEntry localType="title">
+                                                                <xsl:value-of select="normalize-space(.)" />
+                                                            </relationEntry>
+                                                            <xsl:if test="../following-sibling::ead:note[@type='resourceType'][@label=$vResourceLabel]/ead:p='creatorOf'">
+                                                                <xsl:choose>
+                                                                    <xsl:when test="//ead:origination/child::node()[2][@encodinganalog='100_1']!=''">
+                                                                        <relationEntry localType="creator">
+                                                                            <xsl:value-of select="normalize-space(//ead:origination/child::node()[2][@encodinganalog='100_1'])" />
+                                                                            <xsl:if test="//ead:origination/child::node()[3][@encodinganalog='100_0']!=''">
+                                                                                <xsl:text>,</xsl:text>
+                                                                                <xsl:value-of select="normalize-space(//ead:origination/child::node()[3][@encodinganalog='100_0'])" />
+                                                                            </xsl:if>
+                                                                        </relationEntry>
+                                                                    </xsl:when>
+                                                                    <xsl:otherwise>
+                                                                        <xsl:choose>
+                                                                            <xsl:when test="//ead:origination/child::node()[3][@encodinganalog='100_0']!=''">
+                                                                                <xsl:value-of select="normalize-space(//ead:origination/child::node()[3][@encodinganalog='100_0'])" />
+                                                                            </xsl:when>
+                                                                            <xsl:otherwise>
+                                                                                <relationEntry localType="creator">
+                                                                                    <xsl:value-of select="normalize-space(//ead:origination/child::node()[1])" />
+                                                                                </relationEntry>
+                                                                            </xsl:otherwise>
+                                                                        </xsl:choose>
+                                                                    </xsl:otherwise>
+                                                                </xsl:choose>
+                                                            </xsl:if>
+                                                            <xsl:if test="../following-sibling::ead:note[@type='resourceNote'][@label=$vResourceLabel]/ead:p!=''">
+                                                                <descriptiveNote>
+                                                                    <p>
+                                                                        <xsl:value-of select="normalize-space(../following-sibling::ead:note[@type='resourceNote'][@label=$vResourceLabel]/ead:p)" />
+                                                                    </p>
+                                                                </descriptiveNote>
+                                                            </xsl:if>
+                                                        </resourceRelation>
+                                                    </xsl:otherwise>
+                                                </xsl:choose>
+                                            </xsl:when>
+                                            <xsl:otherwise>
+                                                <xsl:choose>
+                                                    <xsl:when test="normalize-space(../following-sibling::ead:note[@type='resourceCreator'][@label=$vResourceLabel]/ead:p)!=''">
+                                                        <resourceRelation xmlns="urn:isbn:1-931666-33-4" resourceRelationType="{normalize-space(../following-sibling::ead:note[@type='resourceType'][@label=$vResourceLabel]/ead:p)}" xml:id="{normalize-space(../following-sibling::ead:note[@type='resourceID'][@label=$vResourceLabel]/ead:p)}" xlink:href="{normalize-space(../following-sibling::ead:note[@type='resourceURI'][@label=$vResourceLabel]/ead:p)}" xlink:role="{normalize-space(../following-sibling::ead:note[@type='resourceRole'][@label=$vResourceLabel]/ead:p)}" xlink:type="simple">
+                                                            <relationEntry localType="title">
+                                                                <xsl:value-of select="normalize-space(.)" />
+                                                            </relationEntry>
+                                                            <relationEntry localType="creator">
+                                                                <xsl:value-of select="normalize-space(../following-sibling::ead:note[@type='resourceCreator'][@label=$vResourceLabel]/ead:p)" />
+                                                            </relationEntry>
+                                                            <xsl:if test="../following-sibling::ead:note[@type='resourceNote'][@label=$vResourceLabel]/ead:p!=''">
+                                                                <descriptiveNote>
+                                                                    <p>
+                                                                        <xsl:value-of select="normalize-space(../following-sibling::ead:note[@type='resourceNote'][@label=$vResourceLabel]/ead:p)" />
+                                                                    </p>
+                                                                </descriptiveNote>
+                                                            </xsl:if>
+                                                        </resourceRelation>
+                                                    </xsl:when>
+                                                    <xsl:otherwise>
+                                                        <resourceRelation xmlns="urn:isbn:1-931666-33-4" resourceRelationType="{normalize-space(../following-sibling::ead:note[@type='resourceType'][@label=$vResourceLabel]/ead:p)}" xml:id="{normalize-space(../following-sibling::ead:note[@type='resourceID'][@label=$vResourceLabel]/ead:p)}" xlink:href="{normalize-space(../following-sibling::ead:note[@type='resourceURI'][@label=$vResourceLabel]/ead:p)}" xlink:role="{normalize-space(../following-sibling::ead:note[@type='resourceRole'][@label=$vResourceLabel]/ead:p)}" xlink:type="simple">
+                                                            <relationEntry localType="title">
+                                                                <xsl:value-of select="normalize-space(.)" />
+                                                            </relationEntry>
+                                                            <xsl:if test="../following-sibling::ead:note[@type='resourceType'][@label=$vResourceLabel]/ead:p='creatorOf'">
+                                                                <xsl:choose>
+                                                                    <xsl:when test="//ead:origination/child::node()[2][@encodinganalog='100_1']!=''">
+                                                                        <relationEntry localType="creator">
+                                                                            <xsl:value-of select="normalize-space(//ead:origination/child::node()[2][@encodinganalog='100_1'])" />
+                                                                            <xsl:if test="//ead:origination/child::node()[3][@encodinganalog='100_0']!=''">
+                                                                                <xsl:text>,</xsl:text>
+                                                                                <xsl:value-of select="normalize-space(//ead:origination/child::node()[3][@encodinganalog='100_0'])" />
+                                                                            </xsl:if>
+                                                                        </relationEntry>
+                                                                    </xsl:when>
+                                                                    <xsl:otherwise>
+                                                                        <xsl:choose>
+                                                                            <xsl:when test="//ead:origination/child::node()[3][@encodinganalog='100_0']!=''">
+                                                                                <xsl:value-of select="normalize-space(//ead:origination/child::node()[3][@encodinganalog='100_0'])" />
+                                                                            </xsl:when>
+                                                                            <xsl:otherwise>
+                                                                                <relationEntry localType="creator">
+                                                                                    <xsl:value-of select="normalize-space(//ead:origination/child::node()[1])" />
+                                                                                </relationEntry>
+                                                                            </xsl:otherwise>
+                                                                        </xsl:choose>
+                                                                    </xsl:otherwise>
+                                                                </xsl:choose>
+                                                            </xsl:if>
+                                                            <xsl:if test="../following-sibling::ead:note[@type='resourceNote'][@label=$vResourceLabel]/ead:p!=''">
+                                                                <descriptiveNote>
+                                                                    <p>
+                                                                        <xsl:value-of select="normalize-space(../following-sibling::ead:note[@type='resourceNote'][@label=$vResourceLabel]/ead:p)" />
+                                                                    </p>
+                                                                </descriptiveNote>
+                                                            </xsl:if>
+                                                        </resourceRelation>
+                                                    </xsl:otherwise>
+                                                </xsl:choose>
+                                            </xsl:otherwise>
+                                        </xsl:choose>
+                                    </xsl:when>
+                                    <xsl:otherwise>
+                                        <xsl:choose>
+                                            <xsl:when test="normalize-space(../following-sibling::ead:note[@type='resourceRole'][@label=$vResourceLabel]/ead:p)!=''">
+                                                <xsl:choose>
+                                                    <xsl:when test="normalize-space(../following-sibling::ead:note[@type='resourceCreator'][@label=$vResourceLabel]/ead:p)!=''">
+                                                        <resourceRelation xmlns="urn:isbn:1-931666-33-4" resourceRelationType="{normalize-space(../following-sibling::ead:note[@type='resourceType'][@label=$vResourceLabel]/ead:p)}" xml:id="{normalize-space(../following-sibling::ead:note[@type='resourceID'][@label=$vResourceLabel]/ead:p)}" xlink:href="{normalize-space(../following-sibling::ead:note[@type='resourceURI'][@label=$vResourceLabel]/ead:p)}" xlink:role="{normalize-space(../following-sibling::ead:note[@type='resourceRole'][@label=$vResourceLabel]/ead:p)}" xlink:type="simple">
+                                                            <relationEntry localType="title">
+                                                                <xsl:value-of select="normalize-space(.)" />
+                                                            </relationEntry>
+                                                            <relationEntry localType="creator">
+                                                                <xsl:value-of select="normalize-space(../following-sibling::ead:note[@type='resourceCreator'][@label=$vResourceLabel]/ead:p)" />
+                                                            </relationEntry>
+                                                            <xsl:if test="../following-sibling::ead:note[@type='resourceNote'][@label=$vResourceLabel]/ead:p!=''">
+                                                                <descriptiveNote>
+                                                                    <p>
+                                                                        <xsl:value-of select="normalize-space(../following-sibling::ead:note[@type='resourceNote'][@label=$vResourceLabel]/ead:p)" />
+                                                                    </p>
+                                                                </descriptiveNote>
+                                                            </xsl:if>
+                                                        </resourceRelation>
+                                                    </xsl:when>
+                                                    <xsl:otherwise>
+                                                        <resourceRelation xmlns="urn:isbn:1-931666-33-4" resourceRelationType="{normalize-space(../following-sibling::ead:note[@type='resourceType'][@label=$vResourceLabel]/ead:p)}" xml:id="{normalize-space(../following-sibling::ead:note[@type='resourceID'][@label=$vResourceLabel]/ead:p)}" xlink:href="{normalize-space(../following-sibling::ead:note[@type='resourceURI'][@label=$vResourceLabel]/ead:p)}" xlink:role="{normalize-space(../following-sibling::ead:note[@type='resourceRole'][@label=$vResourceLabel]/ead:p)}" xlink:type="simple">
+                                                            <relationEntry localType="title">
+                                                                <xsl:value-of select="normalize-space(.)" />
+                                                            </relationEntry>
+                                                            <xsl:if test="../following-sibling::ead:note[@type='resourceType'][@label=$vResourceLabel]/ead:p='creatorOf'">
+                                                                <xsl:choose>
+                                                                    <xsl:when test="//ead:origination/child::node()[2][@encodinganalog='100_1']!=''">
+                                                                        <relationEntry localType="creator">
+                                                                            <xsl:value-of select="normalize-space(//ead:origination/child::node()[2][@encodinganalog='100_1'])" />
+                                                                            <xsl:if test="//ead:origination/child::node()[3][@encodinganalog='100_0']!=''">
+                                                                                <xsl:text>,</xsl:text>
+                                                                                <xsl:value-of select="normalize-space(//ead:origination/child::node()[3][@encodinganalog='100_0'])" />
+                                                                            </xsl:if>
+                                                                        </relationEntry>
+                                                                    </xsl:when>
+                                                                    <xsl:otherwise>
+                                                                        <xsl:choose>
+                                                                            <xsl:when test="//ead:origination/child::node()[3][@encodinganalog='100_0']!=''">
+                                                                                <xsl:value-of select="normalize-space(//ead:origination/child::node()[3][@encodinganalog='100_0'])" />
+                                                                            </xsl:when>
+                                                                            <xsl:otherwise>
+                                                                                <relationEntry localType="creator">
+                                                                                    <xsl:value-of select="normalize-space(//ead:origination/child::node()[1])" />
+                                                                                </relationEntry>
+                                                                            </xsl:otherwise>
+                                                                        </xsl:choose>
+                                                                    </xsl:otherwise>
+                                                                </xsl:choose>
+                                                            </xsl:if>
+                                                            <xsl:if test="../following-sibling::ead:note[@type='resourceNote'][@label=$vResourceLabel]/ead:p!=''">
+                                                                <descriptiveNote>
+                                                                    <p>
+                                                                        <xsl:value-of select="normalize-space(../following-sibling::ead:note[@type='resourceNote'][@label=$vResourceLabel]/ead:p)" />
+                                                                    </p>
+                                                                </descriptiveNote>
+                                                            </xsl:if>
+                                                        </resourceRelation>
+                                                    </xsl:otherwise>
+                                                </xsl:choose>
+                                            </xsl:when>
+                                            <xsl:otherwise>
+                                                <xsl:choose>
+                                                    <xsl:when test="normalize-space(../following-sibling::ead:note[@type='resourceCreator'][@label=$vResourceLabel]/ead:p)!=''">
+                                                        <resourceRelation xmlns="urn:isbn:1-931666-33-4" resourceRelationType="{normalize-space(../following-sibling::ead:note[@type='resourceType'][@label=$vResourceLabel]/ead:p)}" xml:id="{normalize-space(../following-sibling::ead:note[@type='resourceID'][@label=$vResourceLabel]/ead:p)}" xlink:href="{normalize-space(../following-sibling::ead:note[@type='resourceURI'][@label=$vResourceLabel]/ead:p)}" xlink:role="{normalize-space(../following-sibling::ead:note[@type='resourceRole'][@label=$vResourceLabel]/ead:p)}" xlink:type="simple">
+                                                            <relationEntry localType="title">
+                                                                <xsl:value-of select="normalize-space(.)" />
+                                                            </relationEntry>
+                                                            <relationEntry localType="creator">
+                                                                <xsl:value-of select="normalize-space(../following-sibling::ead:note[@type='resourceCreator'][@label=$vResourceLabel]/ead:p)" />
+                                                            </relationEntry>
+                                                            <xsl:if test="../following-sibling::ead:note[@type='resourceNote'][@label=$vResourceLabel]/ead:p!=''">
+                                                                <descriptiveNote>
+                                                                    <p>
+                                                                        <xsl:value-of select="normalize-space(../following-sibling::ead:note[@type='resourceNote'][@label=$vResourceLabel]/ead:p)" />
+                                                                    </p>
+                                                                </descriptiveNote>
+                                                            </xsl:if>
+                                                        </resourceRelation>
+                                                    </xsl:when>
+                                                    <xsl:otherwise>
+                                                        <resourceRelation xmlns="urn:isbn:1-931666-33-4" resourceRelationType="{normalize-space(../following-sibling::ead:note[@type='resourceType'][@label=$vResourceLabel]/ead:p)}" xml:id="{normalize-space(../following-sibling::ead:note[@type='resourceID'][@label=$vResourceLabel]/ead:p)}" xlink:href="{normalize-space(../following-sibling::ead:note[@type='resourceURI'][@label=$vResourceLabel]/ead:p)}" xlink:role="{normalize-space(../following-sibling::ead:note[@type='resourceRole'][@label=$vResourceLabel]/ead:p)}" xlink:type="simple">
+                                                            <relationEntry localType="title">
+                                                                <xsl:value-of select="normalize-space(.)" />
+                                                            </relationEntry>
+                                                            <xsl:if test="../following-sibling::ead:note[@type='resourceType'][@label=$vResourceLabel]/ead:p='creatorOf'">
+                                                                <xsl:choose>
+                                                                    <xsl:when test="//ead:origination/child::node()[2][@encodinganalog='100_1']!=''">
+                                                                        <relationEntry localType="creator">
+                                                                            <xsl:value-of select="normalize-space(//ead:origination/child::node()[2][@encodinganalog='100_1'])" />
+                                                                            <xsl:if test="//ead:origination/child::node()[3][@encodinganalog='100_0']!=''">
+                                                                                <xsl:text>,</xsl:text>
+                                                                                <xsl:value-of select="normalize-space(//ead:origination/child::node()[3][@encodinganalog='100_0'])" />
+                                                                            </xsl:if>
+                                                                        </relationEntry>
+                                                                    </xsl:when>
+                                                                    <xsl:otherwise>
+                                                                        <xsl:choose>
+                                                                            <xsl:when test="//ead:origination/child::node()[3][@encodinganalog='100_0']!=''">
+                                                                                <xsl:value-of select="normalize-space(//ead:origination/child::node()[3][@encodinganalog='100_0'])" />
+                                                                            </xsl:when>
+                                                                            <xsl:otherwise>
+                                                                                <relationEntry localType="creator">
+                                                                                    <xsl:value-of select="normalize-space(//ead:origination/child::node()[1])" />
+                                                                                </relationEntry>
+                                                                            </xsl:otherwise>
+                                                                        </xsl:choose>
+                                                                    </xsl:otherwise>
+                                                                </xsl:choose>
+                                                            </xsl:if>
+                                                            <xsl:if test="../following-sibling::ead:note[@type='resourceNote'][@label=$vResourceLabel]/ead:p!=''">
+                                                                <descriptiveNote>
+                                                                    <p>
+                                                                        <xsl:value-of select="normalize-space(../following-sibling::ead:note[@type='resourceNote'][@label=$vResourceLabel]/ead:p)" />
+                                                                    </p>
+                                                                </descriptiveNote>
+                                                            </xsl:if>
+                                                        </resourceRelation>
+                                                    </xsl:otherwise>
+                                                </xsl:choose>
+                                            </xsl:otherwise>
+                                        </xsl:choose>
+                                    </xsl:otherwise>
+                                </xsl:choose>
+                            </xsl:when>
+                            <xsl:otherwise>
+                                <xsl:choose>
+                                    <xsl:when test="normalize-space(../following-sibling::ead:note[@type='resourceRole'][@label=$vResourceLabel]/ead:p)!=''">
+                                        <xsl:choose>
+                                            <xsl:when test="normalize-space(../following-sibling::ead:note[@type='resourceCreator'][@label=$vResourceLabel]/ead:p)!=''">
+                                                <resourceRelation xmlns="urn:isbn:1-931666-33-4" resourceRelationType="{normalize-space(../following-sibling::ead:note[@type='resourceType'][@label=$vResourceLabel]/ead:p)}" xml:id="{normalize-space(../following-sibling::ead:note[@type='resourceID'][@label=$vResourceLabel]/ead:p)}" xlink:href="{normalize-space(../following-sibling::ead:note[@type='resourceURI'][@label=$vResourceLabel]/ead:p)}" xlink:role="{normalize-space(../following-sibling::ead:note[@type='resourceRole'][@label=$vResourceLabel]/ead:p)}" xlink:type="simple">
+                                                    <relationEntry localType="title">
+                                                        <xsl:value-of select="normalize-space(.)" />
+                                                    </relationEntry>
+                                                    <relationEntry localType="creator">
+                                                        <xsl:value-of select="normalize-space(../following-sibling::ead:note[@type='resourceCreator'][@label=$vResourceLabel]/ead:p)" />
+                                                    </relationEntry>
+                                                    <xsl:if test="../following-sibling::ead:note[@type='resourceNote'][@label=$vResourceLabel]/ead:p!=''">
+                                                        <descriptiveNote>
+                                                            <p>
+                                                                <xsl:value-of select="normalize-space(../following-sibling::ead:note[@type='resourceNote'][@label=$vResourceLabel]/ead:p)" />
+                                                            </p>
+                                                        </descriptiveNote>
+                                                    </xsl:if>
+                                                </resourceRelation>
+                                            </xsl:when>
+                                            <xsl:otherwise>
+                                                <resourceRelation xmlns="urn:isbn:1-931666-33-4" resourceRelationType="{normalize-space(../following-sibling::ead:note[@type='resourceType'][@label=$vResourceLabel]/ead:p)}" xml:id="{normalize-space(../following-sibling::ead:note[@type='resourceID'][@label=$vResourceLabel]/ead:p)}" xlink:href="{normalize-space(../following-sibling::ead:note[@type='resourceURI'][@label=$vResourceLabel]/ead:p)}" xlink:role="{normalize-space(../following-sibling::ead:note[@type='resourceRole'][@label=$vResourceLabel]/ead:p)}" xlink:type="simple">
+                                                    <relationEntry localType="title">
+                                                        <xsl:value-of select="normalize-space(.)" />
+                                                    </relationEntry>
+                                                    <xsl:if test="../following-sibling::ead:note[@type='resourceType'][@label=$vResourceLabel]/ead:p='creatorOf'">
+                                                        <xsl:choose>
+                                                            <xsl:when test="//ead:origination/child::node()[2][@encodinganalog='100_1']!=''">
+                                                                <relationEntry localType="creator">
+                                                                    <xsl:value-of select="normalize-space(//ead:origination/child::node()[2][@encodinganalog='100_1'])" />
+                                                                    <xsl:if test="//ead:origination/child::node()[3][@encodinganalog='100_0']!=''">
+                                                                        <xsl:text>,</xsl:text>
+                                                                        <xsl:value-of select="normalize-space(//ead:origination/child::node()[3][@encodinganalog='100_0'])" />
+                                                                    </xsl:if>
+                                                                </relationEntry>
+                                                            </xsl:when>
+                                                            <xsl:otherwise>
+                                                                <xsl:choose>
+                                                                    <xsl:when test="//ead:origination/child::node()[3][@encodinganalog='100_0']!=''">
+                                                                        <xsl:value-of select="normalize-space(//ead:origination/child::node()[3][@encodinganalog='100_0'])" />
+                                                                    </xsl:when>
+                                                                    <xsl:otherwise>
+                                                                        <relationEntry localType="creator">
+                                                                            <xsl:value-of select="normalize-space(//ead:origination/child::node()[1])" />
+                                                                        </relationEntry>
+                                                                    </xsl:otherwise>
+                                                                </xsl:choose>
+                                                            </xsl:otherwise>
+                                                        </xsl:choose>
+                                                    </xsl:if>
+                                                    <xsl:if test="../following-sibling::ead:note[@type='resourceNote'][@label=$vResourceLabel]/ead:p!=''">
+                                                        <descriptiveNote>
+                                                            <p>
+                                                                <xsl:value-of select="normalize-space(../following-sibling::ead:note[@type='resourceNote'][@label=$vResourceLabel]/ead:p)" />
+                                                            </p>
+                                                        </descriptiveNote>
+                                                    </xsl:if>
+                                                </resourceRelation>
+                                            </xsl:otherwise>
+                                        </xsl:choose>
+                                    </xsl:when>
+                                    <xsl:otherwise>
+                                        <xsl:choose>
+                                            <xsl:when test="normalize-space(../following-sibling::ead:note[@type='resourceCreator'][@label=$vResourceLabel]/ead:p)!=''">
+                                                <resourceRelation xmlns="urn:isbn:1-931666-33-4" resourceRelationType="{normalize-space(../following-sibling::ead:note[@type='resourceType'][@label=$vResourceLabel]/ead:p)}" xml:id="{normalize-space(../following-sibling::ead:note[@type='resourceID'][@label=$vResourceLabel]/ead:p)}" xlink:href="{normalize-space(../following-sibling::ead:note[@type='resourceURI'][@label=$vResourceLabel]/ead:p)}" xlink:role="{normalize-space(../following-sibling::ead:note[@type='resourceRole'][@label=$vResourceLabel]/ead:p)}" xlink:type="simple">
+                                                    <relationEntry localType="title">
+                                                        <xsl:value-of select="normalize-space(.)" />
+                                                    </relationEntry>
+                                                    <relationEntry localType="creator">
+                                                        <xsl:value-of select="normalize-space(../following-sibling::ead:note[@type='resourceCreator'][@label=$vResourceLabel]/ead:p)" />
+                                                    </relationEntry>
+                                                    <xsl:if test="../following-sibling::ead:note[@type='resourceNote'][@label=$vResourceLabel]/ead:p!=''">
+                                                        <descriptiveNote>
+                                                            <p>
+                                                                <xsl:value-of select="normalize-space(../following-sibling::ead:note[@type='resourceNote'][@label=$vResourceLabel]/ead:p)" />
+                                                            </p>
+                                                        </descriptiveNote>
+                                                    </xsl:if>
+                                                </resourceRelation>
+                                            </xsl:when>
+                                            <xsl:otherwise>
+                                                <resourceRelation xmlns="urn:isbn:1-931666-33-4" resourceRelationType="{normalize-space(../following-sibling::ead:note[@type='resourceType'][@label=$vResourceLabel]/ead:p)}" xml:id="{normalize-space(../following-sibling::ead:note[@type='resourceID'][@label=$vResourceLabel]/ead:p)}" xlink:href="{normalize-space(../following-sibling::ead:note[@type='resourceURI'][@label=$vResourceLabel]/ead:p)}" xlink:role="{normalize-space(../following-sibling::ead:note[@type='resourceRole'][@label=$vResourceLabel]/ead:p)}" xlink:type="simple">
+                                                    <relationEntry localType="title">
+                                                        <xsl:value-of select="normalize-space(.)" />
+                                                    </relationEntry>
+                                                    <xsl:if test="../following-sibling::ead:note[@type='resourceType'][@label=$vResourceLabel]/ead:p='creatorOf'">
+                                                        <xsl:choose>
+                                                            <xsl:when test="//ead:origination/child::node()[2][@encodinganalog='100_1']!=''">
+                                                                <relationEntry localType="creator">
+                                                                    <xsl:value-of select="normalize-space(//ead:origination/child::node()[2][@encodinganalog='100_1'])" />
+                                                                    <xsl:if test="//ead:origination/child::node()[3][@encodinganalog='100_0']!=''">
+                                                                        <xsl:text>,</xsl:text>
+                                                                        <xsl:value-of select="normalize-space(//ead:origination/child::node()[3][@encodinganalog='100_0'])" />
+                                                                    </xsl:if>
+                                                                </relationEntry>
+                                                            </xsl:when>
+                                                            <xsl:otherwise>
+                                                                <xsl:choose>
+                                                                    <xsl:when test="//ead:origination/child::node()[3][@encodinganalog='100_0']!=''">
+                                                                        <xsl:value-of select="normalize-space(//ead:origination/child::node()[3][@encodinganalog='100_0'])" />
+                                                                    </xsl:when>
+                                                                    <xsl:otherwise>
+                                                                        <relationEntry localType="creator">
+                                                                            <xsl:value-of select="normalize-space(//ead:origination/child::node()[1])" />
+                                                                        </relationEntry>
+                                                                    </xsl:otherwise>
+                                                                </xsl:choose>
+                                                            </xsl:otherwise>
+                                                        </xsl:choose>
+                                                    </xsl:if>
+                                                    <xsl:if test="../following-sibling::ead:note[@type='resourceNote'][@label=$vResourceLabel]/ead:p!=''">
+                                                        <descriptiveNote>
+                                                            <p>
+                                                                <xsl:value-of select="normalize-space(../following-sibling::ead:note[@type='resourceNote'][@label=$vResourceLabel]/ead:p)" />
+                                                            </p>
+                                                        </descriptiveNote>
+                                                    </xsl:if>
+                                                </resourceRelation>
+                                            </xsl:otherwise>
+                                        </xsl:choose>
+                                    </xsl:otherwise>
+                                </xsl:choose>
+                            </xsl:otherwise>
+                        </xsl:choose>
+                    </xsl:otherwise>
+                </xsl:choose>
             </xsl:for-each>
         </xsl:if>
     </xsl:template>
