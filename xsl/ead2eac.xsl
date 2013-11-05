@@ -82,8 +82,7 @@
     <xsl:strip-space elements="*" />
     <xsl:output method="xml" encoding="UTF-8" indent="yes" />
     <!-- Call the top-level templates. -->
-    <xsl:template match="/">
-        <xsl:processing-instruction name="xml-stylesheet">href="ramp_style.xslt" type="text/xsl"</xsl:processing-instruction>
+    <xsl:template match="/">        
         <xsl:choose>
             <xsl:when test="/eac:eac-cpf">
                 <xsl:copy-of select="@*|node()" />
@@ -91,14 +90,14 @@
             <!-- Case to accommodate local merged EADs, which contain faux EAD wrapper elements. -->
             <xsl:when test="/ead:ead/ead:ead">
                 <xsl:for-each select="ead:ead">
-                    <eac-cpf xmlns="urn:isbn:1-931666-33-4" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="urn:isbn:1-931666-33-4 http://eac.staatsbibliothek-berlin.de/schema/cpf.xsd">
+                	<eac-cpf xmlns="urn:isbn:1-931666-33-4" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="urn:isbn:1-931666-33-4 http://eac.staatsbibliothek-berlin.de/schema/cpf.xsd">
                         <xsl:call-template name="tControl" />
                         <xsl:call-template name="tCpfDescription" />
                     </eac-cpf>
                 </xsl:for-each>
             </xsl:when>
             <xsl:otherwise>
-                <eac-cpf xmlns="urn:isbn:1-931666-33-4" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="urn:isbn:1-931666-33-4 http://eac.staatsbibliothek-berlin.de/schema/cpf.xsd">
+            	<eac-cpf xmlns="urn:isbn:1-931666-33-4" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="urn:isbn:1-931666-33-4 http://eac.staatsbibliothek-berlin.de/schema/cpf.xsd">
                     <xsl:call-template name="tControl" />
                     <xsl:call-template name="tCpfDescription" />
                 </eac-cpf>
