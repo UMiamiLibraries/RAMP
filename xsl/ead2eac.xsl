@@ -320,7 +320,7 @@
                                                 </xsl:when>
                                                 <xsl:otherwise>
                                                     <xsl:value-of select="substring-before($vNameString-10,',')" />
-                                                    <xsl:text>,</xsl:text>
+                                                    <xsl:text>, </xsl:text>
                                                     <xsl:choose>
                                                         <xsl:when test="contains(substring-after($vNameString-10,', '),',')">
                                                             <xsl:value-of select="substring-before(substring-after($vNameString-10,', '),',')" />
@@ -336,7 +336,7 @@
                                             <xsl:choose>
                                                 <xsl:when test="$vNameString-1=')'">
                                                     <xsl:value-of select="substring-before($vNameString-6,',')" />
-                                                    <xsl:text>,</xsl:text>
+                                                    <xsl:text>, </xsl:text>
                                                     <xsl:choose>
                                                         <xsl:when test="contains(substring-after($vNameString-8,', '),',')">
                                                             <xsl:choose>
@@ -364,7 +364,7 @@
                                                 </xsl:when>
                                                 <xsl:otherwise>
                                                     <xsl:value-of select="substring-before($vNameString-6,',')" />
-                                                    <xsl:text>,</xsl:text>
+                                                    <xsl:text>, </xsl:text>
                                                     <xsl:choose>
                                                         <xsl:when test="contains(substring-after($vNameString-6,', '),',')">
                                                             <xsl:choose>
