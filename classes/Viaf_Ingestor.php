@@ -246,7 +246,7 @@ class Viaf_Ingestor extends Ingestor
 				    $this->strViafID = $lobjResult->item($i)->nodeValue;
 				    $lstrType = $lobjResult2->item($i)->nodeValue == 'Personal' ? 'Person' : 'CorporateBody';
 				    $lstrResultName = $lobjResult3->item($i)->nodeValue;
-http://www.viaf.org/viaf/
+
 				    $lobjcpfRelation = array(
 					   			"attributes" => array( "cpfRelationType" => "associative",
 													   "xlink:href" => "http://viaf.org/viaf/$this->strViafID",
