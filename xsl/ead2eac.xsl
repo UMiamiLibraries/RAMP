@@ -365,7 +365,7 @@
                                                 </xsl:when>
                                                 <xsl:otherwise>
                                                     <xsl:value-of select="substring-before($vNameString-6,',')" />
-                                                    <xsl:text>,</xsl:text>
+                                                    <xsl:text>, </xsl:text>
                                                     <xsl:choose>
                                                         <xsl:when test="contains(substring-after($vNameString-6,', '),',')">
                                                             <xsl:choose>
@@ -732,7 +732,7 @@
             <xsl:call-template name="tOccupations" />
         </xsl:if>
         <xsl:call-template name="tPlaces" />
-        <xsl:for-each select="$vGeog">
+        <xsl:for-each select="$vGeog[not(contains(.,'--'))]">
         	<xsl:variable name="vGeogLen" select="string-length(.)"/>
         	<xsl:variable name="vGeogTrim" select="substring(.,1,$vGeogLen -1)"/>        	        	
             <place xmlns="urn:isbn:1-931666-33-4">
