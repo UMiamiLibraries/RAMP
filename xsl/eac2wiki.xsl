@@ -1547,7 +1547,7 @@
                                 <xsl:otherwise>
                                     <!-- Name order stays as is. -->
                                     <xsl:value-of
-                                        select="normalize-space(translate($pPersName,concat($vDigits,'-'),''))"
+                                        select="normalize-space(translate($pPersName,concat($vDigits,'-','(',')'),''))"
                                     />
                                 </xsl:otherwise>
                             </xsl:choose>
