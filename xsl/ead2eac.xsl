@@ -290,7 +290,7 @@
             <xsl:if test="ead:ead/ead:archdesc/ead:did/ead:origination/child::node()[1][local-name()='famname']">
                 <entityType>family</entityType>
             </xsl:if>
-            <nameEntry scriptCode="Latn" xml:lang="en">
+        	<nameEntry "urn:isbn:1-931666-33-4" scriptCode="Latn" xml:lang="en">
                 <xsl:choose>
                     <!-- For Archon-exported EADs, use the value of the @normal attribute. -->
                     <xsl:when test="ead:ead/ead:archdesc/ead:did/ead:origination/child::node()[1]/@normal">
