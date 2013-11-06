@@ -81,6 +81,7 @@
     <xsl:variable name="vSource" select="ead:ead/ead:archdesc/ead:did/ead:note[@type='source']/ead:p" />
     <xsl:strip-space elements="*" />
     <xsl:output method="xml" encoding="UTF-8" indent="yes" />
+	
     <!-- Call the top-level templates. -->
     <xsl:template match="/">        
         <xsl:choose>
