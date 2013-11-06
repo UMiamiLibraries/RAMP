@@ -408,7 +408,7 @@ class WorldCat_Ingestor extends Ingestor
 			}
 			
 			if( $lobjLink['lccn'] != "" || $lobjLink['lccn']->length != 0) {		    
-				$lobjLinkNodeSource['attributes']['xlink:href'] = "http://worldcat.org/identities/" . $lobjLink['lccn'] . "/identity.xml";		
+				$lobjLinkNodeSource['attributes']['xlink:href'] = "http://worldcat.org/identities/" . $lobjLink['lccn'];		
 				$lobjLinkNodeSource['attributes']['xlink:type'] = "simple";
 				$this->objElementList['source'][] = $lobjLinkNodeSource;
 				
