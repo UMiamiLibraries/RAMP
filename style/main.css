@@ -325,6 +325,11 @@ ul, menu, dir {
     margin-left:.5%;
     display:block;
     font-size:1.2em;
+    width:100%;
+}
+
+.ead_files option {
+	
 }
 
 .ents {
