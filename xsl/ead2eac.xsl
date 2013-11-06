@@ -309,7 +309,7 @@
                                             <xsl:choose>
                                                 <xsl:when test="$vNameString-1=')'">
                                                     <xsl:value-of select="substring-before($vNameString-10,',')" />
-                                                    <xsl:text>,</xsl:text>
+                                                    <xsl:text>, </xsl:text>
                                                     <xsl:choose>
                                                         <xsl:when test="contains(substring-after($vNameString-12,', '),',')">
                                                             <xsl:value-of select="substring-before(substring-after($vNameString-12,', '),',')" />
@@ -732,7 +732,7 @@
             <xsl:call-template name="tOccupations" />
         </xsl:if>
         <xsl:call-template name="tPlaces" />
-        <xsl:for-each select="$vGeog">
+        <xsl:for-each select="$vGeog[not(contains(.,'--'))]">
         	<xsl:variable name="vGeogLen" select="string-length(.)"/>
         	<xsl:variable name="vGeogTrim" select="substring(.,1,$vGeogLen -1)"/>        	        	
             <place xmlns="urn:isbn:1-931666-33-4">
@@ -1022,7 +1022,7 @@
                             <xsl:when test=".">
                                 <xsl:value-of select="normalize-space(.)" />
                                 <xsl:if test="not(contains(.,','))">
-                                    <xsl:text>,</xsl:text>
+                                    <xsl:text>, </xsl:text>
                                 </xsl:if>
                                 <xsl:value-of select="normalize-space(ead:unitdate[@type='inclusive'])" />
                                 <xsl:if test="ead:unitdate[@type='bulk']">
@@ -1752,7 +1752,7 @@
                                                                         <relationEntry localType="creator">
                                                                             <xsl:value-of select="normalize-space(//ead:origination/child::node()[2][@encodinganalog='100_1'])" />
                                                                             <xsl:if test="//ead:origination/child::node()[3][@encodinganalog='100_0']!=''">
-                                                                                <xsl:text>,</xsl:text>
+                                                                                <xsl:text>, </xsl:text>
                                                                                 <xsl:value-of select="normalize-space(//ead:origination/child::node()[3][@encodinganalog='100_0'])" />
                                                                             </xsl:if>
                                                                         </relationEntry>
@@ -1812,7 +1812,7 @@
                                                                         <relationEntry localType="creator">
                                                                             <xsl:value-of select="normalize-space(//ead:origination/child::node()[2][@encodinganalog='100_1'])" />
                                                                             <xsl:if test="//ead:origination/child::node()[3][@encodinganalog='100_0']!=''">
-                                                                                <xsl:text>,</xsl:text>
+                                                                                <xsl:text>, </xsl:text>
                                                                                 <xsl:value-of select="normalize-space(//ead:origination/child::node()[3][@encodinganalog='100_0'])" />
                                                                             </xsl:if>
                                                                         </relationEntry>
@@ -1876,7 +1876,7 @@
                                                                         <relationEntry localType="creator">
                                                                             <xsl:value-of select="normalize-space(//ead:origination/child::node()[2][@encodinganalog='100_1'])" />
                                                                             <xsl:if test="//ead:origination/child::node()[3][@encodinganalog='100_0']!=''">
-                                                                                <xsl:text>,</xsl:text>
+                                                                                <xsl:text>, </xsl:text>
                                                                                 <xsl:value-of select="normalize-space(//ead:origination/child::node()[3][@encodinganalog='100_0'])" />
                                                                             </xsl:if>
                                                                         </relationEntry>
@@ -1936,7 +1936,7 @@
                                                                         <relationEntry localType="creator">
                                                                             <xsl:value-of select="normalize-space(//ead:origination/child::node()[2][@encodinganalog='100_1'])" />
                                                                             <xsl:if test="//ead:origination/child::node()[3][@encodinganalog='100_0']!=''">
-                                                                                <xsl:text>,</xsl:text>
+                                                                                <xsl:text>, </xsl:text>
                                                                                 <xsl:value-of select="normalize-space(//ead:origination/child::node()[3][@encodinganalog='100_0'])" />
                                                                             </xsl:if>
                                                                         </relationEntry>
@@ -2004,7 +2004,7 @@
                                                                         <relationEntry localType="creator">
                                                                             <xsl:value-of select="normalize-space(//ead:origination/child::node()[2][@encodinganalog='100_1'])" />
                                                                             <xsl:if test="//ead:origination/child::node()[3][@encodinganalog='100_0']!=''">
-                                                                                <xsl:text>,</xsl:text>
+                                                                                <xsl:text>, </xsl:text>
                                                                                 <xsl:value-of select="normalize-space(//ead:origination/child::node()[3][@encodinganalog='100_0'])" />
                                                                             </xsl:if>
                                                                         </relationEntry>
@@ -2064,7 +2064,7 @@
                                                                         <relationEntry localType="creator">
                                                                             <xsl:value-of select="normalize-space(//ead:origination/child::node()[2][@encodinganalog='100_1'])" />
                                                                             <xsl:if test="//ead:origination/child::node()[3][@encodinganalog='100_0']!=''">
-                                                                                <xsl:text>,</xsl:text>
+                                                                                <xsl:text>, </xsl:text>
                                                                                 <xsl:value-of select="normalize-space(//ead:origination/child::node()[3][@encodinganalog='100_0'])" />
                                                                             </xsl:if>
                                                                         </relationEntry>
@@ -2128,7 +2128,7 @@
                                                                         <relationEntry localType="creator">
                                                                             <xsl:value-of select="normalize-space(//ead:origination/child::node()[2][@encodinganalog='100_1'])" />
                                                                             <xsl:if test="//ead:origination/child::node()[3][@encodinganalog='100_0']!=''">
-                                                                                <xsl:text>,</xsl:text>
+                                                                                <xsl:text>, </xsl:text>
                                                                                 <xsl:value-of select="normalize-space(//ead:origination/child::node()[3][@encodinganalog='100_0'])" />
                                                                             </xsl:if>
                                                                         </relationEntry>
@@ -2188,7 +2188,7 @@
                                                                         <relationEntry localType="creator">
                                                                             <xsl:value-of select="normalize-space(//ead:origination/child::node()[2][@encodinganalog='100_1'])" />
                                                                             <xsl:if test="//ead:origination/child::node()[3][@encodinganalog='100_0']!=''">
-                                                                                <xsl:text>,</xsl:text>
+                                                                                <xsl:text>, </xsl:text>
                                                                                 <xsl:value-of select="normalize-space(//ead:origination/child::node()[3][@encodinganalog='100_0'])" />
                                                                             </xsl:if>
                                                                         </relationEntry>
@@ -2260,7 +2260,7 @@
                                                                         <relationEntry localType="creator">
                                                                             <xsl:value-of select="normalize-space(//ead:origination/child::node()[2][@encodinganalog='100_1'])" />
                                                                             <xsl:if test="//ead:origination/child::node()[3][@encodinganalog='100_0']!=''">
-                                                                                <xsl:text>,</xsl:text>
+                                                                                <xsl:text>, </xsl:text>
                                                                                 <xsl:value-of select="normalize-space(//ead:origination/child::node()[3][@encodinganalog='100_0'])" />
                                                                             </xsl:if>
                                                                         </relationEntry>
@@ -2320,7 +2320,7 @@
                                                                         <relationEntry localType="creator">
                                                                             <xsl:value-of select="normalize-space(//ead:origination/child::node()[2][@encodinganalog='100_1'])" />
                                                                             <xsl:if test="//ead:origination/child::node()[3][@encodinganalog='100_0']!=''">
-                                                                                <xsl:text>,</xsl:text>
+                                                                                <xsl:text>, </xsl:text>
                                                                                 <xsl:value-of select="normalize-space(//ead:origination/child::node()[3][@encodinganalog='100_0'])" />
                                                                             </xsl:if>
                                                                         </relationEntry>
@@ -2384,7 +2384,7 @@
                                                                         <relationEntry localType="creator">
                                                                             <xsl:value-of select="normalize-space(//ead:origination/child::node()[2][@encodinganalog='100_1'])" />
                                                                             <xsl:if test="//ead:origination/child::node()[3][@encodinganalog='100_0']!=''">
-                                                                                <xsl:text>,</xsl:text>
+                                                                                <xsl:text>, </xsl:text>
                                                                                 <xsl:value-of select="normalize-space(//ead:origination/child::node()[3][@encodinganalog='100_0'])" />
                                                                             </xsl:if>
                                                                         </relationEntry>
@@ -2444,7 +2444,7 @@
                                                                         <relationEntry localType="creator">
                                                                             <xsl:value-of select="normalize-space(//ead:origination/child::node()[2][@encodinganalog='100_1'])" />
                                                                             <xsl:if test="//ead:origination/child::node()[3][@encodinganalog='100_0']!=''">
-                                                                                <xsl:text>,</xsl:text>
+                                                                                <xsl:text>, </xsl:text>
                                                                                 <xsl:value-of select="normalize-space(//ead:origination/child::node()[3][@encodinganalog='100_0'])" />
                                                                             </xsl:if>
                                                                         </relationEntry>
@@ -2510,7 +2510,7 @@
                                                                 <relationEntry localType="creator">
                                                                     <xsl:value-of select="normalize-space(//ead:origination/child::node()[2][@encodinganalog='100_1'])" />
                                                                     <xsl:if test="//ead:origination/child::node()[3][@encodinganalog='100_0']!=''">
-                                                                        <xsl:text>,</xsl:text>
+                                                                        <xsl:text>, </xsl:text>
                                                                         <xsl:value-of select="normalize-space(//ead:origination/child::node()[3][@encodinganalog='100_0'])" />
                                                                     </xsl:if>
                                                                 </relationEntry>
@@ -2570,7 +2570,7 @@
                                                                 <relationEntry localType="creator">
                                                                     <xsl:value-of select="normalize-space(//ead:origination/child::node()[2][@encodinganalog='100_1'])" />
                                                                     <xsl:if test="//ead:origination/child::node()[3][@encodinganalog='100_0']!=''">
-                                                                        <xsl:text>,</xsl:text>
+                                                                        <xsl:text>, </xsl:text>
                                                                         <xsl:value-of select="normalize-space(//ead:origination/child::node()[3][@encodinganalog='100_0'])" />
                                                                     </xsl:if>
                                                                 </relationEntry>
