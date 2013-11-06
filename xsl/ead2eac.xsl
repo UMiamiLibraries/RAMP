@@ -54,7 +54,7 @@
     <!-- Define variable for occupations. -->
     <xsl:variable name="vOccupation" select="//ead:ead/ead:archdesc//ead:controlaccess/ead:occupation" />
     <xsl:variable name="vOccuCount" select="count(//ead:occupation)" />
-    <xsl:variable name="vGeog" select="//ead:ead/ead:archdesc//ead:controlaccess/ead:geogname" />
+    <xsl:variable name="vGeog" select="//ead:geogname" />
     <!-- Variables for new record form data. -->
     <xsl:variable name="vFrom" select="ead:ead/ead:archdesc/ead:did/ead:note[@type='from']/ead:p" />
     <xsl:variable name="vTo" select="ead:ead/ead:archdesc/ead:did/ead:note[@type='to']/ead:p" />
@@ -718,6 +718,7 @@
         <xsl:call-template name="tSubjects" />
         <xsl:call-template name="tGenres" />
         <xsl:call-template name="tOccupationsNew" />
+    	<xsl:if test="//ead:occupation">
         <xsl:for-each select="$vOccupation">
             <occupation xmlns="urn:isbn:1-931666-33-4" localType="656">
                 <term>
@@ -725,16 +726,26 @@
                 </term>
             </occupation>
         </xsl:for-each>
+    	</xsl:if>
         <xsl:if test="$vDates!=''">
             <xsl:call-template name="tOccupations" />
         </xsl:if>
         <xsl:call-template name="tPlaces" />
         <xsl:for-each select="$vGeog">
+        	<xsl:variable name="vGeogLen" select="string-length(.)"/>
+        	<xsl:variable name="vGeogTrim" select="substring(.,1,$vGeogLen -1)"/>        	        	
             <place xmlns="urn:isbn:1-931666-33-4">
                 <placeEntry>
-                    <xsl:value-of select="normalize-space(.)" />
+                	<xsl:choose>
+                		<xsl:when test="substring(.,$vGeogLen)=','">
+                			<xsl:value-of select="normalize-space($vGeogTrim)" />		
+                		</xsl:when>
+                		<xsl:otherwise>
+                			<xsl:value-of select="normalize-space(.)" />
+                		</xsl:otherwise>
+                	</xsl:choose>                	
                 </placeEntry>
-            </place>
+            </place>        	
         </xsl:for-each>
     </xsl:template>
     <!-- Template for matching any epithets in name strings and adding to <occupation> elements. -->
@@ -877,7 +888,7 @@
                         <xsl:variable name="vEntType" select="local-name(.)" />
                         <xsl:variable name="vCpfRel" select="@normal" />
                         <xsl:if test="$vEntType='persname'">
-                            <cpfRelation xlink:arcrole="associatedWith" xlink:role="http://rdvocab.info/uri/schema/FRBRentitiesRDA/Person" xlink:type="simple">
+                            <cpfRelation cpfRelationType="associative" xlink:role="http://rdvocab.info/uri/schema/FRBRentitiesRDA/Person" xlink:type="simple">
                                 <relationEntry>
                                     <xsl:value-of select="normalize-space(.)" />
                                 </relationEntry>
@@ -907,7 +918,7 @@
                             </cpfRelation>
                         </xsl:if>
                         <xsl:if test="$vEntType='corpname'">
-                            <cpfRelation xlink:arcrole="associatedWith" xlink:role="http://rdvocab.info/uri/schema/FRBRentitiesRDA/CorporateBody" xlink:type="simple">
+                            <cpfRelation cpfRelationType="associative" xlink:role="http://rdvocab.info/uri/schema/FRBRentitiesRDA/CorporateBody" xlink:type="simple">
                                 <relationEntry>
                                     <xsl:value-of select="normalize-space(.)" />
                                 </relationEntry>
@@ -937,7 +948,7 @@
                             </cpfRelation>
                         </xsl:if>
                         <xsl:if test="$vEntType='famname'">
-                            <cpfRelation xlink:arcrole="associatedWith" xlink:role="http://rdvocab.info/uri/schema/FRBRentitiesRDA/Family" xlink:type="simple">
+                            <cpfRelation cpfRelationType="associative" xlink:role="http://rdvocab.info/uri/schema/FRBRentitiesRDA/Family" xlink:type="simple">
                                 <relationEntry>
                                     <xsl:value-of select="normalize-space(.)" />
                                 </relationEntry>
@@ -965,9 +976,41 @@
                                 </descriptiveNote>
                             </cpfRelation>
                         </xsl:if>
-                    </xsl:for-each>
+                    </xsl:for-each>                	            	                
                 </xsl:if>
             </xsl:for-each>
+        	<xsl:for-each select="//ead:scopecontent//ead:persname[.!=$vFirstNode]|//ead:bioghist//ead:persname[.!=$vFirstNode]">
+        		<xsl:variable name="vCpfLen" select="string-length(.)"/>
+        		<xsl:variable name="vCpfTrim" select="substring(.,$vCpfLen)"/>
+        		<cpfRelation cpfRelationType="associative" xlink:role="http://rdvocab.info/uri/schema/FRBRentitiesRDA/Person" xlink:type="simple">        			
+        			<relationEntry>
+        				<xsl:choose>
+        					<xsl:when test="$vCpfTrim=','">
+        						<xsl:value-of select="normalize-space(substring(.,1,$vCpfLen -1))" />
+        					</xsl:when>
+        					<xsl:otherwise>
+        						<xsl:value-of select="normalize-space(.)" />
+        					</xsl:otherwise>
+        				</xsl:choose>        				
+        			</relationEntry>
+        		</cpfRelation>						
+        	</xsl:for-each>
+        	<xsl:for-each select="//ead:scopecontent//ead:corpname[.!=$vFirstNode]|//ead:scopecontent//ead:corpname[.!=$vFirstNode]">
+        		<xsl:variable name="vCpfLen" select="string-length(.)"/>
+        		<xsl:variable name="vCpfTrim" select="substring(.,$vCpfLen)"/>
+        		<cpfRelation cpfRelationType="associative" xlink:role="http://rdvocab.info/uri/schema/FRBRentitiesRDA/CorporateBody" xlink:type="simple">
+        			<relationEntry>
+        				<xsl:choose>
+        					<xsl:when test="$vCpfTrim=','">
+        						<xsl:value-of select="normalize-space(substring(.,1,$vCpfLen -1))" />
+        					</xsl:when>
+        					<xsl:otherwise>
+        						<xsl:value-of select="normalize-space(.)" />
+        					</xsl:otherwise>
+        				</xsl:choose>       
+        			</relationEntry>
+        		</cpfRelation>						
+        	</xsl:for-each>    
             <xsl:call-template name="tCpfs" />
             <!-- For local archival collections, output EAD snippet in objectXMLWrap. -->
             <xsl:for-each select="ead:ead/ead:archdesc/ead:did/ead:unittitle">
