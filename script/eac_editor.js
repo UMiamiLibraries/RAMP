@@ -392,7 +392,7 @@ function ead()
 	*/
 	eac.prototype.getParagraph = function()
 	{
-		return this.getElementList( '//*[local-name()=\'cpfDescription\']/*[local-name()=\'description\']/*[local-name()=\'biogHist\']/*[local-name()=\'p\']' );
+		return this.getElementList( '//*[local-name()=\'cpfDescription\']/*[local-name()=\'description\']//*[local-name()=\'p\']' );
 	}
 
 	/*
