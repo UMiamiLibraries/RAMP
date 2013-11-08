@@ -343,7 +343,7 @@ function ingest_viaf_Relations(lobjEac, callback) {
         var PossibleNameListUnit =[];
         var PossibleNameListIngest =[];
         
-        var lobjParagraphList = lobjead.getElementList('//*[local-name()=\'p\'] | //*[local-name()=\'p\']/*[local-name()=\'ref\'] | //*[local-name()=\'p\']/*[local-name()=\'ref\']/following-sibling::text()');        
+        var lobjParagraphList = lobjead.getElementList('//*[local-name()=\'p\']');        
         var lobjUnitTitleList = lobjead.getElementList('//*[local-name()=\'unittitle\']');
         var lobjIngestList = lobjEac.getElementList('//*[local-name()=\'event\'] | //*[local-name()=\'resourceRelation\'][@resourceRelationType=\'creatorOf\']/*[local-name()=\'relationEntry\'][1] | //*[local-name()=\'resourceRelation\'][not(@resourceRelationType)]/*[local-name()=\'relationEntry\'][1] | //*[local-name()=\'resourceRelation\'][@resourceRelationType=\'subjectOf\']/*[local-name()=\'relationEntry\'][@localType=\'creator\'] | //*[local-name()=\'resourceRelation\'][@resourceRelationType=\'subjectOf\']/*[local-name()=\'relationEntry\'][1]');
         
