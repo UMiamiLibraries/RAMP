@@ -343,9 +343,9 @@ function ingest_viaf_Relations(lobjEac, callback) {
         var PossibleNameListUnit =[];
         var PossibleNameListIngest =[];
         
-        var lobjParagraphList = lobjEac.getParagraph();
+        var lobjParagraphList = lobjead.getElementList('//*[local-name()=\'p\'] | //*[local-name()=\'p\']/*[local-name()=\'ref\'] | //*[local-name()=\'p\']/*[local-name()=\'ref\']/following-sibling::text()');        
         var lobjUnitTitleList = lobjead.getElementList('//*[local-name()=\'unittitle\']');
-        var lobjIngestList = lobjEac.getElementList('//*[local-name()=\'resourceRelation\'][@resourceRelationType=\'creatorOf\']/*[local-name()=\'relationEntry\'][1] | //*[local-name()=\'resourceRelation\'][not(@resourceRelationType)]/*[local-name()=\'relationEntry\'][1] | //*[local-name()=\'resourceRelation\'][@resourceRelationType=\'subjectOf\']/*[local-name()=\'relationEntry\'][@localType=\'creator\'] | //*[local-name()=\'resourceRelation\'][@resourceRelationType=\'subjectOf\']/*[local-name()=\'relationEntry\'][1]');
+        var lobjIngestList = lobjEac.getElementList('//*[local-name()=\'event\'] | //*[local-name()=\'resourceRelation\'][@resourceRelationType=\'creatorOf\']/*[local-name()=\'relationEntry\'][1] | //*[local-name()=\'resourceRelation\'][not(@resourceRelationType)]/*[local-name()=\'relationEntry\'][1] | //*[local-name()=\'resourceRelation\'][@resourceRelationType=\'subjectOf\']/*[local-name()=\'relationEntry\'][@localType=\'creator\'] | //*[local-name()=\'resourceRelation\'][@resourceRelationType=\'subjectOf\']/*[local-name()=\'relationEntry\'][1]');
         
         // XPath for getting things wrapped in <span> tags:
         //var lobjSpanList = lobjead.getElementList('//*[local-name()=\'unittitle\']/*[local-name()=\'span\']');
@@ -355,7 +355,7 @@ function ingest_viaf_Relations(lobjEac, callback) {
             if (typeof lobjParagraphList[i].childNodes[0] == 'undefined')
             continue;
             
-            var lstrParagraph = lobjParagraphList[i].childNodes[0].nodeValue;
+            var lstrParagraph = lobjParagraphList[i].textContent.trim();
             
             if (lstrParagraph == null || lstrParagraph == '')
             continue;
