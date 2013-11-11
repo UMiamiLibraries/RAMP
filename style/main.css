@@ -1133,7 +1133,7 @@ button#ltselectedtext:focus {
 #menu_3 li {
 	float:right;
 	width:auto;
-	padding:.5% 1% .5% .5%;
+	padding:.5% 1% .25% .5%;
 }
 
 #menu_3 a {
