@@ -867,6 +867,10 @@ input#eac_name
     display:inline-block;  
 }
 
+#ead_select {
+	width:100%;
+}
+
 #edit_controls {
     display: inline-block;
     margin-left: 0px;
