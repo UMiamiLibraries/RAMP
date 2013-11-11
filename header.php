@@ -50,17 +50,22 @@ include('conf/includes.php');
 <ul id="menu_2" class="menu_slice">
     
 	<li id="about_ramp" class="menu_slice"><a href="about.php">About</a></li>
-	<li><img src="style/images/about_white.png" width="24px" height="24px"></img></li>
+	<li><img class="nav_icon" src="style/images/about_white.png" width="24px" height="24px"></img></li>
 	
+	<li id="eac_export" class="menu_slice"><a href="export.php">Export</a></li>
+	<li><img class="nav_icon" src="style/images/export_white.png" width="24px" height="24px"></img></li>
 	
 	<li id="new_eac" class="menu_slice"><a href="new_eac.php">New</a></li>
-	<li><img src="style/images/new_white.png" width="24px" height="24px"></img></li>
+	<li><img class="nav_icon" src="style/images/new_white.png" width="24px" height="24px"></img></li>
 	
 	<li id="eac_edit" class="menu_slice"><a href="#">View / Edit</a></li>
-	<li><img src="style/images/edit_white.png" width="24px" height="24px"></img></li>
+	<li><img class="nav_icon" src="style/images/edit_white.png" width="24px" height="24px"></img></li>
 	    
 	<li id="ead_convert" class='menu_slice'><a href="ead_convert.php">Convert</a></li>
-	<li><img src="style/images/convert_white.png" width="24px" height="24px"></img></li>
+	<li><img class="nav_icon" src="style/images/convert_white.png" width="24px" height="24px"></img></li>		
+	
+	<li id="ramp_home" class='menu_slice'><a href="index.php">Home</a></li>
+	<li><img class="nav_icon" src="style/images/home_white.png" width="24px" height="24px"></img></li>
     
 </ul>
 
@@ -111,7 +116,8 @@ print ("</select>");
      </li>
 </ul>
 
-
 </header>
 <div id="wrap">
 <div id="main_content">
+
+
