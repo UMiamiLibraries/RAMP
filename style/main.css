@@ -854,7 +854,7 @@ textarea#bioghist {
 }
 
 #eac_edit {
-	padding-right:1%;
+	padding-right:2%;
 }
 
 input#eac_name 
@@ -862,8 +862,12 @@ input#eac_name
     margin-bottom:.5em;
 }
 
+#eac_export {
+	padding-right:2%;
+}
+
 #ead_convert {
-	padding-right:1%;
+	padding-right:2%;
 }
 
 #ead_files {
@@ -1150,7 +1154,7 @@ button#ltselectedtext:focus {
 }
 
 #new_eac {
-	padding-right:1%;
+	padding-right:2%;
 }
 
 #new_eac_form  {    
@@ -1230,6 +1234,10 @@ button#ltselectedtext:focus {
 
 #plainText {
     padding-bottom:2%;    
+}
+
+#ramp_home {
+	padding-right:2%;
 }
 
 #rels {       
