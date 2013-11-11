@@ -718,10 +718,7 @@ jQuery(document).ready(function()
   <tr>
     <td>
       <label>Name of resource <span style="font-style:italic;"></span></label>
-      <input type="text" size="75" id="origR" class="origResources resources"/>
-      
-      
-      
+      <input type="text" size="75" id="origR" class="origResources resources"/>                  
       <label>Unique identifier <span style="font-style:italic;">(@xml:id)</span></label>
       <input type="text" size="75" class="resourceIDs"/>
       <label>URI <span style="font-style:italic;">(@xlink:href)</span></label>
@@ -770,7 +767,7 @@ jQuery(document).ready(function()
              
                 $("#origResourceCreators").remove();      
                 $("#origResourceCreatorLabel").remove();
-                $("#origR").after("<label id=\"origResourceCreatorLabel\" class=\"resourceCreatorLabel\" style=\"display:none;\">Creator of resource <span style=\"font-style:italic;\"></span></label><input type=\"text\" size=\"75\" id=\"origResourceCreators\" class=\"resourceCreators\" style=\"display:none;\"/>");
+                $("#origR").after("<label id=\"origResourceCreatorLabel\" class=\"resourceCreatorLabel\" style=\"display:none;\">Creator of resource <span style=\"font-style:italic;\">(separate additional creators with a semicolon: for example, \"Smith, Jane; Sánchez, María; Silva, João\")</span></label><input type=\"text\" size=\"75\" id=\"origResourceCreators\" class=\"resourceCreators\" style=\"display:none;\"/>");
                                              
             }
             else if ( str3 == 'subjectOf' )
@@ -778,7 +775,7 @@ jQuery(document).ready(function()
                 
                 $("#origResourceCreators").remove();
                 $("#origResourceCreatorLabel").remove();
-                $("#origR").after("<label id=\"origResourceCreatorLabel\" class=\"resourceCreatorLabel\">Creator of resource <span style=\"font-style:italic;\"></span></label><input type=\"text\" size=\"75\" id=\"origResourceCreators\" class=\"resourceCreators\"/>");                
+                $("#origR").after("<label id=\"origResourceCreatorLabel\" class=\"resourceCreatorLabel\">Creator of resource <span style=\"font-style:italic;\">(separate additional creators with a semicolon: for example, \"Smith, Jane; Sánchez, María; Silva, João\")</span></label><input type=\"text\" size=\"75\" id=\"origResourceCreators\" class=\"resourceCreators\"/>");                
                                            
             }        
             else if ( str3 == 'other' )
@@ -786,7 +783,7 @@ jQuery(document).ready(function()
             
                 $("#origResourceCreators").remove();
                 $("#origResourceCreatorLabel").remove();
-                $("#origR").after("<label id=\"origResourceCreatorLabel\" class=\"resourceCreatorLabel\">Creator of resource <span style=\"font-style:italic;\"></span></label><input type=\"text\" size=\"75\" id=\"origResourceCreators\" class=\"resourceCreators\"/>");                                                                   
+                $("#origR").after("<label id=\"origResourceCreatorLabel\" class=\"resourceCreatorLabel\">Creator of resource <span style=\"font-style:italic;\">(separate additional creators with a semicolon: for example, \"Smith, Jane; Sánchez, María; Silva, João\")</span></label><input type=\"text\" size=\"75\" id=\"origResourceCreators\" class=\"resourceCreators\"/>");                                                                   
                                 		                                 
             }
         
@@ -819,7 +816,7 @@ jQuery(document).ready(function()
                   $(this).closest("td").closest("tr").siblings("tr").children("td").children('#' + idValRC).remove();                                          
                   $(this).closest("td").closest("tr").siblings("tr").children("td").children('#' + idValRCL).remove();
                   
-                  $(this).closest("td").closest("tr").siblings("tr").children("td").children('#' + idValR).after("<label id=\"newRCL_" + iter++ + "\" class=\"newResourceCreatorLabel resourceCreatorLabel\" style=\"display:none;\">Creator of resource <span style=\"font-style:italic;\"></span></label><input type=\"text\" size=\"75\" id=\"newRC_" + iter++ + "\" class=\"newResourceCreators resourceCreators\" style=\"display:none;\"/>");
+                  $(this).closest("td").closest("tr").siblings("tr").children("td").children('#' + idValR).after("<label id=\"newRCL_" + iter++ + "\" class=\"newResourceCreatorLabel resourceCreatorLabel\" style=\"display:none;\">Creator of resource <span style=\"font-style:italic;\">(separate additional creators with a semicolon: for example, \"Smith, Jane; Sánchez, María; Silva, João\")</span></label><input type=\"text\" size=\"75\" id=\"newRC_" + iter++ + "\" class=\"newResourceCreators resourceCreators\" style=\"display:none;\"/>");
                                                                  
               }
               else if ( str2 == 'subjectOf' )
@@ -828,7 +825,7 @@ jQuery(document).ready(function()
                   $(this).closest("td").closest("tr").siblings("tr").children("td").children('#' + idValRC).remove();                                          
                   $(this).closest("td").closest("tr").siblings("tr").children("td").children('#' + idValRCL).remove();
                 
-                  $(this).closest("td").closest("tr").siblings("tr").children("td").children('#' + idValR).after("<label id=\"newRCL_" + iter++ + "\" class=\"newResourceCreatorLabel resourceCreatorLabel\">Creator of resource <span style=\"font-style:italic;\"></span></label><input type=\"text\" size=\"75\" id=\"newRC_" + iter++ + "\" class=\"newResourceCreators resourceCreators\"/>");                                     
+                  $(this).closest("td").closest("tr").siblings("tr").children("td").children('#' + idValR).after("<label id=\"newRCL_" + iter++ + "\" class=\"newResourceCreatorLabel resourceCreatorLabel\">Creator of resource <span style=\"font-style:italic;\">(separate additional creators with a semicolon: for example, \"Smith, Jane; Sánchez, María; Silva, João\")</span></label><input type=\"text\" size=\"75\" id=\"newRC_" + iter++ + "\" class=\"newResourceCreators resourceCreators\"/>");                                     
               }        
               else if ( str2 == 'other' )
               {                       
@@ -836,7 +833,7 @@ jQuery(document).ready(function()
                     $(this).closest("td").closest("tr").siblings("tr").children("td").children('#' + idValRC).remove();                                          
                     $(this).closest("td").closest("tr").siblings("tr").children("td").children('#' + idValRCL).remove();
                   
-                    $(this).closest("td").closest("tr").siblings("tr").children("td").children('#' + idValR).after("<label id=\"newRCL_" + iter++ + "\" class=\"newResourceCreatorLabel resourceCreatorLabel\">Creator of resource <span style=\"font-style:italic;\"></span></label><input type=\"text\" size=\"75\" id=\"newRC_" + iter++ + "\" class=\"newResourceCreators resourceCreators\"/>");
+                    $(this).closest("td").closest("tr").siblings("tr").children("td").children('#' + idValR).after("<label id=\"newRCL_" + iter++ + "\" class=\"newResourceCreatorLabel resourceCreatorLabel\">Creator of resource <span style=\"font-style:italic;\">(separate additional creators with a semicolon: for example, \"Smith, Jane; Sánchez, María; Silva, João\")</span></label><input type=\"text\" size=\"75\" id=\"newRC_" + iter++ + "\" class=\"newResourceCreators resourceCreators\"/>");
                                               		                               
               }
                                              
