@@ -4,6 +4,8 @@ include('header.php');
 
 <div class="pure-g-r">
   <div class="pure-u-1">
+	<a href="https://github.com/UMiamiLibraries/RAMP">
+	<img style="width:auto; float:right;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_red_aa0000.png" alt="Fork me on GitHub"></a>  	
     <div class="content_box" id="intro_box">
     <h1>Welcome to RAMP</h1>
     <br/>
@@ -15,7 +17,7 @@ include('header.php');
     <br/>
     <br/>
     <div id="demos">
-    <p>Read more about RAMP in <span style="font-style:italic"><a href="http://journal.code4lib.org/articles/8962" target="_blank">Code4Lib Journal</span></a>.</p>
+    <p>Read more about RAMP in <span style="font-style:italic"><a href="http://journal.code4lib.org/articles/8962" target="_blank">Code4Lib Journal</span></a>. Download the source code from <a href="https://github.com/UMiamiLibraries/RAMP" target="_blank">GitHub</a>.</p>
     <br/>
     <p>Watch RAMP demo videos:</p>
     <br/>    
