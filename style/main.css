@@ -323,9 +323,10 @@ ul, menu, dir {
 
 .ead_files {
     margin-left:.5%;
+    margin-bottom:.5%;
     display:block;
     font-size:1.2em;
-    width:100%;
+    width:auto;
 }
 
 .ead_files option {
@@ -435,7 +436,7 @@ ul, menu, dir {
     margin:0;
     list-style:none;
     display:inline;
-    padding-right:1%;
+    padding-right:0;
     font-size:2em;
     margin-left:.5%;
     font-weight:bold;
@@ -720,6 +721,10 @@ li.wiki_login
 
 /* IDs */
 
+#about_box {
+	font-size:1.4em;
+}
+
 #addbioinfo {
     background:#19A3FF;
     padding-top: .5%;
@@ -844,9 +849,17 @@ textarea#bioghist {
     margin: 1.25em 2em 0em 0em;
 }
 
+#eac_edit {
+	padding-right:1%;
+}
+
 input#eac_name 
 {
     margin-bottom:.5em;
+}
+
+#ead_convert {
+	padding-right:1%;
 }
 
 #ead_files {
@@ -1059,6 +1072,11 @@ button#ltselectedtext:focus {
     color:black;
 }
 
+#main_content {
+	float:left;
+	width:100%;
+}
+
 #menu a {
     color:white;
     text-decoration: none;
@@ -1067,6 +1085,7 @@ button#ltselectedtext:focus {
 
 #menu_button {
     float:right;
+    padding-right:.5%;
 }
 
 #menu_button:hover {
@@ -1074,7 +1093,7 @@ button#ltselectedtext:focus {
 }
 
 #menu_2 {
-    display:none;
+    /* display:none; Display nav bar by default. */ 
     background: #1873FA;
 
     float:left;
@@ -1109,6 +1128,10 @@ button#ltselectedtext:focus {
 
 #new_box h1 {
     margin-bottom:1%;
+}
+
+#new_eac {
+	padding-right:1%;
 }
 
 #new_eac_form  {    

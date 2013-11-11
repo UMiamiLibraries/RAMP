@@ -56,6 +56,8 @@ include('conf/includes.php');
         <li><img src="style/images/new_white.png" width="24px" height="24px"></img></li>
 
 	<li id="new_eac" class="menu_slice"><a href="new_eac.php">New</a></li>
+	<li><img src="style/images/about_white.png" width="24px" height="24px"></img></li>
+	<li id="about_ramp" class="menu_slice"><a href="about.php">About</a></li>
     
 </ul>
 
