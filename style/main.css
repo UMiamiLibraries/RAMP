@@ -725,6 +725,10 @@ li.wiki_login
 	font-size:1.4em;
 }
 
+#about_ramp {
+	padding-right:1%;
+}
+
 #addbioinfo {
     background:#19A3FF;
     padding-top: .5%;
@@ -1111,14 +1115,25 @@ button#ltselectedtext:focus {
     text-decoration:none;
 }
 
+#menu_2 li {
+	width:auto;
+	float:right;
+}
+
 #menu_3 {
     display:none;
     background: #2167CF;
-    float:left;
+    float:right;
     padding:1%;
     width:100%;
     font-size: .5em;
     padding:0;
+}
+
+#menu_3 li {
+	float:right;
+	width:auto;
+	padding:.5% 1% .5% .5%;
 }
 
 #menu_3 a {
