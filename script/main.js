@@ -1,4 +1,8 @@
 $(document).ready(function () {
+   
+   // Show select box by default, so that we can refresh after import.   
+   $("#menu_3").show(); 
+   
    // Added jQuery UI example tooltip. --timathom
    $(this).tooltip(
     		      {
@@ -23,19 +27,32 @@ $( function() {
 
 $('#menu_button').click(function () {
 
-$('#menu_2').toggle();
-
-
-});
-
-
-$("#eac_edit a").click(function() {
-
-$('#menu_3').toggle();
+	$('#menu_2').toggle();
 
 });
 
 
+$("#eac_edit a").on("click",function() {
+
+	$("#menu_3").toggle();
+
+
+});
+
+// Refresh page to populate select box.
+$('.ead_files').on("click",function(){
+	
+	if (getCookie('convert')) {
+	
+        if (getCookie('convert') == 'true') 
+        {
+            document.cookie = "convert=";
+            location.reload();            		            		              		
+        }	            
+        
+	}
+	
+})
 
 $('.ead_files').change(function () {
 

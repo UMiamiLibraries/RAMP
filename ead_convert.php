@@ -13,6 +13,8 @@ ini_set('display_errors', '1');
 
 			   $('#convertEad2Eac').on('click', function()
 						   {
+						   	 
+						     document.cookie = "convert=true";
 						     var lboolContinue = true;
 						     var lobjUnprocessed = [];
 
@@ -52,21 +54,12 @@ function convertEad( lstrDir, lobjUnprocessed, lstrDiffs )
 	     lstrDiffs += lobjData.diffs;
 
 	     if( lobjData.status == "done" )
-	       {
+	     {	     	    
+	     
 		 $('#file_estimator').html('Done');
 		 
 		 $('#exporting').html("<a style=\"font-size:1.4em; margin:1%;\" href=\"export.php\">Export EAC-CPF Records</a>");
-		 
-         /*
-		    $('#export').on('click', function () {
-
-                
-			    $.post('export.php', function (data) {
-				    $('#exporting').html("<a href='export/export.zip'>Download your records</a>"); 				   				   				  
-				});
-
-			 });
-         */
+		          
          
 		 $('#results').html( lstrDiffs );
 		 $('#convertEad2Eac').removeAttr('disabled');
