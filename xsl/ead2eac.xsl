@@ -546,7 +546,9 @@
                                                             </xsl:when>
                                                             <xsl:otherwise>
                                                                 <xsl:value-of select="normalize-space(.)" />
-                                                                <xsl:text />
+                                                            	<xsl:if test="position()!=last()">
+                                                                	<xsl:text> </xsl:text>
+                                                            	</xsl:if>
                                                             </xsl:otherwise>
                                                         </xsl:choose>
                                                     </xsl:for-each>
