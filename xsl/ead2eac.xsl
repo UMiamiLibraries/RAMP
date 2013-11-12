@@ -308,7 +308,7 @@
                                             <xsl:choose>
                                                 <xsl:when test="$vNameString-1=')'">
                                                     <xsl:value-of select="substring-before($vNameString-10,',')" />
-                                                    <xsl:text>,</xsl:text>
+                                                    <xsl:text>, </xsl:text>
                                                     <xsl:choose>
                                                         <xsl:when test="contains(substring-after($vNameString-12,', '),',')">
                                                             <xsl:value-of select="substring-before(substring-after($vNameString-12,', '),',')" />
@@ -320,7 +320,7 @@
                                                 </xsl:when>
                                                 <xsl:otherwise>
                                                     <xsl:value-of select="substring-before($vNameString-10,',')" />
-                                                    <xsl:text>,</xsl:text>
+                                                    <xsl:text>, </xsl:text>
                                                     <xsl:choose>
                                                         <xsl:when test="contains(substring-after($vNameString-10,', '),',')">
                                                             <xsl:value-of select="substring-before(substring-after($vNameString-10,', '),',')" />
@@ -336,7 +336,7 @@
                                             <xsl:choose>
                                                 <xsl:when test="$vNameString-1=')'">
                                                     <xsl:value-of select="substring-before($vNameString-6,',')" />
-                                                    <xsl:text>,</xsl:text>
+                                                    <xsl:text>, </xsl:text>
                                                     <xsl:choose>
                                                         <xsl:when test="contains(substring-after($vNameString-8,', '),',')">
                                                             <xsl:choose>
@@ -364,7 +364,7 @@
                                                 </xsl:when>
                                                 <xsl:otherwise>
                                                     <xsl:value-of select="substring-before($vNameString-6,',')" />
-                                                    <xsl:text>,</xsl:text>
+                                                    <xsl:text>, </xsl:text>
                                                     <xsl:choose>
                                                         <xsl:when test="contains(substring-after($vNameString-6,', '),',')">
                                                             <xsl:choose>
@@ -1040,7 +1040,7 @@
                         <!-- Process inclusive and bulk dates. -->
                         <xsl:value-of select="normalize-space(text())" />
                         <xsl:if test="child::ead:unitdate">
-                            <xsl:text>,</xsl:text>
+                            <xsl:text>, </xsl:text>
                             <xsl:value-of select="normalize-space(ead:unitdate)" />
                         </xsl:if>
                     </relationEntry>
@@ -1590,7 +1590,7 @@
             							<relationEntry localType="creator">
             								<xsl:value-of select="normalize-space(//ead:origination/child::node()[2][@encodinganalog='100_1'])" />
             								<xsl:if test="//ead:origination/child::node()[3][@encodinganalog='100_0']!=''">
-            									<xsl:text>,</xsl:text>
+            									<xsl:text>, </xsl:text>
             									<xsl:value-of select="normalize-space(//ead:origination/child::node()[3][@encodinganalog='100_0'])" />
             								</xsl:if>
             							</relationEntry>
