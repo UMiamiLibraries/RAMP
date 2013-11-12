@@ -1,7 +1,4 @@
-$(document).ready(function () {
-   
-   // Show select box by default, so that we can refresh after import.   
-   $("#menu_3").show(); 
+$(document).ready(function () {      
    
    // Added jQuery UI example tooltip. --timathom
    $(this).tooltip(

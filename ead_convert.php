@@ -9,6 +9,10 @@ ini_set('display_errors', '1');
   <script type="text/javascript">
   jQuery(document).ready(function($)
 			 {
+			   
+			   // Show select box by default, so that we can refresh after import.   
+   			   $("#menu_3").show();
+   			    
 			   var lstrDir = $('input[name="dir"]').val();
 
 			   $('#convertEad2Eac').on('click', function()
