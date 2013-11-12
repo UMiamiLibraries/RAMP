@@ -1,4 +1,4 @@
-<?php
+	<?php
 /*
   This script displays a form for creating a new EAC record.
 
@@ -16,7 +16,7 @@ jQuery(document).ready(function()
 {
 
   $('input[type="text"]').val('');
-  $('select').val(''); 
+  $('select').not(".ead_files").val(''); 
   $('textarea').val('');
   $('.scriptNames').val('Latin');
   $('.scriptCodes').val('Latn');       
