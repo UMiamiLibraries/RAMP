@@ -377,7 +377,7 @@ class WorldCat_Ingestor extends Ingestor
 
 			if( $lobjSubject['id'] != "" )
 				$lobjSubjectNode['elements']['term']['attributes']['xml:id'] = $lobjSubject['id'];
-				$lobjSubjectNode['elements']['term']['attributes']['xmlns'] = "urn:isbn:1-931666-33-4";
+				//$lobjSubjectNode['elements']['term']['attributes']['xmlns'] = "urn:isbn:1-931666-33-4";
 
 			if( $lobjSubject['name'] != "" )
 				$lobjSubjectNode['elements']['term']['elements'] = $lobjSubject['name'];
