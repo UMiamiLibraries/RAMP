@@ -1557,22 +1557,10 @@
                 <xsl:otherwise>
                     <!-- If the name does not include dates ... -->
                     <xsl:choose>
-                        <xsl:when test="contains($pPersName,', ')">
-                            <!-- Strip any trailing period. -->
-                            <xsl:choose>
-                                <xsl:when test="substring($pPersName,$vPersNameLength)='.'">
-                                    <xsl:value-of
-                                        select="substring-after(substring-before(normalize-space($pPersName),$vPersNameVal),', ')"
-                                    />
-                                </xsl:when>
-                                <xsl:otherwise>
-                                    <xsl:value-of
-                                        select="substring-after(normalize-space($pPersName),', ')"/>
-                                </xsl:otherwise>
-                            </xsl:choose>
+                        <xsl:when test="contains($pPersName,', ')">                                                       
+                            <xsl:value-of select="substring-after(normalize-space($pPersName),', ')"/>
                             <xsl:text> </xsl:text>
-                            <xsl:value-of
-                                select="substring-before(normalize-space($pPersName),', ')"/>
+                            <xsl:value-of select="substring-before(normalize-space($pPersName),', ')"/>
                         </xsl:when>
                         <xsl:otherwise>
                             <!-- Name order stays as is. -->
