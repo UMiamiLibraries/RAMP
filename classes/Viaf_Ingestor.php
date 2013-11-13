@@ -216,7 +216,7 @@ class Viaf_Ingestor extends Ingestor
             // "[1]" XPath selector after "record" removed by timathom to allow for iterating over results.
 			$lobjResult = $this->xpath('//*[local-name()=\'record\']//*[local-name()=\'viafID\']');
 			$lobjResult2 = $this->xpath('//*[local-name()=\'record\']//*[local-name()=\'nameType\']');
-			$lobjResult3 = $this->xpath('//*[local-name()=\'record\']//*[local-name()=\'mainHeadings\']/*[local-name()=\'data\']/*[local-name()=\'text\']');						
+			$lobjResult3 = $this->xpath('//*[local-name()=\'record\']//*[local-name()=\'mainHeadings\']/*[local-name()=\'data\'][1]/*[local-name()=\'text\']');						
 
 			if($lobjResult === FALSE || $lobjResult->length == 0)
 			{
