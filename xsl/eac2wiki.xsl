@@ -1491,10 +1491,7 @@
         <xsl:param name="pPersName"/>
         <xsl:param name="pCorpName"/>
         <!-- Parse names for people first. -->
-        <xsl:if test="$pNameType='person'">
-            <!-- Set variables to strip trailing period. -->
-            <xsl:variable name="vPersNameLength" select="string-length($pPersName)"/>
-            <xsl:variable name="vPersNameVal" select="substring($pPersName,$vPersNameLength)"/>
+        <xsl:if test="$pNameType='person'">            
             <xsl:choose>
                 <!-- If the name contains dates ... -->
                 <xsl:when
@@ -1572,8 +1569,18 @@
         </xsl:if>
         <!-- Then parse names for corporate bodies. -->
         <xsl:if test="$pNameType='corporate'">
+        	<!-- Set variables to strip trailing period. -->
+        	<xsl:variable name="vCorpNameLength" select="string-length($pCorpName)"/>
+        	<xsl:variable name="vCorpNameVal" select="substring($pCorpName,$vCorpNameLength)"/>
             <!-- Name order stays as is. -->
-            <xsl:value-of select="normalize-space($pCorpName)"/>
+        	<xsl:choose>
+        		<xsl:when test="$vCorpNameVal='.'">
+        			<xsl:value-of select="substring-before(normalize-space($pCorpName),$vCorpNameVal)"/>
+        		</xsl:when>
+        		<xsl:otherwise>
+        			<xsl:value-of select="normalize-space($pCorpName)"/>
+        		</xsl:otherwise>
+        	</xsl:choose>        	
         </xsl:if>
     </xsl:template>
 
