@@ -1575,7 +1575,7 @@
             <!-- Name order stays as is. -->
         	<xsl:choose>
         		<xsl:when test="$vCorpNameVal='.'">
-        			<xsl:value-of select="substring-before(normalize-space($pCorpName),$vCorpNameVal)"/>
+        			<xsl:value-of select="substring(normalize-space($pCorpName),1,$vCorpNameLength -1)"/>
         		</xsl:when>
         		<xsl:otherwise>
         			<xsl:value-of select="normalize-space($pCorpName)"/>
