@@ -48,6 +48,8 @@
         <xsl:call-template name="tParseName2">
             <xsl:with-param name="pNameType">person</xsl:with-param>
             <xsl:with-param name="pPersName" select="$pPersName"/>
+        	<xsl:with-param name="pPersNameSur" select="$pPersNameSur"/>
+        	<xsl:with-param name="pPersNameFore" select="$pPersNameFore"/>
         </xsl:call-template>
         <xsl:text>''' ...</xsl:text>
         <xsl:text>&#10;</xsl:text>
@@ -145,6 +147,8 @@
         <xsl:call-template name="tCategories">
             <xsl:with-param name="pNameType">person</xsl:with-param>
             <xsl:with-param name="pPersName" select="$pPersName"/>
+        	<xsl:with-param name="pPersNameSur" select="$pPersNameSur"/>
+        	<xsl:with-param name="pPersNameFore" select="$pPersNameFore"/>
             <xsl:with-param name="pBiogHist" select="$pBiogHist"/>
         </xsl:call-template>
     </xsl:template>
@@ -270,6 +274,8 @@
     <!-- Output Infobox for persons. -->
     <xsl:template name="tPersonInfobox">
         <xsl:param name="pPersName" select="$pPersName"/>
+    	<xsl:param name="pPersNameSur" select="$pPersNameSur"/>
+    	<xsl:param name="pPersNameFore" select="$pPersNameFore"/>
         <xsl:text>{{Infobox person</xsl:text>
         <xsl:text>&#09;</xsl:text>
         <xsl:text>     &lt;!-- See http://en.wikipedia.org/wiki/Template:Infobox_person for complete template --&gt; </xsl:text>
@@ -279,6 +285,8 @@
         <xsl:call-template name="tParseName">
             <xsl:with-param name="pNameType">person</xsl:with-param>
             <xsl:with-param name="pPersName" select="$pPersName"/>
+        	<xsl:with-param name="pPersNameSur" select="$pPersNameSur"/>
+        	<xsl:with-param name="pPersNameFore" select="$pPersNameFore"/>
         </xsl:call-template>
         <xsl:text>| nationality </xsl:text>
         <xsl:text>&#09;&#09;= </xsl:text>
@@ -728,8 +736,7 @@
                     select="eac:eac-cpf/eac:cpfDescription/eac:relations/eac:resourceRelation[@resourceRelationType='creatorOf' and @xlink:role='resource']">
                     <xsl:sort
                         select="translate(eac:relationEntry[1],'ÁÀÉÈÍÓÚÜÑáàéèíóúúüñ','AAEEIOUUNaaeeiouuun')"
-                        data-type="text"/>
-                    <!-- Old XPath: contains(eac:relationEntry[2], substring-before($pPersName,',')) and contains(eac:relationEntry[2], substring-before(substring-after($pPersName,','),',')) -->
+                        data-type="text"/>                    
                     <xsl:variable name="vStrLen" select="string-length(eac:relationEntry[1])"/>
                     <xsl:text>*</xsl:text>
                     <xsl:choose>
@@ -792,6 +799,8 @@
         <xsl:call-template name="tParseName3">
             <xsl:with-param name="pNameType" select="'person' or 'corporate'"/>
             <xsl:with-param name="pPersName" select="$pPersName"/>
+        	<xsl:with-param name="pPersNameSur" select="$pPersNameSur"/>
+        	<xsl:with-param name="pPersNameFore" select="$pPersNameFore"/>
             <xsl:with-param name="pCorpName" select="$pCorpName"/>
         </xsl:call-template>
         <xsl:text>&#10;</xsl:text>
@@ -802,12 +811,16 @@
                 <xsl:call-template name="tParseName2">
                     <xsl:with-param name="pNameType" select="'person' or 'corporate'"/>
                     <xsl:with-param name="pPersName" select="$pPersName"/>
+                	<xsl:with-param name="pPersNameSur" select="$pPersNameSur"/>
+                	<xsl:with-param name="pPersNameFore" select="$pPersNameFore"/>
                     <xsl:with-param name="pCorpName" select="$pCorpName"/>
                 </xsl:call-template>
                 <xsl:text>"|name=</xsl:text>
                 <xsl:call-template name="tParseName2">
                     <xsl:with-param name="pNameType" select="'person' or 'corporate'"/>
                     <xsl:with-param name="pPersName" select="$pPersName"/>
+                	<xsl:with-param name="pPersNameSur" select="$pPersNameSur"/>
+                	<xsl:with-param name="pPersNameFore" select="$pPersNameFore"/>
                     <xsl:with-param name="pCorpName" select="$pCorpName"/>
                 </xsl:call-template>
                 <xsl:text>|id=</xsl:text>
@@ -984,27 +997,38 @@
     <!-- Output PersonDate template. -->
     <xsl:template name="tPersonData">
         <xsl:param name="pPersName" select="$pPersName"/>
+    	<xsl:param name="pPersNameSur" select="$pPersNameSur"/>
+    	<xsl:param name="pPersNameFore" select="$pPersNameFore"/>
         <xsl:text>&#10;</xsl:text>
         <xsl:text>{{Persondata </xsl:text>
         <xsl:text> &lt;!-- Metadata: see [[Wikipedia:Persondata]]. --&gt;</xsl:text>
         <xsl:text>&#10;</xsl:text>
         <xsl:text>| NAME </xsl:text>
         <xsl:text>&#09;&#09;&#09;&#09;= </xsl:text>
-        <xsl:choose>
-            <!-- If the name contains no dates ... -->
-            <xsl:when test="string-length(translate($pPersName,concat($vAlpha,$vCommaSpace),''))=0">
-                <!-- ... then output as is. -->
-                <xsl:value-of select="$pPersName"/>
-            </xsl:when>
-            <!-- If the name does contain dates ... -->
-            <xsl:when
-                test="string-length(translate($pPersName,concat($vAlpha,$vCommaSpace),''))&gt;0">
-                <!-- ... output the part of the name before the dates. -->
-                <xsl:value-of select="substring-before($pPersName,', ')"/>
-                <xsl:text>, </xsl:text>
-                <xsl:value-of select="substring-before(substring-after($pPersName,', '),', ')"/>
-            </xsl:when>
-        </xsl:choose>
+    	<xsl:choose>
+    		<xsl:when test="$pPersNameFore or $pPersNameSur">
+    			<xsl:value-of select="normalize-space($pPersNameSur)"/>                		
+    			<xsl:text>, </xsl:text>
+    			<xsl:value-of select="normalize-space($pPersNameFore)"/>
+    		</xsl:when>
+    		<xsl:otherwise>
+    			<xsl:choose>        
+    				<!-- If the name contains no dates ... -->
+    				<xsl:when test="string-length(translate($pPersName,concat($vAlpha,$vCommaSpace),''))=0">
+    					<!-- ... then output as is. -->
+    					<xsl:value-of select="$pPersName"/>
+    				</xsl:when>
+    				<!-- If the name does contain dates ... -->
+    				<xsl:when
+    					test="string-length(translate($pPersName,concat($vAlpha,$vCommaSpace),''))&gt;0">
+    					<!-- ... output the part of the name before the dates. -->
+    					<xsl:value-of select="substring-before($pPersName,', ')"/>
+    					<xsl:text>, </xsl:text>
+    					<xsl:value-of select="substring-before(substring-after($pPersName,', '),', ')"/>
+    				</xsl:when>
+    			</xsl:choose>
+    		</xsl:otherwise>
+    	</xsl:choose>    	
         <xsl:text>&#10;</xsl:text>
         <xsl:text>| ALTERNATIVE NAMES </xsl:text>
         <xsl:text>&#09;= </xsl:text>
@@ -1052,7 +1076,16 @@
             <xsl:when test="string-length(translate($pPersName,concat($vAlpha,$vCommaSpace),''))=0">
                 <!-- ... then output as is. -->
                 <xsl:text>{{DEFAULTSORT:</xsl:text>
-                <xsl:value-of select="$pPersName"/>
+                <xsl:choose>
+                	<xsl:when test="$pPersName">
+                		<xsl:value-of select="$pPersName"/>
+                	</xsl:when>
+                	<xsl:otherwise>
+                		<xsl:value-of select="normalize-space($pPersNameSur)"/>                		
+                		<xsl:text>, </xsl:text>
+                		<xsl:value-of select="normalize-space($pPersNameFore)"/>                		
+                	</xsl:otherwise>
+                </xsl:choose>            	            	
                 <xsl:text>}}</xsl:text>
                 <xsl:text>&#10;</xsl:text>
             </xsl:when>
@@ -1192,6 +1225,8 @@
                 <xsl:call-template name="tParseName2">
                     <xsl:with-param name="pNameType">person</xsl:with-param>
                     <xsl:with-param name="pPersName" select="$pPersName"/>
+                	<xsl:with-param name="pPersNameSur" select="$pPersNameSur"/>
+                	<xsl:with-param name="pPersNameFore" select="$pPersNameFore"/>
                 </xsl:call-template>
                 <xsl:text> may be associated with the following entities. These names were extracted from appropriate subject headings or from the &lt;cpfRelation&gt; elements in the EAC-CPF record. They may be useful for creating links to this page from other Wikipedia pages. Some names may be duplicates; however, different name forms can useful for testing whether an entity has an existing page on Wikipedia.</xsl:text>
                 <xsl:text>&#10;</xsl:text>
@@ -1315,127 +1350,188 @@
         <xsl:param name="pNameType"/>
         <xsl:param name="pPersName" select="$pPersName"/>
         <xsl:param name="pCorpName" select="$pCorpName"/>
+    	<xsl:param name="pPersNameSur" select="$pPersNameSur"/>
+    	<xsl:param name="pPersNameFore" select="$pPersNameFore"/>
         <!-- Parse names for people first. -->
         <xsl:if test="$pNameType='person'">
-            <xsl:choose>
-                <!-- If the name contains no dates ... -->
-                <xsl:when
-                    test="string-length(translate($pPersName,concat($vAlpha,$vCommaSpace),''))=0">
-                    <!-- ... then reverse the order of the name parts accordingly. -->
-                    <xsl:value-of select="substring-after($pPersName,', ')"/>
-                    <xsl:text> </xsl:text>
-                    <xsl:value-of select="substring-before($pPersName,', ')"/>
-                    <xsl:text>&#10;</xsl:text>
-                    <xsl:text>| image </xsl:text>
-                    <xsl:text>&#09;&#09;&#09;= </xsl:text>
-                    <xsl:text>&#10;</xsl:text>
-                    <xsl:text>| size </xsl:text>
-                    <xsl:text>&#09;&#09;&#09;= </xsl:text>
-                    <xsl:text> &lt;!-- Default 200px --&gt; </xsl:text>
-                    <xsl:text>&#10;</xsl:text>
-                    <xsl:text>| alt </xsl:text>
-                    <xsl:text>&#09;&#09;&#09;&#09;= </xsl:text>
-                    <xsl:text>&#10;</xsl:text>
-                    <xsl:text>| caption </xsl:text>
-                    <xsl:text>&#09;&#09;&#09;= </xsl:text>
-                    <xsl:text>&#10;</xsl:text>
-                    <xsl:text>| birth_name </xsl:text>
-                    <xsl:text>&#09;&#09;= </xsl:text>
-                    <xsl:text>&#10;</xsl:text>
-                    <xsl:text>| birth_date </xsl:text>
-                    <xsl:text>&#09;&#09;= </xsl:text>
-                    <!-- Call template to attempt to prepopulate birth date info. -->
-                    <xsl:call-template name="tNameDateParser">
-                        <xsl:with-param name="pBirthYr" select="'true'"/>
-                    </xsl:call-template>
-                    <xsl:text> &lt;!-- {{Birth date and age|YYYY|MM|DD}} --&gt;</xsl:text>
-                    <xsl:text>&#10;</xsl:text>
-                    <xsl:text>| birth_place </xsl:text>
-                    <xsl:text>&#09;&#09;= </xsl:text>
-                    <!-- Call template to attempt to prepopulate birth place info. -->
-                    <!-- Under revision ...
+            <xsl:choose>                
+            	<xsl:when test="$pPersName">
+            		<!-- If the name contains no dates ... -->
+            		<xsl:if
+            			test="string-length(translate($pPersName,concat($vAlpha,$vCommaSpace),''))=0">
+            			<!-- ... then reverse the order of the name parts accordingly. -->
+            			<xsl:value-of select="substring-after($pPersName,', ')"/>
+            			<xsl:text> </xsl:text>
+            			<xsl:value-of select="substring-before($pPersName,', ')"/>
+            			<xsl:text>&#10;</xsl:text>
+            			<xsl:text>| image </xsl:text>
+            			<xsl:text>&#09;&#09;&#09;= </xsl:text>
+            			<xsl:text>&#10;</xsl:text>
+            			<xsl:text>| size </xsl:text>
+            			<xsl:text>&#09;&#09;&#09;= </xsl:text>
+            			<xsl:text> &lt;!-- Default 200px --&gt; </xsl:text>
+            			<xsl:text>&#10;</xsl:text>
+            			<xsl:text>| alt </xsl:text>
+            			<xsl:text>&#09;&#09;&#09;&#09;= </xsl:text>
+            			<xsl:text>&#10;</xsl:text>
+            			<xsl:text>| caption </xsl:text>
+            			<xsl:text>&#09;&#09;&#09;= </xsl:text>
+            			<xsl:text>&#10;</xsl:text>
+            			<xsl:text>| birth_name </xsl:text>
+            			<xsl:text>&#09;&#09;= </xsl:text>
+            			<xsl:text>&#10;</xsl:text>
+            			<xsl:text>| birth_date </xsl:text>
+            			<xsl:text>&#09;&#09;= </xsl:text>
+            			<!-- Call template to attempt to prepopulate birth date info. -->
+            			<xsl:call-template name="tNameDateParser">
+            				<xsl:with-param name="pBirthYr" select="'true'"/>
+            			</xsl:call-template>
+            			<xsl:text> &lt;!-- {{Birth date and age|YYYY|MM|DD}} --&gt;</xsl:text>
+            			<xsl:text>&#10;</xsl:text>
+            			<xsl:text>| birth_place </xsl:text>
+            			<xsl:text>&#09;&#09;= </xsl:text>
+            			<!-- Call template to attempt to prepopulate birth place info. -->
+            			<!-- Under revision ...
                     <xsl:call-template name="tBirthPlaceFinder">
                         <xsl:with-param name="pBiogHist" select="$pBiogHist"/>
                     </xsl:call-template>
                     -->
-                    <xsl:text>&#10;</xsl:text>
-                    <xsl:text>| death_date </xsl:text>
-                    <xsl:text>&#09;&#09;= </xsl:text>
-                    <!-- Call template to attempt to prepopulate death date info. -->
-                    <xsl:call-template name="tNameDateParser">
-                        <xsl:with-param name="pDeathYr" select="'true'"/>
-                    </xsl:call-template>
-                    <xsl:text> &lt;!-- {{Death date and age|YYYY|MM|DD|YYYY|MM|DD}} (death date then birth date) --&gt;</xsl:text>
-                    <xsl:text>&#10;</xsl:text>
-                    <xsl:text>| death_place </xsl:text>
-                    <xsl:text>&#09;&#09;= </xsl:text>
-                    <!-- Call template to attempt to prepopulate death place info. -->
-                    <!-- Under revision ...
+            			<xsl:text>&#10;</xsl:text>
+            			<xsl:text>| death_date </xsl:text>
+            			<xsl:text>&#09;&#09;= </xsl:text>
+            			<!-- Call template to attempt to prepopulate death date info. -->
+            			<xsl:call-template name="tNameDateParser">
+            				<xsl:with-param name="pDeathYr" select="'true'"/>
+            			</xsl:call-template>
+            			<xsl:text> &lt;!-- {{Death date and age|YYYY|MM|DD|YYYY|MM|DD}} (death date then birth date) --&gt;</xsl:text>
+            			<xsl:text>&#10;</xsl:text>
+            			<xsl:text>| death_place </xsl:text>
+            			<xsl:text>&#09;&#09;= </xsl:text>
+            			<!-- Call template to attempt to prepopulate death place info. -->
+            			<!-- Under revision ...
                     <xsl:call-template name="tDeathPlaceFinder">
                         <xsl:with-param name="pBiogHist" select="$pBiogHist"/>
                     </xsl:call-template>
                     -->
-                    <xsl:text>&#10;</xsl:text>
-                </xsl:when>
-                <!-- If the name does contain dates ... -->
-                <xsl:when
-                    test="string-length(translate($pPersName,concat($vAlpha,$vCommaSpace),''))&gt;=4">
-                    <!-- ... reverse the order of the name parts accordingly. -->
-                    <xsl:value-of select="substring-before(substring-after($pPersName,','),',')"/>
-                    <xsl:text> </xsl:text>
-                    <xsl:value-of select="substring-before($pPersName,',')"/>
-                    <xsl:text>&#10;</xsl:text>
-                    <xsl:text>| image </xsl:text>
-                    <xsl:text>&#09;&#09;&#09;= </xsl:text>
-                    <xsl:text>&#10;</xsl:text>
-                    <xsl:text>| size </xsl:text>
-                    <xsl:text>&#09;&#09;&#09;= </xsl:text>
-                    <xsl:text> &lt;!-- Default 200px --&gt;</xsl:text>
-                    <xsl:text>&#10;</xsl:text>
-                    <xsl:text>| alt </xsl:text>
-                    <xsl:text>&#09;&#09;&#09;&#09;= </xsl:text>
-                    <xsl:text>&#10;</xsl:text>
-                    <xsl:text>| caption </xsl:text>
-                    <xsl:text>&#09;&#09;&#09;= </xsl:text>
-                    <xsl:text>&#10;</xsl:text>
-                    <xsl:text>| birth_name </xsl:text>
-                    <xsl:text>&#09;&#09;= </xsl:text>
-                    <xsl:text>&#10;</xsl:text>
-                    <xsl:text>| birth_date </xsl:text>
-                    <xsl:text>&#09;&#09;= </xsl:text>
-                    <!-- Call template to attempt to prepopulate birth date info. -->
-                    <xsl:call-template name="tNameDateParser">
-                        <xsl:with-param name="pBirthYr" select="'true'"/>
-                    </xsl:call-template>
-                    <xsl:text> &lt;!-- {{Birth date and age|YYYY|MM|DD}} --&gt;</xsl:text>
-                    <xsl:text>&#10;</xsl:text>
-                    <xsl:text>| birth_place </xsl:text>
-                    <xsl:text>&#09;&#09;= </xsl:text>
-                    <!-- Call template to attempt to prepopulate birth place info. -->
-                    <!-- Under revision ...
+            			<xsl:text>&#10;</xsl:text>
+            		</xsl:if>
+            		<!-- If the name does contain dates ... -->
+            		<xsl:if
+            			test="string-length(translate($pPersName,concat($vAlpha,$vCommaSpace),''))&gt;=4">
+            			<!-- ... reverse the order of the name parts accordingly. -->
+            			<xsl:value-of select="substring-before(substring-after($pPersName,','),',')"/>
+            			<xsl:text> </xsl:text>
+            			<xsl:value-of select="substring-before($pPersName,',')"/>
+            			<xsl:text>&#10;</xsl:text>
+            			<xsl:text>| image </xsl:text>
+            			<xsl:text>&#09;&#09;&#09;= </xsl:text>
+            			<xsl:text>&#10;</xsl:text>
+            			<xsl:text>| size </xsl:text>
+            			<xsl:text>&#09;&#09;&#09;= </xsl:text>
+            			<xsl:text> &lt;!-- Default 200px --&gt;</xsl:text>
+            			<xsl:text>&#10;</xsl:text>
+            			<xsl:text>| alt </xsl:text>
+            			<xsl:text>&#09;&#09;&#09;&#09;= </xsl:text>
+            			<xsl:text>&#10;</xsl:text>
+            			<xsl:text>| caption </xsl:text>
+            			<xsl:text>&#09;&#09;&#09;= </xsl:text>
+            			<xsl:text>&#10;</xsl:text>
+            			<xsl:text>| birth_name </xsl:text>
+            			<xsl:text>&#09;&#09;= </xsl:text>
+            			<xsl:text>&#10;</xsl:text>
+            			<xsl:text>| birth_date </xsl:text>
+            			<xsl:text>&#09;&#09;= </xsl:text>
+            			<!-- Call template to attempt to prepopulate birth date info. -->
+            			<xsl:call-template name="tNameDateParser">
+            				<xsl:with-param name="pBirthYr" select="'true'"/>
+            			</xsl:call-template>
+            			<xsl:text> &lt;!-- {{Birth date and age|YYYY|MM|DD}} --&gt;</xsl:text>
+            			<xsl:text>&#10;</xsl:text>
+            			<xsl:text>| birth_place </xsl:text>
+            			<xsl:text>&#09;&#09;= </xsl:text>
+            			<!-- Call template to attempt to prepopulate birth place info. -->
+            			<!-- Under revision ...
                     <xsl:call-template name="tBirthPlaceFinder">
                         <xsl:with-param name="pBiogHist" select="$pBiogHist"/>
                     </xsl:call-template>
                     -->
-                    <xsl:text>&#10;</xsl:text>
-                    <xsl:text>| death_date </xsl:text>
-                    <xsl:text>&#09;&#09;= </xsl:text>
-                    <!-- Call template to attempt to prepopulate death date info. -->
-                    <xsl:call-template name="tNameDateParser">
-                        <xsl:with-param name="pDeathYr" select="'true'"/>
-                    </xsl:call-template>
-                    <xsl:text> &lt;!-- {{Death date and age|YYYY|MM|DD|YYYY|MM|DD}} (death date then birth date) --&gt;</xsl:text>
-                    <xsl:text>&#10;</xsl:text>
-                    <xsl:text>| death_place </xsl:text>
-                    <xsl:text>&#09;&#09;= </xsl:text>
-                    <!-- Call template to attempt to prepopulate death place info. -->
-                    <!-- Under revision ...
+            			<xsl:text>&#10;</xsl:text>
+            			<xsl:text>| death_date </xsl:text>
+            			<xsl:text>&#09;&#09;= </xsl:text>
+            			<!-- Call template to attempt to prepopulate death date info. -->
+            			<xsl:call-template name="tNameDateParser">
+            				<xsl:with-param name="pDeathYr" select="'true'"/>
+            			</xsl:call-template>
+            			<xsl:text> &lt;!-- {{Death date and age|YYYY|MM|DD|YYYY|MM|DD}} (death date then birth date) --&gt;</xsl:text>
+            			<xsl:text>&#10;</xsl:text>
+            			<xsl:text>| death_place </xsl:text>
+            			<xsl:text>&#09;&#09;= </xsl:text>
+            			<!-- Call template to attempt to prepopulate death place info. -->
+            			<!-- Under revision ...
                     <xsl:call-template name="tDeathPlaceFinder">
                         <xsl:with-param name="pBiogHist" select="$pBiogHist"/>
                     </xsl:call-template>
                     -->
-                    <xsl:text>&#10;</xsl:text>
-                </xsl:when>
+            			<xsl:text>&#10;</xsl:text>
+            		</xsl:if>
+            	</xsl:when>                                
+            	<!-- If there are name parts... -->
+            	<xsl:otherwise>
+            		<xsl:value-of select="normalize-space($pPersNameFore)"/>
+            		<xsl:text> </xsl:text>
+            		<xsl:value-of select="normalize-space($pPersNameSur)"/>
+            		<xsl:text>&#10;</xsl:text>
+            		<xsl:text>| image </xsl:text>
+            		<xsl:text>&#09;&#09;&#09;= </xsl:text>
+            		<xsl:text>&#10;</xsl:text>
+            		<xsl:text>| size </xsl:text>
+            		<xsl:text>&#09;&#09;&#09;= </xsl:text>
+            		<xsl:text> &lt;!-- Default 200px --&gt;</xsl:text>
+            		<xsl:text>&#10;</xsl:text>
+            		<xsl:text>| alt </xsl:text>
+            		<xsl:text>&#09;&#09;&#09;&#09;= </xsl:text>
+            		<xsl:text>&#10;</xsl:text>
+            		<xsl:text>| caption </xsl:text>
+            		<xsl:text>&#09;&#09;&#09;= </xsl:text>
+            		<xsl:text>&#10;</xsl:text>
+            		<xsl:text>| birth_name </xsl:text>
+            		<xsl:text>&#09;&#09;= </xsl:text>
+            		<xsl:text>&#10;</xsl:text>
+            		<xsl:text>| birth_date </xsl:text>
+            		<xsl:text>&#09;&#09;= </xsl:text>
+            		<!-- Call template to attempt to prepopulate birth date info. -->
+            		<xsl:call-template name="tNameDateParser">
+            			<xsl:with-param name="pBirthYr" select="'true'"/>
+            		</xsl:call-template>
+            		<xsl:text> &lt;!-- {{Birth date and age|YYYY|MM|DD}} --&gt;</xsl:text>
+            		<xsl:text>&#10;</xsl:text>
+            		<xsl:text>| birth_place </xsl:text>
+            		<xsl:text>&#09;&#09;= </xsl:text>
+            		<!-- Call template to attempt to prepopulate birth place info. -->
+            		<!-- Under revision ...
+                    <xsl:call-template name="tBirthPlaceFinder">
+                        <xsl:with-param name="pBiogHist" select="$pBiogHist"/>
+                    </xsl:call-template>
+                    -->
+            		<xsl:text>&#10;</xsl:text>
+            		<xsl:text>| death_date </xsl:text>
+            		<xsl:text>&#09;&#09;= </xsl:text>
+            		<!-- Call template to attempt to prepopulate death date info. -->
+            		<xsl:call-template name="tNameDateParser">
+            			<xsl:with-param name="pDeathYr" select="'true'"/>
+            		</xsl:call-template>
+            		<xsl:text> &lt;!-- {{Death date and age|YYYY|MM|DD|YYYY|MM|DD}} (death date then birth date) --&gt;</xsl:text>
+            		<xsl:text>&#10;</xsl:text>
+            		<xsl:text>| death_place </xsl:text>
+            		<xsl:text>&#09;&#09;= </xsl:text>
+            		<!-- Call template to attempt to prepopulate death place info. -->
+            		<!-- Under revision ...
+                    <xsl:call-template name="tDeathPlaceFinder">
+                        <xsl:with-param name="pBiogHist" select="$pBiogHist"/>
+                    </xsl:call-template>
+                    -->
+            		<xsl:text>&#10;</xsl:text>
+            	</xsl:otherwise>
             </xsl:choose>
         </xsl:if>
         <!-- Then parse names for corporate bodies. -->
@@ -1489,83 +1585,94 @@
     <xsl:template name="tParseName2">
         <xsl:param name="pNameType"/>
         <xsl:param name="pPersName"/>
+    	<xsl:param name="pPersNameSur" select="$pPersNameSur"/>
+    	<xsl:param name="pPersNameFore" select="$pPersNameFore"/>
         <xsl:param name="pCorpName"/>
         <!-- Parse names for people first. -->
-        <xsl:if test="$pNameType='person'">            
-            <xsl:choose>
-                <!-- If the name contains dates ... -->
-                <xsl:when
-                    test="string-length(translate($pPersName,$vDigits,''))&lt;string-length($pPersName)">
-                    <!-- ... then reverse the order of the name parts accordingly. -->
-                    <xsl:choose>
-                        <xsl:when
-                            test="contains(substring-after(normalize-space($pPersName),', '), ' ') and not(contains(substring-after(normalize-space($pPersName),', '), ', ')) and not(contains(substring-after(normalize-space($pPersName),', '), ' b ')) and not(contains(substring-after(normalize-space($pPersName),', '), ' b. '))">
-                            <xsl:value-of
-                                select="substring-before(substring-after(normalize-space($pPersName),', '),' ')"/>
-                            <xsl:text> </xsl:text>
-                            <xsl:value-of
-                                select="substring-before(normalize-space($pPersName),', ')"/>
-                        </xsl:when>
-                        <xsl:when
-                            test="contains(substring-after(normalize-space($pPersName),', '), ' b. ') and not(contains(substring-after(normalize-space($pPersName),', '), ', '))">
-                            <xsl:value-of
-                                select="substring-before(substring-after(normalize-space($pPersName),', '),' b. ')"/>
-                            <xsl:text> </xsl:text>
-                            <xsl:value-of
-                                select="substring-before(normalize-space($pPersName),', ')"/>
-                        </xsl:when>
-                        <xsl:when
-                            test="contains(substring-after(normalize-space($pPersName),', '), ' b ') and not(contains(substring-after(normalize-space($pPersName),', '), ', '))">
-                            <xsl:value-of
-                                select="substring-before(substring-after(normalize-space($pPersName),', '),' b ')"/>
-                            <xsl:text> </xsl:text>
-                            <xsl:value-of
-                                select="substring-before(normalize-space($pPersName),', ')"/>
-                        </xsl:when>
-                        <xsl:when
-                            test="contains(substring-after(normalize-space($pPersName),', '), ', b ')">
-                            <xsl:value-of
-                                select="substring-before(substring-after(normalize-space($pPersName),', '),', b ')"/>
-                            <xsl:text> </xsl:text>
-                            <xsl:value-of
-                                select="substring-before(normalize-space($pPersName),', ')"/>
-                        </xsl:when>
-                        <xsl:otherwise>
-                            <xsl:choose>
-                                <xsl:when
-                                    test="substring-before(substring-after(normalize-space($pPersName),', '),', ')">
-                                    <xsl:value-of
-                                        select="substring-before(substring-after(normalize-space($pPersName),', '),', ')"/>
-                                    <xsl:text> </xsl:text>
-                                    <xsl:value-of
-                                        select="substring-before(normalize-space($pPersName),', ')"
-                                    />
-                                </xsl:when>
-                                <xsl:otherwise>
-                                    <!-- Name order stays as is. -->
-                                    <xsl:value-of
-                                        select="normalize-space(translate($pPersName,concat($vDigits,'-','(',')'),''))"
-                                    />
-                                </xsl:otherwise>
-                            </xsl:choose>
-                        </xsl:otherwise>
-                    </xsl:choose>
-                </xsl:when>
-                <xsl:otherwise>
-                    <!-- If the name does not include dates ... -->
-                    <xsl:choose>
-                        <xsl:when test="contains($pPersName,', ')">                                                       
-                            <xsl:value-of select="substring-after(normalize-space($pPersName),', ')"/>
-                            <xsl:text> </xsl:text>
-                            <xsl:value-of select="substring-before(normalize-space($pPersName),', ')"/>
-                        </xsl:when>
-                        <xsl:otherwise>
-                            <!-- Name order stays as is. -->
-                            <xsl:value-of select="normalize-space($pPersName)"/>
-                        </xsl:otherwise>
-                    </xsl:choose>
-                </xsl:otherwise>
-            </xsl:choose>
+        <xsl:if test="$pNameType='person'">
+        	<xsl:choose>
+        		<xsl:when test="$pPersNameFore or $pPersNameSur">
+        			<xsl:value-of select="normalize-space($pPersNameFore)"/>
+        			<xsl:text> </xsl:text>
+        			<xsl:value-of select="normalize-space($pPersNameSur)"/>
+        		</xsl:when>
+        		<xsl:otherwise>
+        			<xsl:choose>        	        	
+        				<!-- If the name contains dates ... -->
+        				<xsl:when
+        					test="string-length(translate($pPersName,$vDigits,''))&lt;string-length($pPersName)">
+        					<!-- ... then reverse the order of the name parts accordingly. -->
+        					<xsl:choose>
+        						<xsl:when
+        							test="contains(substring-after(normalize-space($pPersName),', '), ' ') and not(contains(substring-after(normalize-space($pPersName),', '), ', ')) and not(contains(substring-after(normalize-space($pPersName),', '), ' b ')) and not(contains(substring-after(normalize-space($pPersName),', '), ' b. '))">
+        							<xsl:value-of
+        								select="substring-before(substring-after(normalize-space($pPersName),', '),' ')"/>
+        							<xsl:text> </xsl:text>
+        							<xsl:value-of
+        								select="substring-before(normalize-space($pPersName),', ')"/>
+        						</xsl:when>
+        						<xsl:when
+        							test="contains(substring-after(normalize-space($pPersName),', '), ' b. ') and not(contains(substring-after(normalize-space($pPersName),', '), ', '))">
+        							<xsl:value-of
+        								select="substring-before(substring-after(normalize-space($pPersName),', '),' b. ')"/>
+        							<xsl:text> </xsl:text>
+        							<xsl:value-of
+        								select="substring-before(normalize-space($pPersName),', ')"/>
+        						</xsl:when>
+        						<xsl:when
+        							test="contains(substring-after(normalize-space($pPersName),', '), ' b ') and not(contains(substring-after(normalize-space($pPersName),', '), ', '))">
+        							<xsl:value-of
+        								select="substring-before(substring-after(normalize-space($pPersName),', '),' b ')"/>
+        							<xsl:text> </xsl:text>
+        							<xsl:value-of
+        								select="substring-before(normalize-space($pPersName),', ')"/>
+        						</xsl:when>
+        						<xsl:when
+        							test="contains(substring-after(normalize-space($pPersName),', '), ', b ')">
+        							<xsl:value-of
+        								select="substring-before(substring-after(normalize-space($pPersName),', '),', b ')"/>
+        							<xsl:text> </xsl:text>
+        							<xsl:value-of
+        								select="substring-before(normalize-space($pPersName),', ')"/>
+        						</xsl:when>
+        						<xsl:otherwise>
+        							<xsl:choose>
+        								<xsl:when
+        									test="substring-before(substring-after(normalize-space($pPersName),', '),', ')">
+        									<xsl:value-of
+        										select="substring-before(substring-after(normalize-space($pPersName),', '),', ')"/>
+        									<xsl:text> </xsl:text>
+        									<xsl:value-of
+        										select="substring-before(normalize-space($pPersName),', ')"
+        									/>
+        								</xsl:when>
+        								<xsl:otherwise>
+        									<!-- Name order stays as is. -->
+        									<xsl:value-of
+        										select="normalize-space(translate($pPersName,concat($vDigits,'-','(',')'),''))"
+        									/>
+        								</xsl:otherwise>
+        							</xsl:choose>
+        						</xsl:otherwise>
+        					</xsl:choose>
+        				</xsl:when>
+        				<xsl:otherwise>
+        					<!-- If the name does not include dates ... -->
+        					<xsl:choose>
+        						<xsl:when test="contains($pPersName,', ')">                                                       
+        							<xsl:value-of select="substring-after(normalize-space($pPersName),', ')"/>
+        							<xsl:text> </xsl:text>
+        							<xsl:value-of select="substring-before(normalize-space($pPersName),', ')"/>
+        						</xsl:when>
+        						<xsl:otherwise>
+        							<!-- Name order stays as is. -->
+        							<xsl:value-of select="normalize-space($pPersName)"/>
+        						</xsl:otherwise>
+        					</xsl:choose>
+        				</xsl:otherwise>
+        			</xsl:choose>
+        		</xsl:otherwise>
+        	</xsl:choose>        	
         </xsl:if>
         <!-- Then parse names for corporate bodies. -->
         <xsl:if test="$pNameType='corporate'">
@@ -1589,9 +1696,25 @@
         <xsl:param name="pNameType"/>
         <xsl:param name="pCorpName"/>
         <xsl:param name="pPersName"/>
+    	<xsl:param name="pPersNameFore"/>
+    	<xsl:param name="pPersNameSur"/>    	
         <xsl:if test="$pNameType='person'">
-            <xsl:if test="$pPersName!=''">
+            <xsl:if test="$pPersName!='' or $pPersNameFore!='' or $pPersNameSur!=''">
                 <xsl:choose>
+                	<xsl:when test="$pPersNameSur or $pPersNameFore">
+                		<!-- Output the URL -->
+                		<xsl:value-of select="$pDiscServ"/>
+                		<!-- Output the name. -->
+                		<xsl:value-of
+                			select="translate(concat(normalize-space($pPersNameFore),' ',normalize-space($pPersNameSur)),',. ','+++')"/>
+                		<xsl:text> </xsl:text>
+                		<xsl:call-template name="tParseName2">
+                			<xsl:with-param name="pNameType">person</xsl:with-param>                			
+                			<xsl:with-param name="pPersNameSur" select="$pPersNameSur"/>
+                			<xsl:with-param name="pPersNameFore" select="$pPersNameFore"/>
+                		</xsl:call-template>
+                		<xsl:text>].</xsl:text>
+                	</xsl:when>
                     <!-- If the name contains no dates ... -->
                     <xsl:when
                         test="string-length(translate($pPersName,concat($vAlpha,$vCommaSpace),''))=0">
@@ -1607,6 +1730,8 @@
                                 <xsl:call-template name="tParseName2">
                                     <xsl:with-param name="pNameType">person</xsl:with-param>
                                     <xsl:with-param name="pPersName" select="$pPersName"/>
+                                	<xsl:with-param name="pPersNameSur" select="$pPersNameSur"/>
+                                	<xsl:with-param name="pPersNameFore" select="$pPersNameFore"/>
                                 </xsl:call-template>
                                 <xsl:text>].</xsl:text>
                             </xsl:when>
@@ -1614,11 +1739,15 @@
                                 <xsl:call-template name="tParseName2">
                                     <xsl:with-param name="pNameType">person</xsl:with-param>
                                     <xsl:with-param name="pPersName" select="$pPersName"/>
+                                	<xsl:with-param name="pPersNameSur" select="$pPersNameSur"/>
+                                	<xsl:with-param name="pPersNameFore" select="$pPersNameFore"/>
                                 </xsl:call-template>
                                 <xsl:text> </xsl:text>
                                 <xsl:call-template name="tParseName2">
                                     <xsl:with-param name="pNameType">person</xsl:with-param>
                                     <xsl:with-param name="pPersName" select="$pPersName"/>
+                                	<xsl:with-param name="pPersNameSur" select="$pPersNameSur"/>
+                                	<xsl:with-param name="pPersNameFore" select="$pPersNameFore"/>
                                 </xsl:call-template>
                                 <xsl:text>].</xsl:text>
                             </xsl:otherwise>
@@ -1635,6 +1764,8 @@
                                 <xsl:call-template name="tParseName2">
                                     <xsl:with-param name="pNameType">person</xsl:with-param>
                                     <xsl:with-param name="pPersName" select="$pPersName"/>
+                                	<xsl:with-param name="pPersNameSur" select="$pPersNameSur"/>
+                                	<xsl:with-param name="pPersNameFore" select="$pPersNameFore"/>
                                 </xsl:call-template>
                                 <xsl:text>].</xsl:text>
                             </xsl:when>
@@ -1642,11 +1773,15 @@
                                 <xsl:call-template name="tParseName2">
                                     <xsl:with-param name="pNameType">person</xsl:with-param>
                                     <xsl:with-param name="pPersName" select="$pPersName"/>
+                                	<xsl:with-param name="pPersNameSur" select="$pPersNameSur"/>
+                                	<xsl:with-param name="pPersNameFore" select="$pPersNameFore"/>
                                 </xsl:call-template>
                                 <xsl:text> </xsl:text>
                                 <xsl:call-template name="tParseName2">
                                     <xsl:with-param name="pNameType">person</xsl:with-param>
                                     <xsl:with-param name="pPersName" select="$pPersName"/>
+                                	<xsl:with-param name="pPersNameSur" select="$pPersNameSur"/>
+                                	<xsl:with-param name="pPersNameFore" select="$pPersNameFore"/>
                                 </xsl:call-template>
                                 <xsl:text>].</xsl:text>
                             </xsl:otherwise>
@@ -1690,7 +1825,7 @@
     <xsl:template name="tNameDateParser">
         <xsl:param name="pBirthYr"/>
         <xsl:param name="pDeathYr"/>
-        <xsl:choose>
+        <xsl:choose>        	          	
             <!-- If there are existDates... -->
             <xsl:when test="eac:eac-cpf/eac:cpfDescription/eac:description/eac:existDates">
                 <xsl:if test="$pBirthYr='true'">

@@ -16,7 +16,13 @@
     
     <!-- Store names for persons and corporate bodies. -->
     <xsl:param name="pPersName"
-        select="normalize-space(eac:eac-cpf/eac:cpfDescription/eac:identity/eac:nameEntry[1][preceding-sibling::eac:entityType='person']/eac:part)"/>
+        select="normalize-space(eac:eac-cpf/eac:cpfDescription/eac:identity/eac:nameEntry[1][preceding-sibling::eac:entityType='person']/eac:part[not(@localType)])"/>		
+	
+	<xsl:param name="pPersNameSur"
+		select="normalize-space(eac:eac-cpf/eac:cpfDescription/eac:identity/eac:nameEntry[1][preceding-sibling::eac:entityType='person']/eac:part[@localType='surname'])"/>
+	
+	<xsl:param name="pPersNameFore"
+		select="normalize-space(eac:eac-cpf/eac:cpfDescription/eac:identity/eac:nameEntry[1][preceding-sibling::eac:entityType='person']/eac:part[@localType='forename'])"/>
     
     <xsl:param name="pCorpName"
         select="normalize-space(eac:eac-cpf/eac:cpfDescription/eac:identity/eac:nameEntry[1][preceding-sibling::eac:entityType='corporateBody']/eac:part)"/>
