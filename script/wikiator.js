@@ -140,6 +140,8 @@ function setupGetWiki()
 				       lobjeac.loadXMLString( lstrXML );
 
 				       var lobjNameEntryPart;
+				       var lobjNameEntryPartFore;
+				       var lobjNameEntryPartSur;
 				       if ( lobjeac.getElement('//*[local-name()=\'control\']/*[local-name()=\'otherRecordId\'][@localType=\'WCI:DBpedia\']') )
 				       {
 				           lobjNameEntryPart = lobjeac.getElement('//*[local-name()=\'control\']/*[local-name()=\'otherRecordId\'][@localType=\'WCI:DBpedia\']');
@@ -150,15 +152,24 @@ function setupGetWiki()
 				           eac_name = eac_name.substring(28);
 
 				       }
-				       else
+				       else if ( lobjeac.getElement('//*[local-name()=\'cpfDescription\']/*[local-name()=\'identity\']/*[local-name()=\'nameEntry\']/*[local-name()=\'part\'][@localType!=\'surname\' and @localType!=\'forename\']') )
 				       {
-				           lobjNameEntryPart = lobjeac.getElement('//*[local-name()=\'cpfDescription\']/*[local-name()=\'identity\']/*[local-name()=\'nameEntry\']/*[local-name()=\'part\']');
+				       	   lobjNameEntryPart = lobjeac.getElement('//*[local-name()=\'cpfDescription\']/*[local-name()=\'identity\']/*[local-name()=\'nameEntry\']/*[local-name()=\'part\'][not(@localType)]');
 				           //= lobjeac.getElement('//*[local-name()=\'cpfDescription\']/*[local-name()=\'identity\']/*[local-name()=\'nameEntry\']/*[local-name()=\'part\']');
      				       eac_name = lobjNameEntryPart.childNodes[0].nodeValue;
      				       eac_name = eac_name.trim();
      				       eac_name = encode_utf8(eac_name);
+				       }				       				       				       
+				       else
+				       {				       	   
+				           lobjNameEntryPartFore = lobjeac.getElement('//*[local-name()=\'cpfDescription\']/*[local-name()=\'identity\']/*[local-name()=\'nameEntry\']/*[local-name()=\'part\'][@localType=\'forename\']');
+				           eac_name = lobjNameEntryPartFore.childNodes[0].nodeValue;
+				           eac_name += ' ';				           				       	   
+				           lobjNameEntryPartSur = lobjeac.getElement('//*[local-name()=\'cpfDescription\']/*[local-name()=\'identity\']/*[local-name()=\'nameEntry\']/*[local-name()=\'part\'][@localType=\'surname\']');
+				           eac_name += lobjNameEntryPartSur.childNodes[0].nodeValue;
+     				       eac_name = eac_name.trim();
+     				       eac_name = encode_utf8(eac_name);
 				       }
-
 				       searchWiki(eac_name);
 				   }else
 				   {
