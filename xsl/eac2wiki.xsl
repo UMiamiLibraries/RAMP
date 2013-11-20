@@ -254,11 +254,11 @@
         <xsl:param name="pPersNameSur" select="$pPersNameSur" />
         <xsl:param name="pPersNameFore" select="$pPersNameFore" />
         <xsl:text>{{Infobox person</xsl:text>
-        <xsl:text>&#10;</xsl:text>
+        <xsl:text>&#09;</xsl:text>
     	<xsl:text>     &lt;!-- See http://en.wikipedia.org/wiki/Template:Infobox_person for complete template --&gt; </xsl:text>
         <xsl:text>&#10;</xsl:text>
         <xsl:text>| name</xsl:text>
-        <xsl:text>=</xsl:text>
+    	<xsl:text>&#09;&#09;&#09;= </xsl:text>
         <xsl:call-template name="tParseName">
             <xsl:with-param name="pNameType">person</xsl:with-param>
             <xsl:with-param name="pPersName" select="$pPersName" />
@@ -266,26 +266,26 @@
             <xsl:with-param name="pPersNameFore" select="$pPersNameFore" />
         </xsl:call-template>
         <xsl:text>| nationality</xsl:text>
-        <xsl:text>=</xsl:text>
+    	<xsl:text>&#09;&#09;= </xsl:text>
         <xsl:text>&#10;</xsl:text>
         <xsl:text>| other_names</xsl:text>
-        <xsl:text>=</xsl:text>
+    	<xsl:text>&#09;= </xsl:text>
         <xsl:text>&#10;</xsl:text>
         <xsl:text>| ethnicity</xsl:text>
-        <xsl:text>=</xsl:text>
+    	<xsl:text>&#09;&#09;= </xsl:text>
     	<xsl:text> &lt;!-- Ethnicity should be supported with a citation from a reliable source --&gt; </xsl:text>
         <xsl:text>&#10;</xsl:text>
         <xsl:text>| citizenship</xsl:text>
-        <xsl:text>=</xsl:text>
+    	<xsl:text>&#09;&#09;= </xsl:text>
         <xsl:text>&#10;</xsl:text>
         <xsl:text>| education</xsl:text>
-        <xsl:text>=</xsl:text>
+    	<xsl:text>&#09;&#09;= </xsl:text>
         <xsl:text>&#10;</xsl:text>
         <xsl:text>| alma_mater</xsl:text>
-        <xsl:text>=</xsl:text>
+    	<xsl:text>&#09;&#09;= </xsl:text>
         <xsl:text>&#10;</xsl:text>
         <xsl:text>| occupation</xsl:text>
-        <xsl:text>=</xsl:text>
+    	<xsl:text>&#09;&#09;= </xsl:text>
         <xsl:choose>
             <xsl:when test="/eac:eac-cpf/eac:cpfDescription/eac:description/eac:occupation/eac:term != '' or /eac:eac-cpf/eac:cpfDescription/eac:description/eac:occupations/eac:occupation/eac:term != ''">
                 <xsl:for-each select="/eac:eac-cpf/eac:cpfDescription/eac:description/eac:occupation|/eac:eac-cpf/eac:cpfDescription/eac:description/eac:occupations/eac:occupation">
@@ -316,31 +316,31 @@
             </xsl:otherwise>
         </xsl:choose>
         <xsl:text>| known_for</xsl:text>
-        <xsl:text>=</xsl:text>
+    	<xsl:text>&#09;&#09;= </xsl:text>
         <xsl:text>&#10;</xsl:text>
         <xsl:text>| notable_works</xsl:text>
-        <xsl:text>=</xsl:text>
+    	<xsl:text>&#09;= </xsl:text>
         <xsl:text>&#10;</xsl:text>
         <xsl:text>| religion</xsl:text>
-        <xsl:text>=</xsl:text>
+    	<xsl:text>&#09;&#09;&#09;= </xsl:text>
         <xsl:text> &lt;!-- Religion should be supported with a citation from a reliable source --&gt; </xsl:text>
         <xsl:text>&#10;</xsl:text>
         <xsl:text>| spouse</xsl:text>
-        <xsl:text>=</xsl:text>
+    	<xsl:text>&#09;&#09;&#09;= </xsl:text>
         <xsl:text>&#10;</xsl:text>
         <xsl:text>| partner</xsl:text>
-        <xsl:text>=</xsl:text>
+    	<xsl:text>&#09;&#09;&#09;= </xsl:text>
         <xsl:text> &lt;!-- Unmarried life partner; use ''Name (1950–present)'' --&gt; </xsl:text>
         <xsl:text>&#10;</xsl:text>
         <xsl:text>| children</xsl:text>
-        <xsl:text>=</xsl:text>
+    	<xsl:text>&#09;&#09;= </xsl:text>
         <xsl:text>&#10;</xsl:text>
         <xsl:text>| parents</xsl:text>
-        <xsl:text>=</xsl:text>
+    	<xsl:text>&#09;&#09;&#09;= </xsl:text>
         <xsl:text> &lt;!-- Use &lt;br /&gt; to separate names --&gt; </xsl:text>
         <xsl:text>&#10;</xsl:text>
         <xsl:text>| relatives</xsl:text>
-        <xsl:text>=</xsl:text>
+    	<xsl:text>&#09;&#09;= </xsl:text>
         <xsl:text>&#10;</xsl:text>
         <xsl:text>}}</xsl:text>
         <xsl:text>&#10;</xsl:text>
@@ -351,38 +351,38 @@
     	<xsl:text>       &lt;!-- See https://en.wikipedia.org/wiki/Template:Infobox_organization for complete template --&gt;</xsl:text>
         <xsl:text>&#10;</xsl:text>
         <xsl:text>| name</xsl:text>
-        <xsl:text>=</xsl:text>
+    	<xsl:text>&#09;&#09;&#09;&#09;= </xsl:text>
         <xsl:call-template name="tParseName">
             <xsl:with-param name="pNameType">corporate</xsl:with-param>
             <xsl:with-param name="pCorpName" select="$pCorpName" />
         </xsl:call-template>
         <xsl:text>| extinction</xsl:text>
-        <xsl:text>=</xsl:text>
+    	<xsl:text>&#09;&#09;&#09;= </xsl:text>
         <xsl:text> &lt;!-- Date of extinction, optional --&gt; </xsl:text>
         <xsl:text>&#10;</xsl:text>
         <xsl:text>| merger</xsl:text>
-        <xsl:text>=</xsl:text>
+    	<xsl:text>&#09;&#09;&#09;&#09;= </xsl:text>
         <xsl:text>&#10;</xsl:text>
         <xsl:text>| merged</xsl:text>
-        <xsl:text>=</xsl:text>
+    	<xsl:text>&#09;&#09;&#09;&#09;= </xsl:text>
         <xsl:text>&#10;</xsl:text>
         <xsl:text>| type</xsl:text>
-        <xsl:text>=</xsl:text>
+    	<xsl:text>&#09;&#09;&#09;&#09;= </xsl:text>
         <xsl:text> &lt;!-- [[Governmental organization|GO]], [[Non-governmental organization|NGO]], etc. --&gt; </xsl:text>
         <xsl:text>&#10;</xsl:text>
         <xsl:text>| status</xsl:text>
-        <xsl:text>=</xsl:text>
+    	<xsl:text>&#09;&#09;&#09;&#09;= </xsl:text>
         <xsl:text> &lt;!-- Ad hoc, treaty, foundation, etc. --&gt; </xsl:text>
         <xsl:text>&#10;</xsl:text>
         <xsl:text>| purpose</xsl:text>
-        <xsl:text>=</xsl:text>
+    	<xsl:text>&#09;&#09;&#09;= </xsl:text>
         <xsl:text> &lt;!-- focus as e.g. humanitarian, peacekeeping, etc. --&gt; </xsl:text>
         <xsl:text>&#10;</xsl:text>
         <xsl:text>| headquarters</xsl:text>
-        <xsl:text>=</xsl:text>
-        <xsl:text>&#10;</xsl:text>
+    	<xsl:text>&#09;&#09;= </xsl:text>
+    	<xsl:text>&#09;&#09;= </xsl:text>
         <xsl:text>| location</xsl:text>
-        <xsl:text>=</xsl:text>
+    	<xsl:text>&#09;&#09;&#09;= </xsl:text>
         <xsl:choose>
             <xsl:when test="/eac:eac-cpf/eac:cpfDescription/eac:description/eac:place/eac:placeEntry != ''">
                 <xsl:value-of select="normalize-space(/eac:eac-cpf/eac:cpfDescription/eac:description/eac:place/eac:placeEntry)" />
@@ -393,53 +393,53 @@
             </xsl:otherwise>
         </xsl:choose>
         <xsl:text>| coords</xsl:text>
-        <xsl:text>=</xsl:text>
+    	<xsl:text>&#09;&#09;&#09;&#09;= </xsl:text>
         <xsl:text> &lt;!-- Coordinates of location using a coordinates template --&gt; </xsl:text>
         <xsl:text>&#10;</xsl:text>
         <xsl:text>| region_served</xsl:text>
-        <xsl:text>=</xsl:text>
+    	<xsl:text>&#09;&#09;= </xsl:text>
         <xsl:text>&#10;</xsl:text>
         <xsl:text>| membership</xsl:text>
-        <xsl:text>=</xsl:text>
+    	<xsl:text>&#09;&#09;&#09;= </xsl:text>
         <xsl:text>&#10;</xsl:text>
         <xsl:text>| language</xsl:text>
-        <xsl:text>=</xsl:text>
+    	<xsl:text>&#09;&#09;&#09;= </xsl:text>
         <xsl:text> &lt;!-- Official languages --&gt; </xsl:text>
         <xsl:text>&#10;</xsl:text>
         <xsl:text>| leader_title</xsl:text>
-        <xsl:text>=</xsl:text>
+    	<xsl:text>&#09;&#09;&#09;= </xsl:text>
         <xsl:text> &lt;!-- Position title for the leader of the org. --&gt; </xsl:text>
         <xsl:text>&#10;</xsl:text>
         <xsl:text>| leader_name</xsl:text>
-        <xsl:text>=</xsl:text>
+    	<xsl:text>&#09;&#09;= </xsl:text>
         <xsl:text> &lt;!-- Name of leader --&gt; </xsl:text>
         <xsl:text>&#10;</xsl:text>
         <xsl:text>| key_people</xsl:text>
-        <xsl:text>=</xsl:text>
+    	<xsl:text>&#09;&#09;&#09;= </xsl:text>
         <xsl:text>&#10;</xsl:text>
         <xsl:text>| main_organ</xsl:text>
-        <xsl:text>=</xsl:text>
+    	<xsl:text>&#09;&#09;&#09;= </xsl:text>
         <xsl:text> &lt;!-- General assembly, board of directors, etc. --&gt; </xsl:text>
         <xsl:text>&#10;</xsl:text>
         <xsl:text>| parent_organization</xsl:text>
-        <xsl:text>=</xsl:text>
+    	<xsl:text>&#09;= </xsl:text>
         <xsl:text> &lt;!-- If exists --&gt; </xsl:text>
         <xsl:text>&#10;</xsl:text>
         <xsl:text>| affiliations</xsl:text>
-        <xsl:text>=</xsl:text>
+    	<xsl:text>&#09;&#09;&#09;= </xsl:text>
         <xsl:text> &lt;!-- If any --&gt; </xsl:text>
         <xsl:text>&#10;</xsl:text>
         <xsl:text>| budget</xsl:text>
-        <xsl:text>=</xsl:text>
+    	<xsl:text>&#09;&#09;&#09;&#09;= </xsl:text>
         <xsl:text>&#10;</xsl:text>
         <xsl:text>| num_staff</xsl:text>
-        <xsl:text>=</xsl:text>
+    	<xsl:text>&#09;&#09;&#09;= </xsl:text>
         <xsl:text>&#10;</xsl:text>
         <xsl:text>| num_volunteers</xsl:text>
-        <xsl:text>=</xsl:text>
+    	<xsl:text>&#09;&#09;= </xsl:text>
         <xsl:text>&#10;</xsl:text>
         <xsl:text>| website</xsl:text>
-        <xsl:text>=</xsl:text>
+    	<xsl:text>&#09;&#09;&#09;&#09;= </xsl:text>
         <xsl:text> &lt;!-- {{URL|}} --&gt; </xsl:text>
         <xsl:text>&#10;</xsl:text>
         <xsl:text>}}</xsl:text>
@@ -901,10 +901,10 @@
         <xsl:param name="pPersNameFore" select="$pPersNameFore" />
         <xsl:text>&#10;</xsl:text>
         <xsl:text>{{Persondata</xsl:text>
-    	<xsl:text> &lt;!-- Metadata: see [[Wikipedia:Persondata]]. --&gt;</xsl:text>
+    	<xsl:text>     &lt;!-- Metadata: see [[Wikipedia:Persondata]]. --&gt;</xsl:text>
         <xsl:text>&#10;</xsl:text>
         <xsl:text>| NAME</xsl:text>
-        <xsl:text>=</xsl:text>
+    	<xsl:text>&#09;&#09;&#09;&#09;= </xsl:text>
         <xsl:choose>
             <xsl:when test="$pPersNameFore or $pPersNameSur">
                 <xsl:value-of select="normalize-space($pPersNameSur)" />
@@ -930,13 +930,13 @@
         </xsl:choose>
         <xsl:text>&#10;</xsl:text>
         <xsl:text>| ALTERNATIVE NAMES</xsl:text>
-        <xsl:text>=</xsl:text>
+    	<xsl:text>&#09;= </xsl:text>
         <xsl:text>&#10;</xsl:text>
         <xsl:text>| SHORT DESCRIPTION</xsl:text>
-        <xsl:text>=</xsl:text>
+    	<xsl:text>&#09;= </xsl:text>
         <xsl:text>&#10;</xsl:text>
         <xsl:text>| DATE OF BIRTH</xsl:text>
-        <xsl:text>=</xsl:text>
+    	<xsl:text>&#09;&#09;= </xsl:text>
         <!-- Call template to attempt to prepopulate birth date info. -->
         <xsl:call-template name="tNameDateParser">
             <xsl:with-param name="pBirthYr" select="'true'" />
@@ -944,7 +944,7 @@
         </xsl:call-template>
         <xsl:text>&#10;</xsl:text>
         <xsl:text>| PLACE OF BIRTH</xsl:text>
-        <xsl:text>=</xsl:text>
+    	<xsl:text>&#09;&#09;= </xsl:text>
         <!-- Call template to attempt to prepopulate birth place info. -->
         <!-- Under revision ...
         <xsl:call-template name="tBirthPlaceFinder">
@@ -953,7 +953,7 @@
         -->
         <xsl:text>&#10;</xsl:text>
         <xsl:text>| DATE OF DEATH</xsl:text>
-        <xsl:text>=</xsl:text>
+    	<xsl:text>&#09;&#09;= </xsl:text>
         <!-- Call template to attempt to prepopulate death date info. -->
         <xsl:call-template name="tNameDateParser">
             <xsl:with-param name="pDeathYr" select="'true'" />
@@ -961,7 +961,7 @@
         </xsl:call-template>
         <xsl:text>&#10;</xsl:text>
         <xsl:text>| PLACE OF DEATH</xsl:text>
-        <xsl:text>=</xsl:text>
+    	<xsl:text>&#09;&#09;= </xsl:text>
         <!-- Call template to attempt to prepopulate death place info. -->
         <!-- Under revision ...
         <xsl:call-template name="tDeathPlaceFinder">
@@ -1243,23 +1243,23 @@
                         <xsl:value-of select="substring-before($pPersName,', ')" />
                         <xsl:text>&#10;</xsl:text>
                         <xsl:text>| image</xsl:text>
-                        <xsl:text>=</xsl:text>
+                    	<xsl:text>&#09;&#09;&#09;= </xsl:text>
                         <xsl:text>&#10;</xsl:text>
                         <xsl:text>| size</xsl:text>
-                        <xsl:text>=</xsl:text>
+                    	<xsl:text>&#09;&#09;&#09;= </xsl:text>
                         <xsl:text> &lt;!-- Default 200px --&gt; </xsl:text>
                         <xsl:text>&#10;</xsl:text>
                         <xsl:text>| alt</xsl:text>
-                        <xsl:text>=</xsl:text>
+                    	<xsl:text>&#09;&#09;&#09;&#09;= </xsl:text>
                         <xsl:text>&#10;</xsl:text>
                         <xsl:text>| caption</xsl:text>
-                        <xsl:text>=</xsl:text>
+                    	<xsl:text>&#09;&#09;&#09;= </xsl:text>
                         <xsl:text>&#10;</xsl:text>
                         <xsl:text>| birth_name</xsl:text>
-                        <xsl:text>=</xsl:text>
+                    	<xsl:text>&#09;&#09;= </xsl:text>
                         <xsl:text>&#10;</xsl:text>
                         <xsl:text>| birth_date</xsl:text>
-                        <xsl:text>=</xsl:text>
+                    	<xsl:text>&#09;&#09;= </xsl:text>
                         <!-- Call template to attempt to prepopulate birth date info. -->
                         <xsl:call-template name="tNameDateParser">
                             <xsl:with-param name="pBirthYr" select="'true'" />
@@ -1268,7 +1268,7 @@
                         <xsl:text> &lt;!-- {{Birth date and age|YYYY|MM|DD}} --&gt; </xsl:text>
                         <xsl:text>&#10;</xsl:text>
                         <xsl:text>| birth_place</xsl:text>
-                        <xsl:text>=</xsl:text>
+                    	<xsl:text>&#09;&#09;= </xsl:text>
                         <!-- Call template to attempt to prepopulate birth place info. -->
                         <!-- Under revision ...
                     <xsl:call-template name="tBirthPlaceFinder">
@@ -1277,7 +1277,7 @@
                     -->
                         <xsl:text>&#10;</xsl:text>
                         <xsl:text>| death_date</xsl:text>
-                        <xsl:text>=</xsl:text>
+                    	<xsl:text>&#09;&#09;= </xsl:text>
                         <!-- Call template to attempt to prepopulate death date info. -->
                         <xsl:call-template name="tNameDateParser">
                             <xsl:with-param name="pDeathYr" select="'true'" />
@@ -1286,7 +1286,7 @@
                         <xsl:text> &lt;!-- {{Death date and age|YYYY|MM|DD|YYYY|MM|DD}} (death date then birth date) --&gt; </xsl:text>
                         <xsl:text>&#10;</xsl:text>
                         <xsl:text>| death_place</xsl:text>
-                        <xsl:text>=</xsl:text>
+                    	<xsl:text>&#09;&#09;= </xsl:text>
                         <!-- Call template to attempt to prepopulate death place info. -->
                         <!-- Under revision ...
                     <xsl:call-template name="tDeathPlaceFinder">
@@ -1303,23 +1303,23 @@
                         <xsl:value-of select="substring-before($pPersName,',')" />
                         <xsl:text>&#10;</xsl:text>
                         <xsl:text>| image</xsl:text>
-                        <xsl:text>=</xsl:text>
+                    	<xsl:text>&#09;&#09;&#09;= </xsl:text>
                         <xsl:text>&#10;</xsl:text>
                         <xsl:text>| size</xsl:text>
-                        <xsl:text>=</xsl:text>
+                    	<xsl:text>&#09;&#09;&#09;= </xsl:text>
                         <xsl:text> &lt;!-- Default 200px --&gt; </xsl:text>
                         <xsl:text>&#10;</xsl:text>
                         <xsl:text>| alt</xsl:text>
-                        <xsl:text>=</xsl:text>
+                    	<xsl:text>&#09;&#09;&#09;&#09;= </xsl:text>
                         <xsl:text>&#10;</xsl:text>
                         <xsl:text>| caption</xsl:text>
-                        <xsl:text>=</xsl:text>
+                    	<xsl:text>&#09;&#09;&#09;= </xsl:text>
                         <xsl:text>&#10;</xsl:text>
                         <xsl:text>| birth_name</xsl:text>
-                        <xsl:text>=</xsl:text>
+                    	<xsl:text>&#09;&#09;= </xsl:text>
                         <xsl:text>&#10;</xsl:text>
                         <xsl:text>| birth_date</xsl:text>
-                        <xsl:text>=</xsl:text>
+                    	<xsl:text>&#09;&#09;= </xsl:text>
                         <!-- Call template to attempt to prepopulate birth date info. -->
                         <xsl:call-template name="tNameDateParser">
                             <xsl:with-param name="pBirthYr" select="'true'" />
@@ -1328,7 +1328,7 @@
                         <xsl:text> &lt;!-- {{Birth date and age|YYYY|MM|DD}} --&gt; </xsl:text>
                         <xsl:text>&#10;</xsl:text>
                         <xsl:text>| birth_place</xsl:text>
-                        <xsl:text>=</xsl:text>
+                    	<xsl:text>&#09;&#09;= </xsl:text>
                         <!-- Call template to attempt to prepopulate birth place info. -->
                         <!-- Under revision ...
                     <xsl:call-template name="tBirthPlaceFinder">
@@ -1337,7 +1337,7 @@
                     -->
                         <xsl:text>&#10;</xsl:text>
                         <xsl:text>| death_date</xsl:text>
-                        <xsl:text>=</xsl:text>
+                    	<xsl:text>&#09;&#09;= </xsl:text>
                         <!-- Call template to attempt to prepopulate death date info. -->
                         <xsl:call-template name="tNameDateParser">
                             <xsl:with-param name="pDeathYr" select="'true'" />
@@ -1346,7 +1346,7 @@
                         <xsl:text> &lt;!-- {{Death date and age|YYYY|MM|DD|YYYY|MM|DD}} (death date then birth date) --&gt; </xsl:text>
                         <xsl:text>&#10;</xsl:text>
                         <xsl:text>| death_place</xsl:text>
-                        <xsl:text>=</xsl:text>
+                    	<xsl:text>&#09;&#09;= </xsl:text>
                         <!-- Call template to attempt to prepopulate death place info. -->
                         <!-- Under revision ...
                     <xsl:call-template name="tDeathPlaceFinder">
@@ -1363,23 +1363,23 @@
                     <xsl:value-of select="normalize-space($pPersNameSur)" />
                     <xsl:text>&#10;</xsl:text>
                     <xsl:text>| image</xsl:text>
-                    <xsl:text>=</xsl:text>
+                	<xsl:text>&#09;&#09;&#09;= </xsl:text>
                     <xsl:text>&#10;</xsl:text>
                     <xsl:text>| size</xsl:text>
-                    <xsl:text>=</xsl:text>
+                	<xsl:text>&#09;&#09;&#09;= </xsl:text>
                     <xsl:text> &lt;!-- Default 200px --&gt; </xsl:text>
                     <xsl:text>&#10;</xsl:text>
                     <xsl:text>| alt</xsl:text>
-                    <xsl:text>=</xsl:text>
+                	<xsl:text>&#09;&#09;&#09;= </xsl:text>
                     <xsl:text>&#10;</xsl:text>
                     <xsl:text>| caption</xsl:text>
-                    <xsl:text>=</xsl:text>
+                	<xsl:text>&#09;&#09;&#09;= </xsl:text>
                     <xsl:text>&#10;</xsl:text>
                     <xsl:text>| birth_name</xsl:text>
-                    <xsl:text>=</xsl:text>
+                	<xsl:text>&#09;&#09;= </xsl:text>
                     <xsl:text>&#10;</xsl:text>
                     <xsl:text>| birth_date</xsl:text>
-                    <xsl:text>=</xsl:text>
+                	<xsl:text>&#09;&#09;= </xsl:text>
                     <!-- Call template to attempt to prepopulate birth date info. -->
                     <xsl:call-template name="tNameDateParser">
                         <xsl:with-param name="pBirthYr" select="'true'" />
@@ -1388,7 +1388,7 @@
                     <xsl:text> &lt;!-- {{Birth date and age|YYYY|MM|DD}} --&gt; </xsl:text>
                     <xsl:text>&#10;</xsl:text>
                     <xsl:text>| birth_place</xsl:text>
-                    <xsl:text>=</xsl:text>
+                	<xsl:text>&#09;&#09;= </xsl:text>
                     <!-- Call template to attempt to prepopulate birth place info. -->
                     <!-- Under revision ...
                     <xsl:call-template name="tBirthPlaceFinder">
@@ -1397,7 +1397,7 @@
                     -->
                     <xsl:text>&#10;</xsl:text>
                     <xsl:text>| death_date</xsl:text>
-                    <xsl:text>=</xsl:text>
+                	<xsl:text>&#09;&#09;= </xsl:text>
                     <!-- Call template to attempt to prepopulate death date info. -->
                     <xsl:call-template name="tNameDateParser">
                         <xsl:with-param name="pDeathYr" select="'true'" />
@@ -1406,7 +1406,7 @@
                     <xsl:text> &lt;!-- {{Death date and age|YYYY|MM|DD|YYYY|MM|DD}} (death date then birth date) --&gt; </xsl:text>
                     <xsl:text>&#10;</xsl:text>
                     <xsl:text>| death_place</xsl:text>
-                    <xsl:text>=</xsl:text>
+                	<xsl:text>&#09;&#09;= </xsl:text>
                     <!-- Call template to attempt to prepopulate death place info. -->
                     <!-- Under revision ...
                     <xsl:call-template name="tDeathPlaceFinder">
@@ -1423,32 +1423,32 @@
             <xsl:value-of select="$pCorpName" />
             <xsl:text>&#10;</xsl:text>
             <xsl:text>| image</xsl:text>
-            <xsl:text>=</xsl:text>
+        	<xsl:text>&#09;&#09;&#09;&#09;= </xsl:text>
             <xsl:text>&#10;</xsl:text>
             <xsl:text>| size</xsl:text>
-            <xsl:text>=</xsl:text>
+        	<xsl:text>&#09;&#09;&#09;&#09;= </xsl:text>
             <xsl:text> &lt;!-- Default 200px --&gt; </xsl:text>
             <xsl:text>&#10;</xsl:text>
             <xsl:text>| alt</xsl:text>
-            <xsl:text>=</xsl:text>
+        	<xsl:text>&#09;&#09;&#09;&#09;&#09;= </xsl:text>
             <xsl:text>&#10;</xsl:text>
             <xsl:text>| caption</xsl:text>
-            <xsl:text>=</xsl:text>
+        	<xsl:text>&#09;&#09;&#09;&#09;= </xsl:text>
             <xsl:text>&#10;</xsl:text>
             <xsl:text>| abbreviation</xsl:text>
-            <xsl:text>=</xsl:text>
+        	<xsl:text>&#09;&#09;&#09;= </xsl:text>
             <xsl:text>&#10;</xsl:text>
             <xsl:text>| motto</xsl:text>
-            <xsl:text>=</xsl:text>
+        	<xsl:text>&#09;&#09;&#09;&#09;= </xsl:text>
             <xsl:text>&#10;</xsl:text>
             <xsl:text>| predecessor</xsl:text>
-            <xsl:text>=</xsl:text>
+        	<xsl:text>&#09;&#09;&#09;= </xsl:text>
             <xsl:text>&#10;</xsl:text>
             <xsl:text>| successor</xsl:text>
-            <xsl:text>=</xsl:text>
+        	<xsl:text>&#09;&#09;&#09;= </xsl:text>
             <xsl:text>&#10;</xsl:text>
             <xsl:text>| formation</xsl:text>
-            <xsl:text>=</xsl:text>
+        	<xsl:text>&#09;&#09;&#09;= </xsl:text>
             <xsl:choose>
                 <xsl:when test="/eac:eac-cpf/eac:cpfDescription/eac:description/eac:existDates/@standardDate">
                     <xsl:value-of select="normalize-space(/eac:eac-cpf/eac:cpfDescription/eac:description/eac:existDates/@standardDate)" />
