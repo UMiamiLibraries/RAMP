@@ -380,7 +380,7 @@
         <xsl:text>&#10;</xsl:text>
         <xsl:text>| headquarters</xsl:text>
     	<xsl:text>&#09;&#09;= </xsl:text>
-    	<xsl:text>&#09;&#09;= </xsl:text>
+    	<xsl:text>&#10;</xsl:text>
         <xsl:text>| location</xsl:text>
     	<xsl:text>&#09;&#09;&#09;= </xsl:text>
         <xsl:choose>
@@ -1370,7 +1370,7 @@
                     <xsl:text> &lt;!-- Default 200px --&gt; </xsl:text>
                     <xsl:text>&#10;</xsl:text>
                     <xsl:text>| alt</xsl:text>
-                	<xsl:text>&#09;&#09;&#09;= </xsl:text>
+                	<xsl:text>&#09;&#09;&#09;&#09;= </xsl:text>
                     <xsl:text>&#10;</xsl:text>
                     <xsl:text>| caption</xsl:text>
                 	<xsl:text>&#09;&#09;&#09;= </xsl:text>
