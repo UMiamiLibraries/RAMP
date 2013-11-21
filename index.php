@@ -83,7 +83,7 @@ while ($row = $results->fetch_assoc()) {
   $file_name_display = htmlentities(basename($file_name));
   if($row["Name"]) {
 
-    print "<option value='$file_name'>" . $name ."</option>";
+    print "<option value='$file_name'>" . rtrim($name,', ') ."</option>";
 
   } else {
 
