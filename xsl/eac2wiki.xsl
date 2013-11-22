@@ -52,7 +52,7 @@
         </xsl:if>
         <xsl:if test="eac:eac-cpf/eac:cpfDescription/eac:relations/eac:resourceRelation/eac:objectXMLWrap/ead:archdesc/ead:scopecontent">
         	<xsl:text>&#10;</xsl:text>
-            <xsl:text>&lt;!--</xsl:text>
+            <xsl:text>&lt;!-- </xsl:text>
             <xsl:for-each select="eac:eac-cpf/eac:cpfDescription/eac:relations/eac:resourceRelation/eac:objectXMLWrap/ead:archdesc/ead:scopecontent/ead:p">
                 <xsl:value-of select="normalize-space(.)" />
                 <xsl:choose>
@@ -67,7 +67,7 @@
         	<xsl:text>&#10;</xsl:text>
         </xsl:if>
         <xsl:if test="$pBiogHist/eac:abstract">
-            <xsl:text>&lt;!--</xsl:text>
+            <xsl:text>&lt;!-- </xsl:text>
             <xsl:value-of select="normalize-space($pBiogHist/eac:abstract)" />
             <xsl:text> --&gt;</xsl:text>
         	<xsl:text>&#10;</xsl:text>
@@ -160,7 +160,7 @@
         </xsl:if>
         <xsl:if test="eac:eac-cpf/eac:cpfDescription/eac:relations/eac:resourceRelation/eac:objectXMLWrap/ead:archdesc/ead:scopecontent">
         	<xsl:text>&#10;</xsl:text>
-            <xsl:text>&lt;!--</xsl:text>
+            <xsl:text>&lt;!-- </xsl:text>
             <xsl:for-each select="eac:eac-cpf/eac:cpfDescription/eac:relations/eac:resourceRelation/eac:objectXMLWrap/ead:archdesc/ead:scopecontent/ead:p">
                 <xsl:value-of select="normalize-space(.)" />
                 <xsl:choose>
@@ -175,7 +175,7 @@
             <xsl:text>&#10;</xsl:text>
         </xsl:if>
         <xsl:if test="$pBiogHist/eac:abstract">
-            <xsl:text>&lt;!--</xsl:text>
+            <xsl:text>&lt;!-- </xsl:text>
             <xsl:value-of select="normalize-space($pBiogHist/eac:abstract)" />
             <xsl:text> --&gt;</xsl:text>
             <xsl:text>&#10;</xsl:text>
@@ -540,9 +540,9 @@
                         </xsl:otherwise>
                     </xsl:choose>
                     <xsl:value-of select="normalize-space(@xlink:href)" />
-                    <xsl:text>#bioghist</xsl:text>
+                    <xsl:text>#bioghist </xsl:text>
                     <xsl:value-of select="normalize-space(eac:sourceEntry)" />
-                    <xsl:text>],"</xsl:text>
+                    <xsl:text>]," </xsl:text>
                     <xsl:value-of select="$pFindingAidInfo" />
                     <xsl:text>&#10;</xsl:text>
                 </xsl:for-each>
@@ -1109,7 +1109,7 @@
         <xsl:text>&#10;</xsl:text>
         <xsl:choose>
             <xsl:when test="$pNameType='person'">
-                <xsl:text>&lt;!--</xsl:text>
+                <xsl:text>&lt;!-- </xsl:text>
                 <xsl:call-template name="tParseName2">
                     <xsl:with-param name="pNameType">person</xsl:with-param>
                     <xsl:with-param name="pPersName" select="$pPersName" />
@@ -1176,7 +1176,7 @@
                 </xsl:for-each>
             </xsl:when>
             <xsl:when test="$pNameType='corporate'">
-                <xsl:text>&lt;!--</xsl:text>
+                <xsl:text>&lt;!-- </xsl:text>
                 <xsl:call-template name="tParseName2">
                     <xsl:with-param name="pNameType">corporate</xsl:with-param>
                     <xsl:with-param name="pCorpName" select="$pCorpName" />
