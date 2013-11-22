@@ -170,7 +170,7 @@ function ingest_viaf_NameEntry_Sources(lobjEac, lstrName, callback) {
                 catch (e) //response should be JSON so if not, throw error
                 {
                     callback();
-                    $('body').append("<div id=\"dialog\"><p>No results found in VIAF for " + lstrName + ".</p></div>");
+                    $('body').append("<div id=\"dialog\"><p>No results found in VIAF for " + decode_utf8(lstrName) + ".</p></div>");
                     makeDialog('#dialog', 'Response');
                     //display response
                     return;

@@ -280,7 +280,7 @@
     <!-- Process identity element. -->
     <xsl:template name="tIdentity">
         <!-- Check for entity type. -->
-        <identity xmlns="urn:isbn:1-931666-33-4">
+    	<identity xmlns="urn:isbn:1-931666-33-4">
             <xsl:if test="ead:ead/ead:archdesc/ead:did/ead:origination[1]/child::node()[1][local-name()='persname']">
                 <entityType>person</entityType>
             </xsl:if>
@@ -290,7 +290,7 @@
             <xsl:if test="ead:ead/ead:archdesc/ead:did/ead:origination[1]/child::node()[1][local-name()='famname']">
                 <entityType>family</entityType>
             </xsl:if>
-            <nameEntry scriptCode="Latn" xml:lang="en">
+    		<nameEntry scriptCode="Latn" xml:lang="en" xmlns="urn:isbn:1-931666-33-4">
                 <xsl:choose>
                     <!-- For Archon-exported EADs, use the value of the @normal attribute. -->
                     <xsl:when test="ead:ead/ead:archdesc/ead:did/ead:origination/child::node()[1]/@normal">
