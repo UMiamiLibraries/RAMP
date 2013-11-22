@@ -93,10 +93,28 @@ $(document).ready(function () {
                 
                 //get first name entry part element in order to get name to search viaf
                 
-                var lobjNameEntryPart = lobjeac.getElement('//*[local-name()=\'cpfDescription\']/*[local-name()=\'identity\']/*[local-name()=\'nameEntry\']/*[local-name()=\'part\']');
-                var eac_name = typeof lobjNameEntryPart.childNodes[0] == 'undefined' ? "": lobjNameEntryPart.childNodes[0].nodeValue;
-                eac_name = eac_name.trim();
-                eac_name = encode_utf8(eac_name);
+                var lobjNameEntryPart;
+		        var lobjNameEntryPartFore;
+		        var lobjNameEntryPartSur;
+                
+                if ( lobjeac.getElement('//*[local-name()=\'cpfDescription\']/*[local-name()=\'identity\']/*[local-name()=\'nameEntry\']/*[local-name()=\'part\'][not(@localType)]') )
+		        {
+		       	    lobjNameEntryPart = lobjeac.getElement('//*[local-name()=\'cpfDescription\']/*[local-name()=\'identity\']/*[local-name()=\'nameEntry\']/*[local-name()=\'part\']');
+		            //= lobjeac.getElement('//*[local-name()=\'cpfDescription\']/*[local-name()=\'identity\']/*[local-name()=\'nameEntry\']/*[local-name()=\'part\']');
+     		        eac_name = lobjNameEntryPart.childNodes[0].nodeValue;
+     		        eac_name = eac_name.trim();
+     		        eac_name = encode_utf8(eac_name);
+		        }				       				       				       
+		        else if ( lobjeac.getElement('//*[local-name()=\'cpfDescription\']/*[local-name()=\'identity\']/*[local-name()=\'nameEntry\']/*[local-name()=\'part\'][@localType=\'surname\' or @localType=\'forename\']') )
+		        {				       	   
+		            lobjNameEntryPartFore = lobjeac.getElement('//*[local-name()=\'cpfDescription\']/*[local-name()=\'identity\']/*[local-name()=\'nameEntry\']/*[local-name()=\'part\'][@localType=\'forename\']');
+		            eac_name = lobjNameEntryPartFore.childNodes[0].nodeValue;
+		            eac_name += ' ';				           				       	   
+		            lobjNameEntryPartSur = lobjeac.getElement('//*[local-name()=\'cpfDescription\']/*[local-name()=\'identity\']/*[local-name()=\'nameEntry\']/*[local-name()=\'part\'][@localType=\'surname\']');
+		            eac_name += lobjNameEntryPartSur.childNodes[0].nodeValue;
+     		        eac_name = eac_name.trim();
+     		        eac_name = encode_utf8(eac_name);
+		        }                                                
                 
                 ingest_viaf_NameEntry_Sources(lobjeac, eac_name, function () {
                     
@@ -343,9 +361,9 @@ function ingest_viaf_Relations(lobjEac, callback) {
         var PossibleNameListUnit =[];
         var PossibleNameListIngest =[];
         
-        var lobjParagraphList = lobjead.getElementList('//*[local-name()=\'p\']');        
+        var lobjParagraphList = lobjEac.getElementList('//*[local-name()=\'p\']');        
         var lobjUnitTitleList = lobjead.getElementList('//*[local-name()=\'unittitle\']');
-        var lobjIngestList = lobjEac.getElementList('//*[local-name()=\'event\'] | //*[local-name()=\'resourceRelation\'][@resourceRelationType=\'creatorOf\']/*[local-name()=\'relationEntry\'][1] | //*[local-name()=\'resourceRelation\'][not(@resourceRelationType)]/*[local-name()=\'relationEntry\'][1] | //*[local-name()=\'resourceRelation\'][@resourceRelationType=\'subjectOf\']/*[local-name()=\'relationEntry\'][@localType=\'creator\'] | //*[local-name()=\'resourceRelation\'][@resourceRelationType=\'subjectOf\']/*[local-name()=\'relationEntry\'][1]');
+        var lobjIngestList = lobjEac.getElementList('//*[local-name()=\'chronItem\']/*[local-name()=\'event\'] | //*[local-name()=\'resourceRelation\'][@resourceRelationType=\'creatorOf\']/*[local-name()=\'relationEntry\'][1] | //*[local-name()=\'resourceRelation\'][not(@resourceRelationType)]/*[local-name()=\'relationEntry\'][1] | //*[local-name()=\'resourceRelation\'][@resourceRelationType=\'subjectOf\']/*[local-name()=\'relationEntry\'][@localType=\'creator\'] | //*[local-name()=\'resourceRelation\'][@resourceRelationType=\'subjectOf\']/*[local-name()=\'relationEntry\'][1]');
         
         // XPath for getting things wrapped in <span> tags:
         //var lobjSpanList = lobjead.getElementList('//*[local-name()=\'unittitle\']/*[local-name()=\'span\']');
