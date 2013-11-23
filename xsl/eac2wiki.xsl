@@ -535,35 +535,29 @@
     			<xsl:value-of select="eac:eac-cpf/eac:control/eac:maintenanceHistory/eac:maintenanceEvent/eac:eventDateTime/@standardDateTime"/>
     			<xsl:text>}}</xsl:text>
     			<xsl:text>&#10;</xsl:text>
-    		</xsl:when>
-    		<xsl:otherwise>
-    			<xsl:choose>
-    				<xsl:when test="eac:eac-cpf/eac:control/eac:sources/eac:source/eac:objectXMLWrap">
-    					<!-- Insert a default reference to the finding aid itself. -->
-    					<xsl:text>&lt;!-- Basic citation for the finding aid. Author names will need to be adjusted (inverted, updated based on revision info, etc.). --&gt;</xsl:text>
-    					<xsl:for-each select="eac:eac-cpf/eac:control/eac:sources/eac:source[eac:sourceEntry]">
-    						<xsl:text>&#10;</xsl:text>
-    						<xsl:choose>
-    							<xsl:when test="//ead:author">
-    								<xsl:value-of select="normalize-space(//ead:author)" />
-    								<xsl:text>. "[</xsl:text>
-    							</xsl:when>
-    							<xsl:otherwise>
-    								<xsl:text>"[</xsl:text>
-    							</xsl:otherwise>
-    						</xsl:choose>
-    						<xsl:value-of select="normalize-space(@xlink:href)" />
-    						<xsl:text>#bioghist </xsl:text>
-    						<xsl:value-of select="normalize-space(eac:sourceEntry)" />
-    						<xsl:text>]," </xsl:text>
-    						<xsl:value-of select="$pFindingAidInfo" />
-    						<xsl:text>&#10;</xsl:text>
-    					</xsl:for-each>
-    				</xsl:when>    				
-    			</xsl:choose>
-    		</xsl:otherwise>
-    	</xsl:choose>    	   
-    	<xsl:choose>
+    		</xsl:when>    		
+    		<xsl:when test="eac:eac-cpf/eac:control/eac:sources/eac:source/eac:objectXMLWrap">
+    			<!-- Insert a default reference to the finding aid itself. -->
+    			<xsl:text>&lt;!-- Basic citation for the finding aid. Author names will need to be adjusted (inverted, updated based on revision info, etc.). --&gt;</xsl:text>
+    			<xsl:for-each select="eac:eac-cpf/eac:control/eac:sources/eac:source[eac:sourceEntry]">
+    				<xsl:text>&#10;</xsl:text>
+    				<xsl:choose>
+    					<xsl:when test="//ead:author">
+    						<xsl:value-of select="normalize-space(//ead:author)" />
+    						<xsl:text>. "[</xsl:text>
+    					</xsl:when>
+    					<xsl:otherwise>
+    						<xsl:text>"[</xsl:text>
+    					</xsl:otherwise>
+    				</xsl:choose>
+    				<xsl:value-of select="normalize-space(@xlink:href)" />
+    				<xsl:text>#bioghist </xsl:text>
+    				<xsl:value-of select="normalize-space(eac:sourceEntry)" />
+    				<xsl:text>]," </xsl:text>
+    				<xsl:value-of select="$pFindingAidInfo" />
+    				<xsl:text>&#10;</xsl:text>
+    			</xsl:for-each>
+    		</xsl:when>    				    	
     		<xsl:when test="//eac:citation">
     			<!-- Add any citation elements. -->
     			<xsl:for-each select="//eac:citation">
@@ -742,15 +736,43 @@
         <xsl:text>==External links==</xsl:text>
         <!-- Include a link to a local discovery service. -->
         <xsl:text>&#10;</xsl:text>
-        <xsl:text>Library and archival resources by or about [</xsl:text>
-        <xsl:call-template name="tParseName3">
-            <xsl:with-param name="pNameType" select="'person' or 'corporate'" />
-            <xsl:with-param name="pPersName" select="$pPersName" />
-            <xsl:with-param name="pPersNameSur" select="$pPersNameSur" />
-            <xsl:with-param name="pPersNameFore" select="$pPersNameFore" />
-            <xsl:with-param name="pCorpName" select="$pCorpName" />
-        </xsl:call-template>
-        <xsl:text>&#10;</xsl:text>
+    	<xsl:choose>
+    		<xsl:when test="contains(eac:eac-cpf/eac:control/eac:sources/eac:source/@xlink:href,'miami.edu')">
+    			<xsl:text>Library and archival resources by or about [</xsl:text>
+    			<xsl:call-template name="tParseName3">
+    				<xsl:with-param name="pNameType" select="'person' or 'corporate'" />
+    				<xsl:with-param name="pPersName" select="$pPersName" />
+    				<xsl:with-param name="pPersNameSur" select="$pPersNameSur" />
+    				<xsl:with-param name="pPersNameFore" select="$pPersNameFore" />
+    				<xsl:with-param name="pCorpName" select="$pCorpName" />
+    			</xsl:call-template>
+    			<xsl:text>&#10;</xsl:text>
+    		</xsl:when>
+    		<!-- Or to Forward to Libraries template. -->	
+    		<xsl:when test="contains(eac:eac-cpf/eac:control/eac:sources/eac:source/@xlink:href,'loc.gov')">
+    		<xsl:text>{{Library resources box</xsl:text>
+    		<xsl:text>&#10;</xsl:text>
+    		<xsl:text>|onlinebooks=yes</xsl:text>
+    		<xsl:text>&#10;</xsl:text>
+    		<xsl:text>|by=yes</xsl:text>
+    		<xsl:text>&#10;</xsl:text>
+    		<xsl:text>|about=yes</xsl:text>
+    		<xsl:text>&#10;</xsl:text>
+    		<xsl:text>|viaf=</xsl:text>
+    		<xsl:value-of select="substring-after(eac:eac-cpf/eac:control/eac:sources/eac:source[contains(@xlink:href,'viaf')]/@xlink:href,'viaf/')"/>
+    		<xsl:text>&#10;</xsl:text>
+    		<xsl:text>|label=</xsl:text>
+    		<xsl:call-template name="tParseName2">
+    			<xsl:with-param name="pNameType" select="'person' or 'corporate'" />
+    			<xsl:with-param name="pPersName" select="$pPersName" />
+    			<xsl:with-param name="pPersNameSur" select="$pPersNameSur" />
+    			<xsl:with-param name="pPersNameFore" select="$pPersNameFore" />
+    			<xsl:with-param name="pCorpName" select="$pCorpName" />
+    		</xsl:call-template>
+    		<xsl:text>}}</xsl:text>
+    		<xsl:text>&#10;</xsl:text>
+    		</xsl:when>
+    	</xsl:choose>    	    	
         <xsl:choose>
             <xsl:when test="eac:eac-cpf/eac:control/eac:otherRecordId[@localType='WCI']">
                 <!-- Add ID nonstandard WorldCat IDs -->
