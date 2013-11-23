@@ -524,7 +524,19 @@
         <xsl:text>&#10;</xsl:text>
         <xsl:text>==Notes and references==</xsl:text>
         <xsl:text>&#10;</xsl:text>
-        <xsl:choose>
+    	<!-- For LOC finding aids, include a default public domain template. -->
+    	<xsl:choose>
+    		<xsl:when test="contains(eac:eac-cpf/eac:control/eac:sources/eac:source/@xlink:href,'loc.gov')">
+    			<xsl:text>{{USGovernment|sourceURL=[</xsl:text>
+    			<xsl:value-of select="eac:eac-cpf/eac:control/eac:sources/eac:source/@xlink:href"/>
+    			<xsl:text> </xsl:text>
+    			<xsl:value-of select="eac:eac-cpf/eac:control/eac:sources/eac:source/eac:sourceEntry[1]"/>
+    			<xsl:text>]|author=the Manuscript Division Staff of the [[Library of Congress]]|accessdate=</xsl:text>
+    			<xsl:value-of select="eac:eac-cpf/eac:control/eac:maintenanceHistory/eac:maintenanceEvent/eac:eventDateTime/@standardDateTime"/>
+    			<xsl:text>}}</xsl:text>
+    		</xsl:when>
+    	</xsl:choose>
+    	<xsl:choose>
             <xsl:when test="eac:eac-cpf/eac:control/eac:sources/eac:source/eac:objectXMLWrap">
                 <!-- Insert a default reference to the finding aid itself. -->
                 <xsl:text>&lt;!-- Basic citation for the finding aid. Author names will need to be adjusted (inverted, updated based on revision info, etc.). --&gt;</xsl:text>
