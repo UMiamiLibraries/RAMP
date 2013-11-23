@@ -688,12 +688,12 @@
                         <xsl:when test="substring(eac:relationEntry[1],$vStrLen)='.'">
                             <xsl:variable name="vTitleVal" select="substring(eac:relationEntry[1],1,$vStrLen -1)" />
                             <xsl:value-of select="substring-before($vTitleVal,' . ')" />
-                            <xsl:text>''.</xsl:text>
+                            <xsl:text>''. </xsl:text>
                             <xsl:value-of select="substring-after($vTitleVal,' . ')" />
                         </xsl:when>
                         <xsl:otherwise>
                             <xsl:value-of select="normalize-space(eac:relationEntry[1])" />
-                            <xsl:text>''.</xsl:text>
+                            <xsl:text>''. </xsl:text>
                         </xsl:otherwise>
                     </xsl:choose>
                     <xsl:choose>
