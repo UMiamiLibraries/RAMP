@@ -452,6 +452,7 @@
         <xsl:text>==Timeline==</xsl:text>
         <xsl:text>&#10;</xsl:text>
         <xsl:text>{{timeline-start}}</xsl:text>
+    	<xsl:text>&#10;</xsl:text>
         <xsl:for-each select="$pBiogHist/eac:chronList/eac:chronItem">
             <xsl:text>&#10;</xsl:text>
             <xsl:text>{{timeline-item|</xsl:text>
@@ -468,11 +469,20 @@
             </xsl:choose>
             <xsl:text>}}|</xsl:text>
             <xsl:for-each select="eac:event">
-                <xsl:value-of select="normalize-space(.)" />
-                <xsl:if test="position() != last()">
-                    <xsl:text> </xsl:text>
-                </xsl:if>
+                <xsl:value-of select="normalize-space(.)" />                
             </xsl:for-each>
+        	<xsl:if test="position() = last()">        		        	
+	        	<!-- For LOC finding aids, include a reference to the default US Gov public domain template. -->
+	        	<xsl:if test="contains(../../../../../eac:control/eac:sources/eac:source/@xlink:href,'loc.gov')">            				            				        		
+	        		<xsl:text>&lt;ref&gt;{{USGovernment|sourceURL=[</xsl:text>
+	        		<xsl:value-of select="../../../../../eac:control/eac:sources/eac:source/@xlink:href"/>
+	        		<xsl:text> </xsl:text>
+	        		<xsl:value-of select="../../../../../eac:control/eac:sources/eac:source/eac:sourceEntry[1]"/>
+	        		<xsl:text>]|author=the Manuscript Division Staff of the [[Library of Congress]]|accessdate=</xsl:text>
+	        		<xsl:value-of select="../../../../../eac:control/eac:maintenanceHistory/eac:maintenanceEvent/eac:eventDateTime/@standardDateTime"/>        		
+	        		<xsl:text>}}&lt;/ref&gt;</xsl:text>	        		
+	        	</xsl:if>
+        	</xsl:if>
             <xsl:text>}}</xsl:text>
             <xsl:text>&#10;</xsl:text>
         </xsl:for-each>
@@ -523,19 +533,8 @@
     <xsl:template name="tReferences">
         <xsl:text>&#10;</xsl:text>
         <xsl:text>==Notes and references==</xsl:text>
-        <xsl:text>&#10;</xsl:text>
-    	<!-- For LOC finding aids, include a default public domain template. -->
-    	<xsl:choose>
-    		<xsl:when test="contains(eac:eac-cpf/eac:control/eac:sources/eac:source/@xlink:href,'loc.gov')">
-    			<xsl:text>{{USGovernment|sourceURL=[</xsl:text>
-    			<xsl:value-of select="eac:eac-cpf/eac:control/eac:sources/eac:source/@xlink:href"/>
-    			<xsl:text> </xsl:text>
-    			<xsl:value-of select="eac:eac-cpf/eac:control/eac:sources/eac:source/eac:sourceEntry[1]"/>
-    			<xsl:text>]|author=the Manuscript Division Staff of the [[Library of Congress]]|accessdate=</xsl:text>
-    			<xsl:value-of select="eac:eac-cpf/eac:control/eac:maintenanceHistory/eac:maintenanceEvent/eac:eventDateTime/@standardDateTime"/>
-    			<xsl:text>}}</xsl:text>
-    			<xsl:text>&#10;</xsl:text>
-    		</xsl:when>    		
+        <xsl:text>&#10;</xsl:text>    	
+    	<xsl:choose>    		    	
     		<xsl:when test="eac:eac-cpf/eac:control/eac:sources/eac:source/eac:objectXMLWrap">
     			<!-- Insert a default reference to the finding aid itself. -->
     			<xsl:text>&lt;!-- Basic citation for the finding aid. Author names will need to be adjusted (inverted, updated based on revision info, etc.). --&gt;</xsl:text>
