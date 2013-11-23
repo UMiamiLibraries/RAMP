@@ -562,13 +562,13 @@
     			<xsl:for-each select="//eac:citation">
     				<xsl:choose>
     					<xsl:when test="contains(.,'http')">
-    						<xsl:text>*[</xsl:text>
+    						<xsl:text>* [</xsl:text>
     						<xsl:value-of select="normalize-space(.)" />
     						<xsl:text>]</xsl:text>
     						<xsl:text>&#10;</xsl:text>
     					</xsl:when>
     					<xsl:otherwise>
-    						<xsl:text>*</xsl:text>
+    						<xsl:text>* </xsl:text>
     						<xsl:value-of select="normalize-space(.)" />
     						<xsl:text>&#10;</xsl:text>
     					</xsl:otherwise>
@@ -588,7 +588,7 @@
                     <xsl:sort select="translate(eac:relationEntry[@localType='creator'],'ÁÀÉÈÍÓÚÜÑáàéèíóúúüñ','AAEEIOUUNaaeeiouuun')" data-type="text" />
                     <xsl:for-each select="eac:relationEntry[1]">
                         <xsl:variable name="vStrLen" select="string-length(.)" />
-                        <xsl:text>*</xsl:text>
+                        <xsl:text>* </xsl:text>
                         <xsl:choose>
                             <xsl:when test="normalize-space(following-sibling::eac:relationEntry[@localType='creator'])">
                                 <xsl:value-of select="normalize-space(following-sibling::eac:relationEntry[@localType='creator'])" />
@@ -665,7 +665,7 @@
             <xsl:when test="eac:eac-cpf/eac:cpfDescription/eac:relations/eac:resourceRelation[not(@resourceRelationType) and not(@xlink:role='resource')]">
                 <xsl:for-each select="eac:eac-cpf/eac:cpfDescription/eac:relations/eac:resourceRelation[not(@resourceRelationType) and not(@xlink:role='resource')]">
                     <xsl:sort select="translate(eac:relationEntry[@localType='creator'],'ÁÀÉÈÍÓÚÜÑáàéèíóúúüñ','AAEEIOUUNaaeeiouuun')" data-type="text" />
-                    <xsl:text>*</xsl:text>
+                    <xsl:text>* </xsl:text>
                     <xsl:value-of select="normalize-space(.)" />
                     <xsl:text>&#10;</xsl:text>
                 </xsl:for-each>
@@ -684,7 +684,7 @@
                 <xsl:for-each select="eac:eac-cpf/eac:cpfDescription/eac:relations/eac:resourceRelation[@resourceRelationType='creatorOf' and @xlink:role='resource']">
                     <xsl:sort select="translate(eac:relationEntry[1],'ÁÀÉÈÍÓÚÜÑáàéèíóúúüñ','AAEEIOUUNaaeeiouuun')" data-type="text" />
                     <xsl:variable name="vStrLen" select="string-length(eac:relationEntry[1])" />
-                    <xsl:text>*</xsl:text>
+                    <xsl:text>* </xsl:text>
                     <xsl:choose>
                         <xsl:when test="normalize-space(child::eac:relationEntry[@localType='creator'])">
                             <xsl:text>''</xsl:text>
@@ -775,7 +775,7 @@
         <xsl:choose>
             <xsl:when test="eac:eac-cpf/eac:control/eac:otherRecordId[@localType='WCI']">
                 <!-- Add ID nonstandard WorldCat IDs -->
-                <xsl:text>*{{worldcat|description="WorldCat Identities page for</xsl:text>
+                <xsl:text>* {{worldcat|description="WorldCat Identities page for</xsl:text>
                 <xsl:call-template name="tParseName2">
                     <xsl:with-param name="pNameType" select="'person' or 'corporate'" />
                     <xsl:with-param name="pPersName" select="$pPersName" />
@@ -800,7 +800,7 @@
                 <!-- Check for archival/digital collections created by or associated with the person or corporate body. -->
                 <xsl:for-each select="eac:eac-cpf/eac:cpfDescription/eac:relations/eac:resourceRelation[@xlink:role='archivalRecords']">
                     <xsl:sort select="translate(eac:relationEntry,'ÁÀÉÈÍÓÚÜÑáàéèíóúúüñ','AAEEIOUUNaaeeiouuun')" data-type="text" />
-                    <xsl:text>*[</xsl:text>
+                    <xsl:text>* [</xsl:text>
                     <xsl:choose>
                         <xsl:when test="contains(@xlink:href,' ')">
                             <xsl:value-of select="normalize-space(translate(@xlink:href,' ','+'))" />
@@ -834,7 +834,7 @@
             <xsl:otherwise>
                 <xsl:for-each select="eac:eac-cpf/eac:cpfDescription/eac:relations/eac:resourceRelation[@resourceRelationType='other' and @xlink:role='resource']">
                     <xsl:sort select="translate(eac:relationEntry,'ÁÀÉÈÍÓÚÜÑáàéèíóúúüñ','AAEEIOUUNaaeeiouuun')" data-type="text" />
-                    <xsl:text>*[</xsl:text>
+                    <xsl:text>* [</xsl:text>
                     <xsl:choose>
                         <xsl:when test="contains(@xlink:href,' ')">
                             <xsl:value-of select="normalize-space(translate(@xlink:href,' ','+'))" />
@@ -1170,7 +1170,7 @@
                 <xsl:for-each select="eac:eac-cpf/eac:cpfDescription/eac:description/eac:localDescription">
                     <xsl:sort select="translate(eac:term,'ÁÀÉÈÍÓÚÜÑáàéèíóúúüñ','AAEEIOUUNaaeeiouuun')" data-type="text" />
                     <xsl:if test="contains(@localType,'7')">
-                        <xsl:text>*[[</xsl:text>
+                        <xsl:text>* [[</xsl:text>
                         <xsl:call-template name="tParseName2">
                             <xsl:with-param name="pNameType">person</xsl:with-param>
                             <xsl:with-param name="pPersName" select="eac:term" />
@@ -1179,7 +1179,7 @@
                         <xsl:text>&#10;</xsl:text>
                     </xsl:if>
                     <xsl:if test="contains(@localType,'610')">
-                        <xsl:text>*[[</xsl:text>
+                        <xsl:text>* [[</xsl:text>
                         <xsl:call-template name="tParseName2">
                             <xsl:with-param name="pNameType">corporate</xsl:with-param>
                             <xsl:with-param name="pCorpName" select="eac:term" />
@@ -1192,7 +1192,7 @@
                     <xsl:sort select="translate(eac:relationEntry[1],'ÁÀÉÈÍÓÚÜÑáàéèíóúúüñ','AAEEIOUUNaaeeiouuun')" data-type="text" />
                     <xsl:choose>
                         <xsl:when test="contains(eac:relationEntry,', ')">
-                            <xsl:text>*[[</xsl:text>
+                            <xsl:text>* [[</xsl:text>
                             <xsl:call-template name="tParseName2">
                                 <xsl:with-param name="pNameType">person</xsl:with-param>
                                 <xsl:with-param name="pPersName" select="eac:relationEntry[1]" />
@@ -1201,7 +1201,7 @@
                             <xsl:text>&#10;</xsl:text>
                         </xsl:when>
                         <xsl:otherwise>
-                            <xsl:text>*[[</xsl:text>
+                            <xsl:text>* [[</xsl:text>
                             <xsl:call-template name="tParseName2">
                                 <xsl:with-param name="pNameType">corporate</xsl:with-param>
                                 <xsl:with-param name="pCorpName" select="eac:relationEntry[1]" />
@@ -1236,7 +1236,7 @@
                     <xsl:sort select="translate(eac:relationEntry[1],'ÁÀÉÈÍÓÚÜÑáàéèíóúúüñ','AAEEIOUUNaaeeiouuun')" data-type="text" />
                     <xsl:choose>
                         <xsl:when test="@xlink:role='http://rdvocab.info/uri/schema/FRBRentitiesRDA/Person'">
-                            <xsl:text>*[[</xsl:text>
+                            <xsl:text>* [[</xsl:text>
                             <xsl:call-template name="tParseName2">
                                 <xsl:with-param name="pNameType">person</xsl:with-param>
                                 <xsl:with-param name="pPersName" select="eac:relationEntry[1]" />
@@ -1245,7 +1245,7 @@
                             <xsl:text>&#10;</xsl:text>
                         </xsl:when>
                         <xsl:otherwise>
-                            <xsl:text>*[[</xsl:text>
+                            <xsl:text>* [[</xsl:text>
                             <xsl:call-template name="tParseName2">
                                 <xsl:with-param name="pNameType">corporate</xsl:with-param>
                                 <xsl:with-param name="pCorpName" select="eac:relationEntry[1]" />
