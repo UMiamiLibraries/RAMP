@@ -940,7 +940,7 @@
         <!-- Call template to attempt to prepopulate birth date info. -->
         <xsl:call-template name="tNameDateParser">
             <xsl:with-param name="pBirthYr" select="'true'" />
-            <xsl:with-param name="pCheckInfo" select="'false'" />
+            <xsl:with-param name="pCheckInfo" select="'true'" />
         </xsl:call-template>
         <xsl:text>&#10;</xsl:text>
         <xsl:text>| PLACE OF BIRTH</xsl:text>
@@ -957,7 +957,7 @@
         <!-- Call template to attempt to prepopulate death date info. -->
         <xsl:call-template name="tNameDateParser">
             <xsl:with-param name="pDeathYr" select="'true'" />
-            <xsl:with-param name="pCheckInfo" select="'false'" />
+            <xsl:with-param name="pCheckInfo" select="'true'" />
         </xsl:call-template>
         <xsl:text>&#10;</xsl:text>
         <xsl:text>| PLACE OF DEATH</xsl:text>
