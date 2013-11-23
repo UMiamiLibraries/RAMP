@@ -534,51 +534,55 @@
     			<xsl:text>]|author=the Manuscript Division Staff of the [[Library of Congress]]|accessdate=</xsl:text>
     			<xsl:value-of select="eac:eac-cpf/eac:control/eac:maintenanceHistory/eac:maintenanceEvent/eac:eventDateTime/@standardDateTime"/>
     			<xsl:text>}}</xsl:text>
+    			<xsl:text>&#10;</xsl:text>
+    		</xsl:when>
+    		<xsl:otherwise>
+    			<xsl:choose>
+    				<xsl:when test="eac:eac-cpf/eac:control/eac:sources/eac:source/eac:objectXMLWrap">
+    					<!-- Insert a default reference to the finding aid itself. -->
+    					<xsl:text>&lt;!-- Basic citation for the finding aid. Author names will need to be adjusted (inverted, updated based on revision info, etc.). --&gt;</xsl:text>
+    					<xsl:for-each select="eac:eac-cpf/eac:control/eac:sources/eac:source[eac:sourceEntry]">
+    						<xsl:text>&#10;</xsl:text>
+    						<xsl:choose>
+    							<xsl:when test="//ead:author">
+    								<xsl:value-of select="normalize-space(//ead:author)" />
+    								<xsl:text>. "[</xsl:text>
+    							</xsl:when>
+    							<xsl:otherwise>
+    								<xsl:text>"[</xsl:text>
+    							</xsl:otherwise>
+    						</xsl:choose>
+    						<xsl:value-of select="normalize-space(@xlink:href)" />
+    						<xsl:text>#bioghist </xsl:text>
+    						<xsl:value-of select="normalize-space(eac:sourceEntry)" />
+    						<xsl:text>]," </xsl:text>
+    						<xsl:value-of select="$pFindingAidInfo" />
+    						<xsl:text>&#10;</xsl:text>
+    					</xsl:for-each>
+    				</xsl:when>    				
+    			</xsl:choose>
+    		</xsl:otherwise>
+    	</xsl:choose>    	   
+    	<xsl:choose>
+    		<xsl:when test="//eac:citation">
+    			<!-- Add any citation elements. -->
+    			<xsl:for-each select="//eac:citation">
+    				<xsl:choose>
+    					<xsl:when test="contains(.,'http')">
+    						<xsl:text>*[</xsl:text>
+    						<xsl:value-of select="normalize-space(.)" />
+    						<xsl:text>]</xsl:text>
+    						<xsl:text>&#10;</xsl:text>
+    					</xsl:when>
+    					<xsl:otherwise>
+    						<xsl:text>*</xsl:text>
+    						<xsl:value-of select="normalize-space(.)" />
+    						<xsl:text>&#10;</xsl:text>
+    					</xsl:otherwise>
+    				</xsl:choose>
+    			</xsl:for-each>
     		</xsl:when>
     	</xsl:choose>
-    	<xsl:choose>
-            <xsl:when test="eac:eac-cpf/eac:control/eac:sources/eac:source/eac:objectXMLWrap">
-                <!-- Insert a default reference to the finding aid itself. -->
-                <xsl:text>&lt;!-- Basic citation for the finding aid. Author names will need to be adjusted (inverted, updated based on revision info, etc.). --&gt;</xsl:text>
-                <xsl:for-each select="eac:eac-cpf/eac:control/eac:sources/eac:source[eac:sourceEntry]">
-                    <xsl:text>&#10;</xsl:text>
-                    <xsl:choose>
-                        <xsl:when test="//ead:author">
-                            <xsl:value-of select="normalize-space(//ead:author)" />
-                            <xsl:text>. "[</xsl:text>
-                        </xsl:when>
-                        <xsl:otherwise>
-                            <xsl:text>"[</xsl:text>
-                        </xsl:otherwise>
-                    </xsl:choose>
-                    <xsl:value-of select="normalize-space(@xlink:href)" />
-                    <xsl:text>#bioghist </xsl:text>
-                    <xsl:value-of select="normalize-space(eac:sourceEntry)" />
-                    <xsl:text>]," </xsl:text>
-                    <xsl:value-of select="$pFindingAidInfo" />
-                    <xsl:text>&#10;</xsl:text>
-                </xsl:for-each>
-            </xsl:when>
-            <xsl:when test="//eac:citation">
-                <!-- Add any citation elements. -->
-                <xsl:for-each select="//eac:citation">
-                    <xsl:choose>
-                        <xsl:when test="contains(.,'http')">
-                            <xsl:text>*[</xsl:text>
-                            <xsl:value-of select="normalize-space(.)" />
-                            <xsl:text>]</xsl:text>
-                            <xsl:text>&#10;</xsl:text>
-                        </xsl:when>
-                        <xsl:otherwise>
-                            <xsl:text>*</xsl:text>
-                            <xsl:value-of select="normalize-space(.)" />
-                            <xsl:text>&#10;</xsl:text>
-                        </xsl:otherwise>
-                    </xsl:choose>
-                </xsl:for-each>
-            </xsl:when>
-            <xsl:otherwise />
-        </xsl:choose>
     </xsl:template>
     <!-- Output "Further reading" ("works about") section.  -->
     <xsl:template name="tFurther">
