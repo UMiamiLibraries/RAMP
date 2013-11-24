@@ -747,29 +747,35 @@
     			</xsl:call-template>
     			<xsl:text>&#10;</xsl:text>
     		</xsl:when>
-    		<!-- Or to Forward to Libraries template. -->	
+    		<!-- Or to Forward to Libraries template and link to finding aid. -->	
     		<xsl:when test="contains(eac:eac-cpf/eac:control/eac:sources/eac:source/@xlink:href,'loc.gov')">
-    		<xsl:text>{{Library resources box</xsl:text>
-    		<xsl:text>&#10;</xsl:text>
-    		<xsl:text>|onlinebooks=yes</xsl:text>
-    		<xsl:text>&#10;</xsl:text>
-    		<xsl:text>|by=yes</xsl:text>
-    		<xsl:text>&#10;</xsl:text>
-    		<xsl:text>|about=yes</xsl:text>
-    		<xsl:text>&#10;</xsl:text>
-    		<xsl:text>|viaf=</xsl:text>
-    		<xsl:value-of select="substring-after(eac:eac-cpf/eac:control/eac:sources/eac:source[contains(@xlink:href,'viaf')]/@xlink:href,'viaf/')"/>
-    		<xsl:text>&#10;</xsl:text>
-    		<xsl:text>|label=</xsl:text>
-    		<xsl:call-template name="tParseName2">
-    			<xsl:with-param name="pNameType" select="'person' or 'corporate'" />
-    			<xsl:with-param name="pPersName" select="$pPersName" />
-    			<xsl:with-param name="pPersNameSur" select="$pPersNameSur" />
-    			<xsl:with-param name="pPersNameFore" select="$pPersNameFore" />
-    			<xsl:with-param name="pCorpName" select="$pCorpName" />
-    		</xsl:call-template>
-    		<xsl:text>}}</xsl:text>
-    		<xsl:text>&#10;</xsl:text>
+	    		<xsl:text>{{Library resources box</xsl:text>
+	    		<xsl:text>&#10;</xsl:text>
+	    		<xsl:text>|onlinebooks=yes</xsl:text>
+	    		<xsl:text>&#10;</xsl:text>
+	    		<xsl:text>|by=yes</xsl:text>
+	    		<xsl:text>&#10;</xsl:text>
+	    		<xsl:text>|about=yes</xsl:text>
+	    		<xsl:text>&#10;</xsl:text>
+	    		<xsl:text>|viaf=</xsl:text>
+	    		<xsl:value-of select="substring-after(eac:eac-cpf/eac:control/eac:sources/eac:source[contains(@xlink:href,'viaf')]/@xlink:href,'viaf/')"/>
+	    		<xsl:text>&#10;</xsl:text>
+	    		<xsl:text>|label=</xsl:text>
+	    		<xsl:call-template name="tParseName2">
+	    			<xsl:with-param name="pNameType" select="'person' or 'corporate'" />
+	    			<xsl:with-param name="pPersName" select="$pPersName" />
+	    			<xsl:with-param name="pPersNameSur" select="$pPersNameSur" />
+	    			<xsl:with-param name="pPersNameFore" select="$pPersNameFore" />
+	    			<xsl:with-param name="pCorpName" select="$pCorpName" />
+	    		</xsl:call-template>
+	    		<xsl:text>}}</xsl:text>
+	    		<xsl:text>&#10;</xsl:text>
+    			<xsl:text>* [</xsl:text>
+    			<xsl:value-of select="eac:eac-cpf/eac:control/eac:sources/eac:source/@xlink:href"/>
+    			<xsl:text> </xsl:text>
+    			<xsl:value-of select="eac:eac-cpf/eac:control/eac:sources/eac:source/eac:sourceEntry"/>
+    			<xsl:text>] at the [http://www.loc.gov/rr/mss/ Library of Congress Manuscripts Division].</xsl:text>
+    			<xsl:text>&#10;</xsl:text>    			
     		</xsl:when>
     	</xsl:choose>    	    	
         <xsl:choose>
