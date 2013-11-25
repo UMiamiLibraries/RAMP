@@ -608,8 +608,8 @@ button.on {
     padding:.5%;
 	font-size:1.25em;
 	line-height:1.5em;
-	left: 50%;
-    margin-left: -240px;
+	left: 35%;
+    /* margin-left: -240px; */
     position: absolute;
     top: 0;
     width: 900px;
