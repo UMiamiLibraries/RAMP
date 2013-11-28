@@ -250,7 +250,7 @@ $(document).ready(function() {
 
 		$('.main_edit').hide();
 		
-		$('html').css("min-width","1500px");
+		$('html').css("min-width","1350px");
 
 		//Append some controls for dealing with the wikimarkup
 
