@@ -10,12 +10,12 @@ include('conf/includes.php');
   </style>
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
 <script type="text/javascript">
-    $('html').addClass('hidden');
+    $('html').addClass('hidden');    
     $(document).ready(function() {
-      $('html').show();
-      $(".modal").colorbox({iframe:true, innerWidth:850, innerHeight:600, frameborder:0});           
-     });  
-   </script>    
+        $('html').show();
+        $(".modal").colorbox({iframe:true, innerWidth:850, innerHeight:600, frameborder:0});                                   
+     });                
+</script>    
 <script src="script/main.js"></script>
 <script src="script/select2/select2.min.js"></script>
 <script src="script/colorbox-master/jquery.colorbox-min.js"></script>

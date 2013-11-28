@@ -250,6 +250,7 @@ $(document).ready(function() {
 
 		$('.main_edit').hide();
 		
+		$('html').css("min-width","1500px");
 
 		//Append some controls for dealing with the wikimarkup
 
@@ -405,6 +406,8 @@ $(document).ready(function() {
     });
 
     $('#xml_switch_button').click(function() {
+    
+    $('html').css("min-width","1100px");
     
     // Unset "onWiki" cookie. --timathom
     if ( getCookie('onWiki') == 'true' )

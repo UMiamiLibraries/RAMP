@@ -1,5 +1,7 @@
 $(document).ready(function () {      
    
+   $('html').css("min-width","1100px");
+   
    // Added jQuery UI example tooltip. --timathom
    $(this).tooltip(
     		      {

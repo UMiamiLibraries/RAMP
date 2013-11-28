@@ -274,7 +274,7 @@ function displayWikiSearch( lobjTitles, callback )
     $('.main_edit').hide();
     $('.wiki_edit').hide();
 
-    var lstrHTML = "<div class=\"form_container\" style=\"top: 45px;\"><div class=\"user_help_form\" style=\"line-height:1em;\">";
+    var lstrHTML = "<div class=\"form_container\"><div class=\"user_help_form\" style=\"line-height:1em;\">";
     
     lstrHTML += "<button id=\"get_chosen_wiki\" class=\"pure-button pure-button-secondary\">Use Selected Title</button>";
     lstrHTML += "<button id=\"get_chosen_wiki_no_match\" class=\"pure-button pure-button-secondary\">No Match (Create New)</button>";
@@ -688,7 +688,7 @@ function postWiki( lstrWiki, lstrComments, lboolDraft, lstrCaptchaAnswer, lstrCa
  */
 function displayCaptcha( lstrUrl, lstrCaptchaId, lboolDraft )
 {
-    var lstrHTML = "<div class=\"form_container\" style=\"top: 50px;\"><div class=\"user_help_form\">";
+    var lstrHTML = "<div class=\"form_container\"><div class=\"user_help_form\">";
 
     lstrHTML += "<div id=\"captcha_div\"><h3 class=\"captcha\">Please Solve CAPTCHA</h3><br/>";
     lstrHTML += "<img class=\"captcha\" src=\"" + lstrUrl +"\" /><br/>";
