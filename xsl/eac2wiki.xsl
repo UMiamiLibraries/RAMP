@@ -474,13 +474,7 @@
         	<xsl:if test="position() = last()">        		        	
 	        	<!-- For LOC finding aids, include a reference to the default US Gov public domain template. -->
 	        	<xsl:if test="contains(../../../../../eac:control/eac:sources/eac:source/@xlink:href,'loc.gov')">            				            				        		
-	        		<xsl:text>&lt;ref&gt;{{USGovernment|sourceURL=[</xsl:text>
-	        		<xsl:value-of select="../../../../../eac:control/eac:sources/eac:source/@xlink:href"/>
-	        		<xsl:text> </xsl:text>
-	        		<xsl:value-of select="../../../../../eac:control/eac:sources/eac:source/eac:sourceEntry[1]"/>
-	        		<xsl:text>]|author=the Manuscript Division Staff of the [[Library of Congress]]|accessdate=</xsl:text>
-	        		<xsl:value-of select="../../../../../eac:control/eac:maintenanceHistory/eac:maintenanceEvent/eac:eventDateTime/@standardDateTime"/>        		
-	        		<xsl:text>}}&lt;/ref&gt;</xsl:text>	        		
+	        		<xsl:text>&lt;ref name="LOCMD"/&gt;</xsl:text>	        			        	
 	        	</xsl:if>
         	</xsl:if>
             <xsl:text>}}</xsl:text>
@@ -746,7 +740,7 @@
     				<xsl:with-param name="pCorpName" select="$pCorpName" />
     			</xsl:call-template>
     			<xsl:text>&#10;</xsl:text>
-    		</xsl:when>
+    		</xsl:when>    		    		    		
     		<!-- Or to Forward to Libraries template and link to finding aid. -->	
     		<xsl:when test="contains(eac:eac-cpf/eac:control/eac:sources/eac:source/@xlink:href,'loc.gov')">
 	    		<xsl:text>{{Library resources box</xsl:text>
@@ -775,8 +769,28 @@
     			<xsl:text> </xsl:text>
     			<xsl:value-of select="eac:eac-cpf/eac:control/eac:sources/eac:source/eac:sourceEntry"/>
     			<xsl:text>] at the [http://www.loc.gov/rr/mss/ Library of Congress Manuscripts Division].</xsl:text>
-    			<xsl:text>&#10;</xsl:text>    			
+    			<xsl:text>&#10;</xsl:text>
+    			<xsl:text>{{Reflist|refs=</xsl:text>
+    			<xsl:text>&#10;</xsl:text>
+    			<xsl:text>&lt;ref name="LOCMD"&gt;{{USGovernment</xsl:text>
+    			<xsl:text>&#10;</xsl:text>
+    			<xsl:text>|sourceURL=[</xsl:text>
+    			<xsl:value-of select="eac:eac-cpf/eac:control/eac:sources/eac:source/@xlink:href"/>
+    			<xsl:text> </xsl:text>
+    			<xsl:value-of select="eac:eac-cpf/eac:control/eac:sources/eac:source/eac:sourceEntry[1]"/>    			
+    			<xsl:text>]</xsl:text>
+    			<xsl:text>&#10;</xsl:text>
+    			<xsl:text>|author=the Manuscript Division Staff of the [[Library of Congress]]</xsl:text>
+    			<xsl:text>&#10;</xsl:text>
+    			<xsl:text>|accessdate=</xsl:text>
+    			<xsl:value-of select="eac:eac-cpf/eac:control/eac:maintenanceHistory/eac:maintenanceEvent/eac:eventDateTime/@standardDateTime"/>
+    			<xsl:text>&#10;</xsl:text>
+    			<xsl:text>}}&lt;/ref&gt;</xsl:text>
+    			<xsl:text>&#10;</xsl:text>
+    			<xsl:text>}}</xsl:text>   
+    			<xsl:text>&#10;</xsl:text>
     		</xsl:when>
+    		
     	</xsl:choose>    	    	
         <xsl:choose>
             <xsl:when test="eac:eac-cpf/eac:control/eac:otherRecordId[@localType='WCI']">
@@ -801,7 +815,7 @@
                 <xsl:value-of select="translate(eac:eac-cpf/eac:control/eac:otherRecordId[@localType='WCI'],' ','+')" />
                 <xsl:text>}}</xsl:text>
                 <xsl:text>&#10;</xsl:text>
-            </xsl:when>
+            </xsl:when>        	        	        	
             <xsl:when test="eac:eac-cpf/eac:cpfDescription/eac:relations/eac:resourceRelation[@xlink:role='archivalRecords']">
                 <!-- Check for archival/digital collections created by or associated with the person or corporate body. -->
                 <xsl:for-each select="eac:eac-cpf/eac:cpfDescription/eac:relations/eac:resourceRelation[@xlink:role='archivalRecords']">
