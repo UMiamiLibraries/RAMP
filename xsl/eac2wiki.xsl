@@ -544,12 +544,32 @@
     					</xsl:otherwise>
     				</xsl:choose>
     				<xsl:value-of select="normalize-space(@xlink:href)" />
-    				<xsl:text>#bioghist </xsl:text>
+    				<xsl:text> </xsl:text>
     				<xsl:value-of select="normalize-space(eac:sourceEntry)" />
     				<xsl:text>]," </xsl:text>
     				<xsl:value-of select="$pFindingAidInfo" />
     				<xsl:text>&#10;</xsl:text>
     			</xsl:for-each>
+    			<!-- Reflist template. -->
+    			<xsl:text>{{Reflist|refs=</xsl:text>
+    			<xsl:text>&#10;</xsl:text>
+    			<xsl:text>&lt;ref name="LOCMD"&gt;{{USGovernment</xsl:text>
+    			<xsl:text>&#10;</xsl:text>
+    			<xsl:text>|sourceURL=[</xsl:text>
+    			<xsl:value-of select="eac:eac-cpf/eac:control/eac:sources/eac:source/@xlink:href"/>
+    			<xsl:text> </xsl:text>
+    			<xsl:value-of select="eac:eac-cpf/eac:control/eac:sources/eac:source/eac:sourceEntry[1]"/>    			
+    			<xsl:text>]</xsl:text>
+    			<xsl:text>&#10;</xsl:text>
+    			<xsl:text>|author=the Manuscript Division Staff of the [[Library of Congress]]</xsl:text>
+    			<xsl:text>&#10;</xsl:text>
+    			<xsl:text>|accessdate=</xsl:text>
+    			<xsl:value-of select="eac:eac-cpf/eac:control/eac:maintenanceHistory/eac:maintenanceEvent/eac:eventDateTime/@standardDateTime"/>
+    			<xsl:text>&#10;</xsl:text>
+    			<xsl:text>}}&lt;/ref&gt;</xsl:text>
+    			<xsl:text>&#10;</xsl:text>
+    			<xsl:text>}}</xsl:text>   
+    			<xsl:text>&#10;</xsl:text>
     		</xsl:when>    				    	
     		<xsl:when test="//eac:citation">
     			<!-- Add any citation elements. -->
@@ -769,28 +789,8 @@
     			<xsl:text> </xsl:text>
     			<xsl:value-of select="eac:eac-cpf/eac:control/eac:sources/eac:source/eac:sourceEntry"/>
     			<xsl:text>] at the [http://www.loc.gov/rr/mss/ Library of Congress Manuscripts Division].</xsl:text>
-    			<xsl:text>&#10;</xsl:text>
-    			<xsl:text>{{Reflist|refs=</xsl:text>
-    			<xsl:text>&#10;</xsl:text>
-    			<xsl:text>&lt;ref name="LOCMD"&gt;{{USGovernment</xsl:text>
-    			<xsl:text>&#10;</xsl:text>
-    			<xsl:text>|sourceURL=[</xsl:text>
-    			<xsl:value-of select="eac:eac-cpf/eac:control/eac:sources/eac:source/@xlink:href"/>
-    			<xsl:text> </xsl:text>
-    			<xsl:value-of select="eac:eac-cpf/eac:control/eac:sources/eac:source/eac:sourceEntry[1]"/>    			
-    			<xsl:text>]</xsl:text>
-    			<xsl:text>&#10;</xsl:text>
-    			<xsl:text>|author=the Manuscript Division Staff of the [[Library of Congress]]</xsl:text>
-    			<xsl:text>&#10;</xsl:text>
-    			<xsl:text>|accessdate=</xsl:text>
-    			<xsl:value-of select="eac:eac-cpf/eac:control/eac:maintenanceHistory/eac:maintenanceEvent/eac:eventDateTime/@standardDateTime"/>
-    			<xsl:text>&#10;</xsl:text>
-    			<xsl:text>}}&lt;/ref&gt;</xsl:text>
-    			<xsl:text>&#10;</xsl:text>
-    			<xsl:text>}}</xsl:text>   
-    			<xsl:text>&#10;</xsl:text>
-    		</xsl:when>
-    		
+    			<xsl:text>&#10;</xsl:text>    			
+    		</xsl:when>    		
     	</xsl:choose>    	    	
         <xsl:choose>
             <xsl:when test="eac:eac-cpf/eac:control/eac:otherRecordId[@localType='WCI']">
