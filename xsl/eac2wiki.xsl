@@ -47,8 +47,7 @@
     	<xsl:text>&#10;</xsl:text>
         <xsl:if test="eac:eac-cpf/eac:cpfDescription/eac:relations/eac:resourceRelation/eac:objectXMLWrap/ead:archdesc/ead:scopecontent or $pBiogHist/eac:abstract">
             <xsl:text>&lt;!-- The following info about the collection that may contain relevant historical details and that may be useful for providing a brief description of the "External link" to the finding aid from Wikipedia. This text should be deleted after relevant information has been incorporated into the Wikipedia entry: --&gt;</xsl:text>
-        	<xsl:text>&#10;</xsl:text>
-        	<xsl:text>&#10;</xsl:text>
+        	<xsl:text>&#10;</xsl:text>        	
         </xsl:if>
         <xsl:if test="eac:eac-cpf/eac:cpfDescription/eac:relations/eac:resourceRelation/eac:objectXMLWrap/ead:archdesc/ead:scopecontent">
         	<xsl:text>&#10;</xsl:text>
@@ -63,14 +62,14 @@
                     <xsl:otherwise />
                 </xsl:choose>
             </xsl:for-each>
-            <xsl:text> --&gt;&#10;</xsl:text>
+            <xsl:text> --&gt;</xsl:text>
+        	<xsl:text>&#10;</xsl:text>
         	<xsl:text>&#10;</xsl:text>
         </xsl:if>
         <xsl:if test="$pBiogHist/eac:abstract">
             <xsl:text>&lt;!-- </xsl:text>
             <xsl:value-of select="normalize-space($pBiogHist/eac:abstract)" />
-            <xsl:text> --&gt;</xsl:text>
-        	<xsl:text>&#10;</xsl:text>
+            <xsl:text> --&gt;</xsl:text>        	
         	<xsl:text>&#10;</xsl:text>
             <xsl:choose>
                 <xsl:when test="following-sibling::eac:p">
@@ -155,8 +154,7 @@
     	<xsl:text>&#10;</xsl:text>
         <xsl:if test="eac:eac-cpf/eac:cpfDescription/eac:relations/eac:resourceRelation/eac:objectXMLWrap/ead:archdesc/ead:scopecontent or $pBiogHist/eac:abstract">
             <xsl:text>&lt;!-- The following info about the collection that may contain relevant historical details and that may be useful for providing a brief description of the "External link" to the finding aid from Wikipedia. This text should be deleted after relevant information has been incorporated into the Wikipedia entry: --&gt;</xsl:text>
-        	<xsl:text>&#10;</xsl:text>
-        	<xsl:text>&#10;</xsl:text>
+        	<xsl:text>&#10;</xsl:text>        	
         </xsl:if>
         <xsl:if test="eac:eac-cpf/eac:cpfDescription/eac:relations/eac:resourceRelation/eac:objectXMLWrap/ead:archdesc/ead:scopecontent">
         	<xsl:text>&#10;</xsl:text>
@@ -171,15 +169,15 @@
                     <xsl:otherwise />
                 </xsl:choose>
             </xsl:for-each>
-            <xsl:text> --&gt;&#10;</xsl:text>
+            <xsl:text> --&gt;</xsl:text>
+        	<xsl:text>&#10;</xsl:text>
             <xsl:text>&#10;</xsl:text>
         </xsl:if>
         <xsl:if test="$pBiogHist/eac:abstract">
             <xsl:text>&lt;!-- </xsl:text>
             <xsl:value-of select="normalize-space($pBiogHist/eac:abstract)" />
             <xsl:text> --&gt;</xsl:text>
-            <xsl:text>&#10;</xsl:text>
-            <xsl:text>&#10;</xsl:text>
+            <xsl:text>&#10;</xsl:text>            
             <xsl:choose>
                 <xsl:when test="following-sibling::eac:p">
                     <xsl:text>&#10;</xsl:text>
