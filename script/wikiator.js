@@ -38,7 +38,7 @@ function confirmWikiSubmit( callback )
  */
 function setupWikiLogin( callback )
 {
-    $('body').append("<div id=\"dialog-form\" title=\"Wiki Login\"> \
+    $('body').append("<div id=\"dialog-form\" title=\"Please log in to Wikipedia.\"> \
 <p class=\"validate-prompt\">Cannot be blank!</p> \
 <form> \
 <fieldset> \
@@ -52,7 +52,7 @@ function setupWikiLogin( callback )
 </form></div>");
 
     //display login form
-    makePromptDialog('#dialog-form', 'Wiki Login', function(dialog)
+    makePromptDialog('#dialog-form', 'Please log in to Wikipedia.', function(dialog)
 		     {
 			 var lstrUserName = $('input[name="username"]').val();
 			 var lstrPassword = $('input[name="password"]').val();
@@ -202,7 +202,7 @@ function searchWiki( lstrSearch )
 
 
 
-    $('body').append("<div id=\"dialog-form\" title=\"Wiki search\"> \
+    $('body').append("<div id=\"dialog-form\" title=\"Search Wikipedia\"> \
 <p class=\"validate-prompt\">Cannot be blank!</p> \
 <form> \
 <fieldset> \
@@ -215,7 +215,7 @@ function searchWiki( lstrSearch )
 
 
     //propt user to enter search string for wiki search
-    makePromptDialog('#dialog-form', 'Wiki Search', function(dialog)
+    makePromptDialog('#dialog-form', 'Search Wikipedia', function(dialog)
 		     {
 			 var lstrUserSearch = $('input[name="search"]').val();
 
@@ -566,16 +566,16 @@ function getUserComments( lboolDraft )
 {
     lboolDraft = typeof lboolDraft == 'undefined' ? false : lboolDraft;
 
-    $('body').append("<div id=\"dialog-form\" title=\"Wiki Comments\"> \
+    $('body').append("<div id=\"dialog-form\" title=\"Wikipedia Comment\"> \
 <p class=\"validate-prompt\">Cannot be blank!</p> \
 <form> \
 <fieldset> \
-<label for=\"title\">Comments</label> \
+<label for=\"title\">Comment</label> \
 <input name=\"comments\" id=\"comments\" size=\"75\" maxlength=\"255\" /> \
 </fieldset> \
 </form></div>");
 
-    makePromptDialog('#dialog-form', 'Wiki Comment: please explain and document your edits', function(dialog)
+    makePromptDialog('#dialog-form', 'Wikipedia comment: please explain and document your edits', function(dialog)
 		     {
 			 var lstrComments = $('input[name="comments"]').val();
 

@@ -457,7 +457,20 @@ class WorldCat_Ingestor extends Ingestor
 			    $lobjCPFRelationNode['attributes']['xlink:href'] = "http://id.loc.gov/authorities/names/" . substr(preg_replace('/-/','0',$lobjIdentity['id']),5);
 			}
 			
-			$lobjCPFRelationNode['attributes']['xlink:role'] = "http://rdvocab.info/uri/schema/FRBRentitiesRDA/Person";
+			// Try to differentiate between persons and corporate bodies... Brute force method could be improved by looking up lccn.
+			if( strpos( $lobjIdentity['name'], ', ') === false )
+			{			
+				$lobjCPFRelationNode['attributes']['xlink:role'] = "http://rdvocab.info/uri/schema/FRBRentitiesRDA/CorporateBody";
+			}
+			if( strpos( $lobjIdentity['name'], 'family') !== false )
+			{
+				$lobjCPFRelationNode['attributes']['xlink:role'] = "http://rdvocab.info/uri/schema/FRBRentitiesRDA/Family";
+			}
+			if( strpos( $lobjIdentity['name'], ', ') !== false )
+			{
+				$lobjCPFRelationNode['attributes']['xlink:role'] = "http://rdvocab.info/uri/schema/FRBRentitiesRDA/Person";
+			}
+			
 			$lobjCPFRelationNode['attributes']['xlink:type'] = "simple";
 
             /*
