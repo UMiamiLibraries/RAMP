@@ -575,7 +575,7 @@ function getUserComments( lboolDraft )
 </fieldset> \
 </form></div>");
 
-    makePromptDialog('#dialog-form', 'Wikipedia comment: please explain and document your edits', function(dialog)
+    makePromptDialog('#dialog-form', 'Wikipedia comment: please explain and document your edits.', function(dialog)
 		     {
 			 var lstrComments = $('input[name="comments"]').val();
 
