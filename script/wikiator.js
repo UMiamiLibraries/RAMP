@@ -31,7 +31,6 @@ function confirmWikiSubmit( callback )
 
 }
 
-
 /*
  * setupWikiLogin displays a form for the editor to login to wikipedia
  * @method setupWikiLogin
