@@ -36,10 +36,12 @@
     <xsl:param name="pDiscServ">http://miami.summon.serialssolutions.com/search?spellcheck=true&amp;s.q=</xsl:param>
     
     <!-- Parameter for finding aid citation info. -->
-    <xsl:param name="pFindingAidInfo">Miami, FL: University of Miami Libraries, [YYYY].</xsl:param>
+    <xsl:param name="pFindingAidInfo">    	
+    	<xsl:text>| publisher = University of Miami Libraries</xsl:text>    	   
+    </xsl:param>
     
     <!-- Declare variables for basic pattern matching. -->    
-    <xsl:variable name="vUpper" select="'AÁÀBCDEÉÈFGHIÍJKLMNÑOÓPQRŔSTUÚÜVWXYZ'"/>
+    <xsl:variable name="vUpper" select="'AÁÀBCDEÉÈFGHIÍJKLMNÑOÓPQRSTUÚÜVWXYZ'"/>
     
     <xsl:variable name="vLower" select="'aáàbcdeéèfghiíjklmnñoópqrstuúüvwxyz'"/>
     

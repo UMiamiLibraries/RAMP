@@ -845,8 +845,7 @@
                 </xsl:choose>
             </xsl:otherwise>
         </xsl:choose>
-    </xsl:template>
-	<!-- Recursive template to turn "\n\n" into <p> tags. Formerly used for processing biography from new record form. Now defunct. -->
+    </xsl:template>	
 	<xsl:template name="tCreatorSplitter">
 		<xsl:param name="pCreators" />		
 		<xsl:choose>
