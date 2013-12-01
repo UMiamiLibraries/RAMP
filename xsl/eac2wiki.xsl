@@ -1170,24 +1170,31 @@
         <xsl:param name="pBiogHist" />
         <xsl:text>&#10;</xsl:text>
         <xsl:if test="$pNameType='person'">
-            <xsl:if test="eac:eac-cpf/eac:cpfDescription/eac:description/eac:existDates/eac:dateRange/eac:fromDate!=''">
-                <xsl:text>[[Category:</xsl:text>
-                <xsl:call-template name="tNameDateParser">
-                    <xsl:with-param name="pBirthYr" select="'true'" />
-                    <xsl:with-param name="pCheckInfo" select="'false'" />
-                </xsl:call-template>
-                <xsl:text> births]]</xsl:text>
-                <xsl:text>&#10;</xsl:text>
-            </xsl:if>
-            <xsl:if test="eac:eac-cpf/eac:cpfDescription/eac:description/eac:existDates/eac:dateRange/eac:toDate!=''">
-                <xsl:text>[[Category:</xsl:text>
-                <xsl:call-template name="tNameDateParser">
-                    <xsl:with-param name="pDeathYr" select="'true'" />
-                    <xsl:with-param name="pCheckInfo" select="'false'" />
-                </xsl:call-template>
-                <xsl:text> deaths]]</xsl:text>
-                <xsl:text>&#10;</xsl:text>
-            </xsl:if>
+        	<!-- Output birth and death categories, if applicable. -->
+        	<xsl:variable name="vBirthTest">
+        		<xsl:call-template name="tNameDateParser">
+        			<xsl:with-param name="pBirthYr" select="'true'" />
+        			<xsl:with-param name="pCheckInfo" select="'false'" />
+        		</xsl:call-template>	
+        	</xsl:variable>
+        	<xsl:variable name="vDeathTest">
+        		<xsl:call-template name="tNameDateParser">
+        			<xsl:with-param name="pDeathYr" select="'true'" />
+        			<xsl:with-param name="pCheckInfo" select="'false'" />
+        		</xsl:call-template>	
+        	</xsl:variable>
+        	<xsl:if test="$vBirthTest!=''">
+        		<xsl:text>[[Category:</xsl:text>
+        		<xsl:value-of select="$vBirthTest"/>
+        		<xsl:text> births]]</xsl:text>
+        		<xsl:text>&#10;</xsl:text>        
+        	</xsl:if>
+        	<xsl:if test="$vDeathTest!=''">
+        		<xsl:text>[[Category:</xsl:text>
+        		<xsl:value-of select="$vDeathTest"/>
+        		<xsl:text> deaths]]</xsl:text>
+        		<xsl:text>&#10;</xsl:text>    	
+        	</xsl:if>    
             <xsl:if test="eac:eac-cpf/eac:cpfDescription/eac:description/eac:localDescription[@localType[contains(.,'6')]]|eac:eac-cpf/eac:cpfDescription/eac:description/eac:localDescription[@localType='subject']">
                 <xsl:text>&#10;</xsl:text>
                 <xsl:text>&lt;!-- Note: the following categories have been generated from the the EAC input form, the original EAD finding aid, or else using FAST headings added from WorldCat Identities. These categories should be replaced with appropriate Wikipedia categories (for example, using the HotCat tool).</xsl:text>
