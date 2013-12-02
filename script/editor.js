@@ -108,20 +108,28 @@ $(document).ready(function() {
 	        fetch_xml = editor.getValue();
         
             $('#download_xml').val(fetch_xml);
-            var file_path = getCookie('entity_name');
             
+            // Get file name from cookie.
+            var file_path = getCookie('ead_file_last');
+            
+            var find_ead = "ead/";
+            
+            file_path = file_path.substring(file_path.indexOf(find_ead) + find_ead.length); 
+                        
             //file_path = file_path.match(/\/ead\/(.*)/)[1]; // file name as ID
-            file_path = file_path.toLowerCase(); // file name as entity name
-            file_path = file_path.replace(/(,\s)|(\s)/g, "_")
+            file_path = file_path.toLowerCase(); // file name as entity name            
+            file_path = file_path.replace(/(,\s)|(\s)/g, "_");
+            //file_path = file_path.replace(/(.)/g, "");
             
+            /*
             var last_char = file_path.substr( file_path.length - 1 );
                    
             if( last_char == "." )
             {
                 file_path = file_path.slice(0, -1);
             }
-            
-            file_path += ".xml";
+            */
+            //file_path += ".xml";
                                   
             $('#file_name').val(file_path);
             
