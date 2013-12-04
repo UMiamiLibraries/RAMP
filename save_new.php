@@ -808,16 +808,16 @@ function stripslashes_array(&$arr, $mysqli) {
             foreach ($v as $vk => &$vv) {            
                 $v[$vk] = trim($vv);
                 $v[$vk] = mysqli_real_escape_string($mysqli,$vv);
-                $v[$vk] = stripslashes(htmlspecialchars(strip_tags($vv,"<p>")));
+                $v[$vk] = htmlspecialchars(strip_tags($vv,"<p>"));
                 $v[$vk] = preg_replace('#&lt;(/?[pi])&gt;#', '<$1>', $vv);
-                $v[$vk] = preg_replace('/\n+/', '&#10;', $vv);                
+                $v[$vk] = str_replace('\n', '&#10;', $vv);                
             }
         } else {
             $arr[$k] = trim($v);
             $arr[$k] = mysqli_real_escape_string($mysqli,$v);
-            $arr[$k] = stripslashes(htmlspecialchars(strip_tags($v,"<p>")));
+            $arr[$k] = htmlspecialchars(strip_tags($v,"<p>"));
             $arr[$k] = preg_replace('#&lt;(/?[pi])&gt;#', '<$1>', $v);
-            $arr[$k] = preg_replace('/\n+/', '&#10;', $v);                	        
+            $arr[$k] = str_replace('\n', '&#10;', $v);                	        
         }
     }    
 }
