@@ -456,8 +456,8 @@
             <xsl:text>{{timeline-item|</xsl:text>
             <xsl:text>{{start date|</xsl:text>
             <xsl:choose>
-                <xsl:when test="eac:date">
-                    <xsl:value-of select="eac:date" />
+                <xsl:when test="eac:date/@standardDate">
+                    <xsl:value-of select="translate(eac:date/@standardDate,'-','|')" />
                 </xsl:when>
                 <xsl:otherwise>
                     <xsl:value-of select="eac:dateRange/eac:fromDate" />
