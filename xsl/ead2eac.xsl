@@ -1523,7 +1523,7 @@
                             </dateRange>
                         </xsl:when>
                         <xsl:otherwise>
-                            <xsl:if test="../following-sibling::ead:note[@type='occuDateTo'][@label=$vOccuLabel]">
+                            <xsl:if test="../following-sibling::ead:note[@type='occuDateTo'][@label=$vOccuLabel]!=''">
                                 <dateRange>
                                     <xsl:choose>
                                         <xsl:when test="../following-sibling::ead:note[@type='occuStandardTo'][@label=$vOccuLabel]/ead:p!=''">

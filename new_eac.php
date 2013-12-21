@@ -1165,6 +1165,44 @@ jQuery(document).ready(function()
           window.setTimeout(slowreload, 1000);
           
         }
+        else
+        {
+            lobjFormElements['genders'] = [];
+            lobjFormElements['genderDatesFrom'] = [];
+            lobjFormElements['genderDatesTo'] = [];
+            lobjFormElements['langNames'] = [];
+            lobjFormElements['langCodes'] = [];
+            lobjFormElements['scriptNames'] = [];
+            lobjFormElements['scriptCodes'] = [];
+            lobjFormElements['subjects'] = [];
+            lobjFormElements['genres'] = [];
+            lobjFormElements['occupations'] = [];
+            lobjFormElements['occuDatesFrom'] = [];
+            lobjFormElements['occuStandardFrom'] = [];
+            lobjFormElements['occuDatesTo'] = [];
+            lobjFormElements['occuStandardTo'] = [];
+            lobjFormElements['placeEntries'] = [];
+            lobjFormElements['placeRoles'] = [];
+            lobjFormElements['placeDatesFrom'] = [];
+            lobjFormElements['placeStandardFrom'] = [];
+            lobjFormElements['placeDatesTo'] = [];
+            lobjFormElements['placeStandardTo'] = [];
+            lobjFormElements['citations'] = [];
+            lobjFormElements['cpfTypes'] = [];
+            lobjFormElements['cpfRoles'] = [];
+            lobjFormElements['cpfs'] = [];
+            lobjFormElements['cpfIDs'] = [];
+            lobjFormElements['cpfURIs'] = [];
+            lobjFormElements['cpfNotes'] = [];
+            lobjFormElements['resourceTypes'] = [];
+            lobjFormElements['resourceRoles'] = [];
+            lobjFormElements['resources'] = [];
+            lobjFormElements['resourceCreators'] = [];
+            lobjFormElements['resourceIDs'] = [];
+            lobjFormElements['resourceURIs'] = [];
+            lobjFormElements['resourceNotes'] = [];
+            lobjFormElements['sources'] = [];
+        }        
           
       });
     

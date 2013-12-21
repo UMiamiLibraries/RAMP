@@ -494,18 +494,27 @@ for ($i = 0; $i < $countSources; $i++) {
 if (file_exists(  $_POST["dir"] . '/' . $file_name_lower . '.xml')) {
 
   echo "A record with this name already exists.";
+  
+  $_POST = array();
 
 }
 elseif( $file_name_lower == "" ) {    
+	
 	echo "Record not saved. File name is empty.";	
 	
 	if( $cleanedArray["entity"] == "" ) {
 	   echo " You must also choose an entity type.";	   
     }
     
+    $_POST = array();
+    
 }
 elseif( $cleanedArray["entity"] == "" ) {
+    
     echo "Record not saved. Must choose an entity type.";	
+    
+    $_POST = array();
+    
 } else {
   touch(  $_POST["dir"] . '/' . $file_name_lower . '.xml');
 
