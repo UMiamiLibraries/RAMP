@@ -1506,7 +1506,7 @@
                                         </xsl:otherwise>
                                     </xsl:choose>
                                 </xsl:if>
-                                <xsl:if test="../following-sibling::ead:note[@type='occuDateTo'][@label=$vOccuLabel]">
+                                <xsl:if test="../following-sibling::ead:note[@type='occuDateTo'][@label=$vOccuLabel]!=''">
                                     <xsl:choose>
                                         <xsl:when test="../following-sibling::ead:note[@type='occuStandardTo'][@label=$vOccuLabel]/ead:p!=''">
                                             <toDate standardDate="{normalize-space(../following-sibling::ead:note[@type='occuStandardTo'][@label=$vOccuLabel]/ead:p)}">
