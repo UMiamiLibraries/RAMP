@@ -458,19 +458,28 @@ class WorldCat_Ingestor extends Ingestor
 			}
 			
 			// Try to differentiate between persons and corporate bodies... Brute force method could be improved by looking up lccn.
-			if( strpos( $lobjIdentity['name'], ', ') === false )
-			{			
-				$lobjCPFRelationNode['attributes']['xlink:role'] = "http://rdvocab.info/uri/schema/FRBRentitiesRDA/CorporateBody";
+			
+			if( preg_match( "/[0-9]/", $lobjIdentity['name'] ) < 4 && preg_match( "/Queen|King|Princess|Prince|Duchess|Duke/", $lobjIdentity['name'] ) == 0 )
+			{
+     			if( strpos( $lobjIdentity['name'], ', ' ) === false || preg_match( "/\(.*,/", $lobjIdentity['name'] ) > 0 || preg_match( "/,\sand\s/", $lobjIdentity['name'] ) > 0 )
+     			{			
+     				$lobjCPFRelationNode['attributes']['xlink:role'] = "http://rdvocab.info/uri/schema/FRBRentitiesRDA/CorporateBody";
+     			}
 			}
 			if( strpos( $lobjIdentity['name'], 'family') !== false )
 			{
 				$lobjCPFRelationNode['attributes']['xlink:role'] = "http://rdvocab.info/uri/schema/FRBRentitiesRDA/Family";
 			}
-			if( strpos( $lobjIdentity['name'], ', ') !== false )
-			{
-				$lobjCPFRelationNode['attributes']['xlink:role'] = "http://rdvocab.info/uri/schema/FRBRentitiesRDA/Person";
-			}
-			
+			if( strpos( $lobjIdentity['name'], ', ') !== false || preg_match( "/Queen|King|Princess|Prince|Duchess|Duke/", $lobjIdentity['name'] ) > 0 )
+			{ 
+     			if( preg_match( "/,\sand\s/", $lobjIdentity['name'] ) == 0 || preg_match( "/[0-9]/", $lobjIdentity['name'] ) >= 4 )
+     			{         
+                    if( preg_match( "/\(.*,/", $lobjIdentity['name'] ) == 0 )
+                    {
+                        $lobjCPFRelationNode['attributes']['xlink:role'] = "http://rdvocab.info/uri/schema/FRBRentitiesRDA/Person";
+                    }          
+     			}
+     	    }
 			$lobjCPFRelationNode['attributes']['xlink:type'] = "simple";
 
             /*

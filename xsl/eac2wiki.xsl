@@ -1321,7 +1321,7 @@
                 <xsl:for-each select="eac:eac-cpf/eac:cpfDescription/eac:relations/eac:cpfRelation">
                     <xsl:sort select="translate(eac:relationEntry[1],'ÁÀÉÈÍÓÚÜÑáàéèíóúúüñ','AAEEIOUUNaaeeiouuun')" data-type="text" />
                     <xsl:choose>
-                        <xsl:when test="contains(eac:relationEntry,', ')">
+                        <xsl:when test="contains(@xlink:role,'Person')">
                             <xsl:text>* [[</xsl:text>
                             <xsl:call-template name="tParseName2">
                                 <xsl:with-param name="pNameType">person</xsl:with-param>

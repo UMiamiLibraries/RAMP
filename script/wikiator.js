@@ -569,12 +569,12 @@ function getUserComments( lboolDraft )
 <p class=\"validate-prompt\">Cannot be blank!</p> \
 <form> \
 <fieldset> \
-<label for=\"title\">Comment</label> \
-<input name=\"comments\" id=\"comments\" size=\"75\" maxlength=\"255\" /> \
+<label for=\"title\">Edit summary</label> \
+<input name=\"comments\" id=\"comments\" size=\"100\" maxlength=\"300\" value=\"... using the [[Wikipedia:Tools/RAMP_editor|RAMP editor]].\" /> \
 </fieldset> \
 </form></div>");
 
-    makePromptDialog('#dialog-form', 'Wikipedia comment: please explain and document your edits.', function(dialog)
+    makePromptDialog('#dialog-form', 'Please summarize your edits. A reference to the RAMP editor has been added for you.', function(dialog)
 		     {
 			 var lstrComments = $('input[name="comments"]').val();
 

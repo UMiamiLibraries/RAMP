@@ -375,25 +375,29 @@ ul, menu, dir {
 
 .ingest-cancel {
   background:#0078e7;
-  margin-left:5px;    
+  margin-left:2%;
+  margin-top: 2%;
 }
 
 .ingest-ok {
   margin-left: 2%;
+  margin-top: 2%;
   background:#0078e7;  
 }
 
 .instruction {
-    margin-right: 70%;
+    margin-right: 2%;
     margin-left: 2%;
-    margin-top: 1%;
-    font-size: 1.4em;
-    margin-bottom: 1%;
-    text-align:justify;
+    margin-top: 5%;
+    margin-bottom: 5%;
+    font-size: 1.4em;    
+    text-align:left;
 }
 
 .instruction_div {
-    margin-bottom:1%;    
+    margin-left:1%;
+    margin-bottom:1%;        
+    width:30%;
 }
 
 .labelHeader label {
@@ -590,6 +594,11 @@ button.on {
     width: 250px;
 }
 
+.ui-dialog .ui-dialog-title {
+    width:100%;
+    overflow:visible;
+}
+
 .ui-dialog, .ui-widget-overlay
 {
     z-index: 501;
@@ -598,6 +607,7 @@ button.on {
 .ui-dialog-titlebar-close {
   /*visibility: hidden;*/
 }
+
 
 .update_button {
     margin-left: .5%;
@@ -608,11 +618,12 @@ button.on {
     padding:.5%;
 	font-size:1.25em;
 	line-height:1.5em;
-	left: 32%;
+	left: 15%;
     /* margin-left: -240px; */
     position: absolute;
     top: 0;
-    width: 900px;
+    /* width: 900px; */
+    margin-left:20%;
     /* height: 1000px; */
 }
 
@@ -1040,13 +1051,13 @@ button#gtselectedtext:focus {
 }
 
 #ingest_worldcat_chosen_subjects {
-    margin-left:2%;
+    /* margin-left:2%; */
+    margin-top:2%;
     background:#0078e7;
 }
 
 #ingest_worldcat_chosen_subjects_cancel {
-    background:#0078e7;
-    margin-left:5px;
+    background:#0078e7;    
 }
 
 #intro_box {
