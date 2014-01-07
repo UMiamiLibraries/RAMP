@@ -819,14 +819,15 @@ function stripslashes_array(&$arr, $mysqli) {
                 $v[$vk] = mysqli_real_escape_string($mysqli,$vv);
                 $v[$vk] = htmlspecialchars(strip_tags($vv,"<p>"));
                 $v[$vk] = preg_replace('#&lt;(/?[pi])&gt;#', '<$1>', $vv);
-                $v[$vk] = str_replace('\n', '&#10;', $vv);                
+                $v[$vk] = str_replace('\n', '&#10;', $vv);
+                $v[$vk] = str_replace('\"', '&#34;', $vv);                
             }
         } else {
             $arr[$k] = trim($v);
             $arr[$k] = mysqli_real_escape_string($mysqli,$v);
             $arr[$k] = htmlspecialchars(strip_tags($v,"<p>"));
             $arr[$k] = preg_replace('#&lt;(/?[pi])&gt;#', '<$1>', $v);
-            $arr[$k] = str_replace('\n', '&#10;', $v);                	        
+            $arr[$k] = str_replace('\"', '&#34;', $v);                	        
         }
     }    
 }
