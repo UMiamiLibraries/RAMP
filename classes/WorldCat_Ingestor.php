@@ -361,7 +361,8 @@ class WorldCat_Ingestor extends Ingestor
         
         // Flatten MARC tags to "genre" and "subject."
 		foreach( $this->objAssociatedSubjects as $lobjSubject )
-		{
+		{		    
+		    
 			if( $lobjSubject['type'] != "") {
 			    if ($lobjSubject['type'] == '655') {
 			    
@@ -375,12 +376,14 @@ class WorldCat_Ingestor extends Ingestor
 				
             }
 
+            $lobjSubjectNode['elements']['term']['attributes']['vocabularySource'] = "FAST";
+
 			if( $lobjSubject['id'] != "" )
 				$lobjSubjectNode['elements']['term']['attributes']['xml:id'] = $lobjSubject['id'];
 				//$lobjSubjectNode['elements']['term']['attributes']['xmlns'] = "urn:isbn:1-931666-33-4";
 
 			if( $lobjSubject['name'] != "" )
-				$lobjSubjectNode['elements']['term']['elements'] = $lobjSubject['name'];
+				$lobjSubjectNode['elements']['term']['elements'] = $lobjSubject['name'];						    		   
 
 			$this->objElementList['subject'][] = $lobjSubjectNode;
 		}

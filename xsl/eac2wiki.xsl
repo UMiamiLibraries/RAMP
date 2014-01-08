@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:eac="urn:isbn:1-931666-33-4" xmlns:ead="urn:isbn:1-931666-22-9" xmlns:exsl="http://exslt.org/common" xmlns:xlink="http://www.w3.org/1999/xlink" extension-element-prefixes="exsl" exclude-result-prefixes="eac" version="1.0">
+    
     <!--
         Author: Timothy A. Thompson
         University of Miami Libraries
@@ -134,6 +135,49 @@
             <xsl:with-param name="pPersNameFore" select="$pPersNameFore" />
             <xsl:with-param name="pBiogHist" select="$pBiogHist" />
         </xsl:call-template>
+        <!-- For LOC finding aids, include a reference to the {{RAMP release pd}} template on the Talk page. -->
+        <xsl:choose>
+            <xsl:when test="contains(eac:eac-cpf/eac:control/eac:sources/eac:source/@xlink:href,'loc.gov')">            				            				        		
+                <xsl:text>&#10;</xsl:text>
+                <xsl:text>&#10;</xsl:text>
+                <xsl:text>&lt;!-- IMPORTANT: Please copy the following template to the Talk page of the current article, deleting these instructions:</xsl:text>
+                <xsl:text>&#10;</xsl:text>
+                <xsl:text>&#10;</xsl:text>
+                <xsl:text>{{RAMP release pd</xsl:text>
+                <xsl:text>&#10;</xsl:text>
+                <xsl:text>| title = </xsl:text>
+                <xsl:value-of select="eac:eac-cpf/eac:control/eac:sources/eac:source/eac:sourceEntry[1]"/>            
+                <xsl:text>&#10;</xsl:text>
+                <xsl:text>| url = </xsl:text>
+                <xsl:value-of select="eac:eac-cpf/eac:control/eac:sources/eac:source/@xlink:href"/>
+                <xsl:text>&#10;</xsl:text>
+                <xsl:text>}}</xsl:text>            
+                <xsl:text>&#10;</xsl:text>
+                <xsl:text>&#10;</xsl:text>
+                <xsl:text>--&gt;</xsl:text>
+                <xsl:text>&#10;</xsl:text>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:text>&#10;</xsl:text>
+                <xsl:text>&#10;</xsl:text>
+                <xsl:text>&lt;!-- IMPORTANT: After archiving the source website at http://webcitation.org/archive, please copy the following template to the Talk page of your Wikipedia article, deleting these instructions:</xsl:text>
+                <xsl:text>&#10;</xsl:text>
+                <xsl:text>&#10;</xsl:text>
+                <xsl:text>{{RAMP release</xsl:text>
+                <xsl:text>&#10;</xsl:text>                
+                <xsl:text>| url = </xsl:text>
+                <xsl:value-of select="eac:eac-cpf/eac:control/eac:sources/eac:source/@xlink:href"/>
+                <xsl:text>&#10;</xsl:text>
+                <xsl:text>| archive_url = </xsl:text>
+                <xsl:text>[to be obtained from http://webcitation.org/archive]</xsl:text>            
+                <xsl:text>&#10;</xsl:text>
+                <xsl:text>}}</xsl:text>            
+                <xsl:text>&#10;</xsl:text>
+                <xsl:text>&#10;</xsl:text>
+                <xsl:text>--&gt;</xsl:text>
+                <xsl:text>&#10;</xsl:text>
+            </xsl:otherwise>
+        </xsl:choose>        
     </xsl:template>
     <!-- Call templates for corporate bodies. -->
     <xsl:template name="tCorporateBody">
@@ -245,6 +289,49 @@
             <xsl:with-param name="pCorpName" select="$pCorpName" />
             <xsl:with-param name="pBiogHist" select="$pBiogHist" />
         </xsl:call-template>
+        <!-- For LOC finding aids, include a reference to the {{RAMP release pd}} template on the Talk page. -->
+        <xsl:choose>
+            <xsl:when test="contains(eac:eac-cpf/eac:control/eac:sources/eac:source/@xlink:href,'loc.gov')">            				            				        		
+                <xsl:text>&#10;</xsl:text>
+                <xsl:text>&#10;</xsl:text>
+                <xsl:text>&lt;!-- IMPORTANT: Please copy the following template to the Talk page of the current article, deleting these instructions:</xsl:text>
+                <xsl:text>&#10;</xsl:text>
+                <xsl:text>&#10;</xsl:text>
+                <xsl:text>{{RAMP release pd</xsl:text>
+                <xsl:text>&#10;</xsl:text>
+                <xsl:text>| title = </xsl:text>
+                <xsl:value-of select="eac:eac-cpf/eac:control/eac:sources/eac:source/eac:sourceEntry[1]"/>            
+                <xsl:text>&#10;</xsl:text>
+                <xsl:text>| url = </xsl:text>
+                <xsl:value-of select="eac:eac-cpf/eac:control/eac:sources/eac:source/@xlink:href"/>
+                <xsl:text>&#10;</xsl:text>
+                <xsl:text>}}</xsl:text>            
+                <xsl:text>&#10;</xsl:text>
+                <xsl:text>&#10;</xsl:text>
+                <xsl:text>--&gt;</xsl:text>
+                <xsl:text>&#10;</xsl:text>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:text>&#10;</xsl:text>
+                <xsl:text>&#10;</xsl:text>
+                <xsl:text>&lt;!-- IMPORTANT: After archiving the source website at http://webcitation.org/archive, please copy the following template to the Talk page of your Wikipedia article, deleting these instructions:</xsl:text>
+                <xsl:text>&#10;</xsl:text>
+                <xsl:text>&#10;</xsl:text>
+                <xsl:text>{{RAMP release</xsl:text>
+                <xsl:text>&#10;</xsl:text>                
+                <xsl:text>| url = </xsl:text>
+                <xsl:value-of select="eac:eac-cpf/eac:control/eac:sources/eac:source/@xlink:href"/>
+                <xsl:text>&#10;</xsl:text>
+                <xsl:text>| archive_url = </xsl:text>
+                <xsl:text>[to be obtained from http://webcitation.org/archive]</xsl:text>            
+                <xsl:text>&#10;</xsl:text>
+                <xsl:text>}}</xsl:text>            
+                <xsl:text>&#10;</xsl:text>
+                <xsl:text>&#10;</xsl:text>
+                <xsl:text>--&gt;</xsl:text>
+                <xsl:text>&#10;</xsl:text>
+            </xsl:otherwise>
+        </xsl:choose>        
     </xsl:template>
     <!-- Output Infobox for persons. -->
     <xsl:template name="tPersonInfobox">
@@ -470,7 +557,7 @@
                 <xsl:value-of select="normalize-space(.)" />                
             </xsl:for-each>
         	<xsl:if test="position() = last()">        		        	
-	        	<!-- For LOC finding aids, include a reference to the default US Gov public domain template. -->
+	        	<!-- For LOC finding aids, include a reference to the {{Cite LOC finding aid}} template. -->
 	        	<xsl:if test="contains(../../../../../eac:control/eac:sources/eac:source/@xlink:href,'loc.gov')">            				            				        		
 	        		<xsl:text>&lt;ref name="LOCMD"/&gt;</xsl:text>	        			        	
 	        	</xsl:if>
@@ -527,68 +614,105 @@
         <xsl:text>==Notes and references==</xsl:text>
         <xsl:text>&#10;</xsl:text>    	
     	<xsl:choose>    		    	
-    		<xsl:when test="eac:eac-cpf/eac:control/eac:sources/eac:source/eac:objectXMLWrap">
-    			<!-- Insert a default reference to the finding aid itself. -->
-    			<xsl:text>&lt;!-- Basic citation for the finding aid. Author names will need to be adjusted (inverted, updated based on revision info, etc.). --&gt;</xsl:text>
-    			<xsl:for-each select="eac:eac-cpf/eac:control/eac:sources/eac:source[eac:sourceEntry]">
-    				<xsl:text>&#10;</xsl:text>
-    				<xsl:text>{{cite web</xsl:text>
-    				<xsl:text>&#10;</xsl:text>    				    				
-    				<xsl:choose>
-    					<xsl:when test="//ead:author">
-    						<xsl:text>| author = </xsl:text>
-    						<xsl:value-of select="normalize-space(//ead:author)" />
-    						<xsl:text>&#10;</xsl:text>
-    					</xsl:when>
-    				</xsl:choose>
-    				<xsl:text>| title = </xsl:text>
-    				<xsl:call-template name="tTitleCaps">
-    					<xsl:with-param name="pTitles" select="normalize-space(eac:sourceEntry)"/>
-    				</xsl:call-template>    				
-    				<xsl:text>&#10;</xsl:text>
-    				<xsl:text>| url = </xsl:text>
-    				<xsl:value-of select="normalize-space(@xlink:href)" />
-    				<xsl:text>&#10;</xsl:text>
-    				<xsl:choose>
-    					<xsl:when test="contains(@xlink:href,'loc.gov')">
-    						<xsl:text>| publisher = Library of Congress</xsl:text>
-    					</xsl:when>
-    					<xsl:otherwise>
-    						<xsl:value-of select="$pFindingAidInfo" />
-    					</xsl:otherwise>
-    				</xsl:choose>    				
-    				<xsl:text>&#10;</xsl:text>
-    				<xsl:text>| date = </xsl:text>
-    				<xsl:value-of select="normalize-space(eac:objectXMLWrap/ead:eadheader/ead:profiledesc/ead:creation/ead:date)"/>
-    				<xsl:text>&#10;</xsl:text>
-    				<xsl:text>| accessdate=</xsl:text>
-    				<xsl:value-of select="../../eac:maintenanceHistory/eac:maintenanceEvent/eac:eventDateTime/@standardDateTime"/>
-    				<xsl:text>&#10;</xsl:text>    	
-    				<xsl:text>}}</xsl:text>
-    				<xsl:text>&#10;</xsl:text>
-    			</xsl:for-each>
-    			<!-- Reflist template. -->
-    			<xsl:text>{{Reflist|refs=</xsl:text>
-    			<xsl:text>&#10;</xsl:text>
-    			<xsl:if test="contains(eac:eac-cpf/eac:control/eac:sources/eac:source/@xlink:href,'loc.gov')">
-	    			<xsl:text>&lt;ref name="LOCMD"&gt;{{USGovernment</xsl:text>
-	    			<xsl:text>&#10;</xsl:text>
-	    			<xsl:text>| sourceURL=[</xsl:text>
-	    			<xsl:value-of select="eac:eac-cpf/eac:control/eac:sources/eac:source/@xlink:href"/>
-	    			<xsl:text> </xsl:text>
-	    			<xsl:value-of select="eac:eac-cpf/eac:control/eac:sources/eac:source/eac:sourceEntry[1]"/>    			
-	    			<xsl:text>]</xsl:text>
-	    			<xsl:text>&#10;</xsl:text>
-	    			<xsl:text>| author=the Manuscript Division Staff of the [[Library of Congress]]</xsl:text>
-	    			<xsl:text>&#10;</xsl:text>
-	    			<xsl:text>| accessdate=</xsl:text>
-	    			<xsl:value-of select="eac:eac-cpf/eac:control/eac:maintenanceHistory/eac:maintenanceEvent/eac:eventDateTime/@standardDateTime"/>
-	    			<xsl:text>&#10;</xsl:text>
-	    			<xsl:text>}}&lt;/ref&gt;</xsl:text>    				
-	    			<xsl:text>&#10;</xsl:text>
-    			</xsl:if>
-    			<xsl:text>}}</xsl:text>   
-    			<xsl:text>&#10;</xsl:text>
+    		<xsl:when test="eac:eac-cpf/eac:control/eac:sources/eac:source/eac:objectXMLWrap">    			    			    		    
+    		    <xsl:choose>    		        
+    		        <!-- For LOC finding aids... -->
+          		    <xsl:when test="contains(eac:eac-cpf/eac:control/eac:sources/eac:source/@xlink:href,'loc.gov')">
+          		        <!-- Include the {{Cite RAMP}} template with "pd" (public domain) parameter = "yes"... -->
+          		        <xsl:text>{{Cite RAMP</xsl:text>
+          		        <xsl:text>&#10;</xsl:text>
+          		        <xsl:text>| pd = yes</xsl:text>
+          		        <xsl:text>&#10;</xsl:text>
+          		        <xsl:text>}}</xsl:text>
+          		        <xsl:text>&#10;</xsl:text>
+          		        <xsl:text>&#10;</xsl:text>
+          		        <!-- Reflist template. -->
+          		        <xsl:text>{{Reflist|refs=</xsl:text>
+          		        <xsl:text>&#10;</xsl:text>
+          		        <!-- Include a reference to the {{Cite LOC finding aid}} template... -->
+      	    			<xsl:text>&lt;ref name="LOCMD"&gt;{{Cite LOC finding aid</xsl:text>
+      	    			<xsl:text>&#10;</xsl:text>
+      	    			<xsl:text>| ID = </xsl:text>    			    
+      	    			<xsl:value-of select="substring-after(eac:eac-cpf/eac:control/eac:sources/eac:source/@xlink:href,'eadmss.')"/>
+          			    <xsl:text>&#10;</xsl:text>
+      	    			<xsl:text>| title = </xsl:text>
+      	    			<xsl:value-of select="eac:eac-cpf/eac:control/eac:sources/eac:source/eac:sourceEntry[1]"/>    				    			
+      	    			<xsl:text>&#10;</xsl:text>
+      	    			<xsl:text>| author = </xsl:text>
+      	    			<xsl:text>&#10;</xsl:text>
+          			    <xsl:text>| date = </xsl:text>
+          			    <xsl:value-of select="eac:eac-cpf/eac:control/eac:sources/eac:source/eac:objectXMLWrap/ead:eadheader/ead:filedesc/ead:publicationstmt/ead:date/@normal"/>
+          			    <xsl:text>&#10;</xsl:text>
+      	    			<xsl:text>| accessdate = </xsl:text>
+          			    <xsl:call-template name="tAccessDateParser">
+          			        <xsl:with-param name="pAccessDate" select="eac:eac-cpf/eac:control/eac:maintenanceHistory/eac:maintenanceEvent/eac:eventDateTime/@standardDateTime"/>
+          			    </xsl:call-template>		
+          			    <xsl:text>&#10;</xsl:text>
+      	    			<xsl:text>}}&lt;/ref&gt;</xsl:text>    				
+      	    			<xsl:text>&#10;</xsl:text>   
+          		        <xsl:text>}}</xsl:text>
+          		        <xsl:text>&#10;</xsl:text>
+          			</xsl:when>
+                    <xsl:otherwise>
+                        <!-- Include the {{Cite RAMP}} template with "pd" (public domain) parameter = "no"... -->                        
+                        <xsl:text>{{Cite RAMP</xsl:text>
+                        <xsl:text>&#10;</xsl:text>
+                        <xsl:text>| pd = no</xsl:text>
+                        <xsl:text>&#10;</xsl:text>
+                        <xsl:text>}}</xsl:text>
+                        <xsl:text>&#10;</xsl:text>
+                        <xsl:text>&#10;</xsl:text>
+                        <!-- Include empty {{Reflist}} template. -->                        
+                        <xsl:text>&lt;!-- Insert references/citations inside the following template: --&gt;</xsl:text>
+                        <xsl:text>&#10;</xsl:text>
+                        <xsl:text>{{Reflist|refs=</xsl:text>
+                        <xsl:text>&#10;</xsl:text>
+                        <xsl:text>}}</xsl:text>
+                        <xsl:text>&#10;</xsl:text>
+                        <xsl:text>&#10;</xsl:text>                        
+                        <xsl:text>&lt;!-- Default templates finding aid. Place inside {{Reflist}} template as appropriate. Data will need to be adjusted (inverted, updated based on revision info, etc.). --&gt;</xsl:text>                                                                                    
+                        <!-- Insert a default reference to the finding aid itself. -->                                                                   
+                        <xsl:for-each select="eac:eac-cpf/eac:control/eac:sources/eac:source[eac:sourceEntry]">
+                            <xsl:text>&#10;</xsl:text>
+                            <xsl:text>{{Cite open finding aid</xsl:text>
+                            <xsl:text>&#10;</xsl:text>    				    				
+                            <xsl:choose>
+                                <xsl:when test="//ead:author">
+                                    <xsl:variable name="vAuthStr" select="string-length(normalize-space(//ead:author))"/>
+                                    <xsl:text>| author = </xsl:text>
+                                    <xsl:choose>
+                                        <xsl:when test="substring(//ead:author,$vAuthStr)='.'">
+                                            <xsl:value-of select="substring(normalize-space(//ead:author),1,$vAuthStr -1)" />        
+                                        </xsl:when>
+                                        <xsl:otherwise>
+                                            <xsl:value-of select="normalize-space(//ead:author)" />
+                                        </xsl:otherwise>
+                                    </xsl:choose>                                    
+                                    <xsl:text>&#10;</xsl:text>
+                                </xsl:when>
+                            </xsl:choose>
+                            <xsl:text>| title = </xsl:text>
+                            <xsl:call-template name="tTitleCaps">
+                                <xsl:with-param name="pTitles" select="normalize-space(eac:sourceEntry)"/>
+                            </xsl:call-template>    				
+                            <xsl:text>&#10;</xsl:text>
+                            <xsl:text>| url = </xsl:text>
+                            <xsl:value-of select="normalize-space(@xlink:href)" />
+                            <xsl:text>&#10;</xsl:text>                            
+                            <xsl:text>| date = </xsl:text>
+                            <xsl:value-of select="normalize-space(eac:objectXMLWrap/ead:eadheader/ead:profiledesc/ead:creation/ead:date)"/>
+                            <xsl:text>&#10;</xsl:text>
+                            <xsl:value-of select="$pFindingAidInfo" />                            
+                            <xsl:text>| accessdate = </xsl:text>
+                            <xsl:call-template name="tAccessDateParser">
+                                <xsl:with-param name="pAccessDate" select="../../eac:maintenanceHistory/eac:maintenanceEvent/eac:eventDateTime/@standardDateTime"/>
+                            </xsl:call-template>
+                            <xsl:text>&#10;</xsl:text>    	
+                            <xsl:text>}}</xsl:text>
+                            <xsl:text>&#10;</xsl:text>                                                                                                               
+                        </xsl:for-each>
+                    </xsl:otherwise>    		        
+    		    </xsl:choose>    			    			
     		</xsl:when>    				    	
     		<xsl:when test="//eac:citation">
     			<!-- Add any citation elements. -->
@@ -1912,5 +2036,155 @@
                 </xsl:if>
             </xsl:otherwise>
         </xsl:choose>
+    </xsl:template>
+    <xsl:template name="tAccessDateParser">
+        <xsl:param name="pAccessDate"/>
+        <!-- Rearrange date to D-M-Y pattern. -->
+        <xsl:choose>
+            <xsl:when test="substring-before(substring-after($pAccessDate,'-'),'-')='01'">
+                <xsl:choose>
+                    <xsl:when test="substring(substring-after(substring-after($pAccessDate,'-'),'-'),1,1)='0'">
+                        <xsl:value-of select="substring(substring-after(substring-after($pAccessDate,'-'),'-'),2,1)"/>        
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <xsl:value-of select="substring-after(substring-after($pAccessDate,'-'),'-')"/>
+                    </xsl:otherwise>
+                </xsl:choose>    			                        			           
+                <xsl:text> January </xsl:text>
+                <xsl:value-of select="substring-before($pAccessDate,'-')"/>
+            </xsl:when>
+            <xsl:when test="substring-before(substring-after($pAccessDate,'-'),'-')='02'">
+                <xsl:choose>
+                    <xsl:when test="substring(substring-after(substring-after($pAccessDate,'-'),'-'),1,1)='0'">
+                        <xsl:value-of select="substring(substring-after(substring-after($pAccessDate,'-'),'-'),2,1)"/>        
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <xsl:value-of select="substring-after(substring-after($pAccessDate,'-'),'-')"/>
+                    </xsl:otherwise>
+                </xsl:choose>    			                        			           
+                <xsl:text> February </xsl:text>
+                <xsl:value-of select="substring-before($pAccessDate,'-')"/>
+            </xsl:when>
+            <xsl:when test="substring-before(substring-after($pAccessDate,'-'),'-')='03'">
+                <xsl:choose>
+                    <xsl:when test="substring(substring-after(substring-after($pAccessDate,'-'),'-'),1,1)='0'">
+                        <xsl:value-of select="substring(substring-after(substring-after($pAccessDate,'-'),'-'),2,1)"/>        
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <xsl:value-of select="substring-after(substring-after($pAccessDate,'-'),'-')"/>
+                    </xsl:otherwise>
+                </xsl:choose>    			                        			           
+                <xsl:text> March </xsl:text>
+                <xsl:value-of select="substring-before($pAccessDate,'-')"/>
+            </xsl:when>
+            <xsl:when test="substring-before(substring-after($pAccessDate,'-'),'-')='04'">
+                <xsl:choose>
+                    <xsl:when test="substring(substring-after(substring-after($pAccessDate,'-'),'-'),1,1)='0'">
+                        <xsl:value-of select="substring(substring-after(substring-after($pAccessDate,'-'),'-'),2,1)"/>        
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <xsl:value-of select="substring-after(substring-after($pAccessDate,'-'),'-')"/>
+                    </xsl:otherwise>
+                </xsl:choose>    			                        			           
+                <xsl:text> April </xsl:text>
+                <xsl:value-of select="substring-before($pAccessDate,'-')"/>
+            </xsl:when>
+            <xsl:when test="substring-before(substring-after($pAccessDate,'-'),'-')='05'">
+                <xsl:choose>
+                    <xsl:when test="substring(substring-after(substring-after($pAccessDate,'-'),'-'),1,1)='0'">
+                        <xsl:value-of select="substring(substring-after(substring-after($pAccessDate,'-'),'-'),2,1)"/>        
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <xsl:value-of select="substring-after(substring-after($pAccessDate,'-'),'-')"/>
+                    </xsl:otherwise>
+                </xsl:choose>    			                        			           
+                <xsl:text> May </xsl:text>
+                <xsl:value-of select="substring-before($pAccessDate,'-')"/>
+            </xsl:when>
+            <xsl:when test="substring-before(substring-after($pAccessDate,'-'),'-')='06'">
+                <xsl:choose>
+                    <xsl:when test="substring(substring-after(substring-after($pAccessDate,'-'),'-'),1,1)='0'">
+                        <xsl:value-of select="substring(substring-after(substring-after($pAccessDate,'-'),'-'),2,1)"/>        
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <xsl:value-of select="substring-after(substring-after($pAccessDate,'-'),'-')"/>
+                    </xsl:otherwise>
+                </xsl:choose>    			                        			           
+                <xsl:text> June </xsl:text>
+                <xsl:value-of select="substring-before($pAccessDate,'-')"/>
+            </xsl:when>
+            <xsl:when test="substring-before(substring-after($pAccessDate,'-'),'-')='07'">
+                <xsl:choose>
+                    <xsl:when test="substring(substring-after(substring-after($pAccessDate,'-'),'-'),1,1)='0'">
+                        <xsl:value-of select="substring(substring-after(substring-after($pAccessDate,'-'),'-'),2,1)"/>        
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <xsl:value-of select="substring-after(substring-after($pAccessDate,'-'),'-')"/>
+                    </xsl:otherwise>
+                </xsl:choose>    			                        			           
+                <xsl:text> July </xsl:text>
+                <xsl:value-of select="substring-before($pAccessDate,'-')"/>
+            </xsl:when>
+            <xsl:when test="substring-before(substring-after($pAccessDate,'-'),'-')='08'">
+                <xsl:choose>
+                    <xsl:when test="substring(substring-after(substring-after($pAccessDate,'-'),'-'),1,1)='0'">
+                        <xsl:value-of select="substring(substring-after(substring-after($pAccessDate,'-'),'-'),2,1)"/>        
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <xsl:value-of select="substring-after(substring-after($pAccessDate,'-'),'-')"/>
+                    </xsl:otherwise>
+                </xsl:choose>    			                        			           
+                <xsl:text> August </xsl:text>
+                <xsl:value-of select="substring-before($pAccessDate,'-')"/>
+            </xsl:when>
+            <xsl:when test="substring-before(substring-after($pAccessDate,'-'),'-')='09'">
+                <xsl:choose>
+                    <xsl:when test="substring(substring-after(substring-after($pAccessDate,'-'),'-'),1,1)='0'">
+                        <xsl:value-of select="substring(substring-after(substring-after($pAccessDate,'-'),'-'),2,1)"/>        
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <xsl:value-of select="substring-after(substring-after($pAccessDate,'-'),'-')"/>
+                    </xsl:otherwise>
+                </xsl:choose>    			                        			           
+                <xsl:text> September </xsl:text>
+                <xsl:value-of select="substring-before($pAccessDate,'-')"/>
+            </xsl:when>
+            <xsl:when test="substring-before(substring-after($pAccessDate,'-'),'-')='10'">
+                <xsl:choose>
+                    <xsl:when test="substring(substring-after(substring-after($pAccessDate,'-'),'-'),1,1)='0'">
+                        <xsl:value-of select="substring(substring-after(substring-after($pAccessDate,'-'),'-'),2,1)"/>        
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <xsl:value-of select="substring-after(substring-after($pAccessDate,'-'),'-')"/>
+                    </xsl:otherwise>
+                </xsl:choose>    			                        			           
+                <xsl:text> October </xsl:text>
+                <xsl:value-of select="substring-before($pAccessDate,'-')"/>
+            </xsl:when>
+            <xsl:when test="substring-before(substring-after($pAccessDate,'-'),'-')='11'">
+                <xsl:choose>
+                    <xsl:when test="substring(substring-after(substring-after($pAccessDate,'-'),'-'),1,1)='0'">
+                        <xsl:value-of select="substring(substring-after(substring-after($pAccessDate,'-'),'-'),2,1)"/>        
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <xsl:value-of select="substring-after(substring-after($pAccessDate,'-'),'-')"/>
+                    </xsl:otherwise>
+                </xsl:choose>    			                        			           
+                <xsl:text> November </xsl:text>
+                <xsl:value-of select="substring-before($pAccessDate,'-')"/>
+            </xsl:when>
+            <xsl:when test="substring-before(substring-after($pAccessDate,'-'),'-')='12'">
+                <xsl:choose>
+                    <xsl:when test="substring(substring-after(substring-after($pAccessDate,'-'),'-'),1,1)='0'">
+                        <xsl:value-of select="substring(substring-after(substring-after($pAccessDate,'-'),'-'),2,1)"/>        
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <xsl:value-of select="substring-after(substring-after($pAccessDate,'-'),'-')"/>
+                    </xsl:otherwise>
+                </xsl:choose>    			                        			           
+                <xsl:text> December </xsl:text>
+                <xsl:value-of select="substring-before($pAccessDate,'-')"/>
+            </xsl:when>    			        
+        </xsl:choose>    			    	    
     </xsl:template>
 </xsl:stylesheet>

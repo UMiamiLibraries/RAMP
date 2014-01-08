@@ -120,7 +120,7 @@
             <xsl:variable name="vEadHeaderCount" select="count(ead:ead/ead:eadheader)" />
             <xsl:choose>
                 <!-- If it's an ingested record (not created from within RAMP). -->
-                <xsl:when test="not(contains(ead:ead/ead:eadheader/ead:eadid/@identifier,'RAMP'))">                	
+                <xsl:when test="not(contains(ead:ead/ead:eadheader/ead:eadid/@identifier,'RAMP'))">                           
                     <xsl:for-each select="ead:ead/ead:eadheader">
                         <otherRecordId>
                             <xsl:choose>
@@ -150,7 +150,7 @@
                             <xsl:text>.r</xsl:text>
                             <xsl:value-of select="substring-before($pRecordId,'-')" />
                         </otherRecordId>
-                    </xsl:for-each>                    
+                    </xsl:for-each>                                        
                     <!-- maintenanceStatus = "derived" -->
                     <maintenanceStatus>derived</maintenanceStatus>
                 </xsl:when>
@@ -176,6 +176,172 @@
                 <language languageCode="eng">English</language>
                 <script scriptCode="Latn">Latin</script>
             </languageDeclaration>
+            <!--
+            <conventionDeclaration>
+                <abbreviation>BAV</abbreviation>
+                <citation>Vatican Library</citation>
+            </conventionDeclaration>
+            <conventionDeclaration>
+                <abbreviation>BIBSYS</abbreviation>
+                <citation>National Library of Norway</citation>
+            </conventionDeclaration>
+            <conventionDeclaration>
+                <abbreviation>BNC</abbreviation>
+                <citation>National Library of Catalonia</citation>
+            </conventionDeclaration>
+            <conventionDeclaration>
+                <abbreviation>BNE</abbreviation>
+                <citation>National Library of Spain</citation>
+            </conventionDeclaration>
+            <conventionDeclaration>
+                <abbreviation>BNF</abbreviation>
+                <citation>National Library of France</citation>
+            </conventionDeclaration>
+            <conventionDeclaration>
+                <abbreviation>DBC</abbreviation>
+                <citation>Danish Library Center</citation>
+            </conventionDeclaration>
+            <conventionDeclaration>
+                <abbreviation>DNB</abbreviation>
+                <citation>German National Library</citation>
+            </conventionDeclaration>
+            <conventionDeclaration>
+                <abbreviation>EGAXA</abbreviation>
+                <citation>Library of Alexandria, Egypt</citation>
+            </conventionDeclaration>
+            -->
+            <conventionDeclaration>
+                <abbreviation>FAST</abbreviation>
+                <citation>Faceted Application of Subject Terminology</citation>
+            </conventionDeclaration>
+            <!--
+            <conventionDeclaration>
+                <abbreviation>ICCU</abbreviation>
+                <citation>Central Institute for the Union Catalogue of the Italian Libraries</citation>
+            </conventionDeclaration>
+            <conventionDeclaration>
+                <abbreviation>ISNI</abbreviation>
+                <citation>International Standard Name Identifier</citation>
+            </conventionDeclaration>
+            <conventionDeclaration>
+                <abbreviation>JPG</abbreviation>
+                <citation>Union List of Artist Names [Getty Research Institute]</citation>
+            </conventionDeclaration>
+            <conventionDeclaration>
+                <abbreviation>LAC</abbreviation>
+                <citation>Library and Archives Canada</citation>
+            </conventionDeclaration>
+            <conventionDeclaration>
+                <abbreviation>LC</abbreviation>
+                <citation>Library of Congress/NACO</citation>
+            </conventionDeclaration>
+            -->
+            <conventionDeclaration>
+                <abbreviation>LCCN</abbreviation>
+                <citation>Library of Congress Control Number</citation>
+            </conventionDeclaration>
+            <!--
+            <conventionDeclaration>
+                <abbreviation>LNB</abbreviation>
+                <citation>National Library of Latvia</citation>
+            </conventionDeclaration>
+            <conventionDeclaration>
+                <abbreviation>LNL</abbreviation>
+                <citation>Lebanese National Library</citation>
+            </conventionDeclaration>
+            <conventionDeclaration>
+                <abbreviation>NDL</abbreviation>
+                <citation>National Diet Library, Japan</citation>
+            </conventionDeclaration>
+            <conventionDeclaration>
+                <abbreviation>NKC</abbreviation>
+                <citation>National Library of the Czech Republic</citation>
+            </conventionDeclaration>        
+            <conventionDeclaration>
+                <abbreviation>NLA</abbreviation>
+                <citation>National Library of Australia</citation>
+            </conventionDeclaration>
+            <conventionDeclaration>
+                <abbreviation>NLI</abbreviation>
+                <citation>National Library of Israel</citation>
+            </conventionDeclaration>
+            <conventionDeclaration>
+                <abbreviation>NLB</abbreviation>
+                <citation>National Library Board, Singapore</citation>
+            </conventionDeclaration>
+            <conventionDeclaration>
+                <abbreviation>NLP</abbreviation>
+                <citation>National Library of Poland</citation>
+            </conventionDeclaration>
+            <conventionDeclaration>
+                <abbreviation>NSK</abbreviation>
+                <citation>National and University Library in Zagreb</citation>
+            </conventionDeclaration>        
+            <conventionDeclaration>
+                <abbreviation>NSZL</abbreviation>
+                <citation>National Széchényi Library, Hungary</citation>
+            </conventionDeclaration>
+            <conventionDeclaration>
+                <abbreviation>NTA</abbreviation>
+                <citation>National Library of the Netherlands</citation>
+            </conventionDeclaration>
+            <conventionDeclaration>
+                <abbreviation>NUKAT</abbreviation>
+                <citation>NUKAT Center of Warsaw University Library</citation>
+            </conventionDeclaration>
+            <conventionDeclaration>
+                <abbreviation>PERSEUS</abbreviation>
+                <citation>Perseus</citation>
+            </conventionDeclaration>
+            <conventionDeclaration>
+                <abbreviation>PTBNP</abbreviation>
+                <citation>National Library of Portugal</citation>
+            </conventionDeclaration>
+            <conventionDeclaration>
+                <abbreviation>RERO</abbreviation>
+                <citation>Library Network of Western Switzerland</citation>
+            </conventionDeclaration>
+            <conventionDeclaration>
+                <abbreviation>RSL</abbreviation>
+                <citation>Russian State Library</citation>
+            </conventionDeclaration>
+            <conventionDeclaration>
+                <abbreviation>SELIBR</abbreviation>
+                <citation>National Library of Sweden</citation>
+            </conventionDeclaration>
+            <conventionDeclaration>
+                <abbreviation>SUDOC</abbreviation>
+                <citation>Sudoc [ABES], France</citation>
+            </conventionDeclaration>
+            <conventionDeclaration>
+                <abbreviation>SWNL</abbreviation>
+                <citation>Swiss National Library</citation>
+            </conventionDeclaration>
+            <conventionDeclaration>
+                <abbreviation>VLACC</abbreviation>
+                <citation>Flemish Public Libraries</citation>
+            </conventionDeclaration>
+            -->
+            <conventionDeclaration>
+                <abbreviation>VIAF</abbreviation>
+                <citation>Virtual International Authority File</citation>
+            </conventionDeclaration>
+            <!--
+            <conventionDeclaration>
+                <abbreviation>WIKIPEDIA</abbreviation>
+                <citation>Wikipedia/DBpedia</citation>
+            </conventionDeclaration>
+            -->
+            <conventionDeclaration>
+                <abbreviation>WCI</abbreviation>
+                <citation>WorldCat Identities</citation>
+            </conventionDeclaration>
+            <!--
+            <conventionDeclaration>
+                <abbreviation>WKP</abbreviation>
+                <citation>English Wikipedia/DBpedia</citation>
+            </conventionDeclaration>
+            -->
             <maintenanceHistory>
                 <maintenanceEvent>
                     <xsl:choose>
@@ -245,13 +411,18 @@
                                         <xsl:copy-of select="../../../ead:eadid" />
                                         <filedesc>
                                             <xsl:copy-of select="parent::ead:titlestmt" />
-                                            <xsl:if test="contains(../../../../ead:archdesc/ead:did/ead:note,'Creative Commons Attribution-Sharealike 3.0')">
-                                                <publicationstmt>
-                                                    <p>
-                                                        <xsl:value-of select="normalize-space(../../../../ead:archdesc/ead:did/ead:note/ead:p[2])" />
-                                                    </p>
-                                                </publicationstmt>
-                                            </xsl:if>
+                                            <xsl:choose>                                                                                            
+                                                <xsl:when test="contains(../../../../ead:archdesc/ead:did/ead:note,'Creative Commons Attribution-Sharealike 3.0')">
+                                                    <publicationstmt>
+                                                        <p>
+                                                            <xsl:value-of select="normalize-space(../../../../ead:archdesc/ead:did/ead:note/ead:p[2])" />
+                                                        </p>
+                                                    </publicationstmt>
+                                                </xsl:when>
+                                                <xsl:otherwise>
+                                                    <xsl:copy-of select="parent::ead:titlestmt/following-sibling::ead:publicationstmt"/>
+                                                </xsl:otherwise>
+                                            </xsl:choose>
                                         </filedesc>
                                         <xsl:copy-of select="../../../ead:profiledesc" />
                                         <xsl:copy-of select="../../../ead:revisiondesc" />
@@ -267,7 +438,7 @@
                     <xsl:call-template name="tSourcesNew" />
                 </sources>
             </xsl:when>
-        </xsl:choose>
+        </xsl:choose>               
     </xsl:template>
     <!-- Process top-level cpfDescription element. -->
     <xsl:template name="tCpfDescription">
@@ -634,15 +805,15 @@
                                         			<xsl:value-of select="$vDateVal" />
                                         		</date>
                                         	</xsl:when>
-                                        	<xsl:when test="contains($vDateVal,'Sep.')">
+                                        	<xsl:when test="contains($vDateVal,'Sept.')">
                                         		<date>
                                         			<xsl:attribute name="standardDate">
-                                        				<xsl:value-of select="substring-before($vDateVal,', Sep.')"/>                                        				
+                                        				<xsl:value-of select="substring-before($vDateVal,', Sept.')"/>                                        				
                                         				<xsl:text>-09-</xsl:text>
-                                        				<xsl:if test="string-length(substring-after($vDateVal,'Sep. '))=1">
+                                        				<xsl:if test="string-length(substring-after($vDateVal,'Sept. '))=1">
                                         					<xsl:text>0</xsl:text>
                                         				</xsl:if>
-                                        				<xsl:value-of select="substring-after($vDateVal,'Sep. ')"/>
+                                        				<xsl:value-of select="substring-after($vDateVal,'Sept. ')"/>
                                         			</xsl:attribute>
                                         			<xsl:value-of select="$vDateVal" />
                                         		</date>
