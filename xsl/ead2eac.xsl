@@ -414,9 +414,11 @@
                                             <xsl:choose>                                                                                            
                                                 <xsl:when test="contains(../../../../ead:archdesc/ead:did/ead:note,'Creative Commons Attribution-Sharealike 3.0')">
                                                     <publicationstmt>
-                                                        <p>
-                                                            <xsl:value-of select="normalize-space(../../../../ead:archdesc/ead:did/ead:note/ead:p[2])" />
-                                                        </p>
+                                                        <xsl:for-each select="../../../../ead:archdesc/ead:did/ead:note/ead:p">
+                                                            <p>
+                                                                <xsl:value-of select="normalize-space(.)" />                                                                
+                                                            </p>    
+                                                        </xsl:for-each>                                                        
                                                     </publicationstmt>
                                                 </xsl:when>
                                                 <xsl:otherwise>
