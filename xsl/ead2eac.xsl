@@ -49,19 +49,22 @@
     <xsl:variable name="vNameString-12" select="substring(normalize-space(//ead:archdesc/ead:did/ead:origination/child::node()[1]),1,$vNameStringLen -12)" />
     <!-- Define a variable to help de-dupe language elements. -->
     <xsl:variable name="vLangCheck" select="//ead:ead[1]/ead:archdesc/ead:did/ead:langmaterial/ead:language" />
-    <!-- Define a key for Muenchian grouping of subject elements. -->
-    <xsl:key name="kSubjCheck" match="//ead:controlaccess" use="child::node()[local-name()!='head']" />
     <!-- Define a key for Muenchian grouping of geogname elements. -->
-    <xsl:key name="kGeogCheck" match="//ead:geogname" use="." />    
+    <xsl:key name="kGeogCheck" match="//ead:geogname" use="." />
+    <!-- Define a key for Muenchian grouping of persgname elements. -->
+    <xsl:key name="kNameCheck" match="//ead:scopecontent//ead:persname|//ead:bioghist//ead:persname|//ead:scopecontent//ead:corpname|//ead:scopecontent//ead:corpname" use="." />
+    <!-- Define a key for Muenchian grouping of subject elements. -->
+    <xsl:key name="kSubjCheck" match="//ead:controlaccess" use="child::node()[local-name()!='head']" />       
     <!-- Define variable for occupations. -->
     <xsl:variable name="vOccupation" select="//ead:ead/ead:archdesc//ead:controlaccess/ead:occupation" />
     <xsl:variable name="vOccuCount" select="count(//ead:occupation)" />
     <!-- Variable for grouping geogname elements. -->
     <xsl:variable name="vGeog">   
-        <xsl:for-each select="//ead:geogname">            
+        <xsl:for-each select="//ead:geogname">       
+            <xsl:sort select="translate(.,'ÁÀÉÈÍÓÚÜÑáàéèíóúúüñ','AAEEIOUUNaaeeiouuun')" data-type="text" />
             <ead:name>
                 <xsl:choose>
-                    <xsl:when test="substring(.,string-length(.))=','">
+                    <xsl:when test="substring(.,string-length(.))=',' or substring(.,string-length(.))='.' or substring(.,string-length(.))=';' or substring(.,string-length(.))=':'">
                         <xsl:value-of select="normalize-space(substring(.,1,string-length(.) -1))" />
                     </xsl:when>
                     <xsl:otherwise>
@@ -70,6 +73,35 @@
                 </xsl:choose>
             </ead:name>
         </xsl:for-each>
+    </xsl:variable>
+    <!-- Variable for grouping persname elements. -->
+    <xsl:variable name="vCpfName">
+        <xsl:for-each select="//ead:persname">   
+            <xsl:sort select="translate(.,'ÁÀÉÈÍÓÚÜÑáàéèíóúúüñ','AAEEIOUUNaaeeiouuun')" data-type="text" />
+            <persName>
+                <xsl:choose>
+                    <xsl:when test="substring(.,string-length(.))=',' or substring(.,string-length(.))='.' or substring(.,string-length(.))=';' or substring(.,string-length(.))=':'">
+                        <xsl:value-of select="normalize-space(substring(.,1,string-length(.) -1))" />
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <xsl:value-of select="normalize-space(.)" />
+                    </xsl:otherwise>
+                </xsl:choose>
+            </persName>
+        </xsl:for-each>
+        <xsl:for-each select="//ead:corpname">
+            <xsl:sort select="translate(.,'ÁÀÉÈÍÓÚÜÑáàéèíóúúüñ','AAEEIOUUNaaeeiouuun')" data-type="text" />
+            <corpName>
+                <xsl:choose>
+                    <xsl:when test="substring(.,string-length(.))=',' or substring(.,string-length(.))='.' or substring(.,string-length(.))=';' or substring(.,string-length(.))=':'">
+                        <xsl:value-of select="normalize-space(substring(.,1,string-length(.) -1))" />
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <xsl:value-of select="normalize-space(.)" />
+                    </xsl:otherwise>
+                </xsl:choose>
+            </corpName>
+        </xsl:for-each>                
     </xsl:variable>
     <!-- Variables for new record form data. -->
     <xsl:variable name="vFrom" select="ead:ead/ead:archdesc/ead:did/ead:note[@type='from']/ead:p" />
@@ -1337,35 +1369,17 @@
                     </xsl:for-each>
                 </xsl:if>
             </xsl:for-each>
-            <xsl:for-each select="//ead:scopecontent//ead:persname[.!=$vFirstNode]|//ead:bioghist//ead:persname[.!=$vFirstNode]">
-                <xsl:variable name="vCpfLen" select="string-length(.)" />
-                <xsl:variable name="vCpfTrim" select="substring(.,$vCpfLen)" />
+            <xsl:for-each select="exsl:node-set($vCpfName)/persName[not(.=preceding-sibling::persName)][.!=$vFirstNode]">                
                 <cpfRelation cpfRelationType="associative" xlink:role="http://rdvocab.info/uri/schema/FRBRentitiesRDA/Person" xlink:type="simple">
-                    <relationEntry>
-                        <xsl:choose>
-                            <xsl:when test="$vCpfTrim=','">
-                                <xsl:value-of select="normalize-space(substring(.,1,$vCpfLen -1))" />
-                            </xsl:when>
-                            <xsl:otherwise>
-                                <xsl:value-of select="normalize-space(.)" />
-                            </xsl:otherwise>
-                        </xsl:choose>
+                    <relationEntry>                        
+                        <xsl:value-of select="normalize-space(.)" />
                     </relationEntry>
                 </cpfRelation>
             </xsl:for-each>
-            <xsl:for-each select="//ead:scopecontent//ead:corpname[.!=$vFirstNode]|//ead:scopecontent//ead:corpname[.!=$vFirstNode]">
-                <xsl:variable name="vCpfLen" select="string-length(.)" />
-                <xsl:variable name="vCpfTrim" select="substring(.,$vCpfLen)" />
+            <xsl:for-each select="exsl:node-set($vCpfName)/corpName[not(.=preceding-sibling::corpName)][.!=$vFirstNode]">                
                 <cpfRelation cpfRelationType="associative" xlink:role="http://rdvocab.info/uri/schema/FRBRentitiesRDA/CorporateBody" xlink:type="simple">
-                    <relationEntry>
-                        <xsl:choose>
-                            <xsl:when test="$vCpfTrim=','">
-                                <xsl:value-of select="normalize-space(substring(.,1,$vCpfLen -1))" />
-                            </xsl:when>
-                            <xsl:otherwise>
-                                <xsl:value-of select="normalize-space(.)" />
-                            </xsl:otherwise>
-                        </xsl:choose>
+                    <relationEntry>                        
+                        <xsl:value-of select="normalize-space(.)" />
                     </relationEntry>
                 </cpfRelation>
             </xsl:for-each>
