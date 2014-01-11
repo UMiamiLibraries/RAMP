@@ -11,6 +11,51 @@
     -->
     <!-- Import additional params. -->
     <xsl:import href="eac2wikiParams.xsl" />
+    <!-- Define a key for Muenchian grouping of "See also" relations. -->
+    <xsl:key name="kSeeAlsoCheck" match="//eac:term[contains(@localType,'7')]|//eac:term[contains(@localType,'610')]|eac:eac-cpf/eac:cpfDescription/eac:relations/eac:cpfRelation/eac:relationEntry[1]" use="." />
+    <!-- Variable for grouping "See also" relations. -->    
+    <xsl:variable name="vSeeAlso">                           
+        <xsl:for-each select="eac:eac-cpf/eac:cpfDescription/eac:description/eac:localDescription">
+            <xsl:sort select="translate(eac:term,'ÁÀÉÈÍÓÚÜÑáàéèíóúúüñ','AAEEIOUUNaaeeiouuun')" data-type="text" />
+            <xsl:if test="contains(@localType,'7')">
+                <persName>                        
+                    <xsl:call-template name="tParseName2">
+                        <xsl:with-param name="pNameType">person</xsl:with-param>
+                        <xsl:with-param name="pPersName" select="eac:term" />
+                    </xsl:call-template>
+                </persName>
+            </xsl:if>
+            <xsl:if test="contains(@localType,'610')">
+                <corpName>                        
+                    <xsl:call-template name="tParseName2">
+                        <xsl:with-param name="pNameType">corporate</xsl:with-param>
+                        <xsl:with-param name="pCorpName" select="eac:term" />                            
+                    </xsl:call-template>                        
+                </corpName>
+            </xsl:if>
+        </xsl:for-each>                                
+        <xsl:for-each select="eac:eac-cpf/eac:cpfDescription/eac:relations/eac:cpfRelation">
+            <xsl:sort select="translate(eac:relationEntry[1],'ÁÀÉÈÍÓÚÜÑáàéèíóúúüñ','AAEEIOUUNaaeeiouuun')" data-type="text" />
+            <xsl:choose>
+                <xsl:when test="contains(@xlink:role,'Person')">  
+                    <persName>
+                        <xsl:call-template name="tParseName2">
+                            <xsl:with-param name="pNameType">person</xsl:with-param>
+                            <xsl:with-param name="pPersName" select="eac:relationEntry[1]" />
+                        </xsl:call-template>
+                    </persName>
+                </xsl:when>
+                <xsl:otherwise>   
+                    <corpName>
+                        <xsl:call-template name="tParseName2">
+                            <xsl:with-param name="pNameType">corporate</xsl:with-param>
+                            <xsl:with-param name="pCorpName" select="eac:relationEntry[1]" />
+                        </xsl:call-template>
+                    </corpName>
+                </xsl:otherwise>
+            </xsl:choose>
+        </xsl:for-each>                                                            
+    </xsl:variable>
     <xsl:output method="text" indent="yes" encoding="UTF-8" />
     <xsl:template match="/">
         <!-- Check to see if we are creating a person or corporate body record. -->
@@ -135,7 +180,7 @@
             <xsl:with-param name="pPersNameFore" select="$pPersNameFore" />
             <xsl:with-param name="pBiogHist" select="$pBiogHist" />
         </xsl:call-template>
-        <!-- For LOC finding aids, include a reference to the {{RAMP release pd}} template on the Talk page. -->
+        <!-- For LOC finding aids, include a reference to the {{RAMP release PD}} template on the Talk page. -->
         <xsl:choose>
             <xsl:when test="contains(eac:eac-cpf/eac:control/eac:sources/eac:source/@xlink:href,'loc.gov')">            				            				        		
                 <xsl:text>&#10;</xsl:text>
@@ -143,7 +188,7 @@
                 <xsl:text>&lt;!-- IMPORTANT: Please copy the following template to the Talk page of the current article, deleting these instructions:</xsl:text>
                 <xsl:text>&#10;</xsl:text>
                 <xsl:text>&#10;</xsl:text>
-                <xsl:text>{{RAMP release pd</xsl:text>
+                <xsl:text>{{RAMP release PD</xsl:text>
                 <xsl:text>&#10;</xsl:text>
                 <xsl:text>| title = </xsl:text>
                 <xsl:value-of select="eac:eac-cpf/eac:control/eac:sources/eac:source/eac:sourceEntry[1]"/>            
@@ -289,7 +334,7 @@
             <xsl:with-param name="pCorpName" select="$pCorpName" />
             <xsl:with-param name="pBiogHist" select="$pBiogHist" />
         </xsl:call-template>
-        <!-- For LOC finding aids, include a reference to the {{RAMP release pd}} template on the Talk page. -->
+        <!-- For LOC finding aids, include a reference to the {{RAMP release PD}} template on the Talk page. -->
         <xsl:choose>
             <xsl:when test="contains(eac:eac-cpf/eac:control/eac:sources/eac:source/@xlink:href,'loc.gov')">            				            				        		
                 <xsl:text>&#10;</xsl:text>
@@ -297,7 +342,7 @@
                 <xsl:text>&lt;!-- IMPORTANT: Please copy the following template to the Talk page of the current article, deleting these instructions:</xsl:text>
                 <xsl:text>&#10;</xsl:text>
                 <xsl:text>&#10;</xsl:text>
-                <xsl:text>{{RAMP release pd</xsl:text>
+                <xsl:text>{{RAMP release PD</xsl:text>
                 <xsl:text>&#10;</xsl:text>
                 <xsl:text>| title = </xsl:text>
                 <xsl:value-of select="eac:eac-cpf/eac:control/eac:sources/eac:source/eac:sourceEntry[1]"/>            
@@ -1504,50 +1549,14 @@
                 <xsl:text>--&gt;</xsl:text>
                 <xsl:text>&#10;</xsl:text>
                 <xsl:text>&#10;</xsl:text>
-                <xsl:for-each select="eac:eac-cpf/eac:cpfDescription/eac:description/eac:localDescription">
-                    <xsl:sort select="translate(eac:term,'ÁÀÉÈÍÓÚÜÑáàéèíóúúüñ','AAEEIOUUNaaeeiouuun')" data-type="text" />
-                    <xsl:if test="contains(@localType,'7')">
-                        <xsl:text>* [[</xsl:text>
-                        <xsl:call-template name="tParseName2">
-                            <xsl:with-param name="pNameType">person</xsl:with-param>
-                            <xsl:with-param name="pPersName" select="eac:term" />
-                        </xsl:call-template>
-                        <xsl:text>]]</xsl:text>
-                        <xsl:text>&#10;</xsl:text>
-                    </xsl:if>
-                    <xsl:if test="contains(@localType,'610')">
-                        <xsl:text>* [[</xsl:text>
-                        <xsl:call-template name="tParseName2">
-                            <xsl:with-param name="pNameType">corporate</xsl:with-param>
-                            <xsl:with-param name="pCorpName" select="eac:term" />
-                        </xsl:call-template>
-                        <xsl:text>]]</xsl:text>
-                        <xsl:text>&#10;</xsl:text>
-                    </xsl:if>
-                </xsl:for-each>
-                <xsl:for-each select="eac:eac-cpf/eac:cpfDescription/eac:relations/eac:cpfRelation">
-                    <xsl:sort select="translate(eac:relationEntry[1],'ÁÀÉÈÍÓÚÜÑáàéèíóúúüñ','AAEEIOUUNaaeeiouuun')" data-type="text" />
-                    <xsl:choose>
-                        <xsl:when test="contains(@xlink:role,'Person')">
-                            <xsl:text>* [[</xsl:text>
-                            <xsl:call-template name="tParseName2">
-                                <xsl:with-param name="pNameType">person</xsl:with-param>
-                                <xsl:with-param name="pPersName" select="eac:relationEntry[1]" />
-                            </xsl:call-template>
-                            <xsl:text>]]</xsl:text>
-                            <xsl:text>&#10;</xsl:text>
-                        </xsl:when>
-                        <xsl:otherwise>
-                            <xsl:text>* [[</xsl:text>
-                            <xsl:call-template name="tParseName2">
-                                <xsl:with-param name="pNameType">corporate</xsl:with-param>
-                                <xsl:with-param name="pCorpName" select="eac:relationEntry[1]" />
-                            </xsl:call-template>
-                            <xsl:text>]]</xsl:text>
-                            <xsl:text>&#10;</xsl:text>
-                        </xsl:otherwise>
-                    </xsl:choose>
-                </xsl:for-each>
+                <!-- Group related names. -->
+                <xsl:for-each select="exsl:node-set($vSeeAlso)/persName[count(. | key('kSeeAlsoCheck', .)[1]) = 1][not(.=preceding-sibling::persName)]|exsl:node-set($vSeeAlso)/corpName[count(. | key('kSeeAlsoCheck', .)[1]) = 1][not(.=preceding-sibling::corpName)]">
+                    <xsl:sort select="translate(.,'ÁÀÉÈÍÓÚÜÑáàéèíóúúüñ','AAEEIOUUNaaeeiouuun')" data-type="text" />
+                    <xsl:text>* [[</xsl:text>
+                        <xsl:value-of select="normalize-space(.)"/>
+                    <xsl:text>]]</xsl:text>
+                    <xsl:text>&#10;</xsl:text>
+                </xsl:for-each>                
             </xsl:when>
             <xsl:when test="$pNameType='corporate'">
                 <xsl:text>&lt;!-- </xsl:text>
@@ -1569,28 +1578,13 @@
                 <xsl:text> --&gt;</xsl:text>
                 <xsl:text>&#10;</xsl:text>
                 <xsl:text>&#10;</xsl:text>
-                <xsl:for-each select="eac:eac-cpf/eac:cpfDescription/eac:relations/eac:cpfRelation">
-                    <xsl:sort select="translate(eac:relationEntry[1],'ÁÀÉÈÍÓÚÜÑáàéèíóúúüñ','AAEEIOUUNaaeeiouuun')" data-type="text" />
-                    <xsl:choose>
-                        <xsl:when test="@xlink:role='http://rdvocab.info/uri/schema/FRBRentitiesRDA/Person'">
-                            <xsl:text>* [[</xsl:text>
-                            <xsl:call-template name="tParseName2">
-                                <xsl:with-param name="pNameType">person</xsl:with-param>
-                                <xsl:with-param name="pPersName" select="eac:relationEntry[1]" />
-                            </xsl:call-template>
-                            <xsl:text>]]</xsl:text>
-                            <xsl:text>&#10;</xsl:text>
-                        </xsl:when>
-                        <xsl:otherwise>
-                            <xsl:text>* [[</xsl:text>
-                            <xsl:call-template name="tParseName2">
-                                <xsl:with-param name="pNameType">corporate</xsl:with-param>
-                                <xsl:with-param name="pCorpName" select="eac:relationEntry[1]" />
-                            </xsl:call-template>
-                            <xsl:text>]]</xsl:text>
-                            <xsl:text>&#10;</xsl:text>
-                        </xsl:otherwise>
-                    </xsl:choose>
+                <!-- Group related names. -->
+                <xsl:for-each select="exsl:node-set($vSeeAlso)/persName[count(. | key('kSeeAlsoCheck', .)[1]) = 1][not(.=preceding-sibling::persName)]|exsl:node-set($vSeeAlso)/corpName[count(. | key('kSeeAlsoCheck', .)[1]) = 1][not(.=preceding-sibling::corpName)]">
+                    <xsl:sort select="translate(.,'ÁÀÉÈÍÓÚÜÑáàéèíóúúüñ','AAEEIOUUNaaeeiouuun')" data-type="text" />
+                    <xsl:text>* [[</xsl:text>
+                    <xsl:value-of select="normalize-space(.)"/>
+                    <xsl:text>]]</xsl:text>
+                    <xsl:text>&#10;</xsl:text>
                 </xsl:for-each>
             </xsl:when>
             <xsl:otherwise>

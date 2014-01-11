@@ -15,7 +15,7 @@
     -->
 
 
-    <!-- Store names for persons and corporate bodies. -->
+    <!-- Store names for persons and corporate bodies. -->        
     <xsl:param name="pPersName"
         select="normalize-space(eac:eac-cpf/eac:cpfDescription/eac:identity/eac:nameEntry[1][preceding-sibling::eac:entityType='person']/eac:part[not(@localType)])"/>
 
