@@ -692,9 +692,23 @@
                                 </xsl:when>
                             </xsl:choose>
                             <xsl:text>| title = </xsl:text>
-                            <xsl:call-template name="tTitleCaps">
-                                <xsl:with-param name="pTitles" select="normalize-space(eac:sourceEntry)"/>
-                            </xsl:call-template>    				
+                            <xsl:choose>
+                                <!-- Rough matching to filter for Spanish and Portuguese titles. Needs work for internationalization and smarter switching between title and sentece case. -->
+                                <xsl:when test="contains(eac:sourceEntry,' de ')
+                                    or contains(eac:sourceEntry,' e ')
+                                    or contains(eac:sourceEntry,' en ')
+                                    or contains(eac:sourceEntry,' em ')
+                                    or contains(eac:sourceEntry,' para ')
+                                    or contains(eac:sourceEntry,' por ')
+                                    or contains(eac:sourceEntry,' y ')">
+                                    <xsl:value-of select="normalize-space(eac:sourceEntry)"/>
+                                </xsl:when>
+                                <xsl:otherwise>                                
+                                    <xsl:call-template name="tTitleCaps">
+                                        <xsl:with-param name="pTitles" select="normalize-space(eac:sourceEntry)"/>
+                                    </xsl:call-template>                                                                                            
+                                </xsl:otherwise>                                                                        
+                            </xsl:choose>                                         
                             <xsl:text>&#10;</xsl:text>
                             <xsl:text>| url = </xsl:text>
                             <xsl:value-of select="normalize-space(@xlink:href)" />
@@ -779,9 +793,25 @@
                     		</xsl:choose>                					
                     	</xsl:for-each>
                     	<xsl:text>| title = </xsl:text>
-                    	<xsl:call-template name="tTitleCaps">
-                    		<xsl:with-param name="pTitles" select="normalize-space(.)"/>
-                    	</xsl:call-template>                    	                    	
+                        <xsl:choose>
+                            <!-- Rough matching to filter for Spanish and Portuguese titles. Needs work for internationalization and smarter switching between title and sentece case. -->
+                            <xsl:when test="contains(eac:relationEntry,' com ')
+                                or contains(eac:relationEntry,' con ')
+                                or contains(eac:relationEntry,' de ')
+                                or contains(eac:relationEntry,' e ')
+                                or contains(eac:relationEntry,' en ')
+                                or contains(eac:relationEntry,' em ')
+                                or contains(eac:relationEntry,' para ')
+                                or contains(eac:relationEntry,' por ')
+                                or contains(eac:relationEntry,' y ')">
+                                <xsl:value-of select="normalize-space(eac:relationEntry)"/>
+                            </xsl:when>
+                            <xsl:otherwise>                                
+                                <xsl:call-template name="tTitleCaps">
+                                    <xsl:with-param name="pTitles" select="normalize-space(eac:relationEntry)"/>
+                                </xsl:call-template>                                                                                            
+                            </xsl:otherwise>                                                                        
+                        </xsl:choose>                    	                    	
                     	<xsl:text>&#10;</xsl:text>                    	                    	                
                         <xsl:choose>
                             <xsl:when test="contains(../@xlink:href,'q=kw')">
@@ -872,9 +902,23 @@
                 		</xsl:when>                				
                 	</xsl:choose>                		                	
                 	<xsl:text>| title = </xsl:text>
-                	<xsl:call-template name="tTitleCaps">
-                		<xsl:with-param name="pTitles" select="normalize-space(eac:relationEntry[1])"/>
-                	</xsl:call-template>                	
+                    <xsl:choose>
+                        <!-- Rough matching to filter for Spanish and Portuguese titles. Needs work for internationalization and smarter switching between title and sentece case. -->
+                        <xsl:when test="contains(eac:relationEntry[1],' de ')
+                            or contains(eac:relationEntry[1],' e ')
+                            or contains(eac:relationEntry[1],' en ')
+                            or contains(eac:relationEntry[1],' em ')
+                            or contains(eac:relationEntry[1],' para ')
+                            or contains(eac:relationEntry[1],' por ')
+                            or contains(eac:relationEntry[1],' y ')">
+                            <xsl:value-of select="normalize-space(eac:relationEntry[1])"/>
+                        </xsl:when>
+                        <xsl:otherwise>                                
+                            <xsl:call-template name="tTitleCaps">
+                                <xsl:with-param name="pTitles" select="normalize-space(eac:relationEntry[1])"/>
+                            </xsl:call-template>                                                                                            
+                        </xsl:otherwise>                                                                        
+                    </xsl:choose>                             	
                 	<xsl:text>&#10;</xsl:text>
                 	<!-- Work on parsing references from Archon...
                     <xsl:choose>
@@ -922,44 +966,45 @@
 	<xsl:template name="tTitleCaps">
 		<xsl:param name="pTitles" />		
 		<xsl:choose>
-			<xsl:when test="contains($pTitles,' ')">
-				<xsl:variable name="vTitleWord" select="normalize-space(substring-before($pTitles,' '))"/>
-				<xsl:choose>
-					<xsl:when test="$vTitleWord='a'
-						or $vTitleWord='an'
-						or $vTitleWord='and'
-						or $vTitleWord='as'
-						or $vTitleWord='at'
-						or $vTitleWord='but'
-						or $vTitleWord='by'
-						or $vTitleWord='for'
-						or $vTitleWord='from'
-						or $vTitleWord='if'
-						or $vTitleWord='in'
-						or $vTitleWord='into'
-						or $vTitleWord='nor'
-						or $vTitleWord='of'
-						or $vTitleWord='off'
-						or $vTitleWord='on'
-						or $vTitleWord='or'
-						or $vTitleWord='than'
-						or $vTitleWord='the'
-						or $vTitleWord='tis'
-						or $vTitleWord='to'
-						or $vTitleWord='twas'
-						or $vTitleWord='upon'
-						or $vTitleWord='with'
-						or $vTitleWord='yet'">
-						<xsl:value-of select="normalize-space($vTitleWord)"/>
-					</xsl:when>
-					<xsl:otherwise>
-						<xsl:value-of select="normalize-space(concat(translate(substring($vTitleWord,1,1),$vLower,$vUpper),substring($vTitleWord,2)))"/>
-					</xsl:otherwise>
-				</xsl:choose>				
-				<xsl:text> </xsl:text>
-				<xsl:call-template name="tTitleCaps">
-					<xsl:with-param name="pTitles" select="normalize-space(substring-after($pTitles,' '))"/>
-				</xsl:call-template>			
+			<xsl:when test="contains($pTitles,' ')">			    
+			    <xsl:variable name="vTitleWord" select="normalize-space(substring-before($pTitles,' '))"/>
+			    <xsl:choose>
+       				<xsl:when test="$vTitleWord='a'
+       					or $vTitleWord='an'
+       					or $vTitleWord='and'
+       					or $vTitleWord='as'
+       					or $vTitleWord='at'
+       					or $vTitleWord='but'
+       					or $vTitleWord='by'						
+       					or $vTitleWord='for'
+       					or $vTitleWord='from'
+       					or $vTitleWord='if'
+       					or $vTitleWord='in'
+       					or $vTitleWord='into'
+       					or $vTitleWord='nor'
+       					or $vTitleWord='of'
+       					or $vTitleWord='off'
+       					or $vTitleWord='on'
+       					or $vTitleWord='onto'
+       					or $vTitleWord='or'						
+       					or $vTitleWord='than'
+       					or $vTitleWord='the'
+       					or $vTitleWord='tis'
+       					or $vTitleWord='to'
+       					or $vTitleWord='twas'
+       					or $vTitleWord='upon'
+       					or $vTitleWord='with'						
+       					or $vTitleWord='yet'">
+       					<xsl:value-of select="normalize-space($vTitleWord)"/>
+       				</xsl:when>			        
+       				<xsl:otherwise>
+       					<xsl:value-of select="normalize-space(concat(translate(substring($vTitleWord,1,1),$vLower,$vUpper),substring($vTitleWord,2)))"/>
+       				</xsl:otherwise>
+			    </xsl:choose>				
+			    <xsl:text> </xsl:text>
+    			<xsl:call-template name="tTitleCaps">
+    				<xsl:with-param name="pTitles" select="normalize-space(substring-after($pTitles,' '))"/>
+    			</xsl:call-template>				        
 			</xsl:when>			
 			<xsl:otherwise>				
 				<xsl:value-of select="normalize-space(concat(translate(substring($pTitles,1,1),$vLower,$vUpper),substring($pTitles,2)))"/>										
@@ -1061,19 +1106,36 @@
                     </xsl:choose>
                     <xsl:text> </xsl:text>
                     <xsl:choose>
-                        <xsl:when test="contains(normalize-space(eac:relationEntry),' . ')">
-                        	<xsl:call-template name="tTitleCaps">
-                        		<xsl:with-param name="pTitles" select="normalize-space(substring-before(eac:relationEntry,' . '))"/>
-                        	</xsl:call-template>                             
+                        <!-- Rough matching to filter for Spanish and Portuguese titles. Needs work for internationalization and smarter switching between title and sentece case. -->
+                        <xsl:when test="contains(eac:relationEntry,' com ')
+                            or contains(eac:relationEntry,' con ')
+                            or contains(eac:relationEntry,' de ')
+                            or contains(eac:relationEntry,' e ')
+                            or contains(eac:relationEntry,' en ')
+                            or contains(eac:relationEntry,' em ')
+                            or contains(eac:relationEntry,' para ')
+                            or contains(eac:relationEntry,' por ')
+                            or contains(eac:relationEntry,' y ')">
+                            <xsl:value-of select="normalize-space(eac:relationEntry)"/>
                             <xsl:text>] </xsl:text>
-                            <xsl:value-of select="normalize-space(substring-after(eac:relationEntry,' . '))" />
                         </xsl:when>
                         <xsl:otherwise>
-                        	<xsl:call-template name="tTitleCaps">
-                        		<xsl:with-param name="pTitles" select="normalize-space(eac:relationEntry)"/>
-                        	</xsl:call-template>                            
-                            <xsl:text>]</xsl:text>
-                        </xsl:otherwise>
+                            <xsl:choose>                                
+                                <xsl:when test="contains(normalize-space(eac:relationEntry),' . ')">
+                                    <xsl:call-template name="tTitleCaps">
+                                        <xsl:with-param name="pTitles" select="normalize-space(substring-before(eac:relationEntry,' . '))"/>
+                                    </xsl:call-template>                             
+                                    <xsl:text>] </xsl:text>
+                                    <xsl:value-of select="normalize-space(substring-after(eac:relationEntry,' . '))" />
+                                </xsl:when>
+                                <xsl:otherwise>
+                                    <xsl:call-template name="tTitleCaps">
+                                        <xsl:with-param name="pTitles" select="normalize-space(eac:relationEntry)"/>
+                                    </xsl:call-template>                            
+                                    <xsl:text>]</xsl:text>
+                                </xsl:otherwise>
+                            </xsl:choose>
+                        </xsl:otherwise>                                                                        
                     </xsl:choose>
                     <xsl:text>&#10;</xsl:text>
                 </xsl:for-each>
@@ -1099,15 +1161,36 @@
                     </xsl:choose>
                     <xsl:text> </xsl:text>
                     <xsl:choose>
-                        <xsl:when test="contains(normalize-space(eac:relationEntry),' . ')">
-                            <xsl:value-of select="normalize-space(substring-before(eac:relationEntry,' . '))" />
-                            <xsl:text>]</xsl:text>
-                            <xsl:value-of select="normalize-space(substring-after(eac:relationEntry,' . '))" />
+                        <!-- Rough matching to filter for Spanish and Portuguese titles. Needs work for internationalization and smarter switching between title and sentece case. -->
+                        <xsl:when test="contains(eac:relationEntry,' com ')
+                            or contains(eac:relationEntry,' con ')
+                            or contains(eac:relationEntry,' de ')
+                            or contains(eac:relationEntry,' e ')
+                            or contains(eac:relationEntry,' en ')
+                            or contains(eac:relationEntry,' em ')
+                            or contains(eac:relationEntry,' para ')
+                            or contains(eac:relationEntry,' por ')
+                            or contains(eac:relationEntry,' y ')">
+                            <xsl:value-of select="normalize-space(eac:relationEntry)"/>
+                            <xsl:text>] </xsl:text>
                         </xsl:when>
                         <xsl:otherwise>
-                            <xsl:value-of select="normalize-space(eac:relationEntry)" />
-                            <xsl:text>]</xsl:text>
-                        </xsl:otherwise>
+                            <xsl:choose>                                
+                                <xsl:when test="contains(normalize-space(eac:relationEntry),' . ')">
+                                    <xsl:call-template name="tTitleCaps">
+                                        <xsl:with-param name="pTitles" select="normalize-space(substring-before(eac:relationEntry,' . '))"/>
+                                    </xsl:call-template>                             
+                                    <xsl:text>] </xsl:text>
+                                    <xsl:value-of select="normalize-space(substring-after(eac:relationEntry,' . '))" />
+                                </xsl:when>
+                                <xsl:otherwise>
+                                    <xsl:call-template name="tTitleCaps">
+                                        <xsl:with-param name="pTitles" select="normalize-space(eac:relationEntry)"/>
+                                    </xsl:call-template>                            
+                                    <xsl:text>]</xsl:text>
+                                </xsl:otherwise>
+                            </xsl:choose>
+                        </xsl:otherwise>                                                                        
                     </xsl:choose>
                     <xsl:text>&#10;</xsl:text>
                 </xsl:for-each>

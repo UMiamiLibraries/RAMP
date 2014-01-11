@@ -51,10 +51,26 @@
     <xsl:variable name="vLangCheck" select="//ead:ead[1]/ead:archdesc/ead:did/ead:langmaterial/ead:language" />
     <!-- Define a key for Muenchian grouping of subject elements. -->
     <xsl:key name="kSubjCheck" match="//ead:controlaccess" use="child::node()[local-name()!='head']" />
+    <!-- Define a key for Muenchian grouping of geogname elements. -->
+    <xsl:key name="kGeogCheck" match="//ead:geogname" use="." />    
     <!-- Define variable for occupations. -->
     <xsl:variable name="vOccupation" select="//ead:ead/ead:archdesc//ead:controlaccess/ead:occupation" />
     <xsl:variable name="vOccuCount" select="count(//ead:occupation)" />
-    <xsl:variable name="vGeog" select="//ead:geogname" />
+    <!-- Variable for grouping geogname elements. -->
+    <xsl:variable name="vGeog">   
+        <xsl:for-each select="//ead:geogname">            
+            <ead:name>
+                <xsl:choose>
+                    <xsl:when test="substring(.,string-length(.))=','">
+                        <xsl:value-of select="normalize-space(substring(.,1,string-length(.) -1))" />
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <xsl:value-of select="normalize-space(.)" />
+                    </xsl:otherwise>
+                </xsl:choose>
+            </ead:name>
+        </xsl:for-each>
+    </xsl:variable>
     <!-- Variables for new record form data. -->
     <xsl:variable name="vFrom" select="ead:ead/ead:archdesc/ead:did/ead:note[@type='from']/ead:p" />
     <xsl:variable name="vTo" select="ead:ead/ead:archdesc/ead:did/ead:note[@type='to']/ead:p" />
@@ -1063,20 +1079,12 @@
             <xsl:call-template name="tOccupations" />
         </xsl:if>
         <xsl:call-template name="tPlaces" />
-        <xsl:for-each select="$vGeog[not(contains(.,'--'))]">
-            <xsl:variable name="vGeogLen" select="string-length(.)" />
-            <xsl:variable name="vGeogTrim" select="substring(.,1,$vGeogLen -1)" />
-            <place xmlns="urn:isbn:1-931666-33-4">
+        <!-- Group existing geogname elements. -->
+        <xsl:for-each select="exsl:node-set($vGeog)/ead:name[not(contains(.,'--'))][count(. | key('kGeogCheck', .)[1]) = 1][not(.=preceding-sibling::ead:name)]">                                   
+            <place xmlns="urn:isbn:1-931666-33-4">                          
                 <placeEntry>
-                    <xsl:choose>
-                        <xsl:when test="substring(.,$vGeogLen)=','">
-                            <xsl:value-of select="normalize-space($vGeogTrim)" />
-                        </xsl:when>
-                        <xsl:otherwise>
-                            <xsl:value-of select="normalize-space(.)" />
-                        </xsl:otherwise>
-                    </xsl:choose>
-                </placeEntry>
+                    <xsl:value-of select="normalize-space(.)"/>
+                </placeEntry>                
             </place>
         </xsl:for-each>
     </xsl:template>
