@@ -730,11 +730,7 @@
           			</xsl:when>
                     <xsl:otherwise>
                         <!-- Include the {{Cite RAMP}} template with "pd" (public domain) parameter = "no"... -->                        
-                        <xsl:text>{{Cite RAMP</xsl:text>
-                        <xsl:text>&#10;</xsl:text>
-                        <xsl:text>| pd = no</xsl:text>
-                        <xsl:text>&#10;</xsl:text>
-                        <xsl:text>}}</xsl:text>
+                        <xsl:text>{{Cite RAMP}}</xsl:text>                                                                        
                         <xsl:text>&#10;</xsl:text>
                         <xsl:text>&#10;</xsl:text>
                         <!-- Include empty {{Reflist}} template. -->                        
