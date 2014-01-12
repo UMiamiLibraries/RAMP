@@ -117,12 +117,7 @@
             <xsl:value-of select="normalize-space($pBiogHist/eac:abstract)" />
             <xsl:text> --&gt;</xsl:text>        	
         	<xsl:text>&#10;</xsl:text>
-            <xsl:choose>
-                <xsl:when test="following-sibling::eac:p">
-                	<xsl:text>&#10;</xsl:text>
-                </xsl:when>
-                <xsl:otherwise />
-            </xsl:choose>
+            <xsl:text>&#10;</xsl:text>
         </xsl:if>
         <xsl:for-each select="$pBiogHist/eac:p">
             <xsl:value-of select="normalize-space(.)" />
@@ -266,13 +261,16 @@
             <xsl:text>&lt;!-- </xsl:text>
             <xsl:value-of select="normalize-space($pBiogHist/eac:abstract)" />
             <xsl:text> --&gt;</xsl:text>
+            <xsl:text>&#10;</xsl:text>
             <xsl:text>&#10;</xsl:text>            
+            <!--
             <xsl:choose>
                 <xsl:when test="following-sibling::eac:p">
                     <xsl:text>&#10;</xsl:text>
                 </xsl:when>
                 <xsl:otherwise />
             </xsl:choose>
+            -->            
         </xsl:if>
         <xsl:for-each select="$pBiogHist/eac:p[.!='']">
             <xsl:value-of select="normalize-space(.)" />

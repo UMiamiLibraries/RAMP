@@ -167,8 +167,8 @@
             </recordId>
             <xsl:variable name="vEadHeaderCount" select="count(ead:ead/ead:eadheader)" />
             <xsl:choose>
-                <!-- If it's an ingested record (not created from within RAMP). -->
-                <xsl:when test="not(contains(ead:ead/ead:eadheader/ead:eadid/@identifier,'RAMP'))">                           
+                <!-- If it's an ingested Archon record (not created from within RAMP). -->
+                <xsl:when test="contains(//ead:eadid/@identifier,'Archon')">                           
                     <xsl:for-each select="ead:ead/ead:eadheader">
                         <otherRecordId>
                             <xsl:choose>
@@ -182,20 +182,21 @@
                                         <xsl:value-of select="$pShortAgencyName" />
                                     </xsl:attribute>
                                 </xsl:otherwise>
-                            </xsl:choose>
+                            </xsl:choose>                            
                             <xsl:choose>
                                 <xsl:when test="contains(ead:eadid,'/')">
                                     <xsl:value-of select="substring-after(ead:eadid,'/')" />
                                     <xsl:text>.</xsl:text>
                                     <xsl:value-of select="substring-after(ead:eadid/@identifier,':')" />
+                                    <xsl:text>.r</xsl:text>
                                 </xsl:when>
                                 <xsl:otherwise>
                                     <xsl:value-of select="ead:eadid" />
                                     <xsl:text>.</xsl:text>
                                     <xsl:value-of select="substring-after(ead:eadid/@identifier,':')" />
+                                    <xsl:text>.r</xsl:text>
                                 </xsl:otherwise>
-                            </xsl:choose>
-                            <xsl:text>.r</xsl:text>
+                            </xsl:choose>                                                                         
                             <xsl:value-of select="substring-before($pRecordId,'-')" />
                         </otherRecordId>
                     </xsl:for-each>                                        
