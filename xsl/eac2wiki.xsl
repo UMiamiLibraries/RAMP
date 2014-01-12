@@ -870,20 +870,20 @@
                     	<xsl:text>| title = </xsl:text>
                         <xsl:choose>
                             <!-- Rough matching to filter for Spanish and Portuguese titles. Needs work for internationalization and smarter switching between title and sentece case. -->
-                            <xsl:when test="contains(eac:relationEntry,' com ')
-                                or contains(eac:relationEntry,' con ')
-                                or contains(eac:relationEntry,' de ')
-                                or contains(eac:relationEntry,' e ')
-                                or contains(eac:relationEntry,' en ')
-                                or contains(eac:relationEntry,' em ')
-                                or contains(eac:relationEntry,' para ')
-                                or contains(eac:relationEntry,' por ')
-                                or contains(eac:relationEntry,' y ')">
-                                <xsl:value-of select="normalize-space(eac:relationEntry)"/>
+                            <xsl:when test="contains(.,' com ')
+                                or contains(.,' con ')
+                                or contains(.,' de ')
+                                or contains(.,' e ')
+                                or contains(.,' en ')
+                                or contains(.,' em ')
+                                or contains(.,' para ')
+                                or contains(.,' por ')
+                                or contains(.,' y ')">
+                                <xsl:value-of select="normalize-space(.)"/>
                             </xsl:when>
                             <xsl:otherwise>                                
                                 <xsl:call-template name="tTitleCaps">
-                                    <xsl:with-param name="pTitles" select="normalize-space(eac:relationEntry)"/>
+                                    <xsl:with-param name="pTitles" select="normalize-space(.)"/>
                                 </xsl:call-template>                                                                                            
                             </xsl:otherwise>                                                                        
                         </xsl:choose>                    	                    	
