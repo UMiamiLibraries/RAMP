@@ -672,31 +672,41 @@
           		        <xsl:text>&#10;</xsl:text>
           		        <xsl:text>&#10;</xsl:text>
           		        <!-- Reflist template. -->
-          		        <xsl:text>{{Reflist|refs=</xsl:text>
-          		        <xsl:text>&#10;</xsl:text>
-          		        <!-- Include a reference to the {{Cite LOC finding aid}} template... -->
-      	    			<xsl:text>&lt;ref name="LOCMD"&gt;{{Cite LOC finding aid</xsl:text>
-      	    			<xsl:text>&#10;</xsl:text>
-      	    			<xsl:text>| ID = </xsl:text>    			    
-      	    			<xsl:value-of select="substring-after(eac:eac-cpf/eac:control/eac:sources/eac:source/@xlink:href,'eadmss.')"/>
-          			    <xsl:text>&#10;</xsl:text>
-      	    			<xsl:text>| title = </xsl:text>
-      	    			<xsl:value-of select="eac:eac-cpf/eac:control/eac:sources/eac:source/eac:sourceEntry[1]"/>    				    			
-      	    			<xsl:text>&#10;</xsl:text>
-      	    			<xsl:text>| author = </xsl:text>
-      	    			<xsl:text>&#10;</xsl:text>
-          			    <xsl:text>| date = </xsl:text>
-          			    <xsl:value-of select="eac:eac-cpf/eac:control/eac:sources/eac:source/eac:objectXMLWrap/ead:eadheader/ead:filedesc/ead:publicationstmt/ead:date/@normal"/>
-          			    <xsl:text>&#10;</xsl:text>
-      	    			<xsl:text>| accessdate = </xsl:text>
-          			    <xsl:call-template name="tAccessDateParser">
-          			        <xsl:with-param name="pAccessDate" select="eac:eac-cpf/eac:control/eac:maintenanceHistory/eac:maintenanceEvent/eac:eventDateTime/@standardDateTime"/>
-          			    </xsl:call-template>		
-          			    <xsl:text>&#10;</xsl:text>
-      	    			<xsl:text>}}&lt;/ref&gt;</xsl:text>    				
-      	    			<xsl:text>&#10;</xsl:text>   
-          		        <xsl:text>}}</xsl:text>
-          		        <xsl:text>&#10;</xsl:text>
+          		        <xsl:choose>
+          		            <xsl:when test="$pBiogHist/eac:chronList/eac:chronItem">          		                              		        
+                  		        <xsl:text>{{Reflist|refs=</xsl:text>
+                  		        <xsl:text>&#10;</xsl:text>
+                  		        <!-- Include a reference to the {{Cite LOC finding aid}} template... -->
+              	    			<xsl:text>&lt;ref name="LOCMD"&gt;{{Cite LOC finding aid</xsl:text>
+              	    			<xsl:text>&#10;</xsl:text>
+              	    			<xsl:text>| ID = </xsl:text>    			    
+              	    			<xsl:value-of select="substring-after(eac:eac-cpf/eac:control/eac:sources/eac:source/@xlink:href,'eadmss.')"/>
+                  			    <xsl:text>&#10;</xsl:text>
+              	    			<xsl:text>| title = </xsl:text>
+              	    			<xsl:value-of select="eac:eac-cpf/eac:control/eac:sources/eac:source/eac:sourceEntry[1]"/>    				    			
+              	    			<xsl:text>&#10;</xsl:text>
+              	    			<xsl:text>| author = </xsl:text>
+              	    			<xsl:text>&#10;</xsl:text>
+                  			    <xsl:text>| date = </xsl:text>
+                  			    <xsl:value-of select="eac:eac-cpf/eac:control/eac:sources/eac:source/eac:objectXMLWrap/ead:eadheader/ead:filedesc/ead:publicationstmt/ead:date/@normal"/>
+                  			    <xsl:text>&#10;</xsl:text>
+              	    			<xsl:text>| accessdate = </xsl:text>
+                  			    <xsl:call-template name="tAccessDateParser">
+                  			        <xsl:with-param name="pAccessDate" select="eac:eac-cpf/eac:control/eac:maintenanceHistory/eac:maintenanceEvent/eac:eventDateTime/@standardDateTime"/>
+                  			    </xsl:call-template>		
+                  			    <xsl:text>&#10;</xsl:text>
+              	    			<xsl:text>}}&lt;/ref&gt;</xsl:text>    				
+              	    			<xsl:text>&#10;</xsl:text>   
+                  		        <xsl:text>}}</xsl:text>
+                  		        <xsl:text>&#10;</xsl:text>
+          		            </xsl:when>
+          		            <xsl:otherwise>
+          		                <xsl:text>{{Reflist|refs=</xsl:text>
+          		                <xsl:text>&#10;</xsl:text>
+          		                <xsl:text>}}</xsl:text>
+          		                <xsl:text>&#10;</xsl:text>
+          		            </xsl:otherwise>
+          		        </xsl:choose>
           			</xsl:when>
                     <xsl:otherwise>
                         <!-- Include the {{Cite RAMP}} template with "pd" (public domain) parameter = "no"... -->                        
