@@ -677,8 +677,8 @@
                   		        <!-- Include a reference to the {{Cite LOC finding aid}} template... -->
               	    			<xsl:text>&lt;ref name="LOCMD"&gt;{{Cite LOC finding aid</xsl:text>
               	    			<xsl:text>&#10;</xsl:text>
-              	    			<xsl:text>| ID = </xsl:text>    			    
-              	    			<xsl:value-of select="substring-after(eac:eac-cpf/eac:control/eac:sources/eac:source/@xlink:href,'eadmss.')"/>
+              	    			<xsl:text>| url = </xsl:text>    			    
+              	    			<xsl:value-of select="eac:eac-cpf/eac:control/eac:sources/eac:source/@xlink:href"/>
                   			    <xsl:text>&#10;</xsl:text>
               	    			<xsl:text>| title = </xsl:text>
               	    			<xsl:value-of select="eac:eac-cpf/eac:control/eac:sources/eac:source/eac:sourceEntry[1]"/>    				    			
@@ -707,8 +707,8 @@
           		                <!-- Include a reference to the {{Cite LOC finding aid}} template... -->
           		                <xsl:text>{{Cite LOC finding aid</xsl:text>
           		                <xsl:text>&#10;</xsl:text>
-          		                <xsl:text>| ID = </xsl:text>    			    
-          		                <xsl:value-of select="substring-after(eac:eac-cpf/eac:control/eac:sources/eac:source/@xlink:href,'eadmss.')"/>
+          		                <xsl:text>| url = </xsl:text>    			    
+          		                <xsl:value-of select="eac:eac-cpf/eac:control/eac:sources/eac:source/@xlink:href"/>
           		                <xsl:text>&#10;</xsl:text>
           		                <xsl:text>| title = </xsl:text>
           		                <xsl:value-of select="eac:eac-cpf/eac:control/eac:sources/eac:source/eac:sourceEntry[1]"/>    				    			
@@ -1185,9 +1185,9 @@
             <xsl:text>}}</xsl:text>
             <xsl:text>&#10;</xsl:text>
         </xsl:if>        	        	        	
-        <xsl:if test="eac:eac-cpf/eac:cpfDescription/eac:relations/eac:resourceRelation[@xlink:role='archivalRecords']">
+        <xsl:if test="eac:eac-cpf/eac:cpfDescription/eac:relations/eac:resourceRelation[@xlink:role='archivalRecords'][@xlink:href!=../../../eac:control/eac:sources/eac:source[1]/@xlink:href]">
             <!-- Check for archival/digital collections created by or associated with the person or corporate body. -->
-            <xsl:for-each select="eac:eac-cpf/eac:cpfDescription/eac:relations/eac:resourceRelation[@xlink:role='archivalRecords']">
+            <xsl:for-each select="eac:eac-cpf/eac:cpfDescription/eac:relations/eac:resourceRelation[@xlink:role='archivalRecords'][@xlink:href!=../../../eac:control/eac:sources/eac:source[1]/@xlink:href]">
                 <xsl:sort select="translate(eac:relationEntry,'ÁÀÉÈÍÓÚÜÑáàéèíóúúüñ','AAEEIOUUNaaeeiouuun')" data-type="text" />
                 <xsl:text>* [</xsl:text>
                 <xsl:choose>
@@ -1488,6 +1488,9 @@
         			<xsl:with-param name="pCheckInfo" select="'false'" />
         		</xsl:call-template>	
         	</xsl:variable>
+            <xsl:text>&lt;!-- Note: the following categories have been generated from birth/death dates in the EAC record. These categories should be uncommented when the article is ready to go live.</xsl:text>
+            <xsl:text>&#10;</xsl:text>  
+            <xsl:text>&#10;</xsl:text>  
         	<xsl:if test="$vBirthTest!=''">
         		<xsl:text>[[Category:</xsl:text>
         		<xsl:value-of select="$vBirthTest"/>
@@ -1498,11 +1501,14 @@
         		<xsl:text>[[Category:</xsl:text>
         		<xsl:value-of select="$vDeathTest"/>
         		<xsl:text> deaths]]</xsl:text>
-        		<xsl:text>&#10;</xsl:text>    	
+        		<xsl:text>&#10;</xsl:text>    
+        	    <xsl:text>&#10;</xsl:text>  
+        	    <xsl:text>--&gt;</xsl:text>
+        	    <xsl:text>&#10;</xsl:text>
         	</xsl:if>    
             <xsl:if test="eac:eac-cpf/eac:cpfDescription/eac:description/eac:localDescription[@localType[contains(.,'6')]]|eac:eac-cpf/eac:cpfDescription/eac:description/eac:localDescription[@localType='subject']">
                 <xsl:text>&#10;</xsl:text>
-                <xsl:text>&lt;!-- Note: the following categories have been generated from the the EAC input form, the original EAD finding aid, or else using FAST headings added from WorldCat Identities. These categories should be replaced with appropriate Wikipedia categories (for example, using the HotCat tool).</xsl:text>
+                <xsl:text>&lt;!-- Note: the following categories have been generated from the EAC input form, the original EAD finding aid, or else using FAST headings added from WorldCat Identities. These categories should be replaced with appropriate Wikipedia categories (for example, using the HotCat tool).</xsl:text>
                 <xsl:text>&#10;</xsl:text>
                 <xsl:text>&#10;</xsl:text>
                 <xsl:for-each select="eac:eac-cpf/eac:cpfDescription/eac:description/eac:localDescription[@localType[contains(.,'6')]]|eac:eac-cpf/eac:cpfDescription/eac:description/eac:localDescription[@localType='subject']">
