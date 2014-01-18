@@ -821,7 +821,7 @@ function stripslashes_array(&$arr, $mysqli) {
                 $v[$vk] = preg_replace('#&lt;(/?[pi])&gt;#', '<$1>', $vv);
                 $v[$vk] = str_replace('\n', '&#10;', $vv);
                 $v[$vk] = str_replace('\&quot;', '&#034;', $vv);
-                $v[$vk] = str_replace('\&apos;', '&#039;', $vv);                           
+                $v[$vk] = str_replace("\'", '&#039;', $vv);                           
             }
         } else {
             $arr[$k] = trim($v);
@@ -830,7 +830,7 @@ function stripslashes_array(&$arr, $mysqli) {
             $arr[$k] = preg_replace('#&lt;(/?[pi])&gt;#', '<$1>', $v);
             $arr[$k] = str_replace('\n', '&#10;', $v);
             $arr[$k] = str_replace('\&quot;', '&#034;', $v);
-            $arr[$k] = str_replace('\&apos;', '&#039;', $v);                                      	      
+            $arr[$k] = str_replace("\'", '&#039;', $v);                                      	      
         }
     }    
 }
