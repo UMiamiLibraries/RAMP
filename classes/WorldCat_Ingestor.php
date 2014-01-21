@@ -457,7 +457,7 @@ class WorldCat_Ingestor extends Ingestor
 			}
 			else
 			{
-			    $lobjCPFRelationNode['attributes']['xlink:href'] = "http://id.loc.gov/authorities/names/" . substr(preg_replace('/-/','0',$lobjIdentity['id']),5);
+			    $lobjCPFRelationNode['attributes']['xlink:href'] = "http://id.loc.gov/authorities/names/" . substr(preg_replace('/-/','',$lobjIdentity['id']),5);
 			}
 			
 			// Try to differentiate between persons and corporate bodies... Brute force method could be improved by looking up lccn.
