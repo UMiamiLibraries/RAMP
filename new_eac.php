@@ -14,7 +14,7 @@ include('header.php');
 
 jQuery(document).ready(function()
 {
-
+  // http://stackoverflow.com/questions/14576926/pressing-enter-wont-submit-form-javascript/14577000#14577000  
   $(window).keydown(function(event){
     if(event.keyCode == 13) {
       event.preventDefault();
