@@ -15,6 +15,13 @@ include('header.php');
 jQuery(document).ready(function()
 {
 
+  $(window).keydown(function(event){
+    if(event.keyCode == 13) {
+      event.preventDefault();
+      return false;
+    }
+  });
+
   $('input[type="text"]').val('');
   $('select').not(".ead_files").val(''); 
   $('textarea').val('');
@@ -904,7 +911,7 @@ jQuery(document).ready(function()
   <br/>
   <br/>
 
-  <script>
+  <script>  
 
    var $savedialog = $('<div></div>')
       .html('Saved New Record')
