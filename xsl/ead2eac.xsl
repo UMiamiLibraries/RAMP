@@ -512,7 +512,7 @@
             <xsl:if test="ead:ead/ead:archdesc/ead:did/ead:origination[1]/child::node()[1][local-name()='famname']">
                 <entityType>family</entityType>
             </xsl:if>
-    		<nameEntry scriptCode="Latn" xml:lang="en" xmlns="urn:isbn:1-931666-33-4">
+    		<nameEntry scriptCode="Latn" xml:lang="en">
                 <xsl:choose>
                     <!-- For Archon-exported EADs, use the value of the @normal attribute. -->
                     <xsl:when test="ead:ead/ead:archdesc/ead:did/ead:origination/child::node()[1]/@normal">
@@ -1272,7 +1272,7 @@
     <xsl:template name="tRelations">
         <relations xmlns="urn:isbn:1-931666-33-4">
             <!-- Turn associated creators into cpfRelation elements. -->
-            <xsl:variable name="vFirstNode" select="ead:ead/ead:archdesc/ead:did/ead:origination/child::node()[1]" />
+            <xsl:variable name="vFirstNode" select="ead:ead/ead:archdesc/ead:did/ead:origination[not(contains(@id,'RAMP'))]/child::node()[1]" />
             <xsl:for-each select="$vFirstNode">
                 <xsl:if test="following-sibling::node()">
                     <xsl:for-each select="following-sibling::node()[not(@encodinganalog='100_0') and not(@encodinganalog='100_1')]">

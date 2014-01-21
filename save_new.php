@@ -545,7 +545,7 @@ elseif( $cleanedArray["entity"] == "" ) {
 		            </frontmatter>
 		            <archdesc audience="external" relatedencoding="MARC21" level="otherlevel">
 		               <did>
-		                     <origination label="Creator" encodinganalog="245$c">
+		                     <origination label="Creator" encodinganalog="245$c" id="' . $ramp_id . '">
 		                         <persname encodinganalog="100">' . $noPartName . '</persname>
 		                         <persname encodinganalog="100_1">' . $surname . '</persname>
 		                         <persname encodinganalog="100_0">' . $forename . '</persname>
@@ -635,7 +635,7 @@ elseif( $cleanedArray["entity"] == "" ) {
 		            </frontmatter>
 		            <archdesc audience="external" relatedencoding="MARC21" level="otherlevel">
 		               <did>
-		                     <origination label="Creator" encodinganalog="245$c">
+		                     <origination label="Creator" encodinganalog="245$c" id="' . $ramp_id . '">
 		                     <corpname encodinganalog="110">' . $corpName . '</corpname>
 		                           </origination>
 		                           <note type="creation"><p>Record created in RAMP.</p></note>
@@ -719,7 +719,7 @@ elseif( $cleanedArray["entity"] == "" ) {
 		            </frontmatter>
 		            <archdesc audience="external" relatedencoding="MARC21" level="otherlevel">
 		               <did>
-		                     <origination label="Creator" encodinganalog="245$c">
+		                     <origination label="Creator" encodinganalog="245$c" id="' . $ramp_id . '">
 		                     <famname encodinganalog="100_3">' . $famName . '</famname>
 		                           </origination>
 		                           <note type="creation"><p>Record created in RAMP.</p></note>		                           
