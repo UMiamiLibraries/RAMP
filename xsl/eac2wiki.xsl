@@ -800,8 +800,8 @@
     		    </xsl:choose>    			    			
     		</xsl:when>    				    	
     		<xsl:when test="//eac:citation">
-    			<!-- Add any citation elements. -->
-    			<xsl:for-each select="//eac:citation">
+    			<!-- Add any citation elements (not in <conventionDeclaration>. -->
+    			<xsl:for-each select="//eac:citation[not(parent::eac:conventionDeclaration)]">
     				<xsl:choose>
     					<xsl:when test="contains(.,'http')">
     						<xsl:text>* [</xsl:text>
