@@ -799,24 +799,38 @@
                     </xsl:otherwise>    		        
     		    </xsl:choose>    			    			
     		</xsl:when>    				    	
-    		<xsl:when test="//eac:citation">
+    	    <xsl:when test="//eac:citation[not(parent::eac:conventionDeclaration)]">
+    	        <!-- Include the {{Cite RAMP}} template with "pd" (public domain) parameter = "no"... -->                        
+    	        <xsl:text>{{Cite RAMP}}</xsl:text>
+    	        <xsl:text>&#10;</xsl:text>
+    	        <xsl:text>&#10;</xsl:text>
+    	        <!-- Include empty {{Reflist}} template. -->                        
+    	        <xsl:text>&lt;!-- Insert references/citations inside the following template: --&gt;</xsl:text>
+    	        <xsl:text>&#10;</xsl:text>
+    	        <xsl:text>{{Reflist|refs=</xsl:text>
     			<!-- Add any citation elements (not in <conventionDeclaration>. -->
-    			<xsl:for-each select="//eac:citation[not(parent::eac:conventionDeclaration)]">
-    				<xsl:choose>
-    					<xsl:when test="contains(.,'http')">
-    						<xsl:text>* [</xsl:text>
-    						<xsl:value-of select="normalize-space(.)" />
-    						<xsl:text>]</xsl:text>
-    						<xsl:text>&#10;</xsl:text>
-    					</xsl:when>
-    					<xsl:otherwise>
-    						<xsl:text>* </xsl:text>
-    						<xsl:value-of select="normalize-space(.)" />
-    						<xsl:text>&#10;</xsl:text>
-    					</xsl:otherwise>
-    				</xsl:choose>
+    			<xsl:for-each select="//eac:citation[not(parent::eac:conventionDeclaration)]">    				
+    				<xsl:text>&lt;ref&gt;</xsl:text>
+    				<xsl:value-of select="normalize-space(.)" />
+    				<xsl:text>&lt;/ref&gt;</xsl:text>
+    				<xsl:text>&#10;</xsl:text>   
+    			    <xsl:text>}}</xsl:text>
+    			    <xsl:text>&#10;</xsl:text>    			    
     			</xsl:for-each>
     		</xsl:when>
+    	    <xsl:otherwise>
+    	        <!-- Include the {{Cite RAMP}} template with "pd" (public domain) parameter = "no"... -->                        
+    	        <xsl:text>{{Cite RAMP}}</xsl:text>
+    	        <xsl:text>&#10;</xsl:text>
+    	        <xsl:text>&#10;</xsl:text>
+    	        <!-- Include empty {{Reflist}} template. -->                        
+    	        <xsl:text>&lt;!-- Insert references/citations inside the following template: --&gt;</xsl:text>
+    	        <xsl:text>&#10;</xsl:text>
+    	        <xsl:text>{{Reflist|refs=</xsl:text>
+    	        <xsl:text>&#10;</xsl:text>
+    	        <xsl:text>}}</xsl:text>
+    	        <xsl:text>&#10;</xsl:text>    	        
+    	    </xsl:otherwise>
     	</xsl:choose>
     </xsl:template>
     <!-- Output "Further reading" ("works about") section.  -->
