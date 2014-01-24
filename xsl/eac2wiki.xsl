@@ -42,7 +42,7 @@
                         <xsl:call-template name="tParseName2">
                             <xsl:with-param name="pNameType">person</xsl:with-param>
                             <xsl:with-param name="pPersName" select="eac:relationEntry[1]" />
-                        </xsl:call-template>
+                        </xsl:call-template>                        
                     </persName>
                 </xsl:when>
                 <xsl:otherwise>   
@@ -1634,7 +1634,7 @@
                 <xsl:text>Editors should provide a brief annotation when a link's relevance is not immediately apparent, when the meaning of the term may not be generally known, or when the term is ambiguous. For example:</xsl:text>
                 <xsl:text>&#10;</xsl:text>
                 <xsl:text>&#10;</xsl:text>
-                <xsl:text>[[Related person]]—made a similar achievement on April 4, 2005</xsl:text>
+                <xsl:text>[[Related organization]]—made a similar achievement on April 4, 2005</xsl:text>
                 <xsl:text>&#10;</xsl:text>
                 <xsl:text> --&gt;</xsl:text>
                 <xsl:text>&#10;</xsl:text>
@@ -1894,75 +1894,74 @@
     <xsl:template name="tParseName2">
         <xsl:param name="pNameType" />
         <xsl:param name="pPersName" />
-        <xsl:param name="pPersNameSur" select="$pPersNameSur" />
-        <xsl:param name="pPersNameFore" select="$pPersNameFore" />
+        <xsl:param name="pPersNameSur" />
+        <xsl:param name="pPersNameFore" />
         <xsl:param name="pCorpName" />
         <!-- Parse names for people first. -->
-        <xsl:if test="$pNameType='person'">
+        <xsl:if test="$pNameType='person'">            
+            <xsl:if test="$pPersNameFore or $pPersNameSur">
+                <xsl:value-of select="normalize-space($pPersNameFore)" />
+                <xsl:text> </xsl:text>
+                <xsl:value-of select="normalize-space($pPersNameSur)" />
+            </xsl:if>                
             <xsl:choose>
-                <xsl:when test="$pPersNameFore or $pPersNameSur">
-                    <xsl:value-of select="normalize-space($pPersNameFore)" />
-                    <xsl:text> </xsl:text>
-                    <xsl:value-of select="normalize-space($pPersNameSur)" />
-                </xsl:when>
-                <xsl:otherwise>
+                <!-- If the name contains dates ... -->
+                <xsl:when test="string-length(translate($pPersName,$vDigits,''))&lt;string-length($pPersName)">
+                    <!-- ... then reverse the order of the name parts accordingly. -->
                     <xsl:choose>
-                        <!-- If the name contains dates ... -->
-                        <xsl:when test="string-length(translate($pPersName,$vDigits,''))&lt;string-length($pPersName)">
-                            <!-- ... then reverse the order of the name parts accordingly. -->
-                            <xsl:choose>
-                                <xsl:when test="contains(substring-after(normalize-space($pPersName),', '), ' ') and not(contains(substring-after(normalize-space($pPersName),', '), ', ')) and not(contains(substring-after(normalize-space($pPersName),', '), ' b ')) and not(contains(substring-after(normalize-space($pPersName),', '), ' b. '))">
-                                    <xsl:value-of select="substring-before(substring-after(normalize-space($pPersName),', '),' ')" />
-                                    <xsl:text> </xsl:text>
-                                    <xsl:value-of select="substring-before(normalize-space($pPersName),', ')" />
-                                </xsl:when>
-                                <xsl:when test="contains(substring-after(normalize-space($pPersName),', '), ' b. ') and not(contains(substring-after(normalize-space($pPersName),', '), ', '))">
-                                    <xsl:value-of select="substring-before(substring-after(normalize-space($pPersName),', '),' b. ')" />
-                                    <xsl:text> </xsl:text>
-                                    <xsl:value-of select="substring-before(normalize-space($pPersName),', ')" />
-                                </xsl:when>
-                                <xsl:when test="contains(substring-after(normalize-space($pPersName),', '), ' b ') and not(contains(substring-after(normalize-space($pPersName),', '), ', '))">
-                                    <xsl:value-of select="substring-before(substring-after(normalize-space($pPersName),', '),' b ')" />
-                                    <xsl:text> </xsl:text>
-                                    <xsl:value-of select="substring-before(normalize-space($pPersName),', ')" />
-                                </xsl:when>
-                                <xsl:when test="contains(substring-after(normalize-space($pPersName),', '), ', b ')">
-                                    <xsl:value-of select="substring-before(substring-after(normalize-space($pPersName),', '),', b ')" />
-                                    <xsl:text> </xsl:text>
-                                    <xsl:value-of select="substring-before(normalize-space($pPersName),', ')" />
-                                </xsl:when>
-                                <xsl:otherwise>
-                                    <xsl:choose>
-                                        <xsl:when test="substring-before(substring-after(normalize-space($pPersName),', '),', ')">
-                                            <xsl:value-of select="substring-before(substring-after(normalize-space($pPersName),', '),', ')" />
-                                            <xsl:text> </xsl:text>
-                                            <xsl:value-of select="substring-before(normalize-space($pPersName),', ')" />
-                                        </xsl:when>
-                                        <xsl:otherwise>
-                                            <!-- Name order stays as is. -->
-                                            <xsl:value-of select="normalize-space(translate($pPersName,concat($vDigits,'-','(',')'),''))" />
-                                        </xsl:otherwise>
-                                    </xsl:choose>
-                                </xsl:otherwise>
-                            </xsl:choose>
+                        <xsl:when test="contains(substring-after(normalize-space($pPersName),' '),', ')">
+                            <xsl:value-of select="substring-before(normalize-space($pPersName),', ')" />                            
+                        </xsl:when>
+                        <xsl:when test="contains(substring-after(normalize-space($pPersName),', '), ' ') and not(contains(substring-after(normalize-space($pPersName),', '), ', ')) and not(contains(substring-after(normalize-space($pPersName),', '), ' b ')) and not(contains(substring-after(normalize-space($pPersName),', '), ' b. '))">
+                            <xsl:value-of select="substring-before(substring-after(normalize-space($pPersName),', '),' ')" />
+                            <xsl:text> </xsl:text>
+                            <xsl:value-of select="substring-before(normalize-space($pPersName),', ')" />
+                        </xsl:when>
+                        <xsl:when test="contains(substring-after(normalize-space($pPersName),', '), ' b. ') and not(contains(substring-after(normalize-space($pPersName),', '), ', '))">
+                            <xsl:value-of select="substring-before(substring-after(normalize-space($pPersName),', '),' b. ')" />
+                            <xsl:text> </xsl:text>
+                            <xsl:value-of select="substring-before(normalize-space($pPersName),', ')" />
+                        </xsl:when>
+                        <xsl:when test="contains(substring-after(normalize-space($pPersName),', '), ' b ') and not(contains(substring-after(normalize-space($pPersName),', '), ', '))">
+                            <xsl:value-of select="substring-before(substring-after(normalize-space($pPersName),', '),' b ')" />
+                            <xsl:text> </xsl:text>
+                            <xsl:value-of select="substring-before(normalize-space($pPersName),', ')" />
+                        </xsl:when>
+                        <xsl:when test="contains(substring-after(normalize-space($pPersName),', '), ', b ')">
+                            <xsl:value-of select="substring-before(substring-after(normalize-space($pPersName),', '),', b ')" />
+                            <xsl:text> </xsl:text>
+                            <xsl:value-of select="substring-before(normalize-space($pPersName),', ')" />
                         </xsl:when>
                         <xsl:otherwise>
-                            <!-- If the name does not include dates ... -->
                             <xsl:choose>
-                                <xsl:when test="contains($pPersName,', ')">
-                                    <xsl:value-of select="substring-after(normalize-space($pPersName),', ')" />
+                                <xsl:when test="substring-before(substring-after(normalize-space($pPersName),', '),', ')">
+                                    <xsl:value-of select="substring-before(substring-after(normalize-space($pPersName),', '),', ')" />
                                     <xsl:text> </xsl:text>
                                     <xsl:value-of select="substring-before(normalize-space($pPersName),', ')" />
                                 </xsl:when>
                                 <xsl:otherwise>
                                     <!-- Name order stays as is. -->
-                                    <xsl:value-of select="normalize-space($pPersName)" />
+                                    <xsl:value-of select="normalize-space(translate($pPersName,concat($vDigits,'-','(',')'),''))" />
                                 </xsl:otherwise>
                             </xsl:choose>
                         </xsl:otherwise>
                     </xsl:choose>
+                </xsl:when>
+                <xsl:otherwise>
+                    <!-- If the name does not include dates ... -->
+                    <xsl:choose>
+                        <xsl:when test="contains($pPersName,', ')">
+                            <xsl:value-of select="substring-after(normalize-space($pPersName),', ')" />
+                            <xsl:text> </xsl:text>
+                            <xsl:value-of select="substring-before(normalize-space($pPersName),', ')" />
+                        </xsl:when>
+                        <xsl:otherwise>
+                            <!-- Name order stays as is. -->
+                            <xsl:value-of select="normalize-space($pPersName)" />
+                        </xsl:otherwise>
+                    </xsl:choose>
                 </xsl:otherwise>
-            </xsl:choose>
+            </xsl:choose>                            
         </xsl:if>
         <!-- Then parse names for corporate bodies. -->
         <xsl:if test="$pNameType='corporate'">
