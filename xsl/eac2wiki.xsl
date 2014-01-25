@@ -18,19 +18,39 @@
         <xsl:for-each select="eac:eac-cpf/eac:cpfDescription/eac:description/eac:localDescription">
             <xsl:sort select="translate(eac:term,'ÁÀÉÈÍÓÚÜÑáàéèíóúúüñ','AAEEIOUUNaaeeiouuun')" data-type="text" />
             <xsl:if test="contains(@localType,'7')">
-                <persName>                        
-                    <xsl:call-template name="tParseName2">
-                        <xsl:with-param name="pNameType">person</xsl:with-param>
-                        <xsl:with-param name="pPersName" select="eac:term" />
-                    </xsl:call-template>
+                <persName>                     
+                    <xsl:choose>
+                        <xsl:when test="contains(eac:term,'--')">
+                            <xsl:call-template name="tParseName2">
+                                <xsl:with-param name="pNameType">person</xsl:with-param>
+                                <xsl:with-param name="pPersName" select="substring-before(eac:term,'--')" />
+                            </xsl:call-template>        
+                        </xsl:when>
+                        <xsl:otherwise>
+                            <xsl:call-template name="tParseName2">
+                                <xsl:with-param name="pNameType">person</xsl:with-param>
+                                <xsl:with-param name="pPersName" select="eac:term" />
+                            </xsl:call-template>
+                        </xsl:otherwise>
+                    </xsl:choose>                    
                 </persName>
             </xsl:if>
             <xsl:if test="contains(@localType,'610')">
-                <corpName>                        
-                    <xsl:call-template name="tParseName2">
-                        <xsl:with-param name="pNameType">corporate</xsl:with-param>
-                        <xsl:with-param name="pCorpName" select="eac:term" />                            
-                    </xsl:call-template>                        
+                <corpName>       
+                    <xsl:choose>
+                        <xsl:when test="contains(eac:term,'--')">
+                            <xsl:call-template name="tParseName2">
+                                <xsl:with-param name="pNameType">corporate</xsl:with-param>
+                                <xsl:with-param name="pCorpName" select="substring-before(eac:term,'--')" />                            
+                            </xsl:call-template>
+                        </xsl:when>
+                        <xsl:otherwise>
+                            <xsl:call-template name="tParseName2">
+                                <xsl:with-param name="pNameType">corporate</xsl:with-param>
+                                <xsl:with-param name="pCorpName" select="eac:term" />                            
+                            </xsl:call-template>        
+                        </xsl:otherwise>
+                    </xsl:choose>                                            
                 </corpName>
             </xsl:if>
         </xsl:for-each>                                
@@ -39,19 +59,41 @@
             <xsl:choose>
                 <xsl:when test="contains(@xlink:role,'Person')">  
                     <persName>
-                        <xsl:call-template name="tParseName2">
-                            <xsl:with-param name="pNameType">person</xsl:with-param>
-                            <xsl:with-param name="pPersName" select="eac:relationEntry[1]" />
-                        </xsl:call-template>                        
+                        <xsl:choose>
+                            <xsl:when test="contains(eac:relationEntry[1],'--')">
+                                <xsl:call-template name="tParseName2">
+                                    <xsl:with-param name="pNameType">person</xsl:with-param>
+                                    <xsl:with-param name="pPersName" select="substring-before(eac:relationEntry[1],'--')" />
+                                </xsl:call-template>
+                            </xsl:when>
+                            <xsl:otherwise>
+                                <xsl:call-template name="tParseName2">
+                                    <xsl:with-param name="pNameType">person</xsl:with-param>
+                                    <xsl:with-param name="pPersName" select="eac:relationEntry[1]" />
+                                </xsl:call-template>
+                            </xsl:otherwise>
+                        </xsl:choose>                                              
                     </persName>
                 </xsl:when>
                 <xsl:otherwise>   
-                    <corpName>
-                        <xsl:call-template name="tParseName2">
-                            <xsl:with-param name="pNameType">corporate</xsl:with-param>
-                            <xsl:with-param name="pCorpName" select="eac:relationEntry[1]" />
-                        </xsl:call-template>
-                    </corpName>
+                    <xsl:choose>
+                        <xsl:when test="contains(eac:relationEntry[1],'--')">
+                            <corpName>
+                                <xsl:call-template name="tParseName2">
+                                    <xsl:with-param name="pNameType">corporate</xsl:with-param>
+                                    <xsl:with-param name="pCorpName" select="substring-before(eac:relationEntry[1],'--')" />
+                                </xsl:call-template>
+                            </corpName>
+                        </xsl:when>
+                        <xsl:otherwise>
+                            <corpName>
+                                <xsl:call-template name="tParseName2">
+                                    <xsl:with-param name="pNameType">corporate</xsl:with-param>
+                                    <xsl:with-param name="pCorpName" select="eac:relationEntry[1]" />
+                                </xsl:call-template>
+                            </corpName>
+                        </xsl:otherwise>
+                    </xsl:choose>                    
                 </xsl:otherwise>
             </xsl:choose>
         </xsl:for-each>                                                            
@@ -1922,10 +1964,7 @@
                 <!-- If the name contains dates ... -->
                 <xsl:when test="string-length(translate($pPersName,$vDigits,''))&lt;string-length($pPersName)">
                     <!-- ... then reverse the order of the name parts accordingly. -->
-                    <xsl:choose>
-                        <xsl:when test="contains(substring-after(normalize-space($pPersName),' '),', ')">
-                            <xsl:value-of select="substring-before(normalize-space($pPersName),', ')" />                            
-                        </xsl:when>
+                    <xsl:choose>                                                                        
                         <xsl:when test="contains(substring-after(normalize-space($pPersName),', '), ' ') and not(contains(substring-after(normalize-space($pPersName),', '), ', ')) and not(contains(substring-after(normalize-space($pPersName),', '), ' b ')) and not(contains(substring-after(normalize-space($pPersName),', '), ' b. '))">
                             <xsl:value-of select="substring-before(substring-after(normalize-space($pPersName),', '),' ')" />
                             <xsl:text> </xsl:text>
@@ -1952,6 +1991,11 @@
                                     <xsl:value-of select="substring-before(substring-after(normalize-space($pPersName),', '),', ')" />
                                     <xsl:text> </xsl:text>
                                     <xsl:value-of select="substring-before(normalize-space($pPersName),', ')" />
+                                </xsl:when>
+                                <xsl:when test="contains(substring-after(normalize-space($pPersName),' '),', ')">
+                                    <xsl:if test="not(contains(substring-after(substring-after(normalize-space($pPersName),' '),', '),', '))">
+                                        <xsl:value-of select="substring-before(normalize-space($pPersName),', ')" />    
+                                    </xsl:if>                                                        
                                 </xsl:when>
                                 <xsl:otherwise>
                                     <!-- Name order stays as is. -->
