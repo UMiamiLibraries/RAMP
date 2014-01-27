@@ -17,9 +17,26 @@ if ($mysqli->connect_errno) {
 $media_wiki = mysqli_real_escape_string($mysqli,$_POST["media_wiki"]);
 $ead_path = mysqli_real_escape_string($mysqli,$_POST["ead_path"]);
 
-$sql = "CALL insert_wiki(\"$media_wiki\", \"$ead_path\")";
 
-$result = $mysqli->query($sql);
+
+$eac_id_sql = "SELECT eac_id from eac WHERE ead_file LIKE  CONCAT(\"%\",'$ead_path',\"%\")";
+
+$eac_id_result = $mysqli->query($eac_id_sql);
+if (!$eac_id_result) {
+  printf("%s\n", $mysqli->error);
+
+} 
+
+
+$eac_id_row = $eac_id_result->fetch_row();
+
+$eac_id = $eac_id_row['0'];
+
+$insert_sql = "INSERT INTO ead_eac.mediawiki (wiki_text,eac_id) VALUES ('$media_wiki', '$eac_id')
+ON DUPLICATE KEY UPDATE mediawiki.wiki_text = '$media_wiki'";
+
+
+$result = $mysqli->query($insert_sql);
 if (!$result) {
   printf("%s\n", $mysqli->error);
   echo $sql;
