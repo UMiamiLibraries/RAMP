@@ -45,7 +45,7 @@ Read more about RAMP in _[Code4Lib Journal](http://journal.code4lib.org/articles
 
   * `xsl.php`, `paths.php`
 
-    These files include the paths to XSL stylesheets.
+    These files include the paths to XSL stylesheets. Settings in these two files should not need to be changed.
 
 ### 1.4 Add EAD Records
    The `ead` folder in the RAMP root directory should have correct read/write permissions set.
