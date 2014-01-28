@@ -80,8 +80,8 @@
             <xsl:sort select="translate(.,'ÁÀÉÈÍÓÚÜÑáàéèíóúúüñ','AAEEIOUUNaaeeiouuun')" data-type="text" />
             <persName>
                 <xsl:choose>
-                    <xsl:when test="substring(.,string-length(.))=',' or substring(.,string-length(.))='.' or substring(.,string-length(.))=';' or substring(.,string-length(.))=':'">
-                        <xsl:value-of select="normalize-space(substring(.,1,string-length(.) -1))" />
+                    <xsl:when test="substring(.,string-length(.))=','">
+                        <xsl:value-of select="normalize-space(substring(.,1,string-length(.)-1))" />
                     </xsl:when>
                     <xsl:otherwise>
                         <xsl:value-of select="normalize-space(.)" />
@@ -188,13 +188,13 @@
                                     <xsl:value-of select="substring-after(ead:eadid,'/')" />
                                     <xsl:text>.</xsl:text>
                                     <xsl:value-of select="substring-after(ead:eadid/@identifier,':')" />
-                                    <xsl:text>.r</xsl:text>
+                                    <xsl:text>.</xsl:text>
                                 </xsl:when>
                                 <xsl:otherwise>
                                     <xsl:value-of select="ead:eadid" />
                                     <xsl:text>.</xsl:text>
                                     <xsl:value-of select="substring-after(ead:eadid/@identifier,':')" />
-                                    <xsl:text>.r</xsl:text>
+                                    <xsl:text>.</xsl:text>
                                 </xsl:otherwise>
                             </xsl:choose>                                                                         
                             <xsl:value-of select="substring-before($pRecordId,'-')" />

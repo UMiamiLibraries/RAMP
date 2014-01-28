@@ -404,13 +404,13 @@ class WorldCat_Ingestor extends Ingestor
 
 		foreach( $this->objUsefulLinks as $lobjLink )
 		{											
-		    if( $lobjLink['wiki'] != "" || $lobjLink['wiki']->length != 0) {		    
+		    if( $lobjLink['wiki'] != "" || sizeof($lobjLink['wiki']) != 0) {		    
 				$lobjLinkNodeWiki['attributes']['localType'] = "WCI:DBpedia"; 												
 				$lobjLinkNodeWiki['elements'] = "http://dbpedia.org/resource/" . $lobjLink['wiki']; 	
 				$this->objElementList['otherRecordId'][] = $lobjLinkNodeWiki;						
 			}
 			
-			if( $lobjLink['lccn'] != "" || $lobjLink['lccn']->length != 0) {		    
+			if( $lobjLink['lccn'] != "" || sizeof($lobjLink['lccn']) != 0) {		    
 				$lobjLinkNodeSource['attributes']['xlink:href'] = "http://worldcat.org/identities/" . $lobjLink['lccn'];		
 				$lobjLinkNodeSource['attributes']['xlink:type'] = "simple";
 				$this->objElementList['source'][] = $lobjLinkNodeSource;
@@ -425,7 +425,7 @@ class WorldCat_Ingestor extends Ingestor
 				$this->objElementList['otherRecordId'][] = $lobjLinkNodeLccn;				
 			}
 				
-			if( $lobjLink['viaf'] != "" || $lobjLink['viaf']->length != 0) {
+			if( $lobjLink['viaf'] != "" || sizeof($lobjLink['viaf']) != 0) {
 			    $lobjLinkNodeViaf['attributes']['localType'] = "WCI:VIAF";
 				$lobjLinkNodeViaf['elements'] = $lobjLink['viaf'];
 				$this->objElementList['otherRecordId'][] = $lobjLinkNodeViaf;
