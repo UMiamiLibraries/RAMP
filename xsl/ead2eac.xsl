@@ -214,7 +214,7 @@
                 <agencyCode>
                     <xsl:value-of select="$pAgencyCode" />
                 </agencyCode>
-                <otherAgencyCode localType="OCLC">
+                <otherAgencyCode localType="MARC">
                     <xsl:value-of select="$pOtherAgencyCode" />
                 </otherAgencyCode>
                 <agencyName>

@@ -10,8 +10,10 @@
    (2) "pFindingAidInfo" stores publication info (like institution name, place, and date) for finding aid citations in the wiki markup "Notes and references" section.   
 */
 
-$agency_code = "ABC-D";     // "The code that represents the institution or service responsible for the creation, maintenance and/or dissemination of the EAC-CPF instance."
-$other_agency_code = "XYZ"; // "Alternate code representing the institution or service responsible for the creation, maintenance, and/or dissemination of the EAC-CPF instance."                             
+$agency_code = "US-ABC";     // "The code that represents the institution or service responsible for the creation, maintenance and/or dissemination of the EAC-CPF instance."
+                             // Note that the EAC-CPF schema requires a pattern that contains a hyphen. 
+                             // For example, for the University of Miami, we could use our OCLC symbol ("FQC") with a country prefix: "US-FQC".
+$other_agency_code = "XYZ";  // Here we could include our MARC organization code; e.g., for the University of Miami, "FMU".                              
 $agency_name = "University of ABC"; // Name displayed in the RAMP footer and in "agencyName" element. 
 $short_agency_name = "ABC"; // Abbreviation of institution's name; for example, used in "otherRecordId" @localType for merged records. For example, "UML" for University of Miami Libraries.
 $serverName = "abc_server"; // Name of server where EAD finding aids are hosted (e.g., "proust" or "gryphon"). Helps filter out "ead:extref" data in ead2eac.xsl.
