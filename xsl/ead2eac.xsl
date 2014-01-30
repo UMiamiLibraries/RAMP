@@ -37,7 +37,7 @@
     <xsl:variable name="vCommaSpace" select="', '" />
     <xsl:variable name="vQuote">"</xsl:variable>
     <xsl:variable name="vApos">'</xsl:variable>
-    <!-- Define variables for crude regex matching of dates. -->
+    <!-- Define variables for basic regex matching of dates. -->
     <xsl:variable name="vDates" select="translate(normalize-space(//ead:archdesc/ead:did/ead:origination/child::node()[1]),concat($vAlpha2,$vCommaSpace,$vApos),'')" />
     <xsl:variable name="vDatesLen" select="string-length(translate(normalize-space(//ead:archdesc/ead:did/ead:origination/child::node()[1]),concat($vAlpha,$vCommaSpace,$vApos),''))" />
     <xsl:variable name="vNameStringLen" select="string-length(normalize-space(//ead:archdesc/ead:did/ead:origination/child::node()[1]))" />
@@ -1370,14 +1370,14 @@
                     </xsl:for-each>
                 </xsl:if>
             </xsl:for-each>
-            <xsl:for-each select="exsl:node-set($vCpfName)/persName[not(.=preceding-sibling::persName)][.!=$vFirstNode]">                
+            <xsl:for-each select="exsl:node-set($vCpfName)/persName[not(.=preceding-sibling::persName)][.!=normalize-space($vFirstNode)]">                
                 <cpfRelation cpfRelationType="associative" xlink:role="http://rdvocab.info/uri/schema/FRBRentitiesRDA/Person" xlink:type="simple">
                     <relationEntry>                        
                         <xsl:value-of select="normalize-space(.)" />
                     </relationEntry>
                 </cpfRelation>
             </xsl:for-each>
-            <xsl:for-each select="exsl:node-set($vCpfName)/corpName[not(.=preceding-sibling::corpName)][.!=$vFirstNode]">                
+            <xsl:for-each select="exsl:node-set($vCpfName)/corpName[not(.=preceding-sibling::corpName)][.!=normalize-space($vFirstNode)]">                
                 <cpfRelation cpfRelationType="associative" xlink:role="http://rdvocab.info/uri/schema/FRBRentitiesRDA/CorporateBody" xlink:type="simple">
                     <relationEntry>                        
                         <xsl:value-of select="normalize-space(.)" />
