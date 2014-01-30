@@ -425,10 +425,11 @@
         <xsl:param name="pPersNameFore" select="$pPersNameFore" />
         <xsl:text>{{Infobox person</xsl:text>
         <xsl:text>&#09;</xsl:text>
-    	<xsl:text>     &lt;!-- See http://en.wikipedia.org/wiki/Template:Infobox_person for complete template --&gt; </xsl:text>
+    	<xsl:text>     &lt;!-- See http://en.wikipedia.org/wiki/Template:Infobox_person for complete template --&gt;</xsl:text>
         <xsl:text>&#10;</xsl:text>
         <xsl:text>| name</xsl:text>
     	<xsl:text>&#09;&#09;&#09;= </xsl:text>
+        <xsl:text>&#10;</xsl:text>
         <xsl:call-template name="tParseName">
             <xsl:with-param name="pNameType">person</xsl:with-param>
             <xsl:with-param name="pPersName" select="$pPersName" />
