@@ -106,7 +106,7 @@ database, along with the newly created EAC-CPF record. If a duplicate EAD file i
    At this point, the user could
    edit the ingested data, but this is not required. 
    
-    **Note**: 
+   **Note**: 
    
    * **In order for the VIAF ingest routine to run successfully with large queries, you will need to increase the `max_execution_time` value in your `php.ini` settings. Suggested value is '600.'**  
     
