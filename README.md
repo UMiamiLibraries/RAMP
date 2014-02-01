@@ -74,7 +74,7 @@ Read more about RAMP in _[Code4Lib Journal](http://journal.code4lib.org/articles
    **Note**: 
    
    * If you receive a PHP error when trying to run the conversion routine, you may need to edit your `php.ini` settings to change the value of `short_open_tag` to 'Off.'
-   * For large EAD files, you may need to increase the size of the `max_allowed_packet` setting in your `my.ini` or `my.cnf` MySQL settings; for example, from '1M' to '2M.'
+   * For large EAD files, you will need to increase the size of the `max_allowed_packet` setting in your `my.ini` or `my.cnf` MySQL settings; for example, from '1M' to '2M.'
    
 After submitting the form, the script performs an XSLT transformation on
 all the files in the folder. After a successful transformation, the
@@ -105,7 +105,11 @@ database, along with the newly created EAC-CPF record. If a duplicate EAD file i
    appropriate matches, data from the services is inserted into the EAC XML.
    At this point, the user could
    edit the ingested data, but this is not required. 
-
+   
+    **Note**: 
+   
+   * **In order for the VIAF ingest routine to run successfully with large queries, you will need to increase the `max_execution_time` value in your `php.ini` settings. Suggested value is '600.'**  
+    
 ### 2.5 Working with Mediawiki Markup
    After ingestion, the user can convert the EAC record to Mediawiki
    Markup. They are presented with a different editor for working with the
