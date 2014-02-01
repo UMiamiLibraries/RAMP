@@ -465,7 +465,8 @@ function ingest_viaf_Relations(lobjEac, callback) {
                 }
             }
         }
-        
+        /* Regex for NER in ingested data. */
+        /*
         for (var i = 0; i < lobjIngestList.length; i++) {
             if (typeof lobjIngestList[i].childNodes == 'undefined')
             continue;
@@ -495,10 +496,11 @@ function ingest_viaf_Relations(lobjEac, callback) {
                 }
             }
         }
+        */
         
-        
+        /* .concat(PossibleNameListIngest) */
         //console.log(NameIndexList);
-        PossibleNameList = PossibleNameListBio.concat(PossibleNameListUnit).concat(PossibleNameListIngest);
+        PossibleNameList = PossibleNameListBio.concat(PossibleNameListUnit);
         PossibleNameList = unique(PossibleNameList);
         PossibleNameList.sort();
         
