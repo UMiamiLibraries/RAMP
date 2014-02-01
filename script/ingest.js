@@ -575,6 +575,7 @@ function ingest_viaf_Relations(lobjEac, callback) {
                         $('#loading-image').remove();
                         $('.form_container').remove();
                         $('.main_edit').show();
+                        
                         // Check to see if there is already wiki markup. If so, show switcher. --timathom
                         if (getCookie('wiki') == 'present') {
                             $('#wiki_switch').show();
@@ -621,7 +622,7 @@ function ingest_viaf_Relations(lobjEac, callback) {
                         $('.viaf_arrow').html("&#10003;");
                         $('#loading-image').remove();
                         $('.main_edit').show();
-                        
+                        $('#entity_name').show();
                         // Check to see if there is already wiki markup. If so, show switcher. --timathom
                         if (getCookie('wiki') == 'present') {
                             $('#wiki_switch').show();
@@ -672,8 +673,9 @@ function ingest_viaf_Relations(lobjEac, callback) {
                         callback('&lt;cpfRelation&gt; elements added!');
                         // Notify that <cpfRelation> elements have been added. --timathom
                         $('.viaf_arrow').html("&#10003;");
-                        $('#loading-image').remove();
-                        $('.main_edit').show();
+                        $('#loading-image').remove();                        
+                        $('.main_edit').show();   
+                        $('#entity_name').show();
                     }
                 });
             });
