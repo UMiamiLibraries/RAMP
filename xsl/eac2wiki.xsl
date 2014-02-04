@@ -1369,19 +1369,69 @@
                             <xsl:choose>
                                 <xsl:when test="contains(../../../eac:otherRecordId[@localType='WCI:LCCN'],'no')">
                                     <xsl:variable name="lccn" select="substring-after(../../../eac:otherRecordId[@localType='WCI:LCCN'],'lccn-no')" />
-                                    <xsl:value-of select="concat('no/',translate($lccn,'-','/'))" />
+                                    <xsl:choose>
+                                        <xsl:when test="contains($lccn,'-')">
+                                            <xsl:value-of select="concat('no/',translate($lccn,'-','/'))" />        
+                                        </xsl:when>
+                                        <xsl:otherwise>
+                                            <xsl:value-of select="concat('no',$lccn)" />
+                                        </xsl:otherwise>
+                                    </xsl:choose>                                    
+                                </xsl:when>
+                                <xsl:when test="contains(../../../eac:otherRecordId[@localType='WCI:LCCN'],'nb')">
+                                    <xsl:variable name="lccn" select="substring-after(../../../eac:otherRecordId[@localType='WCI:LCCN'],'lccn-nb')" />
+                                    <xsl:choose>
+                                        <xsl:when test="contains($lccn,'-')">
+                                            <xsl:value-of select="concat('nb/',translate($lccn,'-','/'))" />        
+                                        </xsl:when>
+                                        <xsl:otherwise>
+                                            <xsl:value-of select="concat('nb',$lccn)" />
+                                        </xsl:otherwise>
+                                    </xsl:choose>                                    
+                                </xsl:when>
+                                <xsl:when test="contains(../../../eac:otherRecordId[@localType='WCI:LCCN'],'ns')">
+                                    <xsl:variable name="lccn" select="substring-after(../../../eac:otherRecordId[@localType='WCI:LCCN'],'lccn-ns')" />
+                                    <xsl:choose>
+                                        <xsl:when test="contains($lccn,'-')">
+                                            <xsl:value-of select="concat('ns/',translate($lccn,'-','/'))" />        
+                                        </xsl:when>
+                                        <xsl:otherwise>
+                                            <xsl:value-of select="concat('ns',$lccn)" />
+                                        </xsl:otherwise>
+                                    </xsl:choose>                                    
                                 </xsl:when>
                                 <xsl:when test="contains(../../../eac:otherRecordId[@localType='WCI:LCCN'],'nr')">
                                     <xsl:variable name="lccn" select="substring-after(../../../eac:otherRecordId[@localType='WCI:LCCN'],'lccn-nr')" />
-                                    <xsl:value-of select="concat('nr/',translate($lccn,'-','/'))" />
+                                    <xsl:choose>
+                                        <xsl:when test="contains($lccn,'-')">
+                                            <xsl:value-of select="concat('nr/',translate($lccn,'-','/'))" />        
+                                        </xsl:when>
+                                        <xsl:otherwise>
+                                            <xsl:value-of select="concat('nr',$lccn)" />
+                                        </xsl:otherwise>
+                                    </xsl:choose>
                                 </xsl:when>
                                 <xsl:when test="contains(../../../eac:otherRecordId[@localType='WCI:LCCN'],'sh')">
                                     <xsl:variable name="lccn" select="substring-after(../../../eac:otherRecordId[@localType='WCI:LCCN'],'lccn-sh')" />
-                                    <xsl:value-of select="concat('sh/',translate($lccn,'-','/'))" />
+                                    <xsl:choose>
+                                        <xsl:when test="contains($lccn,'-')">
+                                            <xsl:value-of select="concat('sh/',translate($lccn,'-','/'))" />        
+                                        </xsl:when>
+                                        <xsl:otherwise>
+                                            <xsl:value-of select="concat('sh',$lccn)" />
+                                        </xsl:otherwise>
+                                    </xsl:choose>
                                 </xsl:when>
                                 <xsl:otherwise>
                                     <xsl:variable name="lccn" select="substring-after(../../../eac:otherRecordId[@localType='WCI:LCCN'],'lccn-n')" />
-                                    <xsl:value-of select="concat('n/',translate($lccn,'-','/'))" />
+                                    <xsl:choose>
+                                        <xsl:when test="contains($lccn,'-')">
+                                            <xsl:value-of select="concat('n/',translate($lccn,'-','/'))" />        
+                                        </xsl:when>
+                                        <xsl:otherwise>
+                                            <xsl:value-of select="concat('n',$lccn)" />
+                                        </xsl:otherwise>
+                                    </xsl:choose>
                                 </xsl:otherwise>
                             </xsl:choose>
                         </xsl:when>
@@ -1400,13 +1450,71 @@
                         <xsl:choose>
                             <xsl:when test="contains(eac:eac-cpf/eac:control/eac:otherRecordId[@localType='WCI:LCCN'],'no')">
                                 <xsl:variable name="lccn" select="substring-after(eac:eac-cpf/eac:control/eac:otherRecordId[@localType='WCI:LCCN'],'lccn-no')" />
-                                <xsl:value-of select="concat('no/',translate($lccn,'-','/'))" />
+                                <xsl:choose>
+                                    <xsl:when test="contains($lccn,'-')">
+                                        <xsl:value-of select="concat('no/',translate($lccn,'-','/'))" />        
+                                    </xsl:when>
+                                    <xsl:otherwise>
+                                        <xsl:value-of select="concat('no',$lccn)" />
+                                    </xsl:otherwise>
+                                </xsl:choose>                                    
+                            </xsl:when>
+                            <xsl:when test="contains(../../../eac:otherRecordId[@localType='WCI:LCCN'],'nb')">
+                                <xsl:variable name="lccn" select="substring-after(eac:eac-cpf/eac:control/eac:otherRecordId[@localType='WCI:LCCN'],'lccn-nb')" />
+                                <xsl:choose>
+                                    <xsl:when test="contains($lccn,'-')">
+                                        <xsl:value-of select="concat('nb/',translate($lccn,'-','/'))" />        
+                                    </xsl:when>
+                                    <xsl:otherwise>
+                                        <xsl:value-of select="concat('nb',$lccn)" />
+                                    </xsl:otherwise>
+                                </xsl:choose>                                    
+                            </xsl:when>
+                            <xsl:when test="contains(eac:eac-cpf/eac:control/eac:otherRecordId[@localType='WCI:LCCN'],'ns')">
+                                <xsl:variable name="lccn" select="substring-after(eac:eac-cpf/eac:control/eac:otherRecordId[@localType='WCI:LCCN'],'lccn-ns')" />
+                                <xsl:choose>
+                                    <xsl:when test="contains($lccn,'-')">
+                                        <xsl:value-of select="concat('ns/',translate($lccn,'-','/'))" />        
+                                    </xsl:when>
+                                    <xsl:otherwise>
+                                        <xsl:value-of select="concat('ns',$lccn)" />
+                                    </xsl:otherwise>
+                                </xsl:choose>                                    
+                            </xsl:when>
+                            <xsl:when test="contains(eac:eac-cpf/eac:control/eac:otherRecordId[@localType='WCI:LCCN'],'nr')">
+                                <xsl:variable name="lccn" select="substring-after(eac:eac-cpf/eac:control/eac:otherRecordId[@localType='WCI:LCCN'],'lccn-nr')" />
+                                <xsl:choose>
+                                    <xsl:when test="contains($lccn,'-')">
+                                        <xsl:value-of select="concat('nr/',translate($lccn,'-','/'))" />        
+                                    </xsl:when>
+                                    <xsl:otherwise>
+                                        <xsl:value-of select="concat('nr',$lccn)" />
+                                    </xsl:otherwise>
+                                </xsl:choose>
+                            </xsl:when>
+                            <xsl:when test="contains(eac:eac-cpf/eac:control/eac:otherRecordId[@localType='WCI:LCCN'],'sh')">
+                                <xsl:variable name="lccn" select="substring-after(eac:eac-cpf/eac:control/eac:otherRecordId[@localType='WCI:LCCN'],'lccn-sh')" />
+                                <xsl:choose>
+                                    <xsl:when test="contains($lccn,'-')">
+                                        <xsl:value-of select="concat('sh/',translate($lccn,'-','/'))" />        
+                                    </xsl:when>
+                                    <xsl:otherwise>
+                                        <xsl:value-of select="concat('sh',$lccn)" />
+                                    </xsl:otherwise>
+                                </xsl:choose>
                             </xsl:when>
                             <xsl:otherwise>
                                 <xsl:variable name="lccn" select="substring-after(eac:eac-cpf/eac:control/eac:otherRecordId[@localType='WCI:LCCN'],'lccn-n')" />
-                                <xsl:value-of select="concat('n/',translate($lccn,'-','/'))" />
+                                <xsl:choose>
+                                    <xsl:when test="contains($lccn,'-')">
+                                        <xsl:value-of select="concat('n/',translate($lccn,'-','/'))" />        
+                                    </xsl:when>
+                                    <xsl:otherwise>
+                                        <xsl:value-of select="concat('n',$lccn)" />
+                                    </xsl:otherwise>
+                                </xsl:choose>
                             </xsl:otherwise>
-                        </xsl:choose>
+                        </xsl:choose>                                                   
                         <xsl:text>}}</xsl:text>
                         <xsl:text>&#10;</xsl:text>
                         <xsl:text>&#10;</xsl:text>
