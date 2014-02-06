@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-b<xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:eac="urn:isbn:1-931666-33-4" xmlns:ead="urn:isbn:1-931666-22-9" xmlns:exsl="http://exslt.org/common" xmlns:xlink="http://www.w3.org/1999/xlink" extension-element-prefixes="exsl" exclude-result-prefixes="eac" version="1.0">
+<xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:eac="urn:isbn:1-931666-33-4" xmlns:ead="urn:isbn:1-931666-22-9" xmlns:exsl="http://exslt.org/common" xmlns:xlink="http://www.w3.org/1999/xlink" extension-element-prefixes="exsl" exclude-result-prefixes="eac" version="1.0">
     
     <!--
         Author: Timothy A. Thompson
@@ -1653,28 +1653,26 @@ b<xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:eac="urn
         			<xsl:with-param name="pCheckInfo" select="'false'" />
         		</xsl:call-template>	
         	</xsl:variable>
-            <xsl:if test="$vBirthTest!='' or $vDeathTest!='' ">
+            <xsl:if test="$vBirthTest!='' or $vDeathTest!=''">
                 <xsl:text>&lt;!-- Note: the following categories have been generated from birth/death dates in the EAC record. These categories should be uncommented when the article is ready to go live.</xsl:text>
                 <xsl:text>&#10;</xsl:text>  
-                <xsl:text>&#10;</xsl:text>      
-            </xsl:if>            
-            <xsl:if test="$vBirthTest!=''">
-        		<xsl:text>[[Category:</xsl:text>
-        		<xsl:value-of select="$vBirthTest"/>
-        		<xsl:text> births]]</xsl:text>
-        		<xsl:text>&#10;</xsl:text>        
-        	</xsl:if>
-        	<xsl:if test="$vDeathTest!=''">
-        		<xsl:text>[[Category:</xsl:text>
-        		<xsl:value-of select="$vDeathTest"/>
-        		<xsl:text> deaths]]</xsl:text>
-        		<xsl:text>&#10;</xsl:text>            	          	   
-        	</xsl:if>    
-            <xsl:if test="$vBirthTest!='' or $vDeathTest!='' ">
+                <xsl:text>&#10;</xsl:text>                  
+                <xsl:if test="$vBirthTest!=''">
+            		<xsl:text>[[Category:</xsl:text>
+            		<xsl:value-of select="$vBirthTest"/>
+            		<xsl:text> births]]</xsl:text>
+            		<xsl:text>&#10;</xsl:text>        
+            	</xsl:if>
+            	<xsl:if test="$vDeathTest!=''">
+            		<xsl:text>[[Category:</xsl:text>
+            		<xsl:value-of select="$vDeathTest"/>
+            		<xsl:text> deaths]]</xsl:text>
+            		<xsl:text>&#10;</xsl:text>            	          	   
+            	</xsl:if>                
                 <xsl:text>&#10;</xsl:text>    
                 <xsl:text>--&gt;</xsl:text>
                 <xsl:text>&#10;</xsl:text>
-            </xsl:if>
+            </xsl:if>            
             <xsl:if test="eac:eac-cpf/eac:cpfDescription/eac:description/eac:localDescription[@localType[contains(.,'6')]]|eac:eac-cpf/eac:cpfDescription/eac:description/eac:localDescription[@localType='subject']">
                 <xsl:text>&#10;</xsl:text>
                 <xsl:text>&lt;!-- Note: the following categories have been generated from the EAC input form, the original EAD finding aid, or else using FAST headings added from WorldCat Identities. These categories should be replaced with appropriate Wikipedia categories (for example, using the HotCat tool).</xsl:text>
@@ -1714,7 +1712,7 @@ b<xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:eac="urn
                 </xsl:when>
                 <xsl:otherwise>
                     <xsl:if test="string-length($pBiogHist) &lt; 5000">
-                        <xsl:text>&#10;</xsl:text>
+                        <xsl:text>&#10;</xsl:text>                        
                         <xsl:text>&#10;</xsl:text>
                         <xsl:text>{{Bio-stub}}</xsl:text>
                     </xsl:if>
