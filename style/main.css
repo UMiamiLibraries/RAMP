@@ -615,7 +615,7 @@ button.on {
 }
 
 .user_help_form {
-    padding:.5%;
+    padding:.5% .5% 10% .5%;    
 	font-size:1.25em;
 	line-height:1.5em;
 	left: 15%;
