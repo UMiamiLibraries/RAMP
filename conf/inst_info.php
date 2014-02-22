@@ -22,7 +22,7 @@ $repositoryOne = "REPO1";   // Abbreviation for local archival repository. Can b
 $repositoryTwo = "REPO2";   // Abbreviation for local archival repository. Can be used to help filter out "ead:relatedmaterials" data in ead2eac.xsl.
 
 // Here are some different possible "eventDescription" values that can be set in ead2eac.xsl.
-$eventDescDerive = "New EAC-CPF record derived from EAD instance and existing EAC-CPF record."; 
+$eventDescDerive = "New EAC-CPF record derived from EAD instance and existing EAC-CPF record, if available."; 
 $eventDescCreate = "Record created.";
 $eventDescRevise = "Record revised.";
 $eventDescExport = "Record exported as EAC-CPF/XML.";
