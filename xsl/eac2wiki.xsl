@@ -921,7 +921,7 @@
                     	</xsl:for-each>
                     	<xsl:text>| title = </xsl:text>
                         <xsl:choose>
-                            <!-- Rough matching to filter for Spanish and Portuguese titles. Needs work for internationalization and smarter switching between title and sentece case. -->
+                            <!-- Rough matching to filter for Spanish and Portuguese titles. Needs work for internationalization and smarter switching between title and sentence case. -->
                             <xsl:when test="contains(.,' com ')
                                 or contains(.,' con ')
                                 or contains(.,' de ')
@@ -939,7 +939,22 @@
                                 </xsl:call-template>                                                                                            
                             </xsl:otherwise>                                                                        
                         </xsl:choose>                    	                    	
-                    	<xsl:text>&#10;</xsl:text>                    	                    	                
+                    	<xsl:text>&#10;</xsl:text>                             
+                        <xsl:if test="following-sibling::eac:relationEntry[@localType='pubPlace']">
+                            <xsl:text>| publication-place = </xsl:text>
+                            <xsl:value-of select="normalize-space(following-sibling::eac:relationEntry[@localType='pubPlace'])"/>
+                            <xsl:text>&#10;</xsl:text>
+                        </xsl:if>                        
+                        <xsl:if test="following-sibling::eac:relationEntry[@localType='publisher']">
+                            <xsl:text>| publisher = </xsl:text>
+                            <xsl:value-of select="normalize-space(following-sibling::eac:relationEntry[@localType='publisher'])"/>
+                            <xsl:text>&#10;</xsl:text>    
+                        </xsl:if>                        
+                        <xsl:if test="following-sibling::eac:relationEntry[@localType='pubDate']">
+                            <xsl:text>| publication-date = </xsl:text>
+                            <xsl:value-of select="normalize-space(following-sibling::eac:relationEntry[@localType='pubDate'])"/>
+                            <xsl:text>&#10;</xsl:text>
+                        </xsl:if>                                                                        
                         <xsl:choose>
                             <xsl:when test="contains(../@xlink:href,'q=kw')">
                                 <xsl:text>| url = </xsl:text>
