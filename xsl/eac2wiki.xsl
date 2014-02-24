@@ -375,7 +375,7 @@
         <xsl:param name="pPersNameFore" select="$pPersNameFore" />
         <xsl:text>{{Infobox person</xsl:text>
         <xsl:text>&#09;</xsl:text>
-    	<xsl:text>     &lt;!-- See http://en.wikipedia.org/wiki/Template:Infobox_person for complete template --&gt;</xsl:text>
+    	<xsl:text>&lt;!-- See http://en.wikipedia.org/wiki/Template:Infobox_person for complete template --&gt;</xsl:text>
         <xsl:text>&#10;</xsl:text>
         <xsl:text>| name</xsl:text>
     	<xsl:text>&#09;&#09;&#09;= </xsl:text>        
@@ -468,7 +468,8 @@
     <!-- Output Infobox for corporate bodies. -->
     <xsl:template name="tCBodyInfobox">
         <xsl:text>{{Infobox organization</xsl:text>
-    	<xsl:text>       &lt;!-- See https://en.wikipedia.org/wiki/Template:Infobox_organization for complete template --&gt;</xsl:text>
+        <xsl:text>&#09;</xsl:text>
+    	<xsl:text>&lt;!-- See https://en.wikipedia.org/wiki/Template:Infobox_organization for complete template --&gt;</xsl:text>
         <xsl:text>&#10;</xsl:text>
         <xsl:text>| name</xsl:text>
     	<xsl:text>&#09;&#09;&#09;&#09;= </xsl:text>
