@@ -134,7 +134,7 @@
         <xsl:text>==Biography==</xsl:text>
     	<xsl:text>&#10;</xsl:text>
         <xsl:if test="eac:eac-cpf/eac:cpfDescription/eac:relations/eac:resourceRelation/eac:objectXMLWrap/ead:archdesc/ead:scopecontent or $pBiogHist/eac:abstract">
-            <xsl:text>&lt;!-- The following info about the collection that may contain relevant historical details and that may be useful for providing a brief description of the "External link" to the finding aid from Wikipedia. This text should be deleted after relevant information has been incorporated into the Wikipedia entry: --&gt;</xsl:text>
+            <xsl:text>&lt;!-- The following scope-and-contents note (commented out) may contain relevant historical details and may be useful for providing a brief description of the "External link" to the finding aid from Wikipedia. This text should be deleted after relevant information has been incorporated into the Wikipedia entry: --&gt;</xsl:text>
         	<xsl:text>&#10;</xsl:text>        	
         </xsl:if>
         <xsl:if test="eac:eac-cpf/eac:cpfDescription/eac:relations/eac:resourceRelation/eac:objectXMLWrap/ead:archdesc/ead:scopecontent">
@@ -279,7 +279,7 @@
         <xsl:text>==History==</xsl:text>
     	<xsl:text>&#10;</xsl:text>
         <xsl:if test="eac:eac-cpf/eac:cpfDescription/eac:relations/eac:resourceRelation/eac:objectXMLWrap/ead:archdesc/ead:scopecontent or $pBiogHist/eac:abstract">
-            <xsl:text>&lt;!-- The following info about the collection that may contain relevant historical details and that may be useful for providing a brief description of the "External link" to the finding aid from Wikipedia. This text should be deleted after relevant information has been incorporated into the Wikipedia entry: --&gt;</xsl:text>
+            <xsl:text>&lt;!-- The following scope-and-contents note (commented out) may contain relevant historical details and may be useful for providing a brief description of the "External link" to the finding aid from Wikipedia. This text should be deleted after relevant information has been incorporated into the Wikipedia entry: --&gt;</xsl:text>
         	<xsl:text>&#10;</xsl:text>        	
         </xsl:if>
         <xsl:if test="eac:eac-cpf/eac:cpfDescription/eac:relations/eac:resourceRelation/eac:objectXMLWrap/ead:archdesc/ead:scopecontent">
@@ -783,7 +783,7 @@
                         <xsl:text>}}</xsl:text>
                         <xsl:text>&#10;</xsl:text>
                         <xsl:text>&#10;</xsl:text>                        
-                        <xsl:text>&lt;!-- Default templates finding aid. Place inside {{Reflist}} template as appropriate. Data will need to be adjusted (inverted, updated based on revision info, etc.). --&gt;</xsl:text>                                                                                    
+                        <xsl:text>&lt;!-- Default finding-aid template. Place inside {{Reflist}} template as appropriate. Data may need to be adjusted (inverted, updated based on revision info, etc.). --&gt;</xsl:text>                                                                                    
                         <!-- Insert a default reference to the finding aid itself. -->                                                                   
                         <xsl:for-each select="eac:eac-cpf/eac:control/eac:sources/eac:source[eac:sourceEntry]">
                             <xsl:text>&#10;</xsl:text>
@@ -1668,7 +1668,7 @@
         		</xsl:call-template>	
         	</xsl:variable>
             <xsl:if test="$vBirthTest!='' or $vDeathTest!=''">
-                <xsl:text>&lt;!-- Note: the following categories have been generated from birth/death dates in the EAC record. These categories should be uncommented when the article is ready to go live.</xsl:text>
+                <xsl:text>&lt;!-- Note: The following categories have been generated from birth/death dates in the EAC record. These categories should be uncommented when the article is ready to go live.</xsl:text>
                 <xsl:text>&#10;</xsl:text>  
                 <xsl:text>&#10;</xsl:text>                  
                 <xsl:if test="$vBirthTest!=''">
@@ -1689,7 +1689,7 @@
             </xsl:if>            
             <xsl:if test="eac:eac-cpf/eac:cpfDescription/eac:description/eac:localDescription[@localType[contains(.,'6')]]|eac:eac-cpf/eac:cpfDescription/eac:description/eac:localDescription[@localType='subject']">
                 <xsl:text>&#10;</xsl:text>
-                <xsl:text>&lt;!-- Note: the following categories have been generated from the EAC input form, the original EAD finding aid, or else using FAST headings added from WorldCat Identities. These categories should be replaced with appropriate Wikipedia categories (for example, using the HotCat tool).</xsl:text>
+                <xsl:text>&lt;!-- Note: The following categories have been generated from the EAC input form, the original EAD finding aid, or else using FAST headings added from WorldCat Identities. These categories should be replaced with appropriate Wikipedia categories (for example, using the HotCat tool).</xsl:text>
                 <xsl:text>&#10;</xsl:text>
                 <xsl:text>&#10;</xsl:text>
                 <xsl:for-each select="eac:eac-cpf/eac:cpfDescription/eac:description/eac:localDescription[@localType[contains(.,'6')]]|eac:eac-cpf/eac:cpfDescription/eac:description/eac:localDescription[@localType='subject']">
@@ -1698,8 +1698,7 @@
                     <xsl:value-of select="normalize-space(eac:term)" />
                     <xsl:text>]]</xsl:text>
                     <xsl:text>&#10;</xsl:text>
-                </xsl:for-each>
-                <xsl:text>&#10;</xsl:text>
+                </xsl:for-each>                
                 <xsl:text>--&gt;</xsl:text>
                 <xsl:text>&#10;</xsl:text>
             </xsl:if>
@@ -1736,7 +1735,7 @@
         <xsl:if test="$pNameType='corporate'">
             <xsl:choose>
                 <xsl:when test="eac:eac-cpf/eac:cpfDescription/eac:description/eac:localDescription[@localType[contains(.,'6')]|@localType='subject']">
-                    <xsl:text>&lt;!-- Note: the following categories have been generated from the the EAC input form, the original EAD finding aid, or else using FAST headings added from WorldCat Identities. These categories should be replaced with appropriate Wikipedia categories (for example, using the HotCat tool).</xsl:text>
+                    <xsl:text>&lt;!-- Note: The following categories have been generated from the the EAC input form, the original EAD finding aid, or else using FAST headings added from WorldCat Identities. These categories should be replaced with appropriate Wikipedia categories (for example, using the HotCat tool).</xsl:text>
                     <xsl:text>&#10;</xsl:text>
                     <xsl:text>&#10;</xsl:text>
                     <xsl:for-each select="eac:eac-cpf/eac:cpfDescription/eac:description/eac:localDescription[@localType[contains(.,'6')]|@localType='subject']">
@@ -1745,8 +1744,7 @@
                         <xsl:value-of select="normalize-space(.)" />
                         <xsl:text>]]</xsl:text>
                         <xsl:text>&#10;</xsl:text>
-                    </xsl:for-each>
-                    <xsl:text>&#10;</xsl:text>
+                    </xsl:for-each>                    
                     <xsl:text>--&gt;</xsl:text>
                     <xsl:text>&#10;</xsl:text>
                     <xsl:if test="string-length($pBiogHist) &lt; 5000">
@@ -1777,16 +1775,16 @@
                     <xsl:with-param name="pPersNameSur" select="$pPersNameSur" />
                     <xsl:with-param name="pPersNameFore" select="$pPersNameFore" />
                 </xsl:call-template>
-                <xsl:text> may be associated with the following entities. These names were extracted from appropriate subject headings or from the &lt;cpfRelation&gt; elements in the EAC-CPF record. They may be useful for creating links to this page from other Wikipedia pages. Some names may be duplicates; however, different name forms can useful for testing whether an entity has an existing page on Wikipedia.</xsl:text>
+                <xsl:text> may be associated with the following entities. These names were extracted from appropriate subject headings or from the &lt;cpfRelation&gt; elements in the EAC-CPF record. They may be useful for creating links to this page from other Wikipedia pages. Some names may be duplicates; however, different name forms can be useful for testing whether an entity has an existing page on Wikipedia.</xsl:text>
                 <xsl:text>&#10;</xsl:text>
                 <xsl:text>&#10;</xsl:text>
-                <xsl:text>The 'See also' section should not link to pages that do not exist (red links) nor to disambiguation pages (unless used for further disambiguation in a disambiguation page).</xsl:text>
+                <xsl:text>The 'See also' section should not link to pages that do not exist (red links) or to disambiguation pages (unless used for further disambiguation in a disambiguation page).</xsl:text>
                 <xsl:text>&#10;</xsl:text>
                 <xsl:text>&#10;</xsl:text>
                 <xsl:text>Editors should provide a brief annotation when a link's relevance is not immediately apparent, when the meaning of the term may not be generally known, or when the term is ambiguous. For example:</xsl:text>
                 <xsl:text>&#10;</xsl:text>
                 <xsl:text>&#10;</xsl:text>
-                <xsl:text>[[Related person]]—made a similar achievement on April 4, 2005</xsl:text>
+                <xsl:text>[[Related person]]--made a similar achievement on April 4, 2005</xsl:text>
                 <xsl:text>&#10;</xsl:text>
                 <xsl:text>--&gt;</xsl:text>
                 <xsl:text>&#10;</xsl:text>
@@ -1809,13 +1807,13 @@
                 <xsl:text> may be associated with the following entities. These names were extracted from the &lt;cpfRelation&gt; elements in the EAC-CPF record and may be useful for creating links to this page from other Wikipedia pages. Some names may be duplicates; however, different name forms can useful for testing whether an entity has an existing page on Wikipedia.</xsl:text>
                 <xsl:text>&#10;</xsl:text>
                 <xsl:text>&#10;</xsl:text>
-                <xsl:text>The 'See also' section should not link to pages that do not exist (red links) nor to disambiguation pages (unless used for further disambiguation in a disambiguation page).</xsl:text>
+                <xsl:text>The 'See also' section should not link to pages that do not exist (red links) or to disambiguation pages (unless used for further disambiguation in a disambiguation page).</xsl:text>
                 <xsl:text>&#10;</xsl:text>
                 <xsl:text>&#10;</xsl:text>
                 <xsl:text>Editors should provide a brief annotation when a link's relevance is not immediately apparent, when the meaning of the term may not be generally known, or when the term is ambiguous. For example:</xsl:text>
                 <xsl:text>&#10;</xsl:text>
                 <xsl:text>&#10;</xsl:text>
-                <xsl:text>[[Related organization]]—made a similar achievement on April 4, 2005</xsl:text>
+                <xsl:text>[[Related organization]]--made a similar achievement on April 4, 2005</xsl:text>
                 <xsl:text>&#10;</xsl:text>
                 <xsl:text> --&gt;</xsl:text>
                 <xsl:text>&#10;</xsl:text>
