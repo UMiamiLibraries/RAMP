@@ -132,28 +132,7 @@
         <!-- Biography -->
     	<xsl:text>&#10;</xsl:text>
         <xsl:text>==Biography==</xsl:text>
-    	<xsl:text>&#10;</xsl:text>
-        <xsl:if test="eac:eac-cpf/eac:cpfDescription/eac:relations/eac:resourceRelation/eac:objectXMLWrap/ead:archdesc/ead:scopecontent or $pBiogHist/eac:abstract">
-            <xsl:text>&lt;!-- The following scope-and-contents note (commented out) may contain relevant historical details and may be useful for providing a brief description of the "External link" to the finding aid from Wikipedia. This text should be deleted after relevant information has been incorporated into the Wikipedia entry: --&gt;</xsl:text>
-        	<xsl:text>&#10;</xsl:text>        	
-        </xsl:if>
-        <xsl:if test="eac:eac-cpf/eac:cpfDescription/eac:relations/eac:resourceRelation/eac:objectXMLWrap/ead:archdesc/ead:scopecontent">
-        	<xsl:text>&#10;</xsl:text>
-            <xsl:text>&lt;!-- </xsl:text>
-            <xsl:for-each select="eac:eac-cpf/eac:cpfDescription/eac:relations/eac:resourceRelation/eac:objectXMLWrap/ead:archdesc/ead:scopecontent/ead:p">
-                <xsl:value-of select="normalize-space(.)" />
-                <xsl:choose>
-                    <xsl:when test="position()!=last()">
-                        <xsl:text>&#10;</xsl:text>
-                        <xsl:text>&#10;</xsl:text>
-                    </xsl:when>
-                    <xsl:otherwise />
-                </xsl:choose>
-            </xsl:for-each>
-            <xsl:text> --&gt;</xsl:text>
-        	<xsl:text>&#10;</xsl:text>
-        	<xsl:text>&#10;</xsl:text>
-        </xsl:if>
+    	<xsl:text>&#10;</xsl:text>        
         <xsl:if test="$pBiogHist/eac:abstract">
             <xsl:text>&lt;!-- </xsl:text>
             <xsl:value-of select="normalize-space($pBiogHist/eac:abstract)" />
@@ -277,42 +256,13 @@
         <!-- History -->
     	<xsl:text>&#10;</xsl:text>
         <xsl:text>==History==</xsl:text>
-    	<xsl:text>&#10;</xsl:text>
-        <xsl:if test="eac:eac-cpf/eac:cpfDescription/eac:relations/eac:resourceRelation/eac:objectXMLWrap/ead:archdesc/ead:scopecontent or $pBiogHist/eac:abstract">
-            <xsl:text>&lt;!-- The following scope-and-contents note (commented out) may contain relevant historical details and may be useful for providing a brief description of the "External link" to the finding aid from Wikipedia. This text should be deleted after relevant information has been incorporated into the Wikipedia entry: --&gt;</xsl:text>
-        	<xsl:text>&#10;</xsl:text>        	
-        </xsl:if>
-        <xsl:if test="eac:eac-cpf/eac:cpfDescription/eac:relations/eac:resourceRelation/eac:objectXMLWrap/ead:archdesc/ead:scopecontent">
-        	<xsl:text>&#10;</xsl:text>
-            <xsl:text>&lt;!-- </xsl:text>
-            <xsl:for-each select="eac:eac-cpf/eac:cpfDescription/eac:relations/eac:resourceRelation/eac:objectXMLWrap/ead:archdesc/ead:scopecontent/ead:p">
-                <xsl:value-of select="normalize-space(.)" />
-                <xsl:choose>
-                    <xsl:when test="position()!=last()">
-                        <xsl:text>&#10;</xsl:text>
-                        <xsl:text>&#10;</xsl:text>
-                    </xsl:when>
-                    <xsl:otherwise />
-                </xsl:choose>
-            </xsl:for-each>
-            <xsl:text> --&gt;</xsl:text>
-        	<xsl:text>&#10;</xsl:text>
-            <xsl:text>&#10;</xsl:text>
-        </xsl:if>
+    	<xsl:text>&#10;</xsl:text>        
         <xsl:if test="$pBiogHist/eac:abstract">
             <xsl:text>&lt;!-- </xsl:text>
             <xsl:value-of select="normalize-space($pBiogHist/eac:abstract)" />
             <xsl:text> --&gt;</xsl:text>
             <xsl:text>&#10;</xsl:text>
-            <xsl:text>&#10;</xsl:text>            
-            <!--
-            <xsl:choose>
-                <xsl:when test="following-sibling::eac:p">
-                    <xsl:text>&#10;</xsl:text>
-                </xsl:when>
-                <xsl:otherwise />
-            </xsl:choose>
-            -->            
+            <xsl:text>&#10;</xsl:text>                             
         </xsl:if>
         <xsl:for-each select="$pBiogHist/eac:p[.!='']">
             <xsl:value-of select="normalize-space(.)" />
@@ -1255,10 +1205,32 @@
             <xsl:value-of select="translate(eac:eac-cpf/eac:control/eac:otherRecordId[@localType='WCI'],' ','+')" />
             <xsl:text>}}</xsl:text>
             <xsl:text>&#10;</xsl:text>
+            <xsl:text>&#10;</xsl:text>
         </xsl:if>        	        	        	
-        <xsl:if test="eac:eac-cpf/eac:cpfDescription/eac:relations/eac:resourceRelation[@xlink:role='archivalRecords'][@xlink:href!=../../../eac:control/eac:sources/eac:source[1]/@xlink:href]">
+        <xsl:if test="eac:eac-cpf/eac:cpfDescription/eac:relations/eac:resourceRelation[@xlink:role='archivalRecords']">
             <!-- Check for archival/digital collections created by or associated with the person or corporate body. -->
-            <xsl:for-each select="eac:eac-cpf/eac:cpfDescription/eac:relations/eac:resourceRelation[@xlink:role='archivalRecords'][@xlink:href!=../../../eac:control/eac:sources/eac:source[1]/@xlink:href]">
+            <xsl:if test="eac:eac-cpf/eac:cpfDescription/eac:relations/eac:resourceRelation/eac:objectXMLWrap/ead:archdesc/ead:scopecontent">
+                <xsl:text>&lt;!-- The following scope-and-contents note (commented out) may contain relevant historical details and may be useful for providing a brief description to accompany the following link to the local finding aid. This text should be deleted after relevant information has been incorporated into the link description: --&gt;</xsl:text>
+                <xsl:text>&#10;</xsl:text>        	
+            </xsl:if>
+            <xsl:if test="eac:eac-cpf/eac:cpfDescription/eac:relations/eac:resourceRelation/eac:objectXMLWrap/ead:archdesc/ead:scopecontent">
+                <xsl:text>&#10;</xsl:text>
+                <xsl:text>&lt;!-- </xsl:text>
+                <xsl:for-each select="eac:eac-cpf/eac:cpfDescription/eac:relations/eac:resourceRelation/eac:objectXMLWrap/ead:archdesc/ead:scopecontent/ead:p">
+                    <xsl:value-of select="normalize-space(.)" />
+                    <xsl:choose>
+                        <xsl:when test="position()!=last()">
+                            <xsl:text>&#10;</xsl:text>
+                            <xsl:text>&#10;</xsl:text>
+                        </xsl:when>
+                        <xsl:otherwise />
+                    </xsl:choose>
+                </xsl:for-each>
+                <xsl:text> --&gt;</xsl:text>
+                <xsl:text>&#10;</xsl:text>
+                <xsl:text>&#10;</xsl:text>
+            </xsl:if>
+            <xsl:for-each select="eac:eac-cpf/eac:cpfDescription/eac:relations/eac:resourceRelation[@xlink:role='archivalRecords']">
                 <xsl:sort select="translate(eac:relationEntry,'ÁÀÉÈÍÓÚÜÑáàéèíóúúüñ','AAEEIOUUNaaeeiouuun')" data-type="text" />
                 <xsl:text>* [</xsl:text>
                 <xsl:choose>
@@ -1698,6 +1670,7 @@
                     <xsl:value-of select="normalize-space(eac:term)" />
                     <xsl:text>]]</xsl:text>
                     <xsl:text>&#10;</xsl:text>
+                    <xsl:text>&#10;</xsl:text>
                 </xsl:for-each>                
                 <xsl:text>--&gt;</xsl:text>
                 <xsl:text>&#10;</xsl:text>
@@ -1744,6 +1717,7 @@
                         <xsl:value-of select="normalize-space(.)" />
                         <xsl:text>]]</xsl:text>
                         <xsl:text>&#10;</xsl:text>
+                        <xsl:text>&#10;</xsl:text>
                     </xsl:for-each>                    
                     <xsl:text>--&gt;</xsl:text>
                     <xsl:text>&#10;</xsl:text>
@@ -1786,6 +1760,7 @@
                 <xsl:text>&#10;</xsl:text>
                 <xsl:text>[[Related person]]--made a similar achievement on April 4, 2005</xsl:text>
                 <xsl:text>&#10;</xsl:text>
+                <xsl:text>&#10;</xsl:text>
                 <xsl:text>--&gt;</xsl:text>
                 <xsl:text>&#10;</xsl:text>
                 <xsl:text>&#10;</xsl:text>
@@ -1814,6 +1789,7 @@
                 <xsl:text>&#10;</xsl:text>
                 <xsl:text>&#10;</xsl:text>
                 <xsl:text>[[Related organization]]--made a similar achievement on April 4, 2005</xsl:text>
+                <xsl:text>&#10;</xsl:text>
                 <xsl:text>&#10;</xsl:text>
                 <xsl:text> --&gt;</xsl:text>
                 <xsl:text>&#10;</xsl:text>
