@@ -757,8 +757,10 @@
                             </xsl:choose>
                             <xsl:text>| title = </xsl:text>
                             <xsl:choose>
-                                <!-- Rough matching to filter for Spanish and Portuguese titles. Needs work for internationalization and smarter switching between title and sentece case. -->
-                                <xsl:when test="contains(eac:sourceEntry,' de ')
+                                <!-- Rough matching to filter for Spanish and Portuguese titles. Needs work for internationalization and smarter switching between title and sentence case. -->
+                                <xsl:when test="contains(eac:sourceEntry,' com ')
+                                    or contains(eac:sourceEntry,' con ')
+                                    or contains(eac:sourceEntry,' de ')
                                     or contains(eac:sourceEntry,' e ')
                                     or contains(eac:sourceEntry,' en ')
                                     or contains(eac:sourceEntry,' em ')
@@ -942,7 +944,7 @@
                     <xsl:sort select="translate(eac:relationEntry[1],'ÁÀÉÈÍÓÚÜÑáàéèíóúúüñ','AAEEIOUUNaaeeiouuun')" data-type="text" />
                     <xsl:text>* </xsl:text>
                     <xsl:choose>
-                        <!-- Rough matching to filter for Spanish and Portuguese titles. Needs work for internationalization and smarter switching between title and sentece case. -->
+                        <!-- Rough matching to filter for Spanish and Portuguese titles. Needs work for internationalization and smarter switching between title and sentence case. -->
                         <xsl:when test="contains(eac:relationEntry[1],' com ')
                             or contains(eac:relationEntry[1],' con ')
                             or contains(eac:relationEntry[1],' de ')
@@ -1027,8 +1029,10 @@
                 	</xsl:choose>                		                	
                 	<xsl:text>| title = </xsl:text>
                     <xsl:choose>
-                        <!-- Rough matching to filter for Spanish and Portuguese titles. Needs work for internationalization and smarter switching between title and sentece case. -->
-                        <xsl:when test="contains(eac:relationEntry[1],' de ')
+                        <!-- Rough matching to filter for Spanish and Portuguese titles. Needs work for internationalization and smarter switching between title and sentence case. -->
+                        <xsl:when test="contains(eac:relationEntry[1],' com ')
+                            or contains(eac:relationEntry[1],' con ')
+                            or contains(eac:relationEntry[1],' de ')
                             or contains(eac:relationEntry[1],' e ')
                             or contains(eac:relationEntry[1],' en ')
                             or contains(eac:relationEntry[1],' em ')
@@ -1251,7 +1255,7 @@
                 </xsl:choose>
                 <xsl:text> </xsl:text>
                 <xsl:choose>
-                    <!-- Rough matching to filter for Spanish and Portuguese titles. Needs work for internationalization and smarter switching between title and sentece case. -->
+                    <!-- Rough matching to filter for Spanish and Portuguese titles. Needs work for internationalization and smarter switching between title and sentence case. -->
                     <xsl:when test="contains(eac:relationEntry,' com ')
                         or contains(eac:relationEntry,' con ')
                         or contains(eac:relationEntry,' de ')
@@ -1306,7 +1310,7 @@
                 </xsl:choose>
                 <xsl:text> </xsl:text>
                 <xsl:choose>
-                    <!-- Rough matching to filter for Spanish and Portuguese titles. Needs work for internationalization and smarter switching between title and sentece case. -->
+                    <!-- Rough matching to filter for Spanish and Portuguese titles. Needs work for internationalization and smarter switching between title and sentence case. -->
                     <xsl:when test="contains(eac:relationEntry,' com ')
                         or contains(eac:relationEntry,' con ')
                         or contains(eac:relationEntry,' de ')
