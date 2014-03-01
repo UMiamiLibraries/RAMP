@@ -145,7 +145,7 @@
         </xsl:if>
         <xsl:for-each select="$pBiogHist/eac:p[.!='']">
             <xsl:apply-templates/>
-            <xsl:text>&lt;ref name=RAMP1/&gt;</xsl:text>
+            <xsl:text>&lt;ref name=RAMP_1/&gt;</xsl:text>
             <xsl:if test="following-sibling::*[1][self::eac:list]">
                 <xsl:text>&#10;</xsl:text>
                 <xsl:text>&#10;</xsl:text>
@@ -273,7 +273,7 @@
         </xsl:if>
         <xsl:for-each select="$pBiogHist/eac:p[.!='']">
             <xsl:apply-templates/>
-            <xsl:text>&lt;ref name=RAMP1/&gt;</xsl:text>
+            <xsl:text>&lt;ref name=RAMP_1/&gt;</xsl:text>
             <xsl:if test="following-sibling::*[1][self::eac:list]">
                 <xsl:text>&#10;</xsl:text>
                 <xsl:text>&#10;</xsl:text>
