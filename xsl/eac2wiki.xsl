@@ -737,7 +737,7 @@
                         <!-- Include {{Reflist}} template. -->                        
                         <xsl:text>&lt;!-- Insert references/citations inside the following {{Reflist}} template. --&gt;</xsl:text>                        
                         <xsl:text>&#10;</xsl:text>
-                        <xsl:text>&lt;!-- Data supplied in {{Cite open archival metadata}} template(s) may need to be edited (inverted, updated based on revision info, etc.). Invert author names (Last Name, First Name); separate multiple authors with a semicolon and a single space; and remove any labels such as "Finding Aid Authors." --&gt;</xsl:text>
+                        <xsl:text>&lt;!-- Data supplied in the {{Cite open archival metadata}} template(s) may need to be edited (inverted, updated based on revision info, etc.). Invert author names (Last Name, First Name); separate multiple authors with a semicolon and a single space; and remove any labels such as "Finding Aid Authors." --&gt;</xsl:text>
                         <xsl:text>&#10;</xsl:text>
                         <xsl:text>&#10;</xsl:text>     
                         <xsl:text>{{Reflist|refs=</xsl:text>
