@@ -741,7 +741,7 @@
                         <xsl:text>&#10;</xsl:text>
                         <xsl:text>&#10;</xsl:text>     
                         <xsl:text>{{Reflist|refs=</xsl:text>
-                        <!-- Insert a default reference to the finding aid itself. -->                           
+                        <!-- Insert a default reference to the archival metadata source. -->                           
                         <xsl:for-each select="eac:eac-cpf/eac:control/eac:sources/eac:source[eac:sourceEntry]">
                             <xsl:variable name="vFindingAidPos" select="position()"/>
                             <xsl:text>&#10;</xsl:text>
@@ -1241,7 +1241,7 @@
             <!-- Check for archival/digital collections created by or associated with the person or corporate body. -->
             <xsl:if test="eac:eac-cpf/eac:cpfDescription/eac:relations/eac:resourceRelation/eac:objectXMLWrap/ead:archdesc/ead:scopecontent">
                 <xsl:text>&#10;</xsl:text>
-                <xsl:text>&lt;!-- The following and scope-and-contents note (commented out) may be useful for providing a brief description to accompany the following link to the local finding aid. This text should be deleted after relevant information has been incorporated into the link description: --&gt;</xsl:text>
+                <xsl:text>&lt;!-- The following and scope-and-contents note (commented out) may be useful for providing a brief description to accompany the following link to the local finding aid/archival metadata record. This text should be deleted after relevant information has been incorporated into the link description: --&gt;</xsl:text>
                 <xsl:text>&#10;</xsl:text>        	
             </xsl:if>
             <xsl:if test="eac:eac-cpf/eac:cpfDescription/eac:relations/eac:resourceRelation/eac:objectXMLWrap/ead:archdesc/ead:scopecontent">
