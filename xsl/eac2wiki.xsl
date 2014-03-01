@@ -134,14 +134,18 @@
         <xsl:text>==Biography==</xsl:text>
     	<xsl:text>&#10;</xsl:text>        
         <xsl:if test="$pBiogHist/eac:abstract">
+            <xsl:text>&lt;!-- The following abstract (commented out) may include additional content to incorporate into the article bio section. Otherwise, it may be deleted. --&gt;</xsl:text>
+            <xsl:text>&#10;</xsl:text>
+            <xsl:text>&#10;</xsl:text>
             <xsl:text>&lt;!-- </xsl:text>
-            <xsl:value-of select="normalize-space($pBiogHist/eac:abstract)" />
+            <xsl:apply-templates select="$pBiogHist/eac:abstract"/>
             <xsl:text> --&gt;</xsl:text>        	
         	<xsl:text>&#10;</xsl:text>
             <xsl:text>&#10;</xsl:text>
         </xsl:if>
-        <xsl:for-each select="$pBiogHist/eac:p">
-            <xsl:value-of select="normalize-space(.)" />
+        <xsl:for-each select="$pBiogHist/eac:p[.!='']">
+            <xsl:apply-templates/>
+            <xsl:text>&lt;ref name=RAMP1/&gt;</xsl:text>
             <xsl:if test="following-sibling::*[1][self::eac:list]">
                 <xsl:text>&#10;</xsl:text>
                 <xsl:text>&#10;</xsl:text>
@@ -258,14 +262,18 @@
         <xsl:text>==History==</xsl:text>
     	<xsl:text>&#10;</xsl:text>        
         <xsl:if test="$pBiogHist/eac:abstract">
+            <xsl:text>&lt;!-- The following abstract (commented out) may include additional content to incorporate into the article history section. Otherwise, it may be deleted. --&gt;</xsl:text>
+            <xsl:text>&#10;</xsl:text>
+            <xsl:text>&#10;</xsl:text>
             <xsl:text>&lt;!-- </xsl:text>
-            <xsl:value-of select="normalize-space($pBiogHist/eac:abstract)" />
+            <xsl:apply-templates select="$pBiogHist/eac:abstract"/>            
             <xsl:text> --&gt;</xsl:text>
             <xsl:text>&#10;</xsl:text>
             <xsl:text>&#10;</xsl:text>                             
         </xsl:if>
         <xsl:for-each select="$pBiogHist/eac:p[.!='']">
-            <xsl:value-of select="normalize-space(.)" />
+            <xsl:apply-templates/>
+            <xsl:text>&lt;ref name=RAMP1/&gt;</xsl:text>
             <xsl:if test="following-sibling::*[1][self::eac:list]">
                 <xsl:text>&#10;</xsl:text>
                 <xsl:text>&#10;</xsl:text>
@@ -375,7 +383,7 @@
         <xsl:param name="pPersNameFore" select="$pPersNameFore" />
         <xsl:text>{{Infobox person</xsl:text>
         <xsl:text>&#09;</xsl:text>
-    	<xsl:text>&lt;!-- See http://en.wikipedia.org/wiki/Template:Infobox_person for complete template --&gt;</xsl:text>
+    	<xsl:text>&lt;!-- See http://en.wikipedia.org/wiki/Template:Infobox_person for complete template. Note: Wikipedia supports a variety of different {{Infobox}} templates, and a more specific template may be appropriate for this person (for example, {{Infobox writer}}). --&gt;</xsl:text>
         <xsl:text>&#10;</xsl:text>
         <xsl:text>| name</xsl:text>
     	<xsl:text>&#09;&#09;&#09;= </xsl:text>        
@@ -469,7 +477,7 @@
     <xsl:template name="tCBodyInfobox">
         <xsl:text>{{Infobox organization</xsl:text>
         <xsl:text>&#09;</xsl:text>
-    	<xsl:text>&lt;!-- See https://en.wikipedia.org/wiki/Template:Infobox_organization for complete template --&gt;</xsl:text>
+    	<xsl:text>&lt;!-- See https://en.wikipedia.org/wiki/Template:Infobox_organization for complete template. Note: Wikipedia supports a variety of different {{Infobox}} templates, and a more specific may be appropriate for this organization (for example, {{Infobox university}}). --&gt;</xsl:text>
         <xsl:text>&#10;</xsl:text>
         <xsl:text>| name</xsl:text>
     	<xsl:text>&#09;&#09;&#09;&#09;= </xsl:text>
@@ -726,19 +734,21 @@
                         <xsl:text>{{Cite RAMP}}</xsl:text>                                                                        
                         <xsl:text>&#10;</xsl:text>
                         <xsl:text>&#10;</xsl:text>
-                        <!-- Include empty {{Reflist}} template. -->                        
-                        <xsl:text>&lt;!-- Insert references/citations inside the following template: --&gt;</xsl:text>
+                        <!-- Include {{Reflist}} template. -->                        
+                        <xsl:text>&lt;!-- Insert references/citations inside the following {{Reflist}} template. --&gt;</xsl:text>                        
                         <xsl:text>&#10;</xsl:text>
+                        <xsl:text>&lt;!-- Data supplied in {{Cite open archival metadata}} template(s) may need to be edited (inverted, updated based on revision info, etc.). Invert author names (Last Name, First Name); separate multiple authors with a semicolon and a single space; and remove any labels such as "Finding Aid Authors." --&gt;</xsl:text>
+                        <xsl:text>&#10;</xsl:text>
+                        <xsl:text>&#10;</xsl:text>     
                         <xsl:text>{{Reflist|refs=</xsl:text>
-                        <xsl:text>&#10;</xsl:text>
-                        <xsl:text>}}</xsl:text>
-                        <xsl:text>&#10;</xsl:text>
-                        <xsl:text>&#10;</xsl:text>                        
-                        <xsl:text>&lt;!-- Default finding-aid template. Place inside {{Reflist}} template as appropriate. Data may need to be adjusted (inverted, updated based on revision info, etc.). --&gt;</xsl:text>                                                                                    
-                        <!-- Insert a default reference to the finding aid itself. -->                                                                   
+                        <!-- Insert a default reference to the finding aid itself. -->                           
                         <xsl:for-each select="eac:eac-cpf/eac:control/eac:sources/eac:source[eac:sourceEntry]">
+                            <xsl:variable name="vFindingAidPos" select="position()"/>
                             <xsl:text>&#10;</xsl:text>
-                            <xsl:text>{{Cite open finding aid</xsl:text>
+                            <xsl:text>&lt;ref name=RAMP</xsl:text>
+                            <xsl:value-of select="$vFindingAidPos"/>
+                            <xsl:text>&gt;</xsl:text>
+                            <xsl:text>{{Cite open archival metadata</xsl:text>
                             <xsl:text>&#10;</xsl:text>    				    				
                             <xsl:choose>
                                 <xsl:when test="//ead:author">
@@ -789,8 +799,12 @@
                             </xsl:call-template>
                             <xsl:text>&#10;</xsl:text>    	
                             <xsl:text>}}</xsl:text>
+                            <xsl:text>&lt;/ref&gt;</xsl:text>
                             <xsl:text>&#10;</xsl:text>                                                                                                               
-                        </xsl:for-each>
+                        </xsl:for-each>                                                
+                        <xsl:text>}}</xsl:text>
+                        <xsl:text>&#10;</xsl:text>
+                        <xsl:text>&#10;</xsl:text>                                                                                  
                     </xsl:otherwise>    		        
     		    </xsl:choose>    			    			
     		</xsl:when>    				    	
@@ -1009,25 +1023,36 @@
                 			<xsl:choose>
                 				<xsl:when test="contains(eac:relationEntry[@localType='creator'],', ')">
                 					<xsl:if test="not(contains(eac:relationEntry[@localType='creator'],substring-before(//eac:nameEntry/eac:part[1],', ')))">
-	                					<xsl:text>| last = </xsl:text>
-	                					<xsl:value-of select="normalize-space(substring-before(eac:relationEntry[@localType='creator'],', '))"/>
-	                					<xsl:text>&#10;</xsl:text>
-	                					<xsl:text>| first = </xsl:text>
-	                					<xsl:value-of select="normalize-space(substring-after(eac:relationEntry[@localType='creator'],', '))"/>
-	                					<xsl:text>&#10;</xsl:text>
+                					    <xsl:choose>
+                					        <xsl:when test="eac:relationEntry[@localType='VIAF'] and eac:relationEntry[@localType='VIAF']=substring-after(/eac:eac-cpf/eac:control/eac:sources/eac:source[3]/@xlink:href,'viaf/')">
+                					            <xsl:text>| title = </xsl:text>
+                					        </xsl:when>
+                					        <xsl:otherwise>
+                					            <xsl:text>| last = </xsl:text>
+                					            <xsl:value-of select="normalize-space(substring-before(eac:relationEntry[@localType='creator'],', '))"/>
+                					            <xsl:text>&#10;</xsl:text>
+                					            <xsl:text>| first = </xsl:text>
+                					            <xsl:value-of select="normalize-space(substring-after(eac:relationEntry[@localType='creator'],', '))"/>
+                					            <xsl:text>&#10;</xsl:text>
+                					            <xsl:text>| title = </xsl:text>
+                					        </xsl:otherwise>
+                					    </xsl:choose>                					    
                 					</xsl:if>
                 				</xsl:when>
                 				<xsl:otherwise>
-                					<xsl:if test="not(contains(eac:relationEntry[@localType='creator'],//eac:nameEntry/eac:part[1]))">                						                					
+                					<xsl:if test="not(contains(eac:relationEntry[@localType='creator'],//eac:nameEntry/eac:part[1]))">                						       
 	                					<xsl:text>| author = </xsl:text>
 	                					<xsl:value-of select="normalize-space(eac:relationEntry[@localType='creator'])"/>
 	                					<xsl:text>&#10;</xsl:text>
+                					    <xsl:text>| title = </xsl:text>
                 					</xsl:if>
                 				</xsl:otherwise>
                 			</xsl:choose>                					
-                		</xsl:when>                				
-                	</xsl:choose>                		                	
-                	<xsl:text>| title = </xsl:text>
+                		</xsl:when>  
+                	    <xsl:otherwise>
+                	        <xsl:text>| title = </xsl:text>
+                	    </xsl:otherwise>
+                	</xsl:choose>                		                	                	
                     <xsl:choose>
                         <!-- Rough matching to filter for Spanish and Portuguese titles. Needs work for internationalization and smarter switching between title and sentence case. -->
                         <xsl:when test="contains(eac:relationEntry[1],' com ')
@@ -1215,14 +1240,15 @@
         <xsl:if test="eac:eac-cpf/eac:cpfDescription/eac:relations/eac:resourceRelation[@xlink:role='archivalRecords']">
             <!-- Check for archival/digital collections created by or associated with the person or corporate body. -->
             <xsl:if test="eac:eac-cpf/eac:cpfDescription/eac:relations/eac:resourceRelation/eac:objectXMLWrap/ead:archdesc/ead:scopecontent">
-                <xsl:text>&lt;!-- The following scope-and-contents note (commented out) may contain relevant historical details and may be useful for providing a brief description to accompany the following link to the local finding aid. This text should be deleted after relevant information has been incorporated into the link description: --&gt;</xsl:text>
+                <xsl:text>&#10;</xsl:text>
+                <xsl:text>&lt;!-- The following and scope-and-contents note (commented out) may be useful for providing a brief description to accompany the following link to the local finding aid. This text should be deleted after relevant information has been incorporated into the link description: --&gt;</xsl:text>
                 <xsl:text>&#10;</xsl:text>        	
             </xsl:if>
             <xsl:if test="eac:eac-cpf/eac:cpfDescription/eac:relations/eac:resourceRelation/eac:objectXMLWrap/ead:archdesc/ead:scopecontent">
                 <xsl:text>&#10;</xsl:text>
                 <xsl:text>&lt;!-- </xsl:text>
                 <xsl:for-each select="eac:eac-cpf/eac:cpfDescription/eac:relations/eac:resourceRelation/eac:objectXMLWrap/ead:archdesc/ead:scopecontent/ead:p">
-                    <xsl:value-of select="normalize-space(.)" />
+                    <xsl:apply-templates/>
                     <xsl:choose>
                         <xsl:when test="position()!=last()">
                             <xsl:text>&#10;</xsl:text>
@@ -2485,5 +2511,10 @@
                 <xsl:value-of select="substring-before($pAccessDate,'-')"/>
             </xsl:when>    			        
         </xsl:choose>    			    	    
+    </xsl:template>    
+    <xsl:template match="eac:span">                 
+        <xsl:text>''</xsl:text>
+        <xsl:value-of select="normalize-space(.)" />
+        <xsl:text>''</xsl:text>        
     </xsl:template>
 </xsl:stylesheet>

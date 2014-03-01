@@ -1012,8 +1012,11 @@
                                 </chronList>
                             </xsl:when>
                             <xsl:otherwise>
-                                <xsl:if test="not(contains(.,'Chronolog'))                                      and not(contains(.,'Timeline'))                                      and not(contains(.,'Employment History'))">
-                                    <xsl:if test="not(preceding-sibling::ead:p[contains(.,'Chronolog')])                                          and (string-length(substring(.,1,4)) = string-length(translate(substring(.,1,4),$vDigits,'')))">
+                                <xsl:if test="not(contains(.,'Chronolog'))                                      
+                                    and not(contains(.,'Timeline'))                                      
+                                    and not(contains(.,'Employment History'))">
+                                    <xsl:if test="not(preceding-sibling::ead:p[contains(.,'Chronolog')])                                          
+                                        and (string-length(substring(.,1,4)) = string-length(translate(substring(.,1,4),$vDigits,'')))">
                                         <xsl:if test=".!=' ' and .!=''">
                                             <xsl:apply-templates select="." />
                                         </xsl:if>
@@ -1023,7 +1026,7 @@
                         </xsl:choose>
                     </xsl:for-each>
                     <xsl:if test="ead:ead/ead:archdesc/ead:bioghist/text()">
-                        <xsl:apply-templates select="ead:ead/ead:archdesc/ead:bioghist/text()" />
+                        <xsl:apply-templates select="ead:ead/ead:archdesc/ead:bioghist" />
                     </xsl:if>
                     <xsl:call-template name="tCitations" />
                 </biogHist>
@@ -1259,7 +1262,7 @@
     </xsl:template>
     <xsl:template match="ead:p">
         <p xmlns="urn:isbn:1-931666-33-4">
-            <xsl:value-of select="normalize-space(.)" />
+            <xsl:apply-templates/>
         </p>
     </xsl:template>
     <xsl:template match="ead:title">
