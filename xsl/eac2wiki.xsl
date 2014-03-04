@@ -745,7 +745,7 @@
                         <xsl:for-each select="eac:eac-cpf/eac:control/eac:sources/eac:source[eac:sourceEntry]">
                             <xsl:variable name="vFindingAidPos" select="position()"/>
                             <xsl:text>&#10;</xsl:text>
-                            <xsl:text>&lt;ref name=RAMP</xsl:text>
+                            <xsl:text>&lt;ref name=RAMP_</xsl:text>
                             <xsl:value-of select="$vFindingAidPos"/>
                             <xsl:text>&gt;</xsl:text>
                             <xsl:text>{{Cite open archival metadata</xsl:text>
