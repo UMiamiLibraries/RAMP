@@ -843,8 +843,7 @@
     	</xsl:choose>
     </xsl:template>
     <!-- Output "Further reading" ("works about") section.  -->
-    <xsl:template name="tFurther">
-        <xsl:text>&#10;</xsl:text>
+    <xsl:template name="tFurther">        
         <xsl:text>==Further reading==</xsl:text>
         <xsl:text>&#10;</xsl:text>
         <xsl:choose>
@@ -1159,36 +1158,41 @@
         <xsl:text>&#10;</xsl:text>
     	<xsl:choose>
     		<xsl:when test="contains(eac:eac-cpf/eac:control/eac:sources/eac:source/@xlink:href,'miami.edu')">
-    		    <!-- Swapping out local Summon URL for Forward to Libraries template, 2014-03-04.
-    			<xsl:text>Library and archival resources by or about [</xsl:text>
-    			<xsl:call-template name="tParseName3">
-    				<xsl:with-param name="pNameType" select="'person' or 'corporate'" />
-    				<xsl:with-param name="pPersName" select="$pPersName" />
-    				<xsl:with-param name="pPersNameSur" select="$pPersNameSur" />
-    				<xsl:with-param name="pPersNameFore" select="$pPersNameFore" />
-    				<xsl:with-param name="pCorpName" select="$pCorpName" />
-    			</xsl:call-template>
-    			-->
-    		    <xsl:text>{{Library resources box</xsl:text>
-    		    <xsl:text>&#10;</xsl:text>
-    		    <xsl:text>|onlinebooks=yes</xsl:text>
-    		    <xsl:text>&#10;</xsl:text>
-    		    <xsl:text>|by=yes</xsl:text>
-    		    <xsl:text>&#10;</xsl:text>
-    		    <xsl:text>|about=yes</xsl:text>
-    		    <xsl:text>&#10;</xsl:text>
-    		    <xsl:text>|viaf=</xsl:text>
-    		    <xsl:value-of select="substring-after(eac:eac-cpf/eac:control/eac:sources/eac:source[contains(@xlink:href,'viaf')]/@xlink:href,'viaf/')"/>
-    		    <xsl:text>&#10;</xsl:text>
-    		    <xsl:text>|label=</xsl:text>
-    		    <xsl:call-template name="tParseName2">
-    		        <xsl:with-param name="pNameType" select="'person' or 'corporate'" />
-    		        <xsl:with-param name="pPersName" select="$pPersName" />
-    		        <xsl:with-param name="pPersNameSur" select="$pPersNameSur" />
-    		        <xsl:with-param name="pPersNameFore" select="$pPersNameFore" />
-    		        <xsl:with-param name="pCorpName" select="$pCorpName" />
-    		    </xsl:call-template>
-    		    <xsl:text>}}</xsl:text>
+    		    <xsl:choose>
+    		        <xsl:when test="contains(eac:eac-cpf/eac:control/eac:sources/eac:source/@xlink:href,'viaf.org')">
+    		            <xsl:text>{{Library resources box</xsl:text>
+    		            <xsl:text>&#10;</xsl:text>
+    		            <xsl:text>|onlinebooks=yes</xsl:text>
+    		            <xsl:text>&#10;</xsl:text>
+    		            <xsl:text>|by=yes</xsl:text>
+    		            <xsl:text>&#10;</xsl:text>
+    		            <xsl:text>|about=yes</xsl:text>
+    		            <xsl:text>&#10;</xsl:text>
+    		            <xsl:text>|viaf=</xsl:text>
+    		            <xsl:value-of select="substring-after(eac:eac-cpf/eac:control/eac:sources/eac:source[contains(@xlink:href,'viaf')]/@xlink:href,'viaf/')"/>
+    		            <xsl:text>&#10;</xsl:text>
+    		            <xsl:text>|label=</xsl:text>
+    		            <xsl:call-template name="tParseName2">
+    		                <xsl:with-param name="pNameType" select="'person' or 'corporate'" />
+    		                <xsl:with-param name="pPersName" select="$pPersName" />
+    		                <xsl:with-param name="pPersNameSur" select="$pPersNameSur" />
+    		                <xsl:with-param name="pPersNameFore" select="$pPersNameFore" />
+    		                <xsl:with-param name="pCorpName" select="$pCorpName" />
+    		            </xsl:call-template>
+    		            <xsl:text>}}</xsl:text>        
+    		        </xsl:when>
+    		        <xsl:otherwise>
+    		            <!-- If no VIAF ID, include link to UM Summon. -->
+    		            <xsl:text>Library and archival resources by or about [</xsl:text>
+    		            <xsl:call-template name="tParseName3">
+    		                <xsl:with-param name="pNameType" select="'person' or 'corporate'" />
+    		                <xsl:with-param name="pPersName" select="$pPersName" />
+    		                <xsl:with-param name="pPersNameSur" select="$pPersNameSur" />
+    		                <xsl:with-param name="pPersNameFore" select="$pPersNameFore" />
+    		                <xsl:with-param name="pCorpName" select="$pCorpName" />
+    		            </xsl:call-template>        
+    		        </xsl:otherwise>
+    		    </xsl:choose>    		        			    		    
     			<xsl:text>&#10;</xsl:text>
     		</xsl:when>    		    		    		
     		<!-- Forward to Libraries template and link to finding aid. -->	
@@ -1251,7 +1255,8 @@
             <xsl:if test="eac:eac-cpf/eac:cpfDescription/eac:relations/eac:resourceRelation/eac:objectXMLWrap/ead:archdesc/ead:scopecontent">
                 <xsl:text>&#10;</xsl:text>
                 <xsl:text>&lt;!-- The following and scope-and-contents note (commented out after the link) may be useful for providing a brief description to accompany the following link to the local finding aid/archival metadata record. This text should be deleted after relevant information has been incorporated into the link description: --&gt;</xsl:text>
-                <xsl:text>&#10;</xsl:text>        	
+                <xsl:text>&#10;</xsl:text>
+                <xsl:text>&#10;</xsl:text>
             </xsl:if>            
             <xsl:for-each select="eac:eac-cpf/eac:cpfDescription/eac:relations/eac:resourceRelation[@xlink:role='archivalRecords']">
                 <xsl:sort select="translate(eac:relationEntry,'ÁÀÉÈÍÓÚÜÑáàéèíóúúüñ','AAEEIOUUNaaeeiouuun')" data-type="text" />
@@ -1467,8 +1472,7 @@
             </xsl:when>
             <xsl:otherwise>
                 <xsl:choose>
-                    <xsl:when test="eac:eac-cpf/eac:control/eac:otherRecordId[@localType='WCI:LCCN']">
-                        <xsl:text>&#10;</xsl:text>
+                    <xsl:when test="eac:eac-cpf/eac:control/eac:otherRecordId[@localType='WCI:LCCN']">                        
                         <xsl:text>&#10;</xsl:text>
                         <xsl:text>{{Authority control|LCCN=</xsl:text>
                         <xsl:choose>
