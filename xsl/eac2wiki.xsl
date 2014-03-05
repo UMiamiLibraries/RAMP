@@ -1159,7 +1159,7 @@
     	<xsl:choose>
     		<xsl:when test="contains(eac:eac-cpf/eac:control/eac:sources/eac:source/@xlink:href,'miami.edu')">
     		    <xsl:choose>
-    		        <xsl:when test="contains(eac:eac-cpf/eac:control/eac:sources/eac:source/@xlink:href,'viaf.org')">
+    		        <xsl:when test="eac:eac-cpf/eac:control/eac:sources/eac:source[contains(@xlink:href,'viaf')]">
     		            <xsl:text>{{Library resources box</xsl:text>
     		            <xsl:text>&#10;</xsl:text>
     		            <xsl:text>|onlinebooks=yes</xsl:text>
@@ -1387,8 +1387,7 @@
     <xsl:template name="tVIAF">
         <xsl:choose>
             <xsl:when test="eac:eac-cpf/eac:control/eac:sources/eac:source/@xlink:href[contains(.,'viaf')]">
-                <xsl:text>&#10;</xsl:text>
-                <xsl:text>&#10;</xsl:text>
+                <xsl:text>&#10;</xsl:text>                
                 <xsl:for-each select="eac:eac-cpf/eac:control/eac:sources/eac:source/@xlink:href[contains(.,'viaf')]">
                     <xsl:text>{{Authority control|VIAF=</xsl:text>
                     <xsl:value-of select="substring-after(.,'viaf/')" />
