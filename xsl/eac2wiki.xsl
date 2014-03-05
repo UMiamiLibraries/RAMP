@@ -144,7 +144,7 @@
             <xsl:text>&#10;</xsl:text>
         </xsl:if>
         <xsl:for-each select="$pBiogHist/eac:p[.!='']">
-            <xsl:apply-templates/>
+            <xsl:apply-templates select="."/>
             <xsl:text>&lt;ref name=RAMP_1/&gt;</xsl:text>
             <xsl:if test="following-sibling::*[1][self::eac:list]">
                 <xsl:text>&#10;</xsl:text>
@@ -272,7 +272,7 @@
             <xsl:text>&#10;</xsl:text>                             
         </xsl:if>
         <xsl:for-each select="$pBiogHist/eac:p[.!='']">
-            <xsl:apply-templates/>
+            <xsl:apply-templates select="."/>
             <xsl:text>&lt;ref name=RAMP_1/&gt;</xsl:text>
             <xsl:if test="following-sibling::*[1][self::eac:list]">
                 <xsl:text>&#10;</xsl:text>
@@ -1196,7 +1196,7 @@
     			<xsl:text>&#10;</xsl:text>
     		</xsl:when>    		    		    		
     		<!-- Forward to Libraries template and link to finding aid. -->	
-    		<xsl:when test="contains(eac:eac-cpf/eac:control/eac:sources/eac:source/@xlink:href,'loc.gov')">
+    		<xsl:when test="contains(eac:eac-cpf/eac:control/eac:sources/eac:source/@xlink:href,'loc.mss')">
 	    		<xsl:text>{{Library resources box</xsl:text>
 	    		<xsl:text>&#10;</xsl:text>
 	    		<xsl:text>|onlinebooks=yes</xsl:text>
@@ -1218,12 +1218,14 @@
 	    		</xsl:call-template>
 	    		<xsl:text>}}</xsl:text>
 	    		<xsl:text>&#10;</xsl:text>
+    		    <!--
     			<xsl:text>* [</xsl:text>
     			<xsl:value-of select="eac:eac-cpf/eac:control/eac:sources/eac:source/@xlink:href"/>
     			<xsl:text> </xsl:text>
     			<xsl:value-of select="eac:eac-cpf/eac:control/eac:sources/eac:source/eac:sourceEntry"/>
     			<xsl:text>] at the [http://www.loc.gov/rr/mss/ Library of Congress Manuscripts Division].</xsl:text>
-    			<xsl:text>&#10;</xsl:text>    			
+    			<xsl:text>&#10;</xsl:text>
+                -->    			
     		</xsl:when>    		
     	</xsl:choose>    	    	        
         <xsl:if test="eac:eac-cpf/eac:control/eac:otherRecordId[@localType='WCI']">
@@ -1312,7 +1314,7 @@
                 <xsl:if test="../../../eac:cpfDescription/eac:relations/eac:resourceRelation/eac:objectXMLWrap/ead:archdesc/ead:scopecontent">                    
                     <xsl:text> &lt;!-- </xsl:text>
                     <xsl:for-each select="../../../eac:cpfDescription/eac:relations/eac:resourceRelation/eac:objectXMLWrap/ead:archdesc/ead:scopecontent/ead:p">
-                        <xsl:apply-templates/>
+                        <xsl:apply-templates select="."/>
                         <xsl:choose>
                             <xsl:when test="position()!=last()">
                                 <xsl:text>&#10;</xsl:text>
@@ -1323,8 +1325,7 @@
                     </xsl:for-each>
                     <xsl:text> --&gt;</xsl:text>
                     <xsl:text>&#10;</xsl:text>                    
-                </xsl:if>
-                <xsl:text>&#10;</xsl:text>
+                </xsl:if>                
             </xsl:for-each>
         </xsl:if>
         <xsl:if test="eac:eac-cpf/eac:cpfDescription/eac:relations/eac:resourceRelation[@resourceRelationType='other' and @xlink:role='resource']|eac:eac-cpf/eac:cpfDescription/eac:relations/eac:resourceRelation[not(@resourceRelationType) and @xlink:role='resource']">
@@ -2526,5 +2527,11 @@
         <xsl:text>''</xsl:text>
         <xsl:value-of select="normalize-space(.)" />
         <xsl:text>''</xsl:text>        
+    </xsl:template>
+    <xsl:template match="eac:p">                         
+        <xsl:value-of select="normalize-space(.)" />        
+    </xsl:template>
+    <xsl:template match="ead:p">                         
+        <xsl:value-of select="normalize-space(.)" />        
     </xsl:template>
 </xsl:stylesheet>
