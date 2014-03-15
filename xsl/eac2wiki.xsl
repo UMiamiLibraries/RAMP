@@ -602,7 +602,7 @@
             </xsl:for-each>
         	<xsl:if test="position() = last()">        		        	
 	        	<!-- For LOC finding aids, include a reference to the {{Cite LOC finding aid}} template. -->
-	        	<xsl:if test="contains(../../../../../eac:control/eac:sources/eac:source/@xlink:href,'loc.gov')">            				            				        		
+	        	<xsl:if test="contains(../../../../../eac:control/eac:sources/eac:source/@xlink:href,'//loc')">            				            				        		
 	        		<xsl:text>&lt;ref name="LOCMD"/&gt;</xsl:text>	        			        	
 	        	</xsl:if>
         	</xsl:if>
@@ -661,7 +661,7 @@
     		<xsl:when test="eac:eac-cpf/eac:control/eac:sources/eac:source/eac:objectXMLWrap">    			    			    		    
     		    <xsl:choose>    		        
     		        <!-- For LOC finding aids... -->
-          		    <xsl:when test="contains(eac:eac-cpf/eac:control/eac:sources/eac:source/@xlink:href,'loc.gov')">
+          		    <xsl:when test="contains(eac:eac-cpf/eac:control/eac:sources/eac:source/@xlink:href,'//loc')">
           		        <!-- Include the {{Cite RAMP}} template with "pd" (public domain) parameter = "yes"... -->
           		        <xsl:text>{{Cite RAMP</xsl:text>
           		        <xsl:text>&#10;</xsl:text>
@@ -698,6 +698,7 @@
               	    			<xsl:text>&#10;</xsl:text>   
                   		        <xsl:text>}}</xsl:text>
                   		        <xsl:text>&#10;</xsl:text>
+          		                <xsl:text>&#10;</xsl:text>
           		            </xsl:when>
           		            <xsl:otherwise>
           		                <xsl:text>{{Reflist|refs=</xsl:text>
@@ -725,6 +726,7 @@
           		                </xsl:call-template>		
           		                <xsl:text>&#10;</xsl:text>
           		                <xsl:text>}}</xsl:text>    				
+          		                <xsl:text>&#10;</xsl:text>
           		                <xsl:text>&#10;</xsl:text>
           		            </xsl:otherwise>
           		        </xsl:choose>
@@ -848,7 +850,7 @@
         <xsl:text>&#10;</xsl:text>
         <xsl:choose>
             <xsl:when test="eac:eac-cpf/eac:cpfDescription/eac:relations/eac:resourceRelation[@resourceRelationType='subjectOf' and @xlink:role='resource']">
-                <xsl:for-each select="eac:eac-cpf/eac:cpfDescription/eac:relations/eac:resourceRelation[@resourceRelationType='subjectOf' and @xlink:role='resource']">
+                <xsl:for-each select="eac:eac-cpf/eac:cpfDescription/eac:relations/eac:resourceRelation[@resourceRelationType='subjectOf' and @xlink:role='resource' and not(eac:relationEntry[@localType='mix'])]">
                     <xsl:sort select="translate(eac:relationEntry[@localType='creator'],'ÁÀÉÈÍÓÚÜÑáàéèíóúúüñ','AAEEIOUUNaaeeiouuun')" data-type="text" />
                     <xsl:for-each select="eac:relationEntry[1]">
                         <xsl:variable name="vStrLen" select="string-length(.)" />
@@ -1002,7 +1004,7 @@
         <xsl:choose>
             <xsl:when test="eac:eac-cpf/eac:cpfDescription/eac:relations/eac:resourceRelation[@resourceRelationType='creatorOf' and @xlink:role='resource']">
                 <!-- Check for works by the person or corporate body. -->
-                <xsl:for-each select="eac:eac-cpf/eac:cpfDescription/eac:relations/eac:resourceRelation[@resourceRelationType='creatorOf' and @xlink:role='resource']">
+                <xsl:for-each select="eac:eac-cpf/eac:cpfDescription/eac:relations/eac:resourceRelation[@resourceRelationType='creatorOf' and @xlink:role='resource' and not(eac:relationEntry[@localType='mix'])]">
                     <xsl:sort select="translate(eac:relationEntry[1],'ÁÀÉÈÍÓÚÜÑáàéèíóúúüñ','AAEEIOUUNaaeeiouuun')" data-type="text" />
                     <xsl:variable name="vStrLen" select="string-length(eac:relationEntry[1])" />
                     <xsl:text>* </xsl:text>
@@ -1260,7 +1262,7 @@
                 <xsl:text>&#10;</xsl:text>
                 <xsl:text>&#10;</xsl:text>
             </xsl:if>            
-            <xsl:for-each select="eac:eac-cpf/eac:cpfDescription/eac:relations/eac:resourceRelation[@xlink:role='archivalRecords']">
+            <xsl:for-each select="eac:eac-cpf/eac:cpfDescription/eac:relations/eac:resourceRelation[@xlink:role='archivalRecords'][eac:objectXMLWrap]">
                 <xsl:sort select="translate(eac:relationEntry,'ÁÀÉÈÍÓÚÜÑáàéèíóúúüñ','AAEEIOUUNaaeeiouuun')" data-type="text" />
                 <xsl:text>* [</xsl:text>
                 <xsl:choose>
@@ -1328,8 +1330,9 @@
                 </xsl:if>                
             </xsl:for-each>
         </xsl:if>
-        <xsl:if test="eac:eac-cpf/eac:cpfDescription/eac:relations/eac:resourceRelation[@resourceRelationType='other' and @xlink:role='resource']|eac:eac-cpf/eac:cpfDescription/eac:relations/eac:resourceRelation[not(@resourceRelationType) and @xlink:role='resource']">
-            <xsl:for-each select="eac:eac-cpf/eac:cpfDescription/eac:relations/eac:resourceRelation[@resourceRelationType='other' and @xlink:role='resource']|eac:eac-cpf/eac:cpfDescription/eac:relations/eac:resourceRelation[not(@resourceRelationType) and @xlink:role='resource']">
+        <xsl:if test="eac:eac-cpf/eac:cpfDescription/eac:relations/eac:resourceRelation[@xlink:role='archivalRecords' and not(eac:objectXMLWrap)][eac:objectXMLWrap]|eac:eac-cpf/eac:cpfDescription/eac:relations/eac:resourceRelation[@resourceRelationType='other' and @xlink:role='resource']|eac:eac-cpf/eac:cpfDescription/eac:relations/eac:resourceRelation[not(@resourceRelationType) and @xlink:role='resource']|eac:eac-cpf/eac:cpfDescription/eac:relations/eac:resourceRelation/eac:relationEntry[1][@localType='mix']">
+            <xsl:text>&#10;</xsl:text>     
+            <xsl:for-each select="eac:eac-cpf/eac:cpfDescription/eac:relations/eac:resourceRelation[@resourceRelationType='other' and @xlink:role='resource']|eac:eac-cpf/eac:cpfDescription/eac:relations/eac:resourceRelation[not(@resourceRelationType) and @xlink:role='resource']|eac:eac-cpf/eac:cpfDescription/eac:relations/eac:resourceRelation[eac:relationEntry[1][@localType='mix']]">
                 <xsl:sort select="translate(eac:relationEntry,'ÁÀÉÈÍÓÚÜÑáàéèíóúúüñ','AAEEIOUUNaaeeiouuun')" data-type="text" />
                 <xsl:text>* [</xsl:text>
                 <xsl:choose>
