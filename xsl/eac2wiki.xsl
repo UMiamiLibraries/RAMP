@@ -1385,6 +1385,7 @@
                 </xsl:choose>
                 <xsl:text>&#10;</xsl:text>
             </xsl:for-each>
+            <xsl:text>&#10;</xsl:text>
         </xsl:if>        
     </xsl:template>
     <!-- Output VIAF ID and/or LCCN, if available. -->
