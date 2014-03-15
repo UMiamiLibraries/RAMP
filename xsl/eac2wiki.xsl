@@ -1256,7 +1256,7 @@
             <!-- Check for archival/digital collections created by or associated with the person or corporate body. -->
             <xsl:if test="eac:eac-cpf/eac:cpfDescription/eac:relations/eac:resourceRelation/eac:objectXMLWrap/ead:archdesc/ead:scopecontent">
                 <xsl:text>&#10;</xsl:text>
-                <xsl:text>&lt;!-- The following and scope-and-contents note (commented out after the link) may be useful for providing a brief description to accompany the following link to the local finding aid/archival metadata record. This text should be deleted after relevant information has been incorporated into the link description: --&gt;</xsl:text>
+                <xsl:text>&lt;!-- The following scope-and-contents note (commented out after the link) may be useful for providing a brief description to accompany the following link to the local finding aid/archival metadata record. This text should be deleted after relevant information has been incorporated into the link description: --&gt;</xsl:text>
                 <xsl:text>&#10;</xsl:text>
                 <xsl:text>&#10;</xsl:text>
             </xsl:if>            

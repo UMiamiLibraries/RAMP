@@ -9,7 +9,7 @@
 
 for f in *.xml; 
     do 
-        name=`xpath -e 'string(//eadid/@identifier)' $f 2> /dev/null`
+        name=`../xpath -e 'string(//eadid/@identifier)' $f 2> /dev/null`
         echo "Moving" $f "to" ${name:27}.xml
         echo $name
         mv $f ${name:27}.xml
