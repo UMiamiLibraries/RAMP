@@ -9,8 +9,8 @@
 #   It then outputs a new copy of the file for each resourceRelation element. 
 #   The new copies are renamed by iterating through the resourceRelation elements and concatenating the file's recordId with the unique ID specified in the @xlink:href attribute.
 
-#mkdir books
-#mkdir other
+mkdir books
+mkdir other
 for f in *.xml; do
   fid=$(../xpath -e '//recordId/text()' "$f" 2>/dev/null)   
   for uid in $(../xpath -e '//resourceRelation[relationEntry[@localType="papers"]]/@xlink:href' "$f" 2>/dev/null | awk -F= '{gsub(/"/,"",$0); print $4}'); do
