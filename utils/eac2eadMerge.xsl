@@ -25,7 +25,7 @@
             <xsl:variable name="eac" select="document(@filename)"
                 xpath-default-namespace="urn:isbn:1-931666-33-4"/>
             <xsl:for-each-group select="$eac/eac-cpf/cpfDescription/identity/nameEntry[1]/part"
-                group-by="substring-after(substring-before(document-uri($eac),'_'),$eacDir)"
+                group-by="substring-before(substring-after(document-uri($eac),'eac/'),'_')"
                 xpath-default-namespace="urn:isbn:1-931666-33-4">
                 <eac>
                     <name>
@@ -85,7 +85,7 @@
                             <ead audience="external" xmlns="urn:isbn:1-931666-22-9"
                                 xmlns:xlink="http://www.w3.org/1999/xlink">
                                 <xsl:variable name="eadVal"
-                                    select="document(concat($eadDir,normalize-space(.)))"
+                                    select="document(concat($eadDir,normalize-space(substring-after(substring-after(.,'eac/'),'_'))))"
                                     xpath-default-namespace="urn:isbn:1-931666-22-9"/>
                                 <xsl:copy-of select="$eadVal/ead/eadheader"
                                     xpath-default-namespace="urn:isbn:1-931666-22-9" copy-namespaces="no"/>
