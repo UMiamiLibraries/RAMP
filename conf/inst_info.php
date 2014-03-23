@@ -17,9 +17,9 @@ $other_agency_code = "XYZ";  // Here we can include our MARC organization code; 
 $agency_name = "University of ABC"; // Name displayed in the RAMP footer and in "agencyName" element. 
 $short_agency_name = "ABC"; // Abbreviation of institution's name; for example, used in "otherRecordId" @localType for merged records. For example, "UML" for University of Miami Libraries.
 $serverName = "abc_server"; // Name of server where EAD finding aids are hosted (e.g., "proust" or "gryphon"). Helps filter out "ead:extref" data in ead2eac.xsl.
-$localURL = "http://";      // Base URL for local finding aids: i.e., whatever precedes the finding aid's unique ID in the URL string.
-$repositoryOne = "REPO1";   // Abbreviation for local archival repository. Can be used to help filter out "ead:relatedmaterials" data in ead2eac.xsl.
-$repositoryTwo = "REPO2";   // Abbreviation for local archival repository. Can be used to help filter out "ead:relatedmaterials" data in ead2eac.xsl.
+$localURL = "http://";      // Base URL for local finding aids: i.e., whatever precedes the finding aid's unique ID in the URL string. For example, "http://proust.library.miami.edu/findingaids/index.php?p=collections/findingaid&amp;id=".
+$repositoryOne = "REPO1";   // Abbreviation for local archival repository. Leave blank if unsure. Can be used to help filter out "ead:relatedmaterials" data in ead2eac.xsl.
+$repositoryTwo = "REPO2";   // Abbreviation for local archival repository. Leave blank if unsure. Can be used to help filter out "ead:relatedmaterials" data in ead2eac.xsl.
 
 // Here are some different possible "eventDescription" values that can be set in ead2eac.xsl.
 $eventDescDerive = "New EAC-CPF record derived from EAD instance and existing EAC-CPF record, if available."; 
