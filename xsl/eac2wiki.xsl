@@ -202,7 +202,7 @@
         </xsl:call-template>
         <!-- For LOC finding aids, include a reference to the {{RAMP release PD}} template on the Talk page. -->
         <xsl:choose>
-            <xsl:when test="contains(eac:eac-cpf/eac:control/eac:sources/eac:source/@xlink:href,'loc.gov')">            				            				        		
+            <xsl:when test="contains(eac:eac-cpf/eac:control/eac:sources/eac:source/@xlink:href,'loc.mss')">            				            				        		
                 <xsl:text>&#10;</xsl:text>
                 <xsl:text>&#10;</xsl:text>
                 <xsl:text>&lt;!-- IMPORTANT: Please copy the following template to the Talk page of the current article, deleting these instructions:</xsl:text>
@@ -334,7 +334,7 @@
         </xsl:call-template>
         <!-- For LOC finding aids, include a reference to the {{RAMP release PD}} template on the Talk page. -->
         <xsl:choose>
-            <xsl:when test="contains(eac:eac-cpf/eac:control/eac:sources/eac:source/@xlink:href,'loc.gov')">            				            				        		
+            <xsl:when test="contains(eac:eac-cpf/eac:control/eac:sources/eac:source/@xlink:href,'loc.mss')">            				            				        		
                 <xsl:text>&#10;</xsl:text>
                 <xsl:text>&#10;</xsl:text>
                 <xsl:text>&lt;!-- IMPORTANT: Please copy the following template to the Talk page of the current article, deleting these instructions:</xsl:text>
