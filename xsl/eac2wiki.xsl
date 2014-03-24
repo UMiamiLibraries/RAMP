@@ -576,8 +576,7 @@
     </xsl:template>
     <!-- Wikipedia content block templates. -->
     <!-- Output timeline, if available. -->
-    <xsl:template name="tTimeline">
-        <xsl:text>&#10;</xsl:text>
+    <xsl:template name="tTimeline">        
         <xsl:text>==Timeline==</xsl:text>
         <xsl:text>&#10;</xsl:text>
         <xsl:text>{{timeline-start}}</xsl:text>
