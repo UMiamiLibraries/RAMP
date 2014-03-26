@@ -686,7 +686,7 @@
               	    			<xsl:text>| author = </xsl:text>
               	    			<xsl:text>&#10;</xsl:text>
                   			    <xsl:text>| date = </xsl:text>
-                  			    <xsl:value-of select="eac:eac-cpf/eac:control/eac:sources/eac:source/eac:objectXMLWrap/ead:eadheader/ead:filedesc/ead:publicationstmt/ead:date/@normal"/>
+                  			    <xsl:value-of select="eac:eac-cpf/eac:control/eac:sources/eac:source/eac:objectXMLWrap/ead:ead/ead:eadheader/ead:filedesc/ead:publicationstmt/ead:date/@normal"/>
                   			    <xsl:text>&#10;</xsl:text>
               	    			<xsl:text>| accessdate = </xsl:text>
                   			    <xsl:call-template name="tAccessDateParser">
@@ -717,7 +717,7 @@
           		                <xsl:text>| author = </xsl:text>
           		                <xsl:text>&#10;</xsl:text>
           		                <xsl:text>| date = </xsl:text>
-          		                <xsl:value-of select="eac:eac-cpf/eac:control/eac:sources/eac:source/eac:objectXMLWrap/ead:eadheader/ead:filedesc/ead:publicationstmt/ead:date/@normal"/>
+          		                <xsl:value-of select="eac:eac-cpf/eac:control/eac:sources/eac:source/eac:objectXMLWrap/ead:ead/ead:eadheader/ead:filedesc/ead:publicationstmt/ead:date/@normal"/>
           		                <xsl:text>&#10;</xsl:text>
           		                <xsl:text>| accessdate = </xsl:text>
           		                <xsl:call-template name="tAccessDateParser">
@@ -790,8 +790,13 @@
                             <xsl:text>| url = </xsl:text>
                             <xsl:value-of select="normalize-space(@xlink:href)" />
                             <xsl:text>&#10;</xsl:text>                            
-                            <xsl:text>| date = </xsl:text>
-                            <xsl:value-of select="normalize-space(eac:objectXMLWrap/ead:eadheader/ead:profiledesc/ead:creation/ead:date)"/>
+                            <xsl:text>| date = </xsl:text>                                                            
+                                <xsl:for-each select="eac:objectXMLWrap/ead:ead/ead:archdesc/ead:descgrp/ead:processinfo/ead:p">
+                                    <xsl:value-of select="normalize-space(translate(.,concat($vAlpha,$vPunct2),''))"/>
+                                    <xsl:if test="position()!=last()">
+                                        <xsl:text>, </xsl:text>    
+                                    </xsl:if>                                        
+                                </xsl:for-each>                                                            
                             <xsl:text>&#10;</xsl:text>
                             <xsl:value-of select="$pFindingAidInfo" />                            
                             <xsl:text>| accessdate = </xsl:text>

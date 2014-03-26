@@ -456,28 +456,51 @@
                                     <xsl:value-of select="normalize-space(.)" />
                                 </sourceEntry>
                                 <objectXMLWrap>
-                                    <eadheader xmlns="urn:isbn:1-931666-22-9">
-                                        <xsl:copy-of select="../../../ead:eadid" />
-                                        <filedesc>
-                                            <xsl:copy-of select="parent::ead:titlestmt" />
-                                            <xsl:choose>                                                                                            
-                                                <xsl:when test="contains(../../../../ead:archdesc/ead:did/ead:note,'Creative Commons Attribution-Sharealike 3.0')">
-                                                    <publicationstmt>
-                                                        <xsl:for-each select="../../../../ead:archdesc/ead:did/ead:note/ead:p">
-                                                            <p>
-                                                                <xsl:value-of select="normalize-space(.)" />                                                                
-                                                            </p>    
-                                                        </xsl:for-each>                                                        
-                                                    </publicationstmt>
-                                                </xsl:when>
-                                                <xsl:otherwise>
-                                                    <xsl:copy-of select="parent::ead:titlestmt/following-sibling::ead:publicationstmt"/>
-                                                </xsl:otherwise>
-                                            </xsl:choose>
-                                        </filedesc>
-                                        <xsl:copy-of select="../../../ead:profiledesc" />
-                                        <xsl:copy-of select="../../../ead:revisiondesc" />
-                                    </eadheader>
+                                    <ead audience="external" xmlns="urn:isbn:1-931666-22-9" xmlns:xlink="http://www.w3.org/1999/xlink">
+                                        <eadheader>
+                                            <xsl:copy-of select="../../../ead:eadid" />
+                                            <filedesc>
+                                                <xsl:copy-of select="parent::ead:titlestmt" />                                                
+                                                <xsl:copy-of select="parent::ead:titlestmt/following-sibling::ead:publicationstmt"/>                                                                                                
+                                            </filedesc>
+                                            <xsl:copy-of select="../../../ead:profiledesc" />
+                                            <xsl:copy-of select="../../../ead:revisiondesc" />
+                                        </eadheader>
+                                        <archdesc>
+                                            <xsl:if test="../../../../ead:archdesc/@level">
+                                                <xsl:attribute name="level">
+                                                    <xsl:value-of select="../../../../ead:archdesc/@level"/>
+                                                </xsl:attribute>
+                                            </xsl:if>
+                                            <xsl:if test="../../../../ead:archdesc/@type">
+                                                <xsl:attribute name="type">
+                                                    <xsl:value-of select="../../../../ead:archdesc/@type"/>
+                                                </xsl:attribute>
+                                            </xsl:if>
+                                            <xsl:if test="../../../../ead:archdesc/@audience">
+                                                <xsl:attribute name="audience">
+                                                    <xsl:value-of select="../../../../ead:archdesc/@audience"/>
+                                                </xsl:attribute>
+                                            </xsl:if>
+                                            <xsl:if test="../../../../ead:archdesc/@relatedencoding">
+                                                <xsl:attribute name="relatedencoding">
+                                                    <xsl:value-of select="../../../../ead:archdesc/@relatedencoding"/>
+                                                </xsl:attribute>
+                                            </xsl:if>                                            
+                                            <did>
+                                                <xsl:choose>
+                                                    <xsl:when test="../../../../ead:archdesc/ead:did/ead:note[@encodinganalog='500']">
+                                                        <xsl:copy-of select="../../../../ead:archdesc/ead:did/ead:note[@encodinganalog='500']"/>    
+                                                        <xsl:copy-of select="../../../../ead:archdesc/ead:did/ead:langmaterial"/>
+                                                    </xsl:when>
+                                                    <xsl:otherwise>
+                                                        <xsl:copy-of select="../../../../ead:archdesc/ead:did/ead:langmaterial"/>
+                                                    </xsl:otherwise>
+                                                </xsl:choose>                                                                                               
+                                            </did>
+                                            <xsl:copy-of select="../../../../ead:archdesc/ead:descgrp"/>   
+                                        </archdesc>
+                                    </ead>                                    
                                 </objectXMLWrap>
                             </source>
                         </xsl:for-each>
@@ -1400,31 +1423,53 @@
                         </xsl:if>
                     </relationEntry>
                     <objectXMLWrap>
-                        <xsl:element name="archdesc" namespace="urn:isbn:1-931666-22-9">
-                            <xsl:copy-of select="parent::ead:did/ead:head" />
-                            <xsl:copy-of select="." />
-                            <xsl:copy-of select="parent::ead:did/ead:unitid" />
-                            <xsl:element name="origination" namespace="urn:isbn:1-931666-22-9">
-                                <xsl:attribute name="label">
-                                    <xsl:value-of select="parent::ead:did/ead:origination/@label" />
+                        <archdesc xmlns="urn:isbn:1-931666-22-9">
+                            <xsl:if test="../../../ead:archdesc/@level">
+                                <xsl:attribute name="level">
+                                    <xsl:value-of select="../../../ead:archdesc/@level"/>
                                 </xsl:attribute>
-                                <xsl:attribute name="encodinganalog">
-                                    <xsl:value-of select="parent::ead:did/ead:origination/@encodinganalog" />
+                            </xsl:if>
+                            <xsl:if test="../../../ead:archdesc/@type">
+                                <xsl:attribute name="type">
+                                    <xsl:value-of select="../../../ead:archdesc/@type"/>
                                 </xsl:attribute>
-                                <xsl:for-each select="parent::ead:did/ead:origination/child::node()[not(local-name()='name')]">
+                            </xsl:if>
+                            <xsl:if test="../../../ead:archdesc/@audience">
+                                <xsl:attribute name="audience">
+                                    <xsl:value-of select="../../../ead:archdesc/@audience"/>
+                                </xsl:attribute>
+                            </xsl:if>
+                            <xsl:if test="../../../ead:archdesc/@relatedencoding">
+                                <xsl:attribute name="relatedencoding">
+                                    <xsl:value-of select="../../../ead:archdesc/@relatedencoding"/>
+                                </xsl:attribute>
+                            </xsl:if>                     
+                            <did>
+                                <xsl:copy-of select="parent::ead:did/ead:head" />
+                                <xsl:copy-of select="." />
+                                <xsl:copy-of select="parent::ead:did/ead:unitid" />
+                                <xsl:element name="origination" namespace="urn:isbn:1-931666-22-9">
+                                    <xsl:attribute name="label">
+                                        <xsl:value-of select="parent::ead:did/ead:origination/@label" />
+                                    </xsl:attribute>
+                                    <xsl:attribute name="encodinganalog">
+                                        <xsl:value-of select="parent::ead:did/ead:origination/@encodinganalog" />
+                                    </xsl:attribute>
+                                    <xsl:for-each select="parent::ead:did/ead:origination/child::node()[not(local-name()='name')]">
+                                        <xsl:copy-of select="." />
+                                    </xsl:for-each>
+                                </xsl:element>
+                                <xsl:for-each select="parent::ead:did/ead:origination/following-sibling::node()">
                                     <xsl:copy-of select="." />
                                 </xsl:for-each>
-                            </xsl:element>
-                            <xsl:for-each select="parent::ead:did/ead:origination/following-sibling::node()">
-                                <xsl:copy-of select="." />
-                            </xsl:for-each>
+                            </did>
                             <!-- Include Scope and Contents. -->
                             <xsl:if test="../../ead:scopecontent">
                                 <xsl:if test=". != ' ' ">
                                     <xsl:copy-of select="../../ead:scopecontent" />
                                 </xsl:if>
                             </xsl:if>
-                        </xsl:element>
+                        </archdesc>
                     </objectXMLWrap>
                 </resourceRelation>
             </xsl:for-each>
