@@ -956,6 +956,29 @@
                         </xsl:choose>
                         <xsl:text>&#10;</xsl:text>
                     </xsl:for-each>
+                    <xsl:if test="eac:descriptiveNote/eac:p">                    
+                        <xsl:text> &lt;!-- </xsl:text>
+                        <xsl:for-each select="eac:descriptiveNote/eac:p">
+                            <xsl:apply-templates select="."/>
+                            <xsl:choose>
+                                <xsl:when test="position()!=last()">
+                                    <xsl:text>&#10;</xsl:text>
+                                    <xsl:text>&#10;</xsl:text>
+                                </xsl:when>
+                                <xsl:otherwise />
+                            </xsl:choose>
+                        </xsl:for-each>
+                        <xsl:text>. --&gt;</xsl:text>
+                        <xsl:choose>
+                            <xsl:when test="position()!=last()">
+                                <xsl:text>&#10;</xsl:text>
+                                <xsl:text>&#10;</xsl:text>
+                            </xsl:when>
+                            <xsl:otherwise>
+                                <xsl:text>&#10;</xsl:text>
+                            </xsl:otherwise>
+                        </xsl:choose>                  
+                    </xsl:if>    
                 </xsl:for-each>
             </xsl:when>
             <xsl:when test="eac:eac-cpf/eac:cpfDescription/eac:relations/eac:resourceRelation[not(@resourceRelationType)]">
@@ -994,7 +1017,34 @@
                             </xsl:choose>
                         </xsl:otherwise>                                                                        
                     </xsl:choose>
-                    <xsl:text>&#10;</xsl:text>
+                    <xsl:choose>
+                        <xsl:when test="eac:descriptiveNote/eac:p">                    
+                            <xsl:text> &lt;!-- </xsl:text>
+                            <xsl:for-each select="eac:descriptiveNote/eac:p">
+                                <xsl:apply-templates select="."/>
+                                <xsl:choose>
+                                    <xsl:when test="position()!=last()">
+                                        <xsl:text>&#10;</xsl:text>
+                                        <xsl:text>&#10;</xsl:text>
+                                    </xsl:when>
+                                    <xsl:otherwise />
+                                </xsl:choose>
+                            </xsl:for-each>
+                            <xsl:text>. --&gt;</xsl:text>
+                            <xsl:choose>
+                                <xsl:when test="position()!=last()">
+                                    <xsl:text>&#10;</xsl:text>
+                                    <xsl:text>&#10;</xsl:text>
+                                </xsl:when>
+                                <xsl:otherwise>
+                                    <xsl:text>&#10;</xsl:text>
+                                </xsl:otherwise>
+                            </xsl:choose>                  
+                        </xsl:when>   
+                        <xsl:otherwise>
+                            <xsl:text>&#10;</xsl:text>        
+                        </xsl:otherwise>
+                    </xsl:choose>                    
                 </xsl:for-each>
             </xsl:when>
             <xsl:otherwise />
@@ -1102,7 +1152,34 @@
                         </xsl:when>
                         <xsl:otherwise />
                     </xsl:choose>
-                    <xsl:text>&#10;</xsl:text>
+                    <xsl:choose>
+                        <xsl:when test="eac:descriptiveNote/eac:p">                    
+                            <xsl:text> &lt;!-- </xsl:text>
+                            <xsl:for-each select="eac:descriptiveNote/eac:p">
+                                <xsl:apply-templates select="."/>
+                                <xsl:choose>
+                                    <xsl:when test="position()!=last()">
+                                        <xsl:text>&#10;</xsl:text>
+                                        <xsl:text>&#10;</xsl:text>
+                                    </xsl:when>
+                                    <xsl:otherwise />
+                                </xsl:choose>
+                            </xsl:for-each>
+                            <xsl:text>. --&gt;</xsl:text>
+                            <xsl:choose>
+                                <xsl:when test="position()!=last()">
+                                    <xsl:text>&#10;</xsl:text>
+                                    <xsl:text>&#10;</xsl:text>
+                                </xsl:when>
+                                <xsl:otherwise>
+                                    <xsl:text>&#10;</xsl:text>
+                                </xsl:otherwise>
+                            </xsl:choose>                  
+                        </xsl:when>   
+                        <xsl:otherwise>
+                            <xsl:text>&#10;</xsl:text>        
+                        </xsl:otherwise>
+                    </xsl:choose> 
                 </xsl:for-each>
             </xsl:when>
         </xsl:choose>
@@ -1259,15 +1336,10 @@
             <xsl:text>&#10;</xsl:text>
         </xsl:if>        	        	        	
         <xsl:if test="eac:eac-cpf/eac:cpfDescription/eac:relations/eac:resourceRelation[@xlink:role='archivalRecords']">
-            <!-- Check for archival/digital collections created by or associated with the person or corporate body. -->
-            <xsl:if test="eac:eac-cpf/eac:cpfDescription/eac:relations/eac:resourceRelation/eac:objectXMLWrap/ead:archdesc/ead:scopecontent">
-                <xsl:text>&#10;</xsl:text>
-                <xsl:text>&lt;!-- The following scope-and-contents note (commented out after the link) may be useful for providing a brief description to accompany the following link to the local finding aid/archival metadata record. This text should be deleted after relevant information has been incorporated into the link description: --&gt;</xsl:text>
-                <xsl:text>&#10;</xsl:text>
-                <xsl:text>&#10;</xsl:text>
-            </xsl:if>            
+            <!-- Check for archival/digital collections created by or associated with the person or corporate body. -->                       
             <xsl:for-each select="eac:eac-cpf/eac:cpfDescription/eac:relations/eac:resourceRelation[@xlink:role='archivalRecords'][eac:objectXMLWrap]">
                 <xsl:sort select="translate(eac:relationEntry,'ÁÀÉÈÍÓÚÜÑáàéèíóúúüñ','AAEEIOUUNaaeeiouuun')" data-type="text" />
+                <xsl:text>&#10;</xsl:text>   
                 <xsl:text>* [</xsl:text>
                 <xsl:choose>
                     <xsl:when test="contains(@xlink:href,' ')">
@@ -1317,9 +1389,9 @@
                         </xsl:choose>
                     </xsl:otherwise>                                                                        
                 </xsl:choose>
-                <xsl:if test="../../../eac:cpfDescription/eac:relations/eac:resourceRelation/eac:objectXMLWrap/ead:archdesc/ead:scopecontent">                    
+                <xsl:if test="eac:objectXMLWrap/ead:archdesc/ead:scopecontent">                    
                     <xsl:text> &lt;!-- </xsl:text>
-                    <xsl:for-each select="../../../eac:cpfDescription/eac:relations/eac:resourceRelation/eac:objectXMLWrap/ead:archdesc/ead:scopecontent/ead:p">
+                    <xsl:for-each select="eac:objectXMLWrap/ead:archdesc/ead:scopecontent/ead:p">
                         <xsl:apply-templates select="."/>
                         <xsl:choose>
                             <xsl:when test="position()!=last()">
@@ -1331,7 +1403,7 @@
                     </xsl:for-each>
                     <xsl:text> --&gt;</xsl:text>
                     <xsl:text>&#10;</xsl:text>                    
-                </xsl:if>                
+                </xsl:if>                                            
             </xsl:for-each>
         </xsl:if>
         <xsl:if test="eac:eac-cpf/eac:cpfDescription/eac:relations/eac:resourceRelation[@xlink:role='archivalRecords' and not(eac:objectXMLWrap)][eac:objectXMLWrap]|eac:eac-cpf/eac:cpfDescription/eac:relations/eac:resourceRelation[@resourceRelationType='other' and @xlink:role='resource']|eac:eac-cpf/eac:cpfDescription/eac:relations/eac:resourceRelation[not(@resourceRelationType) and @xlink:role='resource']|eac:eac-cpf/eac:cpfDescription/eac:relations/eac:resourceRelation/eac:relationEntry[1][@localType='mix']">
@@ -1387,7 +1459,29 @@
                         </xsl:choose>
                     </xsl:otherwise>                                                                        
                 </xsl:choose>
-                <xsl:text>&#10;</xsl:text>
+                <xsl:if test="eac:descriptiveNote/eac:p">                    
+                    <xsl:text> &lt;!-- </xsl:text>
+                    <xsl:for-each select="eac:descriptiveNote/eac:p">
+                        <xsl:apply-templates select="."/>
+                        <xsl:choose>
+                            <xsl:when test="position()!=last()">
+                                <xsl:text>&#10;</xsl:text>
+                                <xsl:text>&#10;</xsl:text>
+                            </xsl:when>
+                            <xsl:otherwise />
+                        </xsl:choose>
+                    </xsl:for-each>
+                    <xsl:text>. --&gt;</xsl:text>
+                    <xsl:choose>
+                        <xsl:when test="position()!=last()">
+                            <xsl:text>&#10;</xsl:text>
+                            <xsl:text>&#10;</xsl:text>
+                        </xsl:when>
+                        <xsl:otherwise>
+                            <xsl:text>&#10;</xsl:text>
+                        </xsl:otherwise>
+                    </xsl:choose>                  
+                </xsl:if>                   
             </xsl:for-each>
             <xsl:text>&#10;</xsl:text>
         </xsl:if>        

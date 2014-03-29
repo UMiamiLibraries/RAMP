@@ -76,7 +76,7 @@
     </xsl:variable>
     <!-- Variable for grouping persname elements. -->
     <xsl:variable name="vCpfName">
-        <xsl:for-each select="//ead:persname">   
+        <xsl:for-each select="//ead:persname[not(contains(parent::ead:origination/@id,'RAMP'))]">   
             <xsl:sort select="translate(.,'ÁÀÉÈÍÓÚÜÑáàéèíóúúüñ','AAEEIOUUNaaeeiouuun')" data-type="text" />
             <persName>
                 <xsl:choose>
@@ -89,7 +89,7 @@
                 </xsl:choose>
             </persName>
         </xsl:for-each>
-        <xsl:for-each select="//ead:corpname">
+        <xsl:for-each select="//ead:corpname[not(contains(parent::ead:origination/@id,'RAMP'))]">
             <xsl:sort select="translate(.,'ÁÀÉÈÍÓÚÜÑáàéèíóúúüñ','AAEEIOUUNaaeeiouuun')" data-type="text" />
             <corpName>
                 <xsl:choose>
@@ -1300,8 +1300,8 @@
             <!-- Turn associated creators into cpfRelation elements. -->
             <xsl:variable name="vFirstNode" select="ead:ead/ead:archdesc/ead:did/ead:origination[not(contains(@id,'RAMP'))]/child::node()[1]" />
             <xsl:for-each select="$vFirstNode">
-                <xsl:if test="following-sibling::node()">
-                    <xsl:for-each select="following-sibling::node()[not(@encodinganalog='100_0') and not(@encodinganalog='100_1')]">
+                <xsl:if test="following-sibling::node()[not(@encodinganalog='100_0') and not(@encodinganalog='100_1')]">
+                    <xsl:for-each select="following-sibling::node()">
                         <xsl:variable name="vEntType" select="local-name(.)" />
                         <xsl:variable name="vCpfRel" select="@normal" />
                         <xsl:if test="$vEntType='persname'">
@@ -1396,14 +1396,14 @@
                     </xsl:for-each>
                 </xsl:if>
             </xsl:for-each>
-            <xsl:for-each select="exsl:node-set($vCpfName)/persName[not(.=preceding-sibling::persName)][.!=normalize-space($vFirstNode)]">                
+            <xsl:for-each select="exsl:node-set($vCpfName)/persName[not(.=preceding-sibling::persName)]">                
                 <cpfRelation cpfRelationType="associative" xlink:role="http://rdvocab.info/uri/schema/FRBRentitiesRDA/Person" xlink:type="simple">
                     <relationEntry>                        
                         <xsl:value-of select="normalize-space(.)" />
                     </relationEntry>
                 </cpfRelation>
             </xsl:for-each>
-            <xsl:for-each select="exsl:node-set($vCpfName)/corpName[not(.=preceding-sibling::corpName)][.!=normalize-space($vFirstNode)]">                
+            <xsl:for-each select="exsl:node-set($vCpfName)/corpName[not(.=preceding-sibling::corpName)]">                
                 <cpfRelation cpfRelationType="associative" xlink:role="http://rdvocab.info/uri/schema/FRBRentitiesRDA/CorporateBody" xlink:type="simple">
                     <relationEntry>                        
                         <xsl:value-of select="normalize-space(.)" />

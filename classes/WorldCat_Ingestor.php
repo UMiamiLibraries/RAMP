@@ -319,6 +319,7 @@ class WorldCat_Ingestor extends Ingestor
 				$lobjResults2 = $this->xpath('./*[local-name()=\'creator\']', $lobjResults->item($i));
 				if($lobjResults2->item(0) != null)
 					$lobjWork['creator'] = $lobjResults2->item(0)->nodeValue;
+					$lobjWork['other_creator_viaf'] = $lobjResults2->item(0) !== null ? $lobjResults2->item(0)->getAttribute('ident') : "";
 
 				$lobjResults2 = $this->xpath('./*[local-name()=\'title\']', $lobjResults->item($i));
 				if($lobjResults2->item(0) != null)
@@ -334,7 +335,11 @@ class WorldCat_Ingestor extends Ingestor
 
 				$lobjResults2 = $this->xpath('./*[local-name()=\'cover\']', $lobjResults->item($i));
 				if($lobjResults2->item(0) != null)
-					$lobjWork['isbn'] = $lobjResults2->item(0) !== null ? $lobjResults2->item(0)->getAttribute('isbn') : "";
+					$lobjWork['isbn'] = $lobjResults2->item(0) !== null ? $lobjResults2->item(0)->getAttribute('isbn') : "";								  
+
+                $lobjResults2 = $this->xpath('./*[local-name()=\'summary\']', $lobjResults->item($i));
+				if($lobjResults2->item(0) != null)
+					$lobjWork['summary'] = $lobjResults2->item(0)->nodeValue;
 
 				if( $lobjWork['creator'] == $this->strRawName )
 					$lobjWork['creator_viaf'] = $this->strViafId;
@@ -548,13 +553,13 @@ class WorldCat_Ingestor extends Ingestor
 		{
 			$lobjResourceRelationNode = array();
 
-			/*remvoed because xml was not valid xml
+			/*removed because xml was not valid xml
 			if($lobjCitation['isbn'] != '')
 				$lobjResourceRelationNode['attributes']['localType'] = "isbn";*/
 
 			$lobjResourceRelationNode['attributes']['resourceRelationType'] = "creatorOf";
 			$lobjResourceRelationNode['attributes']['xlink:href'] = "http://worldcat.org/oclc/" . preg_replace( "[^0-9]", "", substr($lobjCitation['oclcnum'],3) );
-			$lobjResourceRelationNode['attributes']['xlink:role'] = $lobjCitation['record_type'] == "mixd" ? "archivalRecords" : "resource";
+			$lobjResourceRelationNode['attributes']['xlink:role'] = $lobjCitation['record_type'] == "mix" ? "archivalRecords" : "resource";
 			$lobjResourceRelationNode['attributes']['xlink:type'] = "simple";
 
 			$lobjRelationEntry = array();
@@ -564,14 +569,18 @@ class WorldCat_Ingestor extends Ingestor
 
 			if( $lobjCitation['title'] != '' )
 				$lobjRelationEntry['elements'] = $lobjCitation["title"];
-
+							
 			if( !empty( $lobjRelationEntry ) )
 				$lobjResourceRelationNode['elements']['relationEntry'][] = $lobjRelationEntry;
 
 			if( $lobjCitation['isbn'] != '' )
 			    $lobjResourceRelationNode['elements']['relationEntry'][] = array( "attributes" => array( "localType" => "isbn" ),
   		                                                                          "elements" => $lobjCitation['isbn'] );
-
+  		                                                                          
+  		    if( $lobjCitation['summary'] != '' )
+			    $lobjResourceRelationNode['elements']['descriptiveNote']['elements']['p'][] = array( "elements" => $lobjCitation['summary'] );
+  		    
+            /*
 			if( $lobjCitation['creator'] != '' )
 				$lobjResourceRelationNode['elements']['relationEntry'][] = array( "attributes" => array( "localType" => "creator" ),
 																 			  		"elements" => $lobjCitation['creator'] );
@@ -579,11 +588,10 @@ class WorldCat_Ingestor extends Ingestor
 		    if( $lobjCitation['creator_viaf'] != '')
 			   $lobjResourceRelationNode['elements']['relationEntry'][] = array( "attributes" => array( "localType" => "VIAF" ),
 			   "elements" => $lobjCitation['creator_viaf'] );
+            */                        
 
-
-
-			//if mixd, it is an archival resource relation.
-			if( $lobjCitation['record_type'] == 'mixd' )
+			//if mix, it is an archival resource relation.
+			if( $lobjCitation['record_type'] == 'mix' )
 				$lobjArchivalBy[] = $lobjResourceRelationNode;
 			else
 				$lobjResourceBy[] = $lobjResourceRelationNode;
@@ -595,7 +603,7 @@ class WorldCat_Ingestor extends Ingestor
 
 			$lobjResourceRelationNode['attributes']['resourceRelationType'] = "subjectOf";
 			$lobjResourceRelationNode['attributes']['xlink:href'] = "http://worldcat.org/oclc/" . preg_replace( "[^0-9]", "", substr($lobjCitation['oclcnum'],3) );
-			$lobjResourceRelationNode['attributes']['xlink:role'] = $lobjCitation['record_type'] == "mixd" ? "archivalRecords" : "resource";
+			$lobjResourceRelationNode['attributes']['xlink:role'] = $lobjCitation['record_type'] == "mix" ? "archivalRecords" : "resource";
 			$lobjResourceRelationNode['attributes']['xlink:type'] = "simple";
 
 			$lobjRelationEntry = array();
@@ -613,22 +621,34 @@ class WorldCat_Ingestor extends Ingestor
 			    $lobjResourceRelationNode['elements']['relationEntry'][] = array( "attributes" => array( "localType" => "isbn" ),
 			                                                                        "elements" => $lobjCitation['isbn'] );
 
-			if( $lobjCitation['creator'] != '' )
+			if( $lobjCitation['creator'] != '' && $this->strRawName != $lobjCitation['creator'] )			
 				$lobjResourceRelationNode['elements']['relationEntry'][] = array( "attributes" => array( "localType" => "creator" ),
-																 			  		"elements" => $lobjCitation['creator'] );
-
-            /*removed because xml was not valid xml */
-			if( $lobjCitation['creator_viaf'] != '')
-			   $lobjResourceRelationNode['elements']['relationEntry'][] = array( "attributes" => array( "localType" => "VIAF" ),
-			   "elements" => $lobjCitation['creator_viaf'] );
+																 			  		"elements" => $lobjCitation['creator'] );																 			  				   
+																 			  		    
+            
+			if( $lobjCitation['other_creator_viaf'] != '') 
+			{
+			   $other_viaf = $lobjCitation['other_creator_viaf'];
+			   
+			   $other_viaf = substr($other_viaf,0,strpos($other_viaf,','));
+			   
+			   if( $other_viaf != $lobjCitation['creator_viaf'] )
+			   {			   
+			       $lobjResourceRelationNode['elements']['relationEntry'][] = array( "attributes" => array( "localType" => "VIAF" ),
+			       "elements" => $other_viaf );
+			   }
+			}	
+			
+			if( $lobjCitation['summary'] != '' )
+			    $lobjResourceRelationNode['elements']['descriptiveNote']['elements']['p'][] = array( "elements" => $lobjCitation['summary'] );
 
 			//sometimes WorldCat API lists works by under works about, tested here and handled
 			if( $lobjCitation['creator'] != '' && $this->strRawName == $lobjCitation['creator'] )
 			{
 				$lobjResourceRelationNode['attributes']['resourceRelationType'] = "creatorOf";
 
-				//if mixd, it is an archival resource relation.
-				if( $lobjCitation['record_type'] == 'mixd' )
+				//if mix, it is an archival resource relation.
+				if( $lobjCitation['record_type'] == 'mix' )
 					$lobjArchivalBy[] = $lobjResourceRelationNode;
 				else
 					$lobjResourceBy[] = $lobjResourceRelationNode;
@@ -636,8 +656,8 @@ class WorldCat_Ingestor extends Ingestor
 			{
 				$lobjResourceRelationNode['attributes']['resourceRelationType'] = "subjectOf";
 
-				//if mixd, it is an archival resource relation.
-				if( $lobjCitation['record_type'] == "mixd" )
+				//if mix, it is an archival resource relation.
+				if( $lobjCitation['record_type'] == "mix" )
 					$lobjArchivalAbout[] = $lobjResourceRelationNode;
 				else
 					$lobjResourceAbout[] = $lobjResourceRelationNode;
