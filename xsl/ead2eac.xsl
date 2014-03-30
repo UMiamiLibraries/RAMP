@@ -1033,7 +1033,7 @@
                                         </chronItem>
                                     </xsl:for-each>
                                 </chronList>
-                            </xsl:when>
+                            </xsl:when>                            
                             <xsl:otherwise>
                                 <xsl:if test="not(contains(.,'Chronolog'))                                      
                                     and not(contains(.,'Timeline'))                                      
@@ -1041,16 +1041,21 @@
                                     <xsl:if test="not(preceding-sibling::ead:p[contains(.,'Chronolog')])                                          
                                         and (string-length(substring(.,1,4)) = string-length(translate(substring(.,1,4),$vDigits,'')))">
                                         <xsl:if test=".!=' ' and .!=''">
-                                            <xsl:apply-templates select="." />
+                                            <xsl:value-of select="ead:p[not(preceding-sibling::ead:p[contains(.,'Chronolog')])]"/>
                                         </xsl:if>
                                     </xsl:if>
                                 </xsl:if>
-                            </xsl:otherwise>
-                        </xsl:choose>
+                            </xsl:otherwise>                            
+                        </xsl:choose>                        
                     </xsl:for-each>
+                    
+                    <!--
                     <xsl:if test="ead:ead/ead:archdesc/ead:bioghist/text()">
                         <xsl:apply-templates select="ead:ead/ead:archdesc/ead:bioghist" />
                     </xsl:if>
+                    -->
+                    
+                    <xsl:apply-templates select="ead:ead/ead:archdesc/ead:bioghist/ead:p" />                                        
                     <xsl:call-template name="tCitations" />
                 </biogHist>
             </xsl:if>
@@ -1267,11 +1272,13 @@
             <xsl:value-of select="normalize-space(.)" />
         </abstract>
     </xsl:template>
+    <!--
     <xsl:template match="ead:bioghist/text()">
         <p xmlns="urn:isbn:1-931666-33-4">
             <xsl:value-of select="normalize-space(.)" />
         </p>
     </xsl:template>
+    -->
     <xsl:template match="ead:emph">
         <span xmlns="urn:isbn:1-931666-33-4">
             <xsl:attribute name="style">font-style:italic</xsl:attribute>
