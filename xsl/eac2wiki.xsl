@@ -2719,7 +2719,16 @@
                 </xsl:when>
                 <xsl:otherwise>                                
                     <xsl:call-template name="tTitleCaps">
-                        <xsl:with-param name="pTitles" select="normalize-space(schema:name)"/>
+                        <xsl:with-param name="pTitles">
+                            <xsl:choose>
+                                <xsl:when test="substring(normalize-space(schema:name),string-length(normalize-space(schema:name)))=',' or substring(normalize-space(schema:name),string-length(normalize-space(schema:name)))='.'">
+                                    <xsl:value-of select="substring(normalize-space(schema:name),1,string-length(normalize-space(schema:name))-1)"/>
+                                </xsl:when>
+                                <xsl:otherwise>
+                                    <xsl:value-of select="normalize-space(schema:name)"/>
+                                </xsl:otherwise>
+                            </xsl:choose>
+                        </xsl:with-param>
                     </xsl:call-template>                                                                                            
                 </xsl:otherwise>                                                                        
             </xsl:choose>                             	

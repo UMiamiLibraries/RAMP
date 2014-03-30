@@ -558,16 +558,26 @@ class WorldCat_Ingestor extends Ingestor
 				$lobjResourceRelationNode['attributes']['localType'] = "isbn";*/
 
 			$lobjResourceRelationNode['attributes']['resourceRelationType'] = "creatorOf";
-												
-			if( substr($lobjCitation['oclcnum'],3,1) == '0' )
+           
+            //$lobjResourceRelationNode['attributes']['xlink:href'] = substr($lobjCitation['oclcnum'],3,1);           
+                       
+			if( substr($lobjCitation['oclcnum'],3,1) === '0' and substr($lobjCitation['oclcnum'],4,1) != '0' )
 			{
 			    $lobjResourceRelationNode['attributes']['xlink:href'] = "http://www.worldcat.org/oclc/" . preg_replace( "[^0-9]", "", substr($lobjCitation['oclcnum'],4) );
+			}
+			elseif( substr($lobjCitation['oclcnum'],3,1) === '0' and substr($lobjCitation['oclcnum'],4,1) === '0' and substr($lobjCitation['oclcnum'],5,1) != '0' )
+			{
+			    $lobjResourceRelationNode['attributes']['xlink:href'] = "http://www.worldcat.org/oclc/" . preg_replace( "[^0-9]", "", substr($lobjCitation['oclcnum'],5) );			    
+			}
+			elseif( substr($lobjCitation['oclcnum'],3,1) === '0' and substr($lobjCitation['oclcnum'],4,1) === '0' and substr($lobjCitation['oclcnum'],5,1) === '0'  )
+			{
+			    $lobjResourceRelationNode['attributes']['xlink:href'] = "http://www.worldcat.org/oclc/" . preg_replace( "[^0-9]", "", substr($lobjCitation['oclcnum'],6) );			    
 			}
 			else
 			{
 			    $lobjResourceRelationNode['attributes']['xlink:href'] = "http://www.worldcat.org/oclc/" . preg_replace( "[^0-9]", "", substr($lobjCitation['oclcnum'],3) );
-			}			
-			
+			}
+																		
 			$lobjResourceRelationNode['attributes']['xlink:role'] = $lobjCitation['record_type'] == "mix" ? "archivalRecords" : "resource";
 			$lobjResourceRelationNode['attributes']['xlink:type'] = "simple";
 
@@ -612,14 +622,24 @@ class WorldCat_Ingestor extends Ingestor
 
 			$lobjResourceRelationNode['attributes']['resourceRelationType'] = "subjectOf";
 			
-			if( substr($lobjCitation['oclcnum'],3,1) == '0' )
+			//$lobjResourceRelationNode['attributes']['xlink:href'] = substr($lobjCitation['oclcnum'],3,1);
+						
+			if( substr($lobjCitation['oclcnum'],3,1) === '0' and substr($lobjCitation['oclcnum'],4,1) != '0' )
 			{
 			    $lobjResourceRelationNode['attributes']['xlink:href'] = "http://www.worldcat.org/oclc/" . preg_replace( "[^0-9]", "", substr($lobjCitation['oclcnum'],4) );
+			}
+			elseif( substr($lobjCitation['oclcnum'],3,1) === '0' and substr($lobjCitation['oclcnum'],4,1) === '0' and substr($lobjCitation['oclcnum'],5,1) != '0' )
+			{
+			    $lobjResourceRelationNode['attributes']['xlink:href'] = "http://www.worldcat.org/oclc/" . preg_replace( "[^0-9]", "", substr($lobjCitation['oclcnum'],5) );			    
+			}
+			elseif( substr($lobjCitation['oclcnum'],3,1) === '0' and substr($lobjCitation['oclcnum'],4,1) === '0' and substr($lobjCitation['oclcnum'],5,1) === '0' )
+			{
+			    $lobjResourceRelationNode['attributes']['xlink:href'] = "http://www.worldcat.org/oclc/" . preg_replace( "[^0-9]", "", substr($lobjCitation['oclcnum'],6) );			    
 			}
 			else
 			{
 			    $lobjResourceRelationNode['attributes']['xlink:href'] = "http://www.worldcat.org/oclc/" . preg_replace( "[^0-9]", "", substr($lobjCitation['oclcnum'],3) );
-			}	
+			}		
 			
 			$lobjResourceRelationNode['attributes']['xlink:role'] = $lobjCitation['record_type'] == "mix" ? "archivalRecords" : "resource";
 			$lobjResourceRelationNode['attributes']['xlink:type'] = "simple";
