@@ -1350,6 +1350,13 @@ button#ltselectedtext:focus {
     font-weight:500;
 }
 
+#wiki_load {
+    margin:10px auto;
+    width:30%;
+    font-size:2em;
+    text-align:center;
+}
+
 #wiki_login {
     display:none;
 }

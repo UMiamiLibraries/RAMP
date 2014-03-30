@@ -1,6 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:eac="urn:isbn:1-931666-33-4" xmlns:ead="urn:isbn:1-931666-22-9" xmlns:exsl="http://exslt.org/common" xmlns:xlink="http://www.w3.org/1999/xlink" extension-element-prefixes="exsl" exclude-result-prefixes="eac" version="1.0">
-    
+<xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" 
+    xmlns:eac="urn:isbn:1-931666-33-4" 
+    xmlns:ead="urn:isbn:1-931666-22-9"
+    xmlns:library="http://purl.org/library/"
+    xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+    xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+    xmlns:schema="http://schema.org/"
+    xmlns:exsl="http://exslt.org/common" 
+    xmlns:xlink="http://www.w3.org/1999/xlink" extension-element-prefixes="exsl" exclude-result-prefixes="eac" version="1.0">    
     <!--
         Author: Timothy A. Thompson
         University of Miami Libraries
@@ -98,6 +105,10 @@
             </xsl:choose>
         </xsl:for-each>                                                            
     </xsl:variable>
+    
+    <!-- Key for processing external XML lookups. -->
+    <xsl:key name="kLookupAbout" match="rdf:RDF/rdf:Description" use="attribute::*" />    
+        
     <xsl:output method="text" indent="yes" encoding="UTF-8" />
     <xsl:template match="/">
         <!-- Check to see if we are creating a person or corporate body record. -->
@@ -847,7 +858,7 @@
     	        <xsl:text>&#10;</xsl:text>    	        
     	    </xsl:otherwise>
     	</xsl:choose>
-    </xsl:template>
+    </xsl:template>    
     <!-- Output "Further reading" ("works about") section.  -->
     <xsl:template name="tFurther">        
         <xsl:text>==Further reading==</xsl:text>
@@ -870,69 +881,78 @@
                     			<xsl:text>&#10;</xsl:text>
                     		</xsl:otherwise>
                     	</xsl:choose>
-                    	<xsl:for-each select="following-sibling::eac:relationEntry[@localType='creator']">                    	
-                    		<xsl:choose>
-                    			<xsl:when test="contains(.,', ')">
-                    				<xsl:if test="not(contains(.,substring-before(//eac:nameEntry/eac:part[1],', ')))">
-                    					<xsl:text>| last = </xsl:text>
-                    					<xsl:value-of select="normalize-space(substring-before(.,', '))"/>
-                    					<xsl:text>&#10;</xsl:text>
-                    					<xsl:text>| first = </xsl:text>
-                    					<xsl:value-of select="normalize-space(substring-after(.,', '))"/>
-                    					<xsl:text>&#10;</xsl:text>
-                    				</xsl:if>
-                    			</xsl:when>
-                    			<xsl:otherwise>
-                    				<xsl:if test="not(contains(.,//eac:nameEntry/eac:part[1]))">                						                					
-                    					<xsl:text>| author = </xsl:text>
-                    					<xsl:value-of select="normalize-space(.)"/>
-                    					<xsl:text>&#10;</xsl:text>
-                    				</xsl:if>
-                    			</xsl:otherwise>
-                    		</xsl:choose>                					
-                    	</xsl:for-each>
-                    	<xsl:text>| title = </xsl:text>
                         <xsl:choose>
-                            <!-- Rough matching to filter for Spanish and Portuguese titles. Needs work for internationalization and smarter switching between title and sentence case. -->
-                            <xsl:when test="contains(.,' com ')
-                                or contains(.,' con ')
-                                or contains(.,' de ')
-                                or contains(.,' e ')
-                                or contains(.,' en ')
-                                or contains(.,' em ')
-                                or contains(.,' para ')
-                                or contains(.,' por ')
-                                or contains(.,' y ')">
-                                <xsl:value-of select="normalize-space(.)"/>
+                            <xsl:when test="contains(../@xlink:href,'q=kw') or not(document(concat(../@xlink:href,'.rdf'))/rdf:RDF)">
+                                <xsl:for-each select="following-sibling::eac:relationEntry[@localType='creator']">                    	
+                                    <xsl:choose>
+                                        <xsl:when test="contains(.,', ')">
+                                            <xsl:if test="not(contains(.,substring-before(//eac:nameEntry/eac:part[1],', ')))">
+                                                <xsl:text>| last = </xsl:text>
+                                                <xsl:value-of select="normalize-space(substring-before(.,', '))"/>
+                                                <xsl:text>&#10;</xsl:text>
+                                                <xsl:text>| first = </xsl:text>
+                                                <xsl:value-of select="normalize-space(substring-after(.,', '))"/>
+                                                <xsl:text>&#10;</xsl:text>
+                                            </xsl:if>
+                                        </xsl:when>
+                                        <xsl:otherwise>
+                                            <xsl:if test="not(contains(.,//eac:nameEntry/eac:part[1]))">                						                					
+                                                <xsl:text>| author = </xsl:text>
+                                                <xsl:value-of select="normalize-space(.)"/>
+                                                <xsl:text>&#10;</xsl:text>
+                                            </xsl:if>
+                                        </xsl:otherwise>
+                                    </xsl:choose>                					
+                                </xsl:for-each>
+                                <xsl:text>| title = </xsl:text>
+                                <xsl:choose>
+                                    <!-- Rough matching to filter for Spanish and Portuguese titles. Needs work for internationalization and smarter switching between title and sentence case. -->
+                                    <xsl:when test="contains(.,' com ')
+                                        or contains(.,' con ')
+                                        or contains(.,' de ')
+                                        or contains(.,' e ')
+                                        or contains(.,' en ')
+                                        or contains(.,' em ')
+                                        or contains(.,' para ')
+                                        or contains(.,' por ')
+                                        or contains(.,' y ')">
+                                        <xsl:value-of select="normalize-space(.)"/>
+                                    </xsl:when>
+                                    <xsl:otherwise>                                
+                                        <xsl:call-template name="tTitleCaps">
+                                            <xsl:with-param name="pTitles" select="normalize-space(.)"/>
+                                        </xsl:call-template>                                                                                            
+                                    </xsl:otherwise>                                                                        
+                                </xsl:choose>                    	                    	
+                                <xsl:text>&#10;</xsl:text>                             
+                                <xsl:if test="following-sibling::eac:relationEntry[@localType='pubPlace']">
+                                    <xsl:text>| publication-place = </xsl:text>
+                                    <xsl:value-of select="normalize-space(following-sibling::eac:relationEntry[@localType='pubPlace'])"/>
+                                    <xsl:text>&#10;</xsl:text>
+                                </xsl:if>                        
+                                <xsl:if test="following-sibling::eac:relationEntry[@localType='publisher']">
+                                    <xsl:text>| publisher = </xsl:text>
+                                    <xsl:value-of select="normalize-space(following-sibling::eac:relationEntry[@localType='publisher'])"/>
+                                    <xsl:text>&#10;</xsl:text>    
+                                </xsl:if>                        
+                                <xsl:if test="following-sibling::eac:relationEntry[@localType='pubDate']">
+                                    <xsl:text>| publication-date = </xsl:text>
+                                    <xsl:value-of select="normalize-space(following-sibling::eac:relationEntry[@localType='pubDate'])"/>
+                                    <xsl:text>&#10;</xsl:text>
+                                </xsl:if>                                                                        
+                                <xsl:if test="contains(../@xlink:href,'q=kw')">
+                                    <xsl:text>| url = </xsl:text>
+                                    <xsl:value-of select="normalize-space(../@xlink:href)"/>
+                                    <xsl:text>&#10;</xsl:text>
+                                </xsl:if>
                             </xsl:when>
-                            <xsl:otherwise>                                
-                                <xsl:call-template name="tTitleCaps">
-                                    <xsl:with-param name="pTitles" select="normalize-space(.)"/>
-                                </xsl:call-template>                                                                                            
-                            </xsl:otherwise>                                                                        
-                        </xsl:choose>                    	                    	
-                    	<xsl:text>&#10;</xsl:text>                             
-                        <xsl:if test="following-sibling::eac:relationEntry[@localType='pubPlace']">
-                            <xsl:text>| publication-place = </xsl:text>
-                            <xsl:value-of select="normalize-space(following-sibling::eac:relationEntry[@localType='pubPlace'])"/>
-                            <xsl:text>&#10;</xsl:text>
-                        </xsl:if>                        
-                        <xsl:if test="following-sibling::eac:relationEntry[@localType='publisher']">
-                            <xsl:text>| publisher = </xsl:text>
-                            <xsl:value-of select="normalize-space(following-sibling::eac:relationEntry[@localType='publisher'])"/>
-                            <xsl:text>&#10;</xsl:text>    
-                        </xsl:if>                        
-                        <xsl:if test="following-sibling::eac:relationEntry[@localType='pubDate']">
-                            <xsl:text>| publication-date = </xsl:text>
-                            <xsl:value-of select="normalize-space(following-sibling::eac:relationEntry[@localType='pubDate'])"/>
-                            <xsl:text>&#10;</xsl:text>
-                        </xsl:if>                                                                        
-                        <xsl:choose>
-                            <xsl:when test="contains(../@xlink:href,'q=kw')">
-                                <xsl:text>| url = </xsl:text>
-                            	<xsl:value-of select="normalize-space(../@xlink:href)"/>
-                            	<xsl:text>&#10;</xsl:text>
-                            </xsl:when>
+                            <xsl:otherwise>
+                                
+                                <xsl:call-template name="tFetchXml">
+                                    <xsl:with-param name="pWorldCatUrl" select="../@xlink:href"/>     
+                                    <xsl:with-param name="pWorksAbout">true</xsl:with-param>
+                                </xsl:call-template>
+                            </xsl:otherwise>
                         </xsl:choose>
                     	<xsl:text>}} </xsl:text>
                         <xsl:choose>
@@ -1072,49 +1092,11 @@
                 			<xsl:text>{{Citation</xsl:text>
                 			<xsl:text>&#10;</xsl:text>
                 		</xsl:otherwise>
-                	</xsl:choose>
-                    <xsl:for-each select="following-sibling::eac:relationEntry[@localType='creator']">                    	
-                        <xsl:choose>
-                            <xsl:when test="contains(.,', ')">
-                                <xsl:if test="not(contains(.,substring-before(//eac:nameEntry/eac:part[1],', ')))">
-                                    <xsl:text>| last = </xsl:text>
-                                    <xsl:value-of select="normalize-space(substring-before(.,', '))"/>
-                                    <xsl:text>&#10;</xsl:text>
-                                    <xsl:text>| first = </xsl:text>
-                                    <xsl:value-of select="normalize-space(substring-after(.,', '))"/>
-                                    <xsl:text>&#10;</xsl:text>
-                                </xsl:if>
-                            </xsl:when>
-                            <xsl:otherwise>
-                                <xsl:if test="not(contains(.,//eac:nameEntry/eac:part[1]))">                						                					
-                                    <xsl:text>| author = </xsl:text>
-                                    <xsl:value-of select="normalize-space(.)"/>
-                                    <xsl:text>&#10;</xsl:text>
-                                </xsl:if>
-                            </xsl:otherwise>
-                        </xsl:choose>                					
-                    </xsl:for-each>
-                    <xsl:text>| title = </xsl:text>                		                	                	
-                    <xsl:choose>
-                        <!-- Rough matching to filter for Spanish and Portuguese titles. Needs work for internationalization and smarter switching between title and sentence case. -->
-                        <xsl:when test="contains(eac:relationEntry[1],' com ')
-                            or contains(eac:relationEntry[1],' con ')
-                            or contains(eac:relationEntry[1],' de ')
-                            or contains(eac:relationEntry[1],' e ')
-                            or contains(eac:relationEntry[1],' en ')
-                            or contains(eac:relationEntry[1],' em ')
-                            or contains(eac:relationEntry[1],' para ')
-                            or contains(eac:relationEntry[1],' por ')
-                            or contains(eac:relationEntry[1],' y ')">
-                            <xsl:value-of select="normalize-space(eac:relationEntry[1])"/>
-                        </xsl:when>
-                        <xsl:otherwise>                                
-                            <xsl:call-template name="tTitleCaps">
-                                <xsl:with-param name="pTitles" select="normalize-space(eac:relationEntry[1])"/>
-                            </xsl:call-template>                                                                                            
-                        </xsl:otherwise>                                                                        
-                    </xsl:choose>                             	
-                	<xsl:text>&#10;</xsl:text>
+                	</xsl:choose>                    
+                    <xsl:call-template name="tFetchXml">
+                        <xsl:with-param name="pWorldCatUrl" select="@xlink:href"/>     
+                        <xsl:with-param name="pWorksBy">true</xsl:with-param>
+                    </xsl:call-template>                                      
                 	<!-- Work on parsing references from Archon...
                     <xsl:choose>
                         <xsl:when test="substring(eac:relationEntry[1],$vStrLen)='.'">
@@ -1999,10 +1981,10 @@
                     	<xsl:text>&#09;&#09;= </xsl:text>
                         <!-- Call template to attempt to prepopulate birth place info. -->
                         <!-- Under revision ...
-                    <xsl:call-template name="tBirthPlaceFinder">
-                        <xsl:with-param name="pBiogHist" select="$pBiogHist"/>
-                    </xsl:call-template>
-                    -->
+                        <xsl:call-template name="tBirthPlaceFinder">
+                            <xsl:with-param name="pBiogHist" select="$pBiogHist"/>
+                        </xsl:call-template>
+                        -->
                         <xsl:text>&#10;</xsl:text>
                         <xsl:text>| death_date</xsl:text>
                     	<xsl:text>&#09;&#09;= </xsl:text>
@@ -2017,10 +1999,10 @@
                     	<xsl:text>&#09;&#09;= </xsl:text>
                         <!-- Call template to attempt to prepopulate death place info. -->
                         <!-- Under revision ...
-                    <xsl:call-template name="tDeathPlaceFinder">
-                        <xsl:with-param name="pBiogHist" select="$pBiogHist"/>
-                    </xsl:call-template>
-                    -->
+                        <xsl:call-template name="tDeathPlaceFinder">
+                            <xsl:with-param name="pBiogHist" select="$pBiogHist"/>
+                        </xsl:call-template>
+                        -->
                         <xsl:text>&#10;</xsl:text>
                     </xsl:if>
                     <!-- If the name does contain dates ... -->
@@ -2059,10 +2041,10 @@
                     	<xsl:text>&#09;&#09;= </xsl:text>
                         <!-- Call template to attempt to prepopulate birth place info. -->
                         <!-- Under revision ...
-                    <xsl:call-template name="tBirthPlaceFinder">
-                        <xsl:with-param name="pBiogHist" select="$pBiogHist"/>
-                    </xsl:call-template>
-                    -->
+                        <xsl:call-template name="tBirthPlaceFinder">
+                            <xsl:with-param name="pBiogHist" select="$pBiogHist"/>
+                        </xsl:call-template>
+                        -->
                         <xsl:text>&#10;</xsl:text>
                         <xsl:text>| death_date</xsl:text>
                     	<xsl:text>&#09;&#09;= </xsl:text>
@@ -2635,5 +2617,128 @@
     </xsl:template>
     <xsl:template match="ead:p">                         
         <xsl:value-of select="normalize-space(.)" />        
+    </xsl:template>
+    <xsl:template name="tFetchXml">
+        <xsl:param name="pWorldCatUrl"/>
+        <xsl:param name="pWorksBy"/>       
+        <xsl:param name="pWorksAbout"/>        
+        <xsl:for-each select="document(concat($pWorldCatUrl,'.rdf'))/rdf:RDF/rdf:Description[@rdf:about=$pWorldCatUrl]">
+            <xsl:variable name="vAuthCount" select="count(schema:author)"/>
+            <xsl:variable name="vContribCount" select="count(schema:contributor)"/>
+            <xsl:choose>                
+                <xsl:when test="$pWorksBy='true'">
+                    <xsl:if test="$vAuthCount&gt;1 or schema:contributor">
+                        <xsl:for-each select="schema:author">                       
+                            <xsl:variable name="vPosCount" select="position()"/>
+                            <xsl:text>| author</xsl:text>
+                            <xsl:value-of select="$vPosCount"/>
+                            <xsl:text> = </xsl:text>
+                            <xsl:variable name="vAuthName" select="key('kLookupAbout',@rdf:resource|@rdf:nodeID)/rdfs:label|key('kLookupAbout',@rdf:resource|@rdf:nodeID)/schema:name"/>
+                            <xsl:choose>
+                                <xsl:when test="substring($vAuthName,string-length($vAuthName))=',' or substring($vAuthName,string-length($vAuthName))='.'">
+                                    <xsl:value-of select="substring($vAuthName,1,string-length($vAuthName)-1)"/>
+                                </xsl:when>
+                                <xsl:otherwise>
+                                    <xsl:value-of select="$vAuthName"/>
+                                </xsl:otherwise>
+                            </xsl:choose>
+                            <xsl:text>&#10;</xsl:text>                   
+                        </xsl:for-each>       
+                        <xsl:if test="$vAuthCount&gt;=1 or $vContribCount&gt;1">
+                            <xsl:for-each select="schema:contributor">  
+                                <xsl:variable name="vPosCount" select="position()+$vAuthCount"/>
+                                <xsl:text>| author</xsl:text>
+                                <xsl:value-of select="$vPosCount"/>
+                                <xsl:text> = </xsl:text>
+                                <xsl:variable name="vAuthName" select="key('kLookupAbout',@rdf:resource|@rdf:nodeID)/rdfs:label|key('kLookupAbout',@rdf:resource|@rdf:nodeID)/schema:name"/>
+                                <xsl:choose>
+                                    <xsl:when test="substring($vAuthName,string-length($vAuthName))=',' or substring($vAuthName,string-length($vAuthName))='.'">
+                                        <xsl:value-of select="substring($vAuthName,1,string-length($vAuthName)-1)"/>
+                                    </xsl:when>
+                                    <xsl:otherwise>
+                                        <xsl:value-of select="$vAuthName"/>
+                                    </xsl:otherwise>
+                                </xsl:choose>
+                                <xsl:text>&#10;</xsl:text>    
+                            </xsl:for-each>
+                        </xsl:if>
+                    </xsl:if>
+                </xsl:when>
+                <xsl:when test="$pWorksAbout='true'">
+                    <xsl:if test="$vAuthCount&gt;=1 or schema:contributor">
+                        <xsl:for-each select="schema:author">                       
+                            <xsl:variable name="vPosCount" select="position()"/>
+                            <xsl:text>| author</xsl:text>
+                            <xsl:value-of select="$vPosCount"/>
+                            <xsl:text> = </xsl:text>
+                            <xsl:variable name="vAuthName" select="key('kLookupAbout',@rdf:resource|@rdf:nodeID)/rdfs:label|key('kLookupAbout',@rdf:resource|@rdf:nodeID)/schema:name"/>
+                            <xsl:choose>
+                                <xsl:when test="substring($vAuthName,string-length($vAuthName))=',' or substring($vAuthName,string-length($vAuthName))='.'">
+                                    <xsl:value-of select="substring($vAuthName,1,string-length($vAuthName)-1)"/>
+                                </xsl:when>
+                                <xsl:otherwise>
+                                    <xsl:value-of select="$vAuthName"/>
+                                </xsl:otherwise>
+                            </xsl:choose>
+                            <xsl:text>&#10;</xsl:text>                   
+                        </xsl:for-each>       
+                        <xsl:if test="$vAuthCount&gt;=1 or $vContribCount&gt;=1">
+                            <xsl:for-each select="schema:contributor">  
+                                <xsl:variable name="vPosCount" select="position()+$vAuthCount"/>
+                                <xsl:text>| author</xsl:text>
+                                <xsl:value-of select="$vPosCount"/>
+                                <xsl:text> = </xsl:text>
+                                <xsl:variable name="vAuthName" select="key('kLookupAbout',@rdf:resource|@rdf:nodeID)/rdfs:label|key('kLookupAbout',@rdf:resource|@rdf:nodeID)/schema:name"/>
+                                <xsl:choose>
+                                    <xsl:when test="substring($vAuthName,string-length($vAuthName))=',' or substring($vAuthName,string-length($vAuthName))='.'">
+                                        <xsl:value-of select="substring($vAuthName,1,string-length($vAuthName)-1)"/>
+                                    </xsl:when>
+                                    <xsl:otherwise>
+                                        <xsl:value-of select="$vAuthName"/>
+                                    </xsl:otherwise>
+                                </xsl:choose>
+                                <xsl:text>&#10;</xsl:text>    
+                            </xsl:for-each>
+                        </xsl:if>
+                    </xsl:if>
+                </xsl:when>
+            </xsl:choose>
+            <xsl:text>| title = </xsl:text>                		                	                	
+            <xsl:choose>
+                <!-- Rough matching to filter for Spanish and Portuguese titles. Needs work for internationalization and smarter switching between title and sentence case. -->
+                <xsl:when test="contains(schema:name,' com ')
+                    or contains(schema:name,' con ')
+                    or contains(schema:name,' de ')
+                    or contains(schema:name,' e ')
+                    or contains(schema:name,' en ')
+                    or contains(schema:name,' em ')
+                    or contains(schema:name,' para ')
+                    or contains(schema:name,' por ')
+                    or contains(schema:name,' y ')">
+                    <xsl:value-of select="normalize-space(schema:name)"/>
+                </xsl:when>
+                <xsl:otherwise>                                
+                    <xsl:call-template name="tTitleCaps">
+                        <xsl:with-param name="pTitles" select="normalize-space(schema:name)"/>
+                    </xsl:call-template>                                                                                            
+                </xsl:otherwise>                                                                        
+            </xsl:choose>                             	
+            <xsl:text>&#10;</xsl:text>                                                       
+            <xsl:if test="schema:publisher">
+                <xsl:text>| publisher = </xsl:text>
+                <xsl:value-of select="key('kLookupAbout',schema:publisher/@rdf:nodeID)/schema:name"/>
+                <xsl:text>&#10;</xsl:text>
+            </xsl:if>  
+            <xsl:if test="library:placeOfPublication/@rdf:nodeID">
+                <xsl:text>| location = </xsl:text>
+                <xsl:value-of select="key('kLookupAbout',library:placeOfPublication/@rdf:nodeID)/schema:name"/>
+                <xsl:text>&#10;</xsl:text>
+            </xsl:if>   
+            <xsl:if test="schema:datePublished">
+                <xsl:text>| publication-date = </xsl:text>
+                <xsl:value-of select="schema:datePublished"/>
+                <xsl:text>&#10;</xsl:text>
+            </xsl:if> 
+        </xsl:for-each>       
     </xsl:template>
 </xsl:stylesheet>
