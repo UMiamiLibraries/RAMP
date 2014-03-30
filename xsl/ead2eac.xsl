@@ -1041,7 +1041,7 @@
                                     <xsl:if test="not(preceding-sibling::ead:p[contains(.,'Chronolog')])                                          
                                         and (string-length(substring(.,1,4)) = string-length(translate(substring(.,1,4),$vDigits,'')))">
                                         <xsl:if test=".!=' ' and .!=''">
-                                            <xsl:value-of select="ead:p[not(preceding-sibling::ead:p[contains(.,'Chronolog')])]"/>
+                                            <xsl:apply-templates select="ead:p[not(preceding-sibling::ead:p[contains(.,'Chronolog')])]"/>
                                         </xsl:if>
                                     </xsl:if>
                                 </xsl:if>
