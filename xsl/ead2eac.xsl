@@ -1515,7 +1515,7 @@
                         </xsl:otherwise>
                     </xsl:choose>
                 </xsl:for-each>
-                <!-- Working to parse relatedmaterial elements. For now, if it's not an <extref>, just output the contents in a simple <resourRelation>. -->
+                <!-- Working to parse relatedmaterial elements. For now, if it's not an <extref>, just output the contents in a simple <resourceRelation>. -->
                 <xsl:for-each select="ead:ead/ead:archdesc/ead:descgrp/ead:relatedmaterial/ead:p[not(ead:extref)]">
                     <xsl:variable name="vRelatedCollection" select="translate(normalize-space(.),$vUpper,$vLower)" />
                     <xsl:if test="not(substring(.,string-length(.))=':')">
@@ -1524,10 +1524,10 @@
                                 <xsl:attribute name="xlink:href">
                                     <xsl:value-of select="concat('http:',substring-after(.,'http:'))" />
                                 </xsl:attribute>
-                            </xsl:if>
-                            <xsl:attribute name="xlink:type">
-                                <xsl:value-of select="'simple'" />
-                            </xsl:attribute>
+                                <xsl:attribute name="xlink:type">
+                                    <xsl:value-of select="'simple'" />
+                                </xsl:attribute>
+                            </xsl:if>                            
                             <relationEntry>
                                 <xsl:value-of select="." />
                             </relationEntry>
