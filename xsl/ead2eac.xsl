@@ -1410,7 +1410,7 @@
                     </relationEntry>
                 </cpfRelation>
             </xsl:for-each>
-            <xsl:for-each select="exsl:node-set($vCpfName)/corpName[not(.=preceding-sibling::corpName)]">                
+            <xsl:for-each select="exsl:node-set($vCpfName)/corpName[not(.=preceding-sibling::corpName)][not(contains(.,'Cuban Heritage')) and not(contains(.,'Special Collections'))] ">                
                 <cpfRelation cpfRelationType="associative" xlink:role="http://rdvocab.info/uri/schema/FRBRentitiesRDA/CorporateBody" xlink:type="simple">
                     <relationEntry>                        
                         <xsl:value-of select="normalize-space(.)" />
