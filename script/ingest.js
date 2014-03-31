@@ -883,12 +883,12 @@ function display_viaf_results_form(lobjViafResults, callback) {
             }
         });
         
-        // Display/notification logic added by timathom
-        if (lobjChosenResults[ 'names'][ 'entity'][ 'custom'].length != 0 && (lobjChosenResults[ 'names'][ 'roles'].length == 0 || lobjChosenResults[ 'names'][ 'roles'] == '')) {
+        // Display/notification added by timathom
+        if (lobjChosenResults['names']['entity']['custom'].length != 0 && (lobjChosenResults['names']['roles'].length == 0 || typeof lobjChosenResults['names']['roles'] == 'undefined' || lobjChosenResults['names']['roles'] == '')) {
             $('body').append("<div id=\"dialog\"><p>Please select an Entity Type.</p></div>");
             makeDialog('#dialog', 'Error!');
             // display error
-        } else if (lobjChosenResults[ 'names'][ 'entity'][ 'all'].length == 0) {
+        } else if (lobjChosenResults['names']['entity']['all'].length == 0) {
             $('body').append("<div id=\"dialog\"><p>Please choose or click Cancel!</p></div>");
             makeDialog('#dialog', 'Error!');
             // display error

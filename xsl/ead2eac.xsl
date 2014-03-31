@@ -1271,14 +1271,12 @@
         <abstract xmlns="urn:isbn:1-931666-33-4">
             <xsl:value-of select="normalize-space(.)" />
         </abstract>
-    </xsl:template>
-    <!--
+    </xsl:template>    
     <xsl:template match="ead:bioghist/text()">
         <p xmlns="urn:isbn:1-931666-33-4">
             <xsl:value-of select="normalize-space(.)" />
         </p>
-    </xsl:template>
-    -->
+    </xsl:template>    
     <xsl:template match="ead:emph">
         <span xmlns="urn:isbn:1-931666-33-4">
             <xsl:attribute name="style">font-style:italic</xsl:attribute>
@@ -1403,7 +1401,7 @@
                     </xsl:for-each>
                 </xsl:if>
             </xsl:for-each>
-            <xsl:for-each select="exsl:node-set($vCpfName)/persName[not(.=preceding-sibling::persName)]">                
+            <xsl:for-each select="exsl:node-set($vCpfName)/persName[not(.=preceding-sibling::persName)][not(.=$vFirstNode)]">                
                 <cpfRelation cpfRelationType="associative" xlink:role="http://rdvocab.info/uri/schema/FRBRentitiesRDA/Person" xlink:type="simple">
                     <relationEntry>                        
                         <xsl:value-of select="normalize-space(.)" />
