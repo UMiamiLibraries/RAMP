@@ -1311,14 +1311,12 @@
             <xsl:text>|id=</xsl:text>
             <xsl:value-of select="translate(eac:eac-cpf/eac:control/eac:otherRecordId[@localType='WCI'],' ','+')" />
             <xsl:text>}}</xsl:text>
-            <xsl:text>&#10;</xsl:text>
-            <xsl:text>&#10;</xsl:text>
+            <xsl:text>&#10;</xsl:text>            
         </xsl:if>        	        	        	
         <xsl:if test="eac:eac-cpf/eac:cpfDescription/eac:relations/eac:resourceRelation[@xlink:role='archivalRecords']">
             <!-- Check for archival/digital collections created by or associated with the person or corporate body. -->                       
             <xsl:for-each select="eac:eac-cpf/eac:cpfDescription/eac:relations/eac:resourceRelation[@xlink:role='archivalRecords'][eac:objectXMLWrap]">
-                <xsl:sort select="translate(eac:relationEntry,'ÁÀÉÈÍÓÚÜÑáàéèíóúúüñ','AAEEIOUUNaaeeiouuun')" data-type="text" />
-                <xsl:text>&#10;</xsl:text>   
+                <xsl:sort select="translate(eac:relationEntry,'ÁÀÉÈÍÓÚÜÑáàéèíóúúüñ','AAEEIOUUNaaeeiouuun')" data-type="text" />                
                 <xsl:text>* [</xsl:text>
                 <xsl:choose>
                     <xsl:when test="contains(@xlink:href,' ')">
@@ -1367,6 +1365,14 @@
                             </xsl:otherwise>
                         </xsl:choose>
                     </xsl:otherwise>                                                                        
+                </xsl:choose>
+                <xsl:choose>
+                    <xsl:when test="contains(eac:objectXMLWrap/ead:archdesc/ead:did/ead:repository,'Cuban Heritage')">
+                        <xsl:text>, [http://library.miami.edu/chc/ University of Miami Libraries Cuban Heritage Collection].</xsl:text> 
+                    </xsl:when>
+                    <xsl:when test="contains(eac:objectXMLWrap/ead:archdesc/ead:did/ead:repository,'Special Collections')">
+                        <xsl:text>, [http://library.miami.edu/specialcollections/ University of Miami Libraries Special Collections Division].</xsl:text>
+                    </xsl:when>
                 </xsl:choose>
                 <xsl:if test="eac:objectXMLWrap/ead:archdesc/ead:scopecontent">                    
                     <xsl:text> &lt;!-- </xsl:text>
