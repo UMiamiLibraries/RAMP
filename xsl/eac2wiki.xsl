@@ -1217,9 +1217,9 @@
         <xsl:text>==External links==</xsl:text>        
         <xsl:text>&#10;</xsl:text>
     	<xsl:choose>
-    		<xsl:when test="contains(eac:eac-cpf/eac:control/eac:sources/eac:source/@xlink:href,'miami.edu')">
+    		<xsl:when test="contains(eac:eac-cpf/eac:control/eac:sources/eac:source/@xlink:href,'miami.edu')">    		    
     		    <xsl:choose>
-    		        <!-- Forward to Libraries template and link to finding aid. -->	
+    		        <!-- Forward to Libraries template. -->	
     		        <xsl:when test="eac:eac-cpf/eac:control/eac:sources/eac:source[contains(@xlink:href,'viaf')]">
     		            <xsl:text>{{Library resources box</xsl:text>
     		            <xsl:text>&#10;</xsl:text>
@@ -1257,7 +1257,7 @@
     		        </xsl:otherwise>
     		    </xsl:choose>    		        			    		        			
     		</xsl:when>    		    		    		
-    		<!-- Forward to Libraries template and link to finding aid. -->	
+    		<!-- Forward to Libraries template. -->	
     		<xsl:when test="contains(eac:eac-cpf/eac:control/eac:sources/eac:source/@xlink:href,'loc.mss')">
 	    		<xsl:text>{{Library resources box</xsl:text>
 	    		<xsl:text>&#10;</xsl:text>
