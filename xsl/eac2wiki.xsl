@@ -394,7 +394,7 @@
         <xsl:param name="pPersNameFore" select="$pPersNameFore" />
         <xsl:text>{{Infobox person</xsl:text>
         <xsl:text>&#09;</xsl:text>
-    	<xsl:text>&lt;!-- See http://en.wikipedia.org/wiki/Template:Infobox_person for complete template. Note: Wikipedia supports a variety of different {{Infobox}} templates, and a more specific template may be appropriate for this person (for example, {{Infobox writer}}). --&gt;</xsl:text>
+    	<xsl:text>&lt;!-- See http://en.wikipedia.org/wiki/Template:Infobox_person for complete template. Note: Wikipedia supports a variety of different Infobox templates, and a more specific template may be appropriate for this person (for example, {{Infobox writer}}). --&gt;</xsl:text>
         <xsl:text>&#10;</xsl:text>
         <xsl:text>| name</xsl:text>
     	<xsl:text>&#09;&#09;&#09;= </xsl:text>        
@@ -488,7 +488,7 @@
     <xsl:template name="tCBodyInfobox">
         <xsl:text>{{Infobox organization</xsl:text>
         <xsl:text>&#09;</xsl:text>
-    	<xsl:text>&lt;!-- See https://en.wikipedia.org/wiki/Template:Infobox_organization for complete template. Note: Wikipedia supports a variety of different {{Infobox}} templates, and a more specific may be appropriate for this organization (for example, {{Infobox university}}). --&gt;</xsl:text>
+    	<xsl:text>&lt;!-- See https://en.wikipedia.org/wiki/Template:Infobox_organization for complete template. Note: Wikipedia supports a variety of different Infobox templates, and a more specific may be appropriate for this organization (for example, {{Infobox university}}). --&gt;</xsl:text>
         <xsl:text>&#10;</xsl:text>
         <xsl:text>| name</xsl:text>
     	<xsl:text>&#09;&#09;&#09;&#09;= </xsl:text>
@@ -946,8 +946,7 @@
                                     <xsl:text>&#10;</xsl:text>
                                 </xsl:if>
                             </xsl:when>
-                            <xsl:otherwise>
-                                
+                            <xsl:otherwise>                                
                                 <xsl:call-template name="tFetchXml">
                                     <xsl:with-param name="pWorldCatUrl" select="../@xlink:href"/>     
                                     <xsl:with-param name="pWorksAbout">true</xsl:with-param>
@@ -1016,23 +1015,20 @@
                             or contains(eac:relationEntry[1],' para ')
                             or contains(eac:relationEntry[1],' por ')
                             or contains(eac:relationEntry[1],' y ')">
-                            <xsl:value-of select="normalize-space(eac:relationEntry[1])"/>
-                            <xsl:text>] </xsl:text>
+                            <xsl:value-of select="normalize-space(eac:relationEntry[1])"/>                            
                         </xsl:when>
                         <xsl:otherwise>
                             <xsl:choose>                                
                                 <xsl:when test="contains(normalize-space(eac:relationEntry[1]),' . ')">
                                     <xsl:call-template name="tTitleCaps">
                                         <xsl:with-param name="pTitles" select="normalize-space(substring-before(eac:relationEntry[1],' . '))"/>
-                                    </xsl:call-template>                             
-                                    <xsl:text>] </xsl:text>
+                                    </xsl:call-template>                                                                 
                                     <xsl:value-of select="normalize-space(substring-after(eac:relationEntry[1],' . '))" />
                                 </xsl:when>
                                 <xsl:otherwise>
                                     <xsl:call-template name="tTitleCaps">
                                         <xsl:with-param name="pTitles" select="normalize-space(eac:relationEntry[1])"/>
-                                    </xsl:call-template>                            
-                                    <xsl:text>]</xsl:text>
+                                    </xsl:call-template>                                                                
                                 </xsl:otherwise>
                             </xsl:choose>
                         </xsl:otherwise>                                                                        
@@ -1247,7 +1243,7 @@
     		            <xsl:text>}}</xsl:text>        
     		        </xsl:when>
     		        <xsl:otherwise>
-    		            <!-- If no VIAF ID, include link to UM Summon. -->
+    		            <!-- If no VIAF ID, include link to UM Summon. 
     		            <xsl:text>Library and archival resources by or about [</xsl:text>
     		            <xsl:call-template name="tParseName3">
     		                <xsl:with-param name="pNameType" select="'person' or 'corporate'" />
@@ -1256,6 +1252,7 @@
     		                <xsl:with-param name="pPersNameFore" select="$pPersNameFore" />
     		                <xsl:with-param name="pCorpName" select="$pCorpName" />
     		            </xsl:call-template>        
+    		            -->
     		        </xsl:otherwise>
     		    </xsl:choose>    		        			    		    
     			<xsl:text>&#10;</xsl:text>
