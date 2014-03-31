@@ -871,6 +871,7 @@
                         <xsl:variable name="vStrLen" select="string-length(.)" />
                         <xsl:text>* </xsl:text>
                     	<!-- Most things will be books... -->
+                        <!--
                     	<xsl:choose>
                     		<xsl:when test="@localType='book'">
                     			<xsl:text>{{cite book</xsl:text>
@@ -881,6 +882,9 @@
                     			<xsl:text>&#10;</xsl:text>
                     		</xsl:otherwise>
                     	</xsl:choose>
+                    	-->
+                        <xsl:text>{{Citation</xsl:text>
+                        <xsl:text>&#10;</xsl:text>
                         <xsl:choose>
                             <xsl:when test="contains(../@xlink:href,'q=kw') or not(document(concat(../@xlink:href,'.rdf'))/rdf:RDF)">
                                 <xsl:for-each select="following-sibling::eac:relationEntry[@localType='creator']">                    	
@@ -945,6 +949,8 @@
                                     <xsl:value-of select="normalize-space(../@xlink:href)"/>
                                     <xsl:text>&#10;</xsl:text>
                                 </xsl:if>
+                                <xsl:text>| separator = .</xsl:text>
+                                <xsl:text>&#10;</xsl:text>                                
                             </xsl:when>
                             <xsl:otherwise>                                
                                 <xsl:call-template name="tFetchXml">
@@ -1079,6 +1085,7 @@
                     <xsl:variable name="vStrLen" select="string-length(eac:relationEntry[1])" />
                     <xsl:text>* </xsl:text>
                 	<!-- Most things will be books... -->
+                    <!--
                 	<xsl:choose>
                 		<xsl:when test="eac:relationEntry[1]/@localType='book'">
                 			<xsl:text>{{cite book</xsl:text>
@@ -1088,7 +1095,10 @@
                 			<xsl:text>{{Citation</xsl:text>
                 			<xsl:text>&#10;</xsl:text>
                 		</xsl:otherwise>
-                	</xsl:choose>                    
+                	</xsl:choose>
+                	-->
+                    <xsl:text>{{Citation</xsl:text>
+                    <xsl:text>&#10;</xsl:text>
                     <xsl:call-template name="tFetchXml">
                         <xsl:with-param name="pWorldCatUrl" select="@xlink:href"/>     
                         <xsl:with-param name="pWorksBy">true</xsl:with-param>
@@ -1217,7 +1227,7 @@
         <xsl:text>==External links==</xsl:text>        
         <xsl:text>&#10;</xsl:text>
     	<xsl:choose>
-    		<xsl:when test="contains(eac:eac-cpf/eac:control/eac:sources/eac:source/@xlink:href,'miami.edu')">    		    
+    		<xsl:when test="contains(eac:eac-cpf/eac:control/eac:sources/eac:source/@xlink:href,'.edu')">    		    
     		    <xsl:choose>
     		        <!-- Forward to Libraries template. -->	
     		        <xsl:when test="eac:eac-cpf/eac:control/eac:sources/eac:source[contains(@xlink:href,'viaf')]">
@@ -2751,6 +2761,8 @@
                 <xsl:value-of select="schema:datePublished"/>
                 <xsl:text>&#10;</xsl:text>
             </xsl:if> 
+            <xsl:text>| separator = .</xsl:text>
+            <xsl:text>&#10;</xsl:text>
         </xsl:for-each>       
     </xsl:template>
 </xsl:stylesheet>
