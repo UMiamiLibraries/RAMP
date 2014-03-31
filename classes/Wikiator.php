@@ -34,8 +34,13 @@ class Wikiator
 
 	public function __construct()
 	{
+		//make sure session id exists
+		if( session_id() == "" )
+			session_start();
+
 		//cookie that saved user wiki session
-		$this->strCookieFile = sys_get_temp_dir() . DIRECTORY_SEPARATOR . "wiki_cookie.tmp";
+		$this->strCookieFile = sys_get_temp_dir() . DIRECTORY_SEPARATOR . session_id() . "_wiki_cookie.tmp";
+
 		$this->strUserAgent = "MyCoolTool/1.1 (http://example.com/MyCoolTool/; MyCoolTool@example.com) BasedOnSuperLib/1.4";
 
 		//setup Curl
