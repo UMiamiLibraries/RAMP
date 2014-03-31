@@ -1217,7 +1217,7 @@
         <xsl:text>==External links==</xsl:text>        
         <xsl:text>&#10;</xsl:text>
     	<xsl:choose>
-    		<xsl:when test="contains(eac:eac-cpf/eac:control/eac:sources/eac:source/@xlink:href,'miami.edu')">    		    
+    		<xsl:when test="contains(eac:eac-cpf/eac:control/eac:sources/eac:source/@xlink:href,'.edu')">    		    
     		    <xsl:choose>
     		        <!-- Forward to Libraries template. -->
     		        <xsl:when test="eac:eac-cpf/eac:control/eac:sources/eac:source[contains(@xlink:href,'viaf')]">
