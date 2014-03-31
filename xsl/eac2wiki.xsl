@@ -2648,9 +2648,19 @@
                             <xsl:text> = </xsl:text>
                             <xsl:variable name="vAuthName" select="key('kLookupAbout',@rdf:resource|@rdf:nodeID)/rdfs:label|key('kLookupAbout',@rdf:resource|@rdf:nodeID)/schema:name"/>
                             <xsl:choose>
-                                <xsl:when test="substring($vAuthName,string-length($vAuthName))=',' or substring($vAuthName,string-length($vAuthName))='.'">
-                                    <xsl:value-of select="substring($vAuthName,1,string-length($vAuthName)-1)"/>
+                                <xsl:when test="substring($vAuthName,string-length($vAuthName))=','">                                    
+                                    <xsl:value-of select="substring($vAuthName,1,string-length($vAuthName)-1)"/>                                        
                                 </xsl:when>
+                                <xsl:when test="substring(normalize-space($vAuthName),string-length(normalize-space($vAuthName)))='.'">
+                                    <xsl:choose>
+                                        <xsl:when test="contains(substring($vAuthName,string-length($vAuthName)-2),' ')">                                                
+                                            <xsl:value-of select="$vAuthName"/>                                                
+                                        </xsl:when>
+                                        <xsl:otherwise>
+                                            <xsl:value-of select="substring($vAuthName,1,string-length($vAuthName)-1)"/>        
+                                        </xsl:otherwise>
+                                    </xsl:choose>                                        
+                                </xsl:when>                                                                                                                                              
                                 <xsl:otherwise>
                                     <xsl:value-of select="$vAuthName"/>
                                 </xsl:otherwise>
@@ -2665,9 +2675,19 @@
                                 <xsl:text> = </xsl:text>
                                 <xsl:variable name="vAuthName" select="key('kLookupAbout',@rdf:resource|@rdf:nodeID)/rdfs:label|key('kLookupAbout',@rdf:resource|@rdf:nodeID)/schema:name"/>
                                 <xsl:choose>
-                                    <xsl:when test="substring($vAuthName,string-length($vAuthName))=',' or substring($vAuthName,string-length($vAuthName))='.'">
-                                        <xsl:value-of select="substring($vAuthName,1,string-length($vAuthName)-1)"/>
+                                    <xsl:when test="substring($vAuthName,string-length($vAuthName))=','">                                    
+                                        <xsl:value-of select="substring($vAuthName,1,string-length($vAuthName)-1)"/>                                        
                                     </xsl:when>
+                                    <xsl:when test="substring(normalize-space($vAuthName),string-length(normalize-space($vAuthName)))='.'">
+                                        <xsl:choose>
+                                            <xsl:when test="contains(substring($vAuthName,string-length($vAuthName)-2),' ')">                                                
+                                                <xsl:value-of select="$vAuthName"/>                                                
+                                            </xsl:when>
+                                            <xsl:otherwise>
+                                                <xsl:value-of select="substring($vAuthName,1,string-length($vAuthName)-1)"/>        
+                                            </xsl:otherwise>
+                                        </xsl:choose>                                        
+                                    </xsl:when>                                                                                                                                              
                                     <xsl:otherwise>
                                         <xsl:value-of select="$vAuthName"/>
                                     </xsl:otherwise>
@@ -2686,9 +2706,19 @@
                             <xsl:text> = </xsl:text>
                             <xsl:variable name="vAuthName" select="key('kLookupAbout',@rdf:resource|@rdf:nodeID)/rdfs:label|key('kLookupAbout',@rdf:resource|@rdf:nodeID)/schema:name"/>
                             <xsl:choose>
-                                <xsl:when test="substring($vAuthName,string-length($vAuthName))=',' or substring($vAuthName,string-length($vAuthName))='.'">
-                                    <xsl:value-of select="substring($vAuthName,1,string-length($vAuthName)-1)"/>
+                                <xsl:when test="substring($vAuthName,string-length($vAuthName))=','">                                    
+                                    <xsl:value-of select="substring($vAuthName,1,string-length($vAuthName)-1)"/>                                        
                                 </xsl:when>
+                                <xsl:when test="substring(normalize-space($vAuthName),string-length(normalize-space($vAuthName)))='.'">
+                                    <xsl:choose>
+                                        <xsl:when test="contains(substring($vAuthName,string-length($vAuthName)-2),' ')">                                                
+                                            <xsl:value-of select="$vAuthName"/>                                                
+                                        </xsl:when>
+                                        <xsl:otherwise>
+                                            <xsl:value-of select="substring($vAuthName,1,string-length($vAuthName)-1)"/>        
+                                        </xsl:otherwise>
+                                    </xsl:choose>                                        
+                                </xsl:when>                                                                                                                                              
                                 <xsl:otherwise>
                                     <xsl:value-of select="$vAuthName"/>
                                 </xsl:otherwise>
@@ -2703,9 +2733,19 @@
                                 <xsl:text> = </xsl:text>
                                 <xsl:variable name="vAuthName" select="key('kLookupAbout',@rdf:resource|@rdf:nodeID)/rdfs:label|key('kLookupAbout',@rdf:resource|@rdf:nodeID)/schema:name"/>
                                 <xsl:choose>
-                                    <xsl:when test="substring($vAuthName,string-length($vAuthName))=',' or substring($vAuthName,string-length($vAuthName))='.'">
-                                        <xsl:value-of select="substring($vAuthName,1,string-length($vAuthName)-1)"/>
+                                    <xsl:when test="substring($vAuthName,string-length($vAuthName))=','">                                    
+                                        <xsl:value-of select="substring($vAuthName,1,string-length($vAuthName)-1)"/>                                        
                                     </xsl:when>
+                                    <xsl:when test="substring(normalize-space($vAuthName),string-length(normalize-space($vAuthName)))='.'">
+                                        <xsl:choose>
+                                            <xsl:when test="contains(substring($vAuthName,string-length($vAuthName)-2),' ')">                                                
+                                                <xsl:value-of select="$vAuthName"/>                                                
+                                            </xsl:when>
+                                            <xsl:otherwise>
+                                                <xsl:value-of select="substring($vAuthName,1,string-length($vAuthName)-1)"/>        
+                                            </xsl:otherwise>
+                                        </xsl:choose>                                        
+                                    </xsl:when>                                                                                                                                              
                                     <xsl:otherwise>
                                         <xsl:value-of select="$vAuthName"/>
                                     </xsl:otherwise>
