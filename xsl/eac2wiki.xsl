@@ -1214,12 +1214,12 @@
     <!-- Output "External links" section. -->
     <xsl:template name="tExternalLinks">
         <xsl:text>&#10;</xsl:text>
-        <xsl:text>==External links==</xsl:text>
-        <!-- Include a link to a local discovery service. -->
+        <xsl:text>==External links==</xsl:text>        
         <xsl:text>&#10;</xsl:text>
     	<xsl:choose>
     		<xsl:when test="contains(eac:eac-cpf/eac:control/eac:sources/eac:source/@xlink:href,'miami.edu')">
     		    <xsl:choose>
+    		        <!-- Forward to Libraries template and link to finding aid. -->	
     		        <xsl:when test="eac:eac-cpf/eac:control/eac:sources/eac:source[contains(@xlink:href,'viaf')]">
     		            <xsl:text>{{Library resources box</xsl:text>
     		            <xsl:text>&#10;</xsl:text>
@@ -1241,6 +1241,7 @@
     		                <xsl:with-param name="pCorpName" select="$pCorpName" />
     		            </xsl:call-template>
     		            <xsl:text>}}</xsl:text>        
+    		            <xsl:text>&#10;</xsl:text>
     		        </xsl:when>
     		        <xsl:otherwise>
     		            <!-- If no VIAF ID, include link to UM Summon. 
@@ -1254,8 +1255,7 @@
     		            </xsl:call-template>        
     		            -->
     		        </xsl:otherwise>
-    		    </xsl:choose>    		        			    		    
-    			<xsl:text>&#10;</xsl:text>
+    		    </xsl:choose>    		        			    		        			
     		</xsl:when>    		    		    		
     		<!-- Forward to Libraries template and link to finding aid. -->	
     		<xsl:when test="contains(eac:eac-cpf/eac:control/eac:sources/eac:source/@xlink:href,'loc.mss')">
