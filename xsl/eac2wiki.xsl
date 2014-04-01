@@ -2643,8 +2643,10 @@
                     <xsl:if test="$vAuthCount&gt;1 or schema:contributor">
                         <xsl:for-each select="schema:author">                       
                             <xsl:variable name="vPosCount" select="position()"/>
-                            <xsl:text>| author</xsl:text>
-                            <xsl:value-of select="$vPosCount"/>
+                            <xsl:text>| author</xsl:text>     
+                            <xsl:if test="$vAuthCount+$vContribCount&gt;1">
+                                <xsl:value-of select="$vPosCount"/>
+                            </xsl:if>
                             <xsl:text> = </xsl:text>
                             <xsl:variable name="vAuthName" select="key('kLookupAbout',@rdf:resource|@rdf:nodeID)/rdfs:label|key('kLookupAbout',@rdf:resource|@rdf:nodeID)/schema:name"/>
                             <xsl:choose>
@@ -2667,11 +2669,13 @@
                             </xsl:choose>
                             <xsl:text>&#10;</xsl:text>                   
                         </xsl:for-each>       
-                        <xsl:if test="$vAuthCount&gt;=1 or $vContribCount&gt;1">
+                        <xsl:if test="$vAuthCount&gt;=1 or $vContribCount&gt;=1">
                             <xsl:for-each select="schema:contributor">  
                                 <xsl:variable name="vPosCount" select="position()+$vAuthCount"/>
                                 <xsl:text>| author</xsl:text>
-                                <xsl:value-of select="$vPosCount"/>
+                                <xsl:if test="$vAuthCount+$vContribCount&gt;1">
+                                    <xsl:value-of select="$vPosCount"/>
+                                </xsl:if>
                                 <xsl:text> = </xsl:text>
                                 <xsl:variable name="vAuthName" select="key('kLookupAbout',@rdf:resource|@rdf:nodeID)/rdfs:label|key('kLookupAbout',@rdf:resource|@rdf:nodeID)/schema:name"/>
                                 <xsl:choose>
@@ -2702,7 +2706,9 @@
                         <xsl:for-each select="schema:author">                       
                             <xsl:variable name="vPosCount" select="position()"/>
                             <xsl:text>| author</xsl:text>
-                            <xsl:value-of select="$vPosCount"/>
+                            <xsl:if test="$vAuthCount+$vContribCount&gt;1">
+                                <xsl:value-of select="$vPosCount"/>
+                            </xsl:if>
                             <xsl:text> = </xsl:text>
                             <xsl:variable name="vAuthName" select="key('kLookupAbout',@rdf:resource|@rdf:nodeID)/rdfs:label|key('kLookupAbout',@rdf:resource|@rdf:nodeID)/schema:name"/>
                             <xsl:choose>
@@ -2729,7 +2735,9 @@
                             <xsl:for-each select="schema:contributor">  
                                 <xsl:variable name="vPosCount" select="position()+$vAuthCount"/>
                                 <xsl:text>| author</xsl:text>
-                                <xsl:value-of select="$vPosCount"/>
+                                <xsl:if test="$vAuthCount+$vContribCount&gt;1">
+                                    <xsl:value-of select="$vPosCount"/>
+                                </xsl:if>
                                 <xsl:text> = </xsl:text>
                                 <xsl:variable name="vAuthName" select="key('kLookupAbout',@rdf:resource|@rdf:nodeID)/rdfs:label|key('kLookupAbout',@rdf:resource|@rdf:nodeID)/schema:name"/>
                                 <xsl:choose>
