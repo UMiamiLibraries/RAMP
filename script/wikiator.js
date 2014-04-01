@@ -687,7 +687,7 @@ function postWiki( lstrWiki, lstrComments, lboolDraft, lstrCaptchaAnswer, lstrCa
  */
 function displayCaptcha( lstrUrl, lstrCaptchaId, lboolDraft )
 {
-    var lstrHTML = "<div class=\"form_container\"><div class=\"user_help_form\">";
+    var lstrHTML = "<div class=\"form_container_captcha\"><div class=\"user_help_form\">";
 
     lstrHTML += "<div id=\"captcha_div\"><h3 class=\"captcha\">Please Solve CAPTCHA</h3><br/>";
     lstrHTML += "<img class=\"captcha\" src=\"" + lstrUrl +"\" /><br/>";
