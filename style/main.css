@@ -352,6 +352,16 @@ ul, menu, dir {
     height: 900px;
     z-index: 500;
 }
+.form_container_captcha
+{
+    background: white;
+    left: 0;
+    position: absolute;
+    top: 100px;
+    width: 100%;
+    height: 900px;
+    z-index: 500;
+}
 
 .form_note
 {    
