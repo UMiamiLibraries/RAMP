@@ -1017,42 +1017,8 @@
         </xsl:for-each>            
         <xsl:for-each select="eac:eac-cpf/eac:cpfDescription/eac:relations/eac:resourceRelation[not(@resourceRelationType)]">
             <xsl:sort select="translate(eac:relationEntry[1],'ÁÀÉÈÍÓÚÜÑáàéèíóúúüñ','AAEEIOUUNaaeeiouuun')" data-type="text" />
-            <xsl:text>* </xsl:text>
-            <xsl:choose>
-                <!-- Rough matching to filter for Spanish and Portuguese titles. Needs work for internationalization and smarter switching between title and sentence case. -->
-                <xsl:when test="contains(eac:relationEntry[1],' ao ')
-                    or contains(eac:relationEntry[1],' com ')
-                    or contains(eac:relationEntry[1],' con ')
-                    or contains(eac:relationEntry[1],' da ')
-                    or contains(eac:relationEntry[1],' das ')
-                    or contains(eac:relationEntry[1],' de ')
-                    or contains(eac:relationEntry[1],' dos ')
-                    or contains(eac:relationEntry[1],' e ')
-                    or contains(eac:relationEntry[1],' en ')
-                    or contains(eac:relationEntry[1],' em ')
-                    or contains(eac:relationEntry[1],' para ')
-                    or contains(eac:relationEntry[1],' pela ')
-                    or contains(eac:relationEntry[1],' pelo ')
-                    or contains(eac:relationEntry[1],' por ')
-                    or contains(eac:relationEntry[1],' y ')">
-                    <xsl:value-of select="normalize-space(eac:relationEntry[1])"/>                            
-                </xsl:when>
-                <xsl:otherwise>
-                    <xsl:choose>                                
-                        <xsl:when test="contains(normalize-space(eac:relationEntry[1]),' . ')">
-                            <xsl:call-template name="tTitleCaps">
-                                <xsl:with-param name="pTitles" select="normalize-space(substring-before(eac:relationEntry[1],' . '))"/>
-                            </xsl:call-template>                                                                 
-                            <xsl:value-of select="normalize-space(substring-after(eac:relationEntry[1],' . '))" />
-                        </xsl:when>
-                        <xsl:otherwise>
-                            <xsl:call-template name="tTitleCaps">
-                                <xsl:with-param name="pTitles" select="normalize-space(eac:relationEntry[1])"/>
-                            </xsl:call-template>                                                                
-                        </xsl:otherwise>
-                    </xsl:choose>
-                </xsl:otherwise>                                                                        
-            </xsl:choose>
+            <xsl:text>* </xsl:text>            
+            <xsl:value-of select="normalize-space(eac:relationEntry[1])"/>                                        
             <xsl:choose>
                 <xsl:when test="eac:descriptiveNote/eac:p">                    
                     <xsl:text> &lt;!-- </xsl:text>
