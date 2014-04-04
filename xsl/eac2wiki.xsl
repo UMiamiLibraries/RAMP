@@ -1625,6 +1625,7 @@
                 <xsl:choose>
                     <xsl:when test="eac:eac-cpf/eac:control/eac:otherRecordId[@localType='WCI:LCCN']">                        
                         <xsl:text>&#10;</xsl:text>
+                        <xsl:text>&#10;</xsl:text>
                         <xsl:text>{{Authority control|LCCN=</xsl:text>
                         <xsl:choose>
                             <xsl:when test="contains(eac:eac-cpf/eac:control/eac:otherRecordId[@localType='WCI:LCCN'],'no')">
