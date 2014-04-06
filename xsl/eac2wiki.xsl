@@ -1467,24 +1467,16 @@
                 </xsl:if>                                            
             </xsl:for-each>
         </xsl:if>
-        <xsl:if test="eac:eac-cpf/eac:cpfDescription/eac:relations/eac:resourceRelation[@xlink:role='archivalRecords' and not(eac:objectXMLWrap)][eac:objectXMLWrap]|eac:eac-cpf/eac:cpfDescription/eac:relations/eac:resourceRelation[@resourceRelationType='other' and @xlink:role='resource']|eac:eac-cpf/eac:cpfDescription/eac:relations/eac:resourceRelation[not(@resourceRelationType) and @xlink:role='resource']|eac:eac-cpf/eac:cpfDescription/eac:relations/eac:resourceRelation/eac:relationEntry[1][@localType='mix']">
-            <xsl:text>&#10;</xsl:text>     
-            <xsl:for-each select="eac:eac-cpf/eac:cpfDescription/eac:relations/eac:resourceRelation[@resourceRelationType='other' and @xlink:role='resource']|eac:eac-cpf/eac:cpfDescription/eac:relations/eac:resourceRelation[not(@resourceRelationType) and @xlink:role='resource']|eac:eac-cpf/eac:cpfDescription/eac:relations/eac:resourceRelation[eac:relationEntry[1][@localType='mix']]">
+        <xsl:if test="eac:eac-cpf/eac:cpfDescription/eac:relations/eac:resourceRelation[@xlink:role='archivalRecords' and not(eac:objectXMLWrap)]|eac:eac-cpf/eac:cpfDescription/eac:relations/eac:resourceRelation[not(@xlink:role='archivalRecords')]/eac:relationEntry[1][@localType='mix']|eac:eac-cpf/eac:cpfDescription/eac:relations/eac:resourceRelation[@resourceRelationType='other' and @xlink:role='resource']|eac:eac-cpf/eac:cpfDescription/eac:relations/eac:resourceRelation[not(@resourceRelationType) and @xlink:role='resource']">            
+            <xsl:for-each select="eac:eac-cpf/eac:cpfDescription/eac:relations/eac:resourceRelation[@xlink:role='archivalRecords' and not(eac:objectXMLWrap)]|eac:eac-cpf/eac:cpfDescription/eac:relations/eac:resourceRelation[not(@xlink:role='archivalRecords')]/eac:relationEntry[1][@localType='mix']|eac:eac-cpf/eac:cpfDescription/eac:relations/eac:resourceRelation[@resourceRelationType='other' and @xlink:role='resource']|eac:eac-cpf/eac:cpfDescription/eac:relations/eac:resourceRelation[not(@resourceRelationType) and @xlink:role='resource']">
                 <xsl:sort select="translate(eac:relationEntry,'ÁÀÉÈÍÓÚÜÑáàéèíóúúüñ','AAEEIOUUNaaeeiouuun')" data-type="text" />
                 <xsl:text>* [</xsl:text>
                 <xsl:choose>
                     <xsl:when test="contains(@xlink:href,' ')">
                         <xsl:value-of select="normalize-space(translate(@xlink:href,' ','+'))" />
                     </xsl:when>
-                    <xsl:otherwise>
-                        <xsl:choose>
-                            <xsl:when test="contains(@xlink:href,'oclc/')">
-                                <xsl:value-of select="normalize-space(@xlink:href)" />
-                            </xsl:when>
-                            <xsl:otherwise>
-                                <xsl:value-of select="normalize-space(@xlink:href)" />
-                            </xsl:otherwise>
-                        </xsl:choose>
+                    <xsl:otherwise>                        
+                        <xsl:value-of select="normalize-space(@xlink:href)" />
                     </xsl:otherwise>
                 </xsl:choose>
                 <xsl:text> </xsl:text>
@@ -1548,7 +1540,8 @@
                             <xsl:text>&#10;</xsl:text>
                         </xsl:otherwise>
                     </xsl:choose>                  
-                </xsl:if>                   
+                </xsl:if>         
+                <xsl:text>&#10;</xsl:text>   
             </xsl:for-each>
             <xsl:text>&#10;</xsl:text>
         </xsl:if>        
