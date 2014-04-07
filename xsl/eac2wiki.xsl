@@ -689,7 +689,7 @@
               	    			<xsl:text>&lt;ref name="LOCMD"&gt;{{Cite LOC finding aid</xsl:text>
               	    			<xsl:text>&#10;</xsl:text>
               	    			<xsl:text>| url = </xsl:text>    			    
-              	    			<xsl:value-of select="eac:eac-cpf/eac:control/eac:sources/eac:source/eac:objectXMLWrap/ead:ead/ead:eadheader/ead:eadid"/>
+              	    			<xsl:value-of select="normalize-space(eac:eac-cpf/eac:control/eac:sources/eac:source/eac:objectXMLWrap/ead:ead/ead:eadheader/ead:eadid)"/>
                   			    <xsl:text>&#10;</xsl:text>
               	    			<xsl:text>| title = </xsl:text>
               	    			<xsl:value-of select="eac:eac-cpf/eac:control/eac:sources/eac:source/eac:sourceEntry[1]"/>    				    			
