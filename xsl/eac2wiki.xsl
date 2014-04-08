@@ -1285,7 +1285,7 @@
         <xsl:text>==External links==</xsl:text>        
         <xsl:text>&#10;</xsl:text>
     	<xsl:choose>
-    		<xsl:when test="contains(eac:eac-cpf/eac:control/eac:sources/eac:source/@xlink:href,'miami.edu')">    		    
+    		<xsl:when test="contains(eac:eac-cpf/eac:control/eac:sources/eac:source/@xlink:href,'.edu')">    		    
     		    <xsl:choose>
     		        <!-- Forward to Libraries template. -->	
     		        <xsl:when test="eac:eac-cpf/eac:control/eac:sources/eac:source[contains(@xlink:href,'viaf')]">
@@ -1439,17 +1439,7 @@
                             </xsl:otherwise>
                         </xsl:choose>
                     </xsl:otherwise>                                                                        
-                </xsl:choose>         
-                <xsl:choose>
-                    <xsl:when
-                        test="contains(eac:objectXMLWrap/ead:archdesc/ead:did/ead:repository,'Cuban Heritage')">
-                        <xsl:text>, [http://library.miami.edu/chc/ University of Miami Libraries, Cuban Heritage Collection].</xsl:text>
-                    </xsl:when>
-                    <xsl:when
-                        test="contains(eac:objectXMLWrap/ead:archdesc/ead:did/ead:repository,'Special Collections')">
-                        <xsl:text>, [http://library.miami.edu/specialcollections/ University of Miami Libraries, Special Collections Division].</xsl:text>
-                    </xsl:when>
-                </xsl:choose>     
+                </xsl:choose>                           
                 <xsl:if test="eac:objectXMLWrap/ead:archdesc/ead:scopecontent">                    
                     <xsl:text> &lt;!-- </xsl:text>
                     <xsl:for-each select="eac:objectXMLWrap/ead:archdesc/ead:scopecontent/ead:p">
@@ -1517,17 +1507,7 @@
                             </xsl:otherwise>
                         </xsl:choose>
                     </xsl:otherwise>                                                                        
-                </xsl:choose>
-                <xsl:choose>
-                    <xsl:when
-                        test="../eac:resourceRelation[contains(eac:objectXMLWrap/ead:archdesc/ead:did/ead:repository,'Cuban Heritage')]">
-                        <xsl:text>, [http://library.miami.edu/chc/ University of Miami Libraries, Cuban Heritage Collection].</xsl:text>
-                    </xsl:when>
-                    <xsl:when
-                        test="../eac:resourceRelation[contains(eac:objectXMLWrap/ead:archdesc/ead:did/ead:repository,'Special Collections')]">
-                        <xsl:text>, [http://library.miami.edu/specialcollections/ University of Miami Libraries, Special Collections Division].</xsl:text>
-                    </xsl:when>
-                </xsl:choose> 
+                </xsl:choose>                
                 <xsl:if test="eac:descriptiveNote/eac:p">                    
                     <xsl:text> &lt;!-- </xsl:text>
                     <xsl:for-each select="eac:descriptiveNote/eac:p">
