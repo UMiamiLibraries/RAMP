@@ -1483,10 +1483,7 @@
                 <xsl:for-each select="ead:ead/ead:archdesc/ead:dao">
                     <resourceRelation resourceRelationType="creatorOf" xlink:href="{@xlink:href}" xlink:role="archivalRecords" xlink:type="simple">
                         <relationEntry>
-                            <xsl:value-of select="normalize-space(ead:daodesc/ead:p)" />
-                            <xsl:if test="not(contains(ead:daodesc/ead:p,'Digit') and not(contains(ead:daodesc/ead:p,'digit')))">
-                                <xsl:text>(digital collection)</xsl:text>
-                            </xsl:if>
+                            <xsl:value-of select="normalize-space(ead:daodesc/ead:p)" />                                                        
                         </relationEntry>
                     </resourceRelation>
                 </xsl:for-each>

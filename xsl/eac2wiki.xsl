@@ -1443,11 +1443,11 @@
                 <xsl:choose>
                     <xsl:when
                         test="contains(eac:objectXMLWrap/ead:archdesc/ead:did/ead:repository,'Cuban Heritage')">
-                        <xsl:text>, [http://library.miami.edu/chc/ University of Miami Libraries Cuban Heritage Collection].</xsl:text>
+                        <xsl:text>, [http://library.miami.edu/chc/ University of Miami Libraries, Cuban Heritage Collection].</xsl:text>
                     </xsl:when>
                     <xsl:when
                         test="contains(eac:objectXMLWrap/ead:archdesc/ead:did/ead:repository,'Special Collections')">
-                        <xsl:text>, [http://library.miami.edu/specialcollections/ University of Miami Libraries Special Collections Division].</xsl:text>
+                        <xsl:text>, [http://library.miami.edu/specialcollections/ University of Miami Libraries, Special Collections Division].</xsl:text>
                     </xsl:when>
                 </xsl:choose>     
                 <xsl:if test="eac:objectXMLWrap/ead:archdesc/ead:scopecontent">                    
@@ -1518,6 +1518,16 @@
                         </xsl:choose>
                     </xsl:otherwise>                                                                        
                 </xsl:choose>
+                <xsl:choose>
+                    <xsl:when
+                        test="../eac:resourceRelation[contains(eac:objectXMLWrap/ead:archdesc/ead:did/ead:repository,'Cuban Heritage')]">
+                        <xsl:text>, [http://library.miami.edu/chc/ University of Miami Libraries, Cuban Heritage Collection].</xsl:text>
+                    </xsl:when>
+                    <xsl:when
+                        test="../eac:resourceRelation[contains(eac:objectXMLWrap/ead:archdesc/ead:did/ead:repository,'Special Collections')]">
+                        <xsl:text>, [http://library.miami.edu/specialcollections/ University of Miami Libraries, Special Collections Division].</xsl:text>
+                    </xsl:when>
+                </xsl:choose> 
                 <xsl:if test="eac:descriptiveNote/eac:p">                    
                     <xsl:text> &lt;!-- </xsl:text>
                     <xsl:for-each select="eac:descriptiveNote/eac:p">
