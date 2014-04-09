@@ -451,7 +451,20 @@
                 <sources xmlns="urn:isbn:1-931666-33-4">
                     <xsl:if test="ead:ead/ead:eadheader/ead:filedesc!=''">
                         <xsl:for-each select="ead:ead/ead:eadheader/ead:filedesc/ead:titlestmt/ead:titleproper[not(@type='filing')]">
-                        	<source xlink:href="{concat($pLocalURL,substring-after(../../../ead:eadid/@identifier,':'))}" xlink:type="simple">
+                        	<source>
+                        	    <xsl:attribute name="xlink:href">
+                        	        <xsl:choose>
+                        	            <xsl:when test="contains(../../../ead:eadid/@identifier,'Archon')">
+                        	                <xsl:value-of select="concat($pLocalURL,substring-after(../../../ead:eadid/@identifier,':'))"/>
+                        	            </xsl:when>
+                        	            <xsl:otherwise>
+                        	                <xsl:value-of select="normalize-space(../../../ead:eadid)"/>
+                        	            </xsl:otherwise>                        	            
+                        	        </xsl:choose>
+                        	    </xsl:attribute>
+                        	    <xsl:attribute name="xlink:type">
+                        	        <xsl:value-of select="'simple'"/>
+                        	    </xsl:attribute>
                                 <sourceEntry>
                                     <xsl:value-of select="normalize-space(.)" />
                                 </sourceEntry>
@@ -1418,7 +1431,23 @@
             <xsl:call-template name="tCpfs" />
             <!-- For local archival collections, output EAD snippet in objectXMLWrap. -->
             <xsl:for-each select="ead:ead/ead:archdesc/ead:did/ead:unittitle[.!='']">
-                <resourceRelation resourceRelationType="creatorOf" xlink:href="{concat($pLocalURL,substring-after(../../../ead:eadheader/ead:eadid/@identifier,':'))}" xlink:role="archivalRecords" xlink:type="simple">
+                <resourceRelation resourceRelationType="creatorOf">
+                    <xsl:attribute name="xlink:href">
+                        <xsl:choose>
+                            <xsl:when test="contains(../../../ead:eadheader/ead:eadid/@identifier,'Archon')">
+                                <xsl:value-of select="concat($pLocalURL,substring-after(../../../ead:eadheader/ead:eadid/@identifier,':'))"/>
+                            </xsl:when>
+                            <xsl:otherwise>
+                                <xsl:value-of select="normalize-space(../../../ead:eadheader/ead:eadid)"/>
+                            </xsl:otherwise>                        	            
+                        </xsl:choose>
+                    </xsl:attribute>
+                    <xsl:attribute name="xlink:role">
+                        <xsl:value-of select="'archivalRecords'"/>
+                    </xsl:attribute>
+                    <xsl:attribute name="xlink:type">
+                        <xsl:value-of select="'simple'"/>
+                    </xsl:attribute>
                     <relationEntry>
                         <!-- Process inclusive and bulk dates. -->
                         <xsl:value-of select="normalize-space(text())" />
