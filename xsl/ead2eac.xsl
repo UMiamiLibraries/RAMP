@@ -964,8 +964,8 @@
                                 </xsl:for-each>
                             </chronList>
                         </xsl:when>
-                    </xsl:choose>
-                    <!-- Attempt to match local formatting for chronologies in Archon -->
+                    </xsl:choose>                                                                                                    
+                    <!-- Attempt to match local formatting for chronologies in Archon -->                                        
                     <xsl:for-each select="ead:ead[1]/ead:archdesc/ead:bioghist/ead:p">
                         <xsl:choose>
                             <xsl:when test="contains(.,'Chronolog') or contains(.,'Timeline')">
@@ -1034,17 +1034,17 @@
                                     </xsl:for-each>
                                 </chronList>
                             </xsl:when>                            
-                            <xsl:otherwise>
+                            <xsl:otherwise>                                
                                 <xsl:if test="not(contains(.,'Chronolog'))                                      
                                     and not(contains(.,'Timeline'))                                      
                                     and not(contains(.,'Employment History'))">
                                     <xsl:if test="not(preceding-sibling::ead:p[contains(.,'Chronolog')])                                          
                                         and (string-length(substring(.,1,4)) = string-length(translate(substring(.,1,4),$vDigits,'')))">
                                         <xsl:if test=".!=' ' and .!=''">
-                                            <xsl:apply-templates select="ead:p[not(preceding-sibling::ead:p[contains(.,'Chronolog')])]"/>
+                                            <xsl:apply-templates select="."/>
                                         </xsl:if>
                                     </xsl:if>
-                                </xsl:if>
+                                </xsl:if>                                
                             </xsl:otherwise>                            
                         </xsl:choose>                        
                     </xsl:for-each>
@@ -1054,8 +1054,8 @@
                         <xsl:apply-templates select="ead:ead/ead:archdesc/ead:bioghist" />
                     </xsl:if>
                     -->
-                    
-                    <xsl:apply-templates select="ead:ead/ead:archdesc/ead:bioghist/ead:p" />                                        
+                    <!-- <xsl:apply-templates select="ead:ead/ead:archdesc/ead:bioghist/ead:p[not(contains(.,'Chronolog')) and not(contains(preceding-sibling::ead:p,'Chronolog')) and not(contains(.,'Employment History')) and not(contains(preceding-sibling::ead:p,'Employment History'))]" /> -->
+                                                            
                     <xsl:call-template name="tCitations" />
                 </biogHist>
             </xsl:if>
