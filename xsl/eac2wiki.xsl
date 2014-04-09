@@ -1285,7 +1285,7 @@
         <xsl:text>==External links==</xsl:text>        
         <xsl:text>&#10;</xsl:text>
     	<xsl:choose>
-    		<xsl:when test="contains(eac:eac-cpf/eac:control/eac:sources/eac:source/@xlink:href,'.edu')">    		    
+    		<xsl:when test="contains(eac:eac-cpf/eac:control/eac:sources/eac:source/@xlink:href,'miami.edu')">    		    
     		    <xsl:choose>
     		        <!-- Forward to Libraries template. -->	
     		        <xsl:when test="eac:eac-cpf/eac:control/eac:sources/eac:source[contains(@xlink:href,'viaf')]">
@@ -1385,7 +1385,7 @@
             <!-- Check for archival/digital collections created by or associated with the person or corporate body. -->                       
             <xsl:for-each select="eac:eac-cpf/eac:cpfDescription/eac:relations/eac:resourceRelation[@xlink:role='archivalRecords'][eac:objectXMLWrap]">
                 <xsl:sort select="translate(eac:relationEntry,'ÁÀÉÈÍÓÚÜÑáàéèíóúúüñ','AAEEIOUUNaaeeiouuun')" data-type="text" />                
-                <xsl:text>* [</xsl:text>
+                <xsl:text>* The [</xsl:text>
                 <xsl:choose>
                     <xsl:when test="contains(@xlink:href,' ')">
                         <xsl:value-of select="normalize-space(translate(@xlink:href,' ','+'))" />
@@ -1435,11 +1435,21 @@
                                 <xsl:call-template name="tTitleCaps">
                                     <xsl:with-param name="pTitles" select="normalize-space(eac:relationEntry)"/>
                                 </xsl:call-template>                            
-                                <xsl:text>]</xsl:text>
+                                <xsl:text>] </xsl:text>
                             </xsl:otherwise>
                         </xsl:choose>
                     </xsl:otherwise>                                                                        
-                </xsl:choose>                           
+                </xsl:choose>         
+                <xsl:choose>
+                    <xsl:when
+                        test="contains(eac:objectXMLWrap/ead:archdesc/ead:did/ead:repository,'Cuban Heritage')">
+                        <xsl:text>is/are available at the [http://library.miami.edu/chc/ Cuban Heritage Collection], University of Miami Libraries.</xsl:text>
+                    </xsl:when>
+                    <xsl:when
+                        test="contains(eac:objectXMLWrap/ead:archdesc/ead:did/ead:repository,'Special Collections')">
+                        <xsl:text>is/are available at the [http://library.miami.edu/specialcollections/ Special Collections Division], University of Miami Libraries.</xsl:text>
+                    </xsl:when>
+                </xsl:choose>     
                 <xsl:if test="eac:objectXMLWrap/ead:archdesc/ead:scopecontent">                    
                     <xsl:text> &lt;!-- </xsl:text>
                     <xsl:for-each select="eac:objectXMLWrap/ead:archdesc/ead:scopecontent/ead:p">
@@ -1460,7 +1470,7 @@
         <xsl:if test="eac:eac-cpf/eac:cpfDescription/eac:relations/eac:resourceRelation[@xlink:role='archivalRecords' and not(eac:objectXMLWrap)]|eac:eac-cpf/eac:cpfDescription/eac:relations/eac:resourceRelation[not(@xlink:role='archivalRecords')]/eac:relationEntry[1][@localType='mix']|eac:eac-cpf/eac:cpfDescription/eac:relations/eac:resourceRelation[@resourceRelationType='other' and @xlink:role='resource']|eac:eac-cpf/eac:cpfDescription/eac:relations/eac:resourceRelation[not(@resourceRelationType) and @xlink:role='resource']">            
             <xsl:for-each select="eac:eac-cpf/eac:cpfDescription/eac:relations/eac:resourceRelation[@xlink:role='archivalRecords' and not(eac:objectXMLWrap)]|eac:eac-cpf/eac:cpfDescription/eac:relations/eac:resourceRelation[not(@xlink:role='archivalRecords')]/eac:relationEntry[1][@localType='mix']|eac:eac-cpf/eac:cpfDescription/eac:relations/eac:resourceRelation[@resourceRelationType='other' and @xlink:role='resource']|eac:eac-cpf/eac:cpfDescription/eac:relations/eac:resourceRelation[not(@resourceRelationType) and @xlink:role='resource']">
                 <xsl:sort select="translate(eac:relationEntry,'ÁÀÉÈÍÓÚÜÑáàéèíóúúüñ','AAEEIOUUNaaeeiouuun')" data-type="text" />
-                <xsl:text>* [</xsl:text>
+                <xsl:text>* The [</xsl:text>
                 <xsl:choose>
                     <xsl:when test="contains(@xlink:href,' ')">
                         <xsl:value-of select="normalize-space(translate(@xlink:href,' ','+'))" />
@@ -1503,11 +1513,21 @@
                                 <xsl:call-template name="tTitleCaps">
                                     <xsl:with-param name="pTitles" select="normalize-space(eac:relationEntry)"/>
                                 </xsl:call-template>                            
-                                <xsl:text>]</xsl:text>
+                                <xsl:text>] </xsl:text>
                             </xsl:otherwise>
                         </xsl:choose>
                     </xsl:otherwise>                                                                        
-                </xsl:choose>                
+                </xsl:choose>
+                <xsl:choose>
+                    <xsl:when
+                        test="contains(eac:objectXMLWrap/ead:archdesc/ead:did/ead:repository,'Cuban Heritage')">
+                        <xsl:text>is/are available at the [http://library.miami.edu/chc/ Cuban Heritage Collection], University of Miami Libraries.</xsl:text>
+                    </xsl:when>
+                    <xsl:when
+                        test="contains(eac:objectXMLWrap/ead:archdesc/ead:did/ead:repository,'Special Collections')">
+                        <xsl:text>is/are available at the [http://library.miami.edu/specialcollections/ Special Collections Division], University of Miami Libraries.</xsl:text>
+                    </xsl:when>
+                </xsl:choose>     
                 <xsl:if test="eac:descriptiveNote/eac:p">                    
                     <xsl:text> &lt;!-- </xsl:text>
                     <xsl:for-each select="eac:descriptiveNote/eac:p">
