@@ -1310,7 +1310,7 @@
                         <xsl:variable name="vEntType" select="local-name(.)" />
                         <xsl:variable name="vCpfRel" select="@normal" />
                         <xsl:if test="$vEntType='persname'">
-                            <cpfRelation cpfRelationType="associative" xlink:role="http://rdvocab.info/uri/schema/FRBRentitiesRDA/Person" xlink:type="simple">
+                            <cpfRelation cpfRelationType="associative" xlink:role="http://rdvocab.info/uri/schema/FRBRentitiesRDA/Person" xlink:type="simple">                                
                                 <relationEntry>
                                     <xsl:value-of select="normalize-space(.)" />
                                 </relationEntry>
@@ -1401,7 +1401,7 @@
                     </xsl:for-each>
                 </xsl:if>
             </xsl:for-each>
-            <xsl:for-each select="exsl:node-set($vCpfName)/persName[not(.=preceding-sibling::persName)][not(.=$vFirstNode)]">                
+            <xsl:for-each select="exsl:node-set($vCpfName)/persName[not(.=preceding-sibling::persName)][not(starts-with(substring-before(.,','),substring-before($vFirstNode,',')))]">                
                 <cpfRelation cpfRelationType="associative" xlink:role="http://rdvocab.info/uri/schema/FRBRentitiesRDA/Person" xlink:type="simple">
                     <relationEntry>                        
                         <xsl:value-of select="normalize-space(.)" />
