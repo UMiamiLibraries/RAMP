@@ -337,6 +337,10 @@
         <xsl:call-template name="tExternalLinks" />
         <!-- VIAF -->
         <xsl:call-template name="tVIAF" />
+        <!-- Default sort -->
+        <xsl:call-template name="tDefaultSort">
+            <xsl:with-param name="pCorpName" select="$pCorpName" />                       
+        </xsl:call-template>
         <!-- Categories -->
         <xsl:call-template name="tCategories">
             <xsl:with-param name="pNameType">corporate</xsl:with-param>
@@ -1734,10 +1738,10 @@
         <xsl:param name="pPersNameFore" select="$pPersNameFore" />
         <xsl:text>&#10;</xsl:text>
         <xsl:text>{{Persondata</xsl:text>
-    	<xsl:text>     &lt;!-- Metadata: see [[Wikipedia:Persondata]]. --&gt;</xsl:text>
+        <xsl:text>     &lt;!-- Metadata: see [[Wikipedia:Persondata]]. --&gt;</xsl:text>
         <xsl:text>&#10;</xsl:text>
         <xsl:text>| NAME</xsl:text>
-    	<xsl:text>&#09;&#09;&#09;&#09;= </xsl:text>
+        <xsl:text>&#09;&#09;&#09;&#09;= </xsl:text>
         <xsl:choose>
             <xsl:when test="$pPersNameFore or $pPersNameSur">
                 <xsl:value-of select="normalize-space($pPersNameSur)" />
@@ -1763,13 +1767,13 @@
         </xsl:choose>
         <xsl:text>&#10;</xsl:text>
         <xsl:text>| ALTERNATIVE NAMES</xsl:text>
-    	<xsl:text>&#09;= </xsl:text>
+        <xsl:text>&#09;= </xsl:text>
         <xsl:text>&#10;</xsl:text>
         <xsl:text>| SHORT DESCRIPTION</xsl:text>
-    	<xsl:text>&#09;= </xsl:text>
+        <xsl:text>&#09;= </xsl:text>
         <xsl:text>&#10;</xsl:text>
         <xsl:text>| DATE OF BIRTH</xsl:text>
-    	<xsl:text>&#09;&#09;= </xsl:text>
+        <xsl:text>&#09;&#09;= </xsl:text>
         <!-- Call template to attempt to prepopulate birth date info. -->
         <xsl:call-template name="tNameDateParser">
             <xsl:with-param name="pBirthYr" select="'true'" />
@@ -1777,7 +1781,7 @@
         </xsl:call-template>
         <xsl:text>&#10;</xsl:text>
         <xsl:text>| PLACE OF BIRTH</xsl:text>
-    	<xsl:text>&#09;&#09;= </xsl:text>
+        <xsl:text>&#09;&#09;= </xsl:text>
         <!-- Call template to attempt to prepopulate birth place info. -->
         <!-- Under revision ...
         <xsl:call-template name="tBirthPlaceFinder">
@@ -1786,7 +1790,7 @@
         -->
         <xsl:text>&#10;</xsl:text>
         <xsl:text>| DATE OF DEATH</xsl:text>
-    	<xsl:text>&#09;&#09;= </xsl:text>
+        <xsl:text>&#09;&#09;= </xsl:text>
         <!-- Call template to attempt to prepopulate death date info. -->
         <xsl:call-template name="tNameDateParser">
             <xsl:with-param name="pDeathYr" select="'true'" />
@@ -1794,7 +1798,7 @@
         </xsl:call-template>
         <xsl:text>&#10;</xsl:text>
         <xsl:text>| PLACE OF DEATH</xsl:text>
-    	<xsl:text>&#09;&#09;= </xsl:text>
+        <xsl:text>&#09;&#09;= </xsl:text>
         <!-- Call template to attempt to prepopulate death place info. -->
         <!-- Under revision ...
         <xsl:call-template name="tDeathPlaceFinder">
@@ -1804,37 +1808,69 @@
         <xsl:text>&#10;</xsl:text>
         <xsl:text>}}</xsl:text>
         <xsl:text>&#10;</xsl:text>
-        <xsl:text>&#10;</xsl:text>
+        <xsl:text>&#10;</xsl:text>     
+        <xsl:call-template name="tDefaultSort">
+            <xsl:with-param name="pPersName" select="$pPersName" />
+            <xsl:with-param name="pPersNameSur" select="$pPersNameSur" />
+            <xsl:with-param name="pPersNameFore" select="$pPersNameFore" />            
+        </xsl:call-template>
+    </xsl:template>
+    <!-- Default sort template. -->
+    <xsl:template name="tDefaultSort">
+        <xsl:param name="pPersName" select="$pPersName" />
+        <xsl:param name="pPersNameSur" select="$pPersNameSur" />
+        <xsl:param name="pPersNameFore" select="$pPersNameFore" />
+        <xsl:param name="pCorpName" select="$pCorpName" />
         <xsl:choose>
             <!-- If the name contains no dates ... -->
-            <xsl:when test="string-length(translate($pPersName,concat($vAlpha,$vCommaSpace),''))=0">
+            <xsl:when test="string-length(translate($pPersName,concat($vAlpha,$vCommaSpace),''))&lt;=2">
                 <!-- ... then output as is. -->
                 <xsl:text>{{DEFAULTSORT:</xsl:text>
-                <xsl:choose>
+                <xsl:choose>                    
+                    <xsl:when test="$pCorpName!=''">
+                        <xsl:value-of select="$pCorpName"/>
+                    </xsl:when>                    
                     <xsl:when test="$pPersName">
                         <xsl:value-of select="$pPersName" />
                     </xsl:when>
                     <xsl:otherwise>
-                        <xsl:value-of select="normalize-space($pPersNameSur)" />
-                        <xsl:text>, </xsl:text>
-                        <xsl:value-of select="normalize-space($pPersNameFore)" />
+                        <xsl:choose>
+                            <xsl:when test="$pPersNameSur!='' and $pPersNameFore!=''">
+                                <xsl:value-of select="normalize-space($pPersNameSur)" />
+                                <xsl:text>, </xsl:text>
+                                <xsl:value-of select="normalize-space($pPersNameFore)" />        
+                            </xsl:when>
+                            <xsl:when test="$pPersNameSur='' and $pPersNameFore!=''">                                
+                                <xsl:value-of select="normalize-space($pPersNameFore)" />        
+                            </xsl:when>
+                            <xsl:when test="$pPersNameSur!='' and $pPersNameFore=''">
+                                <xsl:value-of select="normalize-space($pPersNameSur)" />                                       
+                            </xsl:when>                            
+                        </xsl:choose>                        
                     </xsl:otherwise>
-                </xsl:choose>
+                </xsl:choose>                
                 <xsl:text>}}</xsl:text>
                 <xsl:text>&#10;</xsl:text>
             </xsl:when>
             <!-- If the name does contain dates ... -->
-            <xsl:when test="string-length(translate($pPersName,concat($vAlpha,$vCommaSpace),''))&gt;0">
+            <xsl:when test="string-length(translate($pPersName,concat($vAlpha,$vCommaSpace),''))&gt;2">
                 <!-- ... output the part of the name before the dates. -->
-                <xsl:text>{{DEFAULTSORT:</xsl:text>
-                <xsl:value-of select="substring-before($pPersName,', ')" />
-                <xsl:text>, </xsl:text>
-                <xsl:value-of select="substring-before(substring-after($pPersName,', '),', ')" />
+                <xsl:text>{{DEFAULTSORT:</xsl:text>                
+                <xsl:choose>                    
+                    <xsl:when test="$pCorpName!=''">
+                        <xsl:value-of select="$pCorpName"/>
+                    </xsl:when>                    
+                    <xsl:when test="$pPersName">
+                        <xsl:value-of select="substring-before($pPersName,', ')" />
+                        <xsl:text>, </xsl:text>
+                        <xsl:value-of select="substring-before(substring-after($pPersName,', '),', ')" />
+                    </xsl:when>                    
+                </xsl:choose>                                                  
                 <xsl:text>}}</xsl:text>
                 <xsl:text>&#10;</xsl:text>
             </xsl:when>
         </xsl:choose>
-    </xsl:template>
+    </xsl:template>    
     <!-- Include some basic categories. -->
     <xsl:template name="tCategories">
         <xsl:param name="pNameType" />
