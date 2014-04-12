@@ -384,7 +384,7 @@ class WorldCat_Ingestor extends Ingestor
             $lobjSubjectNode['elements']['term']['attributes']['vocabularySource'] = "FAST";
 
 			if( $lobjSubject['id'] != "" )
-				$lobjSubjectNode['elements']['term']['attributes']['xml:id'] = $lobjSubject['id'];
+				$lobjSubjectNode['elements']['term']['attributes']['xml:id'] = "fst" . $lobjSubject['id'];
 				//$lobjSubjectNode['elements']['term']['attributes']['xmlns'] = "urn:isbn:1-931666-33-4";
 
 			if( $lobjSubject['name'] != "" )
