@@ -1051,8 +1051,7 @@
                                 <xsl:if test="not(contains(.,'Chronolog'))                                      
                                     and not(contains(.,'Timeline'))                                      
                                     and not(contains(.,'Employment History'))">
-                                    <xsl:if test="not(preceding-sibling::ead:p[contains(.,'Chronolog')])                                          
-                                        and (string-length(substring(.,1,4)) = string-length(translate(substring(.,1,4),$vDigits,'')))">
+                                    <xsl:if test="not(preceding-sibling::ead:p[contains(.,'Chronolog')])">
                                         <xsl:if test=".!=' ' and .!=''">
                                             <xsl:apply-templates select="."/>
                                         </xsl:if>
