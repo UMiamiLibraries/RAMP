@@ -796,9 +796,7 @@
                                                         <xsl:value-of select="concat(substring($vDateVal,1,3),'9')" />
                                                     </toDate>
                                                 </dateRange>
-                                            </xsl:when>
-                                            
-                                            
+                                            </xsl:when>                                                                                       
                                         	<!-- Handle LOC formatted dates. -->
                                         	<xsl:when test="contains($vDateVal,'Jan.')">
                                         		<date>
