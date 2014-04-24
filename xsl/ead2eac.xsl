@@ -758,7 +758,7 @@
                                 </xsl:for-each>
                             </list>
                         </xsl:when>
-                        <xsl:when test="ead:ead/ead:archdesc/ead:bioghist/ead:chronlist">
+                                                <xsl:when test="ead:ead/ead:archdesc/ead:bioghist/ead:chronlist">
                             <chronList>
                                 <xsl:for-each select="ead:ead/ead:archdesc/ead:bioghist/ead:chronlist/ead:chronitem">
                                     <xsl:variable name="vDateVal" select="normalize-space(ead:date)" />
@@ -774,6 +774,16 @@
                                                     </toDate>
                                                 </dateRange>
                                             </xsl:when>
+                                            <xsl:when test="string-length(translate($vDateVal,concat($vDigits,'-'),''))=1">
+                                                <dateRange>
+                                                    <fromDate standardDate="{substring-before($vDateVal,'s')}">
+                                                        <xsl:value-of select="substring-before($vDateVal,'s')" />
+                                                    </fromDate>
+                                                    <toDate standardDate="{concat(substring($vDateVal,1,3),'9')}">
+                                                        <xsl:value-of select="concat(substring($vDateVal,1,3),'9')" />
+                                                    </toDate>
+                                                </dateRange>
+                                            </xsl:when>                                                                                       
                                         	<!-- Handle LOC formatted dates. -->
                                         	<xsl:when test="contains($vDateVal,'Jan.')">
                                         		<date>
@@ -788,6 +798,19 @@
                                         			<xsl:value-of select="$vDateVal" />
                                         		</date>
                                         	</xsl:when>
+                                            <xsl:when test="contains($vDateVal,'January')">
+                                                <date>
+                                                    <xsl:attribute name="standardDate">
+                                                        <xsl:value-of select="substring-before($vDateVal,', January')"/>                                        				
+                                                        <xsl:text>-01-</xsl:text>
+                                                        <xsl:if test="string-length(substring-after($vDateVal,'January '))=1">
+                                                            <xsl:text>0</xsl:text>
+                                                        </xsl:if>
+                                                        <xsl:value-of select="substring-after($vDateVal,'January ')"/>
+                                                    </xsl:attribute>
+                                                    <xsl:value-of select="$vDateVal" />
+                                                </date>
+                                            </xsl:when>
                                         	<xsl:when test="contains($vDateVal,'Feb.')">
                                         		<date>
                                         			<xsl:attribute name="standardDate">
@@ -801,6 +824,19 @@
                                         			<xsl:value-of select="$vDateVal" />
                                         		</date>
                                         	</xsl:when>
+                                            <xsl:when test="contains($vDateVal,'February')">
+                                                <date>
+                                                    <xsl:attribute name="standardDate">
+                                                        <xsl:value-of select="substring-before($vDateVal,', February')"/>                                        				
+                                                        <xsl:text>-02-</xsl:text>
+                                                        <xsl:if test="string-length(substring-after($vDateVal,'February '))=1">
+                                                            <xsl:text>0</xsl:text>
+                                                        </xsl:if>
+                                                        <xsl:value-of select="substring-after($vDateVal,'February ')"/>
+                                                    </xsl:attribute>
+                                                    <xsl:value-of select="$vDateVal" />
+                                                </date>
+                                            </xsl:when>
                                         	<xsl:when test="contains($vDateVal,'Mar.')">
                                         		<date>
                                         			<xsl:attribute name="standardDate">
@@ -814,6 +850,19 @@
                                         			<xsl:value-of select="$vDateVal" />
                                         		</date>                                        		
                                         	</xsl:when>
+                                            <xsl:when test="contains($vDateVal,'March')">
+                                                <date>
+                                                    <xsl:attribute name="standardDate">
+                                                        <xsl:value-of select="substring-before($vDateVal,', March')"/>                                        				
+                                                        <xsl:text>-03-</xsl:text>
+                                                        <xsl:if test="string-length(substring-after($vDateVal,'March '))=1">
+                                                            <xsl:text>0</xsl:text>
+                                                        </xsl:if>
+                                                        <xsl:value-of select="substring-after($vDateVal,'March ')"/>
+                                                    </xsl:attribute>
+                                                    <xsl:value-of select="$vDateVal" />
+                                                </date>                                        		
+                                            </xsl:when>
                                         	<xsl:when test="contains($vDateVal,'Apr.')">
                                         		<date>
                                         			<xsl:attribute name="standardDate">
@@ -827,6 +876,19 @@
                                         			<xsl:value-of select="$vDateVal" />
                                         		</date>
                                         	</xsl:when>
+                                            <xsl:when test="contains($vDateVal,'April')">
+                                                <date>
+                                                    <xsl:attribute name="standardDate">
+                                                        <xsl:value-of select="substring-before($vDateVal,', April')"/>                                        				
+                                                        <xsl:text>-04-</xsl:text>
+                                                        <xsl:if test="string-length(substring-after($vDateVal,'April '))=1">
+                                                            <xsl:text>0</xsl:text>
+                                                        </xsl:if>
+                                                        <xsl:value-of select="substring-after($vDateVal,'April ')"/>
+                                                    </xsl:attribute>
+                                                    <xsl:value-of select="$vDateVal" />
+                                                </date>
+                                            </xsl:when>
                                         	<xsl:when test="contains($vDateVal,'May')">
                                         		<date>
                                         			<xsl:attribute name="standardDate">
@@ -839,7 +901,7 @@
                                         			</xsl:attribute>
                                         			<xsl:value-of select="$vDateVal" />
                                         		</date>
-                                        	</xsl:when>
+                                        	</xsl:when>                                            
                                         	<xsl:when test="contains($vDateVal,'Jun.')">
                                         		<date>
                                         			<xsl:attribute name="standardDate">
@@ -853,6 +915,19 @@
                                         			<xsl:value-of select="$vDateVal" />
                                         		</date>
                                         	</xsl:when>
+                                            <xsl:when test="contains($vDateVal,'June')">
+                                                <date>
+                                                    <xsl:attribute name="standardDate">
+                                                        <xsl:value-of select="substring-before($vDateVal,', June')"/>                                        				
+                                                        <xsl:text>-06-</xsl:text>
+                                                        <xsl:if test="string-length(substring-after($vDateVal,'June '))=1">
+                                                            <xsl:text>0</xsl:text>
+                                                        </xsl:if>
+                                                        <xsl:value-of select="substring-after($vDateVal,'June ')"/>
+                                                    </xsl:attribute>
+                                                    <xsl:value-of select="$vDateVal" />
+                                                </date>
+                                            </xsl:when>
                                         	<xsl:when test="contains($vDateVal,'Jul.')">
                                         		<date>
                                         			<xsl:attribute name="standardDate">
@@ -866,6 +941,19 @@
                                         			<xsl:value-of select="$vDateVal" />
                                         		</date>
                                         	</xsl:when>
+                                            <xsl:when test="contains($vDateVal,'July')">
+                                                <date>
+                                                    <xsl:attribute name="standardDate">
+                                                        <xsl:value-of select="substring-before($vDateVal,', July')"/>                                        				
+                                                        <xsl:text>-07-</xsl:text>
+                                                        <xsl:if test="string-length(substring-after($vDateVal,'July '))=1">
+                                                            <xsl:text>0</xsl:text>
+                                                        </xsl:if>
+                                                        <xsl:value-of select="substring-after($vDateVal,'July ')"/>
+                                                    </xsl:attribute>
+                                                    <xsl:value-of select="$vDateVal" />
+                                                </date>
+                                            </xsl:when>
                                         	<xsl:when test="contains($vDateVal,'Aug.')">
                                         		<date>
                                         			<xsl:attribute name="standardDate">
@@ -879,6 +967,19 @@
                                         			<xsl:value-of select="$vDateVal" />
                                         		</date>
                                         	</xsl:when>
+                                            <xsl:when test="contains($vDateVal,'August')">
+                                                <date>
+                                                    <xsl:attribute name="standardDate">
+                                                        <xsl:value-of select="substring-before($vDateVal,', August')"/>                                        				
+                                                        <xsl:text>-08-</xsl:text>
+                                                        <xsl:if test="string-length(substring-after($vDateVal,'August '))=1">
+                                                            <xsl:text>0</xsl:text>
+                                                        </xsl:if>
+                                                        <xsl:value-of select="substring-after($vDateVal,'August ')"/>
+                                                    </xsl:attribute>
+                                                    <xsl:value-of select="$vDateVal" />
+                                                </date>
+                                            </xsl:when>
                                         	<xsl:when test="contains($vDateVal,'Sept.')">
                                         		<date>
                                         			<xsl:attribute name="standardDate">
@@ -892,6 +993,19 @@
                                         			<xsl:value-of select="$vDateVal" />
                                         		</date>
                                         	</xsl:when>
+                                            <xsl:when test="contains($vDateVal,'September')">
+                                                <date>
+                                                    <xsl:attribute name="standardDate">
+                                                        <xsl:value-of select="substring-before($vDateVal,', September')"/>                                        				
+                                                        <xsl:text>-09-</xsl:text>
+                                                        <xsl:if test="string-length(substring-after($vDateVal,'September '))=1">
+                                                            <xsl:text>0</xsl:text>
+                                                        </xsl:if>
+                                                        <xsl:value-of select="substring-after($vDateVal,'September ')"/>
+                                                    </xsl:attribute>
+                                                    <xsl:value-of select="$vDateVal" />
+                                                </date>
+                                            </xsl:when>
                                         	<xsl:when test="contains($vDateVal,'Oct.')">
                                         		<date>
                                         			<xsl:attribute name="standardDate">
@@ -905,6 +1019,19 @@
                                         			<xsl:value-of select="$vDateVal" />
                                         		</date>
                                         	</xsl:when>
+                                            <xsl:when test="contains($vDateVal,'October')">
+                                                <date>
+                                                    <xsl:attribute name="standardDate">
+                                                        <xsl:value-of select="substring-before($vDateVal,', October')"/>                                        				
+                                                        <xsl:text>-10-</xsl:text>
+                                                        <xsl:if test="string-length(substring-after($vDateVal,'October '))=1">
+                                                            <xsl:text>0</xsl:text>
+                                                        </xsl:if>
+                                                        <xsl:value-of select="substring-after($vDateVal,'October ')"/>
+                                                    </xsl:attribute>
+                                                    <xsl:value-of select="$vDateVal" />
+                                                </date>
+                                            </xsl:when>
                                         	<xsl:when test="contains($vDateVal,'Nov.')">
                                         		<date>
                                         			<xsl:attribute name="standardDate">
@@ -918,6 +1045,19 @@
                                         			<xsl:value-of select="$vDateVal" />
                                         		</date>
                                         	</xsl:when>
+                                            <xsl:when test="contains($vDateVal,'November')">
+                                                <date>
+                                                    <xsl:attribute name="standardDate">
+                                                        <xsl:value-of select="substring-before($vDateVal,', November')"/>                                        				
+                                                        <xsl:text>-11-</xsl:text>
+                                                        <xsl:if test="string-length(substring-after($vDateVal,'November '))=1">
+                                                            <xsl:text>0</xsl:text>
+                                                        </xsl:if>
+                                                        <xsl:value-of select="substring-after($vDateVal,'November ')"/>
+                                                    </xsl:attribute>
+                                                    <xsl:value-of select="$vDateVal" />
+                                                </date>
+                                            </xsl:when>
                                         	<xsl:when test="contains($vDateVal,'Dec.')">
                                         		<date>
                                         			<xsl:attribute name="standardDate">
@@ -931,6 +1071,19 @@
                                         			<xsl:value-of select="$vDateVal" />
                                         		</date>
                                         	</xsl:when>
+                                            <xsl:when test="contains($vDateVal,'December')">
+                                                <date>
+                                                    <xsl:attribute name="standardDate">
+                                                        <xsl:value-of select="substring-before($vDateVal,', December')"/>                                        				
+                                                        <xsl:text>-12-</xsl:text>
+                                                        <xsl:if test="string-length(substring-after($vDateVal,'December '))=1">
+                                                            <xsl:text>0</xsl:text>
+                                                        </xsl:if>
+                                                        <xsl:value-of select="substring-after($vDateVal,'December ')"/>
+                                                    </xsl:attribute>
+                                                    <xsl:value-of select="$vDateVal" />
+                                                </date>
+                                            </xsl:when>
                                             <xsl:otherwise>
                                                 <date standardDate="{$vDateVal}">
                                                     <xsl:value-of select="$vDateVal" />
