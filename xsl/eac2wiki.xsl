@@ -2580,9 +2580,10 @@
     </xsl:template>
     <xsl:template name="tAccessDateParser">
         <xsl:param name="pAccessDate"/>
-        <!-- Rearrange date to D-M-Y pattern. -->
+        <!-- Rearrange date to M-D-Y pattern. -->
         <xsl:choose>
             <xsl:when test="substring-before(substring-after($pAccessDate,'-'),'-')='01'">
+                <xsl:text>January </xsl:text>
                 <xsl:choose>
                     <xsl:when test="substring(substring-after(substring-after($pAccessDate,'-'),'-'),1,1)='0'">
                         <xsl:value-of select="substring(substring-after(substring-after($pAccessDate,'-'),'-'),2,1)"/>        
@@ -2591,10 +2592,11 @@
                         <xsl:value-of select="substring-after(substring-after($pAccessDate,'-'),'-')"/>
                     </xsl:otherwise>
                 </xsl:choose>    			                        			           
-                <xsl:text> January </xsl:text>
+                <xsl:text>, </xsl:text>
                 <xsl:value-of select="substring-before($pAccessDate,'-')"/>
             </xsl:when>
             <xsl:when test="substring-before(substring-after($pAccessDate,'-'),'-')='02'">
+                <xsl:text>February </xsl:text>
                 <xsl:choose>
                     <xsl:when test="substring(substring-after(substring-after($pAccessDate,'-'),'-'),1,1)='0'">
                         <xsl:value-of select="substring(substring-after(substring-after($pAccessDate,'-'),'-'),2,1)"/>        
@@ -2603,10 +2605,11 @@
                         <xsl:value-of select="substring-after(substring-after($pAccessDate,'-'),'-')"/>
                     </xsl:otherwise>
                 </xsl:choose>    			                        			           
-                <xsl:text> February </xsl:text>
+                <xsl:text>, </xsl:text>
                 <xsl:value-of select="substring-before($pAccessDate,'-')"/>
             </xsl:when>
             <xsl:when test="substring-before(substring-after($pAccessDate,'-'),'-')='03'">
+                <xsl:text>March </xsl:text>
                 <xsl:choose>
                     <xsl:when test="substring(substring-after(substring-after($pAccessDate,'-'),'-'),1,1)='0'">
                         <xsl:value-of select="substring(substring-after(substring-after($pAccessDate,'-'),'-'),2,1)"/>        
@@ -2615,10 +2618,11 @@
                         <xsl:value-of select="substring-after(substring-after($pAccessDate,'-'),'-')"/>
                     </xsl:otherwise>
                 </xsl:choose>    			                        			           
-                <xsl:text> March </xsl:text>
+                <xsl:text>, </xsl:text>
                 <xsl:value-of select="substring-before($pAccessDate,'-')"/>
             </xsl:when>
             <xsl:when test="substring-before(substring-after($pAccessDate,'-'),'-')='04'">
+                <xsl:text>April </xsl:text>
                 <xsl:choose>
                     <xsl:when test="substring(substring-after(substring-after($pAccessDate,'-'),'-'),1,1)='0'">
                         <xsl:value-of select="substring(substring-after(substring-after($pAccessDate,'-'),'-'),2,1)"/>        
@@ -2627,10 +2631,11 @@
                         <xsl:value-of select="substring-after(substring-after($pAccessDate,'-'),'-')"/>
                     </xsl:otherwise>
                 </xsl:choose>    			                        			           
-                <xsl:text> April </xsl:text>
+                <xsl:text>, </xsl:text>
                 <xsl:value-of select="substring-before($pAccessDate,'-')"/>
             </xsl:when>
             <xsl:when test="substring-before(substring-after($pAccessDate,'-'),'-')='05'">
+                <xsl:text>May </xsl:text>
                 <xsl:choose>
                     <xsl:when test="substring(substring-after(substring-after($pAccessDate,'-'),'-'),1,1)='0'">
                         <xsl:value-of select="substring(substring-after(substring-after($pAccessDate,'-'),'-'),2,1)"/>        
@@ -2639,10 +2644,11 @@
                         <xsl:value-of select="substring-after(substring-after($pAccessDate,'-'),'-')"/>
                     </xsl:otherwise>
                 </xsl:choose>    			                        			           
-                <xsl:text> May </xsl:text>
+                <xsl:text>, </xsl:text>
                 <xsl:value-of select="substring-before($pAccessDate,'-')"/>
             </xsl:when>
             <xsl:when test="substring-before(substring-after($pAccessDate,'-'),'-')='06'">
+                <xsl:text>June </xsl:text>
                 <xsl:choose>
                     <xsl:when test="substring(substring-after(substring-after($pAccessDate,'-'),'-'),1,1)='0'">
                         <xsl:value-of select="substring(substring-after(substring-after($pAccessDate,'-'),'-'),2,1)"/>        
@@ -2651,10 +2657,11 @@
                         <xsl:value-of select="substring-after(substring-after($pAccessDate,'-'),'-')"/>
                     </xsl:otherwise>
                 </xsl:choose>    			                        			           
-                <xsl:text> June </xsl:text>
+                <xsl:text>, </xsl:text>
                 <xsl:value-of select="substring-before($pAccessDate,'-')"/>
             </xsl:when>
             <xsl:when test="substring-before(substring-after($pAccessDate,'-'),'-')='07'">
+                <xsl:text>July </xsl:text>
                 <xsl:choose>
                     <xsl:when test="substring(substring-after(substring-after($pAccessDate,'-'),'-'),1,1)='0'">
                         <xsl:value-of select="substring(substring-after(substring-after($pAccessDate,'-'),'-'),2,1)"/>        
@@ -2663,10 +2670,11 @@
                         <xsl:value-of select="substring-after(substring-after($pAccessDate,'-'),'-')"/>
                     </xsl:otherwise>
                 </xsl:choose>    			                        			           
-                <xsl:text> July </xsl:text>
+                <xsl:text>, </xsl:text>
                 <xsl:value-of select="substring-before($pAccessDate,'-')"/>
             </xsl:when>
             <xsl:when test="substring-before(substring-after($pAccessDate,'-'),'-')='08'">
+                <xsl:text>August </xsl:text>
                 <xsl:choose>
                     <xsl:when test="substring(substring-after(substring-after($pAccessDate,'-'),'-'),1,1)='0'">
                         <xsl:value-of select="substring(substring-after(substring-after($pAccessDate,'-'),'-'),2,1)"/>        
@@ -2675,10 +2683,11 @@
                         <xsl:value-of select="substring-after(substring-after($pAccessDate,'-'),'-')"/>
                     </xsl:otherwise>
                 </xsl:choose>    			                        			           
-                <xsl:text> August </xsl:text>
+                <xsl:text>, </xsl:text>
                 <xsl:value-of select="substring-before($pAccessDate,'-')"/>
             </xsl:when>
             <xsl:when test="substring-before(substring-after($pAccessDate,'-'),'-')='09'">
+                <xsl:text>September </xsl:text>
                 <xsl:choose>
                     <xsl:when test="substring(substring-after(substring-after($pAccessDate,'-'),'-'),1,1)='0'">
                         <xsl:value-of select="substring(substring-after(substring-after($pAccessDate,'-'),'-'),2,1)"/>        
@@ -2687,10 +2696,11 @@
                         <xsl:value-of select="substring-after(substring-after($pAccessDate,'-'),'-')"/>
                     </xsl:otherwise>
                 </xsl:choose>    			                        			           
-                <xsl:text> September </xsl:text>
+                <xsl:text>, </xsl:text>
                 <xsl:value-of select="substring-before($pAccessDate,'-')"/>
             </xsl:when>
             <xsl:when test="substring-before(substring-after($pAccessDate,'-'),'-')='10'">
+                <xsl:text>October </xsl:text>
                 <xsl:choose>
                     <xsl:when test="substring(substring-after(substring-after($pAccessDate,'-'),'-'),1,1)='0'">
                         <xsl:value-of select="substring(substring-after(substring-after($pAccessDate,'-'),'-'),2,1)"/>        
@@ -2699,10 +2709,11 @@
                         <xsl:value-of select="substring-after(substring-after($pAccessDate,'-'),'-')"/>
                     </xsl:otherwise>
                 </xsl:choose>    			                        			           
-                <xsl:text> October </xsl:text>
+                <xsl:text>, </xsl:text>
                 <xsl:value-of select="substring-before($pAccessDate,'-')"/>
             </xsl:when>
             <xsl:when test="substring-before(substring-after($pAccessDate,'-'),'-')='11'">
+                <xsl:text>November </xsl:text>
                 <xsl:choose>
                     <xsl:when test="substring(substring-after(substring-after($pAccessDate,'-'),'-'),1,1)='0'">
                         <xsl:value-of select="substring(substring-after(substring-after($pAccessDate,'-'),'-'),2,1)"/>        
@@ -2711,10 +2722,11 @@
                         <xsl:value-of select="substring-after(substring-after($pAccessDate,'-'),'-')"/>
                     </xsl:otherwise>
                 </xsl:choose>    			                        			           
-                <xsl:text> November </xsl:text>
+                <xsl:text>, </xsl:text>
                 <xsl:value-of select="substring-before($pAccessDate,'-')"/>
             </xsl:when>
             <xsl:when test="substring-before(substring-after($pAccessDate,'-'),'-')='12'">
+                <xsl:text>December </xsl:text>
                 <xsl:choose>
                     <xsl:when test="substring(substring-after(substring-after($pAccessDate,'-'),'-'),1,1)='0'">
                         <xsl:value-of select="substring(substring-after(substring-after($pAccessDate,'-'),'-'),2,1)"/>        
@@ -2723,7 +2735,7 @@
                         <xsl:value-of select="substring-after(substring-after($pAccessDate,'-'),'-')"/>
                     </xsl:otherwise>
                 </xsl:choose>    			                        			           
-                <xsl:text> December </xsl:text>
+                <xsl:text>, </xsl:text>
                 <xsl:value-of select="substring-before($pAccessDate,'-')"/>
             </xsl:when>    			        
         </xsl:choose>    			    	    
