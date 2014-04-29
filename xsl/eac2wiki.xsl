@@ -752,7 +752,7 @@
                         <!-- Include {{Reflist}} template. -->                        
                         <xsl:text>&lt;!-- Insert references/citations inside the following {{Reflist}} template. --&gt;</xsl:text>                        
                         <xsl:text>&#10;</xsl:text>
-                        <xsl:text>&lt;!-- Data supplied in the {{Cite open archival metadata}} template(s) may need to be edited (inverted, updated based on revision info, etc.). Invert author names (Last Name, First Name); separate multiple authors with a semicolon and a single space; and remove any labels such as "Finding Aid Authors." --&gt;</xsl:text>                        
+                        <xsl:text>&lt;!-- Data supplied in the {{Cite open archival metadata}} template(s) may need to be edited (inverted, updated based on revision info, etc.). Separate multiple authors with a semicolon and a single space. --&gt;</xsl:text>                        
                         <xsl:text>&#10;</xsl:text>     
                         <xsl:text>{{Reflist|refs=</xsl:text>
                         <!-- Insert a default reference to the archival metadata source. -->                           
@@ -763,19 +763,47 @@
                             <xsl:value-of select="$vFindingAidPos"/>
                             <xsl:text>&gt;</xsl:text>
                             <xsl:text>{{Cite open archival metadata</xsl:text>
-                            <xsl:text>&#10;</xsl:text>    				    				
+                            <xsl:text>&#10;</xsl:text>    		                            
                             <xsl:choose>
                                 <xsl:when test="//ead:author">
                                     <xsl:variable name="vAuthStr" select="string-length(normalize-space(//ead:author))"/>
                                     <xsl:text>| author = </xsl:text>
                                     <xsl:choose>
-                                        <xsl:when test="substring(//ead:author,$vAuthStr)='.'">
-                                            <xsl:value-of select="substring(normalize-space(//ead:author),1,$vAuthStr -1)" />        
+                                        <xsl:when test="contains(//ead:author,'Finding Aid Authors: ')">
+                                            <xsl:choose>
+                                                <xsl:when test="contains(substring-after(//ead:author,'Finding Aid Authors: '),' and ')">
+                                                    <xsl:choose>
+                                                        <xsl:when test="substring(//ead:author,$vAuthStr)='.'">
+                                                            <xsl:value-of select="concat('Finding aid authors: ',substring-after(substring(normalize-space(//ead:author),1,$vAuthStr -1),'Finding Aid Authors: '))" />
+                                                        </xsl:when>
+                                                        <xsl:otherwise>
+                                                            <xsl:value-of select="concat('Finding aid authors: ',substring-after(//ead:author,'Finding Aid Authors: '))"/>
+                                                        </xsl:otherwise>
+                                                    </xsl:choose>
+                                                </xsl:when>
+                                                <xsl:otherwise>
+                                                    <xsl:choose>
+                                                        <xsl:when test="substring(//ead:author,$vAuthStr)='.'">
+                                                            <xsl:value-of select="concat('Finding aid author: ',substring-after(substring(normalize-space(//ead:author),1,$vAuthStr -1),'Finding Aid Authors: '))" />
+                                                        </xsl:when>
+                                                        <xsl:otherwise>
+                                                            <xsl:value-of select="concat('Finding aid author: ',substring-after(//ead:author,'Finding Aid Authors: '))"/>
+                                                        </xsl:otherwise>
+                                                    </xsl:choose>
+                                                </xsl:otherwise>
+                                            </xsl:choose>
                                         </xsl:when>
                                         <xsl:otherwise>
-                                            <xsl:value-of select="normalize-space(//ead:author)" />
+                                            <xsl:choose>
+                                                <xsl:when test="substring(//ead:author,$vAuthStr)='.'">
+                                                    <xsl:value-of select="substring(normalize-space(//ead:author),1,$vAuthStr -1)" />        
+                                                </xsl:when>
+                                                <xsl:otherwise>
+                                                    <xsl:value-of select="normalize-space(//ead:author)" />
+                                                </xsl:otherwise>
+                                            </xsl:choose>          
                                         </xsl:otherwise>
-                                    </xsl:choose>                                    
+                                    </xsl:choose>           
                                     <xsl:text>&#10;</xsl:text>
                                 </xsl:when>
                             </xsl:choose>
