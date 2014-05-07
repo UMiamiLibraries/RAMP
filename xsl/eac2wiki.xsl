@@ -210,48 +210,13 @@
             <xsl:with-param name="pPersNameSur" select="$pPersNameSur" />
             <xsl:with-param name="pPersNameFore" select="$pPersNameFore" />
             <xsl:with-param name="pBiogHist" select="$pBiogHist" />
-        </xsl:call-template>
-        <!-- For LOC finding aids, include a reference to the {{RAMP release PD}} template on the Talk page. -->
+        </xsl:call-template>        
         <xsl:choose>
             <xsl:when test="contains(eac:eac-cpf/eac:control/eac:sources/eac:source/@xlink:href,'loc.mss')">            				            				        		
-                <xsl:text>&#10;</xsl:text>
-                <xsl:text>&#10;</xsl:text>
-                <xsl:text>&lt;!-- IMPORTANT: Please copy the following template to the Talk page of the current article, deleting these instructions:</xsl:text>
-                <xsl:text>&#10;</xsl:text>
-                <xsl:text>&#10;</xsl:text>
-                <xsl:text>{{RAMP release PD</xsl:text>
-                <xsl:text>&#10;</xsl:text>
-                <xsl:text>| title = </xsl:text>
-                <xsl:value-of select="eac:eac-cpf/eac:control/eac:sources/eac:source/eac:sourceEntry[1]"/>            
-                <xsl:text>&#10;</xsl:text>
-                <xsl:text>| url = </xsl:text>
-                <xsl:value-of select="eac:eac-cpf/eac:control/eac:sources/eac:source/@xlink:href"/>
-                <xsl:text>&#10;</xsl:text>
-                <xsl:text>}}</xsl:text>            
-                <xsl:text>&#10;</xsl:text>
-                <xsl:text>&#10;</xsl:text>
-                <xsl:text>--&gt;</xsl:text>
-                <xsl:text>&#10;</xsl:text>
-            </xsl:when>
+                <xsl:text>&#10;</xsl:text>                              
+            </xsl:when>      
             <xsl:otherwise>
-                <xsl:text>&#10;</xsl:text>
-                <xsl:text>&#10;</xsl:text>
-                <xsl:text>&lt;!-- IMPORTANT: After archiving the source website at http://webcitation.org/archive, please copy the following template to the Talk page of your Wikipedia article, deleting these instructions:</xsl:text>
-                <xsl:text>&#10;</xsl:text>
-                <xsl:text>&#10;</xsl:text>
-                <xsl:text>{{RAMP release</xsl:text>
                 <xsl:text>&#10;</xsl:text>                
-                <xsl:text>| url = </xsl:text>
-                <xsl:value-of select="eac:eac-cpf/eac:control/eac:sources/eac:source/@xlink:href"/>
-                <xsl:text>&#10;</xsl:text>
-                <xsl:text>| archive_url = </xsl:text>
-                <xsl:text>[to be obtained from http://webcitation.org/archive]</xsl:text>            
-                <xsl:text>&#10;</xsl:text>
-                <xsl:text>}}</xsl:text>            
-                <xsl:text>&#10;</xsl:text>
-                <xsl:text>&#10;</xsl:text>
-                <xsl:text>--&gt;</xsl:text>
-                <xsl:text>&#10;</xsl:text>
             </xsl:otherwise>
         </xsl:choose>        
     </xsl:template>
@@ -346,48 +311,13 @@
             <xsl:with-param name="pNameType">corporate</xsl:with-param>
             <xsl:with-param name="pCorpName" select="$pCorpName" />
             <xsl:with-param name="pBiogHist" select="$pBiogHist" />
-        </xsl:call-template>
-        <!-- For LOC finding aids, include a reference to the {{RAMP release PD}} template on the Talk page. -->
+        </xsl:call-template>        
         <xsl:choose>
             <xsl:when test="contains(eac:eac-cpf/eac:control/eac:sources/eac:source/@xlink:href,'loc.mss')">            				            				        		
-                <xsl:text>&#10;</xsl:text>
-                <xsl:text>&#10;</xsl:text>
-                <xsl:text>&lt;!-- IMPORTANT: Please copy the following template to the Talk page of the current article, deleting these instructions:</xsl:text>
-                <xsl:text>&#10;</xsl:text>
-                <xsl:text>&#10;</xsl:text>
-                <xsl:text>{{RAMP release PD</xsl:text>
-                <xsl:text>&#10;</xsl:text>
-                <xsl:text>| title = </xsl:text>
-                <xsl:value-of select="eac:eac-cpf/eac:control/eac:sources/eac:source/eac:sourceEntry[1]"/>            
-                <xsl:text>&#10;</xsl:text>
-                <xsl:text>| url = </xsl:text>
-                <xsl:value-of select="eac:eac-cpf/eac:control/eac:sources/eac:source/@xlink:href"/>
-                <xsl:text>&#10;</xsl:text>
-                <xsl:text>}}</xsl:text>            
-                <xsl:text>&#10;</xsl:text>
-                <xsl:text>&#10;</xsl:text>
-                <xsl:text>--&gt;</xsl:text>
-                <xsl:text>&#10;</xsl:text>
-            </xsl:when>
+                <xsl:text>&#10;</xsl:text>                               
+            </xsl:when>  
             <xsl:otherwise>
-                <xsl:text>&#10;</xsl:text>
-                <xsl:text>&#10;</xsl:text>
-                <xsl:text>&lt;!-- IMPORTANT: After archiving the source website at http://webcitation.org/archive, please copy the following template to the Talk page of your Wikipedia article, deleting these instructions:</xsl:text>
-                <xsl:text>&#10;</xsl:text>
-                <xsl:text>&#10;</xsl:text>
-                <xsl:text>{{RAMP release</xsl:text>
                 <xsl:text>&#10;</xsl:text>                
-                <xsl:text>| url = </xsl:text>
-                <xsl:value-of select="eac:eac-cpf/eac:control/eac:sources/eac:source/@xlink:href"/>
-                <xsl:text>&#10;</xsl:text>
-                <xsl:text>| archive_url = </xsl:text>
-                <xsl:text>[to be obtained from http://webcitation.org/archive]</xsl:text>            
-                <xsl:text>&#10;</xsl:text>
-                <xsl:text>}}</xsl:text>            
-                <xsl:text>&#10;</xsl:text>
-                <xsl:text>&#10;</xsl:text>
-                <xsl:text>--&gt;</xsl:text>
-                <xsl:text>&#10;</xsl:text>
             </xsl:otherwise>
         </xsl:choose>        
     </xsl:template>
@@ -396,6 +326,10 @@
         <xsl:param name="pPersName" select="$pPersName" />
         <xsl:param name="pPersNameSur" select="$pPersNameSur" />
         <xsl:param name="pPersNameFore" select="$pPersNameFore" />
+        <xsl:text>&lt;!-- </xsl:text>        
+        <xsl:text>This article contains metadata extracted by the [[Wikipedia:Tools/RAMP_editor|RAMP editor]]. Text extracted by the RAMP editor is released under a [[Template:Cc-by-sa-3.0|Creative Commons Attribution-ShareAlike 3.0]] and [[Template:GFDL|GNU Free Documentation]] license. Bibliographic data from [http://www.worldcat.org/ OCLC WorldCat]--made available under the [http://opendatacommons.org/licenses/by/1.0/ Open Data Commons Attribution License] (ODC-By)--is also utilized. Please improve this article in any way you see fit.</xsl:text>        
+        <xsl:text> --&gt;</xsl:text>
+        <xsl:text>&#10;</xsl:text>        
         <xsl:text>{{Infobox person</xsl:text>
         <xsl:text>&#09;</xsl:text>
     	<xsl:text>&lt;!-- See http://en.wikipedia.org/wiki/Template:Infobox_person for complete template. Note: Wikipedia supports a variety of different Infobox templates, and a more specific template may be appropriate for this person (for example, {{Infobox writer}}). --&gt;</xsl:text>
@@ -490,6 +424,10 @@
     </xsl:template>
     <!-- Output Infobox for corporate bodies. -->
     <xsl:template name="tCBodyInfobox">
+        <xsl:text>&lt;!-- </xsl:text>        
+        <xsl:text>This article contains metadata extracted by the [[Wikipedia:Tools/RAMP_editor|RAMP editor]]. Text extracted by the RAMP editor is released under a [[Template:Cc-by-sa-3.0|Creative Commons Attribution-ShareAlike 3.0]] and [[Template:GFDL|GNU Free Documentation]] license. Bibliographic data from [http://www.worldcat.org/ OCLC WorldCat]--made available under the [http://opendatacommons.org/licenses/by/1.0/ Open Data Commons Attribution License] (ODC-By)--is also utilized. Please improve this article in any way you see fit.</xsl:text>        
+        <xsl:text> --&gt;</xsl:text>
+        <xsl:text>&#10;</xsl:text>  
         <xsl:text>{{Infobox organization</xsl:text>
         <xsl:text>&#09;</xsl:text>
     	<xsl:text>&lt;!-- See https://en.wikipedia.org/wiki/Template:Infobox_organization for complete template. Note: Wikipedia supports a variety of different Infobox templates, and a more specific may be appropriate for this organization (for example, {{Infobox university}}). --&gt;</xsl:text>
@@ -675,15 +613,7 @@
     		<xsl:when test="eac:eac-cpf/eac:control/eac:sources/eac:source/eac:objectXMLWrap">    			    			    		    
     		    <xsl:choose>    		        
     		        <!-- For LOC finding aids... -->
-          		    <xsl:when test="contains(eac:eac-cpf/eac:control/eac:sources/eac:source/@xlink:href,'//loc')">
-          		        <!-- Include the {{Cite RAMP}} template with "pd" (public domain) parameter = "yes"... -->
-          		        <xsl:text>{{Cite RAMP</xsl:text>
-          		        <xsl:text>&#10;</xsl:text>
-          		        <xsl:text>| pd = yes</xsl:text>
-          		        <xsl:text>&#10;</xsl:text>
-          		        <xsl:text>}}</xsl:text>
-          		        <xsl:text>&#10;</xsl:text>
-          		        <xsl:text>&#10;</xsl:text>
+          		    <xsl:when test="contains(eac:eac-cpf/eac:control/eac:sources/eac:source/@xlink:href,'//loc')">          		        
           		        <!-- Reflist template. -->
           		        <xsl:choose>
           		            <xsl:when test="$pBiogHist/eac:chronList/eac:chronItem">          		                              		        
@@ -745,15 +675,12 @@
           		            </xsl:otherwise>
           		        </xsl:choose>
           			</xsl:when>
-                    <xsl:otherwise>
-                        <!-- Include the {{Cite RAMP}} template with "pd" (public domain) parameter = "no"... -->                        
-                        <xsl:text>{{Cite RAMP}}</xsl:text>                                                                        
-                        <xsl:text>&#10;</xsl:text>                        
+                    <xsl:otherwise>                        
                         <!-- Include {{Reflist}} template. -->                        
                         <xsl:text>&lt;!-- Insert references/citations inside the following {{Reflist}} template. --&gt;</xsl:text>                        
                         <xsl:text>&#10;</xsl:text>
-                        <xsl:text>&lt;!-- Data supplied in the {{Cite open archival metadata}} template(s) may need to be edited (inverted, updated based on revision info, etc.). Separate multiple authors with a semicolon and a single space. --&gt;</xsl:text>                        
-                        <xsl:text>&#10;</xsl:text>     
+                        <xsl:text>&lt;!-- Data supplied in the {{Cite open archival metadata}} template(s) may need to be edited (updated based on revision info, etc.). Separate multiple authors with a semicolon and a single space. --&gt;</xsl:text>
+                        <xsl:text>&#10;</xsl:text>
                         <xsl:text>{{Reflist|refs=</xsl:text>
                         <!-- Insert a default reference to the archival metadata source. -->                           
                         <xsl:for-each select="eac:eac-cpf/eac:control/eac:sources/eac:source[eac:sourceEntry]">
@@ -861,13 +788,10 @@
                     </xsl:otherwise>    		        
     		    </xsl:choose>    			    			
     		</xsl:when>    				    	
-    	    <xsl:when test="//eac:citation[not(parent::eac:conventionDeclaration)]">
-    	        <!-- Include the {{Cite RAMP}} template with "pd" (public domain) parameter = "no"... -->                        
-    	        <xsl:text>{{Cite RAMP}}</xsl:text>    	        
-    	        <xsl:text>&#10;</xsl:text>
+    	    <xsl:when test="//eac:citation[not(parent::eac:conventionDeclaration)]">    	            	      
     	        <!-- Include empty {{Reflist}} template. -->                        
     	        <xsl:text>&lt;!-- Insert references/citations inside the following template: --&gt;</xsl:text>
-    	        <xsl:text>&#10;</xsl:text>
+    	        <xsl:text>&#10;</xsl:text>    	        
     	        <xsl:text>{{Reflist|refs=</xsl:text>
     			<!-- Add any citation elements (not in <conventionDeclaration>. -->
     			<xsl:for-each select="//eac:citation[not(parent::eac:conventionDeclaration)]">    				
@@ -879,12 +803,9 @@
     			    <xsl:text>&#10;</xsl:text>    			    
     			</xsl:for-each>
     		</xsl:when>
-    	    <xsl:otherwise>
-    	        <!-- Include the {{Cite RAMP}} template with "pd" (public domain) parameter = "no"... -->                        
-    	        <xsl:text>{{Cite RAMP}}</xsl:text>
-    	        <xsl:text>&#10;</xsl:text>    	        
+    	    <xsl:otherwise>    	            	       
     	        <!-- Include empty {{Reflist}} template. -->                        
-    	        <xsl:text>&lt;!-- Insert references/citations inside the following template: --&gt;</xsl:text>
+    	        <xsl:text>&lt;!-- Insert references/citations inside the following template: --&gt;</xsl:text>    	
     	        <xsl:text>&#10;</xsl:text>
     	        <xsl:text>{{Reflist|refs=</xsl:text>
     	        <xsl:text>&#10;</xsl:text>
@@ -1560,8 +1481,7 @@
                     </xsl:choose>                  
                 </xsl:if>         
                 <xsl:text>&#10;</xsl:text>   
-            </xsl:for-each>
-            <xsl:text>&#10;</xsl:text>
+            </xsl:for-each>            
         </xsl:if>        
     </xsl:template>
     <!-- Output VIAF ID and/or LCCN, if available. -->
@@ -1742,10 +1662,10 @@
         <xsl:param name="pPersNameFore" select="$pPersNameFore" />
         <xsl:text>&#10;</xsl:text>
         <xsl:text>{{Persondata</xsl:text>
-    	<xsl:text>     &lt;!-- Metadata: see [[Wikipedia:Persondata]]. --&gt;</xsl:text>
+        <xsl:text>     &lt;!-- Metadata: see [[Wikipedia:Persondata]]. --&gt;</xsl:text>
         <xsl:text>&#10;</xsl:text>
         <xsl:text>| NAME</xsl:text>
-    	<xsl:text>&#09;&#09;&#09;&#09;= </xsl:text>
+        <xsl:text>&#09;&#09;&#09;&#09;= </xsl:text>
         <xsl:choose>
             <xsl:when test="$pPersNameFore or $pPersNameSur">
                 <xsl:value-of select="normalize-space($pPersNameSur)" />
@@ -1771,13 +1691,13 @@
         </xsl:choose>
         <xsl:text>&#10;</xsl:text>
         <xsl:text>| ALTERNATIVE NAMES</xsl:text>
-    	<xsl:text>&#09;= </xsl:text>
+        <xsl:text>&#09;= </xsl:text>
         <xsl:text>&#10;</xsl:text>
         <xsl:text>| SHORT DESCRIPTION</xsl:text>
-    	<xsl:text>&#09;= </xsl:text>
+        <xsl:text>&#09;= </xsl:text>
         <xsl:text>&#10;</xsl:text>
         <xsl:text>| DATE OF BIRTH</xsl:text>
-    	<xsl:text>&#09;&#09;= </xsl:text>
+        <xsl:text>&#09;&#09;= </xsl:text>
         <!-- Call template to attempt to prepopulate birth date info. -->
         <xsl:call-template name="tNameDateParser">
             <xsl:with-param name="pBirthYr" select="'true'" />
@@ -1785,7 +1705,7 @@
         </xsl:call-template>
         <xsl:text>&#10;</xsl:text>
         <xsl:text>| PLACE OF BIRTH</xsl:text>
-    	<xsl:text>&#09;&#09;= </xsl:text>
+        <xsl:text>&#09;&#09;= </xsl:text>
         <!-- Call template to attempt to prepopulate birth place info. -->
         <!-- Under revision ...
         <xsl:call-template name="tBirthPlaceFinder">
@@ -1794,7 +1714,7 @@
         -->
         <xsl:text>&#10;</xsl:text>
         <xsl:text>| DATE OF DEATH</xsl:text>
-    	<xsl:text>&#09;&#09;= </xsl:text>
+        <xsl:text>&#09;&#09;= </xsl:text>
         <!-- Call template to attempt to prepopulate death date info. -->
         <xsl:call-template name="tNameDateParser">
             <xsl:with-param name="pDeathYr" select="'true'" />
@@ -1802,7 +1722,7 @@
         </xsl:call-template>
         <xsl:text>&#10;</xsl:text>
         <xsl:text>| PLACE OF DEATH</xsl:text>
-    	<xsl:text>&#09;&#09;= </xsl:text>
+        <xsl:text>&#09;&#09;= </xsl:text>
         <!-- Call template to attempt to prepopulate death place info. -->
         <!-- Under revision ...
         <xsl:call-template name="tDeathPlaceFinder">
@@ -1874,7 +1794,7 @@
                 <xsl:text>&#10;</xsl:text>
             </xsl:when>
         </xsl:choose>
-    </xsl:template>
+    </xsl:template>    
     <!-- Include some basic categories. -->
     <xsl:template name="tCategories">
         <xsl:param name="pNameType" />
@@ -1914,18 +1834,15 @@
                 <xsl:text>--&gt;</xsl:text>
                 <xsl:text>&#10;</xsl:text>
             </xsl:if>            
-            <xsl:if test="eac:eac-cpf/eac:cpfDescription/eac:description/eac:localDescription[@localType[contains(.,'6')]]|eac:eac-cpf/eac:cpfDescription/eac:description/eac:localDescription[@localType='subject']">
-                <xsl:text>&#10;</xsl:text>
-                <xsl:text>&lt;!-- Note: The following categories have been generated from the EAC input form, the original EAD finding aid, or else using FAST headings added from WorldCat Identities. These categories should be replaced with appropriate Wikipedia categories (for example, using the HotCat tool).</xsl:text>
-                <xsl:text>&#10;</xsl:text>
+            <xsl:if test="eac:eac-cpf/eac:cpfDescription/eac:description/eac:localDescription[@localType[contains(.,'6')]]|eac:eac-cpf/eac:cpfDescription/eac:description/eac:localDescription[@localType='subject']">                
+                <xsl:text>&lt;!-- Note: The following categories have been generated from the EAC input form, the original EAD finding aid, or else using FAST headings added from WorldCat Identities. These categories should be replaced with appropriate Wikipedia categories (for example, using the HotCat tool).</xsl:text>                
                 <xsl:text>&#10;</xsl:text>
                 <xsl:for-each select="eac:eac-cpf/eac:cpfDescription/eac:description/eac:localDescription[@localType[contains(.,'6')]]|eac:eac-cpf/eac:cpfDescription/eac:description/eac:localDescription[@localType='subject']">
                     <xsl:sort select="translate(eac:term,'ÁÀÉÈÍÓÚÜÑáàéèíóúúüñ','AAEEIOUUNaaeeiouuun')" data-type="text" />
                     <xsl:text>[[Category:</xsl:text>
                     <xsl:value-of select="normalize-space(eac:term)" />
                     <xsl:text>]]</xsl:text>
-                    <xsl:text>&#10;</xsl:text>
-                    <xsl:text>&#10;</xsl:text>
+                    <xsl:text>&#10;</xsl:text>                    
                 </xsl:for-each>                
                 <xsl:text>--&gt;</xsl:text>
                 <xsl:text>&#10;</xsl:text>
@@ -1933,10 +1850,10 @@
             <!-- Output some sample thematic categories, along with stub template, if appropriate. NB: Experimental. This is an area to developed. -->
             <xsl:choose>
                 <xsl:when test="contains($pBiogHist,'Cuban')">
-                    <xsl:if test="contains($pBiogHist,'exile') or contains($pBiogHist,'exiled') or contains(eac:eac-cpf/eac:cpfDescription/eac:relations/eac:resourceRelation/eac:objectXMLWrap/ead:scopecontent, 'exile')">
+                    <xsl:if test="contains($pBiogHist,'exiled') or contains(eac:eac-cpf/eac:cpfDescription/eac:relations/eac:resourceRelation/eac:objectXMLWrap/ead:scopecontent, 'exiled')">
                         <xsl:text>[[Category:Cuban exiles]]</xsl:text>
                     </xsl:if>
-                    <xsl:if test="contains($pBiogHist,'novelist') or contains($pBiogHist,'novels')">
+                    <xsl:if test="contains($pBiogHist,'novelist')">
                         <xsl:text>&#10;</xsl:text>
                         <xsl:text>[[Category:Cuban novelists]]</xsl:text>
                     </xsl:if>
@@ -1944,6 +1861,12 @@
                         <xsl:text>&#10;</xsl:text>
                         <xsl:text>[[Category:Cuban anthropologists]]</xsl:text>
                     </xsl:if>
+                    <xsl:text>&#10;</xsl:text>
+                    <xsl:text>&lt;!-- </xsl:text>
+                    <xsl:text>The following category will not be displayed; it will add the present article to a tracking page for all articles that have been worked on using the RAMP editor. See https://en.wikipedia.org/wiki/Category:Articles_with_information_extracted_by_the_RAMP_editor</xsl:text>
+                    <xsl:text> --&gt;</xsl:text>
+                    <xsl:text>&#10;</xsl:text>
+                    <xsl:text>[[Category:Articles with information extracted by the RAMP editor]]</xsl:text>
                     <!-- If the person bio is less than 5000 characters, consider it a stub. -->
                     <xsl:if test="string-length($pBiogHist) &lt; 5000">
                         <xsl:text>&#10;</xsl:text>
@@ -1960,32 +1883,33 @@
                 </xsl:otherwise>
             </xsl:choose>
         </xsl:if>
-        <xsl:if test="$pNameType='corporate'">
-            <xsl:choose>
-                <xsl:when test="eac:eac-cpf/eac:cpfDescription/eac:description/eac:localDescription[@localType[contains(.,'6')]|@localType='subject']">
-                    <xsl:text>&lt;!-- Note: The following categories have been generated from the the EAC input form, the original EAD finding aid, or else using FAST headings added from WorldCat Identities. These categories should be replaced with appropriate Wikipedia categories (for example, using the HotCat tool).</xsl:text>
+        <xsl:if test="$pNameType='corporate'">            
+            <xsl:if test="eac:eac-cpf/eac:cpfDescription/eac:description/eac:localDescription[@localType[contains(.,'6')]|@localType='subject']">
+                <xsl:text>&lt;!-- Note: The following categories have been generated from the the EAC input form, the original EAD finding aid, or else using FAST headings added from WorldCat Identities. These categories should be replaced with appropriate Wikipedia categories (for example, using the HotCat tool).</xsl:text>
+                <xsl:text>&#10;</xsl:text>                    
+                <xsl:for-each select="eac:eac-cpf/eac:cpfDescription/eac:description/eac:localDescription[@localType[contains(.,'6')]|@localType='subject']">
+                    <xsl:sort select="translate(eac:term,'ÁÀÉÈÍÓÚÜÑáàéèíóúúüñ','AAEEIOUUNaaeeiouuun')" data-type="text" />
+                    <xsl:text>[[Category:</xsl:text>
+                    <xsl:value-of select="normalize-space(.)" />
+                    <xsl:text>]]</xsl:text>                                                                 
+                </xsl:for-each>                    
+                <xsl:text> --&gt;</xsl:text>
+                <xsl:text>&#10;</xsl:text>
+                <xsl:text>&lt;!-- </xsl:text>
+                <xsl:text>The following category will not be displayed; it will add the present article to a tracking page for all articles that have been worked on using the RAMP editor. See https://en.wikipedia.org/wiki/Category:Articles_with_information_extracted_by_the_RAMP_editor</xsl:text>
+                <xsl:text> --&gt;</xsl:text>
+                <xsl:text>&#10;</xsl:text>
+                <xsl:text>[[Category:Articles with information extracted by the RAMP editor]]</xsl:text>
+                <xsl:if test="string-length($pBiogHist) &lt; 5000">
                     <xsl:text>&#10;</xsl:text>
                     <xsl:text>&#10;</xsl:text>
-                    <xsl:for-each select="eac:eac-cpf/eac:cpfDescription/eac:description/eac:localDescription[@localType[contains(.,'6')]|@localType='subject']">
-                        <xsl:sort select="translate(eac:term,'ÁÀÉÈÍÓÚÜÑáàéèíóúúüñ','AAEEIOUUNaaeeiouuun')" data-type="text" />
-                        <xsl:text>[[Category:</xsl:text>
-                        <xsl:value-of select="normalize-space(.)" />
-                        <xsl:text>]]</xsl:text>
-                        <xsl:text>&#10;</xsl:text>
-                        <xsl:text>&#10;</xsl:text>
-                    </xsl:for-each>                    
-                    <xsl:text>--&gt;</xsl:text>
-                    <xsl:text>&#10;</xsl:text>
-                    <xsl:if test="string-length($pBiogHist) &lt; 5000">
-                        <xsl:text>&#10;</xsl:text>
-                        <xsl:text>{{Org-stub}}</xsl:text>
-                    </xsl:if>
-                </xsl:when>
-                <!-- If the corporate body bio is less than 5000 characters, consider it a stub. -->
-                <xsl:when test="string-length($pBiogHist) &lt; 5000">
-                    <xsl:text>{{Org-stub}}</xsl:text>
-                </xsl:when>
-            </xsl:choose>
+                    <xsl:text>&#10;</xsl:text>                        
+                </xsl:if>
+            </xsl:if>
+            <!-- If the corporate body bio is less than 5000 characters, consider it a stub. -->
+            <xsl:if test="string-length($pBiogHist) &lt; 5000">
+                <xsl:text>{{Org-stub}}</xsl:text>
+            </xsl:if>            
         </xsl:if>
     </xsl:template>
     <!-- Temporarily, provide a list of related enties from subject headings or cpfRelations so that users can explore possibilities for links from other pages. 

@@ -771,7 +771,7 @@
                                 </xsl:for-each>
                             </list>
                         </xsl:when>
-                        <xsl:when test="ead:ead/ead:archdesc/ead:bioghist/ead:chronlist">
+                                                <xsl:when test="ead:ead/ead:archdesc/ead:bioghist/ead:chronlist">
                             <chronList>
                                 <xsl:for-each select="ead:ead/ead:archdesc/ead:bioghist/ead:chronlist/ead:chronitem">
                                     <xsl:variable name="vDateVal" select="normalize-space(ead:date)" />
