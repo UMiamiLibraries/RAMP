@@ -596,7 +596,7 @@ class WorldCat_Ingestor extends Ingestor
 			    $lobjResourceRelationNode['elements']['relationEntry'][] = array( "attributes" => array( "localType" => "isbn" ),
   		                                                                          "elements" => $lobjCitation['isbn'] );
   		                                                                          
-  		    if( $lobjCitation['summary'] != '' )
+  		    if( isset($lobjCitation['summary']) and $lobjCitation['summary'] != '' )
 			    $lobjResourceRelationNode['elements']['descriptiveNote']['elements']['p'][] = array( "elements" => $lobjCitation['summary'] );
   		    
             /*
@@ -677,7 +677,7 @@ class WorldCat_Ingestor extends Ingestor
 			   }
 			}	
 			
-			if( $lobjCitation['summary'] != '' )
+			if( isset($lobjCitation['summary']) and $lobjCitation['summary'] != '' )
 			    $lobjResourceRelationNode['elements']['descriptiveNote']['elements']['p'][] = array( "elements" => $lobjCitation['summary'] );
 
 			//sometimes WorldCat API lists works by under works about, tested here and handled
