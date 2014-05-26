@@ -554,7 +554,7 @@
             </xsl:for-each>
         	<xsl:if test="position() = last()">        		        	
 	        	<!-- For LOC finding aids, include a reference to the {{Cite LOC finding aid}} template. -->
-	        	<xsl:if test="contains(../../../../../eac:control/eac:sources/eac:source/@xlink:href,'//loc')">            				            				        		
+	        	<xsl:if test="contains(../../../../../eac:control/eac:sources/eac:source/@xlink:href,'loc.')">            				            				        		
 	        		<xsl:text>&lt;ref name="LOCMD"/&gt;</xsl:text>	        			        	
 	        	</xsl:if>
         	</xsl:if>
@@ -613,7 +613,7 @@
     		<xsl:when test="eac:eac-cpf/eac:control/eac:sources/eac:source/eac:objectXMLWrap">    			    			    		    
     		    <xsl:choose>    		        
     		        <!-- For LOC finding aids... -->
-          		    <xsl:when test="contains(eac:eac-cpf/eac:control/eac:sources/eac:source/@xlink:href,'//loc')">          		        
+          		    <xsl:when test="contains(eac:eac-cpf/eac:control/eac:sources/eac:source/@xlink:href,'loc.')">          		        
           		        <!-- Reflist template. -->
           		        <xsl:choose>
           		            <xsl:when test="$pBiogHist/eac:chronList/eac:chronItem">          		                              		        
