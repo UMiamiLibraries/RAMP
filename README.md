@@ -108,10 +108,10 @@ database, along with the newly created EAC-CPF record. If a duplicate EAD file i
    
    * **In order for the VIAF ingest routine to run successfully with large queries, you will need to increase the `max_execution_time` value in your `php.ini` settings. Suggested value is at least `600`, although greater values (up to `3600`, for example), may be necessary.**  
     
-### 2.5 Working with Mediawiki Markup
-   After ingestion, the user can convert the EAC record to Mediawiki
-   Markup. They are presented with a different editor for working with the
-   Mediawiki markup. 
+### 2.5 Working with MediaWiki Markup
+   After ingestion, the user can convert the EAC record to MediaWiki
+   markup. They are presented with a different editor for working with the
+   MediaWiki markup. 
 
 ### 2.6 Submitting Wiki Article to Wikipedia
    Before submitting the generated Wiki article to Wikipedia, the user must
