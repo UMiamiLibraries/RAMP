@@ -67,9 +67,7 @@ Read more about RAMP in _[Code4Lib Journal](http://journal.code4lib.org/articles
 ## 2 Usage
 
 ### 2.1 EAD to EAC Conversion
-   The 'Convert' link leads to a form that allows you to specify the path
-   to EAD files. This path should have appropriate permissions so that the
-   script can read and write files.
+   The 'Convert' link leads to a page where you can convert a set of EAD files to the EAC-CPF format.
    
    **Note**: 
    
