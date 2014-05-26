@@ -67,9 +67,7 @@ Read more about RAMP in _[Code4Lib Journal](http://journal.code4lib.org/articles
 ## 2 Usage
 
 ### 2.1 EAD to EAC Conversion
-   The 'Convert' link leads to a form that allows you to specify the path
-   to EAD files. This path should have appropriate permissions so that the
-   script can read and write files.
+   The 'Convert' link leads to a page where you can convert a set of EAD files to the EAC-CPF format.
    
    **Note**: 
    
@@ -89,7 +87,7 @@ database, along with the newly created EAC-CPF record. If a duplicate EAD file i
    be able to write a stub EAD file necessary to create a new EAC record. 
 
 ### 2.3 Editing EAC Files
-   The 'Edit' link displays a select box taht includes a list of names.
+   The 'Edit' link displays a select box that includes a list of names.
    Selecting a name loads their EAC record into the editor. A user can
    manually edit the EAC XML in the editor. 
    During the editing process, the files are monitored and sent to a
@@ -108,16 +106,16 @@ database, along with the newly created EAC-CPF record. If a duplicate EAD file i
    
    **Note**: 
    
-   * **In order for the VIAF ingest routine to run successfully with large queries, you will need to increase the `max_execution_time` value in your `php.ini` settings. Suggested value is '600.'**  
+   * **In order for the VIAF ingest routine to run successfully with large queries, you will need to increase the `max_execution_time` value in your `php.ini` settings. Suggested value is at least `600`, although greater values (up to `3600`, for example), may be necessary.**  
     
-### 2.5 Working with Mediawiki Markup
-   After ingestion, the user can convert the EAC record to Mediawiki
-   Markup. They are presented with a different editor for working with the
-   Mediawiki markup. 
+### 2.5 Working with MediaWiki Markup
+   After ingestion, users can convert the EAC record to MediaWiki
+   markup. They are presented with a different editor for working with the
+   MediaWiki markup. 
 
-### 2.6 Submitting Wiki Article to Wikipedia
-   Before submitting the generated Wiki article to Wikipedia, the user must
-   use the 'Get Existing Wiki' button to check if Wikipedia has an existing
+### 2.6 Submitting Wiki Article to (English) Wikipedia
+   Before submitting the generated Wiki article to Wikipedia, users must
+   use the 'Get Existing Wiki' button to check to see whether Wikipedia has an existing
    article for the entity. If there 
    is an existing article they are presented with the generated and
    existing articles side by side. They can highlight a section of either
