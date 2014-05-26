@@ -87,7 +87,7 @@ database, along with the newly created EAC-CPF record. If a duplicate EAD file i
    be able to write a stub EAD file necessary to create a new EAC record. 
 
 ### 2.3 Editing EAC Files
-   The 'Edit' link displays a select box taht includes a list of names.
+   The 'Edit' link displays a select box that includes a list of names.
    Selecting a name loads their EAC record into the editor. A user can
    manually edit the EAC XML in the editor. 
    During the editing process, the files are monitored and sent to a
@@ -106,7 +106,7 @@ database, along with the newly created EAC-CPF record. If a duplicate EAD file i
    
    **Note**: 
    
-   * **In order for the VIAF ingest routine to run successfully with large queries, you will need to increase the `max_execution_time` value in your `php.ini` settings. Suggested value is '600.'**  
+   * **In order for the VIAF ingest routine to run successfully with large queries, you will need to increase the `max_execution_time` value in your `php.ini` settings. Suggested value is at least `600`, although greater values (up to `3600`, for example), may be necessary.**  
     
 ### 2.5 Working with Mediawiki Markup
    After ingestion, the user can convert the EAC record to Mediawiki
