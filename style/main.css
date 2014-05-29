@@ -717,7 +717,8 @@ button.on {
 }
 
 .wiki_container textarea {
-    min-width:600px;
+    width:600px;
+    min-width:500px;
     min-height:425px;    
     font-size:1.06em;
     margin-bottom:20%;
