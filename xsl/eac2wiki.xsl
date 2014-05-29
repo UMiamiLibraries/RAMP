@@ -677,10 +677,28 @@
           		                <xsl:text>| title = </xsl:text>
           		                <xsl:value-of select="eac:eac-cpf/eac:control/eac:sources/eac:source/eac:sourceEntry[1]"/>    				    			
           		                <xsl:text>&#10;</xsl:text>
-          		                <xsl:text>| author = </xsl:text>
+          		                <xsl:text>| author = </xsl:text>          		                
+          		                <xsl:value-of select="normalize-space(//ead:author)" />
           		                <xsl:text>&#10;</xsl:text>
           		                <xsl:text>| date = </xsl:text>
-          		                <xsl:value-of select="eac:eac-cpf/eac:control/eac:sources/eac:source/eac:objectXMLWrap/ead:ead/ead:eadheader/ead:filedesc/ead:publicationstmt/ead:date/@normal"/>
+          		                <xsl:for-each select="//eac:objectXMLWrap/ead:ead/ead:archdesc/ead:descgrp/ead:processinfo/ead:p">
+          		                    <xsl:variable name="vLOCDate">
+          		                        <xsl:value-of select="normalize-space(translate(.,concat($vAlpha,$vPunct2),''))"/>
+          		                    </xsl:variable>
+          		                    <xsl:choose>
+          		                        <xsl:when test="contains($vLOCDate,' ')">
+          		                            <xsl:value-of select="substring-before($vLOCDate,' ')"/>
+          		                            <xsl:text>, </xsl:text>
+          		                            <xsl:value-of select="substring-after($vLOCDate,' ')"/>
+          		                        </xsl:when>
+          		                        <xsl:otherwise>
+          		                            <xsl:value-of select="$vLOCDate"/>    
+          		                        </xsl:otherwise>
+          		                    </xsl:choose>          		                              		                             
+          		                </xsl:for-each> 
+          		                <!--
+                  			    <xsl:value-of select="eac:eac-cpf/eac:control/eac:sources/eac:source/eac:objectXMLWrap/ead:ead/ead:eadheader/ead:filedesc/ead:publicationstmt/ead:date/@normal"/>
+                  			    -->
           		                <xsl:text>&#10;</xsl:text>
           		                <xsl:text>| accessdate = </xsl:text>
           		                <xsl:call-template name="tAccessDateParser">
