@@ -327,7 +327,7 @@
         <xsl:param name="pPersNameSur" select="$pPersNameSur" />
         <xsl:param name="pPersNameFore" select="$pPersNameFore" />
         <xsl:text>&lt;!-- </xsl:text>        
-        <xsl:text>This article contains metadata extracted by the [[Wikipedia:Tools/RAMP_editor|RAMP editor]]. Text extracted by the RAMP editor is released under a [[Template:Cc-by-sa-3.0|Creative Commons Attribution-ShareAlike 3.0]] and [[Template:GFDL|GNU Free Documentation]] license. Bibliographic data from [http://www.worldcat.org/ OCLC WorldCat]--made available under the [http://opendatacommons.org/licenses/by/1.0/ Open Data Commons Attribution License] (ODC-By)--is also utilized. Please improve this article in any way you see fit.</xsl:text>        
+        <xsl:text>This article contains metadata extracted by the [[Wikipedia:Tools/RAMP_editor|RAMP editor]]. Text extracted by the RAMP editor is released under a [[Template:Cc-by-sa-3.0|Creative Commons Attribution-ShareAlike 3.0]] and [[Template:GFDL|GNU Free Documentation]] license. Bibliographic data from [http://www.worldcat.org/ OCLC WorldCat], made available under the [http://opendatacommons.org/licenses/by/1.0/ Open Data Commons Attribution License] (ODC-By), is also utilized. Please improve this article in any way you see fit.</xsl:text>        
         <xsl:text> --&gt;</xsl:text>
         <xsl:text>&#10;</xsl:text>        
         <xsl:text>{{Infobox person</xsl:text>
@@ -425,7 +425,7 @@
     <!-- Output Infobox for corporate bodies. -->
     <xsl:template name="tCBodyInfobox">
         <xsl:text>&lt;!-- </xsl:text>        
-        <xsl:text>This article contains metadata extracted by the [[Wikipedia:Tools/RAMP_editor|RAMP editor]]. Text extracted by the RAMP editor is released under a [[Template:Cc-by-sa-3.0|Creative Commons Attribution-ShareAlike 3.0]] and [[Template:GFDL|GNU Free Documentation]] license. Bibliographic data from [http://www.worldcat.org/ OCLC WorldCat]--made available under the [http://opendatacommons.org/licenses/by/1.0/ Open Data Commons Attribution License] (ODC-By)--is also utilized. Please improve this article in any way you see fit.</xsl:text>        
+        <xsl:text>This article contains metadata extracted by the [[Wikipedia:Tools/RAMP_editor|RAMP editor]]. Text extracted by the RAMP editor is released under a [[Template:Cc-by-sa-3.0|Creative Commons Attribution-ShareAlike 3.0]] and [[Template:GFDL|GNU Free Documentation]] license. Bibliographic data from [http://www.worldcat.org/ OCLC WorldCat], made available under the [http://opendatacommons.org/licenses/by/1.0/ Open Data Commons Attribution License] (ODC-By), is also utilized. Please improve this article in any way you see fit.</xsl:text>        
         <xsl:text> --&gt;</xsl:text>
         <xsl:text>&#10;</xsl:text>  
         <xsl:text>{{Infobox organization</xsl:text>
@@ -1927,7 +1927,8 @@
                     <xsl:sort select="translate(eac:term,'ÁÀÉÈÍÓÚÜÑáàéèíóúúüñ','AAEEIOUUNaaeeiouuun')" data-type="text" />
                     <xsl:text>[[Category:</xsl:text>
                     <xsl:value-of select="normalize-space(.)" />
-                    <xsl:text>]]</xsl:text>                                                                 
+                    <xsl:text>]]</xsl:text>     
+                    <xsl:text>&#10;</xsl:text>
                 </xsl:for-each>                    
                 <xsl:text> --&gt;</xsl:text>
                 <xsl:text>&#10;</xsl:text>
