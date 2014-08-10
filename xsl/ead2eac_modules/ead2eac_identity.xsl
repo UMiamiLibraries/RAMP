@@ -27,11 +27,16 @@
                         <part>
                             <xsl:value-of select="ead:ead/ead:archdesc/ead:did/ead:origination/child::node()[1]/@normal" />
                         </part>
-                    </xsl:when>                                                                   
+                    </xsl:when>
+                    <xsl:when test="ead:ead/ead:archdesc/ead:did/ead:origination/child::node()[1][not(@normal)][. != '']">
+                        <part>
+                            <xsl:value-of select="normalize-space(ead:ead/ead:archdesc/ead:did/ead:origination/child::node()[1])" />
+                        </part>
+                    </xsl:when>
                     <!-- For AT-exported EADs, use the name element for @role = 'Collector'... -->
                     <xsl:when test="ead:ead/ead:archdesc/ead:controlaccess/child::node()[1][contains(@role,'Collector')]">
                         <part>
-                            <xsl:value-of select="ead:ead/ead:archdesc/ead:controlaccess/child::node()[1][contains(@role,'Collector')]" />
+                            <xsl:value-of select="normalize-space(ead:ead/ead:archdesc/ead:controlaccess/child::node()[1][contains(@role,'Collector')])" />
                         </part>
                     </xsl:when> 
                     <xsl:otherwise>
