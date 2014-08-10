@@ -223,24 +223,22 @@ $(document).ready(function() {
 
     $('#convert_to_wiki').click(function() {
     
-     // Set cookie for showing wiki screen on dialog close.
-     if ( getCookie('onWiki') != 'true' )
-     {
-         document.cookie = 'onWiki=true';
-     }
-
-    // Added logic for save dialog. --timathom
-    if ( getCookie('saved') != 'saved')
-    {
-        $unsaveddialog.dialog('open');
-    }
-    else 
-    {        
-        $('.main_edit').hide();
-        $('#wiki_switch').append('<img id="loading-image" src="style/images/loading.gif" alt="loading"/>');
-	    eacToMediaWiki();
-    }
-                  
+        // Set cookie for showing wiki screen on dialog close.
+        if ( getCookie('onWiki') != 'true' )
+        {
+            document.cookie = 'onWiki=true';
+        }
+   
+       // Added logic for save dialog. --timathom
+       if ( getCookie('saved') != 'saved')
+       {
+           $unsaveddialog.dialog('open');
+       }
+       else 
+       {        
+           eacToMediaWiki();
+       }     
+        	                   
     });
 
 
