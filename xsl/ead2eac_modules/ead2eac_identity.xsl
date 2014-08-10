@@ -28,7 +28,7 @@
                     </part>
                 </xsl:if>                
                 <!-- Otherwise, output the string as is. -->
-                <xsl:if test="ead:ead/ead:archdesc/ead:did/ead:origination/child::node()[1][not(@normal)]">
+                <xsl:if test="ead:ead/ead:archdesc/ead:did/ead:origination/child::node()[1][not(@normal)][.  !=  '']">
                     <part>
                         <xsl:value-of select="normalize-space(ead:ead/ead:archdesc/ead:did/ead:origination/child::node()[1])" />
                     </part>    
@@ -140,47 +140,53 @@
                         </xsl:choose>
                     </part>
                 </xsl:if>
-                <!-- For RAMP-created records... -->            
-                <xsl:if test="ead:ead/ead:archdesc/ead:did/ead:origination/ead:persname[@encodinganalog='100_1']!=''">
-                    <part localType="surname">
-                        <xsl:value-of select="normalize-space(ead:ead/ead:archdesc/ead:did/ead:origination/ead:persname[@encodinganalog='100_1'])" />
-                    </part>
-                    <xsl:if test="ead:ead/ead:archdesc/ead:did/ead:origination/ead:persname[@encodinganalog='100_0']!=''">
-                        <part localType="forename">
-                            <xsl:value-of select="normalize-space(ead:ead/ead:archdesc/ead:did/ead:origination/ead:persname[@encodinganalog='100_0'])" />
-                        </part>
-                    </xsl:if>
-                    <xsl:if test="ead:ead/ead:archdesc/ead:did/ead:note[@type='nameAuth']/ead:p!=''">
-                        <authorizedForm>
-                            <xsl:value-of select="normalize-space(ead:ead/ead:archdesc/ead:did/ead:note[@type='nameAuth']/ead:p)" />
-                        </authorizedForm>
-                    </xsl:if>
-                </xsl:if>
-                <xsl:if test="ead:ead/ead:archdesc/ead:did/ead:origination/ead:persname[@encodinganalog='100_0']!=''">
-                    <xsl:if test="ead:ead/ead:archdesc/ead:did/ead:origination/ead:persname[@encodinganalog='100_1']!=''">
+                <!-- Accommodate RAMP-created records... -->    
+                <xsl:choose>
+                    <xsl:when test="ead:ead/ead:archdesc/ead:did/ead:origination/ead:persname[@encodinganalog='100_1'] != ''">
                         <part localType="surname">
                             <xsl:value-of select="normalize-space(ead:ead/ead:archdesc/ead:did/ead:origination/ead:persname[@encodinganalog='100_1'])" />
                         </part>
-                    </xsl:if>
-                    <part localType="forename">
-                        <xsl:value-of select="normalize-space(ead:ead/ead:archdesc/ead:did/ead:origination/ead:persname[@encodinganalog='100_0'])" />
-                    </part>
-                    <xsl:if test="ead:ead/ead:archdesc/ead:did/ead:note[@type='nameAuth']/ead:p!=''">
-                        <authorizedForm>
-                            <xsl:value-of select="normalize-space(ead:ead/ead:archdesc/ead:did/ead:note[@type='nameAuth']/ead:p)" />
-                        </authorizedForm>
-                    </xsl:if>
-                </xsl:if>                                                                                           
-                <xsl:if test="ead:ead/ead:archdesc/ead:did/ead:note[@type='nameAuth']/ead:p!=''">
-                    <authorizedForm>
-                        <xsl:value-of select="normalize-space(ead:ead/ead:archdesc/ead:did/ead:note[@type='nameAuth']/ead:p)" />
-                    </authorizedForm>
-                </xsl:if>
-                <xsl:if test="ead:ead/ead:archdesc/ead:did/ead:origination/child::node()[1]/@source">
-                    <authorizedForm>
-                        <xsl:value-of select="normalize-space(ead:ead/ead:archdesc/ead:did/ead:origination/child::node()[1]/@source)" />
-                    </authorizedForm>
-                </xsl:if>
+                        <xsl:if test="ead:ead/ead:archdesc/ead:did/ead:origination/ead:persname[@encodinganalog='100_0'] != ''">
+                            <part localType="forename">
+                                <xsl:value-of select="normalize-space(ead:ead/ead:archdesc/ead:did/ead:origination/ead:persname[@encodinganalog='100_0'])" />
+                            </part>
+                        </xsl:if>
+                        <xsl:if test="ead:ead/ead:archdesc/ead:did/ead:note[@type='nameAuth']/ead:p != ''">
+                            <authorizedForm>
+                                <xsl:value-of select="normalize-space(ead:ead/ead:archdesc/ead:did/ead:note[@type='nameAuth']/ead:p)" />
+                            </authorizedForm>
+                        </xsl:if>
+                    </xsl:when>
+                    <xsl:when test="ead:ead/ead:archdesc/ead:did/ead:origination/ead:persname[@encodinganalog='100_0'] != ''">
+                        <xsl:if test="ead:ead/ead:archdesc/ead:did/ead:origination/ead:persname[@encodinganalog='100_1'] != ''">
+                            <part localType="surname">
+                                <xsl:value-of select="normalize-space(ead:ead/ead:archdesc/ead:did/ead:origination/ead:persname[@encodinganalog='100_1'])" />
+                            </part>
+                        </xsl:if>
+                        <part localType="forename">
+                            <xsl:value-of select="normalize-space(ead:ead/ead:archdesc/ead:did/ead:origination/ead:persname[@encodinganalog='100_0'])" />
+                        </part>
+                        <xsl:if test="ead:ead/ead:archdesc/ead:did/ead:note[@type='nameAuth']/ead:p != ''">
+                            <authorizedForm>
+                                <xsl:value-of select="normalize-space(ead:ead/ead:archdesc/ead:did/ead:note[@type='nameAuth']/ead:p)" />
+                            </authorizedForm>
+                        </xsl:if>
+                    </xsl:when>  
+                    <xsl:otherwise>
+                        <xsl:choose>
+                            <xsl:when test="ead:ead/ead:archdesc/ead:did/ead:note[@type='nameAuth']/ead:p != ''">
+                                <authorizedForm>
+                                    <xsl:value-of select="normalize-space(ead:ead/ead:archdesc/ead:did/ead:note[@type='nameAuth']/ead:p)" />
+                                </authorizedForm>
+                            </xsl:when>
+                            <xsl:when test="ead:ead/ead:archdesc/ead:did/ead:origination/child::node()[1]/@source">
+                                <authorizedForm>
+                                    <xsl:value-of select="normalize-space(ead:ead/ead:archdesc/ead:did/ead:origination/child::node()[1]/@source)" />
+                                </authorizedForm>
+                            </xsl:when>
+                        </xsl:choose>
+                    </xsl:otherwise>                    
+                </xsl:choose>                                                                                                                                        
             </nameEntry>
         </identity>
     </xsl:template>
