@@ -234,8 +234,12 @@ $(document).ready(function() {
        {
            $unsaveddialog.dialog('open');
        }
+              
        else 
-       {        
+       {    
+           $('.main_edit').hide();
+           $('#loading-image').remove();
+           $('#main_content').append('<img id="loading-image" src="style/images/loading.gif" alt="loading"/><div id="wiki_load">Converting to wiki markup... This may take a minute or two.</div>');
            eacToMediaWiki();
        }     
         	                   
@@ -512,11 +516,11 @@ $(document).ready(function() {
             autoOpen: false,
             title : 'Confirm',
             buttons : {                
-                "Yes" : function() {
+                "Yes" : function() {            
                     $( this ).dialog( "close" );
-                    $('.main_edit').hide();
-                    $('#wiki_switch').append('<img id="loading-image" src="style/images/loading.gif" alt="loading"/><div id="wiki_load">Converting to wiki markup... This may take a minute or two.</div>');
-                    eacToMediaWiki();                    
+                    $('.main_edit').hide();                                                                                                          
+                    $('#main_content').append('<img id="loading-image" src="style/images/loading.gif" alt="loading"/><div id="wiki_load">Converting to wiki markup... This may take a minute or two.</div>');
+                    eacToMediaWiki();
                 },
                 "No" : function() {
                     $( this ).dialog( "close" );
