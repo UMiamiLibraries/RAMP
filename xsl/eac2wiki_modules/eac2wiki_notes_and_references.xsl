@@ -243,7 +243,8 @@
     				<xsl:text>&lt;/ref&gt;</xsl:text>
     				<xsl:text>&#10;</xsl:text>   
     			    <xsl:text>}}</xsl:text>
-    			    <xsl:text>&#10;</xsl:text>    			    
+    			    <xsl:text>&#10;</xsl:text>
+    				<xsl:text>&#10;</xsl:text>
     			</xsl:for-each>
     		</xsl:when>
     	    <xsl:otherwise>    	            	       
@@ -253,7 +254,8 @@
     	        <xsl:text>{{Reflist|refs=</xsl:text>
     	        <xsl:text>&#10;</xsl:text>
     	        <xsl:text>}}</xsl:text>
-    	        <xsl:text>&#10;</xsl:text>    	        
+    	        <xsl:text>&#10;</xsl:text>
+    	    	<xsl:text>&#10;</xsl:text>
     	    </xsl:otherwise>
     	</xsl:choose>
     </xsl:template>
