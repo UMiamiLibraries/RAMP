@@ -4,6 +4,8 @@
     xmlns:str="http://exslt.org/strings" xmlns:xlink="http://www.w3.org/1999/xlink"
     extension-element-prefixes="exsl str" exclude-result-prefixes="eac ead" version="1.0"> 
 
+    <!-- Templates to process Gender, Language, Occupation, Script from new-record form. -->
+
     <!-- Define a variable to help de-dupe language elements. -->
     <xsl:variable name="vLangCheck"
         select="//ead:ead[1]/ead:archdesc/ead:did/ead:langmaterial/ead:language"/>
