@@ -44,7 +44,7 @@ include('conf/includes.php');
 
 <ul id="menu" class="menu_slice">
 	<li><a href="./"><img id="logo" src="style/images/logos-02-01.png" alt="RAMP logo: lowercase sans-serif font with an M that mimics the shape of a skate ramp" title="RAMP homepage"/></a></li>
-    <li style="font-style:italic">prototype</li>
+    <li style="font-style:italic;">prototype</li>
 <li id="menu_button">Menu &#9776;</li>
 </ul>
 <ul id="menu_2" class="menu_slice">
