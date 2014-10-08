@@ -13,19 +13,10 @@
     <!-- Output VIAF ID and/or LCCN, if available. -->
     <xsl:template name="tVIAF">
         <xsl:choose>
-            <xsl:when test="eac:eac-cpf/eac:control/eac:sources/eac:source/@xlink:href[contains(.,'viaf')]">                    
-                <xsl:for-each select="eac:eac-cpf/eac:control/eac:sources/eac:source/@xlink:href[contains(.,'viaf')]">
-                    <xsl:text>{{Authority control|VIAF=</xsl:text>
-                    <xsl:choose>
-                        <xsl:when test="substring-after(.,'viaf/')">
-                            <xsl:value-of select="substring-after(.,'viaf/')" />
-                        </xsl:when>
-                        <xsl:otherwise>
-                            <!-- When WorldCat URL is VIAF rather than LCCN... -->
-                            <xsl:value-of select="substring-after(.,'viaf-')" />
-                        </xsl:otherwise>                        
-                    </xsl:choose>
-                    
+            <xsl:when test="eac:eac-cpf/eac:control/eac:sources/eac:source/@xlink:href[contains(.,'viaf/')]">                    
+                <xsl:for-each select="eac:eac-cpf/eac:control/eac:sources/eac:source/@xlink:href[contains(.,'viaf/')]">
+                    <xsl:text>{{Authority control|VIAF=</xsl:text>                                                                                    
+                    <xsl:value-of select="substring-after(.,'viaf/')"/>                        
                     <xsl:choose>
                         <xsl:when test="../../../eac:otherRecordId[@localType='WCI:LCCN']">
                             <xsl:text> |LCCN=</xsl:text>
