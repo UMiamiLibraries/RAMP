@@ -716,8 +716,7 @@ button.on {
     margin-left:1%;
 }
 
-.wiki_container textarea {
-    width:600px;
+.wiki_container textarea {    
     min-width:500px;
     min-height:425px;    
     font-size:1.06em;

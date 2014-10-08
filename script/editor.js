@@ -261,14 +261,14 @@ $(document).ready(function() {
 
 		$('.main_edit').hide();
 		
-		$('html').css("min-width","1350px");
+		$('html').css("min-width","1250px");
 
 		//Append some controls for dealing with the wikimarkup
 
 		if( $('#wikieditor').length == 0)
 		{
 		    $('#main_content').append("<div id=\"wikieditor\" class=\"wiki_edit\"><div class=\"wiki_container wiki_edit\"><h1 id=\"local_wiki\">Local article (transformed from EAC-CPF record) <a style=\"font-size:small; float:right; margin-top:3px;\" target=\"_blank\" href=\"https://en.wikipedia.org/wiki/Help:Wiki_markup\">Help with wiki markup</a></h1> \
-<textarea id=\"wikimarkup\" class\"wiki_edit\">" + markup + "</textarea></div></div>");
+<textarea id=\"wikimarkup\" class=\"wiki_edit\">" + markup + "</textarea></div></div>");
 		}else
 		{
 		    $('#wikieditor').append("<div class=\"wiki_container wiki_edit\"><h1 id=\"local_wiki\">Local article (transformed from EAC-CPF record) <a style=\"font-size:small; float:right; margin-top:3px;\" target=\"_blank\" href=\"https://en.wikipedia.org/wiki/Help:Wiki_markup\">Help with wiki markup</a></h1> \

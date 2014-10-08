@@ -13,11 +13,19 @@
     <!-- Output VIAF ID and/or LCCN, if available. -->
     <xsl:template name="tVIAF">
         <xsl:choose>
-            <xsl:when test="eac:eac-cpf/eac:control/eac:sources/eac:source/@xlink:href[contains(.,'viaf')]">
-                <xsl:text>&#10;</xsl:text>                
+            <xsl:when test="eac:eac-cpf/eac:control/eac:sources/eac:source/@xlink:href[contains(.,'viaf')]">                    
                 <xsl:for-each select="eac:eac-cpf/eac:control/eac:sources/eac:source/@xlink:href[contains(.,'viaf')]">
                     <xsl:text>{{Authority control|VIAF=</xsl:text>
-                    <xsl:value-of select="substring-after(.,'viaf/')" />
+                    <xsl:choose>
+                        <xsl:when test="substring-after(.,'viaf/')">
+                            <xsl:value-of select="substring-after(.,'viaf/')" />
+                        </xsl:when>
+                        <xsl:otherwise>
+                            <!-- When WorldCat URL is VIAF rather than LCCN... -->
+                            <xsl:value-of select="substring-after(.,'viaf-')" />
+                        </xsl:otherwise>                        
+                    </xsl:choose>
+                    
                     <xsl:choose>
                         <xsl:when test="../../../eac:otherRecordId[@localType='WCI:LCCN']">
                             <xsl:text> |LCCN=</xsl:text>
@@ -92,14 +100,12 @@
                         </xsl:when>
                     </xsl:choose>
                     <xsl:text>}}</xsl:text>
-                    <xsl:text>&#10;</xsl:text>
-                    <xsl:text>&#10;</xsl:text>
+                    <xsl:text>&#10;</xsl:text>                    
                 </xsl:for-each>
             </xsl:when>
             <xsl:otherwise>
                 <xsl:choose>
-                    <xsl:when test="eac:eac-cpf/eac:control/eac:otherRecordId[@localType='WCI:LCCN']">                        
-                        <xsl:text>&#10;</xsl:text>
+                    <xsl:when test="eac:eac-cpf/eac:control/eac:otherRecordId[@localType='WCI:LCCN']">                                                
                         <xsl:text>&#10;</xsl:text>
                         <xsl:text>{{Authority control|LCCN=</xsl:text>
                         <xsl:choose>
@@ -170,13 +176,10 @@
                                 </xsl:choose>
                             </xsl:otherwise>
                         </xsl:choose>                                                   
-                        <xsl:text>}}</xsl:text>
-                        <xsl:text>&#10;</xsl:text>
+                        <xsl:text>}}</xsl:text>                        
                         <xsl:text>&#10;</xsl:text>
                     </xsl:when>
-                    <xsl:otherwise>
-                        <xsl:text>&#10;</xsl:text>
-                    </xsl:otherwise>
+                    <xsl:otherwise/>                       
                 </xsl:choose>
             </xsl:otherwise>
         </xsl:choose>

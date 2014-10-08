@@ -583,53 +583,13 @@ jQuery(document).ready(function()
   </tr>
   </table>
   </td>
-  </tr>
-  <tr class="labelHeader">
-    <td>
-      <button></button>
-      <label class="multi">Citations for biography/history<span style="font-style:italic;"></span></label>
-    </td>
-  </tr>
-  <tr>
-  <td>
-  <table class="new_eac_inner content">
-  <tr>
-    <td>
-      <input type="button" name="addCite" value="Add New Entry" class="add_empty_element add_empty_cite pure-button pure-button-secondary" style="border:none;"/>
-    </td>
-  </tr>
-  <tr>
-    <td>
-      <input type="text" size="75" class="citations"/>
-    </td>
-  </tr>
-  <tr class="insert_before" style="display:none;">
-    <td></td>
-  </tr>
-
-  <script>
-    $("input.add_empty_cite").one('click', function () {
-        var rm = "<input type=\"button\" name=\"rm\" value=\"Delete Entry\" class=\"rm_empty_element rm_empty_cite pure-button pure-button-secondary\" style=\"border:none;\"/>";
-        $(this).after(rm);
-        $("input.rm_empty_cite").on('click', function () {
-        $(".new_element:last").remove();
-      });
-    });
-    $("input.add_empty_cite").on('click', function () {
-      var tr = "<tr class=\"new_element\"><td><input type=\"text\" size=\"75\" class=\"citations\"/></td></tr>";
-      $(this).closest("tr").siblings(".insert_before").before(tr);
-    });
-  </script>
-  </table>
-  </td>
-  </tr>
+  </tr> 
   <tr class="labelHeader">
     <td>
       <button></button>
       <label class="multi">Related entities <span style="font-style:italic;"></span></label>
     </td>
   </tr>
-  
   <tr>
   <td>
   <table class="new_eac_inner content">
