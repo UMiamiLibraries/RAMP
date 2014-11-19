@@ -11,7 +11,7 @@
     extension-element-prefixes="exsl" exclude-result-prefixes="eac" version="1.0">
     
     <!-- Key for processing external XML lookups. -->
-    <xsl:key name="kLookupAbout" match="rdf:RDF/rdf:Description" use="attribute::*" />   
+    <xsl:key name="kLookupAbout" match="rdf:RDF/rdf:Description" use="@rdf:about" />   
     
     <xsl:template name="tFetchXml">
         <xsl:param name="pWorldCatUrl"/>
@@ -25,7 +25,7 @@
             <xsl:choose>                
                 <xsl:when test="$pWorksBy='true'">
                     <xsl:if test="$vAuthCount&gt;1 or schema:contributor">
-                        <xsl:for-each select="schema:author">                       
+                        <xsl:for-each select="schema:author | schema:creator">                       
                             <xsl:variable name="vPosCount" select="position()"/>
                             <xsl:text>| author</xsl:text>     
                             <xsl:if test="$vAuthCount+$vContribCount&gt;1">
@@ -87,7 +87,7 @@
                 </xsl:when>
                 <xsl:when test="$pWorksAbout='true'">
                     <xsl:if test="$vAuthCount&gt;=1 or schema:contributor">
-                        <xsl:for-each select="schema:author">                       
+                        <xsl:for-each select="schema:author | schema:creator">                       
                             <xsl:variable name="vPosCount" select="position()"/>
                             <xsl:text>| author</xsl:text>
                             <xsl:if test="$vAuthCount+$vContribCount&gt;1">
@@ -172,12 +172,12 @@
             <xsl:text>&#10;</xsl:text>                                                       
             <xsl:if test="schema:publisher">
                 <xsl:text>| publisher = </xsl:text>
-                <xsl:value-of select="key('kLookupAbout',schema:publisher/@rdf:nodeID)/schema:name"/>
+                <xsl:value-of select="key('kLookupAbout',schema:publisher/@rdf:resource)/schema:name"/>
                 <xsl:text>&#10;</xsl:text>
             </xsl:if>  
-            <xsl:if test="library:placeOfPublication/@rdf:nodeID">
+            <xsl:if test="library:placeOfPublication/@rdf:resource">
                 <xsl:text>| location = </xsl:text>
-                <xsl:value-of select="key('kLookupAbout',library:placeOfPublication/@rdf:nodeID)/schema:name"/>
+                <xsl:value-of select="key('kLookupAbout',library:placeOfPublication/@rdf:resource)/schema:name"/>
                 <xsl:text>&#10;</xsl:text>
             </xsl:if>   
             <xsl:if test="schema:datePublished">
