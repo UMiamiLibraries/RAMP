@@ -130,8 +130,8 @@
                 <!-- Group related names. -->
                 <xsl:for-each select="exsl:node-set($vSeeAlso)/persName[count(. | key('kSeeAlsoCheck', .)[1]) = 1][not(.=preceding-sibling::persName)]|exsl:node-set($vSeeAlso)/corpName[count(. | key('kSeeAlsoCheck', .)[1]) = 1][not(.=preceding-sibling::corpName)]">
                     <xsl:sort select="translate(.,'ÁÀÉÈÍÓÚÜÑáàéèíóúúüñ','AAEEIOUUNaaeeiouuun')" data-type="text" />
-                    <xsl:text>* [[</xsl:text>
-                    <xsl:value-of select="normalize-space(.)"/>
+                    <xsl:text>* [[</xsl:text>                    
+                        <xsl:value-of select="normalize-space(.)" />
                     <xsl:text>]]</xsl:text>
                     <xsl:text>&#10;</xsl:text>
                 </xsl:for-each>                
@@ -158,8 +158,8 @@
                 <!-- Group related names. -->
                 <xsl:for-each select="exsl:node-set($vSeeAlso)/persName[count(. | key('kSeeAlsoCheck', .)[1]) = 1][not(.=preceding-sibling::persName)]|exsl:node-set($vSeeAlso)/corpName[count(. | key('kSeeAlsoCheck', .)[1]) = 1][not(.=preceding-sibling::corpName)]">
                     <xsl:sort select="translate(.,'ÁÀÉÈÍÓÚÜÑáàéèíóúúüñ','AAEEIOUUNaaeeiouuun')" data-type="text" />
-                    <xsl:text>* [[</xsl:text>
-                    <xsl:value-of select="normalize-space(.)"/>
+                    <xsl:text>* [[</xsl:text>                    
+                        <xsl:value-of select="normalize-space(.)" />
                     <xsl:text>]]</xsl:text>
                     <xsl:text>&#10;</xsl:text>
                 </xsl:for-each>

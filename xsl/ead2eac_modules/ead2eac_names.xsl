@@ -32,7 +32,7 @@
             <xsl:sort select="translate(.,'ÁÀÉÈÍÓÚÜÑáàéèíóúúüñ','AAEEIOUUNaaeeiouuun')" data-type="text" />
             <persName>
                 <xsl:choose>
-                    <xsl:when test="substring(.,string-length(.))=','">
+                    <xsl:when test="substring(normalize-space(.),string-length(.))=','">
                         <xsl:value-of select="normalize-space(substring(.,1,string-length(.)-1))" />
                     </xsl:when>
                     <xsl:otherwise>
