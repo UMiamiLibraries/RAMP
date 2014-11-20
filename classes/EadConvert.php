@@ -275,7 +275,7 @@ class EadConvert {
 	  // Check if the EAD file has already been inserted.
 	  // If it hasn't then insert it and and insert the transformed EAC.
 
-	  $ead_result = $mysqli->query("INSERT into ead_eac.ead (ead_xml, ead_file) VALUES ('$xml_string', '$file_path') ");
+	  $ead_result = $mysqli->query("INSERT into s52298__ead_eac.ead (ead_xml, ead_file) VALUES ('$xml_string', '$file_path') ");
 	  // Insert the EAD into the database
 
 	  if( !$ead_result )
@@ -284,7 +284,7 @@ class EadConvert {
 	  $date = date("Y-m-d H:i:s");
 	  // Get the date
 
-		$eac_result = $mysqli->query("INSERT into ead_eac.eac (created, eac_xml, ead_file) VALUES (  '$date', '$xslt','$file_path' ) ");
+		$eac_result = $mysqli->query("INSERT into s52298__ead_eac.eac (created, eac_xml, ead_file) VALUES (  '$date', '$xslt','$file_path' ) ");
 
 		if( !$eac_result )
 			die ("<p>Error! " . mysqli_error($mysqli) . "</p>");
@@ -301,7 +301,7 @@ class EadConvert {
 
 		if ($ead_str_compare != 0) {
 			// Check to see if the string comparison returned a positive result.
-			$mysqli->query("UPDATE ead_eac.ead SET ead_xml='$xml_string' WHERE ead_file='$file_path'");
+			$mysqli->query("UPDATE s52298__ead_eac.ead SET ead_xml='$xml_string' WHERE ead_file='$file_path'");
 			// If it has then update the EAD.
 
 			return $this->eac_update_check($file_path,$xslt);
@@ -339,7 +339,7 @@ class EadConvert {
     $mysqli = $db->getConnection();
     // Connect to the database
 
-  	$ead_from_db = $mysqli->query("SELECT ead_xml FROM ead_eac.ead WHERE ead_file = '$file_path'");
+  	$ead_from_db = $mysqli->query("SELECT ead_xml FROM s52298__ead_eac.ead WHERE ead_file = '$file_path'");
 
 
     $ead_from_db_xml = mysqli_fetch_row($ead_from_db);
@@ -393,7 +393,7 @@ class EadConvert {
     $db = Database::getInstance();
     $mysqli = $db->getConnection();
 
-  	$eac_from_db_xml = $mysqli->query("SELECT eac_xml FROM ead_eac.eac WHERE ead_file = '$ead_path'");
+  	$eac_from_db_xml = $mysqli->query("SELECT eac_xml FROM s52298__ead_eac.eac WHERE ead_file = '$ead_path'");
     $eac_row = mysqli_fetch_row($eac_from_db_xml);
 
   	$xslt = stripslashes($xslt);

@@ -7,7 +7,7 @@ include ('../../header.php');
 $db_host = 'localhost';
 $db_user = 'root';
 $db_pass = 'root';
-$db_default = 'ead_eac';
+$db_default = 's52298__ead_eac';
 $db_port = '8889';
 
  $mysqli = new mysqli($db_host, $db_user, $db_pass, $db_default, $db_port);
@@ -15,7 +15,7 @@ $db_port = '8889';
     echo "Failed to connect to MySQL: (" . $mysqli->connect_errno . ") " . $mysqli->connect_error;
   }
 
-	$ead_xml_from_db = $mysqli->query("SELECT ead_xml FROM ead_eac.ead WHERE ead_file ='/Applications/MAMP/htdocs/eac/ead/acosta_magali_o_collection_19561960.xml'");
+	$ead_xml_from_db = $mysqli->query("SELECT ead_xml FROM s52298__ead_eac.ead WHERE ead_file ='/Applications/MAMP/htdocs/eac/ead/acosta_magali_o_collection_19561960.xml'");
 
  // WHERE ead_file ="  . "'" . $ead_path . "') ");
 	        $ead_row = mysqli_fetch_row($ead_xml_from_db);
