@@ -1,11 +1,16 @@
 <?php
-/* 
-   This script returns an EAC-CPF XML record from the database. It finds the 
-   record in the database by searching for the EAD file path. The file path 
-   is used a foreign key that relates the EAC and EAC records.
-
-   -- Jamie
-*/
+/**
+ * Get eac
+ * 
+ *
+ *  This script returns an EAC-CPF XML record from the database. It finds the 
+ *  record in the database by searching for the EAD file path. The file path 
+ *  is used a foreign key that relates the EAC and EAC records.
+ *
+ * @author little9 (Jamie Little)
+ * @copyright Copyright (c) 2013
+ *
+ **/ 
 
 include('conf/db.php');
 
@@ -52,5 +57,3 @@ echo $xslt_result;
 
 
 $mysqli->close();
-
-?>

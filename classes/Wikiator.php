@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Wikiator - defines methods and properties to search, get, and edit posts in
  * wikipedia
