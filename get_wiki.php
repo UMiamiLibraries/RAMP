@@ -1,12 +1,16 @@
 <?php
-/*
-
-This script accepts a GET request that searches the database
-with the EAD path (the foreign key that relates EAD, EAC, and Wiki records in the database) and returns Wiki markup
-
--- Jamie 
-
-*/
+/**
+ * Get wiki
+ * 
+ *
+ *This script accepts a GET request that searches the database
+ *with the EAD path (the foreign key that relates EAD, EAC, and Wiki records in the database) 
+ *and returns Wiki markup
+ *
+ * @author little9 (Jamie Little)
+ * @copyright Copyright (c) 2013
+ *
+ **/ 
 include('conf/db.php');
 
 
@@ -51,6 +55,3 @@ echo($wiki_markup);
 
 
 $mysqli->close();
-
-
-?>

@@ -1,4 +1,14 @@
 <?php
+/**
+ * EadConvert
+ * 
+ * This class goes over the files in the ead folder and imports them into the database
+ *  
+ *
+ * @author little9 (Jamie Little)
+ * @copyright Copyright (c) 2013
+ *
+ */
 
 class EadConvert {
   private $agency_code;
@@ -166,7 +176,7 @@ class EadConvert {
     /*
        This function takes an array of paths to EAD files and processes them.
 
-       Firstly, the function checks to see if the file already exists in the database.
+       First the function checks to see if the file already exists in the database.
 
        If the file doesn't already exist in the database it is inserted into the database and an XSLT
        transformation is performed that returns EAC-CPF XML. The EAC-CPF is also inserted into the database.

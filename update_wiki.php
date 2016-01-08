@@ -1,12 +1,15 @@
 <?php
-/* 
-
-This is a script that accepts a POST request for updating the 
-Wiki markup in the database. 
-
-   -- Jamie
-*/
-
+/**
+ * Update wiki 
+ * 
+ *
+ *  Script that accepts a POST request for updating the 
+ *  Wiki markup in the database. 
+ *
+ * @author little9 (Jamie Little)
+ * @copyright Copyright (c) 2013
+ *
+ */
 
 include('conf/db.php');
 
@@ -55,5 +58,3 @@ if (!$result) {
 }
 
 $mysqli->close();
-
-?>

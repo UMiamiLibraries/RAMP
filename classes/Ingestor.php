@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Ingestor - define all high level methods and properties for all api ingestors
  *

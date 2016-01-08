@@ -1,5 +1,4 @@
 <?php
-
 //require inclusion of Ingestor class
 require_once(dirname(__FILE__) . '/Ingestor.php');
 

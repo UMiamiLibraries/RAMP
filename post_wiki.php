@@ -1,12 +1,17 @@
 <?php
-/*
-
-This script accepts a POST request that contains Wikimarkup and saves it to the database.
-The wikimarkup is inserted with the EAD file path, which is used as foreign key to relate the markup with EAC and EAD records. 
-
--- Jamie
-
+/**
+ * Post wiki
+ * 
+ *
+ * 
+ *This script accepts a POST request that contains Wikimarkup and saves it to the database.
+ *The wikimarkup is inserted with the EAD file path, which is used as foreign key to relate * the markup with EAC and EAD records.  
+ *
+ * @author little9 (Jamie Little)
+ * @copyright Copyright (c) 2013
+ *
  */
+
 include('conf/db.php');
 
 $mysqli = new mysqli($db_host, $db_user, $db_pass, $db_default, $db_port);
@@ -47,5 +52,3 @@ if (!$result) {
 }
 
 $mysqli->close();
-
-?>

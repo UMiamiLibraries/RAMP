@@ -1,10 +1,15 @@
 <?php
-/* 
-
-This is a script that accepets a POST request for updating an EAC XML record in a database.
-
-   -- Jamie
-*/
+/**
+ * Update EAC XML
+ * 
+ *
+ *  Script that accepets a POST request for updating an EAC XML record in a database.
+ *  Wiki markup in the database. 
+ *
+ * @author little9 (Jamie Little)
+ * @copyright Copyright (c) 2013
+ *
+ */
 
 include('conf/db.php');
 
@@ -28,6 +33,3 @@ if (!$result) {
 
 
 } 
-
-
-?>

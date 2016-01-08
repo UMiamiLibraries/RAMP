@@ -1,12 +1,19 @@
 <?php
+/**
+ * Database
+ * 
+ *
+ * A singleton class for dealing with the database
+ *
+ * @author little9 (Jamie Little)
+ * @copyright Copyright (c) 2013
+ *
+ */
+
 require_once( dirname( dirname(__FILE__) ) . DIRECTORY_SEPARATOR . "conf" . DIRECTORY_SEPARATOR . "db.php" );
 
 class Database {
-  /* A singleton class for dealing with the database
-     -- Jamie
-   */
-
-
+   
    private $_connection;
    private static $_instance;
    private $_host = "";
