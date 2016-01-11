@@ -82,7 +82,7 @@ class Wikiator
 		$lobjPostData = array( 'lgname' => $lstrUserName, 'lgpassword' => $lstrPassword );
 
 		//curl option setup for this request
-		curl_setopt( $this->objCurl, CURLOPT_URL, 'http://en.wikipedia.org/w/api.php?action=login&format=xml' );
+		curl_setopt( $this->objCurl, CURLOPT_URL, 'https://en.wikipedia.org/w/api.php?action=login&format=xml' );
 		curl_setopt( $this->objCurl, CURLOPT_POST, true );
 		curl_setopt( $this->objCurl, CURLOPT_POSTFIELDS, $lobjPostData );
 
