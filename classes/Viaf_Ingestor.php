@@ -1,5 +1,4 @@
 <?php
-
 //require inclusion of Ingestor class
 require_once(dirname(__FILE__) . '/Ingestor.php');
 
@@ -102,7 +101,7 @@ class Viaf_Ingestor extends Ingestor
 		$this->getResults();
 		$this->createDom();
 
-		$lobjConceptList = $this->xpath('//*[local-name()=\'Concept\']');
+		$lobjConceptList = $this->xpath('//*[local-name()=\'Description\']/*[local-name()=\'type\'][@rdf:resource=\'http://www.w3.org/2004/02/skos/core#Concept\']');
 
 		//collect and save name entry lists
 		foreach( $lobjConceptList as $lobjConcept )

@@ -1,4 +1,14 @@
 <?php
+/**
+ * XsltTransform 
+ * 
+ *
+ *  Class that performs the XSLT transformation from EAD to EAC
+ *
+ * @author little9 (Jamie Little)
+ * @copyright Copyright (c) 2013
+ *
+ */
 class XsltTransform {
 
 

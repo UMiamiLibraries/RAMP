@@ -111,35 +111,7 @@ print ("</select>");
 </div>
 </div>
 
-<div class="pure-u-1-2">
-  <div class="content_box" id="new_box">
-  <img src="style/images/new.png" alt="Convert" width="24px" height="24px"/>
-  <h1>Create a New EAC-CPF Record</h1>  
-  <!-- Temporarily hiding select box until we can make selection dynamic.
-  <select id="new_select">
-  <option>
-  Create a new ...
 
-  <option>
-
-
-  </option>
-  <option value='person'>
-  Person
-  </option>
-  <option value='xh'>
-  Corporate Body
-  </option>
-  <option value='family'>
-  Family
-  </option>
-  </select> 
-  -->
-  <p style="font-size:1.2em; margin:0 1% 1% 1%;">No finding aid? No problem! Add a new EAC-CPF record to the RAMP database.</p>
-  <br/>
-  <p><a href="new_eac.php" id="new_eac_record">New Record</a></p>
-  </div>
-  </div>
 
   <div class="pure-u-1-2">
   <div class="content_box" id="export_box">

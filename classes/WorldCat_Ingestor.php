@@ -1,8 +1,4 @@
 <?php
-
-//require inclusion of Ingestor class
-require_once(dirname(__FILE__) . '/Ingestor.php');
-
 /**
  * WorldCat_Ingestor - extends Ingestor and defines other methods and properties for
  * ingestion of WorldCat API
@@ -11,6 +7,10 @@ require_once(dirname(__FILE__) . '/Ingestor.php');
  * @copyright Copyright (c) 2013
  * @access public
  */
+
+//require inclusion of Ingestor class
+require_once(dirname(__FILE__) . '/Ingestor.php');
+
 class WorldCat_Ingestor extends Ingestor
 {
 	//WorlcCat contains codes for roles and this is used to decode in order to display

@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Wikiator - defines methods and properties to search, get, and edit posts in
  * wikipedia
@@ -83,7 +82,7 @@ class Wikiator
 		$lobjPostData = array( 'lgname' => $lstrUserName, 'lgpassword' => $lstrPassword );
 
 		//curl option setup for this request
-		curl_setopt( $this->objCurl, CURLOPT_URL, 'http://en.wikipedia.org/w/api.php?action=login&format=xml' );
+		curl_setopt( $this->objCurl, CURLOPT_URL, 'https://en.wikipedia.org/w/api.php?action=login&format=xml' );
 		curl_setopt( $this->objCurl, CURLOPT_POST, true );
 		curl_setopt( $this->objCurl, CURLOPT_POSTFIELDS, $lobjPostData );
 
@@ -146,11 +145,11 @@ class Wikiator
 
 			$lobjExactMatch['title'] = urldecode($lstrSearch);
 			$lobjExactMatch['titlesnippet'] = urldecode($lstrSearch);
-			$lobjExactMatch['snippet'] = "Page exists with exact match. <a target=\"_blank\" href=\"http://en.wikipedia.org/wiki/{$lstrEncodedSearch}\">View existing Wikipedia page</a>";
+			$lobjExactMatch['snippet'] = "Page exists with exact match. <a target=\"_blank\" href=\"https://en.wikipedia.org/wiki/{$lstrEncodedSearch}\">View existing Wikipedia page</a>";
 		}
 
 		//curl options setup for this request
-		curl_setopt( $this->objCurl, CURLOPT_URL, "http://en.wikipedia.org/w/api.php?action=query&list=search&format=xml&srsearch={$lstrEncodedSearch}&srprop=snippet|titlesnippet&srlimit=" . self::SEARCHLIMIT );
+		curl_setopt( $this->objCurl, CURLOPT_URL, "https://en.wikipedia.org/w/api.php?action=query&list=search&format=xml&srsearch={$lstrEncodedSearch}&srprop=snippet|titlesnippet&srlimit=" . self::SEARCHLIMIT );
 		curl_setopt ( $this->objCurl, CURLOPT_POST, false );
 
 		$this->strResponse = curl_exec( $this->objCurl );
@@ -170,7 +169,7 @@ class Wikiator
 		{
 			$lstrEncodedTitle = self::encodeForUrl($lobjSearchList[$i]['title']);
 
-			$lobjSearchList[$i]['snippet'] = $lobjMatch[1][$i] . "<br/><a target=\"_blank\" href=\"http://en.wikipedia.org/wiki/{$lstrEncodedTitle}\">View existing Wikipedia page</a>";
+			$lobjSearchList[$i]['snippet'] = $lobjMatch[1][$i] . "<br/><a target=\"_blank\" href=\"https://en.wikipedia.org/wiki/{$lstrEncodedTitle}\">View existing Wikipedia page</a>";
 		}
 
 		$lobjMatch = array();
@@ -204,7 +203,7 @@ class Wikiator
 		else
 			$lstrEncodedTitle = $lstrTitle;
 
-		curl_setopt( $this->objCurl, CURLOPT_URL, "http://en.wikipedia.org/w/api.php?format=xml&action=query&titles=$lstrEncodedTitle&prop=revisions&rvprop=content" );
+		curl_setopt( $this->objCurl, CURLOPT_URL, "https://en.wikipedia.org/w/api.php?format=xml&action=query&titles=$lstrEncodedTitle&prop=revisions&rvprop=content" );
 		curl_setopt ( $this->objCurl, CURLOPT_POST, false );
 
 		$this->strResponse = curl_exec( $this->objCurl );
@@ -279,7 +278,7 @@ class Wikiator
 				'summary' => $lstrComments, 'captchaid' => $lstrCaptchaID, 'captchaword' => $lstrCaptchaWord );
 
 		//curl options setup for this request
-		curl_setopt( $this->objCurl, CURLOPT_URL, 'http://en.wikipedia.org/w/api.php?action=edit&format=xml' );
+		curl_setopt( $this->objCurl, CURLOPT_URL, 'https://en.wikipedia.org/w/api.php?action=edit&format=xml' );
 		curl_setopt ( $this->objCurl, CURLOPT_POSTFIELDS, $lobjPostData );
 
 		$this->strResponse = curl_exec( $this->objCurl );
@@ -305,7 +304,7 @@ class Wikiator
 		{
 			$this->intStatus = self::SUCCESSFUL_EDIT;
 
-			return "Edit successful! Page id -> {$this->strPageId}<br/><br/><a id=\"wiki_page_link\" target=\"_blank\" href=\"http://en.wikipedia.org/wiki/{$this->strPageTitle}\">View the page you just edited!</a>";
+			return "Edit successful! Page id -> {$this->strPageId}<br/><br/><a id=\"wiki_page_link\" target=\"_blank\" href=\"https://en.wikipedia.org/wiki/{$this->strPageTitle}\">View the page you just edited!</a>";
 		}else
 		{
 			$this->intStatus = self::FAILED_EDIT;
@@ -358,7 +357,7 @@ class Wikiator
 			$lstrEncodedTitle = self::encodeForUrl( $this->strPageTitle );
 
 		//curl options setup for this request
-		curl_setopt( $this->objCurl, CURLOPT_URL, "http://en.wikipedia.org/w/api.php?action=query&prop=info&intoken=edit&titles={$lstrEncodedTitle}&format=xml" );
+		curl_setopt( $this->objCurl, CURLOPT_URL, "https://en.wikipedia.org/w/api.php?action=query&prop=info&intoken=edit&titles={$lstrEncodedTitle}&format=xml" );
 		curl_setopt ( $this->objCurl, CURLOPT_POST, FALSE );
 
 		$this->strResponse = curl_exec( $this->objCurl );
