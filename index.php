@@ -54,57 +54,11 @@ are changed, you will be presented with a 'diff' screen to merge changes. </li><
   </div>
   </div>
 
+
   <div class="pure-u-1-2">
   <div class="content_box" id="edit_box">
-  <img src="style/images/edit.png" alt="Edit" width="24px" height="24px"/>
-  <h1>Edit EAC, Enhance with External Data, Publish on Wikipedia</h1>
-  
-  <?php
 
-  $mysqli = new mysqli($db_host, $db_user, $db_pass, $db_default, $db_port);
-if ($mysqli->connect_errno) {
-  echo "Failed to connect to MySQL: (" . $mysqli->connect_errno . ") " . $mysqli->connect_error;
-}
-
-$results = $mysqli->query ("SELECT ead_file, CONCAT(ExtractValue(eac_xml, '//nameEntry[1]/part[1]'),', ',ExtractValue(eac_xml, '//nameEntry[1]/part[2]')) AS 'Name', substring_index(ead_file, '/', -1) AS 'SortHelp'
-							FROM s52298__ead_eac.eac
-							ORDER BY CASE WHEN Name = '' THEN SortHelp ELSE Name END ASC");
-
-echo  "<select id='ead_select' class='ead_files'>";
-
-echo "<option>Select a name</option>";
-
-echo "<option value=''></option>";
-
-while ($row = $results->fetch_assoc()) {
-  $name = $row["Name"];
-  $file_name = $row["ead_file"];
-  
-  $file_name_display = htmlentities(basename($file_name));
-  if($row["Name"]) {
-
-    print "<option value='$file_name'>" . rtrim($name,', ') ."</option>";
-
-  } else {
-
-    print "<option value='$file_name'>$file_name_display</option>";
-
-  }
-
-}
-
-//	foreach ($files as $file) {
-
-print ("<option>");
-
-//		print ("</option>");
-
-
-print ("</select>");
-
-
-?>
-<div id="attribution">
+ <div id="attribution">
   <img src="http://www.oclc.org/developer/sites/default/files/badges/logo_worldcat_16px.png" width="16" height="16" alt="Some library data on this site is provided by WorldCat, the world's largest library catalog [WorldCat.org]" />
   <p>RAMP contains <a href="http://www.worldcat.org/">OCLC WorldCat</a> information made available under the <a href="http://opendatacommons.org/licenses/by/1.0/">ODC Attribution License</a>. The OCLC Cooperative requests that uses of WorldCat derived data contained in this work conform with the <a href="http://www.oclc.org/worldcat/community/record-use/policy/community-norms.en.html">WorldCat Community Norms</a>.</p>    
 </div>
@@ -129,6 +83,6 @@ print ("</select>");
   </div>
   
 
-  <?php
-  include('footer.php');
+<?php
+ include('footer.php');
 ?>
