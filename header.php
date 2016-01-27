@@ -80,7 +80,7 @@ if ($mysqli->connect_errno) {
 }
 
 $results = $mysqli->query ("SELECT ead_file, CONCAT(ExtractValue(eac_xml, '//nameEntry[1]/part[1]'),', ',ExtractValue(eac_xml, '//nameEntry[1]/part[2]')) AS 'Name', substring_index(ead_file, '/', -1) AS 'SortHelp'
-							FROM s52298__ead_eac.eac
+							FROM eac
 							ORDER BY CASE WHEN Name = '' THEN SortHelp ELSE Name END ASC");
 
 echo  "<select class='ead_files'>";
