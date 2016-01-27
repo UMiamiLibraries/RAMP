@@ -1165,8 +1165,11 @@ button#ltselectedtext:focus {
 }
 
 #menu_3 a {
-    color:white;
     text-decoration:none;
+}
+
+.select2-container {
+	width:300px;
 }
 
 #new_box {
