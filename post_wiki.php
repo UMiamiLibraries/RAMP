@@ -37,7 +37,7 @@ $eac_id_row = $eac_id_result->fetch_row();
 
 $eac_id = $eac_id_row['0'];
 
-$insert_sql = "INSERT INTO s52298__ead_eac.mediawiki (wiki_text,eac_id) VALUES ('$media_wiki', '$eac_id')
+$insert_sql = "INSERT INTO mediawiki (wiki_text,eac_id) VALUES ('$media_wiki', '$eac_id')
 ON DUPLICATE KEY UPDATE mediawiki.wiki_text = '$media_wiki'";
 
 

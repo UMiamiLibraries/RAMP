@@ -10,9 +10,8 @@ if ($mysqli->connect_errno) {
   echo "Failed to connect to MySQL: (" . $mysqli->connect_errno . ") " . $mysqli->connect_error;
 }
 
-$results = $mysqli->query ("SELECT eac_xml FROM s52298__ead_eac.eac");
-//$paths = $mysqli->query ("SELECT ead_file FROM s52298__ead_eac.eac");
-$names = $mysqli->query ("SELECT ead_file, ExtractValue(eac_xml, '/descendant-or-self::part[1]') AS 'Name', substring_index(ead_file, '/', -1) FROM s52298__ead_eac.eac");
+$results = $mysqli->query ("SELECT eac_xml FROM eac");
+$names = $mysqli->query ("SELECT ead_file, ExtractValue(eac_xml, '/descendant-or-self::part[1]') AS 'Name', substring_index(ead_file, '/', -1) FROM eac");
 
 while ($row = $results->fetch_assoc()) {
   $row2 = $names->fetch_assoc();  
