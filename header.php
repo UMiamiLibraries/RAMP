@@ -10,7 +10,7 @@ include('conf/includes.php');
  <style type="text/css">
     .hidden {display:none;}
   </style>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
 <script type="text/javascript">
     $('html').addClass('hidden');    
     $(document).ready(function() {
@@ -19,16 +19,20 @@ include('conf/includes.php');
      });                
 </script>    
 <script src="script/main.js"></script>
-<script src="script/select2/select2.min.js"></script>
 <script src="script/colorbox-master/jquery.colorbox-min.js"></script>
 <script src="script/verify.notify.min.js"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script>
+
+<script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script>
 <link rel="shortcut icon" href="style/images/favicon.ico"/>
-<link rel="stylesheet" href="https://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" type="text/css"/>
+<script src="//cdnjs.cloudflare.com/ajax/libs/select2/4.0.1/js/select2.min.js"></script>
+
+<link rel="stylesheet" href="//code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" type="text/css"/>
 <link rel="stylesheet" href="style/colorbox-master/example1/colorbox.css" type="text/css"/>
-<link href='https://fonts.googleapis.com/css?family=Open+Sans:400,300,600' rel='stylesheet' type='text/css'>
+<link href='//fonts.googleapis.com/css?family=Open+Sans:400,300,600' rel='stylesheet' type='text/css'>
 <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/pure/0.2.1/pure-min.css">
-<link rel="stylesheet" href="script/select2/select2.css">
+
+<link href="//cdnjs.cloudflare.com/ajax/libs/select2/4.0.1/css/select2.min.css" rel="stylesheet" />
+
 
 </style>
 
@@ -86,13 +90,17 @@ $results = $mysqli->query ("SELECT ead_file, CONCAT(ExtractValue(eac_xml, '//nam
 							ORDER BY CASE WHEN Name = '' THEN SortHelp ELSE Name END ASC");
 
 
-  //                                                FROM ". $db_default . ".eac ORDER BY CASE WHEN Name = '' THEN SortHelp ELSE Name END ASC");
 
-echo  "<select class='ead_files'>";
+
+
+
+
+
+echo  "<select class='ead_files '>";
+
 
 echo "<option>Select a name</option>";
 
-echo "<option value=''></option>";
 
 while ($row = $results->fetch_assoc()) {
   $name = $row["Name"];
@@ -113,7 +121,6 @@ while ($row = $results->fetch_assoc()) {
 
 //      foreach ($files as $file) {
 
-print ("<option>");
 
 //              print ("</option>");
 
@@ -123,7 +130,11 @@ print ("</select>");
 
      </li>
 </ul>
-
+<script type="text/javascript">
+  $('select').select2({
+	  placeholder: "Select a name",
+	  } );
+</script>
 </header>
 <div id="wrap">
 <div id="main_content">
