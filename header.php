@@ -87,7 +87,6 @@ echo  "<select class='ead_files'>";
 
 echo "<option>Select a name</option>";
 
-echo "<option value=''></option>";
 
 while ($row = $results->fetch_assoc()) {
   $name = $row["Name"];
@@ -108,7 +107,6 @@ while ($row = $results->fetch_assoc()) {
 
 //	foreach ($files as $file) {
 
-print ("<option>");
 
 //		print ("</option>");
 
