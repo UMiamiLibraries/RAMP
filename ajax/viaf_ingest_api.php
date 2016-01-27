@@ -48,7 +48,7 @@ if(isset($_POST['action']))
 					echo "No results found!";
 				else
 				{
-					$lobjViafIngestor->createNameEnrtyList();
+					$lobjViafIngestor->createNameEntryList();
 					$lobjViafIngestor->echoNameEntryAndSourceJsonData();
 				}
 			}else

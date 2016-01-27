@@ -42,7 +42,8 @@ class Viaf_Ingestor extends Ingestor
 
 		$encodedName = urlencode($lstrName); 
 		$this->strUrl = "http://viaf.org/viaf/search?query=local.names+all+\"$encodedName\"&httpAccept=text/xml&sortKeys=holdingscount";
-
+          
+	
 		//curl option setup for this request
 		curl_setopt($this->rscCurl, CURLOPT_URL, $this->strUrl );
 		curl_setopt($this->rscCurl, CURLOPT_RETURNTRANSFER, 1);
@@ -89,7 +90,7 @@ class Viaf_Ingestor extends Ingestor
 	 *
 	 * @return boolean
 	 */
-	public function createNameEnrtyList()
+	public function createNameEntryList()
 	{
 		$lobjNameEntryList = array();
 
