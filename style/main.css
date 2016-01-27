@@ -1169,7 +1169,7 @@ button#ltselectedtext:focus {
 }
 
 .select2-container {
-	width:300px;
+	width:300px !important;
 }
 
 #new_box {

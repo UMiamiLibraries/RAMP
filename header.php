@@ -19,7 +19,6 @@ ini_set('display_errors', 1);
      });                
 </script>    
 <script src="script/main.js"></script>
-<script src="script/select2/select2.min.js"></script>
 <script src="script/colorbox-master/jquery.colorbox-min.js"></script>
 <script src="script/verify.notify.min.js"></script>
 <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script>
@@ -120,8 +119,7 @@ print ("</select>");
 </ul>
 <script type="text/javascript">
   $('select').select2({
-	  placeholder: "Select an option",
-	  allowClear: true
+	  placeholder: "Select a name",
 	  } );
 </script>
 </header>
