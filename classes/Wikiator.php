@@ -126,6 +126,9 @@ class Wikiator
 	 * @param string $lstrSearch
 	 * @param boolean $lboolEncoded
 	 * @return string
+	 * 
+	 * @todo This needs to modified so that it's not using regex to process XML. That's bad, mkay. 
+	 * 
 	 */
 	public function searchWiki( $lstrSearch, $lboolEncoded = FALSE )
 	{
@@ -149,7 +152,9 @@ class Wikiator
 		}
 
 		//curl options setup for this request
-		curl_setopt( $this->objCurl, CURLOPT_URL, "https://en.wikipedia.org/w/api.php?action=query&list=search&format=xml&srsearch={$lstrEncodedSearch}&srprop=snippet|titlesnippet&srlimit=" . self::SEARCHLIMIT );
+		
+		// Modified the search string to search only titles because of requests. Remove 'intitle:' from the search string to search everything.
+		curl_setopt( $this->objCurl, CURLOPT_URL, "https://en.wikipedia.org/w/api.php?action=query&list=search&format=xml&srsearch=intitle:{$lstrEncodedSearch}&srprop=snippet|titlesnippet&srlimit=" . self::SEARCHLIMIT );
 		curl_setopt ( $this->objCurl, CURLOPT_POST, false );
 
 		$this->strResponse = curl_exec( $this->objCurl );
@@ -183,7 +188,6 @@ class Wikiator
 		//add exact match to search results
 		if(isset($lobjExactMatch))
 			array_unshift( $lobjSearchList, $lobjExactMatch );
-
 		return json_encode( $lobjSearchList );
 	}
 
