@@ -1,7 +1,7 @@
 <?php
 include('conf/includes.php');
-error_reporting(E_ALL);
-ini_set('display_errors', 1);
+//error_reporting(E_ALL);
+//ini_set('display_errors', 1);
 ?>
 <!DOCTYPE html>
 <html>
@@ -10,7 +10,7 @@ ini_set('display_errors', 1);
  <style type="text/css">
     .hidden {display:none;}
   </style>
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
 <script type="text/javascript">
     $('html').addClass('hidden');    
     $(document).ready(function() {
@@ -22,12 +22,12 @@ ini_set('display_errors', 1);
 <script src="script/select2/select2.min.js"></script>
 <script src="script/colorbox-master/jquery.colorbox-min.js"></script>
 <script src="script/verify.notify.min.js"></script>
-<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script>
 <link rel="shortcut icon" href="style/images/favicon.ico"/>
-<link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" type="text/css"/>
+<link rel="stylesheet" href="https://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" type="text/css"/>
 <link rel="stylesheet" href="style/colorbox-master/example1/colorbox.css" type="text/css"/>
-<link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,600' rel='stylesheet' type='text/css'>
-<link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.2.1/pure-min.css">
+<link href='https://fonts.googleapis.com/css?family=Open+Sans:400,300,600' rel='stylesheet' type='text/css'>
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/pure/0.2.1/pure-min.css">
 <link rel="stylesheet" href="script/select2/select2.css">
 
 </style>
@@ -73,6 +73,7 @@ ini_set('display_errors', 1);
 
 <ul id="menu_3" class="menu_slice">
       <li>
+
 <?php
   $mysqli = new mysqli($db_host, $db_user, $db_pass, $db_default, $db_port);
 if ($mysqli->connect_errno) {
@@ -80,8 +81,12 @@ if ($mysqli->connect_errno) {
 }
 
 $results = $mysqli->query ("SELECT ead_file, CONCAT(ExtractValue(eac_xml, '//nameEntry[1]/part[1]'),', ',ExtractValue(eac_xml, '//nameEntry[1]/part[2]')) AS 'Name', substring_index(ead_file, '/', -1) AS 'SortHelp'
+
 							FROM eac
 							ORDER BY CASE WHEN Name = '' THEN SortHelp ELSE Name END ASC");
+
+
+  //                                                FROM ". $db_default . ".eac ORDER BY CASE WHEN Name = '' THEN SortHelp ELSE Name END ASC");
 
 echo  "<select class='ead_files'>";
 
@@ -92,7 +97,7 @@ echo "<option value=''></option>";
 while ($row = $results->fetch_assoc()) {
   $name = $row["Name"];
   $file_name = $row["ead_file"];
-  
+
   $file_name_display = htmlentities(basename($file_name));
   if($row["Name"]) {
 
@@ -106,15 +111,16 @@ while ($row = $results->fetch_assoc()) {
 
 }
 
-//	foreach ($files as $file) {
+//      foreach ($files as $file) {
 
 print ("<option>");
 
-//		print ("</option>");
+//              print ("</option>");
 
 
 print ("</select>");
 ?>
+
      </li>
 </ul>
 
