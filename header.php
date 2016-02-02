@@ -1,7 +1,7 @@
 <?php
 include('conf/includes.php');
-error_reporting(E_ALL);
-ini_set('display_errors', 1);
+//error_reporting(E_ALL);
+//ini_set('display_errors', 1);
 ?>
 <!DOCTYPE html>
 <html>
@@ -21,6 +21,7 @@ ini_set('display_errors', 1);
 <script src="script/main.js"></script>
 <script src="script/colorbox-master/jquery.colorbox-min.js"></script>
 <script src="script/verify.notify.min.js"></script>
+
 <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script>
 <link rel="shortcut icon" href="style/images/favicon.ico"/>
 <script src="//cdnjs.cloudflare.com/ajax/libs/select2/4.0.1/js/select2.min.js"></script>
@@ -31,6 +32,7 @@ ini_set('display_errors', 1);
 <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/pure/0.2.1/pure-min.css">
 
 <link href="//cdnjs.cloudflare.com/ajax/libs/select2/4.0.1/css/select2.min.css" rel="stylesheet" />
+
 
 </style>
 
@@ -75,6 +77,7 @@ ini_set('display_errors', 1);
 
 <ul id="menu_3" class="menu_slice">
       <li>
+
 <?php
   $mysqli = new mysqli($db_host, $db_user, $db_pass, $db_default, $db_port);
 if ($mysqli->connect_errno) {
@@ -82,10 +85,19 @@ if ($mysqli->connect_errno) {
 }
 
 $results = $mysqli->query ("SELECT ead_file, CONCAT(ExtractValue(eac_xml, '//nameEntry[1]/part[1]'),', ',ExtractValue(eac_xml, '//nameEntry[1]/part[2]')) AS 'Name', substring_index(ead_file, '/', -1) AS 'SortHelp'
+
 							FROM eac
 							ORDER BY CASE WHEN Name = '' THEN SortHelp ELSE Name END ASC");
 
+
+
+
+
+
+
+
 echo  "<select class='ead_files '>";
+
 
 echo "<option>Select a name</option>";
 
@@ -93,7 +105,7 @@ echo "<option>Select a name</option>";
 while ($row = $results->fetch_assoc()) {
   $name = $row["Name"];
   $file_name = $row["ead_file"];
-  
+
   $file_name_display = htmlentities(basename($file_name));
   if($row["Name"]) {
 
@@ -107,14 +119,15 @@ while ($row = $results->fetch_assoc()) {
 
 }
 
-//	foreach ($files as $file) {
+//      foreach ($files as $file) {
 
 
-//		print ("</option>");
+//              print ("</option>");
 
 
 print ("</select>");
 ?>
+
      </li>
 </ul>
 <script type="text/javascript">
