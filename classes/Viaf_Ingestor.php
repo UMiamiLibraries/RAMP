@@ -40,8 +40,8 @@ class Viaf_Ingestor extends Ingestor
 
 		$lobjSearchResults = array();
 
-		$encodedName = urlencode($lstrName); 
-		$this->strUrl = "http://viaf.org/viaf/search?query=local.names+all+\"$encodedName\"&httpAccept=text/xml&sortKeys=holdingscount";
+		
+		$this->strUrl = "http://viaf.org/viaf/search?query=local.names+all+\"$lstrName\"&httpAccept=text/xml&sortKeys=holdingscount";
           
 	
 		//curl option setup for this request
