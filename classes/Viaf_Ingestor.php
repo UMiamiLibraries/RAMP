@@ -94,7 +94,8 @@ class Viaf_Ingestor extends Ingestor
 	{
 		$lobjNameEntryList = array();
 
-		$this->strUrl = "http://test.viaf.org/viaf/$this->strViafID/rdf.xml";
+		
+		$this->strUrl = "http://viaf.org/viaf/$this->strViafID/rdf.xml";
 
 		//curl option setup for this request
 		curl_setopt($this->rscCurl, CURLOPT_URL, $this->strUrl );
