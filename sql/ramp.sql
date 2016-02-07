@@ -1,5 +1,5 @@
-CREATE DATABASE  IF NOT EXISTS `s52298__ead_eac` /*!40100 DEFAULT CHARACTER SET latin1 */;
-USE `s52298__ead_eac`;
+CREATE DATABASE  IF NOT EXISTS `ead_eac` /*!40100 DEFAULT CHARACTER SET latin1 */;
+USE `ead_eac`;
 -- MySQL dump 10.13  Distrib 5.5.32, for debian-linux-gnu (x86_64)
 --
 -- Host: 127.0.0.1    Database: s52298__ead_eac
@@ -110,8 +110,8 @@ UNLOCK TABLES;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = '' */ ;
 DELIMITER ;;
-/*!50003 CREATE*/ /*!50017 DEFINER=`root`@`localhost`*/ /*!50003 TRIGGER `s52298__ead_eac`.`eac_BINS`
-BEFORE INSERT ON `s52298__ead_eac`.`mediawiki`
+/*!50003 CREATE*/ /*!50017 DEFINER=`root`@`localhost`*/ /*!50003 TRIGGER `ead_eac`.`eac_BINS`
+BEFORE INSERT ON `ead_eac`.`mediawiki`
 FOR EACH ROW
 
 	SET NEW.created = NOW(), NEW.updated = NOW() */;;
