@@ -6,7 +6,9 @@
 
 class_name: AcceptanceTester
 modules:
-    enabled:
-        - PhpBrowser:
-            url: http://localhost/RAMP
-        - \Helper\Acceptance
+   enabled:
+      - WebDriver:
+         url: 'http://localhost/RAMP'
+         browser: phantomjs
+         window_size: 1024x768
+         wait: 10
