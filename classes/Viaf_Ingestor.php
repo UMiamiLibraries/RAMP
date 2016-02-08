@@ -1,7 +1,4 @@
 <?php
-//require inclusion of Ingestor class
-require_once(dirname(__FILE__) . '/Ingestor.php');
-
 /**
  * Viaf_Ingestor - extends Ingestor and defines other methods and properties for
  * ingestion of Viaf API
@@ -10,6 +7,11 @@ require_once(dirname(__FILE__) . '/Ingestor.php');
  * @copyright Copyright (c) 2013
  * @access public
  */
+
+//require inclusion of Ingestor class
+require_once(dirname(__FILE__) . '/Ingestor.php');
+
+
 class Viaf_Ingestor extends Ingestor
 {
 	public $strViafID;
@@ -36,14 +38,10 @@ class Viaf_Ingestor extends Ingestor
 	 */
 	public function searchViaf( $lstrName )
 	{
-
-
 		$lobjSearchResults = array();
 
-		
 		$this->strUrl = "http://viaf.org/viaf/search?query=local.names+all+\"$lstrName\"&httpAccept=text/xml&sortKeys=holdingscount";
-          
-	
+
 		//curl option setup for this request
 		curl_setopt($this->rscCurl, CURLOPT_URL, $this->strUrl );
 		curl_setopt($this->rscCurl, CURLOPT_RETURNTRANSFER, 1);
@@ -78,9 +76,9 @@ class Viaf_Ingestor extends Ingestor
 		$this->strViafID = $lintViafId;
 
 		$this->objSourceNode = array(
-							"attributes" => array( "xlink:href" => "http://viaf.org/viaf/$this->strViafID",
-												   "xlink:type" => "simple" )
-							);
+			"attributes" => array( "xlink:href" => "http://viaf.org/viaf/$this->strViafID",
+				"xlink:type" => "simple" )
+		);
 		return true;
 	}
 
@@ -94,7 +92,6 @@ class Viaf_Ingestor extends Ingestor
 	{
 		$lobjNameEntryList = array();
 
-		
 		$this->strUrl = "http://viaf.org/viaf/$this->strViafID/rdf.xml";
 
 		//curl option setup for this request
@@ -109,15 +106,17 @@ class Viaf_Ingestor extends Ingestor
 		$lobjConceptList = $this->xpath('//*[local-name()=\'Description\']/*[local-name()=\'type\'][@rdf:resource=\'http://www.w3.org/2004/02/skos/core#Concept\']');
 
 		//collect and save name entry lists
+		//collect and save name entry lists
 		foreach( $lobjConceptList as $lobjConcept )
 		{
-			$lobjInSchemeList = $this->xpath('.//*[local-name()=\'inScheme\']', $lobjConcept);
+			$lobjInSchemeList = $this->xpath('..//*[local-name()=\'inScheme\']', $lobjConcept);
+
 
 			$lobjInScheme = $lobjInSchemeList->item(0);
 			$lobjSplit = explode( '/', $lobjInScheme->getAttribute('rdf:resource') );
 			$lstrResource =  end( $lobjSplit );
 
-			$lobjPrefList = $this->xpath('.//*[local-name()=\'prefLabel\']', $lobjConcept);
+			$lobjPrefList = $this->xpath('..//*[local-name()=\'prefLabel\']', $lobjConcept);
 
 			//use name entry as key so same name entries group together and
 			//resources are listed by name entry and authorized or alternative
@@ -126,7 +125,7 @@ class Viaf_Ingestor extends Ingestor
 				$lobjNameEntryList[$lobjPref->nodeValue]['authorizedForm'][] = $lstrResource;
 			}
 
-			$lobjAltList = $this->xpath('.//*[local-name()=\'altLabel\']', $lobjConcept);
+			$lobjAltList = $this->xpath('..//*[local-name()=\'altLabel\']', $lobjConcept);
 
 			foreach($lobjAltList as $lobjAlt)
 			{
@@ -191,10 +190,10 @@ class Viaf_Ingestor extends Ingestor
 	{
 		foreach($lobjNames as $lstrName)
 		{
-		    $lstrOrigName = utf8_decode($lstrName);
+			$lstrOrigName = utf8_decode($lstrName);
 			$lstrName = Ingestor::encodeForUrl($lstrName);
-                
-			$this->strUrl = "http://test.viaf.org/viaf/search?query=local.names+all+\"$lstrName\"&httpAccept=text/xml&sortKeys=holdingscount";
+
+			$this->strUrl = "http://viaf.org/viaf/search?query=local.names+all+\"$lstrName\"&httpAccept=text/xml&sortKeys=holdingscount";
 
 			//curl options setup for this request
 			curl_setopt($this->rscCurl, CURLOPT_URL, $this->strUrl );
@@ -217,76 +216,76 @@ class Viaf_Ingestor extends Ingestor
 
 			$this->createDom();
 
-            // "[1]" XPath selector after "record" removed by timathom to allow for iterating over results.
+			// "[1]" XPath selector after "record" removed by timathom to allow for iterating over results.
 			$lobjResult = $this->xpath('//*[local-name()=\'record\']//*[local-name()=\'viafID\']');
 			$lobjResult2 = $this->xpath('//*[local-name()=\'record\']//*[local-name()=\'nameType\']');
-			$lobjResult3 = $this->xpath('//*[local-name()=\'record\']//*[local-name()=\'mainHeadings\']/*[local-name()=\'data\'][1]/*[local-name()=\'text\']');						
+			$lobjResult3 = $this->xpath('//*[local-name()=\'record\']//*[local-name()=\'mainHeadings\']/*[local-name()=\'data\'][1]/*[local-name()=\'text\']');
 
 			if($lobjResult === FALSE || $lobjResult->length == 0)
 			{
-			    $lobjcpfRelation = array(
-					   			"attributes" => array( "cpfRelationType" => "",	
-													   "xlink:role" => "" ),
-								"elements" => array( "relationEntry" => array (																																										
-																		"elements" => $lstrOrigName
-																		)
-													)
+				$lobjcpfRelation = array(
+					"attributes" => array( "cpfRelationType" => "",
+						"xlink:role" => "" ),
+					"elements" => array( "relationEntry" => array (
+						"elements" => $lstrOrigName
+					)
+					)
 
-								);
-								$lstrKey = urldecode($lstrOrigName);
-								$this->objRelationsList[$lstrKey] = $lobjcpfRelation;
+				);
+				$lstrKey = urldecode($lstrOrigName);
+				$this->objRelationsList[$lstrKey] = $lobjcpfRelation;
 			}
-			
-			
-			
-			
-				//continue;
+
+
+
+
+			//continue;
 			else
-			{					    		   
-			    
-			    // Loop added by timathom to get full set of Named Entity Recognition results from VIAF.	   
-			    for($i = 0; $i < $lobjResult->length; $i++)
-		        {			    	   		            
-				    $this->strViafID = $lobjResult->item($i)->nodeValue;
-				    $lstrType = $lobjResult2->item($i)->nodeValue == 'Personal' ? 'Person' : 'CorporateBody';
-				    $lstrResultName = $lobjResult3->item($i)->nodeValue;
+			{
 
-				    $lobjcpfRelation = array(
-					   			"attributes" => array( "cpfRelationType" => "associative",
-													   "xlink:href" => "http://viaf.org/viaf/$this->strViafID",
-													   "xlink:role" => "http://rdvocab.info/uri/schema/FRBRentitiesRDA/" . $lstrType,
-													   "xlink:type" => "simple" ),
-								"elements" => array( "relationEntry" => array (
-								                                        "elements" => $lstrResultName 
-								                                        )
-											)
+				// Loop added by timathom to get full set of Named Entity Recognition results from VIAF.
+				for($i = 0; $i < $lobjResult->length; $i++)
+				{
+					$this->strViafID = $lobjResult->item($i)->nodeValue;
+					$lstrType = $lobjResult2->item($i)->nodeValue == 'Personal' ? 'Person' : 'CorporateBody';
+					$lstrResultName = $lobjResult3->item($i)->nodeValue;
 
-								);
+					$lobjcpfRelation = array(
+						"attributes" => array( "cpfRelationType" => "associative",
+							"xlink:href" => "http://viaf.org/viaf/$this->strViafID",
+							"xlink:role" => "http://rdvocab.info/uri/schema/FRBRentitiesRDA/" . $lstrType,
+							"xlink:type" => "simple" ),
+						"elements" => array( "relationEntry" => array (
+							"elements" => $lstrResultName
+						)
+						)
 
-				    //use this as key so that in the front end the user can choose
-				    //which results they want and then the js can easily find
-				    //chosen results based on key.
-				    
-				    $lstrKey = urldecode($lstrName) . ': ';
-				    $lstrKey .= "<a target=\"_blank\" href =\"http://www.viaf.org/{$this->strViafID}/\">{$lstrResultName}</a>";
-				    //$lstrKey .= ' (' . urldecode($lstrName) . ')';
+					);
 
-				    $this->objRelationsList[$lstrKey] = $lobjcpfRelation;
-		         }
-		         
-		        // Include original name for selection, in case VIAF results are not a good match.
-			    $lobjcpfRelation = array(
-					   			"attributes" => array( "cpfRelationType" => "",	
-													   "xlink:role" => "" ),
-								"elements" => array( "relationEntry" => array (																																										
-																		"elements" => $lstrOrigName
-																		)
-													)
+					//use this as key so that in the front end the user can choose
+					//which results they want and then the js can easily find
+					//chosen results based on key.
 
-								);
-								$lstrKey = urldecode($lstrOrigName);
-								$this->objRelationsList[$lstrKey] = $lobjcpfRelation;	
-			}    
+					$lstrKey = urldecode($lstrName) . ': ';
+					$lstrKey .= "<a target=\"_blank\" href =\"http://www.viaf.org/{$this->strViafID}/\">{$lstrResultName}</a>";
+					//$lstrKey .= ' (' . urldecode($lstrName) . ')';
+
+					$this->objRelationsList[$lstrKey] = $lobjcpfRelation;
+				}
+
+				// Include original name for selection, in case VIAF results are not a good match.
+				$lobjcpfRelation = array(
+					"attributes" => array( "cpfRelationType" => "",
+						"xlink:role" => "" ),
+					"elements" => array( "relationEntry" => array (
+						"elements" => $lstrOrigName
+					)
+					)
+
+				);
+				$lstrKey = urldecode($lstrOrigName);
+				$this->objRelationsList[$lstrKey] = $lobjcpfRelation;
+			}
 		}
 	}
 
@@ -296,9 +295,7 @@ class Viaf_Ingestor extends Ingestor
 	 * @return void
 	 */
 	public function echoRelationsJsonData()
-	{	    
+	{
 		echo json_encode($this->objRelationsList);
 	}
 }
-
-?>
