@@ -1,7 +1,10 @@
 <?php
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
+
+require_once('autoloader.php');
+
 include('conf/includes.php');
-//error_reporting(E_ALL);
-//ini_set('display_errors', 1);
 ?>
 <!DOCTYPE html>
 <html>
@@ -35,8 +38,6 @@ include('conf/includes.php');
 
 
 </style>
-
-
 
 <link rel="stylesheet" type="text/css" href="style/main.css"/>
 <title>RAMP editor</title>
