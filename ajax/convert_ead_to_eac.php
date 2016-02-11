@@ -6,7 +6,7 @@ use RAMP\Xml\EadConvert;
 use RAMP\Xml\XsltTransform;
 use RAMP\Util\Database;
 
-require_once ('./autoloader.php');
+require_once ('../autoloader.php');
 require_once('../php-diff/lib/Diff.php');
 require_once('../php-diff/lib/Diff/Renderer/Html/SideBySide.php');
 
