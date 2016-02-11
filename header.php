@@ -95,16 +95,11 @@ $results = $mysqli->query ("SELECT ead_file, CONCAT(ExtractValue(eac_xml, '//nam
 							ORDER BY CASE WHEN Name = '' THEN SortHelp ELSE Name END ASC");
 
 
-
-
-
-
-
-
 echo  "<select class='ead_files '>";
 
 
 echo "<option>Select a name</option>";
+
 
 
 while ($row = $results->fetch_assoc()) {
