@@ -13,7 +13,7 @@
  */
 
 
-include('autoloader.php');
+include('../autoloader.php');
 
 use RAMP\Util\Database;
 

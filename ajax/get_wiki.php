@@ -11,10 +11,8 @@
  * @copyright Copyright (c) 2013
  *
  **/ 
-include('conf/db.php');
 
-
-include('autoloader.php');
+require_once('../autoloader.php');
 
 use RAMP\Util\Database;
 

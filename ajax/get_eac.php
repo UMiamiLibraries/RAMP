@@ -13,7 +13,7 @@
  **/
 
 
-include('autoloader.php');
+include('../autoloader.php');
 
 use RAMP\Util\Database;
 
@@ -21,11 +21,6 @@ $db = Database::getInstance();
 $mysqli = $db->getConnection();
 
 $eac = $_GET["eac"];
-
-$mysqli = new mysqli($db_host, $db_user, $db_pass, $db_default, $db_port);
-if ($mysqli->connect_errno) {
-    echo "Failed to connect to MySQL: (" . $mysqli->connect_errno . ") " . $mysqli->connect_error;
-}
 
 
 $sql = 'SELECT eac_xml FROM eac WHERE ead_file LIKE "%' . $eac . '%"';

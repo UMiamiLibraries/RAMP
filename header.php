@@ -1,10 +1,6 @@
 <?php
-error_reporting(E_ALL);
-ini_set('display_errors', 1);
 
 require_once('autoloader.php');
-
-include('autoloader.php');
 
 use RAMP\Util\Database;
 
@@ -82,51 +78,30 @@ include('conf/includes.php');
 
 <ul id="menu_3" class="menu_slice">
       <li>
-
 <?php
-
-
 $db = Database::getInstance();
 $mysqli = $db->getConnection();
 
 $results = $mysqli->query ("SELECT ead_file, CONCAT(ExtractValue(eac_xml, '//nameEntry[1]/part[1]'),', ',ExtractValue(eac_xml, '//nameEntry[1]/part[2]')) AS 'Name', substring_index(ead_file, '/', -1) AS 'SortHelp'
-
 							FROM eac
 							ORDER BY CASE WHEN Name = '' THEN SortHelp ELSE Name END ASC");
-
-
 echo  "<select class='ead_files '>";
-
-
 echo "<option>Select a name</option>";
-
-
-
 while ($row = $results->fetch_assoc()) {
   $name = $row["Name"];
   $file_name = $row["ead_file"];
-
   $file_name_display = htmlentities(basename($file_name));
   if($row["Name"]) {
-
     print "<option value='$file_name'>" . rtrim($name,', ') ."</option>";
-
   } else {
-
     print "<option value='$file_name'>$file_name_display</option>";
-
   }
-
 }
-
 //      foreach ($files as $file) {
-
-
 //              print ("</option>");
-
-
 print ("</select>");
 ?>
+
 
      </li>
 </ul>

@@ -11,11 +11,11 @@
  * @copyright Copyright (c) 2013
  *
  **/
-
-
-include('autoloader.php');
-
 use RAMP\Util\Database;
+
+
+require_once('../autoloader.php');
+
 
 $db = Database::getInstance();
 $mysqli = $db->getConnection();
@@ -28,8 +28,8 @@ $sql = 'SELECT eac_xml,eac_id FROM eac WHERE ead_file LIKE "%' . $eac . '%"';
 $result = $mysqli->query($sql);
 if (!$result) {
   printf("%s\n", $mysqli->error);
-
-} 
+  print_r($mysqli);
+}
 
 $row = $result->fetch_row();
 

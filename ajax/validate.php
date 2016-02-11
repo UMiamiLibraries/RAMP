@@ -20,7 +20,7 @@ $dom->loadXML($xml);
 
 libxml_use_internal_errors(true);
 
-if ($dom->schemaValidate('schema/cpf.xsd')) {
+if ($dom->schemaValidate('../schema/cpf.xsd')) {
 
 	// JavaScript is expecting JSON as a callback so return a JSON encoded array here
 	$success = array ( 
