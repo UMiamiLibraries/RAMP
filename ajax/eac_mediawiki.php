@@ -12,7 +12,7 @@ $xsl = new DOMDocument;
 
 // Load the stylesheet 
 
-$xsl->load('xsl/eac2wiki.xsl');
+$xsl->load('../xsl/eac2wiki.xsl');
 $xslt->importStylesheet($xsl);
 		
 
