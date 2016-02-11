@@ -11,6 +11,8 @@
  */
 namespace RAMP\Xml;
 
+use RAMP\Util\Database;
+
 class EadConvert {
     private $agency_code;
     private $other_agency_code;
@@ -24,6 +26,7 @@ class EadConvert {
     private $eventDescCreate;
     private $eventDescRevise;
     private $eventDescExport;
+    private $eventDescRAMP;
 
     private $allfiles;
     // The array of EAD files
@@ -203,6 +206,7 @@ class EadConvert {
             die ('Caught exception: ' .  $e->getMessage() . "\n");
         }
 
+
         $xml_string =  $mysqli->real_escape_string( $this->XMLDOM->saveXML() );
 
         $eac_id = $this->create_eac_id();
@@ -248,7 +252,7 @@ class EadConvert {
 
             // Insert the EAC into the database
 
-            return "Upload Sucessful";
+            return "Upload Successful";
         } else {
             // If you couldn't insert the EAD into the database
 
@@ -290,7 +294,7 @@ class EadConvert {
     private function ead_update_check($file_path) {
         // This function checks to see if an EAD file needs to be updated.
 
-        $db = \Database::getInstance();
+        $db = Database::getInstance();
         $mysqli = $db->getConnection();
         // Connect to the database
 
