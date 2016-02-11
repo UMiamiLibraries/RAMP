@@ -58,7 +58,7 @@ function setupWikiLogin( callback )
 
 			 $(dialog).dialog("close");
 			 $(dialog).remove();
-			 
+
 			 $('#edit_controls').after('<img id="loading-image" src="style/images/loading.gif" alt="loading"/>');
 
 			 //post to ajax wiki controller to log into wiki and get whether successful or not
@@ -72,7 +72,7 @@ function setupWikiLogin( callback )
 
 				    $('body').append("<div id=\"dialog\"><p>" + response + "</p></div>");
 				    makeDialog('#dialog', '',callback);
-				    
+
 				    $('#loading-image').remove();
 
 				    return;
@@ -158,12 +158,12 @@ function setupGetWiki()
      				       eac_name = lobjNameEntryPart.childNodes[0].nodeValue;
      				       eac_name = eac_name.trim();
      				       eac_name = encode_utf8(eac_name);
-				       }				       				       				       
+				       }
 				       else if ( lobjeac.getElement('//*[local-name()=\'cpfDescription\']/*[local-name()=\'identity\']/*[local-name()=\'nameEntry\']/*[local-name()=\'part\'][@localType=\'surname\' or @localType=\'forename\']') )
-				       {				       	   
+				       {
 				           lobjNameEntryPartFore = lobjeac.getElement('//*[local-name()=\'cpfDescription\']/*[local-name()=\'identity\']/*[local-name()=\'nameEntry\']/*[local-name()=\'part\'][@localType=\'forename\']');
 				           eac_name = lobjNameEntryPartFore.childNodes[0].nodeValue;
-				           eac_name += ' ';				           				       	   
+				           eac_name += ' ';
 				           lobjNameEntryPartSur = lobjeac.getElement('//*[local-name()=\'cpfDescription\']/*[local-name()=\'identity\']/*[local-name()=\'nameEntry\']/*[local-name()=\'part\'][@localType=\'surname\']');
 				           eac_name += lobjNameEntryPartSur.childNodes[0].nodeValue;
      				       eac_name = eac_name.trim();
@@ -274,7 +274,7 @@ function displayWikiSearch( lobjTitles, callback )
     $('.wiki_edit').hide();
 
     var lstrHTML = "<div class=\"form_container\"><div class=\"user_help_form\" style=\"line-height:1em;\">";
-    
+
     lstrHTML += "<button id=\"get_chosen_wiki\" class=\"pure-button pure-button-secondary\">Use Selected Title</button>";
     lstrHTML += "<button id=\"get_chosen_wiki_no_match\" class=\"pure-button pure-button-secondary\">No Match (Create New)</button>";
     lstrHTML += "<button id=\"get_chosen_wiki_cancel\" class=\"pure-button pure-button-secondary\">Cancel</button>";
@@ -282,7 +282,7 @@ function displayWikiSearch( lobjTitles, callback )
     lstrHTML += "<div id=\"form_wrapper\"><h2>Please choose page to import from Wikipedia:</h2><div class=\"form_note\">Wikipedia&#39;s search index is updated every morning. New pages will take a day to show up in the index.</div></div>";
 
     lstrHTML += "<table class=\"user_help_form_table\">";
-    
+
     for(var i = 0; i < lobjTitles.length; i++)
     {
 	lstrHTML += "<tr><td><input type=\"radio\" name=\"chosen_title\" class=\"title_chosen\" value=\"";
@@ -372,11 +372,7 @@ function getWiki( lstrTitle, lstrLink )
 
 	mboolIsNew = true;
 
-
-	$('#wikieditor').append("<div class=\"wiki_container\" style='margin: 175px 15px 15px 20px;'> \
-<button id=\"gtselectedtext\" title=\"Click in right-hand box where you want text to appear. Highlight text on left. Use arrow to transfer text (click or use keypad).\" class=\"pure-button pure-button-secondary\">&gt;</button><br /> \
-<button id=\"ltselectedtext\" title=\"Click in left-hand box where you want text to appear. Highlight text on right. Use arrow to transfer text (click or use keypad).\" class=\"pure-button pure-button-secondary\">&lt;</button></div> \
-<div class=\"wiki_container\"><h1 id=\"wiki_article\">Wikipedia article (to be submitted to Wikipedia)</h1><textarea id=\"get_wiki_text\"></textarea></div>");
+	$('#wikieditor').append("<div class=\"wiki_container\"><h1 id=\"wiki_article\">Wikipedia article (to be submitted to Wikipedia)</h1><textarea id=\"get_wiki_text\"></textarea></div>");
 	$('#get_wiki_text').height($('#wikimarkup').height());
 
 	$('#loading-image').remove();
@@ -400,10 +396,8 @@ function getWiki( lstrTitle, lstrLink )
 		   $('#wiki_switch').show();
 		   $('#post_wiki').show();
 
-		   $('#wikieditor').append("<div class=\"wiki_container\" style='margin: 175px 15px 15px 20px;'> \
-<button id=\"gtselectedtext\" class=\"pure-button ingest-cancel pure-button-secondary\" title=\"Click in right-hand box where you want text to appear. Highlight text on left. Use arrow to transfer text (click or use keypad).\" class=\"pure-button pure-button-secondary\">&gt;</button><br /> \
-<button id=\"ltselectedtext\" class=\"pure-button ingest-cancel pure-button-secondary\" title=\"Click in left-hand box where you want text to appear. Highlight text on right. Use arrow to transfer text (click or use keypad).\" class=\"pure-button pure-button-secondary\">&lt;</button></div> \
-   <div class=\"wiki_container\"><h1 id=\"wiki_article\">Wikipedia article (to be submitted to Wikipedia)<a style=\"font-size:small; float:right; margin-top:3px;\" target=\"_blank\" href=\"https://en.wikipedia.org/wiki/" + encodeURI(lstrTitle) + "\">View existing Wikipedia page</a></h1><textarea id=\"get_wiki_text\">" + response + "</textarea></div>");
+       $('#wikieditor').prepend("<br/><h1>Copy and paste text from the Local article to the Wikipedia article before saving and submitting to Wikipedia.</h1><br/>");
+		   $('#wikieditor').append("<div class=\"wiki_container\"><h1 id=\"wiki_article\">Wikipedia article (to be submitted to Wikipedia)<a style=\"font-size:small; float:right; margin-top:3px;\" target=\"_blank\" href=\"https://en.wikipedia.org/wiki/" + encodeURI(lstrTitle) + "\">View existing Wikipedia page</a></h1><textarea id=\"get_wiki_text\">" + response + "</textarea></div>");
 		   $('#get_wiki_text').height($('#wikimarkup').height());
 
 		   $('#loading-image').remove();
@@ -419,7 +413,6 @@ function getWiki( lstrTitle, lstrLink )
 
 		   });
 		   */
-
 
 		   setupPostWiki();
 
@@ -531,30 +524,6 @@ function setupPostWiki()
 						 }
 					     }
 					 });
-
-    //setup functionality to select and push text between converted wikimarkup and wikimarkup editor wants to post to wiki
-
-    //register select event to save selected text in textareas
-    $('.wiki_container textarea').select(function()
-					 {
-					     selectedtext = getSelection( $(this).attr('id') );
-					 });
-
-    //register click event to pass last selected text to right textarea
-    $('#gtselectedtext').on('click', function()
-			    {
-				//alert(selectedtext);
-
-				$('#get_wiki_text').insertAtCaret(selectedtext);
-			    });
-
-    //register click event to pass last selected text to left textarea
-    $('#ltselectedtext').on('click', function()
-			    {
-				//alert(selectedtext);
-
-				$('#wikimarkup').insertAtCaret(selectedtext);
-			    });
 }
 
 /*
@@ -735,32 +704,3 @@ function getSelection( lstrid )
     }
     return selectedText;
 }
-
-/*
- * insertAtCaret extends Jquery extension to insert text to elements caret focus
- * @method insertAtCaret
- */
-jQuery.fn.extend({
-    insertAtCaret: function(valueToInsertAtCaret){
-        return this.each( function(i) {
-            if ( document.selection ) {
-                this.focus();
-                selection = document.selection.createRange();
-                selection.text = valueToInsertAtCaret;
-                this.focus();
-            } else if ( this.selectionStart || this.selectionStart == "0" ) {
-                var startPosition = this.selectionStart;
-                var endPosition = this.selectionEnd;
-                var scrollTop = this.scrollTop;
-                this.value = this.value.substring(0, startPosition) + valueToInsertAtCaret + this.value.substring(endPosition, this.value.length);
-                this.focus();
-                this.selectionStart = startPosition + valueToInsertAtCaret.length;
-                this.selectionEnd = startPosition + valueToInsertAtCaret.length;
-                this.scrollTop = scrollTop;
-            } else {
-                this.value += valueToInsertAtCaret;
-                this.focus();
-            }
-        })
-	    }
-});
