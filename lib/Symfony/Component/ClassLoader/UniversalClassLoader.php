@@ -14,22 +14,22 @@ namespace Symfony\Component\ClassLoader;
 /**
  * UniversalClassLoader implements a "universal" autoloader for PHP 5.3.
  *
- * It is able to load classes that use either:
+ * It is able to load lib that use either:
  *
  *  * The technical interoperability standards for PHP 5.3 namespaces and
  *    class names (https://github.com/php-fig/fig-standards/blob/master/accepted/PSR-0.md);
  *
- *  * The PEAR naming convention for classes (http://pear.php.net/).
+ *  * The PEAR naming convention for lib (http://pear.php.net/).
  *
- * Classes from a sub-namespace or a sub-hierarchy of PEAR classes can be
+ * Classes from a sub-namespace or a sub-hierarchy of PEAR lib can be
  * looked for in a list of locations to ease the vendoring of a sub-set of
- * classes for large projects.
+ * lib for large projects.
  *
  * Example usage:
  *
  *     $loader = new UniversalClassLoader();
  *
- *     // register classes with namespaces
+ *     // register lib with namespaces
  *     $loader->registerNamespaces(array(
  *         'Symfony\Component' => __DIR__.'/component',
  *         'Symfony'           => __DIR__.'/framework',
@@ -79,7 +79,7 @@ class UniversalClassLoader
 
     /**
      * Can be used to check if the autoloader uses the include path to check
-     * for classes.
+     * for lib.
      *
      * @return Boolean
      */
@@ -200,9 +200,9 @@ class UniversalClassLoader
     }
 
     /**
-     * Registers an array of classes using the PEAR naming convention.
+     * Registers an array of lib using the PEAR naming convention.
      *
-     * @param array $classes An array of classes (prefixes as keys and locations as values)
+     * @param array $classes An array of lib (prefixes as keys and locations as values)
      *
      * @api
      */
@@ -214,10 +214,10 @@ class UniversalClassLoader
     }
 
     /**
-     * Registers a set of classes using the PEAR naming convention.
+     * Registers a set of lib using the PEAR naming convention.
      *
-     * @param string       $prefix The classes prefix
-     * @param array|string $paths  The location(s) of the classes
+     * @param string       $prefix The lib prefix
+     * @param array|string $paths  The location(s) of the lib
      *
      * @api
      */

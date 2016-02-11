@@ -7,6 +7,9 @@
  * @copyright Copyright (c) 2013
  * @access public
  */
+
+namespace RAMP\Ingest;
+
 class Ingestor
 {
 	public $strUrl;
@@ -20,7 +23,7 @@ class Ingestor
 		$this->strUrl = '';
 		$this->strResponse = '';
 		$this->rscCurl = curl_init();;
-		$this->objDom = new DOMDocument();
+		$this->objDom = new \DOMDocument();
 		$this->objXPath = null;
 	}
 
@@ -43,7 +46,7 @@ class Ingestor
 	public function createDom()
 	{
 		$this->objDom->loadXML($this->strResponse);
-		$this->objXPath = new DOMXPath($this->objDom);
+		$this->objXPath = new \DOMXPath($this->objDom);
 	}
 
 	/**

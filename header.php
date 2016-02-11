@@ -4,6 +4,10 @@ ini_set('display_errors', 1);
 
 require_once('autoloader.php');
 
+include('autoloader.php');
+
+use RAMP\Util\Database;
+
 include('conf/includes.php');
 ?>
 <!DOCTYPE html>
@@ -80,10 +84,10 @@ include('conf/includes.php');
       <li>
 
 <?php
-  $mysqli = new mysqli($db_host, $db_user, $db_pass, $db_default, $db_port);
-if ($mysqli->connect_errno) {
-  echo "Failed to connect to MySQL: (" . $mysqli->connect_errno . ") " . $mysqli->connect_error;
-}
+
+
+$db = Database::getInstance();
+$mysqli = $db->getConnection();
 
 $results = $mysqli->query ("SELECT ead_file, CONCAT(ExtractValue(eac_xml, '//nameEntry[1]/part[1]'),', ',ExtractValue(eac_xml, '//nameEntry[1]/part[2]')) AS 'Name', substring_index(ead_file, '/', -1) AS 'SortHelp'
 

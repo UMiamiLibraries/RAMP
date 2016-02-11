@@ -6,8 +6,9 @@
  *   @author dgonzalez
  */
 
-//require inclusion of Wikiator class
-require('../classes/Wikiator.php');
+use RAMP\Wiki\Wikiator;
+
+require_once('../autoloader.php');
 
 if(isset($_POST['action']))
 {

@@ -10,17 +10,17 @@
  * @author little9 (Jamie Little)
  * @copyright Copyright (c) 2013
  *
- **/ 
+ **/
 
-include('conf/db.php');
+
+include('autoloader.php');
+
+use RAMP\Util\Database;
+
+$db = Database::getInstance();
+$mysqli = $db->getConnection();
 
 $eac = $_GET["eac"];
-
-$mysqli = new mysqli($db_host, $db_user, $db_pass, $db_default, $db_port);
-if ($mysqli->connect_errno) {
-  echo "Failed to connect to MySQL: (" . $mysqli->connect_errno . ") " . $mysqli->connect_error;
-}
-
 
 $sql = 'SELECT eac_xml,eac_id FROM eac WHERE ead_file LIKE "%' . $eac . '%"';
 
@@ -31,8 +31,7 @@ if (!$result) {
 
 } 
 
-$row = $result->fetch_row(); 
-   
+$row = $result->fetch_row();
 
 $eac_dom = new DomDocument();
 $eac_dom->loadXML($row[0]);

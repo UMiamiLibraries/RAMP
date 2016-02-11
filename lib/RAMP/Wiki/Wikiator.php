@@ -7,6 +7,8 @@
  * @copyright Copyright (c) 2013
  * @access public
  */
+namespace RAMP\Wiki;
+
 class Wikiator
 {
 	const SEARCHLIMIT = 10;
@@ -411,7 +413,7 @@ class Wikiator
 	/**
 	 * Wikiator::getEacBase() - gets the url base of the eac installation using the
 	 * passed variable as a placeholder.
-	 * Ex: getEacBase('http://example.com/eac/classes/') -> 'http://example.com/eac/'
+	 * Ex: getEacBase('http://example.com/eac/lib/') -> 'http://example.com/eac/'
 	 *
 	 * @param string $lstrDirectoryBased
 	 * @return string

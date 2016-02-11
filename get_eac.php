@@ -10,9 +10,15 @@
  * @author little9 (Jamie Little)
  * @copyright Copyright (c) 2013
  *
- **/ 
+ **/
 
-include('conf/db.php');
+
+include('autoloader.php');
+
+use RAMP\Util\Database;
+
+$db = Database::getInstance();
+$mysqli = $db->getConnection();
 
 $eac = $_GET["eac"];
 

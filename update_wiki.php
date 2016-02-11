@@ -11,12 +11,14 @@
  *
  */
 
-include('conf/db.php');
+include('autoloader.php');
 
-$mysqli = new mysqli($db_host, $db_user, $db_pass, $db_default, $db_port);
-if ($mysqli->connect_errno) {
-  echo "Failed to connect to MySQL: (" . $mysqli->connect_errno . ") " . $mysqli->connect_error;
-}
+use RAMP\Util\Database;
+
+$db = Database::getInstance();
+$mysqli = $db->getConnection();
+
+
 
 $media_wiki = mysqli_real_escape_string($mysqli,$_POST["media_wiki"]);
 $ead_path = mysqli_real_escape_string($mysqli,$_POST["ead_path"]);

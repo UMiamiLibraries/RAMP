@@ -9,7 +9,7 @@
  * @copyright Copyright (c) 2013
  *
  */
-namespace RAMP\Util;
+namespace RAMP\Xml;
 
 class EadConvert {
     private $agency_code;

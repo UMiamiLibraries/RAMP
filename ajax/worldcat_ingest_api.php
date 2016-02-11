@@ -6,8 +6,11 @@
  *   @author dgonzalez
  */
 
-//require the inclusion of thejWorldCat Ingestor class
-require('../classes/WorldCat_Ingestor.php');
+use RAMP\Ingest\Ingestor;
+use RAMP\Ingest\WorldCatIngestor;
+
+require_once('../autoloader.php');
+
 
 if(isset($_POST['action']))
 {
@@ -21,7 +24,7 @@ if(isset($_POST['action']))
 				exit;
 			}
 
-			$lobjWorldCatIngestor = new WorldCat_Ingestor();
+			$lobjWorldCatIngestor = new WorldCatIngestor();
 
 			$ljsonSearchResults = $lobjWorldCatIngestor->searchWorldCat( $_POST['name'] );
 
@@ -37,7 +40,7 @@ if(isset($_POST['action']))
 			if(isset($_POST['uri']))
 			{
 				$lstrURI = $_POST['uri'];
-				$lobjWorldCatIngestor = new WorldCat_Ingestor();
+				$lobjWorldCatIngestor = new WorldCatIngestor();
 
 				if( !$lobjWorldCatIngestor->collectData($lstrURI) || !$lobjWorldCatIngestor->createElements())
 					echo "Error!";

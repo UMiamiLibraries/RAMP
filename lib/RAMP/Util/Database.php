@@ -12,8 +12,6 @@
 
 namespace RAMP\Util;
 
-require_once( dirname(dirname(dirname( dirname(__FILE__)))) . DIRECTORY_SEPARATOR . "conf" . DIRECTORY_SEPARATOR . "db.php" );
-
 class Database {
    
    private $_connection;
@@ -37,7 +35,7 @@ class Database {
    private function __construct() {
    	global $db_host, $db_user, $db_pass, $db_default, $db_port;
 
-   	$this->_host = "127.0.0.1";
+   	$this->_host = "localhost";
    	$this->_username = "root";
    	$this->_password = "root";
    	$this->_database = "ead_eac";

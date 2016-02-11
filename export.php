@@ -1,14 +1,17 @@
 <?php 
 include('header.php');
-include('conf/db.php');
+
+include('autoloader.php');
+
+use RAMP\Util\Database;
+
+$db = Database::getInstance();
+$mysqli = $db->getConnection();
 
 $zip = new ZipArchive;
 $res = $zip->open('export/ramp-export.zip', ZipArchive::CREATE);
 
-$mysqli = new mysqli($db_host, $db_user, $db_pass, $db_default, $db_port);
-if ($mysqli->connect_errno) {
-  echo "Failed to connect to MySQL: (" . $mysqli->connect_errno . ") " . $mysqli->connect_error;
-}
+
 
 $results = $mysqli->query ("SELECT eac_xml FROM eac");
 $names = $mysqli->query ("SELECT ead_file, ExtractValue(eac_xml, '/descendant-or-self::part[1]') AS 'Name', substring_index(ead_file, '/', -1) FROM eac");
