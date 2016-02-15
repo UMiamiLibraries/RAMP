@@ -8,7 +8,7 @@
 
 ?>
 
-<form class="pure-form">
+
     <label for="option-one" class="pure-checkbox">
         <input id="option-one" type="checkbox" value="">
         Here's option one.
@@ -23,6 +23,6 @@
         <input id="option-three" type="radio" name="optionsRadios" value="option2">
         ..Or this one!
     </label>
-    <button type="submit" class="pure-button">Next</button>
-    <button type="submit" class="pure-button">Cancel</button>
-</form>
+    <button type="submit" class="pure-button" id="wc_subjects_next_button">Next</button>
+    <button type="submit" class="pure-button" id="wc_subjects_cancel_button">Cancel</button>
+
