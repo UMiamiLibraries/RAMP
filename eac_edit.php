@@ -108,18 +108,15 @@ print ("</select>");
 </div>
 
 
-  <div id="validation" class="main_edit">
-  </div>
-  <div id="validation_text" class="main_edit">Valid XML</div>
-  
-  
-  <div id="editor_mask" class="main_edit">
+<div id="validation" class="main_edit"></div>
+<div id="validation_text" class="main_edit">Valid XML</div>
+
+
+<div id="editor_mask" class="main_edit">
   <div id="editor_container" class="main_edit">
-
-
-  <div id="editor" class="main_edit"></div>
+    <div id="editor" class="main_edit"></div>
   </div>
-  </div>
+</div>
 
   <script src="script/ace/ace.js" type="text/javascript" charset="utf-8"></script>
 
@@ -129,14 +126,10 @@ print ("</select>");
 </script>
 
 <link rel="stylesheet" type="text/css" href="script/select2/select2.css"/>
-  <script src="script/select2/select2.min.js"></script>
-
-  <script>
-  //   $(document).ready(function() { $("#ead_files").select2(); });
-  </script>
-  <?php
+<script src="script/select2/select2.min.js"></script>
 
 
+
+<?php
   include('footer.php');
-
 ?>
