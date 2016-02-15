@@ -8,6 +8,15 @@
     </div>
 </div>
 </div>
+
+<script src="assets/js/app.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/select2/4.0.1/js/select2.min.js"></script>
+<script src="script/colorbox-master/jquery.colorbox-min.js"></script>
+<script src="script/verify.notify.min.js"></script>
+
+
+
+
 </body>
 </html>
 
