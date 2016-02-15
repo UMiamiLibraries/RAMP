@@ -8,3 +8,4 @@ ead/*
 auto-save-list
 tramp
 .\#*
+/conf/db.php
