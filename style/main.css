@@ -1429,3 +1429,12 @@ font: bold 14px "Helvetica Neue", Sans-Serif;
 /* text-transform: uppercase; */
 box-shadow: 0 0 7px black;
 }
+
+
+
+/* cgb additions 02-2016 */
+#main_edit_bar {
+    display: block;
+    min-height:60px;
+    width:100%;
+}
