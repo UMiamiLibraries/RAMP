@@ -9,9 +9,9 @@
  */
 
 //require inclusion of Ingestor class
-require_once(dirname(__FILE__) . '/Ingestor.php');
+namespace RAMP\Ingest;
 
-class WorldCat_Ingestor extends Ingestor
+class WorldCatIngestor extends Ingestor
 {
 	//WorlcCat contains codes for roles and this is used to decode in order to display
 	public static $objRolesDecoder = array( "com" => "compiler", "edt" => "editor", "hnr" => "honoree", "trl" => "translator", "aui" => "author_of_introduction",

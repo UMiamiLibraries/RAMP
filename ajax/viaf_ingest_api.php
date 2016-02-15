@@ -6,8 +6,11 @@
  *   @author dgonzalez
  */
 
-//require inclusion of Viaf Ingestor class
-require('../classes/Viaf_Ingestor.php');
+use RAMP\Ingest\Ingestor;
+use RAMP\Ingest\ViafIngestor;
+
+require_once('../autoloader.php');
+
 
 if(isset($_POST['action']))
 {
@@ -24,7 +27,7 @@ if(isset($_POST['action']))
 			//need to encode posted name in order to send to API
 			$lstrName = Ingestor::encodeForUrl($_POST['name']);
 
-			$lobjViafIngestor = new Viaf_Ingestor();
+			$lobjViafIngestor = new ViafIngestor();
 
 			$ljsonSearchResults = $lobjViafIngestor->searchViaf( $lstrName );
 
@@ -42,7 +45,7 @@ if(isset($_POST['action']))
 				//intval in order to scrub posted viaf_id
 				$lstrViafID = intval($_POST['viaf_id']);
 
-				$lobjViafIngestor = new Viaf_Ingestor();
+				$lobjViafIngestor = new ViafIngestor();
 
 				if( !$lobjViafIngestor->createSource($lstrViafID) )
 					echo "No results found!";
@@ -62,7 +65,7 @@ if(isset($_POST['action']))
 				//json decoded js object to get list of names to search in viaf
 				$lobjNames = json_decode($_POST['chosen_names']);
 
-				$lobjViafIngestor = new Viaf_Ingestor();
+				$lobjViafIngestor = new ViafIngestor();
 				$lobjViafIngestor->createRelationsList($lobjNames);
 				$lobjViafIngestor->echoRelationsJsonData();
 			}else

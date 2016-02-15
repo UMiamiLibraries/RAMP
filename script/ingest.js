@@ -238,10 +238,11 @@ function ingest_viaf_NameEntry_Sources(lobjEac, lstrName, callback) {
                         var lobjNameEntryList = typeof lobjData.name_entry_list == 'undefined' ?[]: lobjData.name_entry_list;
                         var lobjSource = typeof lobjData.source == 'undefined' ?[]: lobjData.source;
                         
-                        
+
                         if (lobjNameEntryList.length != 0 || lobjNameEntryList != '') {
                             for (var i = 0; i < lobjNameEntryList.length; i++) {
                                 var NameEntry = lobjNameEntryList[i];
+                                console.log(NameEntry);
                                 lobjEac.addNameEntry(NameEntry);
                             }
                             
@@ -256,7 +257,22 @@ function ingest_viaf_NameEntry_Sources(lobjEac, lstrName, callback) {
                             $('body').append("<div id=\"dialog\"><p>&lt;source&gt; and &lt;nameEntry&gt; elements added!</p></div>");
                             makeDialog('#dialog', 'Results');
                             // display results
-                            
+                            var d = new Date;
+
+                            var maintEvent = {
+
+                                "elements": {
+                                    "eventType": "updated",
+                                    "eventDateTime": d.getMonth() + "-" + d.getDate() + "-" + d.getFullYear(),
+                                    "agentType": "machine",
+                                    "agent": "ramp/viaf",
+                                    "eventDescription": "Ingested VIAF"
+                                }
+                            }
+
+
+                            lobjEac.addMaintenanceEvent(maintEvent);
+
                             //set ace editor value to new xml from EAC Dom Document with ingested source and name entries
                             editor.getSession().setValue(lobjEac.getXML());
                             
@@ -1142,6 +1158,22 @@ function ingest_worldcat_elements(lobjEac, lstrName, callback) {
                                     } else {
                                         $('#wiki_switch').hide();
                                     }
+                                    // Append a maintenanceEvent to the EAC to keep track that a WorldCat ingest happened
+                                    var d = new Date;
+                                    var maintEvent = {
+
+                                        "elements": {
+                                            "eventType": "updated",
+                                            "eventDateTime": d.getMonth() + "-" + d.getDate() + "-" + d.getFullYear(),
+                                            "agentType": "machine",
+                                            "agent": "ramp/worldcat",
+                                            "eventDescription": "Ingested WorldCat"
+                                        }
+                                    }
+
+
+                                    lobjEac.addMaintenanceEvent(maintEvent);
+
                                     editor.getSession().setValue(lobjEac.getXML());
                                     return;
                                 }

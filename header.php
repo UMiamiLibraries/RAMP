@@ -1,7 +1,10 @@
 <?php
+
+require_once('autoloader.php');
+
+use RAMP\Util\Database;
+
 include('conf/includes.php');
-//error_reporting(E_ALL);
-//ini_set('display_errors', 1);
 ?>
 <!DOCTYPE html>
 <html>
@@ -44,5 +47,3 @@ include('conf/includes.php');
 
 	<div id="wrap">
 		<div id="main_content">
-
-

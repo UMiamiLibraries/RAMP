@@ -1,7 +1,7 @@
 <?php
 
 // Include the file that contains the database connection information
-include(dirname(__FILE__) . '/db.php');
+//include(dirname(__FILE__) . '/db.php');
 // This is the paths for the XSLT
 include(dirname(__FILE__) . '/xsl.php');
 // This is the path for the EAD files

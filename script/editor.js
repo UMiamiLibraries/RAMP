@@ -35,7 +35,7 @@ $(document).ready(function() {
 	eac_xml_path = eac_xml_file;
 	
 	// Check to see if there is already wiki markup. If so, show switcher. --timathom
-	$.get('get_wiki.php', {ead_path : eac_xml_path}, function(markup) {
+	$.get('ajax/get_wiki.php', {ead_path : eac_xml_path}, function(markup) {
     
         if ( markup == '')
         {
@@ -54,7 +54,7 @@ $(document).ready(function() {
 	
 	//Get the XML
 
-	$.get('get_eac_xml.php?eac=' + eac_xml_path , function (data) {
+	$.get('ajax/get_eac_xml.php?eac=' + eac_xml_path , function (data) {
 
 	    // Set up Ace editor        
   	    editor.getSession().setValue(data); 
@@ -91,7 +91,7 @@ $(document).ready(function() {
 	    	   
 	    // POST XML to update_eac_xml
 
-	    $.post('update_eac_xml.php', {xml: editor_xml, ead_file: eac_xml_path} , function(data) {
+	    $.post('ajax/update_eac_xml.php', {xml: editor_xml, ead_file: eac_xml_path} , function(data) {
 	        	        
 
 	    }).done(function () { 
@@ -181,7 +181,7 @@ $(document).ready(function() {
 
 
 	// POST some XML to validate.php and get back some JSON that includes either an response that says that it's valid or a JSON document that includes the errrors
-	$.post('validate.php', {eac_xml: edited_xml}, function(data) {
+	$.post('ajax/validate.php', {eac_xml: edited_xml}, function(data) {
 
 	    if(typeof callback == 'undefined')
 		callback = function(){};
@@ -248,7 +248,7 @@ $(document).ready(function() {
 
     function wikiCheck() {
 
-	$.get('get_wiki.php', {ead_path : eac_xml_path}, function(markup) {
+	$.get('ajax/get_wiki.php', {ead_path : eac_xml_path}, function(markup) {
 
 
 	    $('.main-edit').show();
@@ -298,7 +298,7 @@ $(document).ready(function() {
 
 	   	    updated_markup = document.getElementById('wikimarkup').value;
 
-		    $.post('update_wiki.php', {media_wiki: updated_markup, ead_path: eac_xml_path}, function(data) {
+		    $.post('ajax/update_wiki.php', {media_wiki: updated_markup, ead_path: eac_xml_path}, function(data) {
 			
 			$savewikidialog.dialog('open');
 			//console.log("ahh!");
@@ -320,7 +320,7 @@ $(document).ready(function() {
 
 	edited_xml = editor.getValue();
 
-	$.post('eac_mediawiki.php', {eac_text: edited_xml}, function(data) {	    
+	$.post('ajax/eac_mediawiki.php', {eac_text: edited_xml}, function(data) {
         $('#loading-image').remove();
         $('#wiki_load').remove();
 	    $('#main_content').append('<div id="wikieditor" class="wiki_edit"><div class="wiki_container"><h1>Local article (transformed from EAC-CPF record)</h1> \
@@ -350,7 +350,7 @@ $(document).ready(function() {
 
 
 
-	    	$.post('post_wiki.php', {media_wiki: wiki_markup_data, ead_path: eac_xml_path}, function(data) {
+	    	$.post('ajax/post_wiki.php', {media_wiki: wiki_markup_data, ead_path: eac_xml_path}, function(data) {
 
 	    	    // Hide this stuff if there is wiki markup
 
@@ -448,7 +448,7 @@ $(document).ready(function() {
 
 	    updated_markup = document.getElementById('wikimarkup').value;
 
-	    $.post('update_wiki.php', {media_wiki: updated_markup, ead_path: eac_xml_path}, function(data) {
+	    $.post('ajax/update_wiki.php', {media_wiki: updated_markup, ead_path: eac_xml_path}, function(data) {
 
 
 

@@ -2,11 +2,14 @@
 /*error_reporting(E_ALL);
 ini_set('display_errors', '1');*/
 
+use RAMP\Xml\EadConvert;
+use RAMP\Xml\XsltTransform;
+use RAMP\Util\Database;
+
+require_once ('../autoloader.php');
 require_once('../php-diff/lib/Diff.php');
 require_once('../php-diff/lib/Diff/Renderer/Html/SideBySide.php');
-require_once('../classes/EadConvert.php');
-require_once('../classes/Database.php');
-require_once('../classes/XsltTransform.php');
+
 include('../conf/includes.php');
 
 

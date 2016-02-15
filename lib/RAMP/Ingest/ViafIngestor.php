@@ -8,11 +8,10 @@
  * @access public
  */
 
-//require inclusion of Ingestor class
-require_once(dirname(__FILE__) . '/Ingestor.php');
 
+namespace RAMP\Ingest;
 
-class Viaf_Ingestor extends Ingestor
+class ViafIngestor extends Ingestor
 {
 	public $strViafID;
 	public $objNameEntryNodeList;
