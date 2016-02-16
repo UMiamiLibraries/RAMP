@@ -13,6 +13,10 @@
 include('header.php');
 ?>
 
+<h1 id="entity_name"></h1>
+<img id="loading-image" src="style/images/loading.gif" alt="loading"/>
+
+
 
   <script src="script/editor.js"></script>
   <script src="script/eac_editor.js"></script>
@@ -22,7 +26,7 @@ include('header.php');
  
 
   <div id="edit_controls">
-  <h1 id="entity_name"></h1>
+
   
     
   <span id="ingest_buttons" class="main_edit">
