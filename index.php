@@ -2,6 +2,7 @@
 include('header.php');
 ?>
 
+
     <div class="pure-g">
         <div class="pure-u-6-24"></div>
         <div class="pure-u-10-24">
@@ -72,7 +73,6 @@ include('header.php');
     </script>
 
     <!-- End Select 2 -->
-
 <?php
 include('footer.php');
 ?>

@@ -33,6 +33,7 @@ function build_editor(eac_xml_file) {
 
         if (markup == '') {
             $('#wiki_switch').hide();
+
         }
         else {
             $('#wiki_switch').show();
@@ -425,23 +426,45 @@ var $savedialog = $('<div></div>')
 
     });
 
-// Added save confirmation to "Convert to Wiki Markup" --timathom
-var $unsaveddialog = $('<div></div>')
-    .html('Your record has not been saved. If you have changes, they will be lost. Do you want to proceed?')
-    .dialog({
-        autoOpen: false,
-        title: 'Confirm',
-        buttons: {
-            "Yes": function () {
-                $(this).dialog("close");
-                $('.main_edit').hide();
-                eacToMediaWiki();
-            },
-            "No": function () {
-                $(this).dialog("close");
+
+
+
+    // Save dialogs 
+
+
+    var $savedialog = $('<div></div>')
+        
+    	.html('XML Saved!')
+    	.dialog({
+    	    autoOpen: false,
+    	    closeOnEscape: true,
+            title: 'Saved',
+    	    buttons: {
+		"OK" : function () {
+		    $( this ).dialog( "close" );
+		}
+	    }
+
+    	});
+    
+    // Added save confirmation to "Convert to Wiki Markup" --timathom
+    var $unsaveddialog = $('<div></div>')
+        .html('Your record has not been saved. If you have changes, they will be lost. Do you want to proceed?')
+        .dialog({
+            autoOpen: false,
+            title: 'Confirm',
+            buttons: {
+                "Yes": function () {
+                    $(this).dialog("close");
+                    $('.main_edit').hide();
+                    //$('#main_content').append('<img id="loading-image" src="style/images/loading.gif" alt="loading"/><div id="wiki_load">Converting to wiki markup... This may take a minute or two.</div>');
+                    eacToMediaWiki();
+                },
+                "No": function () {
+                    $(this).dialog("close");
+                }
             }
-        }
-    });
+        });
 
 var $savewikidialog = $('<div></div>')
     .html('Your local Wikipedia article has been saved.')
@@ -549,21 +572,24 @@ function makePromptDialog(lstrSelector, lstrTitle, callback) {
         width: 'auto',
         closeOnEscape: true,
         title: lstrTitle,
-        buttons: {
-            "OK": function () {
-                callback(this);
-                if (getCookie('onWiki') == 'true') {
-                    $('#entity_name').hide();
-                    $('.wiki_edit').hide();
-                    $('#get_wiki').hide();
-                    $('#wiki_switch').hide();
-                    $('#post_wiki').hide();
-                }
-                else {
-                    $('.main_edit').hide();
-                    $('#entity_name').hide();
-                    $('#wiki_switch').hide();
-                }
+
+        buttons:{
+            "OK":function(){            	            	                
+                callback(this);     
+                if ( getCookie('onWiki') == 'true' )   
+                {
+                    //$('#entity_name').hide();
+           	        $('.wiki_edit').hide();
+           	        $('#get_wiki').hide();
+           	        $('#wiki_switch').hide();
+           	        $('#post_wiki').hide();
+           	    }
+           	    else
+           	    {
+           	        $('.main_edit').hide();
+           	        //$('#entity_name').hide();
+           	        $('#wiki_switch').hide();
+           	    }
             }
         },
         close: function () {
