@@ -1,6 +1,6 @@
 function build_editor(eac_xml_file) {
 
-    $('#xml_switch_button').css({"background": "gray"});
+    $('#xml_switch').hide();
 
     // When one of the files is selected...
     eac_xml_path = eac_xml_file;
@@ -29,6 +29,7 @@ function build_editor(eac_xml_file) {
     // Check to see if there is already wiki markup. If so, show switcher. --timathom
     $.get('ajax/get_wiki.php', {ead_path: eac_xml_path}, function (markup) {
 
+        console.log(markup);
         if (markup == '') {
             $('#wiki_switch').hide();
 
