@@ -1,3 +1,10 @@
+$(document).ready(function () {
+
+    hideReadOnlyBtn();
+    toggleReadOnly();
+
+});
+
 function build_editor(eac_xml_file) {
 
     //hide the wiki xml swith buttons initially
@@ -5,6 +12,8 @@ function build_editor(eac_xml_file) {
 
     // When one of the files is selected...
     var eac_xml_path = eac_xml_file;
+
+
 
 
     $.get('ajax/get_eac_xml.php?eac=' + eac_xml_path, function (data) {
@@ -17,6 +26,9 @@ function build_editor(eac_xml_file) {
         // Stick the XML in Ace editor
         edited_xml = editor.getSession().setUseWrapMode(true); // Set text wrap --timathom
         edited_xml = editor.getValue();
+
+        //set editor to ready only
+        editor.setReadOnly(true);
 
         //enable ingest buttons
         $('.ingest_button').removeAttr('disabled');
@@ -50,6 +62,8 @@ $('.ead_files').change(function () {
     record.wikiConversion = "";
 
     build_editor(record.eadFile);
+
+
 
 
 });
@@ -510,3 +524,38 @@ function makePromptDialog(lstrSelector, lstrTitle, callback) {
         event.preventDefault();
     });
 }
+
+
+
+/* added by cbrownroberts 02-2016 */
+
+function hideReadOnlyBtn() {
+    $('#readonly_toggle_btn').hide();
+}
+
+function showReadOnlyBtn() {
+    $('#readonly_toggle_btn').show();
+}
+
+function toggleReadOnly() {
+    $('#editor_readonly_button').on('click', function () {
+
+        if($('#editor_readonly_button').data('readonly') === 'on') {
+
+            editor.setReadOnly(false);
+            $('#editor_readonly_button').data('readonly', 'off');
+            $('#readonly_status').text('XML Editing Enabled');
+
+        } else {
+
+            editor.setReadOnly(true);
+            $('#editor_readonly_button').data('readonly', 'on');
+            $('#readonly_status').text('XML Editing Disabled');
+
+        }
+    });
+}
+
+
+
+
