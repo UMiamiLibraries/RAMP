@@ -902,64 +902,44 @@ function display_viaf_results_form(lobjViafResults, callback) {
  * ingest_worldcat_elements ingest subject headings and relationships from worldcat using API into passed EAC DOM Document.
  * @method ingest_worldcat_elements
  */
-function ingest_worldcat_elements(lobjEac, lstrName, callback) {
-    $('body').append("<div id=\"dialog-form\" title=\"WorldCat search\"> \
-    <p class=\"validate-prompt\">Please choose or click Cancel!</p> \
-    <form> \
-    <fieldset> \
-    <label for=\"name\">Name</label> \
-    <input type=\"text\" size=\"35\" name=\"name\" id=\"name\" class=\"text ui-widget-content ui-corner-all\" value=\"" + decode_utf8(lstrName) + "\"/> \
-    </fieldset> \
-    </form></div>");
-    
-    $('.ingest_button').show();
-    
-    //prompt user to enter search string for WorldCat search
-    makePromptDialog('#dialog-form', 'WorldCat Name Search', function (dialog) {
-        var lstrName = $('input[name="name"]').val();
-        
-        if (lstrName == '') {
-            $('.validate-prompt').show();
-        } else {
-            
 
-            //$('#main_content').prepend('<img id="loading-image" src="style/images/loading.gif" alt="loading"/>');
-            $(dialog).dialog("close");
-            
-            lstrName = encode_utf8(lstrName);
-            
-            //post to ajax WorldCat ingestor controller to search worldcat and get results
-            $.post('ajax/worldcat_ingest_api.php', {
-                'action': 'search', 'name': lstrName
-            },
-            function (response) {
-                try {
-                    var lobjData = JSON.parse(response);
-                }
-                catch (e) //response should be JSON so if not, throw error
-                {
-                    callback(response);
-                    
-                    return;
-                }
-                
-                //display form for editor to choose which WorldCat result is the correct result
-                display_possible_worldcat_form(lobjData, function (lstrChosenURI) {
-                    //if cancelled because no WorldCat results matched
-                    if (lstrChosenURI == '') {
-                        
-                        jQuery('html,body').animate({
+function ingest_worldcat_elements(lobjEac, lstrName, callback) {
+    console.log(lstrName);
+
+    lstrName = encode_utf8(lstrName);
+
+    //post to ajax WorldCat ingestor controller to search worldcat and get results
+    $.post('ajax/worldcat_ingest_api.php', {
+            'action': 'search', 'name': lstrName
+        },
+        function (response) {
+            try {
+                var lobjData = JSON.parse(response);
+            }
+            catch (e) //response should be JSON so if not, throw error
+            {
+                callback(response);
+
+                return;
+            }
+
+            //display form for editor to choose which WorldCat result is the correct result
+            display_possible_worldcat_form(lobjData, function (lstrChosenURI) {
+                //if cancelled because no WorldCat results matched
+                if (lstrChosenURI == '') {
+
+                    jQuery('html,body').animate({
                             scrollTop: 0
                         },
                         0);
-                        //scroll to top to view form correctly
-                        
-                        callback('Canceled!');
-                        return;
-                    }
-                    
-                    //post to ajax WorldCat ingestor controller to search worldcat and get results
-                    $.post('ajax/worldcat_ingest_api.php', {
+                    //scroll to top to view form correctly
+
+                    callback('Canceled!');
+                    return;
+                }
+
+                //post to ajax WorldCat ingestor controller to search worldcat and get results
+                $.post('ajax/worldcat_ingest_api.php', {
                         'action': 'get_element_list', 'uri': lstrChosenURI
                     },
                     function (response) {
@@ -969,62 +949,62 @@ function ingest_worldcat_elements(lobjEac, lstrName, callback) {
                         catch (e) //response should be JSON so if not, throw error
                         {
                             callback();
-                            
+
                             return;
                         }
-                        
+
                         var lobjSourceList = typeof lobjData.source == 'undefined' ?[]: lobjData.source;
                         var lobjOtherRecList = typeof lobjData.otherRecordId == 'undefined' ?[]: lobjData.otherRecordId;
                         var lobjCpfRelationList = typeof lobjData.cpfRelation == 'undefined' ?[]: lobjData.cpfRelation;
                         var lobjResourceRelationList = typeof lobjData.resourceRelation == 'undefined' ?[]: lobjData.resourceRelation;
                         var lobjSubjectList = typeof lobjData.subject == 'undefined' ?[]: lobjData.subject;
-                        
+
                         for (var i = 0; i < lobjOtherRecList.length; i++) {
                             var OtherRecs = lobjOtherRecList[i];
                             lobjEac.addOtherRecordId(OtherRecs);
                             editor.getSession().setValue(lobjEac.getXML());
                             // added by timathom
                         }
-                        
+
                         for (var i = 0; i < lobjSourceList.length; i++) {
                             var Sources = lobjSourceList[i];
                             lobjEac.addSource(Sources);
                             editor.getSession().setValue(lobjEac.getXML());
                             // added by timathom
                         }
-                        
+
                         for (var i = 0; i < lobjCpfRelationList.length; i++) {
                             var CpfRelation = lobjCpfRelationList[i];
                             lobjEac.addCPFRelation(CpfRelation);
                             editor.getSession().setValue(lobjEac.getXML());
                             // added by timathom
                         }
-                        
+
                         for (i = 0; i < lobjResourceRelationList.length; i++) {
                             var ResourceRelation = lobjResourceRelationList[i];
                             lobjEac.addResourceRelation(ResourceRelation);
                             editor.getSession().setValue(lobjEac.getXML());
                             // added by timathom
                         }
-                        
+
                         // Result text added by timathom.
                         var lstrOtherRecId;
                         var lstrSources;
                         var lstrCpfResults;
                         var lstrResourceResults;
-                        
+
                         if (lobjOtherRecList.length == 0) {
                             lstrOtherRecId = '';
                         } else {
                             lstrOtherRecId = "<p>&lt;otherRecordId&gt; element(s) added.</p><br/>";
                         }
-                        
+
                         if (lobjSourceList.length == 0) {
                             lstrSources = '';
                         } else {
                             lstrSources = "<p>&lt;source&gt; element added.</p><br/>";
                         }
-                        
+
                         if (lobjCpfRelationList.length == 0) {
                             lstrCpfResults = '';
                         } else {
@@ -1035,16 +1015,16 @@ function ingest_worldcat_elements(lobjEac, lstrName, callback) {
                         } else {
                             lstrResourceResults = "<p>&lt;resourceRelation&gt; element(s) added.</p><br/>";
                         }
-                        
-                        
+
+
                         // Notification logic added by timathom.
                         if (lobjSubjectList.length == 0) {
                             jQuery('html,body').animate({
-                                scrollTop: 0
-                            },
-                            0);
+                                    scrollTop: 0
+                                },
+                                0);
                             //scroll to top to view form correctly
-                            
+
                             $('body').append("<div id=\"dialog\"><p>No matching subjects.</p><br/>" + lstrOtherRecId + lstrSources + lstrCpfResults + lstrResourceResults + "</div>");
                             makeDialog('#dialog', 'Results');
                             // display results
@@ -1059,28 +1039,28 @@ function ingest_worldcat_elements(lobjEac, lstrName, callback) {
                             } else {
                                 $('#wiki_switch').hide();
                             }
-                            
+
                             editor.getSession().setValue(lobjEac.getXML());
                             return;
                         } else {
-                            
+
                             //display form for editor to chose which subject headings to ingest
                             display_possible_worldcat_subjects(lobjSubjectList, function (lobjChosenSubjects) {
-                                
+
                                 for (i = 0; i < lobjChosenSubjects.length; i++) {
                                     var Subject = lobjSubjectList[lobjChosenSubjects[i]];
                                     lobjEac.addSubjectHeading(Subject);
                                     editor.getSession().setValue(lobjEac.getXML());
                                 }
-                                
+
                                 if (lobjChosenSubjects.length == 0) {
-                                    
+
                                     jQuery('html,body').animate({
-                                        scrollTop: 0
-                                    },
-                                    0);
+                                            scrollTop: 0
+                                        },
+                                        0);
                                     //scroll to top to view form correctly
-                                    
+
                                     $('body').append("<div id=\"dialog\"><p>No subjects added.</p><br/>" + lstrOtherRecId + lstrSources + lstrCpfResults + lstrResourceResults + "</div>");
                                     makeDialog('#dialog', 'Results');
                                     // display results
@@ -1096,13 +1076,13 @@ function ingest_worldcat_elements(lobjEac, lstrName, callback) {
                                     editor.getSession().setValue(lobjEac.getXML());
                                     return;
                                 } else {
-                                    
+
                                     jQuery('html,body').animate({
-                                        scrollTop: 0
-                                    },
-                                    0);
+                                            scrollTop: 0
+                                        },
+                                        0);
                                     //scroll to top to view form correctly
-                                    
+
                                     $('body').append("<div id=\"dialog\"><p>&lt;localDescription&gt; element(s) added with chosen subject(s).</p><br/>" + lstrOtherRecId + lstrSources + lstrCpfResults + lstrResourceResults + "</div>");
                                     makeDialog('#dialog', 'Results');
                                     // display results
@@ -1136,11 +1116,11 @@ function ingest_worldcat_elements(lobjEac, lstrName, callback) {
                             });
                         }
                     });
-                });
             });
-        }
-    });
+        });
 }
+
+
 
 /*
  * display_possible_worldcat_form displays a form for the editor to choose which worldcat results that editor wants to ingest
