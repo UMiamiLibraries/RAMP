@@ -107,9 +107,6 @@ function setupGetWiki()
 			       $('.wiki_edit').hide();
 			       $('#wiki_switch').hide();
 			       $('#get_wiki').hide();
-			       //$('#entity_name').hide();
-
-			       //$('#get_wiki').after('<img id="loading-image" src="style/images/loading.gif" alt="loading"/>');
 
 			       record.eacXml = editor.getValue();
 
