@@ -24,10 +24,7 @@ include('header.php');
         <div class="pure-u-6-24"></div>
     </div>
 
-
 <?php include('includes/edit_controls.php') ?>
-
-
 
     <div id="wiki_switch">
         <button id="xml_switch_button" class="pure-button pure-button-primary">XML</button>

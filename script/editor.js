@@ -4,7 +4,7 @@ function build_editor(eac_xml_file) {
     $('#xml_switch').hide();
 
     // When one of the files is selected...
-    eac_xml_path = eac_xml_file;
+    var eac_xml_path = eac_xml_file;
 
 
     $.get('ajax/get_eac_xml.php?eac=' + eac_xml_path, function (data) {
@@ -30,7 +30,6 @@ function build_editor(eac_xml_file) {
     // Check to see if there is already wiki markup. If so, show switcher. --timathom
     $.get('ajax/get_wiki.php', {ead_path: eac_xml_path}, function (markup) {
 
-        //console.log(markup);
         if (markup == '') {
            // do nothing with markup
         }
@@ -121,51 +120,6 @@ function throttle(f, delay) {
             },
             delay || 500);
     };
-}
-
-window.validateXML = function (callback) {
-
-
-    // POST some XML to validate.php and get back some JSON that includes either an response that says that it's valid or a JSON document that includes the errrors
-    $.post('ajax/validate.php', {eac_xml: record.eacXml}, function (data) {
-
-        if (typeof callback == 'undefined')
-            callback = function () {
-            };
-
-        if (data.status === "valid") {
-            // Make the little Oxygen-esque square green if valid
-
-            $('#validation').css({"background-color": "green"});
-
-            // Make the valdiation text area blank
-
-            $('#validation_text').html('Valid XML');
-
-            callback(true);
-
-        } else {
-            response = data;
-            // Make the Oxygen-esque square red
-            $('#validation').css({"background-color": "red"});
-
-            // Stick the error message into the validation_text div
-            $('#validation_text').html('<p>Error: ' + response[0].message + '</p><p>Line: ' + response[0].line + '</p>');
-
-            callback(false);
-        }
-
-    }, "json").fail(function () {
-        $('#validation').css({"background-color": "red"});
-        $('#validation_text').html('<p>Your XML is not well-formed or there is an issue with the validation service</p>');
-
-        if (typeof callback == 'undefined')
-            callback = function () {
-            };
-
-        console.log("error");
-        callback(false);
-    });
 }
 
 
