@@ -21,7 +21,6 @@ include('conf/includes.php');
 
 </style>
 
-<link rel="stylesheet" type="text/css" href="style/reset.css"/>
 <link rel="stylesheet" type="text/css" href="style/main.css"/>
 <link rel="stylesheet" type="text/css" href="style/ace-editor.css"/>
 

@@ -2,11 +2,11 @@
 include('header.php');
 ?>
 
-    <div class="pure-g-r">
-        <div class="pure-u-1">
+    <div class="pure-g">
+        <div class="pure-u-6-24"></div>
+        <div class="pure-u-10-24">
 
             <div class="content_box" id="intro_box">
-
                 <?php
                 use RAMP\Util\RecordList;
                 use RAMP\Util\Database;
@@ -17,8 +17,10 @@ include('header.php');
 
                 ?>
             </div>
+            <span class="import_now"><a href="ead_convert.php">Can't find a record? Import it now!</a></span>
 
         </div>
+        <div class="pure-u-6-24"></div>
     </div>
 
 

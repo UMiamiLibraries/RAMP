@@ -42,7 +42,7 @@ class RecordList
 							FROM eac
 							ORDER BY CASE WHEN Name = '' THEN SortHelp ELSE Name END ASC");
         echo "<select class='ead_files '>";
-        echo "<option>Select a name</option>";
+        echo "<option>Select a record</option>";
         while ($row = $results->fetch_assoc()) {
             $name = $row["Name"];
             $file_name = $row["ead_file"];

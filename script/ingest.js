@@ -15,7 +15,6 @@ $(document).ready(function () {
             makeDialog('#dialog', 'Error!');
             //display error
             
-            $('#loading-image').remove();
             $('.main_edit').show();
             $('#entity_name').show();
             
@@ -60,7 +59,6 @@ $(document).ready(function () {
                         //display response
                     }
                     
-                    $('#loading-image').remove();
                     $('.ingest_button').show();
                     $('.main_edit').show();
                     $('#entity_name').show();
@@ -70,7 +68,6 @@ $(document).ready(function () {
                 $('body').append("<div id=\"dialog\"><p>XML must be valid!</p></div>");
                 makeDialog('#dialog', 'Error!');
                 
-                $('#loading-image').remove();
                 $('.main_edit').show();
                 $('#entity_name').show();
             }
@@ -95,8 +92,7 @@ $(document).ready(function () {
             makeDialog('#dialog', 'Error!');
             //display error
             
-            $('#loading-image').remove();
-            $('.ingest_button').show();
+           $('.ingest_button').show();
             $('#entity_name').show();
             $('.main_edit').show();
             return;
@@ -154,7 +150,6 @@ $(document).ready(function () {
                 $('body').append("<div id=\"dialog\"><p>XML must be valid!</p></div>");
                 makeDialog('#dialog', 'Error!');
                 
-                $('#loading-image').remove();
                 $('.main_edit').show();
                 $('.ingest_button').show();
                 $('#entity_name').show();
@@ -178,8 +173,7 @@ function ingest_viaf_NameEntry_Sources(lobjEac, lstrName, callback) {
     </fieldset> \
     </form></div>");
     
-    $('#loading-image').remove();
-    
+
     makePromptDialog('#dialog-form', 'VIAF Name Search', function (dialog) {
         var lstrName = $('input[name="name"]').val();
         
@@ -190,9 +184,7 @@ function ingest_viaf_NameEntry_Sources(lobjEac, lstrName, callback) {
             //close dialog
             $(dialog).dialog("close");
             $(dialog).remove();
-            
-            $('#main_content').prepend('<img id="loading-image" src="style/images/loading.gif" alt="loading"/>');
-            
+
             lstrName = encode_utf8(lstrName);
             
             //post to ajax viaf ingestor controller to search viaf
@@ -302,15 +294,15 @@ function ingest_viaf_NameEntry_Sources(lobjEac, lstrName, callback) {
  * @method display_possible_viaf_form
  */
 function display_possible_viaf_form(lobjPossibleViaf, callback) {
-    var lstrHTML = "<div class=\"form_container\">";
+    var lstrHTML = "<div class=\"pure-g form_container\">";
     
-    lstrHTML += "<div class=\"instruction_div\"><h2 class=\"instruction\" style=\"font-weight:800; font-size:1.5em;\">Authority Control: Ingest from VIAF</h2><p class=\"instruction\">The purpose of this step is to get a unique identifier from the Virtual International Authority File (<a href=\"http://viaf.org\" title=\"Link to the Virtual International Authority File\" target=\"_blank\">VIAF</a>) for the entity you are working with, and then do Named Entity Recognition on the text of its EAC-CPF record and EAD finding aid in order to encode relationships to other entities.</p><p class=\"instruction\">The list on the right was retrieved from VIAF. Please examine the name(s) to see whether there is an appropriate match for the current entity.</p><p class=\"instruction\">If you click on a name, you will be taken to its VIAF page, which may include additional information that will help you decide whether it is an appropriate match.</p><p class=\"instruction\">If there is not a good match, click \"Cancel\" to proceed to the next step (Named Entity Recognition).</p>";
+    lstrHTML += "<div class=\"pure-u-1-2 instruction_div\"><h2 class=\"instruction\" style=\"font-weight:800; font-size:1.5em;\">Authority Control: Ingest from VIAF</h2><p class=\"instruction\">The purpose of this step is to get a unique identifier from the Virtual International Authority File (<a href=\"http://viaf.org\" title=\"Link to the Virtual International Authority File\" target=\"_blank\">VIAF</a>) for the entity you are working with, and then do Named Entity Recognition on the text of its EAC-CPF record and EAD finding aid in order to encode relationships to other entities.</p><p class=\"instruction\">The list on the right was retrieved from VIAF. Please examine the name(s) to see whether there is an appropriate match for the current entity.</p><p class=\"instruction\">If you click on a name, you will be taken to its VIAF page, which may include additional information that will help you decide whether it is an appropriate match.</p><p class=\"instruction\">If there is not a good match, click \"Cancel\" to proceed to the next step (Named Entity Recognition).</p>";
     
     lstrHTML += "<button id=\"ingest_viaf_chosen_viaf\" class=\"pure-button ingest-ok pure-button-secondary\" style=\"font-size:1.06em;\">Use Selected VIAF</button>";
     lstrHTML += "&nbsp;<button id=\"ingest_viaf_chosen_viaf_cancel\" class=\"pure-button ingest-cancel pure-button-secondary\" style=\"font-size:1.06em;\">Cancel</button>";
     
     
-    lstrHTML += "</div><div class=\"user_help_form\">";
+    lstrHTML += "</div><div class=\"pure-u-1-2 user_help_form\">";
     lstrHTML += "<h2>Choose the best match for this name:</h2>";
     
     //go through list and display results as radio buttons for editor to choose
@@ -517,7 +509,6 @@ function ingest_viaf_Relations(lobjEac, callback) {
             callback('No matches for Named Entity Recognition.');
             //$('body').append("<div id=\"dialog\"><p>Canceled!</p></div>");
             //makeDialog('#dialog', 'Results'); // display results
-            $('#loading-image').remove();
             $('.form_container').remove();
             $('.main_edit').show();
             
@@ -548,7 +539,6 @@ function ingest_viaf_Relations(lobjEac, callback) {
                 } else {
                     $('#wiki_switch').hide();
                 }
-                $('#loading-image').remove();
                 $('.main_edit').show();
                 
                 //added to show changes immediately
@@ -572,7 +562,6 @@ function ingest_viaf_Relations(lobjEac, callback) {
                     //console.log(response);
                     if (lobjData.length == 0) {
                         callback('');
-                        $('#loading-image').remove();
                         $('.form_container').remove();
                         $('.main_edit').show();
                         
@@ -604,7 +593,6 @@ function ingest_viaf_Relations(lobjEac, callback) {
                         
                         callback("Canceled!");
                         //finish process if no results chosen
-                        $('#loading-image').remove();
                         $('.main_edit').show();
                         $('#entity_name').show();
                         // Check to see if there is already wiki markup. If so, show switcher. --timathom
@@ -656,8 +644,7 @@ function ingest_viaf_Relations(lobjEac, callback) {
                         
                         callback('&lt;cpfRelation&gt; elements added!');
                         // Notify that <cpfRelation> elements have been added. --timathom
-                        $('#loading-image').remove();
-                        $('.main_edit').show();   
+                        $('.main_edit').show();
                         $('#entity_name').show();
                     }
                 });
@@ -671,16 +658,16 @@ function ingest_viaf_Relations(lobjEac, callback) {
  * @method display_possible_name_form
  */
 function display_possible_name_form(lobjPossibleNames, callback) {
-    var lstrHTML = "<div class=\"form_container\">";
+    var lstrHTML = "<div class=\"form_container pure-g\">";
     
-    lstrHTML += "<div class=\"instruction_div\"><h2 class=\"instruction\" style=\"font-weight:800; font-size:1.5em;\">Named Entity Recognition</h2><p class=\"instruction\">These strings have been extracted from this entity\'s EAC-CPF record or EAD finding aid. Select any names that you would like to look up in VIAF.</p><p class=\"instruction\">In the next step, you can make a final selection to create cpfRelation elements, with associated VIAF IDs, in the EAC-CPF record.</p><p class=\"instruction\">Each name can be edited to improve the search query, if appropriate. When editing, it is best to put names in inverted order (Last Name, First Name).</p><p class=\"instruction\">If names need to be split, or if you have additional names to add, you can click \"Add New Row\" to input appropriate data.</p><p class=\"instruction\"><span style=\"font-weight:800;\">Note</span>: the RAMP editor does not yet support geographic names, so they should be skipped at this stage.</p><p class=\"instruction\"><span style=\"font-weight:800;\">Also note</span>: if you select several names to look up, your query may take some time to run.</p>";
+    lstrHTML += "<div class=\"pure-u-1-2 instruction_div\"><h2 class=\"instruction\" style=\"font-weight:800; font-size:1.5em;\">Named Entity Recognition</h2><p class=\"instruction\">These strings have been extracted from this entity\'s EAC-CPF record or EAD finding aid. Select any names that you would like to look up in VIAF.</p><p class=\"instruction\">In the next step, you can make a final selection to create cpfRelation elements, with associated VIAF IDs, in the EAC-CPF record.</p><p class=\"instruction\">Each name can be edited to improve the search query, if appropriate. When editing, it is best to put names in inverted order (Last Name, First Name).</p><p class=\"instruction\">If names need to be split, or if you have additional names to add, you can click \"Add New Row\" to input appropriate data.</p><p class=\"instruction\"><span style=\"font-weight:800;\">Note</span>: the RAMP editor does not yet support geographic names, so they should be skipped at this stage.</p><p class=\"instruction\"><span style=\"font-weight:800;\">Also note</span>: if you select several names to look up, your query may take some time to run.</p>";
     
     
     lstrHTML += "<button id=\"ingest_viaf_chosen_names_relations\" class=\"pure-button ingest-ok pure-button-secondary\" style=\"font-size:1.06em;\">Use Selected Names</button>";
     lstrHTML += "&nbsp;<button id=\"ingest_viaf_chosen_names_relations_cancel\" class=\"pure-button ingest-cancel pure-button-secondary\" style=\"font-size:1.06em;\">Cancel</button>";
     
     
-    lstrHTML += "</div><div class=\"user_help_form\">";
+    lstrHTML += "</div><div class=\"pure-u-1-2 user_help_form\">";
     
     lstrHTML += "<h2>Please choose names to create &lt;cpfRelation&gt; elements:</h2>";
     lstrHTML += "<input type=\"checkbox\" id=\"select_all\" value=\"\"><span style=\"font-weight:500; margin-left:4px;\">Select all</span><br />";
@@ -913,7 +900,6 @@ function ingest_worldcat_elements(lobjEac, lstrName, callback) {
     </fieldset> \
     </form></div>");
     
-    $('#loading-image').remove();
     $('.ingest_button').show();
     
     //prompt user to enter search string for WorldCat search
@@ -924,7 +910,6 @@ function ingest_worldcat_elements(lobjEac, lstrName, callback) {
             $('.validate-prompt').show();
         } else {
             
-            $('#main_content').prepend('<img id="loading-image" src="style/images/loading.gif" alt="loading"/>');
             $(dialog).dialog("close");
             
             lstrName = encode_utf8(lstrName);
@@ -1049,8 +1034,9 @@ function ingest_worldcat_elements(lobjEac, lstrName, callback) {
                             $('body').append("<div id=\"dialog\"><p>No matching subjects.</p><br/>" + lstrOtherRecId + lstrSources + lstrCpfResults + lstrResourceResults + "</div>");
                             makeDialog('#dialog', 'Results');
                             // display results
-                            $('#loading-image').remove();
+
                             $('.form_container').remove();
+
                             $('.main_edit').show();
                             $('#entity_name').show();
                             // Check to see if there is already wiki markup. If so, show switcher. --timathom
@@ -1084,7 +1070,6 @@ function ingest_worldcat_elements(lobjEac, lstrName, callback) {
                                     $('body').append("<div id=\"dialog\"><p>No subjects added.</p><br/>" + lstrOtherRecId + lstrSources + lstrCpfResults + lstrResourceResults + "</div>");
                                     makeDialog('#dialog', 'Results');
                                     // display results
-                                    $('#loading-image').remove();
                                     $('.form_container').remove();
                                     $('.main_edit').show();
                                     $('#entity_name').show();
@@ -1107,7 +1092,6 @@ function ingest_worldcat_elements(lobjEac, lstrName, callback) {
                                     $('body').append("<div id=\"dialog\"><p>&lt;localDescription&gt; element(s) added with chosen subject(s).</p><br/>" + lstrOtherRecId + lstrSources + lstrCpfResults + lstrResourceResults + "</div>");
                                     makeDialog('#dialog', 'Results');
                                     // display results
-                                    $('#loading-image').remove();
                                     $('.main_edit').show();
                                     $('#entity_name').show();
                                     // Check to see if there is already wiki markup. If so, show switcher. --timathom
@@ -1198,7 +1182,6 @@ function display_possible_worldcat_form(lobjPossibleURI, callback) {
     $('#ingest_worldcat_chosen_uri_cancel').on('click', function () {
         //callback('');
         $('.form_container').remove();
-        $('#loading-image').remove();
         $('#entity_name').show();
         $('.main_edit').show();
         

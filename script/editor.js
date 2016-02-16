@@ -196,8 +196,6 @@ $('#convert_to_wiki').click(function () {
 
     else {
         $('.main_edit').hide();
-        $('#loading-image').remove();
-        $('#main_content').append('<img id="loading-image" src="style/images/loading.gif" alt="loading"/><div id="wiki_load">Converting to wiki markup... This may take a minute or two.</div>');
         eacToMediaWiki();
     }
 
@@ -277,7 +275,6 @@ function eacToMediaWiki() {
     edited_xml = editor.getValue();
 
     $.post('ajax/eac_mediawiki.php', {eac_text: edited_xml}, function (data) {
-        $('#loading-image').remove();
         $('#wiki_load').remove();
         $('#main_content').append('<div id="wikieditor" class="wiki_edit"><div class="wiki_container"><h1>Local article (transformed from EAC-CPF record)</h1> \
 <textarea id="wikimarkup">' + data + '</textarea></div></div>');
@@ -438,7 +435,6 @@ var $unsaveddialog = $('<div></div>')
             "Yes": function () {
                 $(this).dialog("close");
                 $('.main_edit').hide();
-                $('#main_content').append('<img id="loading-image" src="style/images/loading.gif" alt="loading"/><div id="wiki_load">Converting to wiki markup... This may take a minute or two.</div>');
                 eacToMediaWiki();
             },
             "No": function () {
