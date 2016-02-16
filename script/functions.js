@@ -46,3 +46,18 @@ var unique = function (origArr) {
 function html_decode(lstrEncodedHTML) {
     return lstrEncodedHTML.replace(/&amp;/g, '&').replace(/&lt;/g, '<').replace(/&gt;/g, '>').replace(/&quot;/g, '"');
 }
+
+
+// This function delays the function that a keystroke triggers. You can change the delay at the bottom of the function.
+
+function throttle(f, delay) {
+    var timer = null;
+    return function () {
+        var context = this, args = arguments;
+        clearTimeout(timer);
+        timer = window.setTimeout(function () {
+                f.apply(context, args);
+            },
+            delay || 500);
+    };
+}
