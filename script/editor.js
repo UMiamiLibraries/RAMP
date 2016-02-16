@@ -60,6 +60,7 @@ $('.ead_files').change(function () {
     record.entityName = $(this).children("option:selected").text();
     record.savedXml = "";
     record.wikiConversion = "";
+    record.eacId = $(this).children("option:selected").data().id;
 
     build_editor(record.eadFile);
 });
