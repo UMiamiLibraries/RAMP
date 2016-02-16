@@ -154,56 +154,35 @@ $(document).ready(function () {
  * @method ingest_viaf_NameEntry_Sources
  */
 function ingest_viaf_NameEntry_Sources(lobjEac, lstrName, callback) {
-    //dialog form to confirm search string to use to search viaf
-    $('body').append("<div id=\"dialog-form\" title=\"Viaf Search\"> \
-    <p class=\"validate-prompt\">Please choose or click Cancel!</p> \
-    <form> \
-    <fieldset> \
-    <label for=\"name\">Name</label> \
-    <input type=\"text\" size=\"35\" name=\"name\" id=\"name\" class=\"text ui-widget-content ui-corner-all\" value=\"" + decode_utf8(lstrName) + "\"/> \
-    </fieldset> \
-    </form></div>");
-    
 
-    makePromptDialog('#dialog-form', 'VIAF Name Search', function (dialog) {
-        var lstrName = $('input[name="name"]').val();
-        
-        if (lstrName == '') {
-            //need name to continue
-            $('.validate-prompt').show();
-        } else {
-            //close dialog
-            $(dialog).dialog("close");
-            $(dialog).remove();
+    lstrName = encode_utf8(lstrName);
 
-            lstrName = encode_utf8(lstrName);
-            
-            //post to ajax viaf ingestor controller to search viaf
-            $.post('ajax/viaf_ingest_api.php', {
-                'action': 'search', 'name': lstrName
-            },
-            function (response) {
-                try {
-                    var lobjData = JSON.parse(response);
-                }
-                catch (e) //response should be JSON so if not, throw error
-                {
-                    callback();
-                    /*
-                    
-                    This seems to be popping up for everything now 
-                    
-                    $('body').append("<div id=\"dialog\"><p>No results found in VIAF for " + decode_utf8(lstrName) + ".</p></div>");
-                    makeDialog('#dialog', 'Response');
-                    */
-                    //display response
-                    return;
-                }
-                
-                display_possible_viaf_form(lobjData, function (lstrChosenViaf) {
-                    
-                    //post to ajax viaf ingestor controller to get source and name entry nodes from viaf record of chosen result
-                    $.post('ajax/viaf_ingest_api.php', {
+    //post to ajax viaf ingestor controller to search viaf
+    $.post('ajax/viaf_ingest_api.php', {
+            'action': 'search', 'name': lstrName
+        },
+        function (response) {
+            try {
+                var lobjData = JSON.parse(response);
+            }
+            catch (e) //response should be JSON so if not, throw error
+            {
+                callback();
+                /*
+
+                 This seems to be popping up for everything now
+
+                 $('body').append("<div id=\"dialog\"><p>No results found in VIAF for " + decode_utf8(lstrName) + ".</p></div>");
+                 makeDialog('#dialog', 'Response');
+                 */
+                //display response
+                return;
+            }
+
+            display_possible_viaf_form(lobjData, function (lstrChosenViaf) {
+
+                //post to ajax viaf ingestor controller to get source and name entry nodes from viaf record of chosen result
+                $.post('ajax/viaf_ingest_api.php', {
                         'action': 'source_and_name_entry', 'viaf_id': lstrChosenViaf
                     },
                     function (response) {
@@ -213,14 +192,14 @@ function ingest_viaf_NameEntry_Sources(lobjEac, lstrName, callback) {
                         }
                         catch (e) //response should be JSON so if not, throw error
                         {
-                            
+
                             callback();
                             return;
                         }
-                        
+
                         var lobjNameEntryList = typeof lobjData.name_entry_list == 'undefined' ?[]: lobjData.name_entry_list;
                         var lobjSource = typeof lobjData.source == 'undefined' ?[]: lobjData.source;
-                        
+
 
                         if (lobjNameEntryList.length != 0 || lobjNameEntryList != '') {
                             for (var i = 0; i < lobjNameEntryList.length; i++) {
@@ -228,15 +207,15 @@ function ingest_viaf_NameEntry_Sources(lobjEac, lstrName, callback) {
                                 console.log(NameEntry);
                                 lobjEac.addNameEntry(NameEntry);
                             }
-                            
+
                             lobjEac.addSource(lobjSource);
-                            
+
                             jQuery('html,body').animate({
-                                scrollTop: 0
-                            },
-                            0);
+                                    scrollTop: 0
+                                },
+                                0);
                             //scroll to top to view form correctly
-                            
+
                             $('body').append("<div id=\"dialog\"><p>&lt;source&gt; and &lt;nameEntry&gt; elements added!</p></div>");
                             makeDialog('#dialog', 'Results');
                             // display results
@@ -258,26 +237,24 @@ function ingest_viaf_NameEntry_Sources(lobjEac, lstrName, callback) {
 
                             //set ace editor value to new xml from EAC Dom Document with ingested source and name entries
                             editor.getSession().setValue(lobjEac.getXML());
-                            
+
                             $('.form_container').remove();
 
                             // Results notification added by timathom
                             callback();
                         } else {
                             /*
-                            jQuery('html,body').animate({scrollTop:0},0); //scroll to top to view form correctly
-                            
-                            callback('');
-                            $('body').append("<div id=\"dialog\"><p>Skipped VIAF ingest.</p></div>");
-                            makeDialog('#dialog', 'Results'); // display results
-                            return;
+                             jQuery('html,body').animate({scrollTop:0},0); //scroll to top to view form correctly
+
+                             callback('');
+                             $('body').append("<div id=\"dialog\"><p>Skipped VIAF ingest.</p></div>");
+                             makeDialog('#dialog', 'Results'); // display results
+                             return;
                              */
                         }
                     });
-                });
             });
-        }
-    });
+        });
 }
 
 /*
