@@ -62,11 +62,11 @@ $('#save_eac').click(function (data) {
     if (record.savedXml !== true) {
         record.savedXml = true;
     }
-    editor_xml = editor.getSession().getValue();
+    record.eacXml = editor.getSession().getValue();
 
     // POST XML to update_eac_xml
 
-    $.post('ajax/update_eac_xml.php', {xml: editor_xml, ead_file: eac_xml_path}, function (data) {
+    $.post('ajax/update_eac_xml.php', {xml: record.eacXml, ead_file: eac_xml_path}, function (data) {
 
 
     }).done(function () {
@@ -94,8 +94,6 @@ $('#download_submit').click(function () {
     file_path = file_path.replace(/(,\s)|(\s)/g, "_");
 
     $('#file_name').val(file_path);
-
-
 });
 
 
@@ -103,7 +101,7 @@ $('#download_submit').click(function () {
 $('#editor').keyup(throttle(function () {
     // When the user is typing, validate it
 
-    edited_xml = editor.getValue();
+    record.eacXml = editor.getValue();
     validateXML();
 
 
@@ -128,7 +126,7 @@ window.validateXML = function (callback) {
 
 
     // POST some XML to validate.php and get back some JSON that includes either an response that says that it's valid or a JSON document that includes the errrors
-    $.post('ajax/validate.php', {eac_xml: edited_xml}, function (data) {
+    $.post('ajax/validate.php', {eac_xml: record.eacXml}, function (data) {
 
         if (typeof callback == 'undefined')
             callback = function () {
@@ -283,7 +281,7 @@ function eacToMediaWiki() {
 
         $('#wiki_save').on('click', function () {
 
-            wiki_markup_data = $('#wikimarkup').val();
+            var wiki_markup_data = $('#wikimarkup').val();
 
             $('.wiki_edit').remove();
 

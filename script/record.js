@@ -6,6 +6,6 @@ var record = {
     "entityName":"",
     "savedXml":"",
     "wikiConversion":"",
-    "onWiki" : ""
-
+    "onWiki" : "",
+    "eacXml" : ""
 }
