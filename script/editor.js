@@ -20,8 +20,6 @@ function build_editor(eac_xml_file) {
         //enable ingest buttons
         $('.ingest_button').removeAttr('disabled');
 
-        document.cookie = 'ead_file=""';
-
         // then validate the XML
         validateXML();
 
@@ -37,9 +35,9 @@ function build_editor(eac_xml_file) {
         }
         else {
             $('#wiki_switch').show();
-            // Set "saved" cookie. --timathom
-            if (getCookie('wiki') != 'present') {
-                document.cookie = 'wiki=present';
+            // Set the wiki conversion status
+            if (record.wikiConversion !== true) {
+                record.wikiConversion = true;
             }
         }
     });
@@ -47,16 +45,11 @@ function build_editor(eac_xml_file) {
 
 $('.ead_files').change(function () {
 
-    console.log(this.value);
-    document.cookie = "ead_file=" + this.value;
-    document.cookie = "ead_file_last=" + this.value;
-    document.cookie = "entity_name=" + $(this).children("option:selected").text();
-    document.cookie = "saved="; // Unset "saved" cookie. --timathom
-    document.cookie = "wiki="; // Unset "wiki" cookie. --timathom
-
-    console.log(getCookie("ead_file"));
-
-    build_editor(this.value);
+    record.eadFile = this.value;
+    record.entityName = $(this).children("option:selected").text();
+    record.savedXml = "";
+    record.wikiConversion = "";
+    build_editor(record.eadFile);
 
 
 });
@@ -65,9 +58,9 @@ $('.ead_files').change(function () {
 $('#save_eac').click(function (data) {
     // This saves the XML by getting the the text from Ace editor
 
-    // Set "saved" cookie. --timathom
-    if (getCookie('saved') != 'saved') {
-        document.cookie = 'saved=saved';
+    // Set "saved" status
+    if (record.savedXml !== true) {
+        record.savedXml = true;
     }
     editor_xml = editor.getSession().getValue();
 
@@ -90,8 +83,8 @@ $('#download_submit').click(function () {
 
     $('#download_xml').val(fetch_xml);
 
-    // Get file name from cookie.
-    var file_path = getCookie('ead_file_last');
+    // Get file name from status.
+    var file_path = record.eadFile;
 
     var find_ead = "ead/";
 
@@ -106,17 +99,11 @@ $('#download_submit').click(function () {
 });
 
 
-$('#ead_files').change(function (data) {
-
-    console.log($(this).html());
-});
-
 
 $('#editor').keyup(throttle(function () {
     // When the user is typing, validate it
 
     edited_xml = editor.getValue();
-
     validateXML();
 
 
@@ -185,13 +172,13 @@ window.validateXML = function (callback) {
 
 $('#convert_to_wiki').click(function () {
 
-    // Set cookie for showing wiki screen on dialog close.
-    if (getCookie('onWiki') != 'true') {
-        document.cookie = 'onWiki=true';
+    // Set status for showing wiki screen on dialog close.
+    if (record.onWiki !== true) {
+        record.onWiki = true;
     }
 
     // Added logic for save dialog. --timathom
-    if (getCookie('saved') != 'saved') {
+    if (record.savedXml !== true) {
         $unsaveddialog.dialog('open');
     }
 
@@ -355,10 +342,12 @@ function eacToMediaWiki() {
 
 $('#wiki_switch_button').click(function () {
 
-    // Set cookie for showing wiki screen on dialog close.
-    if (getCookie('onWiki') != 'true') {
-        document.cookie = 'onWiki=true';
+    // Set status for showing wiki screen on dialog close.
+
+    if (record.onWiki !== true) {
+        record.onWiki = true;
     }
+
     $('.wiki_edit').remove();
 
     wikiCheck();
@@ -372,11 +361,10 @@ $('#xml_switch_button').click(function () {
 
     $('html').css("min-width", "1100px");
 
-    // Unset "onWiki" cookie. --timathom
-    if (getCookie('onWiki') == 'true') {
-        document.cookie = 'onWiki=';
+    // Unset "onWiki" status. --timathom
+    if (record.onWiki == true) {
+        record.onWiki = false;
     }
-
     editXML();
 
 });
@@ -576,7 +564,7 @@ function makePromptDialog(lstrSelector, lstrTitle, callback) {
         buttons:{
             "OK":function(){            	            	                
                 callback(this);     
-                if ( getCookie('onWiki') == 'true' )   
+                if ( record.onWiki === true )
                 {
                     //$('#entity_name').hide();
            	        $('.wiki_edit').hide();
@@ -594,7 +582,7 @@ function makePromptDialog(lstrSelector, lstrTitle, callback) {
         },
         close: function () {
             $(this).remove();
-            if (getCookie('onWiki') == 'true') {
+            if (record.onWiki === true) {
                 $('#entity_name').show();
                 $('.wiki_edit').show();
                 $('#get_wiki').show();
@@ -606,7 +594,7 @@ function makePromptDialog(lstrSelector, lstrTitle, callback) {
                 $('.main_edit').show();
                 $('#entity_name').show();
                 // Check to see if there is already wiki markup. If so, show switcher. --timathom
-                if (getCookie('wiki') == 'present') {
+                if (record.onWiki === true) {
                     $('#wiki_switch').show();
                 }
                 else {
@@ -620,36 +608,4 @@ function makePromptDialog(lstrSelector, lstrTitle, callback) {
         $(this).parent().parent().find('span:contains("Ok")').click();
         event.preventDefault();
     });
-}
-
-/*
- * getCookie gets values of cookie
- * @method getCookie
- */
-function getCookie(c_name) {
-    var c_value = document.cookie;
-    var c_start = c_value.indexOf(" " + c_name + "=");
-    if (c_start == -1) {
-        c_start = c_value.indexOf(c_name + "=");
-    }
-    if (c_start == -1) {
-        c_value = null;
-    }
-    else {
-        c_start = c_value.indexOf("=", c_start) + 1;
-        var c_end = c_value.indexOf(";", c_start);
-        if (c_end == -1) {
-            c_end = c_value.length;
-        }
-        c_value = unescape(c_value.substring(c_start, c_end));
-    }
-    return c_value;
-}
-
-/*
- * deleteCookie deletes cookie
- * @method deleteCookie
- */
-function deleteCookie(name) {
-    document.cookie = name + '=; expires=Thu, 01 Jan 1970 00:00:01 GMT;';
 }
