@@ -277,8 +277,7 @@ function ingest_viaf_NameEntry_Sources(lobjEac, lstrName, callback) {
                             editor.getSession().setValue(lobjEac.getXML());
                             
                             $('.form_container').remove();
-                            $('.viaf_arrow').html("&#10003;");
-                            
+
                             // Results notification added by timathom
                             callback();
                         } else {
@@ -360,25 +359,7 @@ function display_possible_viaf_form(lobjPossibleViaf, callback) {
         // display results
         $('.form_container').remove();
         callback();
-        
-        //callback('');
-        //$('.form_container').remove();
-        //$('#loading-image').remove();
-        //$('.viaf_arrow').html("&#10003;");
-        //$('#entity_name').show();
-        //$('.main_edit').show();
-        
-        // Check to see if there is already wiki markup. If so, show switcher. --timathom
-        /*
-        if ( getCookie('wiki') == 'present' )
-        {
-        $('#wiki_switch').show();
-        }
-        else
-        {
-        $('#wiki_switch').hide();
-        }
-         */
+
     });
 }
 
@@ -567,7 +548,6 @@ function ingest_viaf_Relations(lobjEac, callback) {
                 } else {
                     $('#wiki_switch').hide();
                 }
-                $('.viaf_arrow').html("&#10003;");
                 $('#loading-image').remove();
                 $('.main_edit').show();
                 
@@ -592,7 +572,6 @@ function ingest_viaf_Relations(lobjEac, callback) {
                     //console.log(response);
                     if (lobjData.length == 0) {
                         callback('');
-                        $('.viaf_arrow').html("&#10003;");
                         $('#loading-image').remove();
                         $('.form_container').remove();
                         $('.main_edit').show();
@@ -608,22 +587,7 @@ function ingest_viaf_Relations(lobjEac, callback) {
                 }
                 catch (e) //response should be JSON so if not, throw error
                 {
-                    //$('#loading-image').remove();
-                    //commented out by dgonzalez because ingest can be done multiple times
-                    //$('#ingest_viaf').attr("disabled", "disabled");
-                    //  $('.ingest_button').show();
-                    //$('.viaf_arrow').html("&#10003;");
-                    // Check to see if there is already wiki markup. If so, show switcher. --timathom
-                    /*
-                    if ( getCookie('wiki') == 'present' )
-                    {
-                    $('#wiki_switch').show();
-                    }
-                    else
-                    {
-                    $('#wiki_switch').hide();
-                    }
-                     */
+
                     return;
                 }
                 
@@ -640,7 +604,6 @@ function ingest_viaf_Relations(lobjEac, callback) {
                         
                         callback("Canceled!");
                         //finish process if no results chosen
-                        $('.viaf_arrow').html("&#10003;");
                         $('#loading-image').remove();
                         $('.main_edit').show();
                         $('#entity_name').show();
@@ -693,8 +656,7 @@ function ingest_viaf_Relations(lobjEac, callback) {
                         
                         callback('&lt;cpfRelation&gt; elements added!');
                         // Notify that <cpfRelation> elements have been added. --timathom
-                        $('.viaf_arrow').html("&#10003;");
-                        $('#loading-image').remove();                        
+                        $('#loading-image').remove();
                         $('.main_edit').show();   
                         $('#entity_name').show();
                     }
@@ -994,7 +956,6 @@ function ingest_worldcat_elements(lobjEac, lstrName, callback) {
                         //scroll to top to view form correctly
                         
                         callback('Canceled!');
-                        $('.worldcat_arrow').html("&#10003;");
                         return;
                     }
                     
@@ -1088,7 +1049,6 @@ function ingest_worldcat_elements(lobjEac, lstrName, callback) {
                             $('body').append("<div id=\"dialog\"><p>No matching subjects.</p><br/>" + lstrOtherRecId + lstrSources + lstrCpfResults + lstrResourceResults + "</div>");
                             makeDialog('#dialog', 'Results');
                             // display results
-                            $('.worldcat_arrow').html("&#10003;");
                             $('#loading-image').remove();
                             $('.form_container').remove();
                             $('.main_edit').show();
@@ -1124,7 +1084,6 @@ function ingest_worldcat_elements(lobjEac, lstrName, callback) {
                                     $('body').append("<div id=\"dialog\"><p>No subjects added.</p><br/>" + lstrOtherRecId + lstrSources + lstrCpfResults + lstrResourceResults + "</div>");
                                     makeDialog('#dialog', 'Results');
                                     // display results
-                                    $('.worldcat_arrow').html("&#10003;");
                                     $('#loading-image').remove();
                                     $('.form_container').remove();
                                     $('.main_edit').show();
@@ -1149,7 +1108,6 @@ function ingest_worldcat_elements(lobjEac, lstrName, callback) {
                                     makeDialog('#dialog', 'Results');
                                     // display results
                                     $('#loading-image').remove();
-                                    $('.worldcat_arrow').html("&#10003;");
                                     $('.main_edit').show();
                                     $('#entity_name').show();
                                     // Check to see if there is already wiki markup. If so, show switcher. --timathom
@@ -1192,15 +1150,15 @@ function ingest_worldcat_elements(lobjEac, lstrName, callback) {
  */
 function display_possible_worldcat_form(lobjPossibleURI, callback) {
     var lstrHTML = "<div class=\"form_container\">";
-    
+
     lstrHTML += "<div class=\"instruction_div\"><h2 class=\"instruction\" style=\"font-weight:800; font-size:1.5em;\">Ingest from WorldCat Identities</h2><p class=\"instruction\">This step draws on <a href=\"http://worldcat.org/identities/\" title=\"Link to WorldCat Identities\" target=\"_blank\">WorldCat Identities</a> to pull in a variety of data associated with the current entity.</p><p class=\"instruction\"><span style=\"font-weight:800;\">Note</span>: <span style=\"color:green;font-weight:800;\">much of this data will be brought in automatically</span>. New elements will be added to your EAC-CPF record for any available works by, works about, and related entities present in the WorldCat Identities record.</p><p class=\"instruction\">The list on the right presents possible matches from WorldCat Identities. Please examine them to select the best match.</p><p class=\"instruction\">If you click on a name, you will be taken to its WorldCat Identities page, which may include additional information that will help you decide whether it is an appropriate match. In general, the page with an \"lccn\" in its URL will be the best match.</p><p class=\"instruction\">If there is no appropriate match, click \"Cancel\" to return to the edit screen.</p><p class=\"instruction\">If there are any associated subject headings available, you will be able to choose them during the next step.</p><p class=\"instruction\"><span style=\"font-weight:800;\">Also note</span>: RAMP tries to guess the cpfRelation/@xlink:role attribute for related entities brought in from WorldCat Identities, but it is a good idea to double check this for accuracy.</p>";
-    
-    
+
+
     lstrHTML += "<button id=\"ingest_worldcat_chosen_uri\" class=\"pure-button pure-button-secondary ingest-ok\" style=\"font-size:1.06em;\">Use Selected WC Identity</button>";
     lstrHTML += "&nbsp;<button id=\"ingest_worldcat_chosen_uri_cancel\" class=\"pure-button pure-button-secondary ingest-cancel\" style=\"font-size:1.06em;\">Cancel</button>";
-    
+
     lstrHTML += "</div><div class=\"user_help_form\">";
-    
+
     lstrHTML += "<h2>Please choose the name that is the best match:</h2>";
     
     for (var i = 0; i < lobjPossibleURI.length; i++) {
@@ -1260,7 +1218,6 @@ function display_possible_worldcat_form(lobjPossibleURI, callback) {
         $('body').append("<div id=\"dialog\"><p>Canceled!</p></div>");
         makeDialog('#dialog', 'Results');
         // display results
-        $('.worldcat_arrow').html("&#10003;");
     });
 }
 

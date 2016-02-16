@@ -1,0 +1,31 @@
+#editor {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    display:none;
+}
+
+#editor_container {
+    position: relative;
+    height: 500px;
+}
+
+#editor-mask {
+    height: 1000px;
+    overflow-y: hidden;
+}
+
+
+#edit_box {
+    margin:2% 2% 0 4%;
+}
+
+#edit_box h1 {
+    margin-bottom:1%;
+}
+
+#edit_xml {
+    float:left;
+}
