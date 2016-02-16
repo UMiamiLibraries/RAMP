@@ -4,6 +4,7 @@ $(document).ready(function () {
         $('.main_edit').hide();
         $('#wiki_switch').hide();
         $('#loading-image').remove();
+        showReadOnlyBtn();
         //$('#entity_name').hide();
         record.wikiConversion = false; // Unset "onWiki" status.
         record.eacXml = editor.getValue();

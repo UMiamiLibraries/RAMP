@@ -35,9 +35,13 @@ include('header.php');
     </div>
 
     <!-- Ace Editor -->
-    <div id="validation" class="main_edit">
-    </div>
+    <div id="validation" class="main_edit"></div>
     <div id="validation_text" class="main_edit">Valid XML</div>
+    <div id="readonly_toggle_btn">
+        <button class="main_edit" id="editor_readonly_button" data-readonly="on">Toggle XML Edit</button> <span class="main_edit" id="readonly_status">XML Editing Disabled</span>
+    </div>
+
+
 
 
     <div id="editor_mask" class="main_edit">
