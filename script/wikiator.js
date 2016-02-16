@@ -176,7 +176,7 @@ function setupGetWiki()
 				       $('#entity_name').show();
 
 				   }
-			       });
+			       }, record.eacXml);
 			   });
 }
 

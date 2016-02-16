@@ -130,10 +130,7 @@ $(document).ready(function () {
                         $('body').append("<div id=\"dialog_main\"><p>" + lstrMessage + "</p></div>");
                         makeDialog('#dialog_main', 'Response');
                         //display response
-                        
-                        //    $('#loading-image').remove();
-                        //commented out by dgonzalez because ingest can be done multiple times
-                        //$('#ingest_viaf').attr("disabled", "disabled");
+
                         
                         $('.ingest_button').show();
                         //$('#entity_name').show();
