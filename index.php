@@ -47,7 +47,7 @@ include('header.php');
         </div>
     </div>
 
-    <script src="script/ace/ace.js" type="text/javascript" charset="utf-8"></script>
+    <script src="script/external/ace/ace.js" type="text/javascript" charset="utf-8"></script>
 
     <script>
         var editor = ace.edit("editor");
@@ -57,8 +57,8 @@ include('header.php');
 
     <!-- Select2 -- the jQuery Plugin for Autocomplete -->
 
-    <link rel="stylesheet" type="text/css" href="script/select2/select2.css"/>
-    <script src="script/select2/select2.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="script/external/select2/select2.css"/>
+    <script src="script/external/select2/select2.min.js"></script>
 
     <script type="text/javascript">
         $('select').select2({
