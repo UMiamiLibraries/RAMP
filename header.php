@@ -36,12 +36,9 @@ include('conf/includes.php');
 
 <link href="//cdnjs.cloudflare.com/ajax/libs/select2/4.0.1/css/select2.min.css" rel="stylesheet" />
 
-
-</style>
-
 <link rel="stylesheet" type="text/css" href="style/main.css"/>
 <title>RAMP editor</title>
-<head>
+</head>
 <body>
 <header>
 
