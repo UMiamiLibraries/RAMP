@@ -111,7 +111,7 @@ function setupGetWiki()
 
 			       //$('#get_wiki').after('<img id="loading-image" src="style/images/loading.gif" alt="loading"/>');
 
-			       var record.eacXml = editor.getValue();
+			       record.eacXml = editor.getValue();
 
 			       //xml must exist to continue
 			       if( record.eacXml == '' )
@@ -462,17 +462,12 @@ function setupPostWiki()
                          });
 
 					     //if user is not logged in, notify user and cancel posting process
-					     if( getCookie('ramp_wiki_li') == null || getCookie('ramp_wiki_li') != '1' )
+					     if( user.rampWikiLi === false)
 					     {
 
 						 //if not logged in, show log in screen and then try to post again
 						 $postdialog.dialog('open');
-						 /*
-						 setupWikiLogin(function()
-						 {
-						     $( lobjClicked ).click();
-						 });
-						 */
+
 
 					     }else
 					     {
