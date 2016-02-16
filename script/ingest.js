@@ -1121,9 +1121,9 @@ function display_possible_worldcat_subjects(lobjPossibleSubjects, callback) {
     lstrHTML += "</div>";
 
 
-    lstrHTML += "<button id=\"ingest_worldcat_chosen_subjects\" class=\"pure-button pure-button-secondary ingest-ok\" style=\"font-size:1.06em;\">Use Selected Subjects</button>";
+    lstrHTML += "<button id=\"ingest_worldcat_chosen_subjects\" class=\"pure-button pure-button-secondary ingest-ok\">Next</button>";
     
-    lstrHTML += "&nbsp;<button id=\"ingest_worldcat_chosen_subjects_cancel\" class=\"pure-button pure-button-secondary ingest-cancel\" style=\"font-size:1.06em;\">Cancel</button>";
+    lstrHTML += "&nbsp;<button id=\"ingest_worldcat_chosen_subjects_cancel\" class=\"pure-button pure-button-secondary ingest-cancel\">Cancel</button>";
 
     
     lstrHTML += "</div></div>";
