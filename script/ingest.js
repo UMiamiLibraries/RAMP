@@ -791,8 +791,10 @@ function display_viaf_results_form(lobjViafResults, callback) {
 
 function ingest_worldcat_elements(lobjEac, lstrName, callback) {
     console.log(lstrName);
-    
+
     lstrName = encode_utf8(lstrName);
+
+    console.log(record.eacId);
 
     //post to ajax WorldCat ingestor controller to search worldcat and get results
     $.post('ajax/worldcat_ingest_api.php', {
@@ -1034,8 +1036,8 @@ function display_possible_worldcat_form(lobjPossibleURI, callback) {
 
     lstrHTML += "</div>";
 
-    lstrHTML += "<button id=\"ingest_worldcat_chosen_uri\" class=\"pure-button pure-button-secondary ingest-ok\" style=\"font-size:1.06em;\">Use Selected WC Identity</button>";
-    lstrHTML += "&nbsp;<button id=\"ingest_worldcat_chosen_uri_cancel\" class=\"pure-button pure-button-secondary ingest-cancel\" style=\"font-size:1.06em;\">Cancel</button>";
+    lstrHTML += "<button id=\"ingest_worldcat_chosen_uri\" class=\"pure-button pure-button-secondary ingest-ok\">Next</button>";
+    lstrHTML += "&nbsp;<button id=\"ingest_worldcat_chosen_uri_cancel\" class=\"pure-button pure-button-secondary ingest-cancel\">Cancel</button>";
     
     lstrHTML += "</div>";
 
@@ -1118,9 +1120,9 @@ function display_possible_worldcat_subjects(lobjPossibleSubjects, callback) {
     lstrHTML += "</div>";
 
 
-    lstrHTML += "<button id=\"ingest_worldcat_chosen_subjects\" class=\"pure-button pure-button-secondary ingest-ok\" style=\"font-size:1.06em;\">Use Selected Subjects</button>";
+    lstrHTML += "<button id=\"ingest_worldcat_chosen_subjects\" class=\"pure-button pure-button-secondary ingest-ok\">Next</button>";
     
-    lstrHTML += "&nbsp;<button id=\"ingest_worldcat_chosen_subjects_cancel\" class=\"pure-button pure-button-secondary ingest-cancel\" style=\"font-size:1.06em;\">Cancel</button>";
+    lstrHTML += "&nbsp;<button id=\"ingest_worldcat_chosen_subjects_cancel\" class=\"pure-button pure-button-secondary ingest-cancel\">Cancel</button>";
 
     
     lstrHTML += "</div></div>";
