@@ -228,9 +228,7 @@ function wikiCheck() {
             $('#edit_xml').on('click', function () {
 
                 //Show the XML editor ui and wiki markup editor
-
                 $('.main_edit').show();
-
                 $('.wiki_edit').remove();
 
             });
@@ -242,7 +240,6 @@ function wikiCheck() {
                 $.post('ajax/update_wiki.php', {media_wiki: updated_markup, ead_path: eac_xml_path}, function (data) {
 
                     $savewikidialog.dialog('open');
-                    //console.log("ahh!");
 
                 });
 
@@ -468,55 +465,6 @@ var $savewikidialog = $('<div></div>')
 
     });
 
-
-//functions that can be used by multiple js files
-
-/*
- * encode_utf8 encodes passed string to utf8
- * @method encode_utf8
- */
-function encode_utf8(s) {
-    return unescape(encodeURIComponent(s));
-}
-
-/*
- * decode_utf8 decodes passed string from utf8
- * @method decode_utf8
- */
-function decode_utf8(s) {
-    return decodeURIComponent(escape(s));
-}
-
-/*
- * unique removes duplicates from passed array and retuns it
- * @method unique
- */
-var unique = function (origArr) {
-    var newArr = [],
-        origLen = origArr.length,
-        found,
-        x, y;
-
-    for (x = 0; x < origLen; x++) {
-        found = undefined;
-        for (y = 0; y < newArr.length; y++) {
-            if (origArr[x] === newArr[y]) {
-                found = true;
-                break;
-            }
-        }
-        if (!found) newArr.push(origArr[x]);
-    }
-    return newArr;
-};
-
-/*
- * html_decode decoded html entities
- * @method html_decode
- */
-function html_decode(lstrEncodedHTML) {
-    return lstrEncodedHTML.replace(/&amp;/g, '&').replace(/&lt;/g, '<').replace(/&gt;/g, '>').replace(/&quot;/g, '"');
-}
 
 /*
  * makeDialog creates dialog box from passed selector with passed title

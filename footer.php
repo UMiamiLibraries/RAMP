@@ -1,6 +1,4 @@
-
-<script src="script/editor.js"></script>
-<script src="script/main.js"></script>
+<?php include('includes/scripts.php'); ?>
 </body>
 </html>
 
