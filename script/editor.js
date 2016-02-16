@@ -1,5 +1,6 @@
 function build_editor(eac_xml_file) {
 
+    //hide the wiki xml swith buttons initially
     $('#xml_switch').hide();
 
     // When one of the files is selected...
@@ -29,13 +30,11 @@ function build_editor(eac_xml_file) {
     // Check to see if there is already wiki markup. If so, show switcher. --timathom
     $.get('ajax/get_wiki.php', {ead_path: eac_xml_path}, function (markup) {
 
-        console.log(markup);
+        //console.log(markup);
         if (markup == '') {
-            $('#wiki_switch').hide();
-
+           // do nothing with markup
         }
         else {
-            $('#wiki_switch').show();
             // Set the wiki conversion status
             if (record.wikiConversion !== true) {
                 record.wikiConversion = true;
@@ -50,6 +49,7 @@ $('.ead_files').change(function () {
     record.entityName = $(this).children("option:selected").text();
     record.savedXml = "";
     record.wikiConversion = "";
+
     build_editor(record.eadFile);
 
 
