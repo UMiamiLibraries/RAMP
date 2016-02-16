@@ -38,7 +38,7 @@ class RecordList
 
         $mysqli = $this->db->getConnection();
 
-        $results = $mysqli->query("SELECT ead_file, CONCAT(ExtractValue(eac_xml, '//nameEntry[1]/part[1]'),', ',ExtractValue(eac_xml, '//nameEntry[1]/part[2]')) AS 'Name', substring_index(ead_file, '/', -1) AS 'SortHelp'
+        $results = $mysqli->query("SELECT ead_file, CONCAT(ExtractValue(eac_xml, '//nameEntry[1]/part[1]'),', ',ExtractValue(eac_xml, '//nameEntry[1]/part[2]')) AS 'Name', substring_index(ead_file, '/', -1) AS 'SortHelp', eac_id AS 'ID'
 							FROM eac
 							ORDER BY CASE WHEN Name = '' THEN SortHelp ELSE Name END ASC");
         echo "<select class='ead_files '>";
@@ -48,9 +48,9 @@ class RecordList
             $file_name = $row["ead_file"];
             $file_name_display = htmlentities(basename($file_name));
             if ($row["Name"]) {
-                print "<option value='$file_name'>" . rtrim($name, ', ') . "</option>";
+                print "<option data-id='{$row["ID"]}' value='$file_name'>" . rtrim($name, ', ') . "</option>";
             } else {
-                print "<option value='$file_name'>$file_name_display</option>";
+                print "<option data-id='{{$row["ID"]}'  value='$file_name'>$file_name_display</option>";
             }
         }
         print ("</select>");
