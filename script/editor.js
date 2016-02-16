@@ -20,17 +20,18 @@ function build_editor(eadFile) {
         editor.focus();
 
         // Stick the XML in Ace editor
-        edited_xml = editor.getSession().setUseWrapMode(true); // Set text wrap --timathom
+        var edited_xml = editor.getSession().setUseWrapMode(true); // Set text wrap --timathom
         edited_xml = editor.getValue();
-
+        record.eacXml = edited_xml;
         //set editor to ready only
         editor.setReadOnly(true);
+
 
         //enable ingest buttons
         $('.ingest_button').removeAttr('disabled');
 
         // then validate the XML
-        validateXML();
+        validateXML(undefined, record.eacXml);
 
 
     });
@@ -105,11 +106,10 @@ $('#editor').keyup(throttle(function () {
     // When the user is typing, validate it
 
     record.eacXml = editor.getValue();
-    validateXML();
+    validateXML(undefined, record.eacXml);
 
 
 }));
-
 
 
 $('#convert_to_wiki').click(function () {
@@ -300,221 +300,221 @@ function eacToMediaWiki() {
         });
     });
 }
-        function editXML(eadFile) {
-            //Show the XML editor ui and wiki markup editor
+function editXML(eadFile) {
+    //Show the XML editor ui and wiki markup editor
 
 
-            $('#wiki_switch_button').css({"background": "#0078e7"});
-            $('#xml_switch_button').css({"background": "gray"});
-            $('.wiki_edit').remove();
-            $('.main_edit').show();
+    $('#wiki_switch_button').css({"background": "#0078e7"});
+    $('#xml_switch_button').css({"background": "gray"});
+    $('.wiki_edit').remove();
+    $('.main_edit').show();
 
-            $('#wiki_update').on('click', function () {
+    $('#wiki_update').on('click', function () {
 
-                $('#dialog_box').html("<p>File saved</p>");
-                makeDialog('#dialog_box', ' ');
-                updated_markup = document.getElementById('wikimarkup').value;
-                $.post('ajax/update_wiki.php', {media_wiki: updated_markup, ead_path: eadFile}, function (data) {
-                });
-            });
+        $('#dialog_box').html("<p>File saved</p>");
+        makeDialog('#dialog_box', ' ');
+        updated_markup = document.getElementById('wikimarkup').value;
+        $.post('ajax/update_wiki.php', {media_wiki: updated_markup, ead_path: eadFile}, function (data) {
+        });
+    });
 
-        }
+}
 
 
-        function remove_wiki() {
-            $('#wikieditor').remove();
-            $('.wiki_edit').remove();
-        }
+function remove_wiki() {
+    $('#wikieditor').remove();
+    $('.wiki_edit').remove();
+}
 
 
 // Save dialogs
-        var $savedialog = $('<div></div>')
+var $savedialog = $('<div></div>')
 
-            .html('XML Saved!')
-            .dialog({
-                autoOpen: false,
-                closeOnEscape: true,
-                title: 'Saved',
-                buttons: {
-                    "OK": function () {
-                        $(this).dialog("close");
-                    }
-                }
-
-            });
-
-
-        // Save dialogs
-
-
-        var $savedialog = $('<div></div>')
-
-            .html('XML Saved!')
-            .dialog({
-                autoOpen: false,
-                closeOnEscape: true,
-                title: 'Saved',
-                buttons: {
-                    "OK": function () {
-                        $(this).dialog("close");
-                    }
-                }
-
-            });
-
-        // Added save confirmation to "Convert to Wiki Markup" --timathom
-        var $unsaveddialog = $('<div></div>')
-            .html('Your record has not been saved. If you have changes, they will be lost. Do you want to proceed?')
-            .dialog({
-                autoOpen: false,
-                title: 'Confirm',
-                buttons: {
-                    "Yes": function () {
-                        $(this).dialog("close");
-                        $('.main_edit').hide();
-                        //$('#main_content').append('<img id="loading-image" src="style/images/loading.gif" alt="loading"/><div id="wiki_load">Converting to wiki markup... This may take a minute or two.</div>');
-                        eacToMediaWiki();
-                    },
-                    "No": function () {
-                        $(this).dialog("close");
-                    }
-                }
-            });
-
-        var $savewikidialog = $('<div></div>')
-            .html('Your local Wikipedia article has been saved.')
-            .dialog({
-                autoOpen: false,
-                closeOnEscape: true,
-                title: 'Saved',
-                buttons: {
-                    "OK": function () {
-                        $(this).dialog("close");
-                    }
-                }
-
-
-            });
-
-
-        /*
-         * makeDialog creates dialog box from passed selector with passed title
-         * @method makeDialog
-         */
-        function makeDialog(lstrSelector, lstrTitle, callback) {
-            if (typeof lstrTitle == 'undefined' || lstrTitle == '')
-                lstrTitle = 'Response';
-
-            $(lstrSelector).dialog({
-                autoOpen: true,
-                resizable: false,
-                modal: true,
-                closeOnEscape: true,
-                title: lstrTitle,
-                buttons: {
-                    "OK": function () {
-                        $(this).dialog("close");
-                        $(this).remove();
-                    }
-                },
-                close: function () {
-                    $(this).remove();
-
-                    if (typeof callback != 'undefined')
-                        callback();
-                }
-            });
+    .html('XML Saved!')
+    .dialog({
+        autoOpen: false,
+        closeOnEscape: true,
+        title: 'Saved',
+        buttons: {
+            "OK": function () {
+                $(this).dialog("close");
+            }
         }
 
-        /*
-         * makePromptDialog creates dialog prompt box from passed selector with passed title and calls callback once OK is clicked
-         * @method makePromptDialog
-         */
-        function makePromptDialog(lstrSelector, lstrTitle, callback) {
-            $(lstrSelector).dialog({
-                autoOpen: true,
-                resizable: true,
-                modal: true,
-                width: 'auto',
-                closeOnEscape: true,
-                title: lstrTitle,
+    });
 
-                buttons: {
-                    "OK": function () {
-                        callback(this);
-                        if (record.onWiki === true) {
-                            //$('#entity_name').hide();
-                            $('.wiki_edit').hide();
-                            $('#get_wiki').hide();
-                            $('#wiki_switch').hide();
-                            $('#post_wiki').hide();
-                        }
-                        else {
-                            $('.main_edit').hide();
-                            //$('#entity_name').hide();
-                            $('#wiki_switch').hide();
-                        }
-                    }
-                },
-                close: function () {
-                    $(this).remove();
-                    if (record.onWiki === true) {
-                        $('#entity_name').show();
-                        $('.wiki_edit').show();
-                        $('#get_wiki').show();
-                        $('#wiki_switch').show();
-                        $('#post_wiki').show();
-                        $('.main_edit').hide();
-                    }
-                    else {
-                        $('.main_edit').show();
-                        $('#entity_name').show();
-                        // Check to see if there is already wiki markup. If so, show switcher. --timathom
-                        if (record.onWiki === true) {
-                            $('#wiki_switch').show();
-                        }
-                        else {
-                            $('#wiki_switch').hide();
-                        }
-                    }
+
+// Save dialogs
+
+
+var $savedialog = $('<div></div>')
+
+    .html('XML Saved!')
+    .dialog({
+        autoOpen: false,
+        closeOnEscape: true,
+        title: 'Saved',
+        buttons: {
+            "OK": function () {
+                $(this).dialog("close");
+            }
+        }
+
+    });
+
+// Added save confirmation to "Convert to Wiki Markup" --timathom
+var $unsaveddialog = $('<div></div>')
+    .html('Your record has not been saved. If you have changes, they will be lost. Do you want to proceed?')
+    .dialog({
+        autoOpen: false,
+        title: 'Confirm',
+        buttons: {
+            "Yes": function () {
+                $(this).dialog("close");
+                $('.main_edit').hide();
+                //$('#main_content').append('<img id="loading-image" src="style/images/loading.gif" alt="loading"/><div id="wiki_load">Converting to wiki markup... This may take a minute or two.</div>');
+                eacToMediaWiki();
+            },
+            "No": function () {
+                $(this).dialog("close");
+            }
+        }
+    });
+
+var $savewikidialog = $('<div></div>')
+    .html('Your local Wikipedia article has been saved.')
+    .dialog({
+        autoOpen: false,
+        closeOnEscape: true,
+        title: 'Saved',
+        buttons: {
+            "OK": function () {
+                $(this).dialog("close");
+            }
+        }
+
+
+    });
+
+
+/*
+ * makeDialog creates dialog box from passed selector with passed title
+ * @method makeDialog
+ */
+function makeDialog(lstrSelector, lstrTitle, callback) {
+    if (typeof lstrTitle == 'undefined' || lstrTitle == '')
+        lstrTitle = 'Response';
+
+    $(lstrSelector).dialog({
+        autoOpen: true,
+        resizable: false,
+        modal: true,
+        closeOnEscape: true,
+        title: lstrTitle,
+        buttons: {
+            "OK": function () {
+                $(this).dialog("close");
+                $(this).remove();
+            }
+        },
+        close: function () {
+            $(this).remove();
+
+            if (typeof callback != 'undefined')
+                callback();
+        }
+    });
+}
+
+/*
+ * makePromptDialog creates dialog prompt box from passed selector with passed title and calls callback once OK is clicked
+ * @method makePromptDialog
+ */
+function makePromptDialog(lstrSelector, lstrTitle, callback) {
+    $(lstrSelector).dialog({
+        autoOpen: true,
+        resizable: true,
+        modal: true,
+        width: 'auto',
+        closeOnEscape: true,
+        title: lstrTitle,
+
+        buttons: {
+            "OK": function () {
+                callback(this);
+                if (record.onWiki === true) {
+                    //$('#entity_name').hide();
+                    $('.wiki_edit').hide();
+                    $('#get_wiki').hide();
+                    $('#wiki_switch').hide();
+                    $('#post_wiki').hide();
                 }
-            });
-
-            $(lstrSelector).find("form").submit(function (event) {
-                $(this).parent().parent().find('span:contains("Ok")').click();
-                event.preventDefault();
-            });
-        };
-
-
-        /* added by cbrownroberts 02-2016 */
-
-        function hideReadOnlyBtn() {
-            $('#readonly_toggle_btn').hide();
-        }
-
-        function showReadOnlyBtn() {
-            $('#readonly_toggle_btn').show();
-        }
-
-        function toggleReadOnly() {
-            $('#editor_readonly_button').on('click', function () {
-
-                if ($('#editor_readonly_button').data('readonly') === 'on') {
-
-                    editor.setReadOnly(false);
-                    $('#editor_readonly_button').data('readonly', 'off');
-                    $('#readonly_status').text('XML Editing Enabled');
-
-                } else {
-
-                    editor.setReadOnly(true);
-                    $('#editor_readonly_button').data('readonly', 'on');
-                    $('#readonly_status').text('XML Editing Disabled');
-
+                else {
+                    $('.main_edit').hide();
+                    //$('#entity_name').hide();
+                    $('#wiki_switch').hide();
                 }
-            });
+            }
+        },
+        close: function () {
+            $(this).remove();
+            if (record.onWiki === true) {
+                $('#entity_name').show();
+                $('.wiki_edit').show();
+                $('#get_wiki').show();
+                $('#wiki_switch').show();
+                $('#post_wiki').show();
+                $('.main_edit').hide();
+            }
+            else {
+                $('.main_edit').show();
+                $('#entity_name').show();
+                // Check to see if there is already wiki markup. If so, show switcher. --timathom
+                if (record.onWiki === true) {
+                    $('#wiki_switch').show();
+                }
+                else {
+                    $('#wiki_switch').hide();
+                }
+            }
         }
+    });
+
+    $(lstrSelector).find("form").submit(function (event) {
+        $(this).parent().parent().find('span:contains("Ok")').click();
+        event.preventDefault();
+    });
+};
+
+
+/* added by cbrownroberts 02-2016 */
+
+function hideReadOnlyBtn() {
+    $('#readonly_toggle_btn').hide();
+}
+
+function showReadOnlyBtn() {
+    $('#readonly_toggle_btn').show();
+}
+
+function toggleReadOnly() {
+    $('#editor_readonly_button').on('click', function () {
+
+        if ($('#editor_readonly_button').data('readonly') === 'on') {
+
+            editor.setReadOnly(false);
+            $('#editor_readonly_button').data('readonly', 'off');
+            $('#readonly_status').text('XML Editing Enabled');
+
+        } else {
+
+            editor.setReadOnly(true);
+            $('#editor_readonly_button').data('readonly', 'on');
+            $('#readonly_status').text('XML Editing Disabled');
+
+        }
+    });
+}
 
 
 
