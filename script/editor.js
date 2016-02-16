@@ -33,6 +33,9 @@ function build_editor(eadFile) {
         // then validate the XML
         validateXML(undefined, record.eacXml);
 
+        // Show editor for now
+        $('.main_edit').show();
+
 
     });
 

@@ -14,50 +14,48 @@ $(document).ready(function () {
             $('body').append("<div id=\"dialog\"><p>Must load EAC first!</p></div>");
             makeDialog('#dialog', 'Error!');
             //display error
-            
+
             $('.main_edit').show();
             $('#entity_name').show();
-            
+
             return;
         }
-        
+
         validateXML(function (lboolValid) {
-            
+
             //xml must be valid in order for worlcat ingestion to begin
             if (lboolValid) {
                 var lobjeac = new eac();
                 lobjeac.loadXMLString(record.eacXml);
-                
+
                 //get first name entry part element in order to get name to search WorldCat
                 var lobjNameEntryPart;
-		        var lobjNameEntryPartFore;
-		        var lobjNameEntryPartSur;
-                
-                if ( lobjeac.getElement('//*[local-name()=\'cpfDescription\']/*[local-name()=\'identity\']/*[local-name()=\'nameEntry\'][1]/*[local-name()=\'part\'][not(@localType)]') )
-		        {
-		       	    lobjNameEntryPart = lobjeac.getElement('//*[local-name()=\'cpfDescription\']/*[local-name()=\'identity\']/*[local-name()=\'nameEntry\'][1]/*[local-name()=\'part\']');
-     		        eac_name = lobjNameEntryPart.childNodes[0].nodeValue;
-     		        eac_name = eac_name.trim();
-     		        eac_name = encode_utf8(eac_name);
-		        }				       				       				       
-		        else if ( lobjeac.getElement('//*[local-name()=\'cpfDescription\']/*[local-name()=\'identity\']/*[local-name()=\'nameEntry\'][1]/*[local-name()=\'part\'][@localType=\'surname\' or @localType=\'forename\']') )
-		        {				       	   
-		            lobjNameEntryPartFore = lobjeac.getElement('//*[local-name()=\'cpfDescription\']/*[local-name()=\'identity\']/*[local-name()=\'nameEntry\'][1]/*[local-name()=\'part\'][@localType=\'forename\']');
-		            eac_name = lobjNameEntryPartFore.childNodes[0].nodeValue;
-		            eac_name += ' ';				           				       	   
-		            lobjNameEntryPartSur = lobjeac.getElement('//*[local-name()=\'cpfDescription\']/*[local-name()=\'identity\']/*[local-name()=\'nameEntry\'][1]/*[local-name()=\'part\'][@localType=\'surname\']');
-		            eac_name += lobjNameEntryPartSur.childNodes[0].nodeValue;
-     		        eac_name = eac_name.trim();
-     		        eac_name = encode_utf8(eac_name);
-		        }
-                
+                var lobjNameEntryPartFore;
+                var lobjNameEntryPartSur;
+
+                if (lobjeac.getElement('//*[local-name()=\'cpfDescription\']/*[local-name()=\'identity\']/*[local-name()=\'nameEntry\'][1]/*[local-name()=\'part\'][not(@localType)]')) {
+                    lobjNameEntryPart = lobjeac.getElement('//*[local-name()=\'cpfDescription\']/*[local-name()=\'identity\']/*[local-name()=\'nameEntry\'][1]/*[local-name()=\'part\']');
+                    eac_name = lobjNameEntryPart.childNodes[0].nodeValue;
+                    eac_name = eac_name.trim();
+                    eac_name = encode_utf8(eac_name);
+                }
+                else if (lobjeac.getElement('//*[local-name()=\'cpfDescription\']/*[local-name()=\'identity\']/*[local-name()=\'nameEntry\'][1]/*[local-name()=\'part\'][@localType=\'surname\' or @localType=\'forename\']')) {
+                    lobjNameEntryPartFore = lobjeac.getElement('//*[local-name()=\'cpfDescription\']/*[local-name()=\'identity\']/*[local-name()=\'nameEntry\'][1]/*[local-name()=\'part\'][@localType=\'forename\']');
+                    eac_name = lobjNameEntryPartFore.childNodes[0].nodeValue;
+                    eac_name += ' ';
+                    lobjNameEntryPartSur = lobjeac.getElement('//*[local-name()=\'cpfDescription\']/*[local-name()=\'identity\']/*[local-name()=\'nameEntry\'][1]/*[local-name()=\'part\'][@localType=\'surname\']');
+                    eac_name += lobjNameEntryPartSur.childNodes[0].nodeValue;
+                    eac_name = eac_name.trim();
+                    eac_name = encode_utf8(eac_name);
+                }
+
                 ingest_worldcat_elements(lobjeac, eac_name, function (lstrMessage) {
                     if (typeof lstrMessage != 'undefined' && lstrMessage != '') {
                         $('body').append("<div id=\"dialog_main\"><p>" + lstrMessage + "</p></div>");
                         makeDialog('#dialog_main', 'Response');
                         //display response
                     }
-                    
+
                     $('.ingest_button').show();
                     $('.main_edit').show();
                     $('#entity_name').show();
@@ -66,11 +64,11 @@ $(document).ready(function () {
                 //display error when xml is not valid
                 $('body').append("<div id=\"dialog\"><p>XML must be valid!</p></div>");
                 makeDialog('#dialog', 'Error!');
-                
+
                 $('.main_edit').show();
                 $('#entity_name').show();
             }
-        });
+        }, record.eacXml);
     });
     
     //register click event that will start viaf ingest
@@ -150,7 +148,7 @@ $(document).ready(function () {
                 $('.ingest_button').show();
                 $('#entity_name').show();
             }
-        });
+        }, record.eacXml);
     });
 });
 
