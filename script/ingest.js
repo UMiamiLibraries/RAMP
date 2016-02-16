@@ -5,20 +5,17 @@ $(document).ready(function () {
         $('#wiki_switch').hide();
         $('#loading-image').remove();
         //$('#entity_name').hide();
-        document.cookie = "onWiki="; // Unset "onWiki" cookie. --timathom
-        //$('#main_content').prepend('<img id="loading-image" src="style/images/loading.gif" alt="loading"/>');
-        
-        var lstrXML = editor.getValue();
-        
+        record.wikiConversion = false; // Unset "onWiki" status.
+        record.eacXml = editor.getValue();
+
         //cannot start ingestion without XML being loaded
-        if (lstrXML == '') {
+        if (record.eacXml == '') {
             $('body').append("<div id=\"dialog\"><p>Must load EAC first!</p></div>");
             makeDialog('#dialog', 'Error!');
             //display error
             
             $('.main_edit').show();
             $('#entity_name').show();
-
             
             return;
         }
@@ -28,7 +25,7 @@ $(document).ready(function () {
             //xml must be valid in order for worlcat ingestion to begin
             if (lboolValid) {
                 var lobjeac = new eac();
-                lobjeac.loadXMLString(lstrXML);
+                lobjeac.loadXMLString(record.eacXml);
                 
                 //get first name entry part element in order to get name to search WorldCat
                 var lobjNameEntryPart;
@@ -38,7 +35,6 @@ $(document).ready(function () {
                 if ( lobjeac.getElement('//*[local-name()=\'cpfDescription\']/*[local-name()=\'identity\']/*[local-name()=\'nameEntry\'][1]/*[local-name()=\'part\'][not(@localType)]') )
 		        {
 		       	    lobjNameEntryPart = lobjeac.getElement('//*[local-name()=\'cpfDescription\']/*[local-name()=\'identity\']/*[local-name()=\'nameEntry\'][1]/*[local-name()=\'part\']');
-		            //= lobjeac.getElement('//*[local-name()=\'cpfDescription\']/*[local-name()=\'identity\']/*[local-name()=\'nameEntry\']/*[local-name()=\'part\']');
      		        eac_name = lobjNameEntryPart.childNodes[0].nodeValue;
      		        eac_name = eac_name.trim();
      		        eac_name = encode_utf8(eac_name);
@@ -80,16 +76,13 @@ $(document).ready(function () {
     $('#ingest_viaf').on('click', function () {
         $('.main_edit').hide();
         $('#wiki_switch').hide();
-        //$('#entity_name').hide();
-        
-        document.cookie = "onWiki="; // Unset "onWiki" cookie. --timathom
-        
-        // $('#main_content').prepend('<img id="loading-image" src="style/images/loading.gif" alt="loading"/>');
-        
-        var lstrXML = editor.getValue();
+
+        record.onWiki = false; // Unset "onWiki" status
+
+        record.eacXml = editor.getValue();
         
         //cannot start ingestion without XML being loaded
-        if (lstrXML == '') {
+        if (record.eacXml == '') {
             $('body').append("<div id=\"dialog\"><p>Must load EAC first!</p></div>");
             makeDialog('#dialog', 'Error!');
             //display error
@@ -105,7 +98,7 @@ $(document).ready(function () {
             //xml must be valid in order for viaf ingestion to begin
             if (lboolValid) {
                 var lobjeac = new eac();
-                lobjeac.loadXMLString(lstrXML);
+                lobjeac.loadXMLString(record.eacXml);
                 
                 //get first name entry part element in order to get name to search viaf
                 
@@ -371,7 +364,7 @@ function display_possible_viaf_form(lobjPossibleViaf, callback) {
 function ingest_viaf_Relations(lobjEac, callback) {
     //need to get ead to get possible names and titles list
     $.post('ajax/get_ead.php', {
-        'ead': getCookie('ead_file_last')
+        'ead': record.eadFile
     },
     function (lstrXML) {
         var lobjead = new ead();
@@ -385,11 +378,7 @@ function ingest_viaf_Relations(lobjEac, callback) {
         var lobjParagraphList = lobjEac.getElementList('//*[local-name()=\'p\']');        
         var lobjUnitTitleList = lobjead.getElementList('//*[local-name()=\'unittitle\']');
         var lobjIngestList = lobjEac.getElementList('//*[local-name()=\'chronItem\']/*[local-name()=\'event\'] | //*[local-name()=\'resourceRelation\'][@resourceRelationType=\'creatorOf\']/*[local-name()=\'relationEntry\'][1] | //*[local-name()=\'resourceRelation\'][not(@resourceRelationType)]/*[local-name()=\'relationEntry\'][1] | //*[local-name()=\'resourceRelation\'][@resourceRelationType=\'subjectOf\']/*[local-name()=\'relationEntry\'][@localType=\'creator\'] | //*[local-name()=\'resourceRelation\'][@resourceRelationType=\'subjectOf\']/*[local-name()=\'relationEntry\'][1]');
-        
-        // XPath for getting things wrapped in <span> tags:
-        //var lobjSpanList = lobjead.getElementList('//*[local-name()=\'unittitle\']/*[local-name()=\'span\']');
-        //lobjSpanList = lobjSpanList.concat(lobjEac.getElementList('//*[local-name()=\'cpfDescription\']/*[local-name()=\'description\']/*[local-name()=\'biogHist\']/*[local-name()=\'p\']//*[local-name()=\'span\']'));
-        
+
         for (var i = 0; i < lobjParagraphList.length; i++) {
             if (typeof lobjParagraphList[i].childNodes[0] == 'undefined')
             continue;
@@ -400,13 +389,7 @@ function ingest_viaf_Relations(lobjEac, callback) {
             continue;
             
             //apply regex to elements to find all possible names to search viaf for relations
-            //lobjPossibleTitles = lstrParagraph.match(/["\u201D\u201C]([^"\u201D\u201C]+)["\u201D\u201C]/g);
-            //lstrParagraph = lstrParagraph.replace(/["\u201D\u201C]([^"\u201D\u201C]+)["\u201D\u201C]/g, "");
             var lobjPossibleNamesBio = lstrParagraph.match(/([\(A-Z\u00C0\u00C1\u00C3\u00C7\u00C9\u00CA\u00CD\u00D3\u00DA\u00DC\u00D4\u00D5\u00D6][\.]?[a-z\u00E0\u00E1\u00E3\u00E7\u00E9\u00EA\u00ED\u00F0\u00F3\u00F4\u00F5\u00FA\u00FC\u00F1\u0026\-\'\)]*((\s?[0-9][0-9][\)]?\s?)*(\s?[0-9][0-9][\)]?\s?)*(\s?[-]\s?)*)*([,]\s?)*?(\sof\sthe|\sof|\s\u0026|\sf\u00FCr|\sdes|\set|\sde\sla|\sde\s|\sdel|\sde|\svon|\svan)?\s*([A-Z\u00C1\u00C9\u00CD\u00D3\u00DA\u00DC\u00D6]\s?[\.]\s?)*\s*(of\sthe\s|of\s|f\u00FCr\s|des\s|et\s|y\sde\sla\s|y\sdel\s|de\sla\s|del\s|de\slos\s|de\s|do\s|da\s|dos\s|das\s|e\s|y\s|von\s|van\s)?){2,9}/g);
-            
-            // Attempt to get substring before/after regex match. In development. --timathom
-            //var NameIndex = [];
-            //var NameIndexList = [];
             
             if (lobjPossibleNamesBio == null || lobjPossibleNamesBio.length == 0) {
                 continue;
@@ -418,26 +401,7 @@ function ingest_viaf_Relations(lobjEac, callback) {
                     lstrPossibleNameBio = lstrPossibleNameBio.trim();
                     
                     PossibleNameListBio.push(lstrPossibleNameBio);
-                    
-                    //Attempt to get substring before/after regex match. In development. --timathom
-                    
-                    //lstrNameMatch = lstrParagraph.indexOf(lstrPossibleNameBio);
-                    
-                    //NameIndex.push(lstrNameMatch);
-                    
-                    /*
-                    for (var y = 0; y < NameIndex.length; y++)
-                    {
-                    
-                    var lstrBeforeName = lstrParagraph.substring(NameIndex[y]-50, NameIndex[y])
-                    var lstrAfterName = lstrParagraph.substring(NameIndex[y],NameIndex[y]+50)
-                    
-                    NameIndexList.push(lstrBeforeName);
-                    NameIndexList.push(lstrPossibleNameBio);
-                    NameIndexList.push(lstrAfterName);
-                    
-                    }
-                     */
+
                 }
             }
         }
@@ -468,41 +432,7 @@ function ingest_viaf_Relations(lobjEac, callback) {
                 }
             }
         }
-        /* Regex for NER in ingested data. */
-        /*
-        for (var i = 0; i < lobjIngestList.length; i++) {
-            if (typeof lobjIngestList[i].childNodes == 'undefined')
-            continue;
-            
-            var lstrIngest = lobjIngestList[i].childNodes[0].nodeValue;
-            
-            if (lstrIngest == null || lstrIngest == '')
-            continue;
-            
-            var lobjPossibleNamesIngest = lstrIngest.match(/([\(A-Z\u00DC\u0300\u0301\u0302\u0303\u0304\u0305\u0306\u0307\u0308\u00C0\u00C1\u00C3\u00C7\u00C9\u00CA\u00CD\u00D3\u00DA\u00DC\u00D4\u00D5\u00D6][\.]?[a-z\u00B4\u00FC\u0026\u0300\u0301\u0303\u0308\u030B\u030E\u00E0\u00E1\u00E3\u00E7\u00E9\u00EA\u00ED\u00F0\u00F3\u00F4\u00F5\u00FA\u00FC\u00F1\-\'\,\)]*((\s?[0-9][0-9][\)]?\s?)*(\s?[0-9][0-9][\)]?\s?)*(\s?[-]\s?)*)*(\s\u0026|\sof\sthe|\sof|\sfu\u0308r|\sdes|\set|\sde\sla|\sdel|\sde\s|\svon|\svan)?\s*([A-Z\u00C1\u00C9\u00CD\u00D3\u00DA\u00DC\u00D6]\s?[\.]\s?)*\s*(of\sthe\s|of\s|fu\u0308r\s|des\s|et\s|y\sde\sla\s|y\sdel\s|de\sla\s|del\s|de\slos\s|de\s|do\s|da\s|dos\s|das\s|e\s|y\s|von\s|van\s)?){2,9}/g);
-            
-            if (lobjPossibleNamesIngest == null || lobjPossibleNamesIngest.length == 0) {
-                continue;
-            } else {
-                for (var j = 0; j < lobjPossibleNamesIngest.length; j++) {
-                    var lstrPossibleNameIngest = lobjPossibleNamesIngest[j];
-                    lstrPossibleNameIngest = lstrPossibleNameIngest.trim();
-                    
-                    // Strip any trailing commas. --timathom
-                    var lstrLastChar = lstrPossibleNameIngest.substr(lstrPossibleNameIngest.length - 1);
-                    
-                    if (lstrLastChar == ",") {
-                        lstrPossibleNameIngest = lstrPossibleNameIngest.slice(0, -1);
-                    }
-                    
-                    PossibleNameListIngest.push(lstrPossibleNameIngest);
-                }
-            }
-        }
-        */
-        
-        /* .concat(PossibleNameListIngest) */
-        //console.log(NameIndexList);
+
         PossibleNameList = PossibleNameListBio.concat(PossibleNameListUnit);
         PossibleNameList = unique(PossibleNameList);
         PossibleNameList.sort();
@@ -543,7 +473,7 @@ function ingest_viaf_Relations(lobjEac, callback) {
                 callback("Canceled!");
                 //done if no names where chosen
                 
-                if (getCookie('wiki') == 'present') {
+                if (record.wikiStatus === true) {
                     $('#wiki_switch').show();
                 } else {
                     $('#wiki_switch').hide();
@@ -575,7 +505,7 @@ function ingest_viaf_Relations(lobjEac, callback) {
                         $('.main_edit').show();
                         
                         // Check to see if there is already wiki markup. If so, show switcher. --timathom
-                        if (getCookie('wiki') == 'present') {
+                        if (record.wikiStatus === true) {
                             $('#wiki_switch').show();
                         } else {
                             $('#wiki_switch').hide();
@@ -605,7 +535,7 @@ function ingest_viaf_Relations(lobjEac, callback) {
                         $('.main_edit').show();
                         $('#entity_name').show();
                         // Check to see if there is already wiki markup. If so, show switcher. --timathom
-                        if (getCookie('wiki') == 'present') {
+                        if (record.wikiStatus === true) {
                             $('#wiki_switch').show();
                         } else {
                             $('#wiki_switch').hide();
@@ -616,24 +546,10 @@ function ingest_viaf_Relations(lobjEac, callback) {
                         for (var i = 0; i < lobjResultsChosen[ 'names'][ 'entity'][ 'viaf'].length; i++) {
                             var chosen_result_viaf = lobjResultsChosen[ 'names'][ 'entity'][ 'viaf'][i];
                             
-                            //console.log(chosen_result_viaf);
-                            
+
                             lobjEac.addCPFRelationViaf(lobjData[chosen_result_viaf]);
                             
-                            /* Attempting to dedupe cpfRelations... Needs more work. --timathom
-                            var colon = chosen_result_viaf.indexOf(':');
-                            
-                            lstrResultTest = chosen_result_viaf.substring(0,colon);
-                            console.log(lstrResultTest);
-                            
-                            var lstrCpfTest = lobjEac.getElement('//*[local-name()=\'cpfRelation\']/*[local-name()=\'relationEntry\'][1]');
-                            
-                            if ( lstrResultTest != lstrCpfTest )
-                            {
-                            lobjEac.addCPFRelationViaf(lobjData[chosen_result_viaf]);
-                            console.log(lstrResultTest);
-                            }
-                             */
+
                         }
                         
                         for (var i = 0; i < lobjResultsChosen[ 'names'][ 'entity'][ 'custom'].length; i++) {
@@ -749,7 +665,7 @@ function display_possible_name_form(lobjPossibleNames, callback) {
         var lobjChosenNames =[];
         callback(lobjChosenNames);
         // Check to see if there is already wiki markup. If so, show switcher. --timathom
-        if (getCookie('wiki') == 'present') {
+        if (record.wikiStatus === true) {
             $('#wiki_switch').show();
         } else {
             $('#wiki_switch').hide();
@@ -835,10 +751,7 @@ function display_viaf_results_form(lobjViafResults, callback) {
         lobjChosenResults[ 'names'][ 'entity'][ 'custom'] =[];
         lobjChosenResults[ 'names'][ 'rels'] =[];
         lobjChosenResults[ 'names'][ 'roles'] =[];
-        //var lobjChosenResultsTest = [];
-        //lobjChosenResultsTest['names'] = [];
-        //lobjChosenResultsTest['names']['entity'] = [];
-        
+
         $('input.viaf_check').each(function () {
             if (this.checked) {
                 if ($(this).val() != "") {
@@ -879,7 +792,7 @@ function display_viaf_results_form(lobjViafResults, callback) {
             $('.form_container').remove();
             $('#viaf_load').remove();
             // Check to see if there is already wiki markup. If so, show switcher. --timathom
-            if (getCookie('wiki') == 'present') {
+            if (record.wikiStatus === true) {
                 $('#wiki_switch').show();
             } else {
                 $('#wiki_switch').hide();
@@ -1054,7 +967,7 @@ function ingest_worldcat_elements(lobjEac, lstrName, callback) {
                             $('.main_edit').show();
                             $('#entity_name').show();
                             // Check to see if there is already wiki markup. If so, show switcher. --timathom
-                            if (getCookie('wiki') == 'present') {
+                            if (record.wikiStatus === true) {
                                 $('#wiki_switch').show();
                             } else {
                                 $('#wiki_switch').hide();
@@ -1088,7 +1001,7 @@ function ingest_worldcat_elements(lobjEac, lstrName, callback) {
                                     $('.main_edit').show();
                                     $('#entity_name').show();
                                     // Check to see if there is already wiki markup. If so, show switcher. --timathom
-                                    if (getCookie('wiki') == 'present') {
+                                    if (record.wikiStatus === true) {
                                         $('#wiki_switch').show();
                                     } else {
                                         $('#wiki_switch').hide();
@@ -1109,7 +1022,7 @@ function ingest_worldcat_elements(lobjEac, lstrName, callback) {
                                     $('.main_edit').show();
                                     $('#entity_name').show();
                                     // Check to see if there is already wiki markup. If so, show switcher. --timathom
-                                    if (getCookie('wiki') == 'present') {
+                                    if (record.wikiStatus === true) {
                                         $('#wiki_switch').show();
                                     } else {
                                         $('#wiki_switch').hide();
@@ -1206,7 +1119,7 @@ function display_possible_worldcat_form(lobjPossibleURI, callback) {
         $('.main_edit').show();
         
         // Check to see if there is already wiki markup. If so, show switcher. --timathom
-        if (getCookie('wiki') == 'present') {
+        if (record.wikiStatus === true) {
             $('#wiki_switch').show();
         } else {
             $('#wiki_switch').hide();
@@ -1289,7 +1202,7 @@ function display_possible_worldcat_subjects(lobjPossibleSubjects, callback) {
             $('.form_container').remove();
             $('.main_edit').show();
             // Check to see if there is already wiki markup. If so, show switcher. --timathom
-            if (getCookie('wiki') == 'present') {
+            if (record.wikiStatus === true) {
                 $('#wiki_switch').show();
             } else {
                 $('#wiki_switch').hide();
@@ -1306,7 +1219,7 @@ function display_possible_worldcat_subjects(lobjPossibleSubjects, callback) {
         $('.main_edit').show();
         $('#entity_name').show();
         // Check to see if there is already wiki markup. If so, show switcher. --timathom
-        if (getCookie('wiki') == 'present') {
+        if (record.wikiStatus === true) {
             $('#wiki_switch').show();
         } else {
             $('#wiki_switch').hide();
