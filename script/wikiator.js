@@ -111,10 +111,10 @@ function setupGetWiki()
 
 			       //$('#get_wiki').after('<img id="loading-image" src="style/images/loading.gif" alt="loading"/>');
 
-			       var lstrXML = editor.getValue();
+			       var record.eacXml = editor.getValue();
 
 			       //xml must exist to continue
-			       if( lstrXML == '' )
+			       if( record.eacXml == '' )
 			       {
 				   $('body').append("<div id=\"dialog\"><p>Cannot read XML!</p></div>");
 				   makeDialog('#dialog', 'Error!');
@@ -133,7 +133,7 @@ function setupGetWiki()
 				   if(lboolValid)
 				   {
 				       var lobjeac = new eac();
-				       lobjeac.loadXMLString( lstrXML );
+				       lobjeac.loadXMLString( record.eacXml );
 
 				       var lobjNameEntryPart;
 				       var lobjNameEntryPartFore;
