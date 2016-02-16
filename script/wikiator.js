@@ -107,14 +107,11 @@ function setupGetWiki()
 			       $('.wiki_edit').hide();
 			       $('#wiki_switch').hide();
 			       $('#get_wiki').hide();
-			       //$('#entity_name').hide();
 
-			       //$('#get_wiki').after('<img id="loading-image" src="style/images/loading.gif" alt="loading"/>');
-
-			       var lstrXML = editor.getValue();
+			       record.eacXml = editor.getValue();
 
 			       //xml must exist to continue
-			       if( lstrXML == '' )
+			       if( record.eacXml == '' )
 			       {
 				   $('body').append("<div id=\"dialog\"><p>Cannot read XML!</p></div>");
 				   makeDialog('#dialog', 'Error!');
@@ -133,7 +130,7 @@ function setupGetWiki()
 				   if(lboolValid)
 				   {
 				       var lobjeac = new eac();
-				       lobjeac.loadXMLString( lstrXML );
+				       lobjeac.loadXMLString( record.eacXml );
 
 				       var lobjNameEntryPart;
 				       var lobjNameEntryPartFore;
@@ -462,17 +459,12 @@ function setupPostWiki()
                          });
 
 					     //if user is not logged in, notify user and cancel posting process
-					     if( getCookie('ramp_wiki_li') == null || getCookie('ramp_wiki_li') != '1' )
+					     if( user.rampWikiLi === false)
 					     {
 
 						 //if not logged in, show log in screen and then try to post again
 						 $postdialog.dialog('open');
-						 /*
-						 setupWikiLogin(function()
-						 {
-						     $( lobjClicked ).click();
-						 });
-						 */
+
 
 					     }else
 					     {

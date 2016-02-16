@@ -63,11 +63,11 @@ $('#save_eac').click(function (data) {
     if (record.savedXml !== true) {
         record.savedXml = true;
     }
-    editor_xml = editor.getSession().getValue();
+    record.eacXml = editor.getSession().getValue();
 
     // POST XML to update_eac_xml
 
-    $.post('ajax/update_eac_xml.php', {xml: editor_xml, ead_file: eac_xml_path}, function (data) {
+    $.post('ajax/update_eac_xml.php', {xml: record.eacXml, ead_file: eac_xml_path}, function (data) {
 
 
     }).done(function () {
@@ -95,8 +95,6 @@ $('#download_submit').click(function () {
     file_path = file_path.replace(/(,\s)|(\s)/g, "_");
 
     $('#file_name').val(file_path);
-
-
 });
 
 
@@ -104,7 +102,7 @@ $('#download_submit').click(function () {
 $('#editor').keyup(throttle(function () {
     // When the user is typing, validate it
 
-    edited_xml = editor.getValue();
+    record.eacXml = editor.getValue();
     validateXML();
 
 
@@ -129,7 +127,7 @@ window.validateXML = function (callback) {
 
 
     // POST some XML to validate.php and get back some JSON that includes either an response that says that it's valid or a JSON document that includes the errrors
-    $.post('ajax/validate.php', {eac_xml: edited_xml}, function (data) {
+    $.post('ajax/validate.php', {eac_xml: record.eacXml}, function (data) {
 
         if (typeof callback == 'undefined')
             callback = function () {
@@ -230,9 +228,7 @@ function wikiCheck() {
             $('#edit_xml').on('click', function () {
 
                 //Show the XML editor ui and wiki markup editor
-
                 $('.main_edit').show();
-
                 $('.wiki_edit').remove();
 
             });
@@ -244,7 +240,6 @@ function wikiCheck() {
                 $.post('ajax/update_wiki.php', {media_wiki: updated_markup, ead_path: eac_xml_path}, function (data) {
 
                     $savewikidialog.dialog('open');
-                    //console.log("ahh!");
 
                 });
 
@@ -284,7 +279,7 @@ function eacToMediaWiki() {
 
         $('#wiki_save').on('click', function () {
 
-            wiki_markup_data = $('#wikimarkup').val();
+            var wiki_markup_data = $('#wikimarkup').val();
 
             $('.wiki_edit').remove();
 
@@ -470,55 +465,6 @@ var $savewikidialog = $('<div></div>')
 
     });
 
-
-//functions that can be used by multiple js files
-
-/*
- * encode_utf8 encodes passed string to utf8
- * @method encode_utf8
- */
-function encode_utf8(s) {
-    return unescape(encodeURIComponent(s));
-}
-
-/*
- * decode_utf8 decodes passed string from utf8
- * @method decode_utf8
- */
-function decode_utf8(s) {
-    return decodeURIComponent(escape(s));
-}
-
-/*
- * unique removes duplicates from passed array and retuns it
- * @method unique
- */
-var unique = function (origArr) {
-    var newArr = [],
-        origLen = origArr.length,
-        found,
-        x, y;
-
-    for (x = 0; x < origLen; x++) {
-        found = undefined;
-        for (y = 0; y < newArr.length; y++) {
-            if (origArr[x] === newArr[y]) {
-                found = true;
-                break;
-            }
-        }
-        if (!found) newArr.push(origArr[x]);
-    }
-    return newArr;
-};
-
-/*
- * html_decode decoded html entities
- * @method html_decode
- */
-function html_decode(lstrEncodedHTML) {
-    return lstrEncodedHTML.replace(/&amp;/g, '&').replace(/&lt;/g, '<').replace(/&gt;/g, '>').replace(/&quot;/g, '"');
-}
 
 /*
  * makeDialog creates dialog box from passed selector with passed title
