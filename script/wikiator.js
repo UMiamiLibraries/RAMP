@@ -109,7 +109,7 @@ function setupGetWiki()
 			       $('.wiki_edit').hide();
 			       $('#wiki_switch').hide();
 			       $('#get_wiki').hide();
-			       $('#entity_name').hide();
+			       //$('#entity_name').hide();
 
 			       //$('#get_wiki').after('<img id="loading-image" src="style/images/loading.gif" alt="loading"/>');
 
@@ -197,7 +197,7 @@ function searchWiki( lstrSearch )
     $('.wiki_edit').hide();
     $('#wiki_switch').hide();
     $('#get_wiki').hide();
-    $('#entity_name').hide();
+    //$('#entity_name').hide();
 
 
 
@@ -225,7 +225,7 @@ function searchWiki( lstrSearch )
         		 else
         		 {
         		     $('#get_wiki').hide();
-			         $('#get_wiki').after('<img id="loading-image" src="style/images/loading.gif" alt="loading"/>');
+			         //$('#get_wiki').after('<img id="loading-image" src="style/images/loading.gif" alt="loading"/>');
 
         		     lstrUserSearch = encode_utf8(lstrUserSearch);
 
@@ -273,25 +273,31 @@ function displayWikiSearch( lobjTitles, callback )
     $('.main_edit').hide();
     $('.wiki_edit').hide();
 
-    var lstrHTML = "<div class=\"form_container\"><div class=\"user_help_form\" style=\"line-height:1em;\">";
+    var lstrHTML = "<div class=\"form_container\">";
+
+	lstrHTML += "<div class=\"user_help_form\">";
+
+	lstrHTML += "<h2>Please choose page to import from Wikipedia:</h2>";
+	lstrHTML += "<p class=\"form_note\">Wikipedia&#39;s search index is updated every morning. New pages will take a day to show up in the index.</p>";
+
+	lstrHTML += "<table class=\"user_help_form_table\">";
+
+	for(var i = 0; i < lobjTitles.length; i++)
+	{
+		lstrHTML += "<tr><td><input type=\"radio\" name=\"chosen_title\" class=\"title_chosen\" value=\"";
+		lstrHTML += lobjTitles[i].title + "\" /><span style=\"font-weight:800;\">" + lobjTitles[i]['title'] + "</span><br /><dl><dd>" + html_decode(lobjTitles[i]['snippet']) + "</dd></dl></td></tr>";
+	}
+
+	lstrHTML += "</table>";
+
+	lstrHTML += "</div>";
 
     lstrHTML += "<button id=\"get_chosen_wiki\" class=\"pure-button pure-button-secondary\">Use Selected Title</button>";
     lstrHTML += "<button id=\"get_chosen_wiki_no_match\" class=\"pure-button pure-button-secondary\">No Match (Create New)</button>";
     lstrHTML += "<button id=\"get_chosen_wiki_cancel\" class=\"pure-button pure-button-secondary\">Cancel</button>";
 
-    lstrHTML += "<div id=\"form_wrapper\"><h2>Please choose page to import from Wikipedia:</h2><div class=\"form_note\">Wikipedia&#39;s search index is updated every morning. New pages will take a day to show up in the index.</div></div>";
 
-    lstrHTML += "<table class=\"user_help_form_table\">";
-
-    for(var i = 0; i < lobjTitles.length; i++)
-    {
-	lstrHTML += "<tr><td><input type=\"radio\" name=\"chosen_title\" class=\"title_chosen\" value=\"";
-	lstrHTML += lobjTitles[i].title + "\" /><span style=\"font-weight:800;\">" + lobjTitles[i]['title'] + "</span><br /><dl><dd>" + html_decode(lobjTitles[i]['snippet']) + "</dd></dl></td></tr>";
-    }
-
-    lstrHTML += "</table>";
-
-    lstrHTML += "</div></div>";
+    lstrHTML += "</div>";
 
     $('body').append(lstrHTML);
     jQuery('html,body').animate({scrollTop:0},0); //scroll to top to view form correctly
@@ -322,7 +328,7 @@ function displayWikiSearch( lobjTitles, callback )
 				 // Hide. --timathom
 				 $('.form_container').remove();
 	             $('.main_edit').hide();
-	             $('#entity_name').hide();
+	             //$('#entity_name').hide();
 		         $('.wiki_edit').hide();
 		         $('#wiki_switch').hide();
 		         $('#get_wiki').hide();

@@ -625,16 +625,7 @@ button.on {
 }
 
 .user_help_form {
-    padding:.5% .5% 10% .5%;    
-	font-size:1.25em;
-	line-height:1.5em;
-	left: 15%;
-    /* margin-left: -240px; */
-    position: absolute;
-    top: 0;
-    /* width: 900px; */
-    margin-left:20%;
-    /* height: 1000px; */
+
 }
 
 .user_help_form button {

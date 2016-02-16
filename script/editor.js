@@ -8,16 +8,21 @@ $(document).ready(function() {
 		        $('#ead_files').hide();
 		        $('.main_edit').hide();
                 $('#editor_mask').hide();
-		
+                $('#loading-image').hide();
 		        $('#entity_name').html('Please select a record to edit from the menu.');
 		        $('#entity_name').show();
             } 
             else 
             {
                 console.log(getCookie('ead_file'));
+
+                $('#loading-image').hide();
                 build_editor(getCookie('ead_file'));
                 $('#entity_name').html('Now Editing: ' + getCookie('entity_name'));
 		        $('#ead_files').hide();
+                $('#editor').hide();
+                $('#xml_switch_button').hide();
+                $('#wiki_switch_button').hide();
             }
 	     }
 	     else 
@@ -239,7 +244,7 @@ $(document).ready(function() {
        {    
            $('.main_edit').hide();
            $('#loading-image').remove();
-           $('#main_content').append('<img id="loading-image" src="style/images/loading.gif" alt="loading"/><div id="wiki_load">Converting to wiki markup... This may take a minute or two.</div>');
+           //$('#main_content').append('<img id="loading-image" src="style/images/loading.gif" alt="loading"/><div id="wiki_load">Converting to wiki markup... This may take a minute or two.</div>');
            eacToMediaWiki();
        }     
         	                   
@@ -519,7 +524,7 @@ $(document).ready(function() {
                 "Yes" : function() {            
                     $( this ).dialog( "close" );
                     $('.main_edit').hide();                                                                                                          
-                    $('#main_content').append('<img id="loading-image" src="style/images/loading.gif" alt="loading"/><div id="wiki_load">Converting to wiki markup... This may take a minute or two.</div>');
+                    //$('#main_content').append('<img id="loading-image" src="style/images/loading.gif" alt="loading"/><div id="wiki_load">Converting to wiki markup... This may take a minute or two.</div>');
                     eacToMediaWiki();
                 },
                 "No" : function() {
@@ -643,7 +648,7 @@ function makePromptDialog( lstrSelector, lstrTitle, callback )
                 callback(this);     
                 if ( getCookie('onWiki') == 'true' )   
                 {
-                    $('#entity_name').hide();
+                    //$('#entity_name').hide();
            	        $('.wiki_edit').hide();
            	        $('#get_wiki').hide();
            	        $('#wiki_switch').hide();
@@ -652,7 +657,7 @@ function makePromptDialog( lstrSelector, lstrTitle, callback )
            	    else
            	    {
            	        $('.main_edit').hide();
-           	        $('#entity_name').hide();
+           	        //$('#entity_name').hide();
            	        $('#wiki_switch').hide();
            	    }
             }
