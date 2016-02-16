@@ -791,7 +791,7 @@ function display_viaf_results_form(lobjViafResults, callback) {
 
 function ingest_worldcat_elements(lobjEac, lstrName, callback) {
     console.log(lstrName);
-
+    
     lstrName = encode_utf8(lstrName);
 
     //post to ajax WorldCat ingestor controller to search worldcat and get results
@@ -823,6 +823,7 @@ function ingest_worldcat_elements(lobjEac, lstrName, callback) {
                     callback('Canceled!');
                     return;
                 }
+
 
                 //post to ajax WorldCat ingestor controller to search worldcat and get results
                 $.post('ajax/worldcat_ingest_api.php', {
@@ -1191,4 +1192,24 @@ function setupSelectAll(lstrSelector) {
         $('input[type="checkbox"]:visible').prop('checked', true); else
         $('input[type="checkbox"]:visible').prop('checked', false);
     })
+}
+
+
+function getIngestStatus(record_id) {
+
+    var eac_id = record_id;
+    var url = 'ajax/get_ingest_status.php';
+
+
+
+    $.ajax({
+        url: url,
+        data: {eac_id : eac_id},
+        success: function(response){
+            console.log(response);
+        },
+        dataType: "json"
+    });
+
+
 }
