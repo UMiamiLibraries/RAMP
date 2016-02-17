@@ -1194,23 +1194,3 @@ function setupSelectAll(lstrSelector) {
         $('input[type="checkbox"]:visible').prop('checked', false);
     })
 }
-
-
-function getIngestStatus(record_id) {
-
-    var eac_id = record_id;
-    var url = 'ajax/get_ingest_status.php';
-
-
-
-    $.ajax({
-        url: url,
-        data: {eac_id : eac_id},
-        success: function(response){
-            console.log(response);
-        },
-        dataType: "json"
-    });
-
-
-}
