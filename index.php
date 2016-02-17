@@ -63,9 +63,6 @@ include('header.php');
 
     <!-- Select2 -- the jQuery Plugin for Autocomplete -->
 
-    <link rel="stylesheet" type="text/css" href="script/external/select2/select2.css"/>
-    <script src="script/external/select2/select2.min.js"></script>
-
     <script type="text/javascript">
         $('select').select2({
             placeholder: "Select a name",
