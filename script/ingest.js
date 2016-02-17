@@ -17,8 +17,6 @@ $(document).ready(function () {
         //cannot start ingestion without XML being loaded
         if (record.eacXml == '') {
             $('flash_message').append("<p>Must load EAC first!</p>");
-            //makeDialog('#dialog', 'Error!');
-            //display error
             return;
         }
 
@@ -75,6 +73,17 @@ $(document).ready(function () {
                 $('#entity_name').show();
             }
         }, record.eacXml);
+
+
+        // Render the first help template
+        var template = _.template(
+            $("#wc_template_help_step_one").html()
+        );
+
+        $( "#context_help_viewport" ).append(
+            template()
+        );
+
     });
     
     //register click event that will start viaf ingest
