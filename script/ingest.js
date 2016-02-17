@@ -693,12 +693,7 @@ function display_viaf_results_form(lobjViafResults, callback) {
             callback(lobjChosenResults);
             $('.form_container').remove();
             $('#viaf_load').remove();
-            // Check to see if there is already wiki markup. If so, show switcher. --timathom
-            if (record.wikiStatus === true) {
-                $('#wiki_switch').show();
-            } else {
-                $('#wiki_switch').hide();
-            }
+
         }
     });
     
@@ -851,12 +846,6 @@ function ingest_worldcat_elements(lobjEac, lstrName, callback) {
 
                             $('.main_edit').show();
                             $('#entity_name').show();
-                            // Check to see if there is already wiki markup. If so, show switcher. --timathom
-                            if (record.wikiStatus === true) {
-                                $('#wiki_switch').show();
-                            } else {
-                                $('#wiki_switch').hide();
-                            }
 
                             editor.getSession().setValue(lobjEac.getXML());
                             return;
@@ -885,12 +874,7 @@ function ingest_worldcat_elements(lobjEac, lstrName, callback) {
                                     $('.form_container').remove();
                                     $('.main_edit').show();
                                     $('#entity_name').show();
-                                    // Check to see if there is already wiki markup. If so, show switcher. --timathom
-                                    if (record.wikiStatus === true) {
-                                        $('#wiki_switch').show();
-                                    } else {
-                                        $('#wiki_switch').hide();
-                                    }
+
                                     editor.getSession().setValue(lobjEac.getXML());
                                     return;
                                 } else {
@@ -906,12 +890,7 @@ function ingest_worldcat_elements(lobjEac, lstrName, callback) {
                                     // display results
                                     $('.main_edit').show();
                                     $('#entity_name').show();
-                                    // Check to see if there is already wiki markup. If so, show switcher. --timathom
-                                    if (record.wikiStatus === true) {
-                                        $('#wiki_switch').show();
-                                    } else {
-                                        $('#wiki_switch').hide();
-                                    }
+
                                     // Append a maintenanceEvent to the EAC to keep track that a WorldCat ingest happened
                                     var d = new Date;
                                     var maintEvent = {
