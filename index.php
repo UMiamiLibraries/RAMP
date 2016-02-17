@@ -24,9 +24,7 @@ include('header.php');
         <div class="pure-u-6-24"></div>
     </div>
 
-<?php include('includes/edit_controls.php'); ?>
-<?php include('includes/viaf/viaf.php'); ?>
-<?php include('includes/worldcat/worldcat.php'); ?>
+
 
     <div id="wiki_switch">
         <button id="xml_switch_button" class="pure-button pure-button-primary">XML</button>
@@ -42,7 +40,9 @@ include('header.php');
 
             <div id="flash_message"></div>
 
-            <?php include('includes/edit_controls.php') ?>
+            <?php include('includes/edit_controls.php'); ?>
+            <?php include('includes/viaf/viaf.php'); ?>
+            <?php include('includes/worldcat/worldcat.php'); ?>
 
             <div id="form_viewport">
                 <?php include('includes/viaf/viaf.php') ?>
