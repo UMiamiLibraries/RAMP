@@ -55,7 +55,7 @@ include('header.php');
 
 
         <div class="pure-u-6-24">
-            <?php include('includes/context_help.php') ?>
+            <div id="context_help_viewport"></div>
         </div>
 
     </div>
