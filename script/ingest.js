@@ -1045,7 +1045,7 @@ function display_possible_worldcat_form(lobjPossibleURI, callback) {
     
     lstrHTML += "</div>";
     
-    $('body').append(lstrHTML);
+    $('#form_viewport').append(lstrHTML);
     jQuery('html,body').animate({
         scrollTop: 0
     },
