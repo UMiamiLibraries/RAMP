@@ -265,7 +265,7 @@ function display_possible_viaf_form(lobjPossibleViaf, callback) {
     var lstrHTML = "<div class=\"pure-g form_container\">";
     
 
-    lstrHTML += "<div class=\"instruction_div\"><h2 class=\"instruction\">Authority Control: Ingest from VIAF</h2>";
+    lstrHTML += "<div class=\"instruction_div pure-u-1\"><h2 class=\"instruction\">Authority Control: Ingest from VIAF</h2>";
 
 
     lstrHTML += "<div class=\"user_help_form\">";
@@ -559,7 +559,7 @@ function display_possible_name_form(lobjPossibleNames, callback) {
     var lstrHTML = "<div class=\"form_container pure-g\">";
     
 
-    lstrHTML += "<div class=\"instruction_div\">";
+    lstrHTML += "<div class=\"instruction_div pure-u-1\">";
     lstrHTML += "<h2 class=\"instruction\">Named Entity Recognition</h2>";
 
     lstrHTML += "<div class=\"user_help_form\">";
