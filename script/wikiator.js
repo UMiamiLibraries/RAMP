@@ -59,7 +59,6 @@ function setupWikiLogin( callback )
 			 $(dialog).dialog("close");
 			 $(dialog).remove();
 
-			 $('#edit_controls').after('<img id="loading-image" src="style/images/loading.gif" alt="loading"/>');
 
 			 //post to ajax wiki controller to log into wiki and get whether successful or not
 			 $.post('ajax/wiki_api.php', { 'action' : 'login', 'username' : lstrUserName, 'password' : lstrPassword }, function(response)
@@ -73,7 +72,6 @@ function setupWikiLogin( callback )
 				    $('body').append("<div id=\"dialog\"><p>" + response + "</p></div>");
 				    makeDialog('#dialog', '',callback);
 
-				    $('#loading-image').remove();
 
 				    return;
 				});
@@ -109,20 +107,16 @@ function setupGetWiki()
 			       $('.wiki_edit').hide();
 			       $('#wiki_switch').hide();
 			       $('#get_wiki').hide();
-			       $('#entity_name').hide();
 
-			       //$('#get_wiki').after('<img id="loading-image" src="style/images/loading.gif" alt="loading"/>');
-
-			       var lstrXML = editor.getValue();
+			       record.eacXml = editor.getValue();
 
 			       //xml must exist to continue
-			       if( lstrXML == '' )
+			       if( record.eacXml == '' )
 			       {
 				   $('body').append("<div id=\"dialog\"><p>Cannot read XML!</p></div>");
 				   makeDialog('#dialog', 'Error!');
 
 				   //alert("Cannot read XML!");
-				   $('#loading-image').remove();
 				   $('#get_wiki').show();
 				   $('#wiki_switch').show();
 				   $('.wiki_edit').show();
@@ -136,7 +130,7 @@ function setupGetWiki()
 				   if(lboolValid)
 				   {
 				       var lobjeac = new eac();
-				       lobjeac.loadXMLString( lstrXML );
+				       lobjeac.loadXMLString( record.eacXml );
 
 				       var lobjNameEntryPart;
 				       var lobjNameEntryPartFore;
@@ -176,14 +170,13 @@ function setupGetWiki()
 				       makeDialog('#dialog', 'Error!');
 
 				       //alert("XML must be valid!");
-				       $('#loading-image').remove();
 				       $('#get_wiki').show();
 				       $('#wiki_switch').show();
 				       $('.wiki_edit').show();
 				       $('#entity_name').show();
 
 				   }
-			       });
+			       }, record.eacXml);
 			   });
 }
 
@@ -197,7 +190,7 @@ function searchWiki( lstrSearch )
     $('.wiki_edit').hide();
     $('#wiki_switch').hide();
     $('#get_wiki').hide();
-    $('#entity_name').hide();
+    //$('#entity_name').hide();
 
 
 
@@ -210,7 +203,6 @@ function searchWiki( lstrSearch )
 </fieldset> \
 </form></div>");
 
-    $('#loading-image').remove();
 
 
     //propt user to enter search string for wiki search
@@ -225,7 +217,6 @@ function searchWiki( lstrSearch )
         		 else
         		 {
         		     $('#get_wiki').hide();
-			         $('#get_wiki').after('<img id="loading-image" src="style/images/loading.gif" alt="loading"/>');
 
         		     lstrUserSearch = encode_utf8(lstrUserSearch);
 
@@ -245,7 +236,6 @@ function searchWiki( lstrSearch )
 					    makeDialog('#dialog');
 
 					    //alert(response);
-					    $('#loading-image').remove();
 					    $('#get_wiki').show();
 
 					    return;
@@ -273,25 +263,31 @@ function displayWikiSearch( lobjTitles, callback )
     $('.main_edit').hide();
     $('.wiki_edit').hide();
 
-    var lstrHTML = "<div class=\"form_container\"><div class=\"user_help_form\" style=\"line-height:1em;\">";
+    var lstrHTML = "<div class=\"form_container\">";
+
+	lstrHTML += "<div class=\"user_help_form\">";
+
+	lstrHTML += "<h2>Please choose page to import from Wikipedia:</h2>";
+	lstrHTML += "<p class=\"form_note\">Wikipedia&#39;s search index is updated every morning. New pages will take a day to show up in the index.</p>";
+
+	lstrHTML += "<table class=\"user_help_form_table\">";
+
+	for(var i = 0; i < lobjTitles.length; i++)
+	{
+		lstrHTML += "<tr><td><input type=\"radio\" name=\"chosen_title\" class=\"title_chosen\" value=\"";
+		lstrHTML += lobjTitles[i].title + "\" /><span style=\"font-weight:800;\">" + lobjTitles[i]['title'] + "</span><br /><dl><dd>" + html_decode(lobjTitles[i]['snippet']) + "</dd></dl></td></tr>";
+	}
+
+	lstrHTML += "</table>";
+
+	lstrHTML += "</div>";
 
     lstrHTML += "<button id=\"get_chosen_wiki\" class=\"pure-button pure-button-secondary\">Use Selected Title</button>";
     lstrHTML += "<button id=\"get_chosen_wiki_no_match\" class=\"pure-button pure-button-secondary\">No Match (Create New)</button>";
     lstrHTML += "<button id=\"get_chosen_wiki_cancel\" class=\"pure-button pure-button-secondary\">Cancel</button>";
 
-    lstrHTML += "<div id=\"form_wrapper\"><h2>Please choose page to import from Wikipedia:</h2><div class=\"form_note\">Wikipedia&#39;s search index is updated every morning. New pages will take a day to show up in the index.</div></div>";
 
-    lstrHTML += "<table class=\"user_help_form_table\">";
-
-    for(var i = 0; i < lobjTitles.length; i++)
-    {
-	lstrHTML += "<tr><td><input type=\"radio\" name=\"chosen_title\" class=\"title_chosen\" value=\"";
-	lstrHTML += lobjTitles[i].title + "\" /><span style=\"font-weight:800;\">" + lobjTitles[i]['title'] + "</span><br /><dl><dd>" + html_decode(lobjTitles[i]['snippet']) + "</dd></dl></td></tr>";
-    }
-
-    lstrHTML += "</table>";
-
-    lstrHTML += "</div></div>";
+    lstrHTML += "</div>";
 
     $('body').append(lstrHTML);
     jQuery('html,body').animate({scrollTop:0},0); //scroll to top to view form correctly
@@ -322,7 +318,7 @@ function displayWikiSearch( lobjTitles, callback )
 				 // Hide. --timathom
 				 $('.form_container').remove();
 	             $('.main_edit').hide();
-	             $('#entity_name').hide();
+	             //$('#entity_name').hide();
 		         $('.wiki_edit').hide();
 		         $('#wiki_switch').hide();
 		         $('#get_wiki').hide();
@@ -348,7 +344,6 @@ function displayWikiSearch( lobjTitles, callback )
 					  //callback('');
 
 					  $('.form_container').remove();
-					  $('#loading-image').remove();
 					  $('#entity_name').show();
 					  $('.wiki_edit').show();
 					  $('#wiki_switch').show();
@@ -375,7 +370,6 @@ function getWiki( lstrTitle, lstrLink )
 	$('#wikieditor').append("<div class=\"wiki_container\"><h1 id=\"wiki_article\">Wikipedia article (to be submitted to Wikipedia)</h1><textarea id=\"get_wiki_text\"></textarea></div>");
 	$('#get_wiki_text').height($('#wikimarkup').height());
 
-	$('#loading-image').remove();
 	$('#get_wiki').replaceWith('<button id="post_draft_wiki" class=\"pure-button pure-button-primary wiki_edit\">Submit to Wikipedia as Draft</button>');
 	$('#post_draft_wiki').after('<button id="post_wiki" class=\"pure-button pure-button-primary wiki_edit\">Submit to Wikipedia</button>');
 
@@ -400,7 +394,6 @@ function getWiki( lstrTitle, lstrLink )
 		   $('#wikieditor').append("<div class=\"wiki_container\"><h1 id=\"wiki_article\">Wikipedia article (to be submitted to Wikipedia)<a style=\"font-size:small; float:right; margin-top:3px;\" target=\"_blank\" href=\"https://en.wikipedia.org/wiki/" + encodeURI(lstrTitle) + "\">View existing Wikipedia page</a></h1><textarea id=\"get_wiki_text\">" + response + "</textarea></div>");
 		   $('#get_wiki_text').height($('#wikimarkup').height());
 
-		   $('#loading-image').remove();
 		   $('#get_wiki').replaceWith('<button id=\"post_draft_wiki\" class=\"pure-button pure-button-primary wiki_edit\">Submit to Wikipedia as Draft</button>');
 		   $('#post_draft_wiki').after('<button id=\"post_wiki\" class=\"pure-button pure-button-primary wiki_edit\">Submit to Wikipedia</button>');
 		   /*
@@ -466,17 +459,12 @@ function setupPostWiki()
                          });
 
 					     //if user is not logged in, notify user and cancel posting process
-					     if( getCookie('ramp_wiki_li') == null || getCookie('ramp_wiki_li') != '1' )
+					     if( user.rampWikiLi === false)
 					     {
 
 						 //if not logged in, show log in screen and then try to post again
 						 $postdialog.dialog('open');
-						 /*
-						 setupWikiLogin(function()
-						 {
-						     $( lobjClicked ).click();
-						 });
-						 */
+
 
 					     }else
 					     {
@@ -568,7 +556,6 @@ function getUserComments( lboolDraft )
  */
 function postWiki( lstrWiki, lstrComments, lboolDraft, lstrCaptchaAnswer, lstrCaptchaId )
 {
-    $('#edit_controls').after('<img id="loading-image" src="style/images/loading.gif" alt="loading"/>');
     $('.wiki_edit').hide();
     $('#wiki_switch').hide();
     $('#get_wiki').hide();
@@ -586,7 +573,6 @@ function postWiki( lstrWiki, lstrComments, lboolDraft, lstrCaptchaAnswer, lstrCa
 		   try
 		   {
 		       var lobjData = JSON.parse(response);
-               $('#loading-image').remove();
                $('#edit_controls').show();
                $('.wiki_edit').show();
                $('#wiki_switch').show();
@@ -599,7 +585,6 @@ function postWiki( lstrWiki, lstrComments, lboolDraft, lstrCaptchaAnswer, lstrCa
 		       $('body').append("<div id=\"dialog\"><p>" + response + "</p></div>");
 		       makeDialog('#dialog');
 
-		       $('#loading-image').remove();
 		       $('#entity_name').show();
                $('.wiki_edit').show();
                $('#get_wiki').show();
@@ -622,7 +607,6 @@ function postWiki( lstrWiki, lstrComments, lboolDraft, lstrCaptchaAnswer, lstrCa
 		   try
 		   {
 		       var lobjData = JSON.parse(response);
-			   $('#loading-image').remove();
 			   $('#edit_controls').show();
 			   $('.wiki_edit').show();
 			   $('#wiki_switch').show();
@@ -635,7 +619,6 @@ function postWiki( lstrWiki, lstrComments, lboolDraft, lstrCaptchaAnswer, lstrCa
 		       $('body').append("<div id=\"dialog\"><p>" + response + "</p></div>");
 		       makeDialog('#dialog');
 
-		       $('#loading-image').remove();
 		       $('#entity_name').show();
                $('.wiki_edit').show();
                $('#get_wiki').show();
