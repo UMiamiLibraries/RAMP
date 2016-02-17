@@ -942,7 +942,7 @@ function display_possible_worldcat_form(lobjPossibleURI, callback) {
         $("#worldcat-template-step-one").html()
     );
 
-    $( "body" ).append(
+    $( "#form_viewport" ).append(
         template( lobjPossibleURI )
     );
 
@@ -1095,24 +1095,4 @@ function setupSelectAll(lstrSelector) {
         $('input[type="checkbox"]:visible').prop('checked', true); else
         $('input[type="checkbox"]:visible').prop('checked', false);
     })
-}
-
-
-function getIngestStatus(record_id) {
-
-    var eac_id = record_id;
-    var url = 'ajax/get_ingest_status.php';
-
-
-
-    $.ajax({
-        url: url,
-        data: {eac_id : eac_id},
-        success: function(response){
-            console.log(response);
-        },
-        dataType: "json"
-    });
-
-
 }
