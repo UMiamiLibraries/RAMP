@@ -901,8 +901,8 @@ function ingest_worldcat_elements(lobjEac, lstrName, callback) {
                                         0);
                                     //scroll to top to view form correctly
 
-                                    $('body').append("<div id=\"dialog\"><p>&lt;localDescription&gt; element(s) added with chosen subject(s).</p><br/>" + lstrOtherRecId + lstrSources + lstrCpfResults + lstrResourceResults + "</div>");
-                                    makeDialog('#dialog', 'Results');
+                                    $('#flash_message').append("<p>&lt;localDescription&gt; element(s) added with chosen subject(s).</p><br/>" + lstrOtherRecId + lstrSources + lstrCpfResults + lstrResourceResults);
+
                                     // display results
                                     $('.main_edit').show();
                                     $('#entity_name').show();
