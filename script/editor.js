@@ -1,80 +1,67 @@
 $(document).ready(function () {
 
-    hideReadOnlyBtn();
-    toggleReadOnly();
 
-    hideIngestButtons();
+    //initially disable module buttons
+    disableModuleButtons();
+
+    //initially hide xml buttons
+    /*
+     * @TODO - refactor into underscore templates?
+     */
+    hideXmlButtons();
+
+    $('.ead_files').change(function () {
+
+        //set record object
+        record.eadFile = this.value;
+        record.entityName = $(this).children("option:selected").text();
+        record.savedXml = "";
+        record.wikiConversion = "";
+        record.eacId = $(this).children("option:selected").data().id;
+
+        //set the page header with name of person/file
+        $('#record_entityName_header').text(record.entityName);
+
+        //build the ace editor
+        build_editor(record.eacId);
+
+        //but hide it initially
+        hideAceEditor();
+
+    });
+
+
 
 });
 
-function build_editor(eadFile) {
+function build_editor(eacId) {
 
-    //hide the wiki xml swith buttons initially
-    $('#xml_switch').hide();
+    //enable module buttons
+    enableModuleButtons();
 
     // When one of the files is selected...
-
-    $.get('ajax/get_eac_xml.php?eac=' + eadFile, function (data) {
+    $.get('ajax/get_record.php?eac_id=' + eacId, function (data) {
 
         // Set up Ace editor
-        editor.getSession().setValue(data);
+        editor.getSession().setValue(data.eac_xml);
         editor.resize();
         editor.focus();
+        //set editor to ready only
+        editor.setReadOnly(true);
 
         // Stick the XML in Ace editor
         var edited_xml = editor.getSession().setUseWrapMode(true); // Set text wrap --timathom
         edited_xml = editor.getValue();
         record.eacXml = edited_xml;
-        //set editor to ready only
-        editor.setReadOnly(true);
-
-
-        //enable ingest buttons
-        $('.ingest_button').removeAttr('disabled');
 
         // then validate the XML
         validateXML(undefined, record.eacXml);
-
-        // Show editor for now
-        $('.main_edit').show();
-
-
     });
 
-    // Check to see if there is already wiki markup. If so, show switcher. --timathom
-    $.get('ajax/get_wiki.php', {ead_path: eadFile}, function (markup) {
 
-        if (markup == '') {
-            // do nothing with markup
-        }
-        else {
-            // Set the wiki conversion status
-            if (record.wikiConversion !== true) {
-                record.wikiConversion = true;
-            }
-        }
-    });
 }
 
-$('.ead_files').change(function () {
 
-    record.eadFile = this.value;
-    record.entityName = $(this).children("option:selected").text();
-    record.savedXml = "";
-    record.wikiConversion = "";
-    record.eacId = $(this).children("option:selected").data().id;
-
-    $('#record_eacId').text(record.eacId);
-    $('#record_eadFile').text(record.eadFile);
-    $('#record_entityName').text(record.entityName);
-    $('#record_savedXml').text(record.savedXml);
-    $('#record_wikiConversion').text(record.wikiConversion);
-    $('#record_onWiki').text(record.onWiki);
-
-
-    build_editor(record.eadFile);
-    showIngestButtons();
-});
 
 
 $('#save_eac').click(function (data) {
@@ -145,15 +132,15 @@ $('#convert_to_wiki').click(function () {
 });
 
 
-function wikiCheck(eadFile) {
+function wikiCheck(eacId) {
 
-    $.get('ajax/get_wiki.php', {ead_path: eadFile}, function (markup) {
+    $.get('ajax/get_record.php', {eac_id: eacId}, function (markup) {
 
 
         $('.main-edit').show();
 
 
-        if (markup != "") {
+        if (markup.wiki_text != "") {
             // Hide this stuff if there is wiki markup
 
             $('#wiki_switch_button').css({"background": "gray"});
@@ -166,10 +153,10 @@ function wikiCheck(eadFile) {
 
             if ($('#wikieditor').length == 0) {
                 $('#main_content').append("<div id=\"wikieditor\" class=\"wiki_edit\"><div class=\"wiki_container wiki_edit\"><h1 id=\"local_wiki\">Local article (transformed from EAC-CPF record) <a style=\"font-size:small; float:right; margin-top:3px;\" target=\"_blank\" href=\"https://en.wikipedia.org/wiki/Help:Wiki_markup\">Help with wiki markup</a></h1> \
-<textarea id=\"wikimarkup\" class=\"wiki_edit\">" + markup + "</textarea></div></div>");
+<textarea id=\"wikimarkup\" class=\"wiki_edit\">" + markup.wiki_text + "</textarea></div></div>");
             } else {
                 $('#wikieditor').append("<div class=\"wiki_container wiki_edit\"><h1 id=\"local_wiki\">Local article (transformed from EAC-CPF record) <a style=\"font-size:small; float:right; margin-top:3px;\" target=\"_blank\" href=\"https://en.wikipedia.org/wiki/Help:Wiki_markup\">Help with wiki markup</a></h1> \
-<textarea id=\"wikimarkup\">" + markup + "</textarea></div>");
+<textarea id=\"wikimarkup\">" + markup.wiki_text + "</textarea></div>");
             }
 
             $('#edit_controls').append("<button class=\"update_button pure-button pure-button-primary wiki_edit\" id=\"wiki_update\">Save Local Article</button><button id=\"get_wiki\" class=\"pure-button pure-button-primary wiki_edit\">Check Wikipedia for Existing Article</button>");
@@ -198,21 +185,15 @@ function wikiCheck(eadFile) {
                     $savewikidialog.dialog('open');
 
                 });
-
-
             });
-
         }
-
-
     });
-
 }
 
 
 function eacToMediaWiki() {
 
-    edited_xml = editor.getValue();
+    var edited_xml = editor.getValue();
 
     $.post('ajax/eac_mediawiki.php', {eac_text: edited_xml}, function (data) {
         $('#wiki_load').remove();
@@ -226,7 +207,6 @@ function eacToMediaWiki() {
         $(window).resize(function () {
 
             var wiki_height = $(window).height() / 1.3;
-
 
         });
 
@@ -251,7 +231,7 @@ function eacToMediaWiki() {
                 $('#wiki_switch').show();
                 //$('#wiki_switch_button').unbind();
 
-                wikiCheck(record.eadFile);
+                wikiCheck(record.eacId);
 
                 var wiki_height = $(window).height() / 1.3;
 
@@ -299,7 +279,7 @@ function eacToMediaWiki() {
 
             $('.wiki_edit').remove();
 
-            wikiCheck(record.eadFile);
+            wikiCheck(record.eacId);
 
         });
 
@@ -545,14 +525,50 @@ function getIngestStatus(record_id) {
     });
 }
 
-function showIngestButtons() {
-    $('#ingest_worldcat').show();
-    $('#ingest_viaf').show();
-    $('#convert_to_wiki').show();
+function showLoadingImage() {
+    $('#loading_image').text('Loading...').show();
 }
 
-function hideIngestButtons() {
-    $('#ingest_worldcat').hide();
-    $('#ingest_viaf').hide();
-    $('#convert_to_wiki').hide();
+function hideLoadingImage() {
+    $('#loading_image').hide();
 }
+
+
+function showAceEditor() {
+    $('#aceEditor').show();
+}
+
+function hideAceEditor() {
+    $('#aceEditor').hide();
+}
+
+function showModuleControls() {
+    $('#module_controls').show();
+}
+
+function hideModuleControls() {
+    $('#module_controls').hide();
+}
+
+function enableModuleButtons() {
+    var module_buttons = $('#ingest_buttons > button');
+    $.each(module_buttons, function() {
+        $(this).removeAttr('disabled');
+    });
+}
+
+function disableModuleButtons() {
+    var module_buttons = $('#ingest_buttons > button');
+    $.each(module_buttons, function() {
+        $(this).attr('disabled', 'disabled').css('background-color', 'f7f7f7');
+    });
+}
+
+function showXmlButtons() {
+    $('#xml_buttons_container').show();
+}
+
+function hideXmlButtons() {
+    $('#xml_buttons_container').hide();
+}
+

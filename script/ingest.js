@@ -1,23 +1,22 @@
 $(document).ready(function () {
     //register click event that will start worlcat ingestion
     $('#ingest_worldcat').on('click', function () {
-        $('.main_edit').hide();
-        $('#wiki_switch').hide();
-        $('#loading-image').remove();
-        showReadOnlyBtn();
-        //$('#entity_name').hide();
+
+        /**
+         * @TODO create function to make sure form_viewport is empty
+         */
+
+
+        //show the loading image
+        showLoadingImage();
+
+
         record.wikiConversion = false; // Unset "onWiki" status.
         record.eacXml = editor.getValue();
 
         //cannot start ingestion without XML being loaded
         if (record.eacXml == '') {
-            $('body').append("<div id=\"dialog\"><p>Must load EAC first!</p></div>");
-            makeDialog('#dialog', 'Error!');
-            //display error
-
-            $('.main_edit').show();
-            $('#entity_name').show();
-
+            $('flash_message').append("<p>Must load EAC first!</p>");
             return;
         }
 
@@ -25,6 +24,7 @@ $(document).ready(function () {
 
             //xml must be valid in order for worlcat ingestion to begin
             if (lboolValid) {
+
                 var lobjeac = new eac();
                 lobjeac.loadXMLString(record.eacXml);
 
@@ -49,6 +49,8 @@ $(document).ready(function () {
                     eac_name = encode_utf8(eac_name);
                 }
 
+
+
                 ingest_worldcat_elements(lobjeac, eac_name, function (lstrMessage) {
                     if (typeof lstrMessage != 'undefined' && lstrMessage != '') {
                         $('body').append("<div id=\"dialog_main\"><p>" + lstrMessage + "</p></div>");
@@ -59,6 +61,8 @@ $(document).ready(function () {
                     $('.ingest_button').show();
                     $('.main_edit').show();
                     $('#entity_name').show();
+
+
                 });
             } else {
                 //display error when xml is not valid
@@ -69,6 +73,17 @@ $(document).ready(function () {
                 $('#entity_name').show();
             }
         }, record.eacXml);
+
+
+        // Render the first help template
+        var template = _.template(
+            $("#wc_template_help_step_one").html()
+        );
+
+        $( "#context_help_viewport" ).append(
+            template()
+        );
+
     });
     
     //register click event that will start viaf ingest
@@ -261,7 +276,7 @@ function display_possible_viaf_form(lobjPossibleViaf, callback) {
         $("#viaf-template-step-one").html()
     );
 
-    $( "body" ).append(
+    $( "#form_viewport" ).append(
         template( lobjPossibleViaf )
     );
 
@@ -310,12 +325,12 @@ function display_possible_viaf_form(lobjPossibleViaf, callback) {
  */
 function ingest_viaf_Relations(lobjEac, callback) {
     //need to get ead to get possible names and titles list
-    $.post('ajax/get_ead.php', {
-        'ead': record.eadFile
+    $.get('ajax/get_record.php', {
+        'eac_id': record.eacId
     },
-    function (lstrXML) {
+    function (data) {
         var lobjead = new ead();
-        lobjead.loadXMLString(lstrXML);
+        lobjead.loadXMLString(data.ead_xml);
         
         var PossibleNameList =[];
         var PossibleNameListBio =[];
@@ -542,7 +557,7 @@ function display_possible_name_form(lobjPossibleNames, callback) {
         $("#viaf-template-step-two").html()
     );
 
-    $( "body" ).append(
+    $( "#form_viewport" ).append(
         template( lobjPossibleNames )
     );
 
@@ -620,7 +635,7 @@ function display_viaf_results_form(lobjViafResults, callback) {
         $("#viaf-template-step-three").html()
     );
 
-    $( "body" ).append(
+    $( "#form_viewport" ).append(
         template( lobjViafResults )
     );
 
@@ -684,12 +699,7 @@ function display_viaf_results_form(lobjViafResults, callback) {
             callback(lobjChosenResults);
             $('.form_container').remove();
             $('#viaf_load').remove();
-            // Check to see if there is already wiki markup. If so, show switcher. --timathom
-            if (record.wikiStatus === true) {
-                $('#wiki_switch').show();
-            } else {
-                $('#wiki_switch').hide();
-            }
+
         }
     });
     
@@ -842,12 +852,6 @@ function ingest_worldcat_elements(lobjEac, lstrName, callback) {
 
                             $('.main_edit').show();
                             $('#entity_name').show();
-                            // Check to see if there is already wiki markup. If so, show switcher. --timathom
-                            if (record.wikiStatus === true) {
-                                $('#wiki_switch').show();
-                            } else {
-                                $('#wiki_switch').hide();
-                            }
 
                             editor.getSession().setValue(lobjEac.getXML());
                             return;
@@ -870,18 +874,12 @@ function ingest_worldcat_elements(lobjEac, lstrName, callback) {
                                         0);
                                     //scroll to top to view form correctly
 
-                                    $('body').append("<div id=\"dialog\"><p>No subjects added.</p><br/>" + lstrOtherRecId + lstrSources + lstrCpfResults + lstrResourceResults + "</div>");
-                                    makeDialog('#dialog', 'Results');
+                                    $('flash_message').append("<div id=\"dialog\"><p>No subjects added.</p><br/>" + lstrOtherRecId + lstrSources + lstrCpfResults + lstrResourceResults + "</div>");
+
                                     // display results
                                     $('.form_container').remove();
                                     $('.main_edit').show();
-                                    $('#entity_name').show();
-                                    // Check to see if there is already wiki markup. If so, show switcher. --timathom
-                                    if (record.wikiStatus === true) {
-                                        $('#wiki_switch').show();
-                                    } else {
-                                        $('#wiki_switch').hide();
-                                    }
+
                                     editor.getSession().setValue(lobjEac.getXML());
                                     return;
                                 } else {
@@ -892,17 +890,12 @@ function ingest_worldcat_elements(lobjEac, lstrName, callback) {
                                         0);
                                     //scroll to top to view form correctly
 
-                                    $('body').append("<div id=\"dialog\"><p>&lt;localDescription&gt; element(s) added with chosen subject(s).</p><br/>" + lstrOtherRecId + lstrSources + lstrCpfResults + lstrResourceResults + "</div>");
-                                    makeDialog('#dialog', 'Results');
+                                    $('#flash_message').append("<p>&lt;localDescription&gt; element(s) added with chosen subject(s).</p><br/>" + lstrOtherRecId + lstrSources + lstrCpfResults + lstrResourceResults);
+
                                     // display results
                                     $('.main_edit').show();
-                                    $('#entity_name').show();
-                                    // Check to see if there is already wiki markup. If so, show switcher. --timathom
-                                    if (record.wikiStatus === true) {
-                                        $('#wiki_switch').show();
-                                    } else {
-                                        $('#wiki_switch').hide();
-                                    }
+
+
                                     // Append a maintenanceEvent to the EAC to keep track that a WorldCat ingest happened
                                     var d = new Date;
                                     var maintEvent = {
@@ -935,37 +928,19 @@ function ingest_worldcat_elements(lobjEac, lstrName, callback) {
  * @method display_possible_worldcat_form
  */
 function display_possible_worldcat_form(lobjPossibleURI, callback) {
-    var lstrHTML = "<div class=\"form_container\">";
 
-    
-    lstrHTML += "<div class=\"instruction_div\"><h2 class=\"instruction\" >Ingest from WorldCat Identities</h2>";
+    _.templateSettings.variable = "lobjPossibleURI";
 
+    var template = _.template(
+        $("#worldcat-template-step-one").html()
+    );
 
-    lstrHTML += "<div class=\"user_help_form\">";
-
-    lstrHTML += "<h2>Please choose the name that is the best match:</h2>";
-
-    for (var i = 0; i < lobjPossibleURI.length; i++) {
-        var lstrTitle = typeof lobjPossibleURI[i].title == 'undefined' ? '': lobjPossibleURI[i].title;
-        var lstrURI = typeof lobjPossibleURI[i].uri == 'undefined' ? '': lobjPossibleURI[i].uri;
-        var lstrType = typeof lobjPossibleURI[i].type == 'undefined' ? '': lobjPossibleURI[i].type;
-
-        lstrHTML += "<input type=\"radio\" name=\"chosen_worldcat_uri\" value=\"";
-        lstrHTML += lstrURI + "\" /><a href=\"" + lstrURI + "\" target=\"_blank\">" + lstrTitle + "</a><br />";
-    }
-
-    lstrHTML += "</div>";
-
-    lstrHTML += "<button id=\"ingest_worldcat_chosen_uri\" class=\"pure-button pure-button-secondary ingest-ok\">Next</button>";
-    lstrHTML += "&nbsp;<button id=\"ingest_worldcat_chosen_uri_cancel\" class=\"pure-button pure-button-secondary ingest-cancel\">Cancel</button>";
-    
-    lstrHTML += "</div>";
+    $( "#form_viewport" ).append(
+        template( lobjPossibleURI )
+    );
 
 
-    
-    lstrHTML += "</div>";
-    
-    $('#form_viewport').append(lstrHTML);
+
     jQuery('html,body').animate({
         scrollTop: 0
     },
@@ -981,6 +956,9 @@ function display_possible_worldcat_form(lobjPossibleURI, callback) {
             makeDialog('#dialog', 'Error!');
         } else {
             $('.form_container').remove();
+
+            //show loading image
+            showLoadingImage();
             
             callback(lstrChosenURI);
         }
@@ -1017,37 +995,18 @@ function display_possible_worldcat_form(lobjPossibleURI, callback) {
  * @method display_possible_worldcat_subjects
  */
 function display_possible_worldcat_subjects(lobjPossibleSubjects, callback) {
-    var lstrHTML = "<div class=\"form_container\">";
-    lstrHTML += "<div class=\"instruction_div\"><h2 class=\"instruction\">Ingest from WorldCat Identities</h2>";
-
-    lstrHTML += "<div class=\"user_help_form\">";
-
-    lstrHTML += "<h2>Please choose any appropriate subjects related to this entity:</h2>";
-
-    lstrHTML += "<input type=\"checkbox\" id=\"select_all\" value=\"\"><span style=\"font-weight:500; margin-left:4px;\">Select all</span><br />";
-
-    lstrHTML += "<table class=\"user_help_form_table\">";
-
-    for (var i = 0; i < lobjPossibleSubjects.length; i++) {
-        lstrHTML += "<tr>";
-        lstrHTML += "<td><input type=\"checkbox\" name=\"chosen_subjects\" value=\"";
-        lstrHTML += i + "\" /></td><td>" + lobjPossibleSubjects[i].elements.term.elements + "</td>";
-        lstrHTML += "</tr>";
-    }
-
-    lstrHTML += "</table>";
-
-    lstrHTML += "</div>";
 
 
-    lstrHTML += "<button id=\"ingest_worldcat_chosen_subjects\" class=\"pure-button pure-button-secondary ingest-ok\">Next</button>";
-    
-    lstrHTML += "&nbsp;<button id=\"ingest_worldcat_chosen_subjects_cancel\" class=\"pure-button pure-button-secondary ingest-cancel\">Cancel</button>";
+    _.templateSettings.variable = "lobjPossibleSubjects";
 
-    
-    lstrHTML += "</div></div>";
+    var template = _.template(
+        $("#worldcat-template-step-two").html()
+    );
 
-    $('body').append(lstrHTML);
+    $( "#form_viewport" ).append(
+        template( lobjPossibleSubjects )
+    );
+
     setupSelectAll('input#select_all');
     //setup to select all checkboxes
     jQuery('html,body').animate({

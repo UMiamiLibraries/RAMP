@@ -13,7 +13,7 @@
     <% _.each(lobjPossibleViaf, function(possibleViaf) { %>
 
     <input type="radio" name="chosen_viaf_id" value="<%= possibleViaf.viaf_id %>"/>
-    <a href=\"http://viaf.org/viaf/<%= possibleViaf.viaf_id %>" target=\"_blank\"> <%= possibleViaf.name %></a>
+    <a href="http://viaf.org/viaf/<%= possibleViaf.viaf_id %>" target="_blank"> <%= possibleViaf.name %></a>
 
     <% }); %>
 
@@ -64,21 +64,22 @@
  <div class="instruction_div"><h2 class="instruction">Named Entity Recognition</h2>
 
 
-<div class="user_help_form">";
+<div class="user_help_form">
 
 <h2>Please choose appropriate matches from VIAF (the original string you searched for appears first, before the colon):</h2>
 <input type="checkbox" id="select_all" value=""><span>Select all</span><br />
 
-    <table class="user_help_form_table">";
-                <% _.each(lobjViafResults, function(lobjViafResult) {
-                    var lstrNameViaf = lobjViafResult.match(/viaf/gi);
-                    var lstrNamePlain = lobjViafResult.match(/[^(viaf)]/gi);
+    <table class="user_help_form_table">
+                <% for (var lstrName in lobjViafResults) {
+                    var lstrNameViaf = lstrName.match(/viaf/gi);
+                    var lstrNamePlain = lstrName.match(/[^(viaf)]/gi);
 
-                if (lstrNameViaf != null) { %>
-<tr><td><input type="checkbox" class="viaf_check" name="chosen_results" value="
-    <%= lobjViafResult.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;') %>" />
-    </td><td> <%= lobjViafResult %></td>
-                    </tr>
+                if (lstrNameViaf != null) {
+
+                %>
+<tr><td><input type="checkbox" class="viaf_check" name="chosen_results" value="<%= lstrName.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;') %>" />
+    </td><td><%= lstrName %></td>
+</tr>
             <%
                 } else // Filter out VIAF results. --timathom
                 {
@@ -98,7 +99,7 @@
         </tr>
         <tr class="user_plain_row">
             <td><input type="checkbox" class="viaf_check" name="chosen_results" value=""/></td>
-            <td id="plainText"><span id="textSpan">  lobjViafResult </span>
+            <td id="plainText"><span id="textSpan">  <%= lstrName %> </span>
         <span id="select_wrap">
             <select id="ents" name="entities"
                     title="For non-VIAF entries, you must choose an entity type. For VIAF entries (the ones with links), the entity type has been predefined.">
@@ -107,7 +108,7 @@
                 <option value="pers">Person</option>
                 <option value="corp">CorporateBody</option>
                 <option value="fam">Family</option>
-            </select>";
+            </select>
  <select id="rels" name="relType"
          title="For non-VIAF entries, you may choose among different relation types. If you do not choose a relation type, the default value is 'associative.'">
      <option value="">Relation Type</option>
@@ -128,8 +129,7 @@
 
         <%
                 }
-                }
-        });
+        }
             %>
 
 </table>

@@ -19,7 +19,3 @@ $xslt->importStylesheet($xsl);
 // Get the result 
 $xslt_result = $xslt->transformToXml( $dom );
 echo $xslt_result = str_replace("        ","", $xslt_result);
-
-
-?>
-
