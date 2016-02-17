@@ -29,7 +29,16 @@ class Record implements OutputInterface
 
         $mysqli = $db->getConnection();
 
-        $results = $mysqli->query("SELECT * FROM ead_eac.eac INNNER JOIN ead on ead_id WHERE eac_id = ead_id AND eac_id = " . (int) $eac_id);
+        $results = $mysqli->query("SELECT eac.eac_id, eac.eac_xml, eac.published, eac.ead_file, eac.updated
+AS 'eac_updated', eac.created AS 'eac_created', mediawiki.id as 'mediawiki_id',
+mediawiki.wiki_text, mediawiki.created as 'mediawiki_created',
+mediawiki.updated as 'mediawiki_updated', ead.ead_xml, ead.ead_id
+FROM eac
+LEFT JOIN mediawiki
+ON eac.eac_id = mediawiki.eac_id
+INNER JOIN ead
+ON eac.ead_file = ead.ead_file
+AND eac.eac_id =" . (int) $eac_id);
         $this->results = $results->fetch_assoc();
 
     }

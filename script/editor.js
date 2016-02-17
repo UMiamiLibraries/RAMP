@@ -1,5 +1,6 @@
 $(document).ready(function () {
 
+
     //initially disable module buttons
     disableModuleButtons();
 
@@ -18,21 +19,12 @@ $(document).ready(function () {
         record.wikiConversion = "";
         record.eacId = $(this).children("option:selected").data().id;
 
-        /*
-        $('#record_eacId').text(record.eacId);
-        $('#record_eadFile').text(record.eadFile);
-        $('#record_entityName_header').text(record.entityName);
-        $('#record_savedXml').text(record.savedXml);
-        $('#record_wikiConversion').text(record.wikiConversion);
-        $('#record_onWiki').text(record.onWiki);
-        */
-
         //set the page header with name of person/file
         $('#record_entityName_header').text(record.entityName);
 
 
         //build the ace editor
-        build_editor(record.eadFile);
+        build_editor(record.eacId);
 
         //but hide it initially
         hideAceEditor();
@@ -52,16 +44,17 @@ $(document).ready(function () {
 
 });
 
-function build_editor(eadFile) {
+function build_editor(eacId) {
 
     //enable module buttons
     enableModuleButtons();
 
     // When one of the files is selected...
-    $.get('ajax/get_eac_xml.php?eac=' + eadFile, function (data) {
+
+    $.get('ajax/get_record.php?eac_id=' + eacId, function (data) {
 
         // Set up Ace editor
-        editor.getSession().setValue(data);
+        editor.getSession().setValue(data.eac_xml);
         editor.resize();
         editor.focus();
         //set editor to ready only
@@ -76,19 +69,7 @@ function build_editor(eadFile) {
         validateXML(undefined, record.eacXml);
     });
 
-    // Check to see if there is already wiki markup. If so, show switcher. --timathom
-    $.get('ajax/get_wiki.php', {ead_path: eadFile}, function (markup) {
 
-        if (markup == '') {
-            // do nothing with markup
-        }
-        else {
-            // Set the wiki conversion status
-            if (record.wikiConversion !== true) {
-                record.wikiConversion = true;
-            }
-        }
-    });
 }
 
 
@@ -162,15 +143,15 @@ $('#convert_to_wiki').click(function () {
 });
 
 
-function wikiCheck(eadFile) {
+function wikiCheck(eacId) {
 
-    $.get('ajax/get_wiki.php', {ead_path: eadFile}, function (markup) {
+    $.get('ajax/get_record.php', {eac_id: eacId}, function (markup) {
 
 
         $('.main-edit').show();
 
 
-        if (markup != "") {
+        if (markup.wiki_text != "") {
             // Hide this stuff if there is wiki markup
 
             $('#wiki_switch_button').css({"background": "gray"});
@@ -183,10 +164,10 @@ function wikiCheck(eadFile) {
 
             if ($('#wikieditor').length == 0) {
                 $('#main_content').append("<div id=\"wikieditor\" class=\"wiki_edit\"><div class=\"wiki_container wiki_edit\"><h1 id=\"local_wiki\">Local article (transformed from EAC-CPF record) <a style=\"font-size:small; float:right; margin-top:3px;\" target=\"_blank\" href=\"https://en.wikipedia.org/wiki/Help:Wiki_markup\">Help with wiki markup</a></h1> \
-<textarea id=\"wikimarkup\" class=\"wiki_edit\">" + markup + "</textarea></div></div>");
+<textarea id=\"wikimarkup\" class=\"wiki_edit\">" + markup.wiki_text + "</textarea></div></div>");
             } else {
                 $('#wikieditor').append("<div class=\"wiki_container wiki_edit\"><h1 id=\"local_wiki\">Local article (transformed from EAC-CPF record) <a style=\"font-size:small; float:right; margin-top:3px;\" target=\"_blank\" href=\"https://en.wikipedia.org/wiki/Help:Wiki_markup\">Help with wiki markup</a></h1> \
-<textarea id=\"wikimarkup\">" + markup + "</textarea></div>");
+<textarea id=\"wikimarkup\">" + markup.wiki_text + "</textarea></div>");
             }
 
             $('#edit_controls').append("<button class=\"update_button pure-button pure-button-primary wiki_edit\" id=\"wiki_update\">Save Local Article</button><button id=\"get_wiki\" class=\"pure-button pure-button-primary wiki_edit\">Check Wikipedia for Existing Article</button>");
@@ -215,21 +196,15 @@ function wikiCheck(eadFile) {
                     $savewikidialog.dialog('open');
 
                 });
-
-
             });
-
         }
-
-
     });
-
 }
 
 
 function eacToMediaWiki() {
 
-    edited_xml = editor.getValue();
+    var edited_xml = editor.getValue();
 
     $.post('ajax/eac_mediawiki.php', {eac_text: edited_xml}, function (data) {
         $('#wiki_load').remove();
@@ -243,7 +218,6 @@ function eacToMediaWiki() {
         $(window).resize(function () {
 
             var wiki_height = $(window).height() / 1.3;
-
 
         });
 
@@ -268,7 +242,7 @@ function eacToMediaWiki() {
                 $('#wiki_switch').show();
                 //$('#wiki_switch_button').unbind();
 
-                wikiCheck(record.eadFile);
+                wikiCheck(record.eacId);
 
                 var wiki_height = $(window).height() / 1.3;
 
@@ -316,7 +290,7 @@ function eacToMediaWiki() {
 
             $('.wiki_edit').remove();
 
-            wikiCheck(record.eadFile);
+            wikiCheck(record.eacId);
 
         });
 

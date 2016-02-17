@@ -24,5 +24,4 @@ $db = Database::getInstance();
 $ingest_status = new IngestStatus((int) $_GET['eac_id'],$db);
 
 $r = new Record($_GET['eac_id'], $db);
-
 echo json_encode(array_merge($ingest_status->allStatus(), $r->toArray()));
