@@ -22,21 +22,11 @@ $(document).ready(function () {
         //set the page header with name of person/file
         $('#record_entityName_header').text(record.entityName);
 
-
         //build the ace editor
         build_editor(record.eacId);
 
         //but hide it initially
         hideAceEditor();
-
-        // Render the first help template
-        var template = _.template(
-            $("#wc_template_help_step_one").html()
-        );
-
-        $( "#context_help_viewport" ).append(
-            template()
-        );
 
     });
 
@@ -50,7 +40,6 @@ function build_editor(eacId) {
     enableModuleButtons();
 
     // When one of the files is selected...
-
     $.get('ajax/get_record.php?eac_id=' + eacId, function (data) {
 
         // Set up Ace editor
