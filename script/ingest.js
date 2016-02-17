@@ -261,7 +261,7 @@ function display_possible_viaf_form(lobjPossibleViaf, callback) {
         $("#viaf-template-step-one").html()
     );
 
-    $( "body" ).append(
+    $( "#form_viewport" ).append(
         template( lobjPossibleViaf )
     );
 
@@ -542,7 +542,7 @@ function display_possible_name_form(lobjPossibleNames, callback) {
         $("#viaf-template-step-two").html()
     );
 
-    $( "body" ).append(
+    $( "#form_viewport" ).append(
         template( lobjPossibleNames )
     );
 
@@ -620,7 +620,7 @@ function display_viaf_results_form(lobjViafResults, callback) {
         $("#viaf-template-step-three").html()
     );
 
-    $( "body" ).append(
+    $( "#form_viewport" ).append(
         template( lobjViafResults )
     );
 
