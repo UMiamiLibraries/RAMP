@@ -24,14 +24,6 @@ include('header.php');
         <div class="pure-u-6-24"></div>
     </div>
 
-
-
-    <div id="wiki_switch">
-        <button id="xml_switch_button" class="pure-button pure-button-primary">XML</button>
-        <button id="wiki_switch_button" class="pure-button pure-button-primary">Wiki</button>
-    </div>
-
-
     <div class="pure-g">
 
         <div class="pure-u-18-24">
