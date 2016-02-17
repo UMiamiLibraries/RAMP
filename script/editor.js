@@ -10,6 +10,28 @@ $(document).ready(function () {
      */
     hideXmlButtons();
 
+    $('.ead_files').change(function () {
+
+        //set record object
+        record.eadFile = this.value;
+        record.entityName = $(this).children("option:selected").text();
+        record.savedXml = "";
+        record.wikiConversion = "";
+        record.eacId = $(this).children("option:selected").data().id;
+
+        //set the page header with name of person/file
+        $('#record_entityName_header').text(record.entityName);
+
+        //build the ace editor
+        build_editor(record.eacId);
+
+        //but hide it initially
+        hideAceEditor();
+
+    });
+
+
+
 });
 
 function build_editor(eacId) {
@@ -18,52 +40,28 @@ function build_editor(eacId) {
     enableModuleButtons();
 
     // When one of the files is selected...
-
     $.get('ajax/get_record.php?eac_id=' + eacId, function (data) {
 
         // Set up Ace editor
         editor.getSession().setValue(data.eac_xml);
         editor.resize();
         editor.focus();
+        //set editor to ready only
+        editor.setReadOnly(true);
 
         // Stick the XML in Ace editor
         var edited_xml = editor.getSession().setUseWrapMode(true); // Set text wrap --timathom
         edited_xml = editor.getValue();
         record.eacXml = edited_xml;
-        //set editor to ready only
-        editor.setReadOnly(true);
 
         // then validate the XML
         validateXML(undefined, record.eacXml);
-
-        // Show editor for now
-        $('.main_edit').show();
-
-
     });
 
 
 }
 
-$('.ead_files').change(function () {
 
-    record.eadFile = this.value;
-    record.entityName = $(this).children("option:selected").text();
-    record.savedXml = "";
-    record.wikiConversion = "";
-    record.eacId = $(this).children("option:selected").data().id;
-
-    $('#record_eacId').text(record.eacId);
-    $('#record_eadFile').text(record.eadFile);
-    $('#record_entityName').text(record.entityName);
-    $('#record_savedXml').text(record.savedXml);
-    $('#record_wikiConversion').text(record.wikiConversion);
-    $('#record_onWiki').text(record.onWiki);
-
-
-    build_editor(record.eacId);
-
-});
 
 
 $('#save_eac').click(function (data) {
@@ -536,6 +534,14 @@ function hideLoadingImage() {
 }
 
 
+function showAceEditor() {
+    $('#aceEditor').show();
+}
+
+function hideAceEditor() {
+    $('#aceEditor').hide();
+}
+
 function showModuleControls() {
     $('#module_controls').show();
 }
@@ -557,8 +563,6 @@ function disableModuleButtons() {
         $(this).attr('disabled', 'disabled').css('background-color', 'f7f7f7');
     });
 }
-
-
 
 function showXmlButtons() {
     $('#xml_buttons_container').show();

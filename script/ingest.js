@@ -2,26 +2,21 @@ $(document).ready(function () {
     //register click event that will start worlcat ingestion
     $('#ingest_worldcat').on('click', function () {
 
-        //hide the editor
-        $('#aceEditor').hide();
+        /**
+         * @TODO create function to make sure form_viewport is empty
+         */
+
 
         //show the loading image
         showLoadingImage();
 
-        showReadOnlyBtn();
 
         record.wikiConversion = false; // Unset "onWiki" status.
         record.eacXml = editor.getValue();
 
         //cannot start ingestion without XML being loaded
         if (record.eacXml == '') {
-            $('body').append("<div id=\"dialog\"><p>Must load EAC first!</p></div>");
-            makeDialog('#dialog', 'Error!');
-            //display error
-
-            $('.main_edit').show();
-            $('#entity_name').show();
-
+            $('flash_message').append("<p>Must load EAC first!</p>");
             return;
         }
 
@@ -78,6 +73,17 @@ $(document).ready(function () {
                 $('#entity_name').show();
             }
         }, record.eacXml);
+
+
+        // Render the first help template
+        var template = _.template(
+            $("#wc_template_help_step_one").html()
+        );
+
+        $( "#context_help_viewport" ).append(
+            template()
+        );
+
     });
     
     //register click event that will start viaf ingest
