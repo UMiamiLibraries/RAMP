@@ -999,37 +999,18 @@ function display_possible_worldcat_form(lobjPossibleURI, callback) {
  * @method display_possible_worldcat_subjects
  */
 function display_possible_worldcat_subjects(lobjPossibleSubjects, callback) {
-    var lstrHTML = "<div class=\"form_container\">";
-    lstrHTML += "<div class=\"instruction_div\"><h2 class=\"instruction\">Ingest from WorldCat Identities</h2>";
-
-    lstrHTML += "<div class=\"user_help_form\">";
-
-    lstrHTML += "<h2>Please choose any appropriate subjects related to this entity:</h2>";
-
-    lstrHTML += "<input type=\"checkbox\" id=\"select_all\" value=\"\"><span style=\"font-weight:500; margin-left:4px;\">Select all</span><br />";
-
-    lstrHTML += "<table class=\"user_help_form_table\">";
-
-    for (var i = 0; i < lobjPossibleSubjects.length; i++) {
-        lstrHTML += "<tr>";
-        lstrHTML += "<td><input type=\"checkbox\" name=\"chosen_subjects\" value=\"";
-        lstrHTML += i + "\" /></td><td>" + lobjPossibleSubjects[i].elements.term.elements + "</td>";
-        lstrHTML += "</tr>";
-    }
-
-    lstrHTML += "</table>";
-
-    lstrHTML += "</div>";
 
 
-    lstrHTML += "<button id=\"ingest_worldcat_chosen_subjects\" class=\"pure-button pure-button-secondary ingest-ok\">Next</button>";
-    
-    lstrHTML += "&nbsp;<button id=\"ingest_worldcat_chosen_subjects_cancel\" class=\"pure-button pure-button-secondary ingest-cancel\">Cancel</button>";
+    _.templateSettings.variable = "lobjPossibleSubjects";
 
-    
-    lstrHTML += "</div></div>";
+    var template = _.template(
+        $("#worldcat-template-step-two").html()
+    );
 
-    $('body').append(lstrHTML);
+    $( "#form_viewport" ).append(
+        template( lobjPossibleSubjects )
+    );
+
     setupSelectAll('input#select_all');
     //setup to select all checkboxes
     jQuery('html,body').animate({
