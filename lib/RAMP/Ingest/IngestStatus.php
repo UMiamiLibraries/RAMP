@@ -68,7 +68,7 @@ class IngestStatus
 
 
     public function allStatus() {
-       $all_status = array($this->ingestStatus('ramp/viaf'), $this->ingestStatus('ramp/worldcat'),array('type'=>'ramp/wiki', 'status'=>$this->wiki_status));
+       $all_status = array("statuses" => array($this->ingestStatus('ramp/viaf'), $this->ingestStatus('ramp/worldcat'),array('type'=>'ramp/wiki', 'status'=>$this->wiki_status)));
         return $all_status;
     }
 }
