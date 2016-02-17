@@ -24,6 +24,21 @@ include('header.php');
         <div class="pure-u-6-24"></div>
     </div>
 
+
+    <div id="flash_message"></div>
+
+<!-- this is for dev only -->
+    <div>
+        <h3>Record Details</h3>
+        <ul>
+            <li>eadFile: </li>
+            <li>entityName: </li>
+            <li>savedXml: </li>
+            <li>wikiConversion: </li>
+            <li>onWiki: </li>
+        </ul>
+    </div>
+
 <?php include('includes/edit_controls.php') ?>
 
     <div id="wiki_switch">
