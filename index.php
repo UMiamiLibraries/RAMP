@@ -30,10 +30,10 @@ include('header.php');
 
             <h1 id="record_entityName_header"></h1>
 
-            <div id="flash_message"></div>
-
             <?php include('includes/edit_controls.php'); ?>
 
+            <div id="flash_message"></div>
+            
             <div id="form_viewport">
                 <div id="loading_image"></div>
                 <?php include('includes/worldcat/worldcat.php'); ?>
