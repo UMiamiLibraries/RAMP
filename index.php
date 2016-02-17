@@ -2,6 +2,9 @@
 include('header.php');
 ?>
 
+    <div id="feature-heading" class="feature-heading">
+
+    </div>
 
     <div class="pure-g">
         <div class="pure-u-6-24"></div>
