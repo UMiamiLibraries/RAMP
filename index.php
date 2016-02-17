@@ -33,14 +33,12 @@ include('header.php');
             <div id="flash_message"></div>
 
             <?php include('includes/edit_controls.php'); ?>
-            <?php include('includes/viaf/viaf.php'); ?>
-            <?php include('includes/worldcat/worldcat.php'); ?>
 
             <div id="form_viewport">
+                <?php include('includes/worldcat/worldcat.php'); ?>
                 <?php include('includes/viaf/viaf.php') ?>
             </div>
-
-
+            
             <?php include('includes/editor.php') ?>
 
         </div>
