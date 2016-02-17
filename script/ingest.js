@@ -868,12 +868,11 @@ function ingest_worldcat_elements(lobjEac, lstrName, callback) {
                                         0);
                                     //scroll to top to view form correctly
 
-                                    $('body').append("<div id=\"dialog\"><p>No subjects added.</p><br/>" + lstrOtherRecId + lstrSources + lstrCpfResults + lstrResourceResults + "</div>");
-                                    makeDialog('#dialog', 'Results');
+                                    $('flash_message').append("<div id=\"dialog\"><p>No subjects added.</p><br/>" + lstrOtherRecId + lstrSources + lstrCpfResults + lstrResourceResults + "</div>");
+
                                     // display results
                                     $('.form_container').remove();
                                     $('.main_edit').show();
-                                    $('#entity_name').show();
 
                                     editor.getSession().setValue(lobjEac.getXML());
                                     return;
@@ -889,7 +888,7 @@ function ingest_worldcat_elements(lobjEac, lstrName, callback) {
 
                                     // display results
                                     $('.main_edit').show();
-                                    $('#entity_name').show();
+
 
                                     // Append a maintenanceEvent to the EAC to keep track that a WorldCat ingest happened
                                     var d = new Date;

@@ -1,21 +1,22 @@
 $(document).ready(function () {
 
-    hideReadOnlyBtn();
-    toggleReadOnly();
+    //initially disable module buttons
+    disableModuleButtons();
 
-    hideIngestButtons();
-
+    //initially hide xml buttons
+    /*
+     * @TODO - refactor into underscore templates?
+     */
     hideXmlButtons();
 
 });
 
 function build_editor(eadFile) {
 
-    //hide the wiki xml swith buttons initially
-    $('#xml_switch').hide();
+    //enable module buttons
+    enableModuleButtons();
 
     // When one of the files is selected...
-
     $.get('ajax/get_eac_xml.php?eac=' + eadFile, function (data) {
 
         // Set up Ace editor
@@ -29,10 +30,6 @@ function build_editor(eadFile) {
         record.eacXml = edited_xml;
         //set editor to ready only
         editor.setReadOnly(true);
-
-
-        //enable ingest buttons
-        $('.ingest_button').removeAttr('disabled');
 
         // then validate the XML
         validateXML(undefined, record.eacXml);
@@ -73,9 +70,8 @@ $('.ead_files').change(function () {
     $('#record_wikiConversion').text(record.wikiConversion);
     $('#record_onWiki').text(record.onWiki);
 
-
     build_editor(record.eadFile);
-    showIngestButtons();
+
 });
 
 
@@ -556,17 +552,29 @@ function hideLoadingImage() {
 }
 
 
-function showIngestButtons() {
-    $('#ingest_worldcat').show();
-    $('#ingest_viaf').show();
-    $('#convert_to_wiki').show();
+function showModuleControls() {
+    $('#module_controls').show();
 }
 
-function hideIngestButtons() {
-    $('#ingest_worldcat').hide();
-    $('#ingest_viaf').hide();
-    $('#convert_to_wiki').hide();
+function hideModuleControls() {
+    $('#module_controls').hide();
 }
+
+function enableModuleButtons() {
+    var module_buttons = $('#ingest_buttons > button');
+    $.each(module_buttons, function() {
+        $(this).removeAttr('disabled');
+    });
+}
+
+function disableModuleButtons() {
+    var module_buttons = $('#ingest_buttons > button');
+    $.each(module_buttons, function() {
+        $(this).attr('disabled', 'disabled').css('background-color', 'f7f7f7');
+    });
+}
+
+
 
 function showXmlButtons() {
     $('#xml_buttons_container').show();
