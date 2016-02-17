@@ -3,6 +3,8 @@ $(document).ready(function () {
     hideReadOnlyBtn();
     toggleReadOnly();
 
+    hideIngestButtons();
+
 });
 
 function build_editor(eadFile) {
@@ -62,7 +64,16 @@ $('.ead_files').change(function () {
     record.wikiConversion = "";
     record.eacId = $(this).children("option:selected").data().id;
 
+    $('#record_eacId').text(record.eacId);
+    $('#record_eadFile').text(record.eadFile);
+    $('#record_entityName').text(record.entityName);
+    $('#record_savedXml').text(record.savedXml);
+    $('#record_wikiConversion').text(record.wikiConversion);
+    $('#record_onWiki').text(record.onWiki);
+
+
     build_editor(record.eadFile);
+    showIngestButtons();
 });
 
 
@@ -76,13 +87,11 @@ $('#save_eac').click(function (data) {
     record.eacXml = editor.getSession().getValue();
 
     // POST XML to update_eac_xml
-
     $.post('ajax/update_eac_xml.php', {xml: record.eacXml, ead_file: record.eadFile}, function (data) {
 
 
     }).done(function () {
         $savedialog.dialog('open');
-
 
     });
 
@@ -349,8 +358,6 @@ var $savedialog = $('<div></div>')
 
 
 // Save dialogs
-
-
 var $savedialog = $('<div></div>')
 
     .html('XML Saved!')
@@ -522,4 +529,30 @@ function toggleReadOnly() {
 
 
 
+function getIngestStatus(record_id) {
 
+    var eac_id = record_id;
+    var url = 'ajax/get_ingest_status.php';
+
+    $.ajax({
+        url: url,
+        data: {eac_id : eac_id},
+        success: function(response){
+            console.log(response);
+            return response;
+        },
+        dataType: "json"
+    });
+}
+
+function showIngestButtons() {
+    $('#ingest_worldcat').show();
+    $('#ingest_viaf').show();
+    $('#convert_to_wiki').show();
+}
+
+function hideIngestButtons() {
+    $('#ingest_worldcat').hide();
+    $('#ingest_viaf').hide();
+    $('#convert_to_wiki').hide();
+}
