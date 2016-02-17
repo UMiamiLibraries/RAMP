@@ -2,26 +2,23 @@ $(document).ready(function () {
     //register click event that will start worlcat ingestion
     $('#ingest_worldcat').on('click', function () {
 
-        //hide the editor
-        $('#aceEditor').hide();
+        /**
+         * @TODO create function to make sure form_viewport is empty
+         */
+
 
         //show the loading image
         showLoadingImage();
 
-        showReadOnlyBtn();
 
         record.wikiConversion = false; // Unset "onWiki" status.
         record.eacXml = editor.getValue();
 
         //cannot start ingestion without XML being loaded
         if (record.eacXml == '') {
-            $('body').append("<div id=\"dialog\"><p>Must load EAC first!</p></div>");
-            makeDialog('#dialog', 'Error!');
+            $('flash_message').append("<p>Must load EAC first!</p>");
+            //makeDialog('#dialog', 'Error!');
             //display error
-
-            $('.main_edit').show();
-            $('#entity_name').show();
-
             return;
         }
 
