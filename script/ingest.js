@@ -997,7 +997,7 @@ function ingest_worldcat_elements(lobjEac, lstrName, callback) {
                                     }
 
 
-                                    lobjEac.addMaintenanceEvent(r);
+                                    lobjEac.addMaintenanceEvent(maintEvent);
                                     editor.getSession().setValue(lobjEac.getXML());
                                     return;
                                 }
