@@ -2,6 +2,7 @@
  * Created by jlittle on 2/16/16.
  */
 var record = {
+    "eacId" :"",
     "eadFile":"",
     "entityName":"",
     "savedXml":"",
@@ -9,3 +10,4 @@ var record = {
     "onWiki" : "",
     "eacXml" : ""
 }
+

@@ -21,6 +21,7 @@ class IngestStatus
 {
     private $eac_xml_string;
     private $eac_xml_dom;
+    private $wiki_status;
 
     public function __construct($eac_id, Database $db)
     {
@@ -37,6 +38,21 @@ class IngestStatus
         $this->eac_xml_dom->registerXPathNamespace('eac','urn:isbn:1-931666-33-4');
 
         $statement->close();
+
+        $wiki_stmt = $mysqli->prepare("SELECT wiki_text FROM ead_eac.mediawiki WHERE eac_id = ?");
+        $wiki_stmt->bind_param("s",$eac_id);
+        $wiki_stmt->execute();
+        $wiki_stmt->bind_result($result);
+        $wiki_stmt->fetch();
+        $wiki_stmt->close();
+
+        if ($result != null) {
+            $this->wiki_status = 'true';
+        }  else {
+            $this->wiki_status = 'false';
+        }
+
+
     }
 
     public function ingestStatus($type) {
@@ -52,7 +68,7 @@ class IngestStatus
 
 
     public function allStatus() {
-       $all_status = array($this->ingestStatus('ramp/viaf'), $this->ingestStatus('ramp/worldcat'), $this->ingestStatus('ramp/wiki'));
+       $all_status = array($this->ingestStatus('ramp/viaf'), $this->ingestStatus('ramp/worldcat'),array('type'=>'ramp/wiki', 'status'=>$this->wiki_status));
         return $all_status;
     }
 }

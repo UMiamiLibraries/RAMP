@@ -13,7 +13,6 @@ require_once ('../autoloader.php');
 
 $db = Database::getInstance();
 
-
 $record_list = new RecordList($db);
 
 echo json_encode($record_list->getList());
