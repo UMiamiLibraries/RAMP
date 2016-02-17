@@ -25,7 +25,7 @@ include('header.php');
     </div>
 
 <?php include('includes/edit_controls.php') ?>
-
+ <?php include('includes/viaf/viaf.php') ?>
     <div id="wiki_switch">
         <button id="xml_switch_button" class="pure-button pure-button-primary">XML</button>
         <button id="wiki_switch_button" class="pure-button pure-button-primary">Wiki</button>
