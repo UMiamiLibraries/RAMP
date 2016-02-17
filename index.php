@@ -25,42 +25,77 @@ include('header.php');
     </div>
 
 
-    <div id="flash_message"></div>
 
-<!-- this is for dev only -->
+    <div class="pure-g">
+
+        <div class="pure-u-18-24">
+
+            <h1 id="record_entityName_header"></h1>
+
+            <div id="flash_message"></div>
+
+            <?php include('includes/edit_controls.php') ?>
+
+            <div id="form_viewport"></div>
+
+
+            <?php include('includes/editor.php') ?>
+
+        </div>
+
+
+        <div class="pure-u-6-24">
+            <?php include('includes/context_help.php') ?>
+        </div>
+
+    </div>
+
+
+<!--
+<div id="wiki_switch">
+    <button id="xml_switch_button" class="pure-button pure-button-primary">XML</button>
+    <button id="wiki_switch_button" class="pure-button pure-button-primary">Wiki</button>
+</div>
+-->
+
+<!-- Ace Editor
+<div id="validation" class="main_edit"></div>
+<div id="validation_text" class="main_edit">Valid XML</div>
+<div id="readonly_toggle_btn">
+    <button class="main_edit" id="editor_readonly_button" data-readonly="on">Toggle XML Edit</button> <span class="main_edit" id="readonly_status">XML Editing Disabled</span>
+</div>
+-->
+
+
+
+
+
+
+    <!-- this is for dev only -->
     <div>
         <h3>Record Details</h3>
         <ul>
-            <li>eadFile: </li>
-            <li>entityName: </li>
-            <li>savedXml: </li>
-            <li>wikiConversion: </li>
-            <li>onWiki: </li>
+            <li>eacId: <span id="record_eacId"></span></li>
+            <li>eadFile: <span id="record_eadFile"></span></li>
+            <li>entityName: <span id="record_entityName"></span></li>
+            <li>savedXml: <span id="record_savedXml"></span></li>
+            <li>wikiConversion: <span id="record_wikiConversion"></span></li>
+            <li>onWiki: <span id="record_onWiki"></span> </li>
         </ul>
+
+        <h3>Ingest Status</h3>
+        <ul>
+            <li>viaf: <span id="status_viaf"></span></li>
+            <li>worldcat: <span id="status_worldcat"></span></li>
+            <li>wiki: <span id="status_wiki"></span></li>
+        </ul>
+
     </div>
-
-<?php include('includes/edit_controls.php') ?>
-
-    <div id="wiki_switch">
-        <button id="xml_switch_button" class="pure-button pure-button-primary">XML</button>
-        <button id="wiki_switch_button" class="pure-button pure-button-primary">Wiki</button>
-    </div>
-
-    <!-- Ace Editor -->
-    <div id="validation" class="main_edit"></div>
-    <div id="validation_text" class="main_edit">Valid XML</div>
-    <div id="readonly_toggle_btn">
-        <button class="main_edit" id="editor_readonly_button" data-readonly="on">Toggle XML Edit</button> <span class="main_edit" id="readonly_status">XML Editing Disabled</span>
-    </div>
+    <!-- end dev markup -->
 
 
 
 
-    <div id="editor_mask" class="main_edit">
-        <div id="editor_container" class="main_edit">
-            <div id="editor" class="main_edit"></div>
-        </div>
-    </div>
 
     <script src="script/external/ace/ace.js" type="text/javascript" charset="utf-8"></script>
 
