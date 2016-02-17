@@ -61,51 +61,6 @@ include('header.php');
     </div>
 
 
-<!--
-<div id="wiki_switch">
-    <button id="xml_switch_button" class="pure-button pure-button-primary">XML</button>
-    <button id="wiki_switch_button" class="pure-button pure-button-primary">Wiki</button>
-</div>
--->
-
-<!-- Ace Editor
-<div id="validation" class="main_edit"></div>
-<div id="validation_text" class="main_edit">Valid XML</div>
-<div id="readonly_toggle_btn">
-    <button class="main_edit" id="editor_readonly_button" data-readonly="on">Toggle XML Edit</button> <span class="main_edit" id="readonly_status">XML Editing Disabled</span>
-</div>
--->
-
-
-
-
-
-
-    <!-- this is for dev only -->
-    <div>
-        <h3>Record Details</h3>
-        <ul>
-            <li>eacId: <span id="record_eacId"></span></li>
-            <li>eadFile: <span id="record_eadFile"></span></li>
-            <li>entityName: <span id="record_entityName"></span></li>
-            <li>savedXml: <span id="record_savedXml"></span></li>
-            <li>wikiConversion: <span id="record_wikiConversion"></span></li>
-            <li>onWiki: <span id="record_onWiki"></span> </li>
-        </ul>
-
-        <h3>Ingest Status</h3>
-        <ul>
-            <li>viaf: <span id="status_viaf"></span></li>
-            <li>worldcat: <span id="status_worldcat"></span></li>
-            <li>wiki: <span id="status_wiki"></span></li>
-        </ul>
-
-    </div>
-    <!-- end dev markup -->
-
-
-
-
 
     <script src="script/external/ace/ace.js" type="text/javascript" charset="utf-8"></script>
 
