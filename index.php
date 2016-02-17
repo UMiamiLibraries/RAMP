@@ -26,6 +26,7 @@ include('header.php');
 
 
 
+
     <div class="pure-g">
 
         <div class="pure-u-18-24">
@@ -36,7 +37,9 @@ include('header.php');
 
             <?php include('includes/edit_controls.php') ?>
 
-            <div id="form_viewport"></div>
+            <div id="form_viewport">
+                <?php include('includes/viaf/viaf.php') ?>
+            </div>
 
 
             <?php include('includes/editor.php') ?>
