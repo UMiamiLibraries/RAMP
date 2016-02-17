@@ -935,37 +935,19 @@ function ingest_worldcat_elements(lobjEac, lstrName, callback) {
  * @method display_possible_worldcat_form
  */
 function display_possible_worldcat_form(lobjPossibleURI, callback) {
-    var lstrHTML = "<div class=\"form_container\">";
 
-    
-    lstrHTML += "<div class=\"instruction_div\"><h2 class=\"instruction\" >Ingest from WorldCat Identities</h2>";
+    _.templateSettings.variable = "lobjPossibleURI";
 
+    var template = _.template(
+        $("#worldcat-template-step-one").html()
+    );
 
-    lstrHTML += "<div class=\"user_help_form\">";
-
-    lstrHTML += "<h2>Please choose the name that is the best match:</h2>";
-
-    for (var i = 0; i < lobjPossibleURI.length; i++) {
-        var lstrTitle = typeof lobjPossibleURI[i].title == 'undefined' ? '': lobjPossibleURI[i].title;
-        var lstrURI = typeof lobjPossibleURI[i].uri == 'undefined' ? '': lobjPossibleURI[i].uri;
-        var lstrType = typeof lobjPossibleURI[i].type == 'undefined' ? '': lobjPossibleURI[i].type;
-
-        lstrHTML += "<input type=\"radio\" name=\"chosen_worldcat_uri\" value=\"";
-        lstrHTML += lstrURI + "\" /><a href=\"" + lstrURI + "\" target=\"_blank\">" + lstrTitle + "</a><br />";
-    }
-
-    lstrHTML += "</div>";
-
-    lstrHTML += "<button id=\"ingest_worldcat_chosen_uri\" class=\"pure-button pure-button-secondary ingest-ok\">Next</button>";
-    lstrHTML += "&nbsp;<button id=\"ingest_worldcat_chosen_uri_cancel\" class=\"pure-button pure-button-secondary ingest-cancel\">Cancel</button>";
-    
-    lstrHTML += "</div>";
+    $( "body" ).append(
+        template( lobjPossibleURI )
+    );
 
 
-    
-    lstrHTML += "</div>";
-    
-    $('body').append(lstrHTML);
+
     jQuery('html,body').animate({
         scrollTop: 0
     },
