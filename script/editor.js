@@ -5,6 +5,8 @@ $(document).ready(function () {
 
     hideIngestButtons();
 
+    hideXmlButtons();
+
 });
 
 function build_editor(eadFile) {
@@ -545,6 +547,15 @@ function getIngestStatus(record_id) {
     });
 }
 
+function showLoadingImage() {
+    $('#loading_image').text('Loading...').show();
+}
+
+function hideLoadingImage() {
+    $('#loading_image').hide();
+}
+
+
 function showIngestButtons() {
     $('#ingest_worldcat').show();
     $('#ingest_viaf').show();
@@ -556,3 +567,12 @@ function hideIngestButtons() {
     $('#ingest_viaf').hide();
     $('#convert_to_wiki').hide();
 }
+
+function showXmlButtons() {
+    $('#xml_buttons_container').show();
+}
+
+function hideXmlButtons() {
+    $('#xml_buttons_container').hide();
+}
+

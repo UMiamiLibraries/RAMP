@@ -1,11 +1,15 @@
 $(document).ready(function () {
     //register click event that will start worlcat ingestion
     $('#ingest_worldcat').on('click', function () {
-        $('.main_edit').hide();
-        $('#wiki_switch').hide();
-        $('#loading-image').remove();
+
+        //hide the editor
+        $('#aceEditor').hide();
+
+        //show the loading image
+        showLoadingImage();
+
         showReadOnlyBtn();
-        //$('#entity_name').hide();
+
         record.wikiConversion = false; // Unset "onWiki" status.
         record.eacXml = editor.getValue();
 
@@ -25,6 +29,7 @@ $(document).ready(function () {
 
             //xml must be valid in order for worlcat ingestion to begin
             if (lboolValid) {
+
                 var lobjeac = new eac();
                 lobjeac.loadXMLString(record.eacXml);
 
@@ -49,6 +54,8 @@ $(document).ready(function () {
                     eac_name = encode_utf8(eac_name);
                 }
 
+
+
                 ingest_worldcat_elements(lobjeac, eac_name, function (lstrMessage) {
                     if (typeof lstrMessage != 'undefined' && lstrMessage != '') {
                         $('body').append("<div id=\"dialog_main\"><p>" + lstrMessage + "</p></div>");
@@ -59,6 +66,8 @@ $(document).ready(function () {
                     $('.ingest_button').show();
                     $('.main_edit').show();
                     $('#entity_name').show();
+
+
                 });
             } else {
                 //display error when xml is not valid
@@ -963,6 +972,9 @@ function display_possible_worldcat_form(lobjPossibleURI, callback) {
             makeDialog('#dialog', 'Error!');
         } else {
             $('.form_container').remove();
+
+            //show loading image
+            showLoadingImage();
             
             callback(lstrChosenURI);
         }

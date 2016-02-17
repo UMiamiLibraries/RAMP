@@ -35,10 +35,11 @@ include('header.php');
             <?php include('includes/edit_controls.php'); ?>
 
             <div id="form_viewport">
+                <div id="loading_image"></div>
                 <?php include('includes/worldcat/worldcat.php'); ?>
                 <?php include('includes/viaf/viaf.php') ?>
             </div>
-            
+
             <?php include('includes/editor.php') ?>
 
         </div>
