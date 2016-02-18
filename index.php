@@ -62,8 +62,8 @@ include('header.php');
             </div>
 
             <div class="controls-panel">
-                            <?php include('includes/module_controls.php'); ?>
-                            <p>Click on a process to continue</p> 
+                <?php include('includes/module_controls.php'); ?>
+                <p id="controls_panel_instructions">Click on a process to continue</p>
             </div>
 
 

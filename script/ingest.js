@@ -1,5 +1,41 @@
 $(document).ready(function () {
 
+    selectFileToIngest();
+
+    //clear ingest instructions after any module button is clicked
+    clearInitialIngestInstructions();
+
+
+    function selectFileToIngest() {
+
+        $('.ead_files').change(function () {
+
+            //set record object
+            record.eadFile = this.value;
+            record.entityName = $(this).children("option:selected").text();
+            record.savedXml = "";
+            record.wikiConversion = "";
+            record.eacId = $(this).children("option:selected").data().id;
+
+            //set the page header with name of person/file
+            $('#record_entityName_header').text(record.entityName);
+
+            //build the ace editor
+            build_editor(record.eacId);
+
+
+        });
+
+    }
+
+
+    function clearInitialIngestInstructions() {
+        $('#ingest_buttons > button').on('click', function() {
+            $('#controls_panel_instructions').remove();
+        })
+    }
+
+
 
     function getIngestStatus(record_id) {
 
@@ -18,22 +54,5 @@ $(document).ready(function () {
     }
 
 
-
-
-
-
-
-
-    /*
-     * setupSelectAll registers passed element selector's change event in order to have check all visible checkboxes functionality.
-     * @method setupSelectAll
-     */
-    function setupSelectAll(lstrSelector) {
-        $(lstrSelector).change(function () {
-            if ($(lstrSelector).prop("checked") == true)
-            $('input[type="checkbox"]:visible').prop('checked', true); else
-            $('input[type="checkbox"]:visible').prop('checked', false);
-        })
-    }
 
 });
