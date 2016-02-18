@@ -1,59 +1,53 @@
 <script type="text/template" class="template" id="viaf-template-step-one">
-
     <div class="pure-g form_container">
 
+        <div class="instruction_div pure-u-1">
+            <h2 class="instruction">Authority Control: Ingest from VIAF</h2>
 
-<div class="instruction_div pure-u-1"><h2 class="instruction">Authority Control: Ingest from VIAF</h2>
+            <div class="user_help_form">
 
-<div class="user_help_form">
+                <p>Choose the best match for this name:</p>
+                <% _.each(lobjPossibleViaf, function(possibleViaf) { %>
 
-<h2>Choose the best match for this name:</h2>
+                <input type="radio" name="chosen_viaf_id" value="<%= possibleViaf.viaf_id %>"/>
+                <a href="http://viaf.org/viaf/<%= possibleViaf.viaf_id %>" target="_blank"> <%= possibleViaf.name %></a><br>
 
+                <% }); %>
 
-    <% _.each(lobjPossibleViaf, function(possibleViaf) { %>
+            </div>
 
-    <input type="radio" name="chosen_viaf_id" value="<%= possibleViaf.viaf_id %>"/>
-    <a href="http://viaf.org/viaf/<%= possibleViaf.viaf_id %>" target="_blank"> <%= possibleViaf.name %></a><br>
+            <button id="ingest_viaf_chosen_viaf" class="pure-button ingest-ok pure-button-secondary" >Use Selected VIAF</button>
+            <button id="ingest_viaf_chosen_viaf_cancel" class="pure-button ingest-cancel pure-button-secondary">Cancel</button>
+        </div>
 
-    <% }); %>
-
-</div>
-
-    <button id="ingest_viaf_chosen_viaf" class="pure-button ingest-ok pure-button-secondary" >Use Selected VIAF</button>
-    <button id="ingest_viaf_chosen_viaf_cancel" class="pure-button ingest-cancel pure-button-secondary">Cancel</button>
-
-   </div>
- </div>
+    </div>
 
 </script>
 
 <script type="text/template" class="template" id="viaf-template-step-two">
     <div class="form_container pure-g">
-    <div class="instruction_div pure-u-1">
-    <h2 class="instruction">Named Entity Recognition</h2>
+        <div class="instruction_div pure-u-1">
+            <h2 class="instruction">Named Entity Recognition</h2>
 
-    <div class="user_help_form">
-       <p>Please choose names to create &lt;cpfRelation&gt; elements:</p>
-        <input type="checkbox" id="select_all" value=""><span>Select all</span><br />
+            <div class="user_help_form">
+               <p>Please choose names to create &lt;cpfRelation&gt; elements:</p>
+                <input type="checkbox" id="select_all" value=""><span>Select all</span><br />
 
-        <table class="user_help_form_table">
+                <table class="user_help_form_table">
 
-            <% _.each(lobjPossibleNames, function(possibleName) { %>
+                    <% _.each(lobjPossibleNames, function(possibleName) { %>
 
-            <tr><td><input type="checkbox" class="ner_check" name="chosen_names" value=""/></td>
-                <td><input type="text" class="ner_text" name="modified_names" size="60" value=" <%= possibleName %> "/></td>
-               <td><input type="button" name="add" value="Add New Row" class="ner_empty_add pure-button pure-button-secondary"/></td></tr>
-            <% }); %>
+                    <tr><td><input type="checkbox" class="ner_check" name="chosen_names" value=""/></td>
+                        <td><input type="text" class="ner_text" name="modified_names" size="60" value=" <%= possibleName %> "/></td>
+                       <td><input type="button" name="add" value="Add New Row" class="ner_empty_add pure-button pure-button-secondary"/></td></tr>
+                    <% }); %>
 
+                    </table>
+              </div>
 
-            </table>
-      </div>
-
-
-    <button id="ingest_viaf_chosen_names_relations" class="pure-button ingest-ok pure-button-secondary">Use Selected Names</button>
-    <button id="ingest_viaf_chosen_names_relations_cancel" class="pure-button ingest-cancel pure-button-secondary">Cancel</button>
-
-     </div>
+            <button id="ingest_viaf_chosen_names_relations" class="pure-button ingest-ok pure-button-secondary">Use Selected Names</button>
+            <button id="ingest_viaf_chosen_names_relations_cancel" class="pure-button ingest-cancel pure-button-secondary">Cancel</button>
+         </div>
     </div>
 </script>
 
