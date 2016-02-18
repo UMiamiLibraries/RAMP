@@ -61,3 +61,16 @@ function throttle(f, delay) {
             delay || 500);
     };
 }
+
+
+function render_help_template(div_id) {
+
+    // Render the first help template
+    var help_template = _.template(
+        $("#" + div_id).html()
+    );
+
+    $("#help_viewport").append(
+        help_template()
+    );
+}
