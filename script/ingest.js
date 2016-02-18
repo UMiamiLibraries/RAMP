@@ -704,7 +704,7 @@ function display_viaf_results_form(lobjViafResults, callback) {
         $('.form_container').remove();
         $('.help_container').remove();
         $('#viaf_load').remove();
-        $('.main_edit').show();
+
     });
 }
 
@@ -832,21 +832,12 @@ function ingest_worldcat_elements(lobjEac, lstrName, callback) {
 
                         // Notification logic added by timathom.
                         if (lobjSubjectList.length == 0) {
-                            jQuery('html,body').animate({
-                                    scrollTop: 0
-                                },
-                                0);
-                            //scroll to top to view form correctly
 
                             $('body').append("<div id=\"dialog\"><p>No matching subjects.</p><br/>" + lstrOtherRecId + lstrSources + lstrCpfResults + lstrResourceResults + "</div>");
                             makeDialog('#dialog', 'Results');
                             // display results
 
                             $('.form_container').remove();
-                            $('.help_container').remove();
-
-                            $('.main_edit').show();
-
 
                             editor.getSession().setValue(lobjEac.getXML());
                             return;
@@ -863,35 +854,19 @@ function ingest_worldcat_elements(lobjEac, lstrName, callback) {
 
                                 if (lobjChosenSubjects.length == 0) {
 
-                                    jQuery('html,body').animate({
-                                            scrollTop: 0
-                                        },
-                                        0);
-                                    //scroll to top to view form correctly
-
                                     $('flash_message').append("<div id=\"dialog\"><p>No subjects added.</p><br/>" + lstrOtherRecId + lstrSources + lstrCpfResults + lstrResourceResults + "</div>");
 
                                     // display results
                                     $('.form_container').remove();
-                                    $('.help_container').remove();
-                                    $('.main_edit').show();
+                                    //$('.help_container').remove();
 
                                     editor.getSession().setValue(lobjEac.getXML());
                                     return;
-                                } else {
 
-                                    jQuery('html,body').animate({
-                                            scrollTop: 0
-                                        },
-                                        0);
-                                    //scroll to top to view form correctly
+                                } else {
 
                                     $('#flash_message').append("<ul><li>&lt;localDescription&gt; element(s) added with chosen subject(s).</li>" + lstrOtherRecId + lstrSources + lstrCpfResults + lstrResourceResults + "</ul>");
 
-                                    // display results
-                                    showAceEditor();
-
-                                    showXmlButtons();
 
 
                                     // Append a maintenanceEvent to the EAC to keep track that a WorldCat ingest happened
@@ -907,13 +882,16 @@ function ingest_worldcat_elements(lobjEac, lstrName, callback) {
                                         }
                                     }
 
-
                                     lobjEac.addMaintenanceEvent(maintEvent);
                                     editor.getSession().setValue(lobjEac.getXML());
                                     return;
                                 }
+
                             });
                         }
+
+                        //scroll to top to view form correctly
+                        scrollToFormTop();
                     });
             });
         });
@@ -1006,12 +984,9 @@ function display_possible_worldcat_subjects(lobjPossibleSubjects, callback) {
     setupSelectAll('input#select_all');
     //setup to select all checkboxes
 
-    jQuery('html,body').animate({
-        scrollTop: 0
-    },
-    0);
     //scroll to top to view form correctly
-    
+    scrollToFormTop();
+
     //register click event to continue process once user choses subjects
     $('#ingest_worldcat_chosen_subjects').on('click', function () {
         var lobjChosenSubjects =[];
@@ -1032,7 +1007,16 @@ function display_possible_worldcat_subjects(lobjPossibleSubjects, callback) {
             callback(lobjChosenSubjects);
             $('.form_container').remove();
             $('.help_container').remove();
-            $('.main_edit').show();
+
+            // display ace editor
+            showAceEditor();
+
+            //display save xml buttons
+            showXmlButtons();
+
+            //render help template
+            render_help_template('wc_template_help_step_three');
+
 
         }
     });
