@@ -131,13 +131,6 @@ $('#editor').keyup(throttle(function () {
 }));
 
 
-$('#convert_to_wiki').click(function () {
-
-    startWiki();
-
-
-
-});
 
 
 function wikiCheck(eacId) {
