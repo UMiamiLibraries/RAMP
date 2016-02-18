@@ -21,8 +21,13 @@
 <!-- /#aceEditor -->
 
 <div id="xml_buttons_container">
-    <button id="editor_readonly_button" class="" data-readonly="on">Edit XML</button>
+    <button id="editor_readonly_button" class="" data-readonly="on">Edit XML <span id="readonly_status"></span></button>
     <button id="save_eac" class="">Save XML</button>
     <button id="" class="">Cancel</button>
+
+    <div id="validation_container">
+        <p><span id="validation"></span>  <span id="validation_text"></span></p>
+    </div>
+
 </div>
 <!-- /#xml_buttons_container -->

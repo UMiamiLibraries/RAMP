@@ -9,13 +9,15 @@ window.validateXML = function( callback, eacXml ) {
             callback = function(){};
 
         if (data.status === "valid") {
-            // Make the little Oxygen-esque square green if valid
 
+            // Make the little Oxygen-esque square green if valid
             $('#validation').css({"background-color":"green"});
 
             // Make the valdiation text area blank
-
             $('#validation_text').html('Valid XML');
+
+            //enable save xml button
+            $('#save_eac').removeAttr('disabled');
 
             callback(true);
 
@@ -33,6 +35,9 @@ window.validateXML = function( callback, eacXml ) {
     },"json").fail(function() {
         $('#validation').css({"background-color":"red"});
         $('#validation_text').html('<p>Your XML is not well-formed or there is an issue with the validation service</p>');
+
+        //disable save xml button
+        $('#save_eac').attr('disabled', 'disabled');
 
         if(typeof callback == 'undefined')
             callback = function(){};

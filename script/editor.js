@@ -4,16 +4,15 @@ $(document).ready(function () {
     //initially disable module buttons
     disableAllModuleButtons();
 
-
     //but hide it initially
     hideAceEditor();
 
-
     //initially hide xml buttons
-    /*
-     * @TODO - refactor into underscore templates?
-     */
     hideXmlButtons();
+
+    //enable toggle switch for ace editor read only
+    toggleReadOnly();
+
 
     $('.ead_files').change(function () {
 
@@ -33,7 +32,7 @@ $(document).ready(function () {
 
     });
 
-    toggleReadOnly();
+
 
 
 
