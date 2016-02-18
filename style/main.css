@@ -52,6 +52,8 @@ header {background-color: #f5f5f5; height:45px;}
 /* Content Areas */
 .inner-area {max-width: 960px; margin: 0 auto; padding:0 10px;}
 
+.app-content {margin:0 0 0 0;}
+
 
 
 /* Feature Heading and Image */
@@ -101,7 +103,7 @@ header {background-color: #f5f5f5; height:45px;}
 
 /* Homepage Content Area */
 
-.homepage-content {margin:0 0 40px 0;}
+.homepage-content {margin:0 0 100px 0;}
 
 .homepage-content-text {
   margin:10px 0;
