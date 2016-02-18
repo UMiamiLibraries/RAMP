@@ -21,9 +21,6 @@ $(document).ready(function () {
 
 function startWorldCat() {
 
-    //show the loading image
-    showLoadingImage();
-
     record.wikiConversion = false; // Unset "onWiki" status.
     record.eacXml = editor.getValue();
     console.log(record.eadFile);
@@ -38,6 +35,9 @@ function startWorldCat() {
 
         //xml must be valid in order for worlcat ingestion to begin
         if (lboolValid) {
+
+            //show the loading image
+            showLoadingImage();
 
             var lobjeac = new eac();
             lobjeac.loadXMLString(record.eacXml);
@@ -183,6 +183,8 @@ function ingest_worldcat_elements(lobjEac, lstrName, callback) {
                             // added by timathom
                         }
 
+                        /*
+
                         // Result text added by timathom.
                         var lstrOtherRecId;
                         var lstrSources;
@@ -211,14 +213,15 @@ function ingest_worldcat_elements(lobjEac, lstrName, callback) {
                         } else {
                             lstrResourceResults = "<li>&lt;resourceRelation&gt; element(s) added.</li>";
                         }
+                        */
 
 
                         // Notification logic added by timathom.
                         if (lobjSubjectList.length == 0) {
 
-                            $('body').append("<div id=\"dialog\"><p>No matching subjects.</p><br/>" + lstrOtherRecId + lstrSources + lstrCpfResults + lstrResourceResults + "</div>");
-                            makeDialog('#dialog', 'Results');
-                            // display results
+                            //$('body').append("<div id=\"dialog\"><p>No matching subjects.</p><br/>" + lstrOtherRecId + lstrSources + lstrCpfResults + lstrResourceResults + "</div>");
+                            //makeDialog('#dialog', 'Results');
+                           renderFlashMessage('<p>No matching subjects.</p>');
 
                             $('.form_container').remove();
 
@@ -237,20 +240,18 @@ function ingest_worldcat_elements(lobjEac, lstrName, callback) {
 
                                 if (lobjChosenSubjects.length == 0) {
 
-                                    $('flash_message').append("<div id=\"dialog\"><p>No subjects added.</p><br/>" + lstrOtherRecId + lstrSources + lstrCpfResults + lstrResourceResults + "</div>");
+                                    //$('flash_message').append("<div id=\"dialog\"><p>No subjects added.</p><br/>" + lstrOtherRecId + lstrSources + lstrCpfResults + lstrResourceResults + "</div>");
+                                    renderFlashMessage('<p>No subjects added.</p>');
 
-                                    // display results
                                     $('.form_container').remove();
-                                    //$('.help_container').remove();
 
                                     editor.getSession().setValue(lobjEac.getXML());
                                     return;
 
                                 } else {
 
-                                    $('#flash_message').append("<ul><li>&lt;localDescription&gt; element(s) added with chosen subject(s).</li>" + lstrOtherRecId + lstrSources + lstrCpfResults + lstrResourceResults + "</ul>");
-
-
+                                    //$('#flash_message').append("<ul><li>&lt;localDescription&gt; element(s) added with chosen subject(s).</li>" + lstrOtherRecId + lstrSources + lstrCpfResults + lstrResourceResults + "</ul>");
+                                    renderFlashMessage('<p>Success! XML elements added</p>');
 
                                     // Append a maintenanceEvent to the EAC to keep track that a WorldCat ingest happened
                                     var d = new Date;
