@@ -1,3 +1,22 @@
+$(document).ready(function () {
+
+    //register click event that will start worlcat ingestion
+    $('#ingest_worldcat').on('click', function () {
+        /**
+         * @TODO create function to make sure form_viewport is empty
+         */
+        startWorldCat();
+    });
+
+    //register click event that will start viaf ingest
+    $('#ingest_viaf').on('click', function () {
+        startViaf();
+    });
+
+
+});
+
+
 function startWorldCat() {
 
     //show the loading image
@@ -51,7 +70,7 @@ function startWorldCat() {
 
                 $('.ingest_button').show();
                 $('.main_edit').show();
-                $('#entity_name').show();
+
 
 
             });
@@ -61,25 +80,18 @@ function startWorldCat() {
             makeDialog('#dialog', 'Error!');
 
             $('.main_edit').show();
-            $('#entity_name').show();
+
         }
     }, record.eacXml);
 
-
-    // Render the first help template
-    var template = _.template(
-        $("#wc_template_help_step_one").html()
-    );
-
-    $("#context_help_viewport").append(
-        template()
-    );
+    //render contextual help template
+    render_help_template('wc_template_help_step_one');
 
 }
 
 function startViaf() {
     $('.main_edit').hide();
-    $('#wiki_switch').hide();
+
 
     record.onWiki = false; // Unset "onWiki" status
 
@@ -92,7 +104,7 @@ function startViaf() {
         //display error
 
         $('.ingest_button').show();
-        $('#entity_name').show();
+
         $('.main_edit').show();
         return;
     }
@@ -136,7 +148,7 @@ function startViaf() {
 
 
                     $('.ingest_button').show();
-                    //$('#entity_name').show();
+
                 });
             });
         } else {
@@ -146,30 +158,12 @@ function startViaf() {
 
             $('.main_edit').show();
             $('.ingest_button').show();
-            $('#entity_name').show();
+
         }
     }, record.eacXml);
 }
 
 
-
-$(document).ready(function () {
-
-    //register click event that will start worlcat ingestion
-    $('#ingest_worldcat').on('click', function () {
-        /**
-         * @TODO create function to make sure form_viewport is empty
-         */
-        startWorldCat();
-    });
-
-    //register click event that will start viaf ingest
-    $('#ingest_viaf').on('click', function () {
-        startViaf();
-    });
-
-
-});
 /*
  * ingest_viaf_NameEntry_Sources ingest name entries and sources from viaf using API into passed EAC DOM Document. Using passed name to search Viaf.
  * @method ingest_viaf_NameEntry_Sources
@@ -253,6 +247,7 @@ function ingest_viaf_NameEntry_Sources(lobjEac, lstrName, callback) {
                             editor.getSession().setValue(lobjEac.getXML());
 
                             $('.form_container').remove();
+                            $('.help_container').remove();
 
                             // Results notification added by timathom
                             callback();
@@ -299,6 +294,7 @@ function display_possible_viaf_form(lobjPossibleViaf, callback) {
         } else {
             callback(lstrChosenViaf);
             $('.form_container').remove();
+            $('.help_container').remove();
             $('.main_edit').hide();
         }
     });
@@ -316,6 +312,7 @@ function display_possible_viaf_form(lobjPossibleViaf, callback) {
         makeDialog('#dialog', 'Results');
         // display results
         $('.form_container').remove();
+        $('.help_container').remove();
         callback();
 
     });
@@ -417,13 +414,14 @@ function ingest_viaf_Relations(lobjEac, callback) {
             //$('body').append("<div id=\"dialog\"><p>Canceled!</p></div>");
             //makeDialog('#dialog', 'Results'); // display results
             $('.form_container').remove();
+            $('.help_container').remove();
+
             $('.main_edit').show();
             
             //set ace editor value to new xml from EAC Dom Document with ingested source and name entries
             //added to show changes immediately
             editor.getSession().setValue(lobjEac.getXML());
-            
-            $('#entity_name').show();
+
             
             return;
         }
@@ -441,11 +439,7 @@ function ingest_viaf_Relations(lobjEac, callback) {
                 callback("Canceled!");
                 //done if no names where chosen
                 
-                if (record.wikiStatus === true) {
-                    $('#wiki_switch').show();
-                } else {
-                    $('#wiki_switch').hide();
-                }
+
                 $('.main_edit').show();
                 
                 //added to show changes immediately
@@ -470,15 +464,10 @@ function ingest_viaf_Relations(lobjEac, callback) {
                     if (lobjData.length == 0) {
                         callback('');
                         $('.form_container').remove();
+                        $('.help_container').remove();
                         $('.main_edit').show();
                         
-                        // Check to see if there is already wiki markup. If so, show switcher. --timathom
-                        if (record.wikiStatus === true) {
-                            $('#wiki_switch').show();
-                        } else {
-                            $('#wiki_switch').hide();
-                        }
-                        return;
+
                     }
                 }
                 catch (e) //response should be JSON so if not, throw error
@@ -605,8 +594,9 @@ function display_possible_name_form(lobjPossibleNames, callback) {
         } else {
             callback(lobjChosenNames);
             $('.form_container').remove();
+            $('.help_container').remove();
             $('.main_edit').hide();
-            //$('#entity_name').hide();
+
         }
     });
     
@@ -614,16 +604,12 @@ function display_possible_name_form(lobjPossibleNames, callback) {
     $('#ingest_viaf_chosen_names_relations_cancel').on('click', function () {
         var lobjChosenNames =[];
         callback(lobjChosenNames);
-        // Check to see if there is already wiki markup. If so, show switcher. --timathom
-        if (record.wikiStatus === true) {
-            $('#wiki_switch').show();
-        } else {
-            $('#wiki_switch').hide();
-        }
+
         $('.form_container').remove();
+        $('.help_container').remove();
         $('#viaf_load').remove();
         $('.main_edit').show();
-        $('#entity_name').show();
+
     });
 }
 
@@ -704,6 +690,7 @@ function display_viaf_results_form(lobjViafResults, callback) {
         } else {
             callback(lobjChosenResults);
             $('.form_container').remove();
+            $('.help_container').remove();
             $('#viaf_load').remove();
 
         }
@@ -715,6 +702,7 @@ function display_viaf_results_form(lobjViafResults, callback) {
         
         callback(lobjChosenResults);
         $('.form_container').remove();
+        $('.help_container').remove();
         $('#viaf_load').remove();
         $('.main_edit').show();
     });
@@ -821,24 +809,24 @@ function ingest_worldcat_elements(lobjEac, lstrName, callback) {
                         if (lobjOtherRecList.length == 0) {
                             lstrOtherRecId = '';
                         } else {
-                            lstrOtherRecId = "<p>&lt;otherRecordId&gt; element(s) added.</p><br/>";
+                            lstrOtherRecId = "<li>&lt;otherRecordId&gt; element(s) added.</li>";
                         }
 
                         if (lobjSourceList.length == 0) {
                             lstrSources = '';
                         } else {
-                            lstrSources = "<p>&lt;source&gt; element added.</p><br/>";
+                            lstrSources = "<li>&lt;source&gt; element added.</li>";
                         }
 
                         if (lobjCpfRelationList.length == 0) {
                             lstrCpfResults = '';
                         } else {
-                            lstrCpfResults = "<p>&lt;cpfRelation&gt; element(s) added.</p><br/>";
+                            lstrCpfResults = "<li>&lt;cpfRelation&gt; element(s) added.</li>";
                         }
                         if (lobjResourceRelationList.length == 0) {
                             lstrResourceResults = '';
                         } else {
-                            lstrResourceResults = "<p>&lt;resourceRelation&gt; element(s) added.</p><br/>";
+                            lstrResourceResults = "<li>&lt;resourceRelation&gt; element(s) added.</li>";
                         }
 
 
@@ -855,9 +843,10 @@ function ingest_worldcat_elements(lobjEac, lstrName, callback) {
                             // display results
 
                             $('.form_container').remove();
+                            $('.help_container').remove();
 
                             $('.main_edit').show();
-                            $('#entity_name').show();
+
 
                             editor.getSession().setValue(lobjEac.getXML());
                             return;
@@ -884,6 +873,7 @@ function ingest_worldcat_elements(lobjEac, lstrName, callback) {
 
                                     // display results
                                     $('.form_container').remove();
+                                    $('.help_container').remove();
                                     $('.main_edit').show();
 
                                     editor.getSession().setValue(lobjEac.getXML());
@@ -896,10 +886,12 @@ function ingest_worldcat_elements(lobjEac, lstrName, callback) {
                                         0);
                                     //scroll to top to view form correctly
 
-                                    $('#flash_message').append("<p>&lt;localDescription&gt; element(s) added with chosen subject(s).</p><br/>" + lstrOtherRecId + lstrSources + lstrCpfResults + lstrResourceResults);
+                                    $('#flash_message').append("<ul><li>&lt;localDescription&gt; element(s) added with chosen subject(s).</li>" + lstrOtherRecId + lstrSources + lstrCpfResults + lstrResourceResults + "</ul>");
 
                                     // display results
-                                    $('.main_edit').show();
+                                    showAceEditor();
+
+                                    showXmlButtons();
 
 
                                     // Append a maintenanceEvent to the EAC to keep track that a WorldCat ingest happened
@@ -946,7 +938,6 @@ function display_possible_worldcat_form(lobjPossibleURI, callback) {
     );
 
 
-
     jQuery('html,body').animate({
         scrollTop: 0
     },
@@ -962,6 +953,7 @@ function display_possible_worldcat_form(lobjPossibleURI, callback) {
             makeDialog('#dialog', 'Error!');
         } else {
             $('.form_container').remove();
+            $('.help_container').remove();
 
             //show loading image
             showLoadingImage();
@@ -974,16 +966,11 @@ function display_possible_worldcat_form(lobjPossibleURI, callback) {
     $('#ingest_worldcat_chosen_uri_cancel').on('click', function () {
         //callback('');
         $('.form_container').remove();
-        $('#entity_name').show();
+        $('.help_container').remove();
+
         $('.main_edit').show();
         
-        // Check to see if there is already wiki markup. If so, show switcher. --timathom
-        if (record.wikiStatus === true) {
-            $('#wiki_switch').show();
-        } else {
-            $('#wiki_switch').hide();
-        }
-        
+
         jQuery('html,body').animate({
             scrollTop: 0
         },
@@ -1013,8 +1000,12 @@ function display_possible_worldcat_subjects(lobjPossibleSubjects, callback) {
         template( lobjPossibleSubjects )
     );
 
+    //render contextual help template
+    render_help_template('wc_template_help_step_two');
+
     setupSelectAll('input#select_all');
     //setup to select all checkboxes
+
     jQuery('html,body').animate({
         scrollTop: 0
     },
@@ -1040,13 +1031,9 @@ function display_possible_worldcat_subjects(lobjPossibleSubjects, callback) {
         } else {
             callback(lobjChosenSubjects);
             $('.form_container').remove();
+            $('.help_container').remove();
             $('.main_edit').show();
-            // Check to see if there is already wiki markup. If so, show switcher. --timathom
-            if (record.wikiStatus === true) {
-                $('#wiki_switch').show();
-            } else {
-                $('#wiki_switch').hide();
-            }
+
         }
     });
     
@@ -1056,14 +1043,9 @@ function display_possible_worldcat_subjects(lobjPossibleSubjects, callback) {
         
         callback(lobjChosenSubjects);
         $('.form_container').remove();
+        $('.help_container').remove();
         $('.main_edit').show();
-        $('#entity_name').show();
-        // Check to see if there is already wiki markup. If so, show switcher. --timathom
-        if (record.wikiStatus === true) {
-            $('#wiki_switch').show();
-        } else {
-            $('#wiki_switch').hide();
-        }
+
         return;
     });
 }
@@ -1078,4 +1060,17 @@ function setupSelectAll(lstrSelector) {
         $('input[type="checkbox"]:visible').prop('checked', true); else
         $('input[type="checkbox"]:visible').prop('checked', false);
     })
+}
+
+
+function render_help_template(div_id) {
+
+    // Render the first help template
+    var help_template = _.template(
+        $("#" + div_id).html()
+    );
+
+    $("#help_viewport").append(
+        help_template()
+    );
 }
