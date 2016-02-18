@@ -3,6 +3,9 @@
  */
 $(document).ready(function () {
 
+    //make sure wiki controls hidden unless needed
+    hideWikiLoginButton();
+
 
     $('#convert_to_wiki').click(function () {
 
@@ -38,6 +41,13 @@ $(document).ready(function () {
         }
     }
 
+    function showWikiLoginButton() {
+        $('#wiki_login').show();
+    }
+
+    function hideWikiLoginButton() {
+        $('#wiki_login').hide();
+    }
 
 
 
