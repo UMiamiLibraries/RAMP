@@ -9,7 +9,7 @@
 ?>
 
 <script type="text/template" class="template" id="viaf_template_help_step_one">
-    <div>
+    <div class="help_container">
         <h3>VIAF Step One</h3>
     </div>
 </script>
@@ -18,7 +18,7 @@
 
 <script type="text/template" class="template" id="viaf_template_help_step_two">
 
-    <div>
+    <div class="help_container">
         <h3>VIAF Step Two</h3>
     </div>
 
@@ -29,7 +29,7 @@
 
 <script type="text/template" class="template" id="viaf_template_help_step_three">
 
-    <div>
+    <div class="help_container">
         <h3>VIAF Step Three</h3>
     </div>
 
