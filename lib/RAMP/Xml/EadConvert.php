@@ -292,7 +292,7 @@ class EadConvert {
                 continue;
             $file_path = $this->ead_path .  '/' . $file;
             //Reconstruct the full path to the file
-            $xml_string = get_include_contents($file_path);
+            $xml_string = file_get_contents($file_path);
             // Get the XML content from the file as a string.
             try {
                 $this->XMLDOM->load($file_path);
