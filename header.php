@@ -23,6 +23,7 @@ include('conf/includes.php');
 
     <!-- Pure, Font Awesome, Lato Font -->
     <link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.6.0/pure-min.css">
+    <link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.6.0/grids-responsive-min.css">
     <link rel="stylesheet" href="style/font-awesome.min.css">
     <link href='https://fonts.googleapis.com/css?family=Lato:400,900italic,900,700italic,700,400italic,300italic,300' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" type="text/css" href="style/main.css"/>
