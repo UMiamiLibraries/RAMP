@@ -74,3 +74,7 @@ function render_help_template(div_id) {
         help_template()
     );
 }
+
+function clear_help_template_container() {
+    $('.help_container').remove();
+}
