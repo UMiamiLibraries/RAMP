@@ -54,7 +54,7 @@ if(isset($_POST['action']))
 			}
 			break;
 		default:
-			echo 'ERROR: Action not implemented!';
+			echo 'Error: Action not implemented!';
 	}
 }else{
 	echo '';

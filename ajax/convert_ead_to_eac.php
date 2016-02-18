@@ -10,7 +10,6 @@ require_once ('../autoloader.php');
 
 include('../conf/includes.php');
 
-
 if( isset($_GET['dir']) )
 {
 	$ead_convert = new EadConvert($_GET["dir"]);
