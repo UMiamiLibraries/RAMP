@@ -563,7 +563,7 @@ function hideLoadingImage() {
 
 
 function clearFlashMessage() {
-    $('#flash_message').html();
+    $('#flash_message').html('');
 }
 
 function showAceEditor() {
