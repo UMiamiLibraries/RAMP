@@ -90,12 +90,18 @@ function startWorldCat() {
 }
 
 function startViaf() {
-    $('.main_edit').hide();
+
+    //clear any flash messages
+    clearFlashMessage();
+
+    //hide the editor
+    hideAceEditor();
 
 
     record.onWiki = false; // Unset "onWiki" status
 
     record.eacXml = editor.getValue();
+    console.log(record.eacXml);
 
     //cannot start ingestion without XML being loaded
     if (record.eacXml == '') {
@@ -631,15 +637,12 @@ function display_viaf_results_form(lobjViafResults, callback) {
         template( lobjViafResults )
     );
 
-
-    setupSelectAll('input#select_all');
     //functionality to select all checkboxes
-    jQuery('html,body').animate({
-        scrollTop: 0
-    },
-    0);
+    setupSelectAll('input#select_all');
+
     //scroll to top to view form correctly
-    
+    scrollToFormTop();
+
     //register click event to continue process once user choses results
     $('#ingest_viaf_add_relations').on('click', function () {
         
@@ -915,13 +918,9 @@ function display_possible_worldcat_form(lobjPossibleURI, callback) {
         template( lobjPossibleURI )
     );
 
-
-    jQuery('html,body').animate({
-        scrollTop: 0
-    },
-    0);
     //scroll to top to view form correctly
-    
+    scrollToFormTop();
+
     //register click event to continue process once user choses result
     $('#ingest_worldcat_chosen_uri').on('click', function () {
         var lstrChosenURI = $('input[name="chosen_worldcat_uri"]:checked').val();
@@ -946,15 +945,12 @@ function display_possible_worldcat_form(lobjPossibleURI, callback) {
         $('.form_container').remove();
         $('.help_container').remove();
 
-        $('.main_edit').show();
-        
+        //show aceEditor
+        showAceEditor();
 
-        jQuery('html,body').animate({
-            scrollTop: 0
-        },
-        0);
         //scroll to top to view form correctly
-        
+        scrollToFormTop();
+
         $('body').append("<div id=\"dialog\"><p>Canceled!</p></div>");
         makeDialog('#dialog', 'Results');
         // display results
@@ -981,8 +977,8 @@ function display_possible_worldcat_subjects(lobjPossibleSubjects, callback) {
     //render contextual help template
     render_help_template('wc_template_help_step_two');
 
-    setupSelectAll('input#select_all');
     //setup to select all checkboxes
+    setupSelectAll('input#select_all');
 
     //scroll to top to view form correctly
     scrollToFormTop();
@@ -1016,7 +1012,6 @@ function display_possible_worldcat_subjects(lobjPossibleSubjects, callback) {
 
             //render help template
             render_help_template('wc_template_help_step_three');
-
 
         }
     });

@@ -3,16 +3,17 @@
     <% hideLoadingImage(); %>
 
     <div class="form_container">
-        <div class="instruction_div"><h2 class="instruction" >Ingest from WorldCat Identities</h2>
-            <div class=\"user_help_form\">
-                <h2>Please choose the name that is the best match:</h2>
+        <div class="instruction_div">
+            <h2 class="instruction">Ingest from WorldCat Identities</h2>
+            <div class="user_help_form">
+                <p>Please choose the name that is the best match:</p>
                     <% _.each(lobjPossibleURI, function(lobjPossibleURI) {
                     var lstrTitle = typeof lobjPossibleURI.title == 'undefined' ? '': lobjPossibleURI.title;
                     var lstrURI = typeof lobjPossibleURI.uri == 'undefined' ? '': lobjPossibleURI.uri;
                     var lstrType = typeof lobjPossibleURI.type == 'undefined' ? '': lobjPossibleURI.type;
                     %>
 
-                    <input type="radio" name="chosen_worldcat_uri" value="<%= lstrURI %>" /><a href="<%= lstrURI %>" target="_blank"> <%= lstrTitle %> </a>
+                    <input type="radio" name="chosen_worldcat_uri" value="<%= lstrURI %>" /><a href="<%= lstrURI %>" target="_blank"> <%= lstrTitle %> </a><br>
 
                     <% }); %>
 
@@ -33,7 +34,7 @@
         <div class="instruction_div">
             <h2 class="instruction">Ingest from WorldCat Identities</h2>
 
-            <div class=\"user_help_form\">
+            <div class="user_help_form">
                 <p>Please choose any appropriate subjects related to this entity:</p>
 
                 <input type="checkbox" id="select_all" value=""><span>Select all</span><br />

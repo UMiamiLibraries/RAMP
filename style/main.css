@@ -5,7 +5,7 @@ html,body {background-color: #FFF;}
 
 html,
 body,
-.pure-g [class*="pure-u"] {font-family: 'Lato', sans-serif !important; font-weight:400 !important;}
+.pure-g [class*="pure-u"] {font-family: 'Lato', sans-serif !important; font-weight:400 !important; -webkit-font-smoothing: antialiased;}
 
 
 #validation {
@@ -21,11 +21,16 @@ body,
 
 /* Typography */
 
-strong {font-family: 'Lato', sans-serif; font-weight:700; } /* Lato bold */
+strong {font-family: 'Lato', sans-serif; font-weight:700; -webkit-font-smoothing: antialiased; } /* Lato bold */
 
-body, p {font-size:18px;}
+body, p {font-size:17px; color: #282828;}
 
-h1, h2, h3, h4, h5 {font-family: 'Lato', sans-serif; font-weight:900;} /* Lato black */
+p {line-height:1.3em; margin:0 0 10px 0;}
+
+h1, h2, h3, h4, h5 {font-family: 'Lato', sans-serif; font-weight:900; -webkit-font-smoothing: antialiased;} /* Lato black */
+
+a, a:visited, a.active {color: #1aac9a; text-decoration: none;}
+a:hover {color: #05c9af; text-decoration: underline;}
 
 
 
@@ -52,7 +57,7 @@ header {background-color: #f5f5f5; height:45px;}
 
 #nav-list li a i {font-size:16px; padding-left:10px;}
 
-/* Footer */
+
 
 
 
@@ -63,7 +68,7 @@ header {background-color: #f5f5f5; height:45px;}
 
 
 
-/* Feature Image */
+/* Feature Heading and Image */
 
 .feature-heading {
 	background-image:url('images/feature-img-bkg.jpg');
@@ -71,7 +76,31 @@ header {background-color: #f5f5f5; height:45px;}
 	background-position: 50% 50%;
 	height:294px;
 	background-size: cover;
+  position: relative;
 }
+
+.ramp-intro {
+  background-image:url('images/skater.png');
+  background-repeat: no-repeat;
+  height: 294px;
+  background-position: 100% 60%;
+  background-size: 65% auto;
+}
+
+.ramp-intro-text {padding: 55px 0 0 15px;}
+.ramp-intro-text p {font-size:16px;}
+
+.project-title {
+  background-color: rgba(0,0,0,0.65);
+  position:absolute;
+  bottom:0;  
+  width: 100%;
+}
+
+.project-title h1 {font-size:28px; color: #FFF; padding: 19px 0; margin: 0;}
+.project-title h1 .titleup {font-size:34px;}
+.project-title h1 .title-light {font-weight:300; font-size:31px;}
+
 
 
 
@@ -82,7 +111,7 @@ header {background-color: #f5f5f5; height:45px;}
 /* Action Icons */
 
 
-
+/* Footer */
 
 
 
@@ -106,6 +135,10 @@ header {background-color: #f5f5f5; height:45px;}
 
 .ramp-logo img {width:auto;}
 
+.ramp-intro {background-size: 60% auto;}
+
+.ramp-intro-text {padding: 65px 0 0 30px;}
+
  
 }
 
@@ -115,12 +148,21 @@ header {background-color: #f5f5f5; height:45px;}
 
 .inner-area {padding: 0;}
 
+.ramp-intro {background-position: 100% 0; background-size: auto auto;}
+
+.ramp-intro-text {padding: 80px 0 0 15px;}
+
+
 }
 
 
 
 /* ≥ 1280px     .pure-u-xl-* */
 @media screen and (min-width: 80em) {
+
+.ramp-intro-text {padding: 80px 0 0 0;}
+.ramp-intro-text p {font-size: 17px;}
+
 
 
 } /* end last responsive block */

@@ -2,7 +2,7 @@ $(document).ready(function () {
 
 
     //initially disable module buttons
-    disableModuleButtons();
+    disableAllModuleButtons();
 
     //initially hide xml buttons
     /*
@@ -39,7 +39,7 @@ $(document).ready(function () {
 function build_editor(eacId) {
 
     //enable module buttons
-    enableModuleButtons();
+    enableAllModuleButtons();
 
     // When one of the files is selected...
     $.get('ajax/get_record.php?eac_id=' + eacId, function (data) {
@@ -80,7 +80,24 @@ $('#save_eac').click(function (data) {
 
 
     }).done(function () {
-        $savedialog.dialog('open');
+        //$savedialog.dialog('open');
+
+        //clear flash message
+        $('#flash_message').html();
+
+        //display success message
+        $('#flash_message').text('XML Successfully Saved.');
+
+        //hide aceEditor
+        hideAceEditor();
+
+        //hide xmlButtons
+        hideXmlButtons();
+
+        //disable worldcat button
+        disableSingleModuleButton('ingest_worldcat');
+
+        //add class to worldcat that indicates step complete
 
     });
 
@@ -536,6 +553,10 @@ function hideLoadingImage() {
 }
 
 
+function clearFlashMessage() {
+    $('#flash_message').html();
+}
+
 function showAceEditor() {
     $('#aceEditor').show();
     $('.main_edit').show();
@@ -543,6 +564,7 @@ function showAceEditor() {
 
 function hideAceEditor() {
     $('#aceEditor').hide();
+    $('.main_edit').hide();
 }
 
 function showModuleControls() {
@@ -553,19 +575,31 @@ function hideModuleControls() {
     $('#module_controls').hide();
 }
 
-function enableModuleButtons() {
+function enableAllModuleButtons() {
     var module_buttons = $('#ingest_buttons > button');
     $.each(module_buttons, function() {
         $(this).removeAttr('disabled');
     });
 }
 
-function disableModuleButtons() {
+function disableAllModuleButtons() {
     var module_buttons = $('#ingest_buttons > button');
     $.each(module_buttons, function() {
         $(this).attr('disabled', 'disabled').css('background-color', 'f7f7f7');
     });
 }
+
+function enableSingleModuleButton(button_id) {
+    $('#' + button_id).removeAttr('disabled');
+}
+
+function disableSingleModuleButton(button_id) {
+    $('#' + button_id).attr('disabled', 'disabled');
+}
+
+
+
+
 
 function showXmlButtons() {
     $('#xml_buttons_container').show();
