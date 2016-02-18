@@ -8,3 +8,4 @@
 <script src="script/ingest_worldcat.js"></script>
 <script src="script/wikiator.js"></script>
 <script src="script/validate.js"></script>
+<script src="script/interface.js"></script>

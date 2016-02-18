@@ -17,7 +17,7 @@ body, p {font-size:17px; color: #282828;}
 
 p {line-height:1.3em; margin:0 0 10px 0;}
 
-h1, h2, h3, h4, h5 {font-family: 'Lato', sans-serif; font-weight:900; -webkit-font-smoothing: antialiased;} /* Lato black */
+h1, h2, h3, h4, h5 {font-family: 'Lato', sans-serif; font-weight:900; -webkit-font-smoothing: antialiased; color:#666; margin:0 0 20px 0;} /* Lato black */
 
 a, a:visited, a.active {color: #1aac9a; text-decoration: none;}
 a:hover {color: #05c9af; text-decoration: underline;}
@@ -48,8 +48,8 @@ header {background-color: #f5f5f5; height:45px;}
 #nav-list li a i {font-size:16px; padding-left:10px;}
 
 
-/* Content Areas */
 
+/* Content Areas */
 .inner-area {max-width: 960px; margin: 0 auto; padding:0 10px;}
 
 
@@ -91,11 +91,49 @@ header {background-color: #f5f5f5; height:45px;}
 
 /* Decorations */
 
-.decoration-bar {height:4px; margin-bottom:40px;}
+.decoration-bar {height:4px; max-width:100%; margin: 0 auto 40px auto;}
 .decor1 {background-color: #1aac9a; height:4px;}
 .decor2 {background-color: #fe8a71; height:4px;}
 .decor3 {background-color: #3c8ab8; height:4px;}
 .decor4 {background-color: #f8c767; height:4px;}
+
+
+
+/* Homepage Content Area */
+
+.homepage-content {margin:0 0 40px 0;}
+
+.homepage-content-text {
+  margin:10px 0;
+  border-top: 1px solid #dadfe1;
+  padding: 30px 0 0 0;
+}
+
+.homepage-content-text h3{font-size:22px; margin: 0 0 30px 0;}
+
+.glossary-feature {
+  margin: 30px 0 0 0;
+  background-color: #ecf0f1;
+  border-radius: 2px;
+  padding: 20px;
+}
+
+.glossary-term {padding-right:18px; margin-bottom:20px;}
+
+.glossary-feature h5 {font-style: italic; font-size:18px; font-weight:700;}
+.glossary-feature p {font-size:15px;}
+
+
+
+/* Footer */
+
+footer {height:60px; background-color:#282828; color: #FFF; position: fixed; bottom: 0; width: 100%;}
+
+.ramp-link {text-align: right; margin: 20px 0 0 0; font-size:14px;}
+.ramp-link a:hover {text-decoration: none;}
+
+.lib-logo {margin:10px 0 0 0; width:200px; height: auto;}
+
 
 
 
@@ -117,7 +155,7 @@ header {background-color: #f5f5f5; height:45px;}
 /* Action Icons */
 
 
-/* Footer */
+
 
 
 #validation {
@@ -167,6 +205,8 @@ header {background-color: #f5f5f5; height:45px;}
 
 .ramp-intro-text {padding: 80px 0 0 15px;}
 
+.glossary-term {margin-bottom:0;}
+
 
 }
 
@@ -177,6 +217,7 @@ header {background-color: #f5f5f5; height:45px;}
 
 .ramp-intro-text {padding: 80px 0 0 0;}
 .ramp-intro-text p {font-size: 17px;}
+.decoration-bar {max-width:960px;}
 
 
 
