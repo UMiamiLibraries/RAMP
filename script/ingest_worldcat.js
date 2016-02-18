@@ -7,6 +7,9 @@ $(document).ready(function () {
     //register click event that will start worlcat ingestion
     $('#ingest_worldcat').on('click', function () {
 
+        //diable module buttons
+        disableAllModuleButtons();
+
         //clear any flash messages
         clearFlashMessage();
 
@@ -66,9 +69,8 @@ function startWorldCat() {
 
             ingest_worldcat_elements(lobjeac, eac_name, function (lstrMessage) {
                 if (typeof lstrMessage != 'undefined' && lstrMessage != '') {
-                    $('body').append("<div id=\"dialog_main\"><p>" + lstrMessage + "</p></div>");
-                    makeDialog('#dialog_main', 'Response');
                     //display response
+                    renderFlashMessage('<p>' + lstrMessage + '</p>');
                 }
 
                 $('.main_edit').show();
@@ -101,8 +103,6 @@ function ingest_worldcat_elements(lobjEac, lstrName, callback) {
 
     lstrName = encode_utf8(lstrName);
 
-    console.log(record.eacId);
-
     //post to ajax WorldCat ingestor controller to search worldcat and get results
     $.post('ajax/worldcat_ingest_api.php', {
             'action': 'search', 'name': lstrName
@@ -114,7 +114,6 @@ function ingest_worldcat_elements(lobjEac, lstrName, callback) {
             catch (e) //response should be JSON so if not, throw error
             {
                 callback(response);
-
                 return;
             }
 
@@ -123,11 +122,8 @@ function ingest_worldcat_elements(lobjEac, lstrName, callback) {
                 //if cancelled because no WorldCat results matched
                 if (lstrChosenURI == '') {
 
-                    jQuery('html,body').animate({
-                            scrollTop: 0
-                        },
-                        0);
                     //scroll to top to view form correctly
+                    scrollToFormTop();
 
                     callback('Canceled!');
                     return;
@@ -145,7 +141,6 @@ function ingest_worldcat_elements(lobjEac, lstrName, callback) {
                         catch (e) //response should be JSON so if not, throw error
                         {
                             callback();
-
                             return;
                         }
 
@@ -183,44 +178,10 @@ function ingest_worldcat_elements(lobjEac, lstrName, callback) {
                             // added by timathom
                         }
 
-                        /*
-
-                        // Result text added by timathom.
-                        var lstrOtherRecId;
-                        var lstrSources;
-                        var lstrCpfResults;
-                        var lstrResourceResults;
-
-                        if (lobjOtherRecList.length == 0) {
-                            lstrOtherRecId = '';
-                        } else {
-                            lstrOtherRecId = "<li>&lt;otherRecordId&gt; element(s) added.</li>";
-                        }
-
-                        if (lobjSourceList.length == 0) {
-                            lstrSources = '';
-                        } else {
-                            lstrSources = "<li>&lt;source&gt; element added.</li>";
-                        }
-
-                        if (lobjCpfRelationList.length == 0) {
-                            lstrCpfResults = '';
-                        } else {
-                            lstrCpfResults = "<li>&lt;cpfRelation&gt; element(s) added.</li>";
-                        }
-                        if (lobjResourceRelationList.length == 0) {
-                            lstrResourceResults = '';
-                        } else {
-                            lstrResourceResults = "<li>&lt;resourceRelation&gt; element(s) added.</li>";
-                        }
-                        */
-
 
                         // Notification logic added by timathom.
                         if (lobjSubjectList.length == 0) {
 
-                            //$('body').append("<div id=\"dialog\"><p>No matching subjects.</p><br/>" + lstrOtherRecId + lstrSources + lstrCpfResults + lstrResourceResults + "</div>");
-                            //makeDialog('#dialog', 'Results');
                            renderFlashMessage('<p>No matching subjects.</p>');
 
                             $('.form_container').remove();
@@ -240,7 +201,6 @@ function ingest_worldcat_elements(lobjEac, lstrName, callback) {
 
                                 if (lobjChosenSubjects.length == 0) {
 
-                                    //$('flash_message').append("<div id=\"dialog\"><p>No subjects added.</p><br/>" + lstrOtherRecId + lstrSources + lstrCpfResults + lstrResourceResults + "</div>");
                                     renderFlashMessage('<p>No subjects added.</p>');
 
                                     $('.form_container').remove();

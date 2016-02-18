@@ -9,6 +9,9 @@ $(document).ready(function () {
 
     $('#convert_to_wiki').click(function () {
 
+        //diable module buttons
+        disableAllModuleButtons();
+
         //clear any flash messages
         clearFlashMessage();
 
