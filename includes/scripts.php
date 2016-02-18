@@ -1,5 +1,6 @@
 <script src="script/functions.js"></script>
 <script src="script/record.js"></script>
+<script src="script/user.js"></script>
 <script src="script/editor.js"></script>
 <script src="script/eac_editor.js"></script>
 <script src="script/external/vkbeautify.js"></script>
