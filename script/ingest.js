@@ -1,15 +1,5 @@
 $(document).ready(function () {
 
-    //register click event that will start viaf ingest
-    $('#ingest_viaf').on('click', function () {
-
-        //clear any flash messages
-        clearFlashMessage();
-
-
-        startViaf();
-    });
-
 
     $('#convert_to_wiki').click(function () {
 
@@ -25,85 +15,7 @@ $(document).ready(function () {
 
 
 
-function startViaf() {
 
-    //clear any flash messages
-    clearFlashMessage();
-
-    //hide the editor
-    hideAceEditor();
-
-
-    record.onWiki = false; // Unset "onWiki" status
-
-    record.eacXml = editor.getValue();
-    console.log(record.eacXml);
-
-    //cannot start ingestion without XML being loaded
-    if (record.eacXml == '') {
-        $('body').append("<div id=\"dialog\"><p>Must load EAC first!</p></div>");
-        makeDialog('#dialog', 'Error!');
-        //display error
-
-        $('.ingest_button').show();
-
-        $('.main_edit').show();
-        return;
-    }
-
-    validateXML(function (lboolValid) {
-
-        //xml must be valid in order for viaf ingestion to begin
-        if (lboolValid) {
-            var lobjeac = new eac();
-            lobjeac.loadXMLString(record.eacXml);
-
-            //get first name entry part element in order to get name to search viaf
-
-            var lobjNameEntryPart;
-            var lobjNameEntryPartFore;
-            var lobjNameEntryPartSur;
-
-            if (lobjeac.getElement('//*[local-name()=\'cpfDescription\']/*[local-name()=\'identity\']/*[local-name()=\'nameEntry\'][1]/*[local-name()=\'part\'][not(@localType)]')) {
-                lobjNameEntryPart = lobjeac.getElement('//*[local-name()=\'cpfDescription\']/*[local-name()=\'identity\']/*[local-name()=\'nameEntry\'][1]/*[local-name()=\'part\']');
-                //= lobjeac.getElement('//*[local-name()=\'cpfDescription\']/*[local-name()=\'identity\']/*[local-name()=\'nameEntry\'][1]/*[local-name()=\'part\']');
-                eac_name = lobjNameEntryPart.childNodes[0].nodeValue;
-                eac_name = eac_name.trim();
-                eac_name = encode_utf8(eac_name);
-            }
-            else if (lobjeac.getElement('//*[local-name()=\'cpfDescription\']/*[local-name()=\'identity\']/*[local-name()=\'nameEntry\'][1]/*[local-name()=\'part\'][@localType=\'surname\' or @localType=\'forename\']')) {
-                lobjNameEntryPartFore = lobjeac.getElement('//*[local-name()=\'cpfDescription\']/*[local-name()=\'identity\']/*[local-name()=\'nameEntry\'][1]/*[local-name()=\'part\'][@localType=\'forename\']');
-                eac_name = lobjNameEntryPartFore.childNodes[0].nodeValue;
-                eac_name += ' ';
-                lobjNameEntryPartSur = lobjeac.getElement('//*[local-name()=\'cpfDescription\']/*[local-name()=\'identity\']/*[local-name()=\'nameEntry\'][1]/*[local-name()=\'part\'][@localType=\'surname\']');
-                eac_name += lobjNameEntryPartSur.childNodes[0].nodeValue;
-                eac_name = eac_name.trim();
-                eac_name = encode_utf8(eac_name);
-            }
-
-            ingest_viaf_NameEntry_Sources(lobjeac, eac_name, function () {
-
-                ingest_viaf_Relations(lobjeac, function (lstrMessage) {
-                    $('body').append("<div id=\"dialog_main\"><p>" + lstrMessage + "</p></div>");
-                    makeDialog('#dialog_main', 'Response');
-                    //display response
-
-
-                    $('.ingest_button').show();
-
-                });
-            });
-        } else {
-            //display error when xml is not valid
-            $('body').append("<div id=\"dialog\"><p>XML must be valid!</p></div>");
-            makeDialog('#dialog', 'Error!');
-
-            $('.main_edit').show();
-            $('.ingest_button').show();
-
-        }
-    }, record.eacXml);
-}
 
 
 /*

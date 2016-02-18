@@ -6,5 +6,6 @@
 <script src="script/external/vkbeautify.js"></script>
 <script src="script/ingest.js"></script>
 <script src="script/ingest_worldcat.js"></script>
+<script src="script/ingest_viaf.js"></script>
 <script src="script/wikiator.js"></script>
 <script src="script/validate.js"></script>

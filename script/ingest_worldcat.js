@@ -30,7 +30,7 @@ function startWorldCat() {
 
     //cannot start ingestion without XML being loaded
     if (record.eacXml == '') {
-        $('flash_message').append("<p>Must load EAC first!</p>");
+        $('#flash_message').append("<p>Must load EAC first!</p>");
         return;
     }
 
@@ -71,12 +71,9 @@ function startWorldCat() {
                     //display response
                 }
 
-                $('.ingest_button').show();
                 $('.main_edit').show();
-
-
-
             });
+
         } else {
             //display error when xml is not valid
             $('body').append("<div id=\"dialog\"><p>XML must be valid!</p></div>");
@@ -285,11 +282,6 @@ function ingest_worldcat_elements(lobjEac, lstrName, callback) {
 
 
 
-
-
-
-
-
 /*
  * display_possible_worldcat_form displays a form for the editor to choose which worldcat results that editor wants to ingest
  * @method display_possible_worldcat_form
@@ -385,8 +377,7 @@ function display_possible_worldcat_subjects(lobjPossibleSubjects, callback) {
         if (lobjChosenSubjects.length == 0) {
             $('body').append("<div id=\"dialog\"><p>Please choose or click Cancel!</p></div>");
             makeDialog('#dialog', 'Error!');
-            // display error
-            //$('.main_edit').hide();
+
         } else {
             callback(lobjChosenSubjects);
             $('.form_container').remove();
