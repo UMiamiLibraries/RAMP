@@ -573,7 +573,7 @@ function postWiki( lstrWiki, lstrComments, lboolDraft, lstrCaptchaAnswer, lstrCa
 		   try
 		   {
 		       var lobjData = JSON.parse(response);
-               $('#edit_controls').show();
+               $('#module_controls').show();
                $('.wiki_edit').show();
                $('#wiki_switch').show();
                $('#get_wiki').show();
@@ -607,7 +607,7 @@ function postWiki( lstrWiki, lstrComments, lboolDraft, lstrCaptchaAnswer, lstrCa
 		   try
 		   {
 		       var lobjData = JSON.parse(response);
-			   $('#edit_controls').show();
+			   $('#module_controls').show();
 			   $('.wiki_edit').show();
 			   $('#wiki_switch').show();
 			   $('#get_wiki').show();

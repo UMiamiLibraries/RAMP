@@ -133,20 +133,9 @@ $('#editor').keyup(throttle(function () {
 
 $('#convert_to_wiki').click(function () {
 
-    // Set status for showing wiki screen on dialog close.
-    if (record.onWiki !== true) {
-        record.onWiki = true;
-    }
+    startWiki();
 
-    // Added logic for save dialog. --timathom
-    if (record.savedXml !== true) {
-        $unsaveddialog.dialog('open');
-    }
 
-    else {
-        $('.main_edit').hide();
-        eacToMediaWiki();
-    }
 
 });
 
@@ -178,7 +167,7 @@ function wikiCheck(eacId) {
 <textarea id=\"wikimarkup\">" + markup.wiki_text + "</textarea></div>");
             }
 
-            $('#edit_controls').append("<button class=\"update_button pure-button pure-button-primary wiki_edit\" id=\"wiki_update\">Save Local Article</button><button id=\"get_wiki\" class=\"pure-button pure-button-primary wiki_edit\">Check Wikipedia for Existing Article</button>");
+            $('#module_controls').append("<button class=\"update_button pure-button pure-button-primary wiki_edit\" id=\"wiki_update\">Save Local Article</button><button id=\"get_wiki\" class=\"pure-button pure-button-primary wiki_edit\">Check Wikipedia for Existing Article</button>");
 
             setupGetWiki();
 
@@ -218,7 +207,7 @@ function eacToMediaWiki() {
         $('#wiki_load').remove();
         $('#main_content').append('<div id="wikieditor" class="wiki_edit"><div class="wiki_container"><h1>Local article (transformed from EAC-CPF record)</h1> \
 <textarea id="wikimarkup">' + data + '</textarea></div></div>');
-        $('#edit_controls').append("<button class=\"save_button pure-button pure-button-primary wiki_edit\"  id=\"wiki_save\">Save Local Article</button>");
+        $('#module_controls').append("<button class=\"save_button pure-button pure-button-primary wiki_edit\"  id=\"wiki_save\">Save Local Article</button>");
 
 
         var wiki_height = $(window).height() / 1.3;
@@ -526,7 +515,29 @@ function toggleReadOnly() {
     });
 }
 
+function startWiki() {
+    // Show all the Wiki buttons for right now
 
+    $('#wiki_login').show();
+    $('#wiki_update').show();
+    $('#get_wiki').show();
+    $('#post_wiki').show();
+
+    // Set status for showing wiki screen on dialog close.
+    if (record.onWiki !== true) {
+        record.onWiki = true;
+    }
+
+    // Added logic for save dialog. --timathom
+    if (record.savedXml !== true) {
+        $unsaveddialog.dialog('open');
+    }
+
+    else {
+        $('.main_edit').hide();
+        eacToMediaWiki();
+    }
+}
 
 function getIngestStatus(record_id) {
 
@@ -568,8 +579,7 @@ function hideAceEditor() {
 }
 
 function showModuleControls() {
-    $('#module_controls').show();
-}
+    $('#module_controls').hide();}
 
 function hideModuleControls() {
     $('#module_controls').hide();
