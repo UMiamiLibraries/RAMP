@@ -49,7 +49,7 @@ include('header.php');
 
 
         <div class="pure-u-6-24">
-            <div id="context_help_viewport">
+            <div id="help_viewport">
                 <?php include 'includes/worldcat/help.php'; ?>
             </div>
         </div>
