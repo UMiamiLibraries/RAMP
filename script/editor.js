@@ -14,28 +14,6 @@ $(document).ready(function () {
     toggleReadOnly();
 
 
-    $('.ead_files').change(function () {
-
-        //set record object
-        record.eadFile = this.value;
-        record.entityName = $(this).children("option:selected").text();
-        record.savedXml = "";
-        record.wikiConversion = "";
-        record.eacId = $(this).children("option:selected").data().id;
-
-        //set the page header with name of person/file
-        $('#record_entityName_header').text(record.entityName);
-
-        //build the ace editor
-        build_editor(record.eacId);
-
-
-    });
-
-
-
-
-
 });
 
 function build_editor(eacId) {
@@ -66,6 +44,18 @@ function build_editor(eacId) {
 }
 
 
+
+/*
+ * setupSelectAll registers passed element selector's change event in order to have check all visible checkboxes functionality.
+ * @method setupSelectAll
+ */
+function setupSelectAll(lstrSelector) {
+    $(lstrSelector).change(function () {
+        if ($(lstrSelector).prop("checked") == true)
+            $('input[type="checkbox"]:visible').prop('checked', true); else
+            $('input[type="checkbox"]:visible').prop('checked', false);
+    })
+}
 
 
 $('#save_eac').click(function (data) {
