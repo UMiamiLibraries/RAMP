@@ -65,6 +65,8 @@ function setupWikiLogin( callback )
 				{
 				    if( response.toLowerCase().indexOf("success") != -1)
 				    {
+                        user.rampWikiLi = true;
+
 					$('#wiki_login').replaceWith("<li id=\"wiki_logout\" class=\"wiki_login menu_slice\"><a href=\"#\">| Wiki Logout |</a></li>");
 					$("#wiki_logout").on("click", setupWikiLogout );
 				    }

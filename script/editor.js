@@ -203,6 +203,8 @@ function eacToMediaWiki() {
         $('#module_controls').append("<button class=\"save_button pure-button pure-button-primary wiki_edit\"  id=\"wiki_save\">Save Local Article</button>");
 
 
+        $('#wiki_login').show();
+
         var wiki_height = $(window).height() / 1.3;
 
         $(window).resize(function () {
@@ -251,7 +253,8 @@ function eacToMediaWiki() {
                 $('#wiki_update').on('click', function () {
                     $('#dialog_box').html("<p>Local article saved</p>");
                     makeDialog('#dialog_box', ' ');
-                    updated_markup = document.getElementById('wikimarkup').value;
+                    var updated_markup = $('#wikimarkup').val();
+
                     $.post('update_wiki.php', {media_wiki: updated_markup, ead_path: eadFile}, function (data) {
 
 

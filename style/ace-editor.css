@@ -9,7 +9,7 @@
 
 #editor_container {
     position: relative;
-    height: 500px;
+    max-height: 500px;
 }
 
 #editor-mask {
