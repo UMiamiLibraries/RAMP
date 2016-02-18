@@ -1,12 +1,3 @@
-/**
- * Created by cbrownroberts on 2/18/16.
- */
-$(document).ready(function () {
-
-    //make sure wiki controls hidden unless needed
-    hideWikiLoginButton();
-
-
     $('#convert_to_wiki').click(function () {
 
         //diable module buttons
@@ -246,5 +237,3 @@ $(document).ready(function () {
 
 
 
-
-});
