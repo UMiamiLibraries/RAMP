@@ -6,6 +6,9 @@ $(document).ready(function () {
     //register click event that will start viaf ingest
     $('#ingest_viaf').on('click', function () {
 
+        //diable module buttons
+        disableAllModuleButtons();
+
         //clear any flash messages
         clearFlashMessage();
 
