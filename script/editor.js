@@ -536,6 +536,7 @@ function hideLoadingImage() {
 
 function showAceEditor() {
     $('#aceEditor').show();
+    $('.main_edit').show();
 }
 
 function hideAceEditor() {
@@ -572,3 +573,9 @@ function hideXmlButtons() {
     $('#xml_buttons_container').hide();
 }
 
+function scrollToFormTop() {
+    //scroll to top to view form correctly
+    $('html,body').animate({
+        scrollTop: 0
+    }, 0);
+}
