@@ -41,7 +41,7 @@ class RecordList
         $results = $mysqli->query("SELECT ead_file, CONCAT(ExtractValue(eac_xml, '//nameEntry[1]/part[1]'),', ',ExtractValue(eac_xml, '//nameEntry[1]/part[2]')) AS 'Name', substring_index(ead_file, '/', -1) AS 'SortHelp', eac_id AS 'ID'
 							FROM eac
 							ORDER BY CASE WHEN Name = '' THEN SortHelp ELSE Name END ASC");
-        echo "<select class='ead_files '>";
+        echo "<select class='ead_files ' id='ead_files_select_menu'>";
         echo "<option>Select a record</option>";
         while ($row = $results->fetch_assoc()) {
             $name = $row["Name"];

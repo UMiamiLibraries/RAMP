@@ -2,6 +2,8 @@ $(document).ready(function () {
 
     selectFileToIngest();
 
+    disableEadDropDownSelect();
+
     //clear ingest instructions after any module button is clicked
     clearInitialIngestInstructions();
 
@@ -23,7 +25,6 @@ $(document).ready(function () {
             //build the ace editor
             build_editor(record.eacId);
 
-
         });
 
     }
@@ -32,8 +33,20 @@ $(document).ready(function () {
     function clearInitialIngestInstructions() {
         $('#ingest_buttons > button').on('click', function() {
             $('#controls_panel_instructions').remove();
-        })
+        });
     }
+
+    function disableEadDropDownSelect() {
+        //clicking any module button means the process has started and user can no longer click dropdown select
+        $('#ingest_buttons > button').on('click', function() {
+            $('#ead_files_select_menu').attr('disabled', 'disabled');
+        });
+    }
+
+    //diable module buttons
+    disableAllModuleButtons();
+
+
 
 
 
