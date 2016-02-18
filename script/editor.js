@@ -4,6 +4,11 @@ $(document).ready(function () {
     //initially disable module buttons
     disableAllModuleButtons();
 
+
+    //but hide it initially
+    hideAceEditor();
+
+
     //initially hide xml buttons
     /*
      * @TODO - refactor into underscore templates?
@@ -25,8 +30,6 @@ $(document).ready(function () {
         //build the ace editor
         build_editor(record.eacId);
 
-        //but hide it initially
-        hideAceEditor();
 
     });
 

@@ -13,7 +13,7 @@
     <% _.each(lobjPossibleViaf, function(possibleViaf) { %>
 
     <input type="radio" name="chosen_viaf_id" value="<%= possibleViaf.viaf_id %>"/>
-    <a href="http://viaf.org/viaf/<%= possibleViaf.viaf_id %>" target="_blank"> <%= possibleViaf.name %></a>
+    <a href="http://viaf.org/viaf/<%= possibleViaf.viaf_id %>" target="_blank"> <%= possibleViaf.name %></a><br>
 
     <% }); %>
 
