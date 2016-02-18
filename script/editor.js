@@ -314,18 +314,7 @@ function toggleReadOnly() {
 }
 
 
-function showLoadingImage() {
-    $('#loading_image').text('Loading...').show();
-}
 
-function hideLoadingImage() {
-    $('#loading_image').hide();
-}
-
-
-function clearFlashMessage() {
-    $('#flash_message').html('');
-}
 
 function showAceEditor() {
     $('#aceEditor').show();

@@ -78,3 +78,20 @@ function render_help_template(div_id) {
 function clear_help_template_container() {
     $('.help_container').remove();
 }
+
+
+function showLoadingImage() {
+    $('#loading_image').text('Loading...').show();
+}
+
+function hideLoadingImage() {
+    $('#loading_image').hide();
+}
+
+function renderFlashMessage(message) {
+    $('#flash_message').html(message);
+}
+
+function clearFlashMessage() {
+    $('#flash_message').html('');
+}
