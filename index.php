@@ -53,7 +53,7 @@ include('header.php');
 
                                 ?>
                             </div>
-                            <span class="import_now"><a href="ead_convert.php">Can't find a record? Import it now!</a></span>
+                            <span class="import_now">Can't find a record? <a href="ead_convert.php">Import it now!</a></span>
                     </div>
                     <div class="pure-u-1-3">
                             all items btn
