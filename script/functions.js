@@ -60,7 +60,6 @@ function throttle(f, delay) {
     };
 }
 
-
 function render_help_template(div_id) {
 
     // Render the first help template
@@ -94,12 +93,3 @@ function clearFlashMessage() {
     $('#flash_message').html('');
 }
 
-function showAceEditor() {
-    $('#aceEditor').show();
-    $('.main_edit').show();
-}
-
-function hideAceEditor() {
-    $('#aceEditor').hide();
-    $('.main_edit').hide();
-}

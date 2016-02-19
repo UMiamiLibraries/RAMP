@@ -105,7 +105,7 @@ function setupGetWiki()
 {
     jQuery('#get_wiki').on('click', function()
 			   {
-			       $('.main_edit').hide();
+			       viewSwitch.hideAceEditor();
 			       $('.wiki_edit').hide();
 			       $('#wiki_switch').hide();
 			       $('#get_wiki').hide();
@@ -188,7 +188,7 @@ function setupGetWiki()
  */
 function searchWiki( lstrSearch )
 {
-    $('.main_edit').hide();
+    viewSwitch.hideAceEditor();
     $('.wiki_edit').hide();
     $('#wiki_switch').hide();
     $('#get_wiki').hide();
@@ -262,7 +262,7 @@ function searchWiki( lstrSearch )
 function displayWikiSearch( lobjTitles, callback )
 {
 
-    $('.main_edit').hide();
+    viewSwitch.hideAceEditor();
     $('.wiki_edit').hide();
 
     var lstrHTML = "<div class=\"form_container\">";
@@ -315,7 +315,7 @@ function displayWikiSearch( lobjTitles, callback )
 
 				 // Hide. --timathom
 				 $('.form_container').remove();
-	             $('.main_edit').hide();
+	             viewSwitch.hideAceEditor();
 	             //$('#entity_name').hide();
 		         $('.wiki_edit').hide();
 		         $('#wiki_switch').hide();

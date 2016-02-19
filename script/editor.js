@@ -80,7 +80,7 @@ $('#save_eac').click(function (data) {
         $('#flash_message').text('XML Successfully Saved.');
 
         //hide aceEditor
-        hideAceEditor();
+        viewSwitch.hideAceEditor();
 
         //hide xmlButtons
         hideXmlButtons();
@@ -167,7 +167,7 @@ var $unsaveddialog = $('<div></div>')
         buttons: {
             "Yes": function () {
                 $(this).dialog("close");
-                $('.main_edit').hide();
+                viewSwitch.hideAceEditor();
                 //$('#main_content').append('<img id="loading-image" src="style/images/loading.gif" alt="loading"/><div id="wiki_load">Converting to wiki markup... This may take a minute or two.</div>');
                 eacToMediaWiki();
             },
@@ -246,7 +246,7 @@ function makePromptDialog(lstrSelector, lstrTitle, callback) {
                     $('#post_wiki').hide();
                 }
                 else {
-                    $('.main_edit').hide();
+                    viewSwitch.hideAceEditor();
                     //$('#entity_name').hide();
                     $('#wiki_switch').hide();
                 }
@@ -260,10 +260,10 @@ function makePromptDialog(lstrSelector, lstrTitle, callback) {
                 $('#get_wiki').show();
                 $('#wiki_switch').show();
                 $('#post_wiki').show();
-                $('.main_edit').hide();
+                viewSwitch.hideAceEditor();
             }
             else {
-                $('.main_edit').show();
+                viewSwitch.showAceEditor();;
                 $('#entity_name').show();
                 // Check to see if there is already wiki markup. If so, show switcher. --timathom
                 if (record.onWiki === true) {

@@ -72,7 +72,7 @@ function startWorldCat() {
                     renderFlashMessage('<p>' + lstrMessage + '</p>');
                 }
 
-                $('.main_edit').show();
+                viewSwitch.showAceEditor();
             });
 
         } else {
@@ -80,7 +80,7 @@ function startWorldCat() {
             $('body').append("<div id=\"dialog\"><p>XML must be valid!</p></div>");
             makeDialog('#dialog', 'Error!');
 
-            $('.main_edit').show();
+            viewSwitch.showAceEditor();
 
         }
     }, record.eacXml);
@@ -92,6 +92,7 @@ function startWorldCat() {
 
 function cancelWorldCat() {
     record = {};
+    clearFlashMessage();
     viewSwitch.showHome();
 }
 
@@ -251,6 +252,7 @@ function ingest_worldcat_elements(lobjEac, lstrName, callback) {
 
 /*
  * display_possible_worldcat_form displays a form for the editor to choose which worldcat results that editor wants to ingest
+ *
  * @method display_possible_worldcat_form
  */
 function display_possible_worldcat_form(lobjPossibleURI, callback) {
@@ -276,8 +278,7 @@ function display_possible_worldcat_form(lobjPossibleURI, callback) {
             $('body').append("<div id=\"dialog\"><p>Please choose or click Cancel!</p></div>");
             makeDialog('#dialog', 'Error!');
         } else {
-            $('.form_container').remove();
-            $('.help_container').remove();
+             viewSwitch.removeWorldCatStepOne();
 
             //show loading image
             showLoadingImage();
@@ -289,11 +290,10 @@ function display_possible_worldcat_form(lobjPossibleURI, callback) {
     //register click event to cencel process
     $('#ingest_worldcat_chosen_uri_cancel').on('click', function () {
         //callback('');
-        $('.form_container').remove();
-        $('.help_container').remove();
+        viewSwitch.removeWorldCatStepOne();
 
         //show aceEditor
-        showAceEditor();
+        viewSwitch.showAceEditor();
 
         //scroll to top to view form correctly
         scrollToFormTop();
@@ -347,11 +347,11 @@ function display_possible_worldcat_subjects(lobjPossibleSubjects, callback) {
 
         } else {
             callback(lobjChosenSubjects);
-            $('.form_container').remove();
-            $('.help_container').remove();
+            viewSwitch.removeWorldCatStepTwo();
+
 
             // display ace editor
-            showAceEditor();
+            viewSwitch.showAceEditor();
 
             //display save xml buttons
             showXmlButtons();
@@ -367,9 +367,8 @@ function display_possible_worldcat_subjects(lobjPossibleSubjects, callback) {
         var lobjChosenSubjects =[];
 
         callback(lobjChosenSubjects);
-        $('.form_container').remove();
-        $('.help_container').remove();
-        $('.main_edit').show();
+        viewSwitch.removeWorldCatStepTwo();
+
 
         return;
     });

@@ -2,7 +2,7 @@
 
     <% hideLoadingImage(); %>
 
-    <div class="form_container">
+    <div class="form_container worldcat-step-one-view">
         <div class="instruction_div">
             <h2 class="instruction">Ingest from WorldCat Identities</h2>
             <div class="user_help_form">
@@ -30,7 +30,7 @@
 
     <% hideLoadingImage(); %>
 
-    <div class="form_container">
+    <div class="form_container worldcat-step-two-view">
         <div class="instruction_div">
             <h2 class="instruction">Ingest from WorldCat Identities</h2>
 

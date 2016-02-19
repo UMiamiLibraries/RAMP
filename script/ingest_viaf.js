@@ -211,7 +211,7 @@ $(document).ready(function () {
                 callback(lstrChosenViaf);
                 $('.form_container').remove();
                 $('.help_container').remove();
-                $('.main_edit').hide();
+                viewSwitch.hideAceEditor();;
             }
         });
 
@@ -332,7 +332,7 @@ $(document).ready(function () {
                     $('.form_container').remove();
                     $('.help_container').remove();
 
-                    $('.main_edit').show();
+                    viewSwitch.showAceEditor();
 
                     //set ace editor value to new xml from EAC Dom Document with ingested source and name entries
                     //added to show changes immediately
@@ -356,7 +356,7 @@ $(document).ready(function () {
                         //done if no names where chosen
 
 
-                        $('.main_edit').show();
+                        viewSwitch.showAceEditor();
 
                         //added to show changes immediately
                         editor.getSession().setValue(lobjEac.getXML());
@@ -381,7 +381,7 @@ $(document).ready(function () {
                                     callback('');
                                     $('.form_container').remove();
                                     $('.help_container').remove();
-                                    $('.main_edit').show();
+                                    viewSwitch.showAceEditor();
 
 
                                 }
@@ -405,7 +405,7 @@ $(document).ready(function () {
 
                                     callback("Canceled!");
                                     //finish process if no results chosen
-                                    $('.main_edit').show();
+                                    viewSwitch.showAceEditor();
                                     $('#entity_name').show();
                                     // Check to see if there is already wiki markup. If so, show switcher. --timathom
                                     if (record.wikiStatus === true) {
@@ -442,7 +442,7 @@ $(document).ready(function () {
 
                                     callback('&lt;cpfRelation&gt; elements added!');
                                     // Notify that <cpfRelation> elements have been added. --timathom
-                                    $('.main_edit').show();
+                                    viewSwitch.showAceEditor();
                                     $('#entity_name').show();
                                 }
                             });
@@ -506,12 +506,12 @@ $(document).ready(function () {
                 $('body').append("<div id=\"dialog\"><p>Please choose or click Cancel!</p></div>");
                 makeDialog('#dialog', 'Error!');
                 // display error
-                //$('.main_edit').hide();
+                //viewSwitch.hideAceEditor();;
             } else {
                 callback(lobjChosenNames);
                 $('.form_container').remove();
                 $('.help_container').remove();
-                $('.main_edit').hide();
+                viewSwitch.hideAceEditor();;
 
             }
         });
@@ -524,7 +524,7 @@ $(document).ready(function () {
             $('.form_container').remove();
             $('.help_container').remove();
             $('#viaf_load').remove();
-            $('.main_edit').show();
+            viewSwitch.showAceEditor();
 
         });
     }

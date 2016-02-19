@@ -19,7 +19,7 @@ function startWiki() {
         record.onWiki = true;
     }
 
-    $('.main_edit').hide();
+    viewSwitch.hideAceEditor()
     eacToMediaWiki();
 
 }
@@ -47,7 +47,7 @@ function wikiCheck(eacId) {
 
             $('#wiki_switch_button').css({"background": "gray"});
 
-            $('.main_edit').hide();
+            viewSwitch.hideAceEditor()
 
             $('html').css("min-width", "1250px");
 
@@ -73,7 +73,7 @@ function wikiCheck(eacId) {
             $('#edit_xml').on('click', function () {
 
                 //Show the XML editor ui and wiki markup editor
-                $('.main_edit').show();
+                viewSwitch.showAceEditor();
                 $('.wiki_edit').remove();
 
             });
@@ -146,7 +146,7 @@ function eacToMediaWiki() {
 
                 $('#edit_xml').on('click', function () {
                     //Show the XML editor ui and wiki markup editor
-                    $('.main_edit').show();
+                    viewSwitch.showAceEditor();
                     $('.wiki_edit').remove();
 
                 });
@@ -207,7 +207,7 @@ function editXML(eadFile) {
     $('#wiki_switch_button').css({"background": "#0078e7"});
     $('#xml_switch_button').css({"background": "gray"});
     $('.wiki_edit').remove();
-    $('.main_edit').show();
+    viewSwitch.showAceEditor();
 
     $('#wiki_update').on('click', function () {
 

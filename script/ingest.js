@@ -29,7 +29,6 @@ $(document).ready(function () {
 
     }
 
-
     function clearInitialIngestInstructions() {
         $('#ingest_buttons > button').on('click', function() {
             $('#controls_panel_instructions').remove();
@@ -46,10 +45,6 @@ $(document).ready(function () {
     //diable module buttons
     disableAllModuleButtons();
 
-
-
-
-
     function getIngestStatus(record_id) {
 
         var eac_id = record_id;
@@ -65,9 +60,6 @@ $(document).ready(function () {
             dataType: "json"
         });
     }
-
-
-
 });
 
 
