@@ -4,7 +4,7 @@ $(document).ready(function () {
     //initially disable module buttons
     disableAllModuleButtons();
 
-
+    viewSwitch.hideAceEditor();
 
     //initially hide xml buttons
     hideXmlButtons();
