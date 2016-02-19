@@ -17,9 +17,7 @@ include('conf/includes.php');
     <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
     <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/themes/smoothness/jquery-ui.css">
 
-    <!-- Select 2 
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.2-rc.1/css/select2.min.css" rel="stylesheet" />
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.2-rc.1/js/select2.min.js"></script>-->
+    <!-- Select 2 -->
     <script src="script/external/select2/select2.min.js"></script>
     <link rel="stylesheet" type="text/css" href="script/external/select2/select2.css">
     <link rel="stylesheet" type="text/css" href="style/select2-skins.css">
@@ -34,9 +32,8 @@ include('conf/includes.php');
     <!-- Ace Editor CSS -->
     <link rel="stylesheet" type="text/css" href="style/ace-editor.css"/>
 
-    <!-- Underscore & Backbone -->
+    <!-- Underscore -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.5.0/lodash.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/backbone.js/1.2.3/backbone-min.js"></script>
 
     <title>RAMP Editor</title>
     <link rel="shortcut icon" href="style/images/favicon.ico"/>
