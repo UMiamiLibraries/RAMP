@@ -20,7 +20,7 @@ $(document).ready(function () {
             record.eacId = $(this).children("option:selected").data().id;
 
             //set the page header with name of person/file
-            $('#record_entityName_header').text(record.entityName);
+            $('#record_entityName_header').text(record.entityName).hide();
 
             //build the ace editor
             build_editor(record.eacId);
