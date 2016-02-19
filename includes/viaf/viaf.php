@@ -9,8 +9,9 @@
                 <p>Choose the best match for this name:</p>
                 <% _.each(lobjPossibleViaf, function(possibleViaf) { %>
 
-                <input type="radio" name="chosen_viaf_id" value="<%= possibleViaf.viaf_id %>"/>
-                <a href="http://viaf.org/viaf/<%= possibleViaf.viaf_id %>" target="_blank"> <%= possibleViaf.name %></a><br>
+                <input type="radio" name="chosen_viaf_id" value="<%= possibleViaf.viaf_id %>"/><%= possibleViaf.name %>
+                <div class="preview-link"> <i class="fa fa-eye"></i>
+                <a href="http://viaf.org/viaf/<%= possibleViaf.viaf_id %>" target="_blank">preview</a></div><br>
 
                 <% }); %>
 
