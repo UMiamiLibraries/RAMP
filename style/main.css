@@ -54,6 +54,8 @@ header {background-color: #f5f5f5; height:45px;}
 
 .app-content {margin:0 0 0 0;}
 
+#wrap {padding-bottom: 60px;}
+
 
 
 /* Feature Heading and Image */
@@ -103,7 +105,7 @@ header {background-color: #f5f5f5; height:45px;}
 
 /* Homepage Content Area */
 
-.homepage-content {margin:0 0 100px 0;}
+.homepage-content {margin:0 0 20px 0;}
 
 .homepage-content-text {
   margin:10px 0;
@@ -132,6 +134,7 @@ header {background-color: #f5f5f5; height:45px;}
 footer {height:60px; background-color:#282828; color: #FFF; position: fixed; bottom: 0; width: 100%;}
 
 .ramp-link {text-align: right; margin: 20px 0 0 0; font-size:14px;}
+.ramp-link i {color: #fff; font-size:25px; margin-left:6px;}
 .ramp-link a:hover {text-decoration: none;}
 
 .lib-logo {margin:10px 0 0 0; width:200px; height: auto;}
@@ -140,34 +143,131 @@ footer {height:60px; background-color:#282828; color: #FFF; position: fixed; bot
 
 
 /* Select Area */
-.select-panel {background-color: #ff0;}
+.select-panel {}
+
+.import_now {margin:15px 0; font-style: italic; color:#666;}
+
+#intro_box {padding:0 15px 0 0;}
 
 
 
+/* Select2 Skin Overrides */
+.tpx-select2-container {width:100%; font-family:'Lato', sans-serif;}
 
+.tpx-select2-container.select2-grey .select2-choice {
+    background-color: #ecf0f1;
+    border-color: #ecf0f1;
+    box-shadow: none;
+    color: #7eb9b2;
+    border-radius: 0;
+    height: 45px;
+}
 
-.controls-panel {margin:30px 0;}
+.tpx-select2-container.select2-grey .select2-choice:before {}
+
+.tpx-select2-container .select2-choice > .select2-chosen {
+    font-size: 19px;
+    line-height: 45px;
+    font-weight:400;
+}
+
+.tpx-select2-container.select2-grey.select2-container-active .select2-choice, 
+.tpx-select2-container.select2-grey.select2-container-active .select2-choice .select2-arrow {border-color: #e4e6e7;}
+
+.tpx-select2-container.select2-grey .select2-choice .select2-arrow {
+    background-color: #ecf0f1;
+    border-left-color: #e4e6e7;
+    color: #1aac9a;
+}
+
+.tpx-select2-container .select2-choice .select2-arrow::before {font-size: 16px; line-height: 45px; opacity: 0.72; width:32px;}
+
+.tpx-select2-drop .select2-search::after {
+    font-size: 18px;
+    left: 12px;
+    opacity: 0.72;
+    position: absolute;
+    top: 10px;
+    color: #7eb9b2;
+}
+
+.tpx-select2-drop.select2-blue .select2-search input {
+    border-color: #e4e6e7;
+}
+.tpx-select2-drop .select2-search input {
+    background-color: #fff;
+    font-size: 17px;
+    padding: 5px 7px 7px 30px;
+    color: #666;
+    font-family:'Lato', sans-serif;
+}
+
+.tpx-select2-drop.select2-blue {
+    background-color: #FFF;
+    border-color: #e4e6e7;
+    border-radius: 0;
+    font-family: 'Lato', sans-serif;
+    box-shadow: 0 0 2px rgba(0, 0, 0, 0.12);
+}
+
+/* .select2-drop { max-height: 175px; overflow: auto;} */
+
+.tpx-select2-drop.select2-blue .select2-results {color: #666; font-size:16px; }
+
+.tpx-select2-drop.select2-blue .select2-highlighted {background-color: #dadfe1; border-radius:1px;}
+
+.select2-results .select2-highlighted {color: #666;}
+
+ul#select2-results-1 li:first-child,
+ul#select2-results-1 li:nth-child(2) {display: none;}
+
 
 
 
 /* Form Elements */
 
+.pure-button:hover, .pure-button-hover, .pure-button:focus {background-image: none;}
 
 
-/* Action Icons */
+/* All Items Button */
+.all_items-btn-container {text-align: right; border-left:1px solid #dadfe1; margin-left: 20px; width: 160px;}
+
+.viewall_button {background-color: #ecf0f1; color:#7eb9b2; height:47px; border-radius: 0;}
+
+.viewall_button i {margin-right:6px;}
+
+.viewall_button:hover, .viewall_button:focus {color:#1aac9a;}
+
+
+/* Default Buttons */
+.ramp-button {background-color: #ecf0f1; color:#7eb9b2; border-radius: 0;}
+.ramp-button :hover, .ramp-button :focus {color:#1aac9a;}
 
 
 
 
 
+/* Controls/Icons Area */
+
+.controls-panel {margin:30px 0 0 0; text-align: center;}
+
+#controls_panel_instructions {font-style: italic; color: #666; font-size:16px; margin:20px 0 0 0;}
+
+
+
+/* Activity Area */
+.actions-area {}
+
+
+
+
+/* Other */
 #validation {
     display: inline-block;
     height: 10px;
     width:10px;
     margin-left:.5%;
 }
-
-
 
 
 
@@ -194,6 +294,7 @@ footer {height:60px; background-color:#282828; color: #FFF; position: fixed; bot
 
 .ramp-intro-text {padding: 65px 0 0 30px;}
 
+.all_items-btn-container {margin-left: 40px; width: 180px;}
  
 }
 
