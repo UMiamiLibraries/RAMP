@@ -29,7 +29,6 @@ $(document).ready(function () {
 
     }
 
-
     function clearInitialIngestInstructions() {
         $('#ingest_buttons > button').on('click', function() {
             $('#controls_panel_instructions').remove();
@@ -42,6 +41,7 @@ $(document).ready(function () {
             $('#ead_files_select_menu').attr('disabled', 'disabled');
         });
     }
+
 
 
     function getIngestStatus(record_id) {
@@ -59,7 +59,6 @@ $(document).ready(function () {
             dataType: "json"
         });
     }
-
-
-
 });
+
+

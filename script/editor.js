@@ -4,8 +4,7 @@ $(document).ready(function () {
     //initially disable module buttons
     disableAllModuleButtons();
 
-    //but hide it initially
-    hideAceEditor();
+    viewSwitch.hideAceEditor();
 
     //initially hide xml buttons
     hideXmlButtons();
@@ -80,7 +79,7 @@ $('#save_eac').click(function (data) {
         renderFlashMessage('<p>XML Successfully Saved.</p>');
 
         //hide aceEditor
-        hideAceEditor();
+        viewSwitch.hideAceEditor();
 
         //hide xmlButtons
         hideXmlButtons();
@@ -167,7 +166,7 @@ var $unsaveddialog = $('<div></div>')
         buttons: {
             "Yes": function () {
                 $(this).dialog("close");
-                $('.main_edit').hide();
+                viewSwitch.hideAceEditor();
                 //$('#main_content').append('<img id="loading-image" src="style/images/loading.gif" alt="loading"/><div id="wiki_load">Converting to wiki markup... This may take a minute or two.</div>');
                 eacToMediaWiki();
             },
@@ -246,7 +245,7 @@ function makePromptDialog(lstrSelector, lstrTitle, callback) {
                     $('#post_wiki').hide();
                 }
                 else {
-                    $('.main_edit').hide();
+                    viewSwitch.hideAceEditor();
                     //$('#entity_name').hide();
                     $('#wiki_switch').hide();
                 }
@@ -260,10 +259,10 @@ function makePromptDialog(lstrSelector, lstrTitle, callback) {
                 $('#get_wiki').show();
                 $('#wiki_switch').show();
                 $('#post_wiki').show();
-                $('.main_edit').hide();
+                viewSwitch.hideAceEditor();
             }
             else {
-                $('.main_edit').show();
+                viewSwitch.showAceEditor();;
                 $('#entity_name').show();
                 // Check to see if there is already wiki markup. If so, show switcher. --timathom
                 if (record.onWiki === true) {
@@ -313,18 +312,6 @@ function toggleReadOnly() {
 }
 
 
-
-
-function showAceEditor() {
-    $('#aceEditor').show();
-    $('.main_edit').show();
-}
-
-function hideAceEditor() {
-    $('#aceEditor').hide();
-    $('.main_edit').hide();
-}
-
 function showModuleControls() {
     $('#module_controls').hide();}
 
@@ -353,9 +340,6 @@ function enableSingleModuleButton(button_id) {
 function disableSingleModuleButton(button_id) {
     $('#' + button_id).attr('disabled', 'disabled');
 }
-
-
-
 
 
 function showXmlButtons() {

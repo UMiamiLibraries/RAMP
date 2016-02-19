@@ -1,8 +1,8 @@
-<script type="text/template" class="template" id="worldcat-template-step-one">
+<script type="text/template" class="template worldcat-step-one-view" id="worldcat-template-step-one">
 
     <% hideLoadingImage(); %>
 
-    <div class="form_container">
+    <div class="form_container worldcat-step-one-view">
         <div class="instruction_div">
             <h2 class="instruction">Ingest from WorldCat Identities</h2>
             <div class="user_help_form">
@@ -26,11 +26,11 @@
 </script>
 
 
-<script type="text/template" class="template" id="worldcat-template-step-two">
+<script type="text/template" class="template  worldcat-step-two-view" id="worldcat-template-step-two">
 
     <% hideLoadingImage(); %>
 
-    <div class="form_container">
+    <div class="form_container worldcat-step-two-view">
         <div class="instruction_div">
             <h2 class="instruction">Ingest from WorldCat Identities</h2>
 

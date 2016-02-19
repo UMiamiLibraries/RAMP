@@ -1,4 +1,4 @@
-<script type="text/template" class="template" id="viaf-template-step-one">
+<script type="text/template" class="template viaf-step-one-view" id="viaf-template-step-one">
     <div class="pure-g form_container">
 
         <div class="instruction_div pure-u-1">
@@ -24,7 +24,7 @@
 
 </script>
 
-<script type="text/template" class="template" id="viaf-template-step-two">
+<script type="text/template" class="template viaf-step-two-view" id="viaf-template-step-two">
     <div class="form_container pure-g">
         <div class="instruction_div pure-u-1">
             <h2 class="instruction">Named Entity Recognition</h2>
@@ -52,7 +52,7 @@
 </script>
 
 
-<script type="text/template" class="template" id="viaf-template-step-three">
+<script type="text/template" class="template viaf-step-three-view" id="viaf-template-step-three">
 
 <div class="form_container">
  <div class="instruction_div"><h2 class="instruction">Named Entity Recognition</h2>

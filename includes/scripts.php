@@ -10,3 +10,5 @@
 <script src="script/ingest_wiki.js"></script>
 <script src="script/wikiator.js"></script>
 <script src="script/validate.js"></script>
+<script src="script/interface.js"></script>
+<script src="script/view_switch.js"></script>

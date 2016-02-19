@@ -1,5 +1,3 @@
-//functions that can be used by multiple js files
-
 /*
  * encode_utf8 encodes passed string to utf8
  * @method encode_utf8
@@ -62,7 +60,6 @@ function throttle(f, delay) {
     };
 }
 
-
 function render_help_template(div_id) {
 
     // Render the first help template
@@ -95,3 +92,4 @@ function renderFlashMessage(message) {
 function clearFlashMessage() {
     $('#flash_message').html('');
 }
+
