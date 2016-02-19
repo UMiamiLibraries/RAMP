@@ -90,6 +90,7 @@ include('header.php');
                                 <div id="loading_image"></div>
                                 <?php include('includes/worldcat/worldcat.php'); ?>
                                 <?php include('includes/viaf/viaf.php') ?>
+                                <?php include('includes/wiki/wiki.php') ?>
                             </div>
 
                             <?php include('includes/editor.php') ?>
