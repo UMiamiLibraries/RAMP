@@ -12,12 +12,10 @@
 
 
     function startWiki() {
-        // Show all the Wiki buttons for right now
 
-        $('#wiki_login').show();
-        $('#wiki_update').show();
-        $('#get_wiki').show();
-        $('#post_wiki').show();
+        $('.home-view').hide();
+        $('.wikipedia-step-one-view').show();
+
 
         // Set status for showing wiki screen on dialog close.
         if (record.onWiki !== true) {
@@ -65,14 +63,14 @@
                 //Append some controls for dealing with the wikimarkup
 
                 if ($('#wikieditor').length == 0) {
-                    $('#main_content').append("<div id=\"wikieditor\" class=\"wiki_edit\"><div class=\"wiki_container wiki_edit\"><h1 id=\"local_wiki\">Local article (transformed from EAC-CPF record) <a style=\"font-size:small; float:right; margin-top:3px;\" target=\"_blank\" href=\"https://en.wikipedia.org/wiki/Help:Wiki_markup\">Help with wiki markup</a></h1> \
+                    $('#main_content').append("<div id=\"wikieditor\" class=\"wiki_edit\"><div class=\"wiki_container wikipedia-step-one-view wiki_edit\"><h1 id=\"local_wiki\">Local article (transformed from EAC-CPF record) <a style=\"font-size:small; float:right; margin-top:3px;\" target=\"_blank\" href=\"https://en.wikipedia.org/wiki/Help:Wiki_markup\">Help with wiki markup</a></h1> \
 <textarea id=\"wikimarkup\" class=\"wiki_edit\">" + markup.wiki_text + "</textarea></div></div>");
                 } else {
-                    $('#wikieditor').append("<div class=\"wiki_container wiki_edit\"><h1 id=\"local_wiki\">Local article (transformed from EAC-CPF record) <a style=\"font-size:small; float:right; margin-top:3px;\" target=\"_blank\" href=\"https://en.wikipedia.org/wiki/Help:Wiki_markup\">Help with wiki markup</a></h1> \
+                    $('#wikieditor').append("<div class=\"wiki_container wikipedia-step-one-view wiki_edit\"><h1 id=\"local_wiki\">Local article (transformed from EAC-CPF record) <a style=\"font-size:small; float:right; margin-top:3px;\" target=\"_blank\" href=\"https://en.wikipedia.org/wiki/Help:Wiki_markup\">Help with wiki markup</a></h1> \
 <textarea id=\"wikimarkup\">" + markup.wiki_text + "</textarea></div>");
                 }
 
-                $('#module_controls').append("<button class=\"update_button pure-button pure-button-primary wiki_edit\" id=\"wiki_update\">Save Local Article</button><button id=\"get_wiki\" class=\"pure-button pure-button-primary wiki_edit\">Check Wikipedia for Existing Article</button>");
+                $('#module_controls').append("<button class=\"update_button pure-button pure-button-primary  wikipedia-step-one-view wiki_edit\" id=\"wiki_update\">Save Local Article</button><button id=\"get_wiki\" class=\"pure-button pure-button-primary wikipedia-step-one-view wiki_edit\">Check Wikipedia for Existing Article</button>");
 
                 setupGetWiki();
 

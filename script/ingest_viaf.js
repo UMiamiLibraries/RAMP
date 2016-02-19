@@ -1,6 +1,3 @@
-/**
- * Created by cbrownroberts on 2/18/16.
- */
 $(document).ready(function () {
 
     //register click event that will start viaf ingest
@@ -21,6 +18,9 @@ $(document).ready(function () {
 
 
     function startViaf() {
+
+        $('.home-view').hide();
+        
 
         record.onWiki = false; // Unset "onWiki" status
         record.eacXml = editor.getValue();

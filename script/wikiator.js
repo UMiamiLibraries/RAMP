@@ -311,11 +311,7 @@ function displayWikiSearch( lobjTitles, callback )
 
 				 callback($('input[name="chosen_title"]:checked').val(), lstrWikiLink);
 
-				 /*
-				 $('.wiki_edit').show();
-				 $('#wiki_switch').show();
-				 $('.form_container').remove();
-				 */
+
 
 				 // Hide. --timathom
 				 $('.form_container').remove();
@@ -369,11 +365,11 @@ function getWiki( lstrTitle, lstrLink )
 
 	mboolIsNew = true;
 
-	$('#wikieditor').append("<div class=\"wiki_container\"><h1 id=\"wiki_article\">Wikipedia article (to be submitted to Wikipedia)</h1><textarea id=\"get_wiki_text\"></textarea></div>");
+	$('#wikieditor').append("<div class=\"wiki_container wikipedia-step-one-view\"><h1 id=\"wiki_article\">Wikipedia article (to be submitted to Wikipedia)</h1><textarea id=\"get_wiki_text\"></textarea></div>");
 	$('#get_wiki_text').height($('#wikimarkup').height());
 
-	$('#get_wiki').replaceWith('<button id="post_draft_wiki" class=\"pure-button pure-button-primary wiki_edit\">Submit to Wikipedia as Draft</button>');
-	$('#post_draft_wiki').after('<button id="post_wiki" class=\"pure-button pure-button-primary wiki_edit\">Submit to Wikipedia</button>');
+	$('#get_wiki').replaceWith('<button id="post_draft_wiki" class=\"pure-button pure-button-primary wikipedia-step-one-view wiki_edit\">Submit to Wikipedia as Draft</button>');
+	$('#post_draft_wiki').after('<button id="post_wiki" class=\"pure-button pure-button-primary wikipedia-step-one-view wiki_edit\">Submit to Wikipedia</button>');
 
 	setupPostWiki();
     }else

@@ -1,7 +1,3 @@
-/**
- * Created by cbrownroberts on 2/18/16.
- */
-
 $(document).ready(function () {
 
     //register click event that will start worlcat ingestion

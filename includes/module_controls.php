@@ -5,7 +5,7 @@
       <button id="convert_to_wiki" class="pure-button pure-button-primary">Wikipedia</button>
   </nav>
     <nav id="wiki_controls">
-        <button id="wiki_login">Login to Wikipedia</button>
+        <button id="wiki_login wikipedia-step-one">Login to Wikipedia</button>
 
     </nav>
 </div>
