@@ -23,9 +23,11 @@ function startWorldCat() {
 
     viewSwitch.showWorldCatStepOne();
 
+    //render contextual help template
+    render_help_template('wc_template_help_step_one');
+
     record.wikiConversion = false; // Unset "onWiki" status.
     record.eacXml = editor.getValue();
-    console.log(record.eadFile);
 
     //cannot start ingestion without XML being loaded
     if (record.eacXml == '') {
@@ -85,9 +87,6 @@ function startWorldCat() {
         }
     }, record.eacXml);
 
-    //render contextual help template
-    render_help_template('wc_template_help_step_one');
-
 }
 
 function cancelWorldCat() {
@@ -102,7 +101,6 @@ function cancelWorldCat() {
  */
 
 function ingest_worldcat_elements(lobjEac, lstrName, callback) {
-    console.log(lstrName);
 
     lstrName = encode_utf8(lstrName);
 
