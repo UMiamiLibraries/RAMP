@@ -3,7 +3,7 @@ include('header.php');
 ?>
 
     <!--HOMEPAGE content (top)-->
-    <div id="feature-heading" class="feature-heading">
+    <div id="feature-heading" class="feature-heading home-view">
         
         <div class="inner-area">
             <div class="ramp-intro">
@@ -27,7 +27,9 @@ include('header.php');
 
 
     <!--APP content-->
-    <div class="app-content">   
+    <div class="app-content"> 
+
+           <!--<h1 id="record_entityName_header"></h1>-->  
             
             <div class="decoration-bar">
                 <div class="pure-g">
@@ -39,6 +41,9 @@ include('header.php');
             </div>
 
         <div class="inner-area">
+
+            
+
             <div class="select-panel">
                 <div class="pure-g">
                     <div class="pure-u-2-3">
@@ -53,22 +58,30 @@ include('header.php');
 
                                 ?>
                             </div>
-                            <span class="import_now">Can't find a record? <a href="ead_convert.php">Import it now!</a></span>
+                            <div class="import_now home-view">Can't find a record? <a href="ead_convert.php">Import it now!</a></div>
                     </div>
                     <div class="pure-u-1-3">
-                            all items btn
+                        <div class="all_items-btn-container home-view">
+                            <button id="view_all_items" class="viewall_button pure-button"><i class="fa fa-list-ul"></i> View All</button>
+                        </div>                            
                     </div>
                 </div>
             </div>
 
             <div class="controls-panel">
-                <?php include('includes/module_controls.php'); ?>
-                <p id="controls_panel_instructions">Click on a process to continue</p>
+                <div class="pure-g">
+                    <div class="pure-u-1 pure-u-md-2-3">
+                        <?php include('includes/module_controls.php'); ?>
+                        <p id="controls_panel_instructions">- Click on a process to continue -</p>
+                    </div>
+                    <div class="pure-u-1 pure-u-md-1-3">&nbsp;</div>
+                </div>
+                
             </div>
 
 
             <div class="actions-area">
-                <h1 id="record_entityName_header"></h1>
+                
                 <div class="pure-g">
                     <div class="pure-u-1 pure-u-lg-2-3" id="form_viewport_area">
                             <div id="flash_message"></div>
@@ -94,7 +107,7 @@ include('header.php');
 
     
     <!--HOMEPAGE content (bottom)-->
-    <div class="homepage-content">
+    <div class="homepage-content home-view">
         <div class="inner-area">
             <div class="homepage-content-text">
                 <a name="ramp-more"></a><h3>How Does RAMP Work?</h3>
@@ -146,7 +159,9 @@ include('header.php');
 
     <script type="text/javascript">
         $('select').select2({
-            placeholder: "Select a name",
+            placeholder: "Select a name", 
+            containerCssClass: 'tpx-select2-container select2-grey',
+            dropdownCssClass: 'tpx-select2-drop select2-blue'           
         });
     </script>
     <!-- End Select 2 -->
