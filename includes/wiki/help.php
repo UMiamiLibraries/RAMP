@@ -9,7 +9,7 @@
 ?>
 
 <script type="text/template" class="template" id="wiki_template_help_step_one">
-    <div class="help_container">
+    <div class="help_container wiki-step-one-view">
         <h3>Wikipedia Step One</h3>
     </div>
 </script>
@@ -18,7 +18,7 @@
 
 <script type="text/template" class="template" id="wiki_template_help_step_two">
 
-    <div class="help_container">
+    <div class="help_container wiki-step-two-view">
         <h3>Wikipedia Step Two</h3>
     </div>
 
@@ -29,7 +29,7 @@
 
 <script type="text/template" class="template" id="wiki_template_help_step_three">
 
-    <div class="help_container">
+    <div class="help_container wiki-step-three-view">
         <h3>Wikipedia Step Three</h3>
     </div>
 

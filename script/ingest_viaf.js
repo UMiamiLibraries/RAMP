@@ -232,6 +232,9 @@ $(document).ready(function () {
             callback();
 
         });
+
+        //render contextual help template
+        render_help_template('viaf_template_help_step_one');
     }
 
     /*
