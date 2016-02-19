@@ -32,7 +32,7 @@ include('header.php');
            <div class="recordtitle">
                 <div class="inner-area"><h2 id="record_entityName_header"></h2></div>
            </div>
-            
+
             <div class="decoration-bar">
                 <div class="pure-g">
                     <div class="pure-u-1-4 decor1"></div>

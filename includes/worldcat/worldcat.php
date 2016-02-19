@@ -13,7 +13,7 @@
                     var lstrType = typeof lobjPossibleURI.type == 'undefined' ? '': lobjPossibleURI.type;
                     %>
 
-                    <input type="radio" name="chosen_worldcat_uri" value="<%= lstrURI %>" /><a href="<%= lstrURI %>" target="_blank"> <%= lstrTitle %> </a><br>
+                    <input type="radio" name="chosen_worldcat_uri" value="<%= lstrURI %>" /> <%= lstrTitle %><div class="preview-link"> <i class="fa fa-eye"></i> <a href="<%= lstrURI %>" target="_blank">preview</a></div><br>
 
                     <% }); %>
 
