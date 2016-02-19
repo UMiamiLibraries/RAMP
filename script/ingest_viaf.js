@@ -197,8 +197,6 @@ $(document).ready(function () {
             template( lobjPossibleViaf )
         );
 
-        //scroll to top to view form correctly
-
         //register click event to continue process once user chosesviaf results
         $('#ingest_viaf_chosen_viaf').on('click', function () {
             var lstrChosenViaf = $('input[name="chosen_viaf_id"]:checked').val();
@@ -218,12 +216,6 @@ $(document).ready(function () {
         //register click event to cancel process
         $('#ingest_viaf_chosen_viaf_cancel').on('click', function () {
 
-            jQuery('html,body').animate({
-                    scrollTop: 0
-                },
-                0);
-            //scroll to top to view form correctly
-
             $('body').append("<div id=\"dialog\"><p>Skipped VIAF ingest.</p></div>");
             makeDialog('#dialog', 'Results');
             // display results
@@ -232,6 +224,9 @@ $(document).ready(function () {
             callback();
 
         });
+
+        //scroll to top to view form correctly
+        scrollToFormTop();
 
         //render contextual help template
         render_help_template('viaf_template_help_step_one');
@@ -323,15 +318,11 @@ $(document).ready(function () {
 
                 if (PossibleNameList.length == 0) {
 
-                    jQuery('html,body').animate({
-                            scrollTop: 0
-                        },
-                        0);
                     //scroll to top to view form correctly
+                    scrollToFormTop();
 
                     callback('No matches for Named Entity Recognition.');
-                    //$('body').append("<div id=\"dialog\"><p>Canceled!</p></div>");
-                    //makeDialog('#dialog', 'Results'); // display results
+
                     $('.form_container').remove();
                     $('.help_container').remove();
 
@@ -341,7 +332,6 @@ $(document).ready(function () {
                     //added to show changes immediately
                     editor.getSession().setValue(lobjEac.getXML());
 
-
                     return;
                 }
 
@@ -349,15 +339,11 @@ $(document).ready(function () {
                 display_possible_name_form(PossibleNameList, function (lobjChosenNames) {
                     if (lobjChosenNames.length == 0) {
 
-                        jQuery('html,body').animate({
-                                scrollTop: 0
-                            },
-                            0);
                         //scroll to top to view form correctly
+                        scrollToFormTop();
 
                         callback("Canceled!");
                         //done if no names where chosen
-
 
                         viewSwitch.showAceEditor();
 
@@ -366,7 +352,6 @@ $(document).ready(function () {
 
                         return;
                     }
-
 
                     var ljsonChosenNames = JSON.stringify(lobjChosenNames);
 
@@ -385,34 +370,24 @@ $(document).ready(function () {
                                     $('.form_container').remove();
                                     $('.help_container').remove();
                                     viewSwitch.showAceEditor();
-
-
                                 }
                             }
                             catch (e) //response should be JSON so if not, throw error
                             {
-
                                 return;
                             }
-
 
                             //display results from viaf relation nodes search so editor can choose which relations they want to ingest
                             display_viaf_results_form(lobjData, function (lobjResultsChosen) {
                                 if (typeof lobjResultsChosen[ 'names'] == 'undefined' || typeof lobjResultsChosen[ 'names'][ 'entity'][ 'all'] == 'undefined' || lobjResultsChosen[ 'names'][ 'entity'][ 'all'].length == 0) {
 
-                                    jQuery('html,body').animate({
-                                            scrollTop: 0
-                                        },
-                                        0);
                                     //scroll to top to view form correctly
+                                    scrollToFormTop();
 
                                     callback("Canceled!");
+
                                     //finish process if no results chosen
                                     viewSwitch.showAceEditor();
-                                    $('#entity_name').show();
-                                    // Check to see if there is already wiki markup. If so, show switcher. --timathom
-
-
 
                                     return;
                                 } else {
@@ -420,9 +395,7 @@ $(document).ready(function () {
                                     for (var i = 0; i < lobjResultsChosen[ 'names'][ 'entity'][ 'viaf'].length; i++) {
                                         var chosen_result_viaf = lobjResultsChosen[ 'names'][ 'entity'][ 'viaf'][i];
 
-
                                         lobjEac.addCPFRelationViaf(lobjData[chosen_result_viaf]);
-
 
                                     }
 
@@ -435,16 +408,12 @@ $(document).ready(function () {
 
                                     editor.getSession().setValue(lobjEac.getXML());
 
-                                    jQuery('html,body').animate({
-                                            scrollTop: 0
-                                        },
-                                        0);
                                     //scroll to top to view form correctly
+                                    scrollToFormTop();
 
                                     callback('&lt;cpfRelation&gt; elements added!');
                                     // Notify that <cpfRelation> elements have been added. --timathom
                                     viewSwitch.showAceEditor();
-                                    $('#entity_name').show();
                                 }
                             });
                         });
@@ -462,7 +431,6 @@ $(document).ready(function () {
     function display_possible_name_form(lobjPossibleNames, callback) {
 
         // Render the first template
-
         _.templateSettings.variable = "lobjPossibleNames";
 
         var template = _.template(
@@ -472,6 +440,9 @@ $(document).ready(function () {
         $( "#form_viewport" ).append(
             template( lobjPossibleNames )
         );
+
+        //render help template
+        render_help_template('viaf_template_help_step_two');
 
         // jQuery added by timathom to include "Add New Row" and "Delete Row" buttons and functionality.
         $("input.ner_empty_add").on('click', function () {
@@ -483,13 +454,11 @@ $(document).ready(function () {
             });
         });
 
-        setupSelectAll('input#select_all');
         //able to select all checkboxes
-        jQuery('html,body').animate({
-                scrollTop: 0
-            },
-            0);
+        setupSelectAll('input#select_all');
+
         //scroll to top to view form correctly
+        scrollToFormTop();
 
         //register click event to continue process once user choses names
         $('#ingest_viaf_chosen_names_relations').on('click', function () {
@@ -537,7 +506,6 @@ $(document).ready(function () {
     function display_viaf_results_form(lobjViafResults, callback) {
 
         // Render the first template
-
         _.templateSettings.variable = "lobjViafResults";
 
         var template = _.template(
@@ -547,6 +515,9 @@ $(document).ready(function () {
         $( "#form_viewport" ).append(
             template( lobjViafResults )
         );
+
+        //render help template
+        render_help_template('viaf_template_help_step_three');
 
         //functionality to select all checkboxes
         setupSelectAll('input#select_all');
