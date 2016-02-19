@@ -91,6 +91,9 @@ include('header.php');
                                 <?php include('includes/worldcat/worldcat.php'); ?>
                                 <?php include('includes/viaf/viaf.php') ?>
                                 <?php include('includes/wiki/wiki.php') ?>
+                                <?php include('includes/wiki/wiki_dialogs.php') ?>
+
+
                             </div>
 
                             <?php include('includes/editor.php') ?>
@@ -104,6 +107,7 @@ include('header.php');
             </div>
 
         </div>
+
     </div><!--end APP content-->
 
     
