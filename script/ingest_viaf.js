@@ -19,8 +19,7 @@ $(document).ready(function () {
 
     function startViaf() {
 
-        $('.home-view').hide();
-        
+        viewSwitch.showViafStepOne();
 
         record.onWiki = false; // Unset "onWiki" status
         record.eacXml = editor.getValue();

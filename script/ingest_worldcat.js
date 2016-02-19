@@ -12,7 +12,7 @@ $(document).ready(function () {
         startWorldCat();
 
 
-        $('.home-view').hide();
+
     });
 
 
@@ -22,6 +22,8 @@ $(document).ready(function () {
 
 
 function startWorldCat() {
+
+    viewSwitch.showWorldCatStepOne();
 
     record.wikiConversion = false; // Unset "onWiki" status.
     record.eacXml = editor.getValue();
