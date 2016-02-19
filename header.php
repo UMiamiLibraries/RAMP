@@ -17,9 +17,12 @@ include('conf/includes.php');
     <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
     <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/themes/smoothness/jquery-ui.css">
 
-    <!-- Select 2 -->
+    <!-- Select 2 
     <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.2-rc.1/css/select2.min.css" rel="stylesheet" />
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.2-rc.1/js/select2.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.2-rc.1/js/select2.min.js"></script>-->
+    <script src="script/external/select2/select2.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="script/external/select2/select2.css">
+    <link rel="stylesheet" type="text/css" href="style/select2-skins.css">
 
     <!-- Pure, Font Awesome, Lato Font -->
     <link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.6.0/pure-min.css">
