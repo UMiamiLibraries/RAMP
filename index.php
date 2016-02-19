@@ -100,6 +100,8 @@ include('header.php');
                     <div class="pure-u-1 pure-u-lg-1-3" id="help_viewport_area">
                             <div id="help_viewport">
                                 <?php include 'includes/worldcat/help.php'; ?>
+                                <?php include 'includes/viaf/help.php'; ?>
+                                <?php include 'includes/wiki/help.php'; ?>
                             </div>
                     </div>
                 </div>
