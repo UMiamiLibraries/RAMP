@@ -78,7 +78,7 @@ function clear_help_template_container() {
 
 
 function showLoadingImage() {
-    $('#loading_image').text('Loading...').show();
+    $('#loading_image').html("<div class=\"loader\"><i class=\"fa fa-spinner fa-pulse\"></i> Loading...</div>").show();
 }
 
 function hideLoadingImage() {

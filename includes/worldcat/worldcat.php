@@ -4,9 +4,9 @@
 
     <div class="form_container worldcat-step-one-view">
         <div class="instruction_div">
-            <h2 class="instruction">Ingest from WorldCat Identities</h2>
+            <h3 class="instruction">Ingest from WorldCat Identities</h3>
             <div class="user_help_form">
-                <p>Please choose the name that is the best match:</p>
+                <p class="user_help_text">Please choose the name that is the best match <a href="#" title="What is this?"><i class="fa fa-question-circle"></i></a></p>
                     <% _.each(lobjPossibleURI, function(lobjPossibleURI) {
                     var lstrTitle = typeof lobjPossibleURI.title == 'undefined' ? '': lobjPossibleURI.title;
                     var lstrURI = typeof lobjPossibleURI.uri == 'undefined' ? '': lobjPossibleURI.uri;
@@ -17,8 +17,8 @@
 
                     <% }); %>
 
-                <button id="ingest_worldcat_chosen_uri" class="pure-button pure-button-secondary ingest-ok">Next</button>
-                <button id="ingest_worldcat_chosen_uri_cancel" class="pure-button pure-button-secondary ingest-cancel">Cancel</button>
+                <button id="ingest_worldcat_chosen_uri" class="pure-button ramp-button ingest-ok">Next</button>
+                <button id="ingest_worldcat_chosen_uri_cancel" class="pure-button ramp-button ingest-cancel">Cancel</button>
             </div>
         </div>
     </div>
@@ -32,10 +32,10 @@
 
     <div class="form_container worldcat-step-two-view">
         <div class="instruction_div">
-            <h2 class="instruction">Ingest from WorldCat Identities</h2>
+            <h3 class="instruction">Ingest from WorldCat Identities</h3>
 
             <div class="user_help_form">
-                <p>Please choose any appropriate subjects related to this entity:</p>
+                <p class="user_help_text">Please choose any appropriate subjects related to this entity <a href="#" title="What is this?"><i class="fa fa-question-circle"></i></a></p>
 
                 <input type="checkbox" id="select_all" value=""><span>Select all</span><br />
 
@@ -49,8 +49,8 @@
 
                     </table>
 
-                <button id="ingest_worldcat_chosen_subjects" class="pure-button pure-button-secondary ingest-ok">Next</button>
-                <button id="ingest_worldcat_chosen_subjects_cancel" class="pure-button pure-button-secondary ingest-cancel">Cancel</button>
+                <button id="ingest_worldcat_chosen_subjects" class="pure-button ramp-button ingest-ok">Next</button>
+                <button id="ingest_worldcat_chosen_subjects_cancel" class="pure-button ramp-button ingest-cancel">Cancel</button>
             </div>
 
         </div>

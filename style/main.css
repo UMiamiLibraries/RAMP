@@ -244,8 +244,8 @@ button[disabled], html input[disabled] {cursor: not-allowed;}
 
 
 /* Default Buttons */
-.ramp-button {background-color: #ecf0f1; color:#7eb9b2; border-radius: 0;}
-.ramp-button :hover, .ramp-button :focus {color:#1aac9a;}
+.ramp-button {background-color: #ecf0f1; color:#7eb9b2; border-radius: 0; margin: 15px 10px 15px 0;}
+.ramp-button:hover, .ramp-button:focus {color:#1aac9a;}
 
 
 
@@ -287,16 +287,68 @@ button[disabled], html input[disabled] {cursor: not-allowed;}
 
 #form_viewport_area, #help_viewport_area {margin:30px 0 0 0;}
 
+#help_viewport {padding:0 0 0 23px; border-left: 1px solid #dadfe1; }
+#flash_message, #form_viewport, .ace-editor-view {padding:0 23px 0 0;}
+
+.instruction {font-size:20px;}
+
+.user_help_text {margin:0 0 20px 0;}
+.user_help_text i {font-size:20px; margin-left: 6px;}
+
+.preview-link {display:inline; font-size:15px; font-style: italic; float:right; width:30%;}
+
+.preview-link i {color: #666; margin-right:6px;}
+
+.user_help_form {
+    font-size: 16px;
+    line-height: 1.2em;
+    color: #666;
+}
+
+.user_help_form input[type="checkbox"], .user_help_form input[type="radio"] {
+    margin: 0 4px 12px 0;
+    padding: 0;
+}
 
 
 
-/* Other */
+
+
+/* Validation, Messages */
+
 #validation {
     display: inline-block;
     height: 10px;
     width:10px;
     margin-left:.5%;
 }
+
+.loader {
+  color: #1aac9a;
+  font-size:18px;
+  font-style: italic;
+  font-weight:400;
+  font-family:'Lato', sans-serif;
+}
+
+.loader i {font-size:24px; margin-right:6px;}
+
+.error-message {
+  margin: 0 0 30px 0;
+  border: 1px solid rgba(254,138,113,0.35);
+  border-radius: 2px;
+  padding: 8px 10px;
+}
+.error-message p {color: rgba(254,138,113,0.7); margin:0; font-style: italic;}
+
+.success-message {
+  margin: 0 0 30px 0;
+  border: 1px solid rgba(26,172,154,0.4);
+  border-radius: 2px;
+  padding: 8px 10px;
+}
+.success-message p {color: rgba(26,172,154,0.7); margin:0; font-style: italic;}
+
 
 
 
