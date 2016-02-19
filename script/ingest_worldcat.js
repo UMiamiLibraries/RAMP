@@ -31,7 +31,7 @@ function startWorldCat() {
 
     //cannot start ingestion without XML being loaded
     if (record.eacXml == '') {
-        $('#flash_message').append("<p>Must load EAC first!</p>");
+        $('#flash_message').append("<div class=\"error-message\"><p>Must load EAC first!</p></div>");
         return;
     }
 
@@ -212,7 +212,7 @@ function ingest_worldcat_elements(lobjEac, lstrName, callback) {
                                 } else {
 
                                     //$('#flash_message').append("<ul><li>&lt;localDescription&gt; element(s) added with chosen subject(s).</li>" + lstrOtherRecId + lstrSources + lstrCpfResults + lstrResourceResults + "</ul>");
-                                    renderFlashMessage('<p>Success! XML elements added</p>');
+                                    renderFlashMessage('<div class=\"success-message\"><p>Success! XML elements added.</p></div>');
 
                                     // Append a maintenanceEvent to the EAC to keep track that a WorldCat ingest happened
                                     var d = new Date;
