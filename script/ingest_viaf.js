@@ -134,11 +134,8 @@ $(document).ready(function () {
 
                                 lobjEac.addSource(lobjSource);
 
-                                jQuery('html,body').animate({
-                                        scrollTop: 0
-                                    },
-                                    0);
                                 //scroll to top to view form correctly
+                                scrollToFormTop();
 
                                 $('body').append("<div id=\"dialog\"><p>&lt;source&gt; and &lt;nameEntry&gt; elements added!</p></div>");
                                 makeDialog('#dialog', 'Results');
@@ -370,6 +367,8 @@ $(document).ready(function () {
                                     $('.form_container').remove();
                                     $('.help_container').remove();
                                     viewSwitch.showAceEditor();
+
+                                    showXmlButtons();
                                 }
                             }
                             catch (e) //response should be JSON so if not, throw error
@@ -388,6 +387,8 @@ $(document).ready(function () {
 
                                     //finish process if no results chosen
                                     viewSwitch.showAceEditor();
+
+                                    showXmlButtons();
 
                                     return;
                                 } else {
@@ -414,6 +415,8 @@ $(document).ready(function () {
                                     callback('&lt;cpfRelation&gt; elements added!');
                                     // Notify that <cpfRelation> elements have been added. --timathom
                                     viewSwitch.showAceEditor();
+
+                                    showXmlButtons();
                                 }
                             });
                         });
@@ -495,6 +498,8 @@ $(document).ready(function () {
             $('.help_container').remove();
             $('#viaf_load').remove();
             viewSwitch.showAceEditor();
+
+            showXmlButtons();
 
         });
     }
