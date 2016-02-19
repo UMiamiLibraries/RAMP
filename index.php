@@ -29,7 +29,7 @@ include('header.php');
     <!--APP content-->
     <div class="app-content"> 
 
-           <!--<h1 id="record_entityName_header"></h1>-->  
+           <h1 id="record_entityName_header"></h1> 
             
             <div class="decoration-bar">
                 <div class="pure-g">
@@ -40,9 +40,7 @@ include('header.php');
                 </div>
             </div>
 
-        <div class="inner-area">
-
-            
+        <div class="inner-area"> 
 
             <div class="select-panel">
                 <div class="pure-g">
