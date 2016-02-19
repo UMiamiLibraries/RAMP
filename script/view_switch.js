@@ -6,18 +6,22 @@ var viewSwitch = {
     showHome: function () {
         viewSwitch.reset();
         $('.home-view').show();
+
     },
     showWorldCatStepOne: function () {
         viewSwitch.reset();
         $('.worldcat-step-one-view').show();
+        $('#record_entityName_header').show();
     },
     showWorldCatStepTwo: function () {
         viewSwitch.reset();
         $('.worldcat-step-two-view').show();
+        $('#record_entityName_header').show();
     },
     showWorldCatStepThree: function () {
         viewSwitch.reset();
         $('.worldcat-step-three-view').show();
+        $('#record_entityName_header').show();
     },
     removeWorldCatStepOne: function () {
         $('.form_container.worldcat-step-one-view').remove();
@@ -34,14 +38,17 @@ var viewSwitch = {
     showViafStepOne: function () {
         viewSwitch.reset();
         $('.viaf-step-one-view').show();
+        $('#record_entityName_header').show();
     },
     showViafStepTwo: function () {
         viewSwitch.reset();
         $('.viaf-step-two-view').show();
+        $('#record_entityName_header').show();
     },
     showViafStepThree: function () {
         viewSwitch.reset();
         $('.viaf-step-three-view').show();
+        $('#record_entityName_header').show();
     },
     removeViafStepOne: function () {
         $('.form_container.viaf-step-one-view').remove();
@@ -58,14 +65,17 @@ var viewSwitch = {
     showWikiStepOne: function () {
         viewSwitch.reset();
         $('.wikipedia-step-one-view').show();
+        $('#record_entityName_header').show();
     },
     showWikiStepTwo: function () {
         viewSwitch.reset();
         $('.wikipedia-step-two-view').show();
+        $('#record_entityName_header').show();
     },
     showWikiStepThree: function () {
         viewSwitch.reset();
         $('.wikipedia-step-three-view').show();
+        $('#record_entityName_header').show();
     },
     removeWikiStepOne: function () {
         $('.form_container.wiki-step-one-view').remove();
