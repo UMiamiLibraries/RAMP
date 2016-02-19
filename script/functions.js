@@ -62,7 +62,6 @@ function throttle(f, delay) {
 
 function render_help_template(div_id) {
 
-    // Render the first help template
     var help_template = _.template(
         $("#" + div_id).html()
     );
@@ -92,4 +91,3 @@ function renderFlashMessage(message) {
 function clearFlashMessage() {
     $('#flash_message').html('');
 }
-
