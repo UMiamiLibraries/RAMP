@@ -12,23 +12,12 @@ jQuery(document).ready(function($)
 
 function confirmWikiSubmit( callback )
 {
-        $('body').append("<div id=\"dialog-form\" title=\"Confirm\"> \
-<form> \
-<fieldset> \
-<button class=\"update_button pure-button pure-button-primary value=\"Yes\"/> \
-</fieldset> \
-<fieldset> \
-<button class=\"update_button pure-button pure-button-primary value=\"No\"/> \
-</fieldset> \
-</form></div>");
-
     //display login form
-    makePromptDialog('#dialog-form', 'Confirm', function(dialog)
+    makePromptDialog('#dialog-form-confirm', 'Confirm', function(dialog)
 		     {
 			 $(dialog).dialog("close");
 			 $(dialog).remove();
 			 });
-
 }
 
 /*
@@ -37,21 +26,9 @@ function confirmWikiSubmit( callback )
  */
 function setupWikiLogin( callback )
 {
-    $('body').append("<div id=\"dialog-form\" title=\"Please log in to Wikipedia.\"> \
-<p class=\"validate-prompt\">Cannot be blank!</p> \
-<form> \
-<fieldset> \
-<label for=\"username\">Username</label> \
-<input type=\"input\" size=\"35\" name=\"username\" id=\"username\" class=\"text ui-widget-content ui-corner-all\" value=\"\"/> \
-</fieldset> \
-<fieldset> \
-<label for=\"password\">Password</label> \
-<input type=\"password\" size=\"35\" name=\"password\" id=\"password\" class=\"text ui-widget-content ui-corner-all\" value=\"\"/> \
-</fieldset> \
-</form></div>");
 
     //display login form
-    makePromptDialog('#dialog-form', 'Please log in to Wikipedia.', function(dialog)
+    makePromptDialog('#dialog-form-login', 'Please log in to Wikipedia.', function(dialog)
 		     {
 			 var lstrUserName = $('input[name="username"]').val();
 			 var lstrPassword = $('input[name="password"]').val();
@@ -195,20 +172,8 @@ function searchWiki( lstrSearch )
     //$('#entity_name').hide();
 
 
-
-    $('body').append("<div id=\"dialog-form\" title=\"Search Wikipedia\"> \
-<p class=\"validate-prompt\">Cannot be blank!</p> \
-<form> \
-<fieldset> \
-<label for=\"search\">Search</label> \
-<input type=\"text\" size=\"35\" name=\"search\" id=\"search\" class=\"text ui-widget-content ui-corner-all\" value=\"" + decode_utf8(lstrSearch) + "\"/> \
-</fieldset> \
-</form></div>");
-
-
-
     //propt user to enter search string for wiki search
-    makePromptDialog('#dialog-form', 'Search Wikipedia', function(dialog)
+    makePromptDialog('#dialog-form-search', 'Search Wikipedia', function(dialog)
 		     {
 			 var lstrUserSearch = $('input[name="search"]').val();
 
@@ -275,7 +240,7 @@ function displayWikiSearch( lobjTitles, callback )
         template( lobjTitles )
     );
 
-   
+
     jQuery('html,body').animate({scrollTop:0},0); //scroll to top to view form correctly
 
     //register click event to continue process once user choses result
@@ -408,7 +373,6 @@ function setupPostWiki()
 					     lobjClicked = this;
 
                          // Added confirmation for Wiki submits. --timathom
-                         var lstrHTML;
 
                          if( this.id == 'post_draft_wiki' )
                          {
@@ -452,17 +416,9 @@ function setupPostWiki()
 					     {
 						 if( mstrTitle == '' )
 						 {
-						     $('body').append("<div id=\"dialog-form\" title=\"Wiki Title\"> \
-<p class=\"validate-prompt\">Cannot be blank!</p> \
-<form> \
-<fieldset> \
-<label for=\"title\">Title</label> \
-<input type=\"text\" size=\"35\" name=\"title\" id=\"title\" class=\"text ui-widget-content ui-corner-all\" value=\"" + decode_utf8(eac_name) + "\"/> \
-</fieldset> \
-</form></div>");
 
 						     //get wiki page title from editor if new wiki page
-						     makePromptDialog('#dialog-form', 'Wiki Title', function(dialog)
+						     makePromptDialog('#dialog-form-title', 'Wiki Title', function(dialog)
 								      {
 									  var lstrTitle = $('input[name="title"]').val();
 
@@ -504,16 +460,9 @@ function getUserComments( lboolDraft )
 {
     lboolDraft = typeof lboolDraft == 'undefined' ? false : lboolDraft;
 
-    $('body').append("<div id=\"dialog-form\" title=\"Wikipedia Comment\"> \
-<p class=\"validate-prompt\">Cannot be blank!</p> \
-<form> \
-<fieldset> \
-<label for=\"title\">Edit summary</label> \
-<input name=\"comments\" id=\"comments\" size=\"100\" maxlength=\"300\" value=\"... using the [[Wikipedia:Tools/RAMP_editor|RAMP editor]].\" /> \
-</fieldset> \
-</form></div>");
 
-    makePromptDialog('#dialog-form', 'Please summarize your edits. A reference to the RAMP editor has been added for you.', function(dialog)
+
+    makePromptDialog('#dialog-form-comment', 'Please summarize your edits. A reference to the RAMP editor has been added for you.', function(dialog)
 		     {
 			 var lstrComments = $('input[name="comments"]').val();
 
@@ -621,15 +570,16 @@ function postWiki( lstrWiki, lstrComments, lboolDraft, lstrCaptchaAnswer, lstrCa
  */
 function displayCaptcha( lstrUrl, lstrCaptchaId, lboolDraft )
 {
-    var lstrHTML = "<div class=\"form_container_captcha\"><div class=\"user_help_form\">";
+    _.templateSettings.variable = "lstrUrl";
 
-    lstrHTML += "<div id=\"captcha_div\"><h3 class=\"captcha\">Please Solve CAPTCHA</h3><br/>";
-    lstrHTML += "<img class=\"captcha\" src=\"" + lstrUrl +"\" /><br/>";
-    lstrHTML += "<input class=\"captcha\" id=\"captcha_input\" name=\"captcha_ans\" type=\"text\"/><br/>";
-    lstrHTML += "<button id=\"try_with_captcha\" class=\"captcha pure-button pure-button-secondary\">Try again</button>";
-    lstrHTML += "</div></div></div>";
+    var template = _.template(
+        $("#wikipedia-template-captcha").html()
+    );
 
-    $('body').append(lstrHTML);
+    $( "#form_viewport" ).append(
+        template( lstrUrl )
+    );
+
     jQuery('html,body').animate({scrollTop:0},0); //scroll to top to display form correctly
 
     //register click event to continue process once user answers captcha question
