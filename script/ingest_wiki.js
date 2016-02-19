@@ -13,21 +13,15 @@ $('#convert_to_wiki').click(function () {
 
 function startWiki() {
     viewSwitch.showWikiStepOne();
-    
+
     // Set status for showing wiki screen on dialog close.
     if (record.onWiki !== true) {
         record.onWiki = true;
     }
 
-    // Added logic for save dialog. --timathom
-    if (record.savedXml !== true) {
-        $unsaveddialog.dialog('open');
-    }
+    $('.main_edit').hide();
+    eacToMediaWiki();
 
-    else {
-        $('.main_edit').hide();
-        eacToMediaWiki();
-    }
 }
 
 function showWikiLoginButton() {
@@ -204,6 +198,8 @@ function eacToMediaWiki() {
         });
     });
 }
+
+
 function editXML(eadFile) {
     //Show the XML editor ui and wiki markup editor
 

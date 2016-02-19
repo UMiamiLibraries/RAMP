@@ -14,9 +14,6 @@ $(document).ready(function () {
         startViaf();
     });
 
-
-
-
     function startViaf() {
 
         viewSwitch.showViafStepOne();

@@ -1,34 +1,39 @@
 var viewSwitch = {
-    reset : function() {
+    reset: function () {
         $('[class$=-view]').hide();
+      
     },
-    showWorldCatStepOne : function() {
+    showHome: function () {
+        viewSwitch.reset();
+        $('.home-view').show();
+    },
+    showWorldCatStepOne: function () {
         viewSwitch.reset();
         $('.worldcat-step-one-view').show();
     },
-    showWorldCatStepTwo : function() {
+    showWorldCatStepTwo: function () {
         viewSwitch.reset();
         $('.worldcat-step-two-view').show();
     },
-    showWorldCatStepThree : function() {
+    showWorldCatStepThree: function () {
         viewSwitch.reset();
         $('.worldcat-step-three-view').show();
     },
-    showViafStepOne : function() {
+    showViafStepOne: function () {
         viewSwitch.reset();
         $('.viaf-step-one-view').show();
     },
-    showViafStepTwo : function() {
+    showViafStepTwo: function () {
         viewSwitch.reset();
         $('.viaf-step-two-view').show();
 
     },
-    showViafStepThree : function() {
+    showViafStepThree: function () {
         viewSwitch.reset();
         $('.viaf-step-three-view').show();
 
     },
-    showWikiStepOne : function() {
+    showWikiStepOne: function () {
         viewSwitch.reset();
         $('.wikipedia-step-one-view').show();
     }

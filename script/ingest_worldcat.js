@@ -10,15 +10,13 @@ $(document).ready(function () {
         clearFlashMessage();
 
         startWorldCat();
-
-
-
     });
 
-
+    $('#cancel-worldcat').on('click', function() {
+       cancelWorldCat();
+    });
 
 });
-
 
 
 function startWorldCat() {
@@ -92,7 +90,10 @@ function startWorldCat() {
 
 }
 
-
+function cancelWorldCat() {
+    record = {};
+    viewSwitch.showHome();
+}
 
 /*
  * ingest_worldcat_elements ingest subject headings and relationships from worldcat using API into passed EAC DOM Document.
@@ -229,6 +230,10 @@ function ingest_worldcat_elements(lobjEac, lstrName, callback) {
 
                                     lobjEac.addMaintenanceEvent(maintEvent);
                                     editor.getSession().setValue(lobjEac.getXML());
+
+                                    // Enable the module buttons again
+                                    enableAllModuleButtons();
+
                                     return;
                                 }
 

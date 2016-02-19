@@ -93,3 +93,13 @@ function renderFlashMessage(message) {
 function clearFlashMessage() {
     $('#flash_message').html('');
 }
+
+function showAceEditor() {
+    $('#aceEditor').show();
+    $('.main_edit').show();
+}
+
+function hideAceEditor() {
+    $('#aceEditor').hide();
+    $('.main_edit').hide();
+}
