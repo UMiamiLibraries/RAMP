@@ -29,7 +29,7 @@
 
 <script type="text/template" class="template" id="viaf_template_help_step_three">
 
-    <div class="help_containerviaf-step-three-view">
+    <div class="help_container viaf-step-three-view">
         <h3>VIAF Step Three</h3>
     </div>
 
