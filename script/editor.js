@@ -242,13 +242,13 @@ function makePromptDialog(lstrSelector, lstrTitle, callback) {
                     //$('#entity_name').hide();
                     $('.wiki_edit').hide();
                     $('#get_wiki').hide();
-                    $('#wiki_switch').hide();
+                    
                     $('#post_wiki').hide();
                 }
                 else {
                     viewSwitch.hideAceEditor();
                     //$('#entity_name').hide();
-                    $('#wiki_switch').hide();
+                    
                 }
             }
         },
@@ -258,7 +258,7 @@ function makePromptDialog(lstrSelector, lstrTitle, callback) {
                 $('#entity_name').show();
                 $('.wiki_edit').show();
                 $('#get_wiki').show();
-                $('#wiki_switch').show();
+                
                 $('#post_wiki').show();
                 viewSwitch.hideAceEditor();
             }
@@ -267,10 +267,10 @@ function makePromptDialog(lstrSelector, lstrTitle, callback) {
                 $('#entity_name').show();
                 // Check to see if there is already wiki markup. If so, show switcher. --timathom
                 if (record.onWiki === true) {
-                    $('#wiki_switch').show();
+                    
                 }
                 else {
-                    $('#wiki_switch').hide();
+                    
                 }
             }
         }

@@ -408,11 +408,9 @@ $(document).ready(function () {
                                     viewSwitch.showAceEditor();
                                     $('#entity_name').show();
                                     // Check to see if there is already wiki markup. If so, show switcher. --timathom
-                                    if (record.wikiStatus === true) {
-                                        $('#wiki_switch').show();
-                                    } else {
-                                        $('#wiki_switch').hide();
-                                    }
+
+
+
                                     return;
                                 } else {
                                     //ingest into EAC all chosen results from viaf

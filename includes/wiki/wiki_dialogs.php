@@ -1,3 +1,6 @@
+<style>
+    .wikipedia-dialog { display:none; }
+</style>
 <div class="wikipedia-dialog" id="dialog-form-confirm" title="Confirm">
     <form> 
         <fieldset> 

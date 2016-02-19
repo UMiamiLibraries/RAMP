@@ -132,7 +132,6 @@ function eacToMediaWiki() {
 
                 setupGetWiki();
 
-                $('#wiki_switch').show();
                 //$('#wiki_switch_button').unbind();
 
                 wikiCheck(record.eacId);
