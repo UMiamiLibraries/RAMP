@@ -85,9 +85,7 @@ $('#save_eac').click(function (data) {
         hideXmlButtons();
 
         //disable worldcat button
-        disableSingleModuleButton('ingest_worldcat');
-
-        //add class to worldcat that indicates step complete
+        enableSingleModuleButton('convert_to_wiki');
 
     });
 
