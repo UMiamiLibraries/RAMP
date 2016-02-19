@@ -253,6 +253,13 @@ ul#select2-results-1 li:nth-child(2) {display: none;}
 
 #controls_panel_instructions {font-style: italic; color: #666; font-size:16px; margin:20px 0 0 0;}
 
+.icon-button {width:120px; height:120px; padding:0; border-radius: 50%; font-size:0; color: transparent; background-repeat: no-repeat;  background-position: 50% 50%; background-size: auto auto;}
+
+#ingest_worldcat {background-color: #fe8a71; margin-right:30px; border-right: 6px solid #fdd1c7; background-image:url('images/icon-logo-worldcat.png'); }
+#ingest_viaf {background-color: #3c8ab8; margin-right:30px; border-right: 6px solid #bce4f8; background-image:url('images/icon-logo-viaf.png');}
+#convert_to_wiki {background-color: #f8c767; border-right: 6px solid #fae0ae; background-image:url('images/icon-logo-wikipedia.png');}
+
+
 
 
 /* Activity Area */
@@ -309,6 +316,8 @@ ul#select2-results-1 li:nth-child(2) {display: none;}
 .ramp-intro-text {padding: 80px 0 0 15px;}
 
 .glossary-term {margin-bottom:0;}
+
+#ingest_worldcat, #ingest_viaf {margin-right:50px; }
 
 
 }
