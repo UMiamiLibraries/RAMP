@@ -71,13 +71,12 @@ $('#save_eac').click(function (data) {
 
 
     }).done(function () {
-        //$savedialog.dialog('open');
 
         //clear flash message
-        $('#flash_message').html();
+        clearFlashMessage();
 
         //display success message
-        $('#flash_message').text('XML Successfully Saved.');
+        renderFlashMessage('<p>XML Successfully Saved.</p>');
 
         //hide aceEditor
         viewSwitch.hideAceEditor();

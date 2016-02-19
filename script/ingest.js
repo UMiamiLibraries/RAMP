@@ -42,8 +42,7 @@ $(document).ready(function () {
         });
     }
 
-    //diable module buttons
-    disableAllModuleButtons();
+
 
     function getIngestStatus(record_id) {
 
