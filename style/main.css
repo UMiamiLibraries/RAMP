@@ -262,6 +262,15 @@ ul#select2-results-1 li:nth-child(2) {display: none;}
 
 
 
+/* Record Title */
+.recordtitle {
+  background-color: rgba(0,0,0,0.65);
+  width: 100%;
+}
+
+#record_entityName_header{margin:0; font-size:28px; color: #FFF; padding: 19px 0;}
+
+
 /* Activity Area */
 .actions-area {}
 

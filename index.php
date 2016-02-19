@@ -29,7 +29,9 @@ include('header.php');
     <!--APP content-->
     <div class="app-content"> 
 
-           <h1 id="record_entityName_header"></h1> 
+           <div class="recordtitle">
+                <div class="inner-area"><h2 id="record_entityName_header"></h2></div>
+           </div>
             
             <div class="decoration-bar">
                 <div class="pure-g">
