@@ -1,4 +1,4 @@
-<script type="text/template" class="template" id="worldcat-template-step-one">
+<script type="text/template" class="template worldcat-step-one-view" id="worldcat-template-step-one">
 
     <% hideLoadingImage(); %>
 
@@ -26,7 +26,7 @@
 </script>
 
 
-<script type="text/template" class="template" id="worldcat-template-step-two">
+<script type="text/template" class="template  worldcat-step-two-view" id="worldcat-template-step-two">
 
     <% hideLoadingImage(); %>
 

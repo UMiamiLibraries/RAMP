@@ -14,6 +14,9 @@ $(document).ready(function () {
         clearFlashMessage();
 
         startWorldCat();
+
+
+        $('.home-view').hide();
     });
 
 

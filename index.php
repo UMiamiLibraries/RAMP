@@ -3,7 +3,7 @@ include('header.php');
 ?>
 
     <!--HOMEPAGE content (top)-->
-    <div id="feature-heading" class="feature-heading">
+    <div id="feature-heading" class="feature-heading home-view">
         
         <div class="inner-area">
             <div class="ramp-intro">
@@ -94,7 +94,7 @@ include('header.php');
 
     
     <!--HOMEPAGE content (bottom)-->
-    <div class="homepage-content">
+    <div class="homepage-content home-view">
         <div class="inner-area">
             <div class="homepage-content-text">
                 <a name="ramp-more"></a><h3>How Does RAMP Work?</h3>

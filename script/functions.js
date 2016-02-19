@@ -1,5 +1,3 @@
-//functions that can be used by multiple js files
-
 /*
  * encode_utf8 encodes passed string to utf8
  * @method encode_utf8

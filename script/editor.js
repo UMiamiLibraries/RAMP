@@ -4,8 +4,7 @@ $(document).ready(function () {
     //initially disable module buttons
     disableAllModuleButtons();
 
-    //but hide it initially
-    hideAceEditor();
+
 
     //initially hide xml buttons
     hideXmlButtons();
@@ -314,18 +313,6 @@ function toggleReadOnly() {
 }
 
 
-
-
-function showAceEditor() {
-    $('#aceEditor').show();
-    $('.main_edit').show();
-}
-
-function hideAceEditor() {
-    $('#aceEditor').hide();
-    $('.main_edit').hide();
-}
-
 function showModuleControls() {
     $('#module_controls').hide();}
 
@@ -354,9 +341,6 @@ function enableSingleModuleButton(button_id) {
 function disableSingleModuleButton(button_id) {
     $('#' + button_id).attr('disabled', 'disabled');
 }
-
-
-
 
 
 function showXmlButtons() {
