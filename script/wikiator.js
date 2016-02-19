@@ -265,33 +265,17 @@ function displayWikiSearch( lobjTitles, callback )
     viewSwitch.hideAceEditor();
     $('.wiki_edit').hide();
 
-    var lstrHTML = "<div class=\"form_container\">";
+    _.templateSettings.variable = "lobjTitles";
 
-	lstrHTML += "<div class=\"user_help_form\">";
+    var template = _.template(
+        $("#wikipedia-template-step-one").html()
+    );
 
-	lstrHTML += "<h2>Please choose page to import from Wikipedia:</h2>";
-	lstrHTML += "<p class=\"form_note\">Wikipedia&#39;s search index is updated every morning. New pages will take a day to show up in the index.</p>";
+    $( "#form_viewport" ).append(
+        template( lobjTitles )
+    );
 
-	lstrHTML += "<table class=\"user_help_form_table\">";
-
-	for(var i = 0; i < lobjTitles.length; i++)
-	{
-		lstrHTML += "<tr><td><input type=\"radio\" name=\"chosen_title\" class=\"title_chosen\" value=\"";
-		lstrHTML += lobjTitles[i].title + "\" /><span style=\"font-weight:800;\">" + lobjTitles[i]['title'] + "</span><br /><dl><dd>" + html_decode(lobjTitles[i]['snippet']) + "</dd></dl></td></tr>";
-	}
-
-	lstrHTML += "</table>";
-
-	lstrHTML += "</div>";
-
-    lstrHTML += "<button id=\"get_chosen_wiki\" class=\"pure-button pure-button-secondary\">Use Selected Title</button>";
-    lstrHTML += "<button id=\"get_chosen_wiki_no_match\" class=\"pure-button pure-button-secondary\">No Match (Create New)</button>";
-    lstrHTML += "<button id=\"get_chosen_wiki_cancel\" class=\"pure-button pure-button-secondary\">Cancel</button>";
-
-
-    lstrHTML += "</div>";
-
-    $('body').append(lstrHTML);
+   
     jQuery('html,body').animate({scrollTop:0},0); //scroll to top to view form correctly
 
     //register click event to continue process once user choses result
