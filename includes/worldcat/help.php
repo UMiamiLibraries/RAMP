@@ -10,7 +10,7 @@
 
 <script type="text/template" class="template" id="wc_template_help_step_one">
     <div class="help_container worldcat-step-one-view">
-        <h3>WorldCat Step One</h3>
+        <h4>WorldCat Step One</h4>
     </div>
 </script>
 
@@ -19,7 +19,7 @@
 <script type="text/template" class="template" id="wc_template_help_step_two">
 
     <div class="help_container worldcat-step-two-view">
-        <h3>WorldCat Step Two</h3>
+        <h4>WorldCat Step Two</h4>
     </div>
 
 
@@ -30,7 +30,7 @@
 <script type="text/template" class="template" id="wc_template_help_step_three">
 
     <div class="help_container worldcat-step-three-view">
-        <h3>WorldCat Step Three</h3>
+        <h4>WorldCat Step Three</h4>
     </div>
 
 </script>
