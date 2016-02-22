@@ -207,6 +207,13 @@ function ingest_worldcat_elements(lobjEac, lstrName, callback) {
                                     $('.form_container').remove();
 
                                     editor.getSession().setValue(lobjEac.getXML());
+
+                                    viewSwitch.showAceEditor();
+
+                                    enableSingleModuleButton('ingest_viaf');
+                                    enableSingleModuleButton('convert_to_wiki');
+
+
                                     return;
 
                                 } else {
