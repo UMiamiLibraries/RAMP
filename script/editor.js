@@ -79,9 +79,7 @@ $('#save_eac').click(function (data) {
         //hide aceEditor
         viewSwitch.hideAceEditor();
 
-        //disable worldcat button
-        enableSingleModuleButton('convert_to_wiki');
-
+        enableAllModuleButtons();
     });
 
 });
@@ -106,14 +104,25 @@ $('#download_submit').click(function () {
 
 $('#editor').keyup(throttle(function () {
     // When the user is typing, validate it
-
     record.eacXml = editor.getValue();
     validateXML(undefined, record.eacXml);
-
-
 }));
 
+function getIngestStatus(record_id) {
 
+    var eac_id = record_id;
+    var url = 'ajax/get_ingest_status.php';
+
+    $.ajax({
+        url: url,
+        data: {eac_id : eac_id},
+        success: function(response){
+            console.log(response);
+            return response;
+        },
+        dataType: "json"
+    });
+}
 
 
 
