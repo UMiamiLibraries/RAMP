@@ -311,6 +311,11 @@ button[disabled], html input[disabled] {cursor: not-allowed;}
 
 #xml_buttons_container {margin: 15px 0;}
 
+#validation_container > p {
+    color: #666;
+    font-size: 17px;
+    font-style: italic;
+}
 
 
 
