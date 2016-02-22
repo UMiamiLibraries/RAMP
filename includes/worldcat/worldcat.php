@@ -4,9 +4,9 @@
 
     <div class="form_container worldcat-step-one-view">
         <div class="instruction_div">
-            <h3 class="instruction">Ingest from WorldCat Identities</h3>
+            <h3 class="instruction">WorldCat Ingest</h3>
             <div class="user_help_form">
-                <p class="user_help_text">Please choose the name that is the best match <a href="#" title="What is this?"><i class="fa fa-question-circle"></i></a></p>
+                <p class="user_help_text">Choose the best match <a href="#" title="What is this?"><i class="fa fa-question-circle"></i></a></p>
                     <% _.each(lobjPossibleURI, function(lobjPossibleURI) {
                     var lstrTitle = typeof lobjPossibleURI.title == 'undefined' ? '': lobjPossibleURI.title;
                     var lstrURI = typeof lobjPossibleURI.uri == 'undefined' ? '': lobjPossibleURI.uri;
@@ -32,10 +32,10 @@
 
     <div class="form_container worldcat-step-two-view">
         <div class="instruction_div">
-            <h3 class="instruction">Ingest from WorldCat Identities</h3>
+            <h3 class="instruction">WorldCat Ingest</h3>
 
             <div class="user_help_form">
-                <p class="user_help_text">Please choose any appropriate subjects related to this entity <a href="#" title="What is this?"><i class="fa fa-question-circle"></i></a></p>
+                <p class="user_help_text">Choose any appropriate subjects related to the entity <a href="#" title="What is this?"><i class="fa fa-question-circle"></i></a></p>
 
                 <input type="checkbox" id="select_all" value=""><span>Select all</span><br />
 

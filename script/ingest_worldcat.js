@@ -202,7 +202,7 @@ function ingest_worldcat_elements(lobjEac, lstrName, callback) {
 
                                 if (lobjChosenSubjects.length == 0) {
 
-                                    renderFlashMessage('<p>No subjects added.</p>');
+                                    renderFlashMessage('<div class=\"error-message\"><p>No subjects added.</p></div>');
 
                                     $('.form_container').remove();
 
@@ -273,7 +273,7 @@ function display_possible_worldcat_form(lobjPossibleURI, callback) {
         var lstrChosenURI = $('input[name="chosen_worldcat_uri"]:checked').val();
 
         if (typeof lstrChosenURI == 'undefined') {
-            $('body').append("<div id=\"dialog\"><p>Please choose or click Cancel!</p></div>");
+            $('body').append("<div id=\"dialog\"><p>Please choose a match or click \"Cancel\"!</p></div>");
             makeDialog('#dialog', 'Error!');
         } else {
              viewSwitch.removeWorldCatStepOne();
@@ -285,7 +285,7 @@ function display_possible_worldcat_form(lobjPossibleURI, callback) {
         }
     });
 
-    //register click event to cencel process
+    //register click event to cancel process
     $('#ingest_worldcat_chosen_uri_cancel').on('click', function () {
         //callback('');
         viewSwitch.removeWorldCatStepOne();
@@ -296,7 +296,7 @@ function display_possible_worldcat_form(lobjPossibleURI, callback) {
         //scroll to top to view form correctly
         scrollToFormTop();
 
-        $('body').append("<div id=\"dialog\"><p>Canceled!</p></div>");
+        $('body').append("<div id=\"dialog\"><p>Process Canceled!</p></div>");
         makeDialog('#dialog', 'Results');
         // display results
     });
@@ -340,15 +340,14 @@ function display_possible_worldcat_subjects(lobjPossibleSubjects, callback) {
 
         // Display/notification logic added by timathom
         if (lobjChosenSubjects.length == 0) {
-            $('body').append("<div id=\"dialog\"><p>Please choose or click Cancel!</p></div>");
+            $('body').append("<div id=\"dialog\"><p>Please choose a subject or click \"Cancel\"!</p></div>");
             makeDialog('#dialog', 'Error!');
 
         } else {
             callback(lobjChosenSubjects);
             viewSwitch.removeWorldCatStepTwo();
 
-
-            // display ace editor
+           // display ace editor
             viewSwitch.showAceEditor();
 
             //display save xml buttons

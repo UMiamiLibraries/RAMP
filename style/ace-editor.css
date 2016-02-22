@@ -10,6 +10,7 @@
 #editor_container {
     position: relative;
     height: 500px;
+    z-index: 0;
 }
 
 #editor-mask {

@@ -76,7 +76,7 @@ $('#save_eac').click(function (data) {
         clearFlashMessage();
 
         //display success message
-        renderFlashMessage('<p>XML Successfully Saved.</p>');
+        renderFlashMessage('<div class=\"success-message\"><p>XML Successfully Saved.</p></div>');
 
         //hide aceEditor
         viewSwitch.hideAceEditor();
