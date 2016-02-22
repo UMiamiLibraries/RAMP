@@ -35,3 +35,11 @@
 
 </script>
 
+
+<script type="text/template" class="template" id="viaf_template_help_step_four">
+
+    <div class="help_container viaf-step-four-view">
+        <h3>VIAF Step Four</h3>
+    </div>
+
+</script>

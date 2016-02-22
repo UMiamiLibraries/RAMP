@@ -60,7 +60,7 @@ function throttle(f, delay) {
     };
 }
 
-function render_help_template(div_id) {
+function renderHelpTemplate(div_id) {
 
     var help_template = _.template(
         $("#" + div_id).html()
@@ -71,7 +71,7 @@ function render_help_template(div_id) {
     );
 }
 
-function clear_help_template_container() {
+function clearHelpTemplateContainer() {
     $('.help_container').remove();
 }
 

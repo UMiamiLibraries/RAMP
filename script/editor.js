@@ -244,24 +244,19 @@ function makePromptDialog(lstrSelector, lstrTitle, callback) {
                 }
                 else {
                     viewSwitch.hideAceEditor();
-                    //$('#entity_name').hide();
-                    
                 }
             }
         },
         close: function () {
             $(this).remove();
             if (record.onWiki === true) {
-                $('#entity_name').show();
                 $('.wiki_edit').show();
                 $('#get_wiki').show();
-                
                 $('#post_wiki').show();
                 viewSwitch.hideAceEditor();
             }
             else {
-                viewSwitch.showAceEditor();;
-                $('#entity_name').show();
+                viewSwitch.showAceEditor();
                 // Check to see if there is already wiki markup. If so, show switcher. --timathom
                 if (record.onWiki === true) {
                     
@@ -281,14 +276,6 @@ function makePromptDialog(lstrSelector, lstrTitle, callback) {
 
 
 /* added by cbrownroberts 02-2016 */
-
-function hideReadOnlyBtn() {
-    $('#readonly_toggle_btn').hide();
-}
-
-function showReadOnlyBtn() {
-    $('#readonly_toggle_btn').show();
-}
 
 function toggleReadOnly() {
     $('#editor_readonly_button').on('click', function () {
@@ -342,10 +329,12 @@ function disableSingleModuleButton(button_id) {
 
 function showXmlButtons() {
     $('#xml_buttons_container').show();
+    $('#validation_container').show();
 }
 
 function hideXmlButtons() {
     $('#xml_buttons_container').hide();
+    $('#validation_container').hide();
 }
 
 function scrollToFormTop() {

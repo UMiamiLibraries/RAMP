@@ -9,7 +9,7 @@ $(document).ready(function () {
         //clear any flash messages
         clearFlashMessage();
 
-        clear_help_template_container();
+        clearHelpTemplateContainer();
 
         startViaf();
     });
@@ -225,7 +225,7 @@ $(document).ready(function () {
         scrollToFormTop();
 
         //render contextual help template
-        render_help_template('viaf_template_help_step_one');
+        renderHelpTemplate('viaf_template_help_step_one');
     }
 
     /*
@@ -328,6 +328,8 @@ $(document).ready(function () {
                     //added to show changes immediately
                     editor.getSession().setValue(lobjEac.getXML());
 
+                    showXmlButtons();
+
                     return;
                 }
 
@@ -345,6 +347,8 @@ $(document).ready(function () {
 
                         //added to show changes immediately
                         editor.getSession().setValue(lobjEac.getXML());
+
+                        showXmlButtons();
 
                         return;
                     }
@@ -377,6 +381,7 @@ $(document).ready(function () {
 
                             //display results from viaf relation nodes search so editor can choose which relations they want to ingest
                             display_viaf_results_form(lobjData, function (lobjResultsChosen) {
+
                                 if (typeof lobjResultsChosen[ 'names'] == 'undefined' || typeof lobjResultsChosen[ 'names'][ 'entity'][ 'all'] == 'undefined' || lobjResultsChosen[ 'names'][ 'entity'][ 'all'].length == 0) {
 
                                     //scroll to top to view form correctly
@@ -411,8 +416,11 @@ $(document).ready(function () {
                                     //scroll to top to view form correctly
                                     scrollToFormTop();
 
-                                    callback('&lt;cpfRelation&gt; elements added!');
                                     // Notify that <cpfRelation> elements have been added. --timathom
+                                    //callback('&lt;cpfRelation&gt; elements added!');
+                                    renderFlashMessage('<p>&lt;cpfRelation&gt; elements added</p>');
+
+                                    //display the aceEditor and xml action buttons
                                     viewSwitch.showAceEditor();
 
                                     showXmlButtons();
@@ -444,7 +452,7 @@ $(document).ready(function () {
         );
 
         //render help template
-        render_help_template('viaf_template_help_step_two');
+        renderHelpTemplate('viaf_template_help_step_two');
 
         // jQuery added by timathom to include "Add New Row" and "Delete Row" buttons and functionality.
         $("input.ner_empty_add").on('click', function () {
@@ -466,25 +474,30 @@ $(document).ready(function () {
         $('#ingest_viaf_chosen_names_relations').on('click', function () {
             var lobjChosenNames =[];
 
-            $('#main_content').append('<div id="viaf_load">Searching VIAF for matches. Depending on the number of queries, this may take some time.</div>');
+            renderFlashMessage('<p>Searching VIAF for matches. Depending on the number of queries, this may take some time.</p>')
+
+            showLoadingImage();
 
             $('input.ner_check').each(function () {
                 if (this.checked) {
                     lobjChosenNames.push(encode_utf8($(this).closest('td').next('td').children('input').val()));
                 }
             });
+
             // Display/notification logic added by timathom
             if (lobjChosenNames.length == 0) {
+                // display error
                 $('body').append("<div id=\"dialog\"><p>Please choose or click Cancel!</p></div>");
                 makeDialog('#dialog', 'Error!');
-                // display error
-                //viewSwitch.hideAceEditor();;
+
             } else {
                 callback(lobjChosenNames);
                 $('.form_container').remove();
                 $('.help_container').remove();
-                viewSwitch.hideAceEditor();;
 
+                hideLoadingImage();
+                clearFlashMessage();
+                viewSwitch.hideAceEditor();
             }
         });
 
@@ -495,11 +508,10 @@ $(document).ready(function () {
 
             $('.form_container').remove();
             $('.help_container').remove();
-            $('#viaf_load').remove();
+
             viewSwitch.showAceEditor();
 
             showXmlButtons();
-
         });
     }
 
@@ -521,7 +533,7 @@ $(document).ready(function () {
         );
 
         //render help template
-        render_help_template('viaf_template_help_step_three');
+        renderHelpTemplate('viaf_template_help_step_three');
 
         //functionality to select all checkboxes
         setupSelectAll('input#select_all');

@@ -14,6 +14,8 @@ $('#convert_to_wiki').click(function () {
 function startWiki() {
     viewSwitch.showWikiStepOne();
 
+    renderHelpTemplate('wiki_template_help_step_one');
+
     // Set status for showing wiki screen on dialog close.
     if (record.onWiki !== true) {
         record.onWiki = true;
@@ -54,10 +56,10 @@ function wikiCheck(eacId) {
             //Append some controls for dealing with the wikimarkup
 
             if ($('#wikieditor').length == 0) {
-                $('#main_content').append("<div id=\"wikieditor\" class=\"wiki_edit\"><div class=\"wiki_container wiki_edit\"><h1 id=\"local_wiki\">Local article (transformed from EAC-CPF record) <a style=\"font-size:small; float:right; margin-top:3px;\" target=\"_blank\" href=\"https://en.wikipedia.org/wiki/Help:Wiki_markup\">Help with wiki markup</a></h1> \
+                $('#main_content').append("<div id=\"wikieditor\" class=\"wiki_edit\"><div class=\"wiki_container wiki_edit\"><h2 id=\"local_wiki\">Local article (transformed from EAC-CPF record) <a target=\"_blank\" href=\"https://en.wikipedia.org/wiki/Help:Wiki_markup\">Help with wiki markup</a></h2> \
 <textarea id=\"wikimarkup\" class=\"wiki_edit\">" + markup.wiki_text + "</textarea></div></div>");
             } else {
-                $('#wikieditor').append("<div class=\"wiki_container wiki_edit\"><h1 id=\"local_wiki\">Local article (transformed from EAC-CPF record) <a style=\"font-size:small; float:right; margin-top:3px;\" target=\"_blank\" href=\"https://en.wikipedia.org/wiki/Help:Wiki_markup\">Help with wiki markup</a></h1> \
+                $('#wikieditor').append("<div class=\"wiki_container wiki_edit\"><h2 id=\"local_wiki\">Local article (transformed from EAC-CPF record) <a target=\"_blank\" href=\"https://en.wikipedia.org/wiki/Help:Wiki_markup\">Help with wiki markup</a></h2> \
 <textarea id=\"wikimarkup\">" + markup.wiki_text + "</textarea></div>");
             }
 
