@@ -6,8 +6,6 @@ $(document).ready(function () {
 
     viewSwitch.hideAceEditor();
 
-    //initially hide xml buttons
-    hideXmlButtons();
 
     //enable toggle switch for ace editor read only
     toggleReadOnly();
@@ -80,9 +78,6 @@ $('#save_eac').click(function (data) {
 
         //hide aceEditor
         viewSwitch.hideAceEditor();
-
-        //hide xmlButtons
-        hideXmlButtons();
 
         //disable worldcat button
         enableSingleModuleButton('convert_to_wiki');
@@ -236,10 +231,9 @@ function makePromptDialog(lstrSelector, lstrTitle, callback) {
             "OK": function () {
                 callback(this);
                 if (record.onWiki === true) {
-                    //$('#entity_name').hide();
+
                     $('.wiki_edit').hide();
                     $('#get_wiki').hide();
-                    
                     $('#post_wiki').hide();
                 }
                 else {
@@ -291,18 +285,11 @@ function toggleReadOnly() {
             editor.setReadOnly(true);
             $('#editor_readonly_button').data('readonly', 'on');
             $('#readonly_status').text('XML Editing Disabled');
-
         }
     });
 }
 
 
-function showModuleControls() {
-    $('#module_controls').hide();}
-
-function hideModuleControls() {
-    $('#module_controls').hide();
-}
 
 function enableAllModuleButtons() {
     var module_buttons = $('#ingest_buttons > button');
@@ -326,12 +313,6 @@ function disableSingleModuleButton(button_id) {
     $('#' + button_id).attr('disabled', 'disabled');
 }
 
-
-
-function hideXmlButtons() {
-    $('#xml_buttons_container').hide();
-    $('#validation_container').hide();
-}
 
 function scrollToFormTop() {
     //scroll to top to view form correctly
