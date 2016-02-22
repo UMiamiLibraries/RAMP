@@ -24,7 +24,7 @@ function startWorldCat() {
     viewSwitch.showWorldCatStepOne();
 
     //render contextual help template
-    render_help_template('wc_template_help_step_one');
+    renderHelpTemplate('wc_template_help_step_one');
 
     record.wikiConversion = false; // Unset "onWiki" status.
     record.eacXml = editor.getValue();
@@ -320,7 +320,7 @@ function display_possible_worldcat_subjects(lobjPossibleSubjects, callback) {
     );
 
     //render contextual help template
-    render_help_template('wc_template_help_step_two');
+    renderHelpTemplate('wc_template_help_step_two');
 
     //setup to select all checkboxes
     setupSelectAll('input#select_all');
@@ -355,7 +355,7 @@ function display_possible_worldcat_subjects(lobjPossibleSubjects, callback) {
             showXmlButtons();
 
             //render help template
-            render_help_template('wc_template_help_step_three');
+            renderHelpTemplate('wc_template_help_step_three');
 
         }
     });
