@@ -14,6 +14,8 @@ $('#convert_to_wiki').click(function () {
 function startWiki() {
     viewSwitch.showWikiStepOne();
 
+    renderHelpTemplate('wiki_template_help_step_one');
+
     // Set status for showing wiki screen on dialog close.
     if (record.onWiki !== true) {
         record.onWiki = true;
