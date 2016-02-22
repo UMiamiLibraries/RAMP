@@ -70,7 +70,7 @@ header {background-color: #f5f5f5; height:45px;}
 }
 
 .ramp-intro {
-  background-image:url('images/skater.png');
+  /*background-image:url('images/skater.png');*/
   background-repeat: no-repeat;
   height: 294px;
   background-position: 100% 60%;
@@ -131,7 +131,7 @@ header {background-color: #f5f5f5; height:45px;}
 
 /* Footer */
 
-footer {height:60px; background-color:#282828; color: #FFF; position: fixed; bottom: 0; width: 100%;}
+footer {height:60px; background-color:#282828; color: #FFF; /*position: fixed;*/ bottom: 0; width: 100%;}
 
 .ramp-link {text-align: right; margin: 20px 0 0 0; font-size:14px;}
 .ramp-link i {color: #fff; font-size:25px; margin-left:6px;}
@@ -287,7 +287,6 @@ button[disabled], html input[disabled] {cursor: not-allowed;}
 
 #form_viewport_area, #help_viewport_area {margin:30px 0 0 0;}
 
-#help_viewport {padding:0 0 0 23px; border-left: 1px solid #dadfe1; }
 #flash_message, #form_viewport, .ace-editor-view {padding:0 23px 0 0;}
 
 .instruction {font-size:20px;}
@@ -310,6 +309,62 @@ button[disabled], html input[disabled] {cursor: not-allowed;}
     padding: 0;
 }
 
+#xml_buttons_container {margin: 15px 0;}
+
+
+
+
+
+
+
+
+/* Sidebar Area */
+#help_viewport {padding:0 0 0 23px; border-left: 1px solid #dadfe1; }
+
+.steps {font-style: italic; margin-left:10px; color: #666; font-weight:400; font-size: 16px;}
+
+.help_container ul{list-style-type: square; list-style-position: inside; margin:0 0 20px 0; padding:0 0 15px 0;}
+
+.help_container ul li {font-size:16px; margin: 0 0 10px 0; padding-left: 15px; text-indent: -15px;}
+
+
+
+
+
+
+/* Pop up Windows - Overide jquery dialogs */
+
+.ui-dialog {
+  background: #fff none repeat scroll 0 0 !important;
+  border: 1px solid #ecf0f1 !important;
+  border-radius: 2px !important;
+  color: #666 !important;    
+  padding: 15px !important;
+  font-family: 'Lato', sans-serif !important;
+  box-shadow: 0 0 2px rgba(0, 0, 0, 0.12);
+  font-size:17px !important;
+}
+
+.ui-dialog .ui-dialog-titlebar {
+  padding:0 0 8px 0 !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  border: none !important;
+  border-bottom: 1px solid #ecf0f1 !important;
+  color: #666 !important;
+}
+
+.ui-dialog-titlebar-close {
+  background: #ecf0f1 !important;
+  border: 1px solid #dadfe1 !important;
+}
+
+.ui-dialog .ui-dialog-content {padding: 10px 0 !important; }
+.ui-dialog .ui-dialog-content p {font-size: 16px !important;}
+
+.ui-dialog .ui-dialog-buttonpane {padding: 5px 0 !important; border-width: 0 !important; margin-top: 0 !important;}
+
+.ui-button { color: #1aac9a !important; background:#ecf0f1 !important; border: none !important; border-radius: 0 !important; font-family: 'Lato', sans-serif !important; font-size:16px !important;}
 
 
 
