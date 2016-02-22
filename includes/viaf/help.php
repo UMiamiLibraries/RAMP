@@ -10,7 +10,7 @@
 
 <script type="text/template" class="template" id="viaf_template_help_step_one">
     <div class="help_container viaf-step-one-view">
-        <h4>VIAF <span class="steps">(Step 1 of 4)</span></h4>
+        <h4>VIAF <span class="steps">(Step 1 of 3)</span></h4>
         <ul>
             <li>Click <strong>preview</strong> for help choosing the best match</li>
             <li>Click a radio button to select the entity</li>
@@ -25,7 +25,7 @@
 <script type="text/template" class="template" id="viaf_template_help_step_two">
 
     <div class="help_container viaf-step-two-view">
-        <h4>VIAF <span class="steps">(Step 2 of 4)</span></h4>
+        <h4>VIAF <span class="steps">(Step 2 of 3)</span></h4>
         <ul>
             <li>Click the <strong>+ sign</strong> icon to reveal related content</li>
             <li>Click <strong>preview</strong> for help choosing the best match</li>
@@ -45,7 +45,7 @@
 <script type="text/template" class="template" id="viaf_template_help_step_three">
 
     <div class="help_container viaf-step-three-view">
-        <h4>VIAF <span class="steps">(Step 3 of 4)</span></h4>
+        
     </div>
 
 </script>
@@ -54,7 +54,7 @@
 <script type="text/template" class="template" id="viaf_template_help_step_four">
 
     <div class="help_container viaf-step-four-view">
-        <h4>VIAF <span class="steps">(Step 4 of 4)</span></h4>
+        <h4>VIAF <span class="steps">(Step 3 of 3)</span></h4>
     </div>
 
 </script>
