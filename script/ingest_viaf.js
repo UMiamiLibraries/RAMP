@@ -12,8 +12,6 @@ $(document).ready(function () {
         clearHelpTemplateContainer();
 
         startViaf();
-
-        showLoadingImage();
     });
 
     function startViaf() {
@@ -29,6 +27,8 @@ $(document).ready(function () {
             $('#flash_message').append("<div class=\"error-message\"><p>Must load EAC first!</p></div>");
             return;
         }
+
+        showLoadingImage();
 
         validateXML(function (lboolValid) {
 
