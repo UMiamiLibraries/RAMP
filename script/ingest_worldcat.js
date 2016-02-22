@@ -298,7 +298,10 @@ function display_possible_worldcat_form(lobjPossibleURI, callback) {
 
         $('body').append("<div id=\"dialog\"><p>Process Canceled!</p></div>");
         makeDialog('#dialog', 'Results');
-        // display results
+
+        enableSingleModuleButton('ingest_viaf');
+        enableSingleModuleButton('convert_to_wiki');
+
     });
 }
 
@@ -350,9 +353,6 @@ function display_possible_worldcat_subjects(lobjPossibleSubjects, callback) {
            // display ace editor
             viewSwitch.showAceEditor();
 
-            //display save xml buttons
-            showXmlButtons();
-
             //render help template
             renderHelpTemplate('wc_template_help_step_three');
 
@@ -376,9 +376,6 @@ function display_possible_worldcat_subjects(lobjPossibleSubjects, callback) {
 
         // display ace editor
         viewSwitch.showAceEditor();
-
-        //display save xml buttons
-        showXmlButtons();
 
         //render help template
         renderHelpTemplate('wc_template_help_step_three');

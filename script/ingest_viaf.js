@@ -328,7 +328,7 @@ $(document).ready(function () {
                     //added to show changes immediately
                     editor.getSession().setValue(lobjEac.getXML());
 
-                    showXmlButtons();
+
 
                     return;
                 }
@@ -348,7 +348,7 @@ $(document).ready(function () {
                         //added to show changes immediately
                         editor.getSession().setValue(lobjEac.getXML());
 
-                        showXmlButtons();
+
 
                         return;
                     }
@@ -371,7 +371,7 @@ $(document).ready(function () {
                                     $('.help_container').remove();
                                     viewSwitch.showAceEditor();
 
-                                    showXmlButtons();
+
                                 }
                             }
                             catch (e) //response should be JSON so if not, throw error
@@ -392,7 +392,7 @@ $(document).ready(function () {
                                     //finish process if no results chosen
                                     viewSwitch.showAceEditor();
 
-                                    showXmlButtons();
+
 
                                     return;
                                 } else {
@@ -423,7 +423,7 @@ $(document).ready(function () {
                                     //display the aceEditor and xml action buttons
                                     viewSwitch.showAceEditor();
 
-                                    showXmlButtons();
+
                                 }
                             });
                         });
@@ -511,7 +511,7 @@ $(document).ready(function () {
 
             viewSwitch.showAceEditor();
 
-            showXmlButtons();
+
         });
     }
 

@@ -92,9 +92,14 @@ var viewSwitch = {
     showAceEditor: function () {
         $('#aceEditor').show();
         $('.main_edit').show();
+        $('#xml_buttons_container').show();
+        $('#validation_container').show();
     },
     hideAceEditor: function () {
         $('#aceEditor').hide();
         $('.main_edit').hide();
+        $('#xml_buttons_container').hide();
+        $('#validation_container').hide();
+
     }
 };

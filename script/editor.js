@@ -327,10 +327,6 @@ function disableSingleModuleButton(button_id) {
 }
 
 
-function showXmlButtons() {
-    $('#xml_buttons_container').show();
-    $('#validation_container').show();
-}
 
 function hideXmlButtons() {
     $('#xml_buttons_container').hide();
