@@ -12,6 +12,8 @@ $(document).ready(function () {
         clearHelpTemplateContainer();
 
         startViaf();
+
+        showLoadingImage();
     });
 
     function startViaf() {
