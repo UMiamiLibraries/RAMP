@@ -21,6 +21,8 @@ function startWiki() {
         record.onWiki = true;
     }
 
+    showLoadingImage();
+
     viewSwitch.hideAceEditor()
     eacToMediaWiki();
 
@@ -38,10 +40,11 @@ function hideWikiLoginButton() {
 
 function wikiCheck(eacId) {
 
+
     $.get('ajax/get_record.php', {eac_id: eacId}, function (markup) {
 
-
         $('.main-edit').show();
+
 
 
         if (markup.wiki_text != "") {
@@ -101,6 +104,9 @@ function eacToMediaWiki() {
 
     $.post('ajax/eac_mediawiki.php', {eac_text: edited_xml}, function (data) {
         $('#wiki_load').remove();
+
+        hideLoadingImage();
+
         $('#main_content').append('<div id="wikieditor" class="wiki_edit"><div class="wiki_container"><h1>Local article (transformed from EAC-CPF record)</h1> \
 <textarea id="wikimarkup">' + data + '</textarea></div></div>');
         $('#module_controls').append("<button class=\"save_button pure-button pure-button-primary wiki_edit\"  id=\"wiki_save\">Save Local Article</button>");
