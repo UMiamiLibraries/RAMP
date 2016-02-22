@@ -137,9 +137,9 @@ $(document).ready(function () {
                                 //scroll to top to view form correctly
                                 scrollToFormTop();
 
-                                $('body').append("<div id=\"dialog\"><p>&lt;source&gt; and &lt;nameEntry&gt; elements added!</p></div>");
-                                makeDialog('#dialog', 'Results');
                                 // display results
+                                renderFlashMessage('<p>&lt;source&gt; and &lt;nameEntry&gt; elements added</p>')
+
                                 var d = new Date;
 
                                 var maintEvent = {
@@ -152,7 +152,6 @@ $(document).ready(function () {
                                         "eventDescription": "Ingested VIAF"
                                     }
                                 }
-
 
                                 lobjEac.addMaintenanceEvent(maintEvent);
 
