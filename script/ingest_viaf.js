@@ -464,7 +464,7 @@ $(document).ready(function () {
         $('#ingest_viaf_chosen_names_relations').on('click', function () {
             var lobjChosenNames =[];
 
-            renderFlashMessage('<p>Searching VIAF for matches. Depending on the number of queries, this may take some time.</p>')
+            renderFlashMessage('<div class="processing-message"><p>Searching VIAF for matches. Depending on the number of queries, this may take some time.</p></div>')
 
             showLoadingImage();
 
@@ -477,7 +477,7 @@ $(document).ready(function () {
             // Display/notification logic added by timathom
             if (lobjChosenNames.length == 0) {
                 // display error
-                $('body').append("<div id=\"dialog\"><p>Please choose or click \"Cancel\"!</p></div>");
+                $('body').append("<div id=\"dialog\"><p>Please choose a relation element or click \"Cancel\"!</p></div>");
                 makeDialog('#dialog', 'Error!');
 
             } else {

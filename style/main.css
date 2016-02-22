@@ -416,6 +416,14 @@ button[disabled], html input[disabled] {cursor: not-allowed;}
 }
 .success-message p {color: rgba(26,172,154,0.7); margin:0; font-style: italic;}
 
+.processing-message {
+  margin: 0 0 30px 0;
+  border: 1px solid rgba(248,199,103,0.8);
+  border-radius: 2px;
+  padding: 8px 10px;
+}
+.processing-message p {color: rgba(225,162,39,0.8); margin:0; font-style: italic;}
+
 
 
 

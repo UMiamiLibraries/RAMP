@@ -45,7 +45,7 @@
 <script type="text/template" class="template" id="viaf_template_help_step_three">
 
     <div class="help_container viaf-step-three-view">
-        
+        <h4>VIAF <span class="steps">(Step 2 of 3 Continued)</span></h4>       
     </div>
 
 </script>
@@ -55,6 +55,11 @@
 
     <div class="help_container viaf-step-four-view">
         <h4>VIAF <span class="steps">(Step 3 of 3)</span></h4>
+        <ul>
+            <li>Click <strong>Edit XML</strong> to make direct changes to the file</li>
+            <li>Click <strong>Save XML</strong> to save the work</li>
+            <li>Click <strong>Cancel</strong> to leave this page and go back to the last saved process</li>
+        </ul>
     </div>
 
 </script>
