@@ -317,6 +317,13 @@ button[disabled], html input[disabled] {cursor: not-allowed;}
     font-style: italic;
 }
 
+.input-label {
+  display: inline-flex;
+  margin: 0 0 12px;
+  width: 60%;
+  line-height: 1.35em;
+}
+
 
 
 
