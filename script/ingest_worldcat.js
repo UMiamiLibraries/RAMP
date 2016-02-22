@@ -367,7 +367,24 @@ function display_possible_worldcat_subjects(lobjPossibleSubjects, callback) {
         callback(lobjChosenSubjects);
         viewSwitch.removeWorldCatStepTwo();
 
-
         return;
     });
+
+    //skip worldcat step two - ingest from worldcat identities
+    $('#skip_worldcat_chosen_subjects').on('click', function(){
+
+        viewSwitch.removeWorldCatStepTwo();
+
+        // display ace editor
+        viewSwitch.showAceEditor();
+
+        //display save xml buttons
+        showXmlButtons();
+
+        //render help template
+        renderHelpTemplate('wc_template_help_step_three');
+        
+    });
+
+
 }

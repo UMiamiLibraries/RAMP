@@ -50,6 +50,7 @@
                     </table>
 
                 <button id="ingest_worldcat_chosen_subjects" class="pure-button ramp-button ingest-ok">Next</button>
+                <button id="skip_worldcat_chosen_subjects" class="pure-button ramp-button">Skip</button>
                 <button id="ingest_worldcat_chosen_subjects_cancel" class="pure-button ramp-button ingest-cancel">Cancel</button>
             </div>
 
