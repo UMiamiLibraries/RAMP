@@ -52,9 +52,7 @@ function wikiCheck(eacId) {
 
             $('#wiki_switch_button').css({"background": "gray"});
 
-            viewSwitch.hideAceEditor()
-
-            $('html').css("min-width", "1250px");
+            viewSwitch.hideAceEditor();
 
             //Append some controls for dealing with the wikimarkup
 
