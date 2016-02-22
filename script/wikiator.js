@@ -84,14 +84,14 @@ function setupGetWiki() {
 
         //xml must exist to continue
         if (record.eacXml == '') {
+
+            //alert("Cannot read XML!");
             $('body').append("<div id=\"dialog\"><p>Cannot read XML!</p></div>");
             makeDialog('#dialog', 'Error!');
 
-            //alert("Cannot read XML!");
             $('#get_wiki').show();
 
             $('.wiki_edit').show();
-            $('#entity_name').show();
             return;
         }
 
