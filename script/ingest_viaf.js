@@ -24,9 +24,7 @@ $(document).ready(function () {
         //cannot start ingestion without XML being loaded
         if (record.eacXml == '') {
             //display error
-            $('body').append("<div id=\"dialog\"><p>Must load EAC first!</p></div>");
-            makeDialog('#dialog', 'Error!');
-
+            $('#flash_message').append("<div class=\"error-message\"><p>Must load EAC first!</p></div>");
             return;
         }
 
@@ -138,7 +136,7 @@ $(document).ready(function () {
                                 scrollToFormTop();
 
                                 // display results
-                                renderFlashMessage('<p>&lt;source&gt; and &lt;nameEntry&gt; elements added</p>')
+                                renderFlashMessage('<div class=\"success-message\"><p>Success! XML elements added.</p></div>');
 
                                 var d = new Date;
 
@@ -198,7 +196,7 @@ $(document).ready(function () {
             var lstrChosenViaf = $('input[name="chosen_viaf_id"]:checked').val();
 
             if (typeof lstrChosenViaf == 'undefined') {
-                $('body').append("<div id=\"dialog\"><p>Please choose or click Cancel!</p></div>");
+                $('body').append("<div id=\"dialog\"><p>Please choose a match or click \"Cancel\"!</p></div>");
                 makeDialog('#dialog', 'Error!');
                 // display error
             } else {
@@ -418,7 +416,7 @@ $(document).ready(function () {
 
                                     // Notify that <cpfRelation> elements have been added. --timathom
                                     //callback('&lt;cpfRelation&gt; elements added!');
-                                    renderFlashMessage('<p>&lt;cpfRelation&gt; elements added</p>');
+                                    renderFlashMessage('<div class=\"success-message\"><p>&lt;cpfRelation&gt; elements added</p></div>');
 
                                     //display the aceEditor and xml action buttons
                                     viewSwitch.showAceEditor();
@@ -487,7 +485,7 @@ $(document).ready(function () {
             // Display/notification logic added by timathom
             if (lobjChosenNames.length == 0) {
                 // display error
-                $('body').append("<div id=\"dialog\"><p>Please choose or click Cancel!</p></div>");
+                $('body').append("<div id=\"dialog\"><p>Please choose or click \"Cancel\"!</p></div>");
                 makeDialog('#dialog', 'Error!');
 
             } else {
@@ -585,7 +583,7 @@ $(document).ready(function () {
                 makeDialog('#dialog', 'Error!');
                 // display error
             } else if (lobjChosenResults['names']['entity']['all'].length == 0) {
-                $('body').append("<div id=\"dialog\"><p>Please choose or click Cancel!</p></div>");
+                $('body').append("<div id=\"dialog\"><p>Please choose or click \"Cancel\"!</p></div>");
                 makeDialog('#dialog', 'Error!');
                 // display error
             } else {
