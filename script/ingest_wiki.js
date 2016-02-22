@@ -64,7 +64,7 @@ function wikiCheck(eacId) {
 <textarea id=\"wikimarkup\">" + markup.wiki_text + "</textarea></div>");
             }
 
-            $('#module_controls').append("<button class=\"update_button pure-button pure-button-primary wiki_edit\" id=\"wiki_update\">Save Local Article</button><button id=\"get_wiki\" class=\"pure-button pure-button-primary wiki_edit\">Check Wikipedia for Existing Article</button>");
+            $('#module_controls').append("<button class=\"update_button pure-button ramp-button wiki_edit\" id=\"wiki_update\">Save Local Article</button><button id=\"get_wiki\" class=\"pure-button pure-button-primary wiki_edit\">Check Wikipedia for Existing Article</button>");
 
             setupGetWiki();
 

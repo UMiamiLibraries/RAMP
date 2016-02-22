@@ -288,8 +288,8 @@ function getWiki(lstrTitle, lstrLink) {
         $('#wikieditor').append("<div class=\"wiki_container wikipedia-step-one-view\"><h1 id=\"wiki_article\">Wikipedia article (to be submitted to Wikipedia)</h1><textarea id=\"get_wiki_text\"></textarea></div>");
         $('#get_wiki_text').height($('#wikimarkup').height());
 
-        $('#get_wiki').replaceWith('<button id="post_draft_wiki" class=\"pure-button pure-button-primary wikipedia-step-one-view wiki_edit\">Submit to Wikipedia as Draft</button>');
-        $('#post_draft_wiki').after('<button id="post_wiki" class=\"pure-button pure-button-primary wikipedia-step-one-view wiki_edit\">Submit to Wikipedia</button>');
+        $('#get_wiki').replaceWith('<button id="post_draft_wiki" class=\"pure-button ramp-button wikipedia-step-one-view wiki_edit\">Submit to Wikipedia as Draft</button>');
+        $('#post_draft_wiki').after('<button id="post_wiki" class=\"pure-button ramp-button wikipedia-step-one-view wiki_edit\">Submit to Wikipedia</button>');
 
         setupPostWiki();
     } else {
@@ -310,8 +310,8 @@ function getWiki(lstrTitle, lstrLink) {
             $('#wikieditor').append("<div class=\"wiki_container\"><h1 id=\"wiki_article\">Wikipedia article (to be submitted to Wikipedia)<a style=\"font-size:small; float:right; margin-top:3px;\" target=\"_blank\" href=\"https://en.wikipedia.org/wiki/" + encodeURI(lstrTitle) + "\">View existing Wikipedia page</a></h1><textarea id=\"get_wiki_text\">" + response + "</textarea></div>");
             $('#get_wiki_text').height($('#wikimarkup').height());
 
-            $('#get_wiki').replaceWith('<button id=\"post_draft_wiki\" class=\"pure-button pure-button-primary wiki_edit\">Submit to Wikipedia as Draft</button>');
-            $('#post_draft_wiki').after('<button id=\"post_wiki\" class=\"pure-button pure-button-primary wiki_edit\">Submit to Wikipedia</button>');
+            $('#get_wiki').replaceWith('<button id=\"post_draft_wiki\" class=\"pure-button ramp-button wiki_edit\">Submit to Wikipedia as Draft</button>');
+            $('#post_draft_wiki').after('<button id=\"post_wiki\" class=\"pure-button ramp-button wiki_edit\">Submit to Wikipedia</button>');
             /*
              $('#post_draft_wiki').on('click',function()
              {
