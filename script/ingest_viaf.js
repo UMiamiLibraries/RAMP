@@ -346,8 +346,6 @@ $(document).ready(function () {
                         //added to show changes immediately
                         editor.getSession().setValue(lobjEac.getXML());
 
-
-
                         return;
                     }
 
@@ -368,8 +366,6 @@ $(document).ready(function () {
                                     $('.form_container').remove();
                                     $('.help_container').remove();
                                     viewSwitch.showAceEditor();
-
-
                                 }
                             }
                             catch (e) //response should be JSON so if not, throw error
@@ -389,8 +385,6 @@ $(document).ready(function () {
 
                                     //finish process if no results chosen
                                     viewSwitch.showAceEditor();
-
-
 
                                     return;
                                 } else {
@@ -414,14 +408,10 @@ $(document).ready(function () {
                                     //scroll to top to view form correctly
                                     scrollToFormTop();
 
-                                    // Notify that <cpfRelation> elements have been added. --timathom
-                                    //callback('&lt;cpfRelation&gt; elements added!');
                                     renderFlashMessage('<div class=\"success-message\"><p>&lt;cpfRelation&gt; elements added</p></div>');
 
                                     //display the aceEditor and xml action buttons
                                     viewSwitch.showAceEditor();
-
-
                                 }
                             });
                         });
@@ -493,8 +483,7 @@ $(document).ready(function () {
                 $('.form_container').remove();
                 $('.help_container').remove();
 
-                hideLoadingImage();
-                clearFlashMessage();
+
                 viewSwitch.hideAceEditor();
             }
         });
@@ -518,6 +507,10 @@ $(document).ready(function () {
      * @method display_viaf_results_form
      */
     function display_viaf_results_form(lobjViafResults, callback) {
+
+        clearFlashMessage();
+
+        hideLoadingImage();
 
         // Render the first template
         _.templateSettings.variable = "lobjViafResults";
