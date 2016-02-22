@@ -350,7 +350,7 @@ function display_possible_worldcat_subjects(lobjPossibleSubjects, callback) {
 
         // Display/notification logic added by timathom
         if (lobjChosenSubjects.length == 0) {
-            $('body').append("<div id=\"dialog\"><p>Please choose a subject or click \"Cancel\"!</p></div>");
+            $('body').append("<div id=\"dialog\"><p>Please choose a subject, skip this step or click \"Cancel\"!</p></div>");
             makeDialog('#dialog', 'Error!');
 
         } else {
