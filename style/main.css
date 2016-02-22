@@ -324,6 +324,36 @@ button[disabled], html input[disabled] {cursor: not-allowed;}
   line-height: 1.35em;
 }
 
+.user_help_form_table tr#user_rel td {padding:20px 0;}
+
+#user_rel .message {font-style: italic; font-weight:700; font-size:17px;}
+
+.inline-select {border-radius:2px; border:1px solid #dadfe1; background-color: #FFF; margin: 0 0 0 10px;}
+
+.inline-select option:hover, 
+.inline-select option:focus,
+.inline-select option:active,
+.inline-select option:checked {background-color: #ecf0f1; color: #666;}
+
+
+.ner_text {
+    border: 1px solid #dadfe1;
+    padding: 5px 0;
+}
+
+.cpf-entry {padding:0 0 10px 5px;}
+
+.viaf-select-all {margin-left:5px;}
+
+.ner_empty_add {background-color: transparent; color: #1aac9a; padding:10px 0;}
+
+.add-row-plus {font-size: 20px; padding: 0 6px 0 0; color: #1aac9a;}
+
+.ner_empty_rm.ramp-button { background-color: transparent;  border: none; }
+
+#plainText > span {
+    vertical-align: top;
+}
 
 
 

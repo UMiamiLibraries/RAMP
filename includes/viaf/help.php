@@ -30,7 +30,7 @@
             <li>Click the <strong>+ sign</strong> icon to reveal related content</li>
             <li>Click <strong>preview</strong> for help choosing the best match</li>
             <li>Use the checkboxes to select appropriate matches</li>
-            <li>Use <strong>Add New CPF Relation</strong> to add additional elements and click Add New after entering the data</li>
+            <li>Use <strong>Add New CPF Relation</strong> to add additional elements</li>
             <li>Click <strong>Next</strong> to continue </li>
             <li>Click <strong>Skip</strong> if including CPF relations is not desirable</li>
             <li>Click <strong>Cancel</strong> to leave this page and go back to the last saved process</li>

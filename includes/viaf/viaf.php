@@ -36,18 +36,19 @@
             <div class="user_help_form">
                <p class="user_help_text">Create CPF relation elements <a href="#" title="What is this?"><i class="fa fa-question-circle"></i></a></p>
 
-                <input type="checkbox" id="select_all" value=""><span>Select all</span><br />
+                <input type="checkbox" id="select_all" value=""><span class="viaf-select-all">Select all</span><br />
 
                 <table class="user_help_form_table">
 
                     <% _.each(lobjPossibleNames, function(possibleName) { %>
 
                     <tr><td><input type="checkbox" class="ner_check" name="chosen_names" value=""/></td>
-                        <td><input type="text" class="ner_text" name="modified_names" size="60" value=" <%= possibleName %> "/></td>
-                       <td><input type="button" name="add" value="Add New Row" class="ner_empty_add pure-button"/></td></tr>
+                        <td class="cpf-entry"><input type="text" class="ner_text" name="modified_names" size="60" value=" <%= possibleName %> "/></td></tr>
                     <% }); %>
 
-                    </table>             
+                    <tr><td colspan="3"><i class="fa fa-plus-square add-row-plus"></i> <input type="button" name="add" value="Add New CPF Relation..." class="pure-button ner_empty_add" /></td></tr>
+
+                </table>             
 
                 <button id="ingest_viaf_chosen_names_relations" class="pure-button ramp-button ingest-ok">Next</button>
                 <button id="ingest_viaf_chosen_names_relations_cancel" class="pure-button ramp-button ingest-cancel">Cancel</button>
@@ -75,7 +76,6 @@
                     var lstrNamePlain = lstrName.match(/[^(viaf)]/gi);
 
                 if (lstrNameViaf != null) {
-
                 %>
                 <tr>
                     <td>
@@ -90,9 +90,8 @@
                 %>        
 
                 <tr id="user_rel">
-                    <td></td>
-                    <td class="message">No appropriate matches from VIAF? Add &lt;cpfRelation&gt; using the original search
-                        string:
+                    <td>&nbsp;</td>
+                    <td class="message">No appropriate matches from VIAF? Add a CPF Relation using the original search string:
                     </td>
                 </tr>
         
@@ -100,7 +99,7 @@
                     <td><input type="checkbox" class="viaf_check" name="chosen_results" value=""/></td>
                     <td id="plainText"><span id="textSpan">  <%= lstrName %> </span>
                         <span id="select_wrap">
-                            <select id="ents" name="entities"
+                            <select class="inline-select" id="ents" name="entities"
                                     title="For non-VIAF entries, you must choose an entity type. For VIAF entries (the ones with links), the entity type has been predefined.">
                                 <option value="">Entity Type</option>
                                 <option value=""></option>
@@ -108,7 +107,7 @@
                                 <option value="corp">CorporateBody</option>
                                 <option value="fam">Family</option>
                             </select>
-                             <select id="rels" name="relType"
+                             <select class="inline-select" id="rels" name="relType"
                                      title="For non-VIAF entries, you may choose among different relation types. If you do not choose a relation type, the default value is 'associative.'">
                                  <option value="">Relation Type</option>
                                  <option value=""></option>
@@ -133,8 +132,8 @@
 
             </table>
 
-            <button id="ingest_viaf_add_relations" class="pure-button ingest-ok pure-button-secondary" >Use Selected Results</button>
-            <button id="ingest_viaf_add_relations_cancel" class="pure-button ingest-cancel pure-button-secondary" >Cancel</button>
+            <button id="ingest_viaf_add_relations" class="pure-button ramp-button ingest-ok">Next</button>
+            <button id="ingest_viaf_add_relations_cancel" class="pure-button ramp-button ingest-cancel">Cancel</button>
 
         </div>
     </div>
