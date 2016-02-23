@@ -43,13 +43,9 @@ function wikiCheck(eacId) {
 
     $.get('ajax/get_record.php', {eac_id: eacId}, function (markup) {
 
-        $('.main-edit').show();
-
-
 
         if (markup.wiki_text != "") {
             // Hide this stuff if there is wiki markup
-
             $('#wiki_switch_button').css({"background": "gray"});
 
             viewSwitch.hideAceEditor();
