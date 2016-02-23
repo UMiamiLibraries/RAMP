@@ -464,8 +464,6 @@ $(document).ready(function () {
         $('#ingest_viaf_chosen_names_relations').on('click', function () {
             var lobjChosenNames =[];
 
-            renderFlashMessage('<p>Searching VIAF for matches. Depending on the number of queries, this may take some time.</p>')
-
             $('input.ner_check').each(function () {
                 if (this.checked) {
                     lobjChosenNames.push(encode_utf8($(this).closest('td').next('td').children('input').val()));
@@ -484,6 +482,8 @@ $(document).ready(function () {
                 $('.help_container').remove();
 
                 viewSwitch.hideAceEditor();
+
+                renderFlashMessage('<p>Searching VIAF for matches. Depending on the number of queries, this may take some time.</p>');
 
                 showLoadingImage();
             }
