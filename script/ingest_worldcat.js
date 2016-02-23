@@ -31,7 +31,7 @@ function startWorldCat() {
 
     //cannot start ingestion without XML being loaded
     if (record.eacXml == '') {
-        $('#flash_message').append("<div class=\"error-message\"><p>Must load EAC first!</p></div>");
+        renderFlashMessage('<p>Must load EAC first!</p>');
         return;
     }
 
@@ -232,7 +232,7 @@ function ingest_worldcat_elements(lobjEac, lstrName, callback) {
                                             "agent": "ramp/worldcat",
                                             "eventDescription": "Ingested WorldCat"
                                         }
-                                    }
+                                    };
 
                                     lobjEac.addMaintenanceEvent(maintEvent);
                                     editor.getSession().setValue(lobjEac.getXML());
