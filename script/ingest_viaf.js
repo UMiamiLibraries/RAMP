@@ -410,7 +410,7 @@ $(document).ready(function () {
                                     //scroll to top to view form correctly
                                     scrollToFormTop();
 
-                                    renderFlashMessage('<div class=\"success-message\"><p>&lt;cpfRelation&gt; elements added</p></div>');
+                                    renderFlashMessage('<div class=\"success-message\"><p>Success! XML updated with new CPF Relation element(s).</p></div>');
 
                                     //display the aceEditor and xml action buttons
                                     viewSwitch.showAceEditor();
@@ -446,7 +446,7 @@ $(document).ready(function () {
 
         // jQuery added by timathom to include "Add New Row" and "Delete Row" buttons and functionality.
         $("input.ner_empty_add").on('click', function () {
-            var tr = "<tr><td><input type=\"checkbox\" class=\"ner_check\" name=\"chosen_names\" value=\"\" checked/></td><td><input type=\"text\" class=\"ner_text\" name=\"modified_names\" size=\"60\" value=\"\" /></td><td><input type=\"button\" name=\"rm\" value=\"Delete Row\" class=\"ner_empty_rm pure-button pure-button-secondary\"/></td></tr>";
+            var tr = "<tr><td><input type=\"checkbox\" class=\"ner_check\" name=\"chosen_names\" value=\"\" checked/></td><td><input type=\"text\" class=\"ner_text\" name=\"modified_names\" size=\"60\" value=\"\" /></td><td><input type=\"button\" name=\"rm\" value=\"Delete Row\" class=\"ner_empty_rm ramp-button\"/></td></tr>";
             $(this).closest("tr").after(tr);
 
             $("input.ner_empty_rm").on('click', function () {
@@ -464,6 +464,8 @@ $(document).ready(function () {
         $('#ingest_viaf_chosen_names_relations').on('click', function () {
             var lobjChosenNames =[];
 
+            renderFlashMessage('<div class="processing-message"><p>Searching VIAF for matches. Depending on the number of queries, this may take some time.</p></div>');
+
             $('input.ner_check').each(function () {
                 if (this.checked) {
                     lobjChosenNames.push(encode_utf8($(this).closest('td').next('td').children('input').val()));
@@ -473,7 +475,7 @@ $(document).ready(function () {
             // Display/notification logic added by timathom
             if (lobjChosenNames.length == 0) {
                 // display error
-                $('body').append("<div id=\"dialog\"><p>Please choose or click \"Cancel\"!</p></div>");
+                $('body').append("<div id=\"dialog\"><p>Please choose a relation element or click \"Cancel\"!</p></div>");
                 makeDialog('#dialog', 'Error!');
 
             } else {
