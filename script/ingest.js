@@ -26,7 +26,6 @@ $(document).ready(function () {
             build_editor(record.eacId);
 
         });
-
     }
 
     function clearInitialIngestInstructions() {
@@ -43,22 +42,4 @@ $(document).ready(function () {
     }
 
 
-
-    function getIngestStatus(record_id) {
-
-        var eac_id = record_id;
-        var url = 'ajax/get_ingest_status.php';
-
-        $.ajax({
-            url: url,
-            data: {eac_id : eac_id},
-            success: function(response){
-                console.log(response);
-                return response;
-            },
-            dataType: "json"
-        });
-    }
 });
-
-
