@@ -313,6 +313,10 @@ function getWiki(lstrTitle, lstrLink) {
         form_template()
     );
 
+    clearHelpTemplateContainer();
+
+    renderHelpTemplate('wiki_template_help_step_two');
+
     //local wiki markup
     var localWikiMarkup = getLocalWikiMarkup(record.eacId);
 
