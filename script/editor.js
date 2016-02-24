@@ -64,11 +64,30 @@ $('#save_eac').click(function (data) {
     }
     record.eacXml = editor.getSession().getValue();
 
+
+    //hide aceEditor
+    viewSwitch.hideAceEditor();
+
+    renderFlashMessage('<p>Converting XML to Wiki Markup...please be patient</p>');
+    showLoadingImage();
+
     // POST XML to update_eac_xml
     $.post('ajax/update_eac_xml.php', {xml: record.eacXml, ead_file: record.eadFile}, function (data) {
 
 
     }).done(function () {
+
+
+    });
+
+    // POST XML to update_eac_xml
+    $.post('ajax/save_xml_as_wikimarkup.php', {editor_xml: record.eacXml, ead_path: record.eadFile}, function (data) {
+
+        console.log(data);
+
+    }).done(function () {
+
+        hideLoadingImage();
 
         //clear flash message
         clearFlashMessage();
@@ -76,13 +95,20 @@ $('#save_eac').click(function (data) {
         //display success message
         renderFlashMessage('<div class=\"success-message\"><p>XML Successfully Saved.</p></div>');
 
-        //hide aceEditor
-        viewSwitch.hideAceEditor();
 
         enableAllModuleButtons();
+
     });
 
 });
+
+
+function convertXmlToWikiMarkup() {
+
+
+
+}
+
 
 $('#download_submit').click(function () {
     var fetch_xml = editor.getValue();
