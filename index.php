@@ -64,7 +64,7 @@ include('header.php');
                     </div>
                     <div class="pure-u-1-3">
                         <div class="all_items-btn-container home-view">
-                            <button id="view_all_items" class="viewall_button pure-button"><i class="fa fa-list-ul"></i> View All</button>
+                            <button id="view_all_items" class="viewall_button pure-button"><i class="fa fa-list-ul"></i> <a href="all-items.php">All Items</a></button>
                         </div>                            
                     </div>
                 </div>
