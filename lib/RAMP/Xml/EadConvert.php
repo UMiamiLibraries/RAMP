@@ -250,7 +250,12 @@ class EadConvert {
 
             // Insert the EAC into the database
 
+
+            $this->last_id = $mysqli->insert_id;
+
             return "Upload Successful";
+
+
         } else {
             // If you couldn't insert the EAD into the database
 
