@@ -36,6 +36,32 @@
 </script>
 
 
+
+<script type="text/template" id="wikipedia-template-step-two">
+
+    <div class="pure-g">
+        <div class="pure-u-1-2">
+            <p>Local Article</p>
+            <textarea id="localMarkupEditor" rows="10" cols="30"></textarea>
+        </div>
+
+
+        <div class="pure-u-1-2">
+            <p>Wikipedia Article</p>
+            <textarea id="remoteMarkupEditor" rows="10" cols="30"></textarea>
+        </div>
+
+    </div>
+
+    <button id="post_draft_wiki" class="pure-button ramp-button wiki_edit">Submit to Wikipedia as Draft</button>
+    <button id="post_wiki" class="pure-button ramp-button wiki_edit">Submit to Wikipedia</button>
+
+</script>
+
+
+
+
+
 <script type="text/template" id="wikipedia-template-captcha">
     <div class="form_container_captcha">
         <div class="user_help_form">
