@@ -28,9 +28,7 @@ function startWiki() {
     eacToMediaWiki();
 */
 
-    searchWikipedia(record.entityName);
-
-
+    autoSearchWikipedia(record.entityName);
 
 
 }
@@ -274,9 +272,6 @@ function getJSON(url) {
 
 
 
-
-
-
 function getLocalWikiMarkup(eacId) {
 
     showLoadingImage();
@@ -298,11 +293,8 @@ function getLocalWikiMarkup(eacId) {
 }
 
 
-function saveLocalArticle() {}
 
-function wikipediaLogin() {}
-
-function searchWikipedia(entityName) {
+function autoSearchWikipedia(entityName) {
 
     lstrUserSearch = encode_utf8(entityName);
 
@@ -326,8 +318,4 @@ function searchWikipedia(entityName) {
         });
     });
 
-
 }
-
-
-
