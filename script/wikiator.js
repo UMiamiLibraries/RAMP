@@ -241,9 +241,39 @@ function displayWikiSearch(lobjTitles, callback) {
         $('.form_container').remove();
         viewSwitch.hideAceEditor();
 
+    });
 
+
+    $('#searchwikipediabutton').on('click', function() {
+
+
+        lstrUserSearch = encode_utf8($('#manual_search_wikipedia').val());
+
+        showLoadingImage();
+
+        //post to ajax wiki controller to search wiki and get results
+        $.post('ajax/wiki_api.php', {'action': 'search', 'title': lstrUserSearch}, function (response) {
+            try {
+                lobjData = JSON.parse(response);
+            }
+            catch (e) {
+                renderFlashMessage('<p>' + e.message + '</p>');
+                return;
+            }
+
+            hideLoadingImage();
+
+            $('.form_container').remove();
+
+            //display wiki results in form for editor to chose
+            displayWikiSearch(lobjData, function (lstrChosenTitle, lstrOrigWiki) {
+                //get wiki markup of chosen result
+                getWiki(lstrChosenTitle, lstrOrigWiki);
+            });
+        });
 
     });
+
 
     //register click event to cancel process
     $('#get_chosen_wiki_no_match').on('click', function () {

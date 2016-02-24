@@ -5,6 +5,10 @@
             <h3 class="instruction">Search Wikipedia</h3>
 
             <div class="user_help_form">
+                <label for="searchwikipedia">Search</label>
+                <input type="text" size="35" name="searchwikipedia" id="manual_search_wikipedia" class="text ui-widget-content ui-corner-all" />
+                <button id="searchwikipediabutton" class="pure-button ramp-button">Search</button>
+
                 <p class="user_help_text">Choose the best match <a href="#" title="What is this?"><i class="fa fa-question-circle"></i></a></p>
                 <p class="form_note">Wikipedia&#39;s search index is updated every morning. New pages will take a day to show up in the index.</p>
                     <table class="user_help_form_table">
