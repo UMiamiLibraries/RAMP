@@ -240,11 +240,8 @@ function displayWikiSearch(lobjTitles, callback) {
         // Hide. --timathom
         $('.form_container').remove();
         viewSwitch.hideAceEditor();
-        //$('#entity_name').hide();
-        $('.wiki_edit').hide();
-        
-        $('#get_wiki').hide();
-        $('#post_wiki').hide();
+
+
 
     });
 
@@ -277,6 +274,18 @@ function displayWikiSearch(lobjTitles, callback) {
  */
 function getWiki(lstrTitle, lstrLink) {
 
+
+    var form_template = _.template(
+        $("#wikipedia-template-step-two").html()
+    );
+
+    $("#form_viewport").append(
+        form_template()
+    );
+
+    //local wiki markup
+    var localWikiMarkup = getLocalWikiMarkup(record.eacId);
+
     //initialize title so every time new user gets wiki page, new title is saved
     mstrTitle = '';
 
@@ -285,48 +294,31 @@ function getWiki(lstrTitle, lstrLink) {
 
         mboolIsNew = true;
 
-        $('#wikieditor').append("<div class=\"wiki_container wikipedia-step-one-view\"><h1 id=\"wiki_article\">Wikipedia article (to be submitted to Wikipedia)</h1><textarea id=\"get_wiki_text\"></textarea></div>");
-        $('#get_wiki_text').height($('#wikimarkup').height());
-
-        $('#get_wiki').replaceWith('<button id="post_draft_wiki" class=\"pure-button ramp-button wikipedia-step-one-view wiki_edit\">Submit to Wikipedia as Draft</button>');
-        $('#post_draft_wiki').after('<button id="post_wiki" class=\"pure-button ramp-button wikipedia-step-one-view wiki_edit\">Submit to Wikipedia</button>');
+        localWikiMarkup;
 
         setupPostWiki();
     } else {
 
         mstrTitle = lstrTitle;
 
+        localWikiMarkup;
+
         //post to ajax wiki controller to get wiki markup with posted title
         $.post('ajax/wiki_api.php', {'action': 'get', 'title': lstrTitle}, function (response) {
 
-            // Show. --timathom
-            $('#entity_name').show();
-            $('.wiki_edit').show();
-            $('#get_wiki').show();
-
-            $('#post_wiki').show();
-
-            $('#wikieditor').prepend("<br/><h1>Copy and paste text from the Local article to the Wikipedia article before saving and submitting to Wikipedia.</h1><br/>");
-            $('#wikieditor').append("<div class=\"wiki_container\"><h1 id=\"wiki_article\">Wikipedia article (to be submitted to Wikipedia)<a style=\"font-size:small; float:right; margin-top:3px;\" target=\"_blank\" href=\"https://en.wikipedia.org/wiki/" + encodeURI(lstrTitle) + "\">View existing Wikipedia page</a></h1><textarea id=\"get_wiki_text\">" + response + "</textarea></div>");
-            $('#get_wiki_text').height($('#wikimarkup').height());
-
-            $('#get_wiki').replaceWith('<button id=\"post_draft_wiki\" class=\"pure-button ramp-button wiki_edit\">Submit to Wikipedia as Draft</button>');
-            $('#post_draft_wiki').after('<button id=\"post_wiki\" class=\"pure-button ramp-button wiki_edit\">Submit to Wikipedia</button>');
-            /*
-             $('#post_draft_wiki').on('click',function()
-             {
-
-             $postdialog.dialog('open');
-             $(this).unbind();
-
-
-             });
-             */
+            addMarkupToRemoteEditor(response);
 
             setupPostWiki();
-
         });
     }
+}
+
+function addMarkupToLocalEditor(markup) {
+    $('#localMarkupEditor').append( markup );
+}
+
+function addMarkupToRemoteEditor(markup) {
+    $('#remoteMarkupEditor').append(markup);
 }
 
 /*

@@ -7,6 +7,7 @@ $('#convert_to_wiki').click(function () {
     clearFlashMessage();
 
     startWiki();
+
 });
 
 
@@ -20,11 +21,17 @@ function startWiki() {
     if (record.onWiki !== true) {
         record.onWiki = true;
     }
-
+/*
     showLoadingImage();
 
-    viewSwitch.hideAceEditor()
+    viewSwitch.hideAceEditor();
     eacToMediaWiki();
+*/
+
+    searchWikipedia(record.entityName);
+
+
+
 
 }
 
@@ -153,8 +160,9 @@ function eacToMediaWiki() {
                 });
 
                 $('#wiki_update').on('click', function () {
-                    $('#dialog_box').html("<p>Local article saved</p>");
-                    makeDialog('#dialog_box', ' ');
+
+                    renderFlashMessage('<p>Local article saved</p>');
+
                     var updated_markup = $('#wikimarkup').val();
 
                     $.post('update_wiki.php', {media_wiki: updated_markup, ead_path: eadFile}, function (data) {
@@ -226,4 +234,100 @@ function remove_wiki() {
     $('#wikieditor').remove();
     $('.wiki_edit').remove();
 }
+
+function get(url) {
+    // Return a new promise.
+    return new Promise(function(resolve, reject) {
+        // Do the usual XHR stuff
+        var req = new XMLHttpRequest();
+        req.open('GET', url);
+
+        req.onload = function() {
+            // This is called even on 404 etc
+            // so check the status
+            if (req.status == 200) {
+                // Resolve the promise with the response text
+                resolve(req.response);
+            }
+            else {
+                // Otherwise reject with the status text
+                // which will hopefully be a meaningful error
+                reject(Error(req.statusText));
+            }
+        };
+
+        // Handle network errors
+        req.onerror = function() {
+            reject(Error("Network Error"));
+        };
+
+        // Make the request
+        req.send();
+    });
+}
+
+
+function getJSON(url) {
+    return get(url).then(JSON.parse);
+}
+
+
+
+
+
+
+
+function getLocalWikiMarkup(eacId) {
+
+    showLoadingImage();
+
+    getJSON('ajax/get_record.php?eac_id=' + eacId).then(function(response) {
+        //console.log("Success!", response);
+
+        addMarkupToLocalEditor(response.wiki_text);
+
+    }).catch(function(err) {
+        // Catch any error that happened along the way
+        renderFlashMessage('<p>Local wiki markup does not exist.</p>');
+
+    }).then(function() {
+        // hide the spinner
+        hideLoadingImage();
+    });
+
+}
+
+
+function saveLocalArticle() {}
+
+function wikipediaLogin() {}
+
+function searchWikipedia(entityName) {
+
+    lstrUserSearch = encode_utf8(entityName);
+
+    showLoadingImage();
+
+    //post to ajax wiki controller to search wiki and get results
+    $.post('ajax/wiki_api.php', {'action': 'search', 'title': lstrUserSearch}, function (response) {
+        try {
+            lobjData = JSON.parse(response);
+        }
+        catch (e) {
+            renderFlashMessage('<p>' + e.message + '</p>');
+            return;
+        }
+
+        hideLoadingImage();
+        //display wiki results in form for editor to chose
+        displayWikiSearch(lobjData, function (lstrChosenTitle, lstrOrigWiki) {
+            //get wiki markup of chosen result
+            getWiki(lstrChosenTitle, lstrOrigWiki);
+        });
+    });
+
+
+}
+
+
 
