@@ -65,7 +65,6 @@ $xslt_result = str_replace("        ", "", $xslt_result);
 
 $media_wiki = mysqli_real_escape_string($mysqli,$xslt_result);
 
-var_dump($media_wiki);
 
 $sql = "INSERT INTO mediawiki (wiki_text, eac_id) VALUES ('$media_wiki', '$last_id') ON DUPLICATE KEY UPDATE wiki_text = '$media_wiki'";
 
@@ -76,7 +75,7 @@ if (!$result) {
 
 } else {
 
-    echo $u->getResponse();
+    header('Location: /index.php');
 }
 
 
