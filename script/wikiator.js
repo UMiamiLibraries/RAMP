@@ -288,13 +288,14 @@ function displayWikiSearch(lobjTitles, callback) {
     //register click event to cancel process
     $('#get_chosen_wiki_cancel').on('click', function () {
 
-        //callback('');
 
         $('.form_container').remove();
-        $('#entity_name').show();
-        $('.wiki_edit').show();
 
+        viewSwitch.removeWikiStepOne();
 
+        renderFlashMessage('<p>Wikipedia Ingest Process Canceled</p>');
+
+        enableAllModuleButtons();
     });
 }
 
@@ -345,6 +346,16 @@ function getWiki(lstrTitle, lstrLink) {
             setupPostWiki();
         });
     }
+
+    $('#cancel_wiki_ingest').on('click', function() {
+
+        $('#form_viewport').remove();
+
+        renderFlashMessage('<p>Wikipedia Ingest Process Canceled</p>');
+
+        enableAllModuleButtons();
+
+    });
 }
 
 function addMarkupToLocalEditor(markup) {
@@ -354,6 +365,8 @@ function addMarkupToLocalEditor(markup) {
 function addMarkupToRemoteEditor(markup) {
     $('#remoteMarkupEditor').append(markup);
 }
+
+
 
 /*
  * setupPostWiki register click event to post edit to wiki

@@ -59,6 +59,7 @@
 
     <button id="post_draft_wiki" class="pure-button ramp-button wiki_edit">Submit to Wikipedia as Draft</button>
     <button id="post_wiki" class="pure-button ramp-button wiki_edit">Submit to Wikipedia</button>
+    <button id="cancel_wiki_ingest" class="pure-button ramp-button wiki_edit">Cancel</button>
 
 </script>
 

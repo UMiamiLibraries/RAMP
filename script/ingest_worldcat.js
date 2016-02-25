@@ -303,8 +303,7 @@ function display_possible_worldcat_form(lobjPossibleURI, callback) {
         //scroll to top to view form correctly
         scrollToFormTop();
 
-        $('body').append("<div id=\"dialog\"><p>Process Canceled!</p></div>");
-        makeDialog('#dialog', 'Results');
+       renderFlashMessage('<p>WorldCat Ingest Process Canceled</p>');
 
         enableSingleModuleButton('ingest_viaf');
         enableSingleModuleButton('convert_to_wiki');

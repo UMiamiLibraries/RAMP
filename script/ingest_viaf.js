@@ -3,6 +3,8 @@ $(document).ready(function () {
     //register click event that will start viaf ingest
     $('#ingest_viaf').on('click', function () {
 
+
+
         //diable module buttons
         disableAllModuleButtons();
 
@@ -15,6 +17,8 @@ $(document).ready(function () {
     });
 
     function startViaf() {
+
+        viewSwitch.reset();
 
         viewSwitch.showViafStepOne();
 
@@ -212,12 +216,24 @@ $(document).ready(function () {
         //register click event to cancel process
         $('#ingest_viaf_chosen_viaf_cancel').on('click', function () {
 
-            $('body').append("<div id=\"dialog\"><p>Skipped VIAF ingest.</p></div>");
-            makeDialog('#dialog', 'Results');
             // display results
             $('.form_container').remove();
             $('.help_container').remove();
-            callback();
+            //callback();
+
+            renderFlashMessage('<p>VIAF Ingest Canceled</p>');
+
+            clearHelpTemplateContainer();
+
+            viewSwitch.showAceEditor();
+
+            //render contextual help template
+            renderHelpTemplate('viaf_template_help_step_three');
+
+            enableAllModuleButtons();
+
+
+
 
         });
 

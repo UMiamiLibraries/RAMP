@@ -30,7 +30,6 @@ function startWiki() {
 
     autoSearchWikipedia(record.entityName);
 
-
 }
 
 function showWikiLoginButton() {
@@ -319,3 +318,4 @@ function autoSearchWikipedia(entityName) {
     });
 
 }
+
