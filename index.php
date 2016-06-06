@@ -2,6 +2,8 @@
 include('header.php');
 ?>
 
+
+
     <!--HOMEPAGE content (top)-->
     <div id="feature-heading" class="feature-heading home-view">
         
@@ -176,6 +178,11 @@ include('header.php');
     <!-- End Select 2 -->
 
 
+
+
 <?php
 include('footer.php');
 ?>
+
+
+
