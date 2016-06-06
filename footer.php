@@ -14,14 +14,6 @@
 		</div>
 	</div>
 </footer>
-<script>
-	var eacId = <?php if (isset($_GET['eac_id'])) {
-		echo (int) $_GET['eac_id'];
-	} ?>;
 
-	$(document).ready(function() {
-		build_editor(eacId);
-	});
-</script>
 </body>
 </html>

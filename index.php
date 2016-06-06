@@ -183,6 +183,18 @@ include('header.php');
 <?php
 include('footer.php');
 ?>
+<script>
+    <?php if (isset($_GET['eac_id'])) {
+        echo "var eacId = ";
+        echo (int) $_GET['eac_id'];
+        echo ";";
+        echo " $(document).ready(function() {
+        build_editor(eacId);
+    });";
 
+    } ?>
+
+
+</script>
 
 
