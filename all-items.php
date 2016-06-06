@@ -19,16 +19,15 @@ include('header.php');
           echo "<table class='pure-table'>";
           echo "<tr>";
           echo "<td>Name</td>";
-          echo "<td>EAD File</td>";
           echo "<td>EAC ID</td>";
           echo "<td>VIAF Ingest Status</td>";
           echo "<td>WorldCat Ingest Status</td>";
           echo "<td>Wiki Ingest Status</td>";
           echo "</tr>";
           foreach($allItems as $item):
+
             echo "<tr>";
             echo "<td>".$item['Name']."</td>";
-            echo "<td>".$item['ead_file']."</td>";
             echo "<td>".$item['eac_id']."</td>";
             echo "<td>".$item['ingest_status']['statuses'][0]['status']."</td>";
             echo "<td>".$item['ingest_status']['statuses'][1]['status']."</td>";
