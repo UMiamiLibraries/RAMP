@@ -1,6 +1,19 @@
 <?php 
 include('header.php');
 ?>
+
+<?php
+function statusIcon($status) {
+  if ($status == "true") {
+    return "<i class=\"fa fa-check\" aria-hidden=\"true\"></i>";
+
+  }
+  if ($status == "false") {
+    return "<i class=\"fa fa-times\" aria-hidden=\"true\"></i>";
+  }
+}
+?>
+
 <script src="script/deleteRecord.js"></script>
 <div class="inner-area">
 
@@ -33,9 +46,9 @@ include('header.php');
             echo "<tr id='{$item['eac_id']}'>";
             echo "<td><a href='index.php?eac_id={$item['eac_id']}'>".$item['Name']."</a></td>";
             echo "<td>".$item['eac_id']."</td>";
-            echo "<td>".$item['ingest_status']['statuses'][0]['status']."</td>";
-            echo "<td>".$item['ingest_status']['statuses'][1]['status']."</td>";
-            echo "<td>".$item['ingest_status']['statuses'][2]['status']."</td>";
+            echo "<td>".statusIcon($item['ingest_status']['statuses'][0]['status'])."</td>";
+            echo "<td>".statusIcon($item['ingest_status']['statuses'][1]['status'])."</td>";
+            echo "<td>".statusIcon($item['ingest_status']['statuses'][2]['status'])."</td>";
             echo "<td><a href='#' onclick='deleteRecord({$item['eac_id']})'><i class=\"fa fa-trash\" aria-hidden=\"true\"></i></a></td>";
             echo "<td><a href='ajax/download_eac.php?eac_id={$item['eac_id']}'><i class=\"fa fa-download\" aria-hidden=\"true\"></i></a></td>";
 
