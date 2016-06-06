@@ -31,7 +31,7 @@ include('header.php');
           foreach($allItems as $item):
 
             echo "<tr id='{$item['eac_id']}'>";
-            echo "<td>".$item['Name']."</td>";
+            echo "<td><a href='index.php?eac_id={$item['eac_id']}'>".$item['Name']."</a></td>";
             echo "<td>".$item['eac_id']."</td>";
             echo "<td>".$item['ingest_status']['statuses'][0]['status']."</td>";
             echo "<td>".$item['ingest_status']['statuses'][1]['status']."</td>";
