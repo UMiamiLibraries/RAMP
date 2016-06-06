@@ -144,20 +144,6 @@ $(document).ready(function () {
                                 // display results
                                 renderFlashMessage('<div class=\"success-message\"><p>Success! XML elements added.</p></div>');
 
-                                var d = new Date;
-
-                                var maintEvent = {
-
-                                    "elements": {
-                                        "eventType": "updated",
-                                        "eventDateTime": d.getMonth() + "-" + d.getDate() + "-" + d.getFullYear(),
-                                        "agentType": "machine",
-                                        "agent": "ramp/viaf",
-                                        "eventDescription": "Ingested VIAF"
-                                    }
-                                }
-
-                                lobjEac.addMaintenanceEvent(maintEvent);
 
                                 //set ace editor value to new xml from EAC Dom Document with ingested source and name entries
                                 editor.getSession().setValue(lobjEac.getXML());
@@ -421,6 +407,22 @@ $(document).ready(function () {
                                         lobjEac.addCPFRelationCustom(lobjData[chosen_result_custom], chosen_roles, chosen_rels);
                                     }
 
+
+                                    var d = new Date;
+
+                                    var maintEvent = {
+
+                                        "elements": {
+                                            "eventType": "updated",
+                                            "eventDateTime": d.getMonth() + "-" + d.getDate() + "-" + d.getFullYear(),
+                                            "agentType": "machine",
+                                            "agent": "ramp/viaf",
+                                            "eventDescription": "Ingested VIAF"
+                                        }
+                                    }
+
+                                    lobjEac.addMaintenanceEvent(maintEvent);
+                                    
                                     editor.getSession().setValue(lobjEac.getXML());
 
                                     //scroll to top to view form correctly
