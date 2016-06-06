@@ -1,608 +1,232 @@
-$(document).ready(function() {    
-    function cookie_check () {
+$(document).ready(function () {
 
-        if (getCookie('ead_file')) {
 
-            if (getCookie('ead_file') === '""') 
-            {		                
-		        $('#ead_files').hide();
-		        $('.main_edit').hide();
-                $('#editor_mask').hide();
-		
-		        $('#entity_name').html('Please select a record to edit from the menu.');
-		        $('#entity_name').show();
-            } 
-            else 
-            {
-                console.log(getCookie('ead_file'));
-                build_editor(getCookie('ead_file'));
-                $('#entity_name').html('Now Editing: ' + getCookie('entity_name'));
-		        $('#ead_files').hide();
-            }
-	     }
-	     else 
-	     {
-	
-	     }
+    //initially disable module buttons
+    disableAllModuleButtons();
+
+    viewSwitch.hideAceEditor();
+
+
+    //enable toggle switch for ace editor read only
+    toggleReadOnly();
+
+
+});
+
+function build_editor(eacId) {
+
+    //enable module buttons
+    enableAllModuleButtons();
+
+    // When one of the files is selected...
+    $.get('ajax/get_record.php?eac_id=' + eacId, function (data) {
+
+        // Set up Ace editor
+        editor.getSession().setValue(data.eac_xml);
+        editor.resize();
+        editor.focus();
+        //set editor to ready only
+        editor.setReadOnly(true);
+
+        // Stick the XML in Ace editor
+        var edited_xml = editor.getSession().setUseWrapMode(true); // Set text wrap --timathom
+        edited_xml = editor.getValue();
+        record.eacXml = edited_xml;
+
+        // then validate the XML
+        validateXML(undefined, record.eacXml);
+    });
+
+
+}
+
+
+
+/*
+ * setupSelectAll registers passed element selector's change event in order to have check all visible checkboxes functionality.
+ * @method setupSelectAll
+ */
+function setupSelectAll(lstrSelector) {
+    $(lstrSelector).change(function () {
+        if ($(lstrSelector).prop("checked") == true)
+            $('input[type="checkbox"]:visible').prop('checked', true); else
+            $('input[type="checkbox"]:visible').prop('checked', false);
+    })
+}
+
+
+$('#save_eac').click(function (data) {
+    // This saves the XML by getting the the text from Ace editor
+
+    // Set "saved" status
+    if (record.savedXml !== true) {
+        record.savedXml = true;
     }
-    function build_editor(eac_xml_file) {       
-		
-	$('#xml_switch_button').css({"background":"gray"});
-
-	$('.main_edit').show();
-	
-	// When one of the files is selected...
-	eac_xml_path = eac_xml_file;
-	
-	// Check to see if there is already wiki markup. If so, show switcher. --timathom
-	$.get('ajax/get_wiki.php', {ead_path : eac_xml_path}, function(markup) {
-    
-        if ( markup == '')
-        {
-            $('#wiki_switch').hide();              
-        }
-        else
-        {
-            $('#wiki_switch').show();
-            // Set "saved" cookie. --timathom
-	        if ( getCookie('wiki') != 'present' )
-	        {
-	            document.cookie = 'wiki=present';
-	        }
-        }    		
-	});
-	
-	//Get the XML
-
-	$.get('ajax/get_eac_xml.php?eac=' + eac_xml_path , function (data) {
-
-	    // Set up Ace editor        
-  	    editor.getSession().setValue(data); 
-  	    editor.resize();  	    
-	    editor.focus();  	      	      	      	   
-
-	    // Stick the XML in Ace editor
-	    edited_xml = editor.getSession().setUseWrapMode(true); // Set text wrap --timathom
-	    edited_xml = editor.getValue();	    	    
-
-	    //enable ingest buttons
-	    $('.ingest_button').removeAttr('disabled');
-
-	    document.cookie = 'ead_file=""';
-	    	   
-	    // then validate the XML
-	    validateXML();
-
-	    // Check to see if there is some existing wiki markup
-	    // wikiCheck();
-	   
-   	});
+    record.eacXml = editor.getSession().getValue();
 
 
-	$('#save_eac').click(function(data) {
-	    // This saves the XML by getting the the text from Ace editor
-	    
-	    // Set "saved" cookie. --timathom
-	    if ( getCookie('saved') != 'saved' )
-	    {
-	        document.cookie = 'saved=saved';
-	    }
-	    editor_xml = editor.getSession().getValue();
-	    	   
-	    // POST XML to update_eac_xml
+    //hide aceEditor
+    viewSwitch.hideAceEditor();
 
-	    $.post('ajax/update_eac_xml.php', {xml: editor_xml, ead_file: eac_xml_path} , function(data) {
-	        	        
+    renderFlashMessage('<p>Converting XML to Wiki Markup...please be patient</p>');
+    showLoadingImage();
 
-	    }).done(function () { 
-		$('.save_arrow').html("&#10003;");
-		$savedialog.dialog('open');
-		
+    // POST XML to update_eac_xml
+    $.post('ajax/update_eac_xml.php', {xml: record.eacXml, ead_file: record.eadFile}, function (data) {
 
-	    });
-	    
-        });
-        
-        $('#download_submit').click(function() {
-            fetch_xml = editor.getSession();
-	        fetch_xml = editor.getValue();
-        
-            $('#download_xml').val(fetch_xml);
-            
-            // Get file name from cookie.
-            var file_path = getCookie('ead_file_last');
-            
-            var find_ead = "ead/";
-            
-            file_path = file_path.substring(file_path.indexOf(find_ead) + find_ead.length); 
-                        
-            //file_path = file_path.match(/\/ead\/(.*)/)[1]; // file name as ID
-            file_path = file_path.toLowerCase(); // file name as entity name            
-            file_path = file_path.replace(/(,\s)|(\s)/g, "_");
-            //file_path = file_path.replace(/(.)/g, "");
-            
-            /*
-            var last_char = file_path.substr( file_path.length - 1 );
-                   
-            if( last_char == "." )
-            {
-                file_path = file_path.slice(0, -1);
-            }
-            */
-            //file_path += ".xml";
-                                  
-            $('#file_name').val(file_path);
-            
-            //$('#download_link').attr('href','download.php/' + file_path);
-            
-	        });                        
-                	       	                                                      
-    }
 
-    $('#ead_files').ready(function () {
-	cookie_check();
+    }).done(function () {
 
 
     });
 
-    $('#ead_files').change (function()  {
-	cookie_check();
+    // POST XML to update_eac_xml
+    $.post('ajax/save_xml_as_wikimarkup.php', {editor_xml: record.eacXml, ead_path: record.eadFile}, function (data) {
+
+        console.log(data);
+
+    }).done(function () {
+
+        hideLoadingImage();
+
+        //clear flash message
+        clearFlashMessage();
+
+        //display success message
+        renderFlashMessage('<div class=\"success-message\"><p>XML Successfully Saved.</p></div>');
+
+
+        enableAllModuleButtons();
 
     });
 
-
-    $('#editor').keyup(throttle(function() {
-	// When the user is typing, validate it
-
-	edited_xml = editor.getValue();
-
-	validateXML();
-
-
-
-    }));
-
-
-    // This function delays the function that a keystroke triggers. You can change the delay at the bottom of the function.
-
-    function throttle(f, delay){
-	var timer = null;
-	return function(){
-            var context = this, args = arguments;
-            clearTimeout(timer);
-            timer = window.setTimeout(function(){
-		f.apply(context, args);
-            },
-				      delay || 500);
-	};
-    }
-
-    window.validateXML = function( callback ) {
-
-
-	// POST some XML to validate.php and get back some JSON that includes either an response that says that it's valid or a JSON document that includes the errrors
-	$.post('ajax/validate.php', {eac_xml: edited_xml}, function(data) {
-
-	    if(typeof callback == 'undefined')
-		callback = function(){};
-
-	    if (data.status === "valid") {
-		// Make the little Oxygen-esque square green if valid
-
-		$('#validation').css({"background-color":"green"});
-
-		// Make the valdiation text area blank
-
-		$('#validation_text').html('Valid XML');
-
-		callback(true);
-
-	    } else {
-		response = data;
-		// Make the Oxygen-esque square red
-		$('#validation').css({"background-color":"red"});
-
-		// Stick the error message into the validation_text div
-		$('#validation_text').html('<p>Error: ' + response[0].message + '</p><p>Line: ' + response[0].line + '</p>');
-
-		callback(false);
-	    }
-
-	},"json").fail(function() {
-            $('#validation').css({"background-color":"red"});
-	    $('#validation_text').html('<p>Your XML is not well-formed or there is an issue with the validation service</p>');
-
-	    if(typeof callback == 'undefined')
-		callback = function(){};
-
-            console.log("error");
-            callback(false);
-        });
-    }
-
-
-    $('#convert_to_wiki').click(function() {
-    
-        // Set cookie for showing wiki screen on dialog close.
-        if ( getCookie('onWiki') != 'true' )
-        {
-            document.cookie = 'onWiki=true';
-        }
-   
-       // Added logic for save dialog. --timathom
-       if ( getCookie('saved') != 'saved')
-       {
-           $unsaveddialog.dialog('open');
-       }
-              
-       else 
-       {    
-           $('.main_edit').hide();
-           $('#loading-image').remove();
-           $('#main_content').append('<img id="loading-image" src="style/images/loading.gif" alt="loading"/><div id="wiki_load">Converting to wiki markup... This may take a minute or two.</div>');
-           eacToMediaWiki();
-       }     
-        	                   
-    });
-
-
-    function wikiCheck() {
-
-	$.get('ajax/get_wiki.php', {ead_path : eac_xml_path}, function(markup) {
-
-
-	    $('.main-edit').show();
-
-
-	    if (markup != "") {
-		// Hide this stuff if there is wiki markup
-		
-		$('#wiki_switch_button').css({"background" : "gray" });
-
-		$('.main_edit').hide();
-		
-		$('html').css("min-width","1250px");
-
-		//Append some controls for dealing with the wikimarkup
-
-		if( $('#wikieditor').length == 0)
-		{
-		    $('#main_content').append("<div id=\"wikieditor\" class=\"wiki_edit\"><div class=\"wiki_container wiki_edit\"><h1 id=\"local_wiki\">Local article (transformed from EAC-CPF record) <a style=\"font-size:small; float:right; margin-top:3px;\" target=\"_blank\" href=\"https://en.wikipedia.org/wiki/Help:Wiki_markup\">Help with wiki markup</a></h1> \
-<textarea id=\"wikimarkup\" class=\"wiki_edit\">" + markup + "</textarea></div></div>");
-		}else
-		{
-		    $('#wikieditor').append("<div class=\"wiki_container wiki_edit\"><h1 id=\"local_wiki\">Local article (transformed from EAC-CPF record) <a style=\"font-size:small; float:right; margin-top:3px;\" target=\"_blank\" href=\"https://en.wikipedia.org/wiki/Help:Wiki_markup\">Help with wiki markup</a></h1> \
-<textarea id=\"wikimarkup\">" + markup + "</textarea></div>");
-		}		
-
-		$('#edit_controls').append("<button class=\"update_button pure-button pure-button-primary wiki_edit\" id=\"wiki_update\">Save Local Article</button><button id=\"get_wiki\" class=\"pure-button pure-button-primary wiki_edit\">Check Wikipedia for Existing Article</button>");
-
-		setupGetWiki();
-
-		$(window).resize(function() {
-
-		});
-
-
-	   	$('#edit_xml').on('click', function() {
-
-    		//Show the XML editor ui and wiki markup editor
-
-		    $('.main_edit').show();
-
-		    $('.wiki_edit').remove();
-
-	   	});
-
-	   	$('#wiki_update').on('click', function() {
-
-	   	    updated_markup = document.getElementById('wikimarkup').value;
-
-		    $.post('ajax/update_wiki.php', {media_wiki: updated_markup, ead_path: eac_xml_path}, function(data) {
-			
-			$savewikidialog.dialog('open');
-			//console.log("ahh!");
-
-	    	});
-
-
-		});
-
-	    }
-
-
-	});
-
-    }
-
-
-    function eacToMediaWiki() {    
-
-	edited_xml = editor.getValue();
-
-	$.post('ajax/eac_mediawiki.php', {eac_text: edited_xml}, function(data) {
-        $('#loading-image').remove();
-        $('#wiki_load').remove();
-	    $('#main_content').append('<div id="wikieditor" class="wiki_edit"><div class="wiki_container"><h1>Local article (transformed from EAC-CPF record)</h1> \
-<textarea id="wikimarkup">' + data + '</textarea></div></div>');
-	    $('#edit_controls').append("<button class=\"save_button pure-button pure-button-primary wiki_edit\"  id=\"wiki_save\">Save Local Article</button>");
-
-
-	    var wiki_height = $(window).height() / 1.3;
-
-	    $(window).resize(function() {
-
-		var wiki_height = $(window).height() / 1.3;
-
-
-	    });
-
-
-	    // Save the wikimarkup
-
-	    $('#wiki_save').on('click', function() {
-
-		wiki_markup_data = $('#wikimarkup').val();
-
-		$('.wiki_edit').remove();
-
-	        $('#xml_switch_button').css({"background":"#0078e7"});
-
-
-
-	    	$.post('ajax/post_wiki.php', {media_wiki: wiki_markup_data, ead_path: eac_xml_path}, function(data) {
-
-	    	    // Hide this stuff if there is wiki markup
-
-		    $('.wiki_edit').hide();
-
-		    setupGetWiki();
-
-  		    $('#wiki_switch').show();
-  		    //$('#wiki_switch_button').unbind();
-
-		    wikiCheck();
-
-		    var wiki_height = $(window).height() / 1.3;
-
-		    $(window).resize(function() {
-
-		    });
-
-
-		    $('#edit_xml').on('click', function() {
-		    	//Show the XML editor ui and wiki markup editor
-			$('.main_edit').show();
-			$('.wiki_edit').remove();
-
-		    });
-
-		    $('#wiki_update').on('click', function() {
-			$('#dialog_box').html("<p>Local article saved</p>");
-			makeDialog('#dialog_box', ' ');
-			updated_markup = document.getElementById('wikimarkup').value;
-			$.post('update_wiki.php', {media_wiki: updated_markup, ead_path: eac_xml_path}, function(data) {
-
-
-
-			});
-
-
-		    });
-
-		});
-
-	    });
-
-	    $('#wiki_save').click();
-	});
-
-
-    }
-
-
-    $('#wiki_switch_button').click(function() {
-        
-        // Set cookie for showing wiki screen on dialog close.
-        if ( getCookie('onWiki') != 'true' )
-        {
-            document.cookie = 'onWiki=true';
-        }
-        $('.wiki_edit').remove();
-
-	    wikiCheck();
-
-
-        $('#xml_switch_button').css({"background":"#0078e7"});
-
-    });
-
-    $('#xml_switch_button').click(function() {
-    
-    $('html').css("min-width","1100px");
-    
-    // Unset "onWiki" cookie. --timathom
-    if ( getCookie('onWiki') == 'true' )
-    {
-        document.cookie = 'onWiki=';
-    }
-    
-	editXML();
-
-    });
-
-    function editXML() {
-    	//Show the XML editor ui and wiki markup editor
-
-
-	$('#wiki_switch_button').css({"background":"#0078e7"});
-	$('#xml_switch_button').css({"background":"gray"});
-    $('.wiki_edit').remove();
-	$('.main_edit').show();
-
-	$('#wiki_update').on('click', function() {
-
-	    $('#dialog_box').html("<p>File saved</p>");
-	    makeDialog('#dialog_box', ' ');
-
-
-	    updated_markup = document.getElementById('wikimarkup').value;
-
-	    $.post('ajax/update_wiki.php', {media_wiki: updated_markup, ead_path: eac_xml_path}, function(data) {
-
-
-
-	    });
-
-
-
-
-	});
-
-    }
-
-
-    function remove_wiki() {
-        $('#wikieditor').remove();
-        $('.wiki_edit').remove();
-    }
-
-
-    //depenging on value of the cookie, display login or logout
-    if( getCookie('ramp_wiki_li') == null )
-    {
-	$('#menu').append("<li id=\"wiki_login\" class=\"wiki_login menu_slice\"><a href=\"#\">Wiki Login</a></li>");
-    }else
-    {
-	$('#menu').append("<li id=\"wiki_logout\" class=\"wiki_login menu_slice\"><a href=\"#\">| Wiki Logout |</a></li>");
-    }
-
-    var ace_height = $(window).height() / 1.5;
-    $('#editor_container').css ( { "height" : ace_height });
-
-
-    $(window).resize(function() {
-
-	var ace_height = $(window).height() / 1.5;
-	$('#editor_container').css ( { "height" : ace_height });
-
-    });
-
-    
-
-
-    // Save dialogs 
-
-
-    var $savedialog = $('<div></div>')
-        
-    	.html('XML Saved!')
-    	.dialog({
-    	    autoOpen: false,
-    	    closeOnEscape: true,
-            title: 'Saved',
-    	    buttons: {
-		"OK" : function () {
-		    $( this ).dialog( "close" );
-		}
-	    }
-
-    	});
-    
-    // Added save confirmation to "Convert to Wiki Markup" --timathom
-    var $unsaveddialog = $('<div></div>')
-        .html('Your record has not been saved. If you have changes, they will be lost. Do you want to proceed?')
-        .dialog({
-            autoOpen: false,
-            title : 'Confirm',
-            buttons : {                
-                "Yes" : function() {            
-                    $( this ).dialog( "close" );
-                    $('.main_edit').hide();                                                                                                          
-                    $('#main_content').append('<img id="loading-image" src="style/images/loading.gif" alt="loading"/><div id="wiki_load">Converting to wiki markup... This may take a minute or two.</div>');
-                    eacToMediaWiki();
-                },
-                "No" : function() {
-                    $( this ).dialog( "close" );
-                }                
-            }
-        });        
-
-    var $savewikidialog = $('<div></div>')
-    	.html('Your local Wikipedia article has been saved.')
-    	.dialog({
-    	    autoOpen: false,
-    	    closeOnEscape: true,
-            title: 'Saved',
-    	    buttons: {
-		"OK" : function () {
-		    $( this ).dialog( "close" );
-		}
-	    }
-	    
-    	});
-        
 });
 
 
-//functions that can be used by multiple js files
+function convertXmlToWikiMarkup() {
 
-/*
- * encode_utf8 encodes passed string to utf8
- * @method encode_utf8
- */
-function encode_utf8(s) {
-    return unescape(encodeURIComponent(s));
+
+
 }
 
-/*
- * decode_utf8 decodes passed string from utf8
- * @method decode_utf8
- */
-function decode_utf8(s) {
-    return decodeURIComponent(escape(s));
+
+$('#download_submit').click(function () {
+    var fetch_xml = editor.getValue();
+
+    $('#download_xml').val(fetch_xml);
+
+    // Get file name from status.
+    var file_path = record.eadFile;
+
+    var find_ead = "ead/";
+
+    file_path = file_path.substring(file_path.indexOf(find_ead) + find_ead.length);
+    file_path = file_path.toLowerCase(); // file name as entity name
+    file_path = file_path.replace(/(,\s)|(\s)/g, "_");
+
+    $('#file_name').val(file_path);
+});
+
+
+$('#editor').keyup(throttle(function () {
+    // When the user is typing, validate it
+    record.eacXml = editor.getValue();
+    validateXML(undefined, record.eacXml);
+}));
+
+function getIngestStatus(record_id) {
+
+    var eac_id = record_id;
+    var url = 'ajax/get_ingest_status.php';
+
+    $.ajax({
+        url: url,
+        data: {eac_id : eac_id},
+        success: function(response){
+            console.log(response);
+            return response;
+        },
+        dataType: "json"
+    });
 }
 
-/*
- * unique removes duplicates from passed array and retuns it
- * @method unique
- */
-var unique = function(origArr) {
-    var newArr = [],
-	origLen = origArr.length,
-	found,
-	x, y;
 
-    for ( x = 0; x < origLen; x++ ) {
-        found = undefined;
-        for ( y = 0; y < newArr.length; y++ ) {
-            if ( origArr[x] === newArr[y] ) {
-		found = true;
-		break;
+
+// Save dialogs
+var $savedialog = $('<div></div>')
+
+    .html('XML Saved!')
+    .dialog({
+        autoOpen: false,
+        closeOnEscape: true,
+        title: 'Saved',
+        buttons: {
+            "OK": function () {
+                $(this).dialog("close");
             }
         }
-        if ( !found) newArr.push( origArr[x] );
-    }
-    return newArr;
-};
 
-/*
- * html_decode decoded html entities
- * @method html_decode
- */
-function html_decode( lstrEncodedHTML )
-{
-    return lstrEncodedHTML.replace(/&amp;/g, '&').replace(/&lt;/g, '<').replace(/&gt;/g, '>').replace(/&quot;/g, '"');
-}
+    });
+
+
+// Save dialogs
+var $savedialog = $('<div></div>')
+
+    .html('XML Saved!')
+    .dialog({
+        autoOpen: false,
+        closeOnEscape: true,
+        title: 'Saved',
+        buttons: {
+            "OK": function () {
+                $(this).dialog("close");
+            }
+        }
+
+    });
+
+// Added save confirmation to "Convert to Wiki Markup" --timathom
+var $unsaveddialog = $('<div></div>')
+    .html('Your record has not been saved. If you have changes, they will be lost. Do you want to proceed?')
+    .dialog({
+        autoOpen: false,
+        title: 'Confirm',
+        buttons: {
+            "Yes": function () {
+                $(this).dialog("close");
+                viewSwitch.hideAceEditor();
+                //$('#main_content').append('<img id="loading-image" src="style/images/loading.gif" alt="loading"/><div id="wiki_load">Converting to wiki markup... This may take a minute or two.</div>');
+                eacToMediaWiki();
+            },
+            "No": function () {
+                $(this).dialog("close");
+            }
+        }
+    });
+
+var $savewikidialog = $('<div></div>')
+    .html('Your local Wikipedia article has been saved.')
+    .dialog({
+        autoOpen: false,
+        closeOnEscape: true,
+        title: 'Saved',
+        buttons: {
+            "OK": function () {
+                $(this).dialog("close");
+            }
+        }
+
+
+    });
+
 
 /*
  * makeDialog creates dialog box from passed selector with passed title
  * @method makeDialog
  */
-function makeDialog( lstrSelector, lstrTitle, callback )
-{
-    if( typeof lstrTitle == 'undefined' || lstrTitle == '')
-	lstrTitle = 'Response';
+function makeDialog(lstrSelector, lstrTitle, callback) {
+    if (typeof lstrTitle == 'undefined' || lstrTitle == '')
+        lstrTitle = 'Response';
 
     $(lstrSelector).dialog({
         autoOpen: true,
@@ -610,16 +234,16 @@ function makeDialog( lstrSelector, lstrTitle, callback )
         modal: true,
         closeOnEscape: true,
         title: lstrTitle,
-        buttons:{
-            "OK":function(){
+        buttons: {
+            "OK": function () {
                 $(this).dialog("close");
                 $(this).remove();
             }
         },
-        close:function(){
+        close: function () {
             $(this).remove();
 
-            if( typeof callback != 'undefined' )
+            if (typeof callback != 'undefined')
                 callback();
         }
     });
@@ -629,102 +253,105 @@ function makeDialog( lstrSelector, lstrTitle, callback )
  * makePromptDialog creates dialog prompt box from passed selector with passed title and calls callback once OK is clicked
  * @method makePromptDialog
  */
-function makePromptDialog( lstrSelector, lstrTitle, callback )
-{
-    $( lstrSelector ).dialog({
+function makePromptDialog(lstrSelector, lstrTitle, callback) {
+    $(lstrSelector).dialog({
         autoOpen: true,
         resizable: true,
         modal: true,
         width: 'auto',
         closeOnEscape: true,
         title: lstrTitle,
-        buttons:{
-            "OK":function(){            	            	                
-                callback(this);     
-                if ( getCookie('onWiki') == 'true' )   
-                {
-                    $('#entity_name').hide();
-           	        $('.wiki_edit').hide();
-           	        $('#get_wiki').hide();
-           	        $('#wiki_switch').hide();
-           	        $('#post_wiki').hide();
-           	    }
-           	    else
-           	    {
-           	        $('.main_edit').hide();
-           	        $('#entity_name').hide();
-           	        $('#wiki_switch').hide();
-           	    }
+
+        buttons: {
+            "OK": function () {
+                callback(this);
+                if (record.onWiki === true) {
+
+                    $('.wiki_edit').hide();
+                    $('#get_wiki').hide();
+                    $('#post_wiki').hide();
+                }
+                else {
+                    viewSwitch.hideAceEditor();
+                }
             }
         },
-        close:function(){
+        close: function () {
             $(this).remove();
-            if ( getCookie('onWiki') == 'true' )   
-            {
-                 $('#entity_name').show();
-           		 $('.wiki_edit').show();
-           		 $('#get_wiki').show();
-           		 $('#wiki_switch').show();
-           		 $('#post_wiki').show();
-                 $('.main_edit').hide();           		 
+            if (record.onWiki === true) {
+                $('.wiki_edit').show();
+                $('#get_wiki').show();
+                $('#post_wiki').show();
+                viewSwitch.hideAceEditor();
             }
-            else
-            {
-                 $('.main_edit').show();
-                 $('#entity_name').show();
-                 // Check to see if there is already wiki markup. If so, show switcher. --timathom
-                 if ( getCookie('wiki') == 'present' )   
-                 {
-                     $('#wiki_switch').show();    	                           	
-                 }
-                 else
-                 {
-                     $('#wiki_switch').hide();
-                 }                 
-            }	                        
+            else {
+                viewSwitch.showAceEditor();
+                // Check to see if there is already wiki markup. If so, show switcher. --timathom
+                if (record.onWiki === true) {
+                    
+                }
+                else {
+                    
+                }
+            }
         }
     });
 
-    $( lstrSelector ).find( "form" ).submit(function( event ) {
+    $(lstrSelector).find("form").submit(function (event) {
         $(this).parent().parent().find('span:contains("Ok")').click();
         event.preventDefault();
     });
+};
+
+
+/* added by cbrownroberts 02-2016 */
+
+function toggleReadOnly() {
+    $('#editor_readonly_button').on('click', function () {
+
+        if ($('#editor_readonly_button').data('readonly') === 'on') {
+
+            editor.setReadOnly(false);
+            $('#editor_readonly_button').data('readonly', 'off');
+            $('#readonly_status').text('XML Editing Enabled');
+
+        } else {
+
+            editor.setReadOnly(true);
+            $('#editor_readonly_button').data('readonly', 'on');
+            $('#readonly_status').text('XML Editing Disabled');
+        }
+    });
 }
 
-/*
- * getCookie gets values of cookie
- * @method getCookie
- */
-function getCookie(c_name)
-{
-    var c_value = document.cookie;
-    var c_start = c_value.indexOf(" " + c_name + "=");
-    if (c_start == -1)
-    {
-	c_start = c_value.indexOf(c_name + "=");
-    }
-    if (c_start == -1)
-    {
-	c_value = null;
-    }
-    else
-    {
-	c_start = c_value.indexOf("=", c_start) + 1;
-	var c_end = c_value.indexOf(";", c_start);
-	if (c_end == -1)
-	{
-	    c_end = c_value.length;
-	}
-	c_value = unescape(c_value.substring(c_start,c_end));
-    }
-    return c_value;
+
+
+function enableAllModuleButtons() {
+    var module_buttons = $('#ingest_buttons > button');
+    $.each(module_buttons, function() {
+        $(this).removeAttr('disabled');
+    });
 }
 
-/*
- * deleteCookie deletes cookie
- * @method deleteCookie
- */
-function deleteCookie(name)
-{
-    document.cookie = name + '=; expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+function disableAllModuleButtons() {
+    var module_buttons = $('#ingest_buttons > button');
+    $.each(module_buttons, function() {
+        $(this).attr('disabled', 'disabled').css('background-color', 'f7f7f7');
+    });
+}
+
+function enableSingleModuleButton(button_id) {
+    $('#' + button_id).removeAttr('disabled');
+}
+
+function disableSingleModuleButton(button_id) {
+    $('#' + button_id).attr('disabled', 'disabled');
+}
+
+
+function scrollToFormTop() {
+    //scroll to top to view form correctly
+    $('html,body').animate({
+        scrollTop: 0
+    }, 0);
 }

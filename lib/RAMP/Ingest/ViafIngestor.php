@@ -39,7 +39,7 @@ class ViafIngestor extends Ingestor
 	{
 		$lobjSearchResults = array();
 
-		$this->strUrl = "http://viaf.org/viaf/search?query=local.names+all+\"$lstrName\"&httpAccept=text/xml&sortKeys=holdingscount";
+		$this->strUrl = "http://viaf.org/viaf/search?query=local.mainHeadingEl+all+\"$lstrName\"&httpAccept=text/xml&sortKeys=holdingscount";
 
 		//curl option setup for this request
 		curl_setopt($this->rscCurl, CURLOPT_URL, $this->strUrl );
@@ -192,7 +192,7 @@ class ViafIngestor extends Ingestor
 			$lstrOrigName = utf8_decode($lstrName);
 			$lstrName = Ingestor::encodeForUrl($lstrName);
 
-			$this->strUrl = "http://viaf.org/viaf/search?query=local.names+all+\"$lstrName\"&httpAccept=text/xml&sortKeys=holdingscount";
+			$this->strUrl = "http://viaf.org/viaf/search?query=local.mainHeadingEl+all+\"$lstrName\"&httpAccept=text/xml&sortKeys=holdingscount";
 
 			//curl options setup for this request
 			curl_setopt($this->rscCurl, CURLOPT_URL, $this->strUrl );

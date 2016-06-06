@@ -24,6 +24,8 @@ class Uploader {
 
      $response= $ead_convert->insert_into_db($files['ead']['tmp_name'],$files['ead']['tmp_name']);
 
+    $this->last_insert_id = $ead_convert->last_id;
+
      if ($response == "Upload Successful") {
         $this->response = json_encode($this->success);
      } else {
@@ -34,6 +36,10 @@ class Uploader {
  }
   public function getResponse() {
       return json_encode($this->response);
+  }
+
+  public function getLastInsertId() {
+      return $this->last_insert_id;
   }
 
 }

@@ -250,7 +250,12 @@ class EadConvert {
 
             // Insert the EAC into the database
 
+
+            $this->last_id = $mysqli->insert_id;
+
             return "Upload Successful";
+
+
         } else {
             // If you couldn't insert the EAD into the database
 
@@ -292,7 +297,7 @@ class EadConvert {
                 continue;
             $file_path = $this->ead_path .  '/' . $file;
             //Reconstruct the full path to the file
-            $xml_string = get_include_contents($file_path);
+            $xml_string = file_get_contents($file_path);
             // Get the XML content from the file as a string.
             try {
                 $this->XMLDOM->load($file_path);
