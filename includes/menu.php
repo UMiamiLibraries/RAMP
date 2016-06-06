@@ -1,6 +1,6 @@
 <div class="pure-g">
 	<div class="pure-u-1-3">
-		<div class="ramp-logo"><a href="index.php"><img src="style/images/ramp-logo.png" alt="RAMP logo" /></a></div>
+		<div class="ramp-logo"><a href="index.php"><img src="style/images/ramp2-logo.png" alt="RAMP logo" /></a></div>
 	</div>
 	<div class="pure-u-2-3">		    
 	    <ul class="pure-menu-list" id="nav-list">

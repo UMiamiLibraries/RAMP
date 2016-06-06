@@ -7,20 +7,15 @@ include('header.php');
         
         <div class="inner-area">
             <div class="ramp-intro">
-                <div class="ramp-intro-text">
-                    <div class="pure-g">
-                        <div class="pure-u-7-12">
-                                <p>The <strong>RAMP (Remixing Archival Metadata Project)</strong> editor is a web-based tool that allows users to: (1) generate enhanced authority records, and (2) publish the content of those records as Wikipedia pages. <a href="#ramp-more">[more]</a></p>
-                        </div>
-                        <div class="pure-u-5-12">&nbsp;</div>
-                    </div>
+                <div class="ramp-intro-text">  
+                    <p>The <strong>RAMP (Remixing Archival Metadata Project)</strong> editor is a web-based tool that allows users to:<br /><br /> (1) generate enhanced authority records, and (2) publish the content of those records as Wikipedia pages.</p>
                 </div>
             </div>
         </div> 
 
         <div class="project-title">
             <div class="inner-area">
-                <h1><span class="titleup">R</span>emixing <span class="titleup">A</span>rchival <span class="titleup">M</span>etadata <span class="title-light">Project</span></h1>
+                <h1><span class="titleup">R</span>emixing <span class="titleup">A</span>rchival <span class="titleup">M</span>etadata Project</h1>
             </div>
         </div>
     </div><!--end HOMEPAGE content (top)-->
@@ -121,36 +116,7 @@ include('header.php');
             <div class="homepage-content-text">
                 <a name="ramp-more"></a><h3>How Does RAMP Work?</h3>
                 <p>The RAMP editor extracts biographical and historical data from <a href="https://www.loc.gov/ead/" target="_blank">EAD</a> Finding Aids to create new authority records for persons, corporate bodies, and families associated with archival and special collections. Users can enhance those records with additional data from sources like <a href="http://viaf.org/" traget="_blank">VIAF</a> and <a href="http://www.oclc.org/research/themes/data-science/identities.html" target="_blank">WorldCat Identities</a> and RAMP will transform them into wiki markup suitable for publication to the English Wikipedia. New content can then be edited and added to an existing Wikipedia page or be used to start a new one from within the RAMP editor.</p> 
-            </div>
-
-            <div class="glossary-feature">
-                <div class="pure-g">
-                    <div class="pure-u-1-2 pure-u-lg-1-4">
-                        <div class="glossary-term">
-                            <h5>Authority Record</h5>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer luctus sapien vitae metus ultrices ultrices. Integer pulvinar ligula id urna hendrerit aliquam.</p>
-                        </div>
-                    </div>
-                    <div class="pure-u-1-2 pure-u-lg-1-4">
-                        <div class="glossary-term">
-                            <h5>EAC-CPF</h5>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer luctus sapien vitae metus ultrices ultrices. Integer pulvinar ligula id urna hendrerit aliquam.</p>
-                        </div>
-                    </div>
-                    <div class="pure-u-1-2 pure-u-lg-1-4">
-                        <div class="glossary-term">
-                            <h5>EAD Finding Aid</h5>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer luctus sapien vitae metus ultrices ultrices. Integer pulvinar ligula id urna hendrerit aliquam.</p>
-                        </div>
-                    </div>
-                    <div class="pure-u-1-2 pure-u-lg-1-4">
-                        <div class="glossary-term">
-                            <h5>VIAF</h5>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer luctus sapien vitae metus ultrices ultrices. Integer pulvinar ligula id urna hendrerit aliquam.</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            </div>           
         </div>
     </div><!--end HOMEPAGE content (bottom)-->
 
