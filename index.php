@@ -151,16 +151,14 @@ include('footer.php');
 ?>
 <script>
     <?php if (isset($_GET['eac_id'])) {
+        /* Mutant solution to allow linking to a record */
         echo "var eacId = ";
         echo (int) $_GET['eac_id'];
         echo ";";
         echo " $(document).ready(function() {
         build_editor(eacId);
     });";
-
     } ?>
-
-
 </script>
 
 

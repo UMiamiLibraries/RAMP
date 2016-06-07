@@ -1,8 +1,6 @@
 <?php 
 include('header.php');
 include('export/export_zip.php');
-
-
 ?>
 
 <?php
@@ -48,17 +46,8 @@ function statusIcon($status) {
           $rl = new RecordList($db);
           $allItems = $rl->getList();
 
-          echo "<table class='pure-table all-items-table'>";
-          echo "<tr>";
-          echo "<td>Name</td>";
-          echo "<td>EAC ID</td>";
-          echo "<td>VIAF Ingest Status</td>";
-          echo "<td>WorldCat Ingest Status</td>";
-          echo "<td>Wiki Ingest Status</td>";
-          echo "<td>Delete Record</td>";
-          echo "<td>Download Record</td>";
+         include('includes/all_items_table_header.php');
 
-          echo "</tr>";
           foreach($allItems as $item):
 
             echo "<tr id='{$item['eac_id']}'>";

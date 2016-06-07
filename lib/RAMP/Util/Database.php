@@ -48,7 +48,7 @@ class Database
             $this->_password, $this->_database, $this->_port);
 
         if (mysqli_connect_error()) {
-            echo <<<EOT
+            $error_message = <<<EOT
             <div id="flash_message">
                 <div class="success-message">
                  <p>Couldn't connect to the MySQL server. Please <a href="install.php">configure your database settings.</a>
@@ -56,6 +56,9 @@ class Database
                 </div>
             </div>
 EOT;
+            echo $error_message;
+            throw new \mysqli_sql_exception();
+
         }
     }
 
