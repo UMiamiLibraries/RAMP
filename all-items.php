@@ -15,12 +15,27 @@ function statusIcon($status) {
 ?>
 
 <script src="script/deleteRecord.js"></script>
+
+<div class="recordtitle-bkg">    
+   <div class="recordtitle">
+        <div class="inner-area"><h2 class="page-top-heading">All Items</h2></div>
+   </div>
+</div>
+
+<div class="decoration-bar">
+    <div class="pure-g">
+        <div class="pure-u-1-4 decor1"></div>
+        <div class="pure-u-1-4 decor2"></div>
+        <div class="pure-u-1-4 decor3"></div>
+        <div class="pure-u-1-4 decor4"></div>
+    </div>
+</div>
+
+
 <div class="inner-area">
 
   <div class="pure-g">
     <div class="pure-u-1">
-      <div class="content_box">
-        <h1>All Items</h1>
 
         <div class="content_box">
           <?php
@@ -30,7 +45,7 @@ function statusIcon($status) {
           $rl = new RecordList($db);
           $allItems = $rl->getList();
 
-          echo "<table class='pure-table'>";
+          echo "<table class='pure-table all-items-table'>";
           echo "<tr>";
           echo "<td>Name</td>";
           echo "<td>EAC ID</td>";
@@ -57,13 +72,13 @@ function statusIcon($status) {
           echo "</table>";
 
           ?>
-          <div class="pure-button ramp-button">
+          <div class="pure-button ramp-button action-button">
             <a href="export.php">Download All Records <i class="fa fa-download" aria-hidden="true"></i></a>
           </div>
 
         </div>
 
-      </div>
+     
     </div>
   </div>
 

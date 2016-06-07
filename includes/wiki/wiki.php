@@ -5,7 +5,7 @@
             <h3 class="instruction">Search Wikipedia</h3>
 
             <div class="user_help_form">
-                <label for="searchwikipedia">Search</label>
+                <label for="searchwikipedia">Find entry in Wikipedia</label><br/>
                 <input type="text" size="35" name="searchwikipedia" id="manual_search_wikipedia" class="text ui-widget-content ui-corner-all" />
                 <button id="searchwikipediabutton" class="pure-button ramp-button">Search</button>
 
