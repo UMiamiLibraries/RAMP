@@ -57,6 +57,10 @@ function statusIcon($status) {
           echo "</table>";
 
           ?>
+          <div class="pure-button ramp-button">
+            <a href="export.php">Download All Records <i class="fa fa-download" aria-hidden="true"></i></a>
+          </div>
+
         </div>
 
       </div>

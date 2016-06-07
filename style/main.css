@@ -266,6 +266,7 @@ button[disabled], html input[disabled] {cursor: not-allowed;}
 #ingest_viaf {background-color: #3c8ab8; margin-right:30px; border-right: 6px solid #bce4f8; background-image:url('images/icon-logo-viaf.png');}
 #convert_to_wiki {background-color: #f8c767; border-right: 6px solid #fae0ae; background-image:url('images/icon-logo-wikipedia.png');}
 
+.download-records {margin:1em 0 0 0; text-align: center;}
 
 
 
