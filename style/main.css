@@ -40,7 +40,7 @@ header {background-color: #f5f5f5; height:65px;}
 #nav-list li:last-child {margin-right:0;}
 #nav-list li:first-child {border-left:none;}
 
-#nav-list li a {font-weight:700; font-size:13px; text-decoration: none; height: 65px; padding:15px 10px; border-bottom: 2px solid transparent; vertical-align: middle; text-transform: uppercase;}
+#nav-list li a {font-weight:700; font-size:13px; text-decoration: none; height: 65px; padding:17px 10px; border-bottom: 2px solid transparent; vertical-align: middle; text-transform: uppercase;}
 
 #nav-list li a, #nav-list li a:visited {color: #474747;}
 #nav-list li a:hover, #nav-list li a.active {color: #12776b; border-bottom: 2px solid #16ac9a;}
@@ -253,6 +253,10 @@ button[disabled], html input[disabled] {cursor: not-allowed;}
 
 
 /* Custom Buttons */
+.action-button, .action-button a {background-color: #12776b; color:#FFF; text-decoration: none;}
+.action-button a:hover, .action-button a:focus {color:#efefef;}
+
+
 .ingest-ok, #save_eac, #get_chosen_wiki, #post_draft_wiki, #post_wiki {background-color: #12776b; color:#FFF;}
 
 .ingest-ok:hover, .ingest-ok:focus,
@@ -260,6 +264,7 @@ button[disabled], html input[disabled] {cursor: not-allowed;}
 #get_chosen_wiki:hover, #get_chosen_wiki:focus,
 #post_draft_wiki:hover, #post_draft_wiki:focus,
 #post_wiki:hover, #post_wiki:focus {color:#efefef;}
+
 
 
 #skip_worldcat_chosen_subjects, #editor_readonly_button, #get_chosen_wiki_no_match, #searchwikipediabutton {background-color: #35a698; color:#FFF;}
@@ -299,7 +304,8 @@ button[disabled], html input[disabled] {cursor: not-allowed;}
 
 .recordtitle {background-color: rgba(0,0,0,0.56);}
 
-#record_entityName_header{margin:0; font-size:24px; color: #FFF; line-height:60px; font-weight:700; font-style: italic;}
+#record_entityName_header,
+.page-top-heading {margin:0; font-size:24px; color: #FFF; line-height:60px; font-weight:700; font-style: italic;}
 
 
 
@@ -482,6 +488,10 @@ button[disabled], html input[disabled] {cursor: not-allowed;}
 }
 .processing-message p {color: #666; margin:0; font-style: italic;}
 
+
+
+/* All Items Page */
+.all-items-table i {font-size:18px;}
 
 
 
