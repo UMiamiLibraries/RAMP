@@ -9,7 +9,7 @@
                 <input type="text" size="35" name="searchwikipedia" id="manual_search_wikipedia" class="text ui-widget-content ui-corner-all" />
                 <button id="searchwikipediabutton" class="pure-button ramp-button">Search</button>
 
-                <p class="user_help_text">Choose the best match <a href="#" title="What is this?"><i class="fa fa-question-circle"></i></a></p>
+                <p class="user_help_text">Choose the best match <a href="docs.php#wiki1" title="What is this?" target="_blank"><i class="fa fa-question-circle"></i></a></p>
                 <p class="form_note">Wikipedia&#39;s search index is updated every morning. New pages will take a day to show up in the index.</p>
                     <table class="user_help_form_table">
                         <%
@@ -43,16 +43,17 @@
 
 <script type="text/template" id="wikipedia-template-step-two">
 
-    <div class="pure-g">
-        <div class="pure-u-1-2">
-            <p>Local Article</p>
-            <textarea id="localMarkupEditor" rows="10" cols="30"></textarea>
+    <p class="user_help_text">Local Article to Wikipedia Article <a href="docs.php#wiki2" title="What is this?" target="_blank"><i class="fa fa-question-circle"></i></a></p>
+    <div class="pure-g wiki-panels">
+        <div class="pure-u-1">
+            <p><strong>Local Article</strong></p>
+            <textarea id="localMarkupEditor" rows="10"></textarea>
         </div>
 
 
-        <div class="pure-u-1-2">
-            <p>Wikipedia Article</p>
-            <textarea id="remoteMarkupEditor" rows="10" cols="30"></textarea>
+        <div class="pure-u-1">
+            <p><strong>Wikipedia Article</strong></p>
+            <textarea id="remoteMarkupEditor" rows="10"></textarea>
         </div>
 
     </div>

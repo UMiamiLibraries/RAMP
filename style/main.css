@@ -50,7 +50,7 @@ header {background-color: #f5f5f5; height:65px;}
 
 
 /* Content Areas */
-.inner-area {max-width: 960px; margin: 0 auto; padding:0 10px;}
+.inner-area {max-width: 1140px; margin: 0 auto; padding:0 10px;}
 
 .app-content {margin:0 0 0 0;}
 
@@ -500,6 +500,14 @@ button[disabled], html input[disabled] {cursor: not-allowed;}
 .conversion-area div {margin:0 0 25px 0;}
 
 
+/* Wiki Panels */
+.wiki-panels textarea {width:100%; max-width: 100%; margin-bottom: 25px;}
+
+.doc-anchor {margin-top:30px; display: block;}
+
+
+
+
 /*///////////////////////////////////////////
    // Media Queries 
    ////////////////////////////////////////////*/
@@ -529,7 +537,7 @@ button[disabled], html input[disabled] {cursor: not-allowed;}
 /* ≥ 1024px     .pure-u-lg-* */
 @media screen and (min-width: 64em) {
 
-.inner-area {padding: 0;}
+
 
 .ramp-intro {background-position: 100% 0; background-size: auto auto;}
 
@@ -547,9 +555,11 @@ button[disabled], html input[disabled] {cursor: not-allowed;}
 /* ≥ 1280px     .pure-u-xl-* */
 @media screen and (min-width: 80em) {
 
+.inner-area {padding: 0;}
+
 .ramp-intro-text {padding: 50px 0 0 0;}
 
-.decoration-bar {max-width:960px;}
+.decoration-bar {max-width:1140px;}
 
 
 
