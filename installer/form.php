@@ -6,26 +6,28 @@
 
                 <form class="pure-form-stacked" method="post">
                     <fieldset>
+                        <p>The form below saves your MySQL credentials.</p>
+                        <p>You should also <a href="https://github.com/UMiamiLibraries/RAMP#12-create-the-ramp-database">create the RAMP database</a>.</p>
                         <legend>Install RAMP</legend>
                         <label>
-                            Enter your database hostname
+                            Hostname
                             <input name="db_host" type="text" value="<?php echo $db_host; ?>" required>
                         </label>
                         <label>
-                            Enter your database username
+                            Username
                             <input name="db_user" type="text" value="<?php echo $db_user; ?>" required>
                         </label>
 
                         <label>
-                            Enter your database password
+                            Password
                             <input name="db_pass" type="text" value="<?php echo $db_pass; ?>" required>
                         </label>
                         <label>
-                            Enter your database name
+                            Database Name
                             <input name="db_default" type="text" value="<?php echo $db_default; ?>"  required>
                         </label>
                         <label>
-                            Database port
+                            Port
                             <input name="db_port" type="text" value="<?php echo $db_port; ?>" required>
                         </label>
                         <input class="pure-button ramp-button" type="submit" value="Install RAMP">
