@@ -46,7 +46,7 @@ class Database {
             $this->_password, $this->_database, $this->_port);
 
         if(mysqli_connect_error()) {
-            die("Failed to connect to MySQL: " . mysqli_connect_error());
+            echo "Couldn't connect to the MySQL server. Please <a href=\"install.php\">install RAMP</a>";
         }
     }
 
