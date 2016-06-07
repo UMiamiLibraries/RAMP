@@ -28,7 +28,7 @@
         <h4>Wikipedia <span class="steps">(Step 2 of 2)</span></h4>
         <ul>
         	<li>Copy and Paste the information from the <strong>Local Article</strong> to the <strong>Wikipedia Article</strong> text area</li>
-			<li>Click <strong>Save to store the Wiki markup in the database</li>
+			<li>Click <strong>Save</strong> to store the Wiki markup in the database</li>
 			<li>Click <strong>Submit to Wikipedia as Draft</strong> to create a draft subpage on your Wikipedia User Account (Recommended)</li>
 			<li><strong>Submit to Wikipedia</strong> publishes the article to a public Wikipedia page</li>
         </ul>
