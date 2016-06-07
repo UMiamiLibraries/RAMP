@@ -606,7 +606,15 @@ $(document).ready(function () {
                 $('.help_container').remove();
                 $('#viaf_load').remove();
 
+                // display ace editor
+                viewSwitch.showAceEditor();
+
+                //render help template
+                renderHelpTemplate('viaf_template_help_step_four');
+
             }
+
+
         });
 
         //register click event to cancel process

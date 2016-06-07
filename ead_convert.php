@@ -79,22 +79,46 @@ if(isset($_FILES['ead'])){
 }
 ?>
 
-    <div class="inner-area">
 
+
+    <div class="recordtitle-bkg">    
+       <div class="recordtitle">
+            <div class="inner-area"><h2 class="page-top-heading">Upload, Convert or Import EAD-CPF Files</h2></div>
+       </div>
+    </div>
+
+    <div class="decoration-bar">
         <div class="pure-g">
-            <div class="pure-u-1-1">
-                <h1>Import or Upload EAD Files</h1>
-                <p id="convert_message">On this page you can convert EAD files or import EAC-CPF files that you have
-                    placed in the 'ead' folder during the install process.</p>
-                <p> After importing you can export and download the records.</p>
-            </div>
-            <div class="pure-u-1-2">
-                <strong>Upload an EAD</strong>
-                <form enctype="multipart/form-data" method="POST">
+            <div class="pure-u-1-4 decor1"></div>
+            <div class="pure-u-1-4 decor2"></div>
+            <div class="pure-u-1-4 decor3"></div>
+            <div class="pure-u-1-4 decor4"></div>
+        </div>
+    </div>
+
+    <div class="inner-area">
+        <p id="convert_message">On this page you can convert EAD files or import EAC-CPF files that you have placed in the "ead" folder during the install process.</p>
+        <p> After importing you can export and download the records.</p>
+
+
+        <div class="pure-g conversion-area">
+            <div class="pure-u-1 pure-u-md-1-3">                
+                <h3>Upload an EAD File</h3>
+                <form enctype="multipart/form-data" method="POST" class="pure-form">
                     <input type="hidden" name="MAX_FILE_SIZE" value="30000000"/>
                     <input name="ead" type="file"/><br>
-                    <input type="submit" class="pure-button ramp-button" value="Upload EAD"/>
-                </form>
+                    <input type="submit" class="pure-button ramp-button action-button" value="Upload EAD"/>
+                </form>                
+            </div>
+            
+            <div class="pure-u-1 pure-u-md-1-3">
+                <h3>Import from <em>EAD</em> Folder</h3>
+                <p>Coming soon...</p>                
+            </div>
+            
+            <div class="pure-u-1 pure-u-md-1-3">
+                <h3>Export Records</h3>
+                <p>Coming soon...</p>                
             </div>
 
 

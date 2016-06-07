@@ -254,7 +254,7 @@ button[disabled], html input[disabled] {cursor: not-allowed;}
 
 /* Custom Buttons */
 .action-button, .action-button a {background-color: #12776b; color:#FFF; text-decoration: none;}
-.action-button a:hover, .action-button a:focus {color:#efefef;}
+.action-button:hover, .action-button:focus, .action-button a:hover, .action-button a:focus {color:#efefef;}
 
 
 .ingest-ok, #save_eac, #get_chosen_wiki, #post_draft_wiki, #post_wiki {background-color: #12776b; color:#FFF;}
@@ -494,7 +494,10 @@ button[disabled], html input[disabled] {cursor: not-allowed;}
 .all-items-table i {font-size:18px;}
 
 
+/* Import Page */
+.conversion-area {margin:30px 0 0 0;}
 
+.conversion-area div {margin:0 0 25px 0;}
 
 
 /*///////////////////////////////////////////
