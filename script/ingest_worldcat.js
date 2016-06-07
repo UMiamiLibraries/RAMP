@@ -187,7 +187,11 @@ function ingest_worldcat_elements(lobjEac, lstrName, callback) {
 
                             $('.form_container').remove();
 
+                            hideLoadingImage();
+                            
                             editor.getSession().setValue(lobjEac.getXML());
+
+                            viewSwitch.showAceEditor();
                             return;
                         } else {
 
