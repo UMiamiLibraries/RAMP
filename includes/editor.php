@@ -1,5 +1,5 @@
 <div id="aceEditor" class="ace-editor-view">
-    <p class="user_help_text">Check and Edit the XML <a href="#" title="What is this?"><i class="fa fa-question-circle"></i></a></p>
+    <p class="user_help_text">Check and Edit the XML <a href="docs.php#savexml" title="What is this?" target="_blank"><i class="fa fa-question-circle"></i></a></p>
     <div id="editor_mask" class="main_edit">
         <div id="editor_container" class="main_edit">
             <div id="editor" class="main_edit"></div>
