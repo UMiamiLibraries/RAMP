@@ -29,6 +29,8 @@
 
 <script type="text/template" class="template viaf-step-two-view" id="viaf-template-step-two">
 
+    <% hideLoadingImage(); %>
+    
     <div class="form_container viaf-step-two-view">
         <div class="instruction_div">
             <h3 class="instruction">VIAF Ingest</h3>
