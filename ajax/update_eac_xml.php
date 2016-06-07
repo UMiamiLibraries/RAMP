@@ -20,10 +20,7 @@ $mysqli = $db->getConnection();
 
 if (isset($_POST["xml"]) && $_POST["ead_file"]) {
 
-  $eac = mysqli_real_escape_string($_POST["xml"]);
-  $ead = mysqli_real_escape_string($_POST["ead_file"]);
-
-  $sql = "UPDATE eac SET eac_xml = $eac WHERE ead_file LIKE '%$ead%'";
+  $sql = 'UPDATE eac SET eac_xml = ' . '"' . mysqli_real_escape_string($mysqli, $_POST["xml"]) . '"' . 'WHERE ead_file LIKE "%' . $_POST["ead_file"] . '%"';
 
   $result = $mysqli->query($sql);
 

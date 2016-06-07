@@ -2,6 +2,8 @@
 include('header.php');
 ?>
 
+
+
     <!--HOMEPAGE content (top)-->
     <div id="feature-heading" class="feature-heading home-view">
         
@@ -142,6 +144,23 @@ include('header.php');
     <!-- End Select 2 -->
 
 
+
+
 <?php
 include('footer.php');
 ?>
+<script>
+    <?php if (isset($_GET['eac_id'])) {
+        echo "var eacId = ";
+        echo (int) $_GET['eac_id'];
+        echo ";";
+        echo " $(document).ready(function() {
+        build_editor(eacId);
+    });";
+
+    } ?>
+
+
+</script>
+
+
