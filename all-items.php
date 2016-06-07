@@ -1,5 +1,8 @@
 <?php 
 include('header.php');
+include('export/export_zip.php');
+
+
 ?>
 
 <?php
@@ -73,7 +76,11 @@ function statusIcon($status) {
 
           ?>
           <div class="pure-button ramp-button action-button">
-            <a href="export.php">Download All Records <i class="fa fa-download" aria-hidden="true"></i></a>
+              <?php
+              // Run function to create the export zip file
+              exportZip();
+              ?>
+            <a href="export/ramp-export.zip">Download All Records <i class="fa fa-download" aria-hidden="true"></i></a>
           </div>
 
         </div>
