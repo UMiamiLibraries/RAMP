@@ -4,7 +4,7 @@
         <div class="pure-u-1">
             <div class="content_box">
 
-                <form class="pure-form-stacked" method="post">
+                <form class="pure-form-stacked pure-form" method="post">
                     <fieldset>
                         <p>The form below saves your MySQL credentials.</p>
                         <p>You should also <a href="https://github.com/UMiamiLibraries/RAMP#12-create-the-ramp-database">create the RAMP database</a>.</p>
