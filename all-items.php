@@ -63,11 +63,13 @@ function statusIcon($status) {
           echo "</table>";
 
           ?>
-          <div class="pure-button ramp-button action-button">
+          <div class="pure-button ramp-button action-button export-zip-download">
               <?php
               // Run function to create the export zip file
               exportZip();
               ?>
+
+
             <a href="export/ramp-export.zip">Download All Records <i class="fa fa-download" aria-hidden="true"></i></a>
           </div>
 
@@ -78,9 +80,12 @@ function statusIcon($status) {
   </div>
 
 </div>
-
-
-
+<script>
+    if ($('tbody').children().size() === 1) {
+        $('.export-zip-download').remove();
+        $('.content_box').html('<p>There are no items. You will need to <a href="ead_convert.php">import items</a> before they are displayed here.</p>');
+    }
+</script>
 <?php
 include('footer.php');  
 ?>

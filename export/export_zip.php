@@ -4,7 +4,14 @@ function exportZip() {
 
     $db = Database::getInstance();
     $mysqli = $db->getConnection();
+    
+    
+    try {
+        unlink('export/ramp-export.zip');
+    } catch (Exception $e) {
 
+    }
+    
     $zip = new ZipArchive;
     $zip->open('export/ramp-export.zip', ZipArchive::CREATE);
 
