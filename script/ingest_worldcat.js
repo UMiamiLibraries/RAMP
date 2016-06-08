@@ -93,6 +93,7 @@ function cancelWorldCat() {
     record = {};
     clearFlashMessage();
     viewSwitch.showHome();
+    enableAllModuleButtons();
 }
 
 /*
@@ -188,7 +189,7 @@ function ingest_worldcat_elements(lobjEac, lstrName, callback) {
                             $('.form_container').remove();
 
                             hideLoadingImage();
-                            
+
                             editor.getSession().setValue(lobjEac.getXML());
 
                             viewSwitch.showAceEditor();
