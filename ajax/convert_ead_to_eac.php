@@ -35,5 +35,3 @@ if( isset($_GET['dir']) )
 	echo $ead_convert->process_files();
 
 }
-
-?>

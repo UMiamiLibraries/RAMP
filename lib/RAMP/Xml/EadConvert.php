@@ -215,7 +215,7 @@ class EadConvert {
             'otherAgencyCode' => $this->other_agency_code,
             'agencyName' => $this->agency_name,
             'shortAgencyName' => $this->short_agency_name,
-            'standardDateTime'=>substr(date('c'), 0, -15), // Removed hours from date to avoid unecessary Diffs. --timathom
+            'standardDateTime'=>substr(date('c'), 0, -15),
             'file' => $file,
             'serverName' => $this->serverName,
             'localURL' => $this->localURL,
@@ -259,6 +259,7 @@ class EadConvert {
         } else {
             // If you couldn't insert the EAD into the database
 
+            /*
             $ead_str_compare = $this->ead_update_check($file_path);
 
             // Then do a string comparision to see if the EAD file has changed since the last import
@@ -272,25 +273,13 @@ class EadConvert {
                 //Check eac
 
             }
+            */
         }
 
     }
 
     public function process_files() {
-        /*
-           This function takes an array of paths to EAD files and processes them.
-           Firstly, the function checks to see if the file already exists in the database.
-           If the file doesn't already exist in the database it is inserted into the database and an XSLT
-           transformation is performed that returns EAC-CPF XML. The EAC-CPF is also inserted into the database.
-           The original EAD file is deleted so that consecutive imports don't have to process all the files. They
-           are no longer needed because they are in the database.
-           If the file already exists in the database, a string comparison is done to see if the XML has changed.
-           If the XML has changed then the phpDiff library in envoked and the user is presented with a graphical
-           interface for the Diff.
-           -- Jamie
-        */
         $counter = 0;
-        $HTMLdiffs = '';
         foreach ($this->allfiles as $key => $file) {
             // Iterate over the files
             if( pathinfo($file, PATHINFO_EXTENSION) != "xml")
@@ -309,17 +298,17 @@ class EadConvert {
             if ($name_check_results == TRUE) {
                 // Make sure that the EAD file has a name
 
-                $HTMLdiffs .= $this->insert_into_db($file_path, $file);
+                 $this->insert_into_db($file_path, $file);
             }
             unset( $this->allfiles[$key] );
             $counter++;
             if( $counter >= $this->cycleCount )
             {
-                $jsonOutput = array( "diffs" => $HTMLdiffs, "unprocessed" => array_values($this->allfiles), "status" => "unfinished" );
+                $jsonOutput = array( "unprocessed" => array_values($this->allfiles), "status" => "unfinished" );
                 return json_encode($jsonOutput);
             }
         }
-        $jsonOutput = array( "diffs" => $HTMLdiffs, "status" => "done" );
+        $jsonOutput = array( "status" => "done" );
         return json_encode($jsonOutput);
     }
 
@@ -363,58 +352,7 @@ class EadConvert {
     }
 
 
-    private function eac_update_check($ead_path, $xslt) {
-        $db = Database::getInstance();
-        $mysqli = $db->getConnection();
-        $eac_from_db_xml = $mysqli->query("SELECT eac_xml FROM ead_eac.eac WHERE ead_file = '$ead_path'");
-        $eac_row = mysqli_fetch_row($eac_from_db_xml);
-        $xslt = stripslashes($xslt);
-        $eac_str_compare = strcasecmp( trim($eac_row[0]), trim($xslt));
-        $output = "";
-        if ($eac_str_compare != 0) {
-            // Diff stuff
-            $options = array(
-                'ignoreWhitespace' => true,
-                'ignoreCase' => true,
-            );
-            $a = explode("\n",$eac_row[0]);
-            $b = explode("\n",$xslt);
-            $diff = new Diff ($a, $b, $options);
-            $renderer = new Diff_Renderer_Html_SideBySide;
-            $diff_id = md5( $eac_row[0] . date('c') . $xslt );
-            $output .= "<div id=\"$diff_id\">" . $diff->Render($renderer);
-            $output .= "<script type=\"text/javascript\">var ead_path_$diff_id=\"" . $ead_path . '"</script>';
-            $output .= "<script type=\"text/javascript\">var left_$diff_id=".json_encode($a).", right_$diff_id=".json_encode($b).';</script>';
-            $output .= "<script>
-$('div#$diff_id .Differences').phpdiffmerge({
-    left: left_$diff_id,
-    right: right_$diff_id,
-    merged: function(merge, left, right) {
-        /* Do something with the merge */
-        $.post(
-            'update_eac_xml.php',
-            {
-	    ead_file: ead_path_$diff_id,
-		xml: merge.join(\"\\n\")
-            },
-            function() {
-                alert('Done');
-            }
-        );
-    }
-    /* Use your own \"Merge now\" button */
-    // ,button: '#myButtonId'
-    /* uncomment to see the complete merge in a pop-up window */
-    // ,pupupResult: true
-    /* uncomment to pass additional infos to the console. */
-    // ,debug: true
-});
-</script>
-</div>
-";
-        }
-        return $output;
-    }
+
 
 
     private function create_eac_id() {

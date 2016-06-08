@@ -8,7 +8,7 @@ require_once('autoloader.php');
 require_once('conf/includes.php');
 
 ?>
-
+<script src="script/import_ead.js"></script>
 <?php
 if(isset($_FILES['ead'])){
 
@@ -113,7 +113,15 @@ if(isset($_FILES['ead'])){
             
             <div class="pure-u-1 pure-u-md-1-2">
                 <h3>Import from <em>EAD</em> Folder</h3>
-                <p>Coming soon...</p>                
+                <form action="ead_convert_class.php">
+
+                    <input type="hidden" name='dir' value="<?php echo $ead_path ?>"></input>
+                    <button type="button" id="convertEad2Eac" name="convertEad2Eac"
+                            class="ramp-button pure-button action-button">Import
+                    </button>
+                    <span id="file_estimator" style="display: none;"></span>
+                    <div id="results"></div>
+                </form>
             </div>
 
 
