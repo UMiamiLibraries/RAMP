@@ -158,6 +158,13 @@ include('footer.php');
         echo " $(document).ready(function() {
         build_editor(eacId);
     });";
+        echo "$('option').each(function(data) { 
+  if ($(this).data().id === eacId) 
+  { 
+    $('select').select2(\"data\", {id: eacId, text: $(this).text()});
+  }
+});
+     ";
     } ?>
 </script>
 
