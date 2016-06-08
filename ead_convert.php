@@ -72,7 +72,7 @@ if(isset($_FILES['ead'])){
         echo $sql;
 
     } else {
-        echo "<div id=\"flash_message\"><div class=\"success-message\"><p>Success! You EAD file has been uploaded and converted into an EAC file.</p></div></div>";
+        echo "<div id=\"flash_message\"><div class=\"success-message\"><p>Success! Your EAD file has been uploaded.</p></div></div>";
 
     }
 
@@ -83,7 +83,7 @@ if(isset($_FILES['ead'])){
 
     <div class="recordtitle-bkg">    
        <div class="recordtitle">
-            <div class="inner-area"><h2 class="page-top-heading">Upload, Convert or Import EAD-CPF Files</h2></div>
+            <div class="inner-area"><h2 class="page-top-heading">Upload, Convert or Import EAC-CPF Files</h2></div>
        </div>
     </div>
 
@@ -112,7 +112,7 @@ if(isset($_FILES['ead'])){
             </div>
             
             <div class="pure-u-1 pure-u-md-1-2">
-                <h3>Import from <em>EAD</em> Folder</h3>
+                <h3>Import from EAD Folder</h3>
                 <form action="ead_convert_class.php">
 
                     <input type="hidden" name='dir' value="<?php echo $ead_path ?>"></input>
