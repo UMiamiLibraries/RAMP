@@ -51,8 +51,7 @@ function statusIcon($status) {
           foreach($allItems as $item):
 
             echo "<tr id='{$item['eac_id']}'>";
-            echo "<td><a href='index.php?eac_id={$item['eac_id']}'>".$item['Name']."</a></td>";
-            echo "<td>".$item['eac_id']."</td>";
+            echo "<td>".$item['Name']."</a></td>";
             echo "<td>".statusIcon($item['ingest_status']['statuses'][0]['status'])."</td>";
             echo "<td>".statusIcon($item['ingest_status']['statuses'][1]['status'])."</td>";
             echo "<td>".statusIcon($item['ingest_status']['statuses'][2]['status'])."</td>";

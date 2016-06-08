@@ -2,8 +2,6 @@
 include('header.php');
 ?>
 
-
-
     <!--HOMEPAGE content (top)-->
     <div id="feature-heading" class="feature-heading home-view">
         
@@ -131,7 +129,6 @@ include('header.php');
     </script>
     <!-- End Ace Editor -->
 
-
     <!-- Select2: the jQuery Plugin for Autocomplete -->
 
     <script type="text/javascript">
@@ -143,29 +140,7 @@ include('header.php');
     </script>
     <!-- End Select 2 -->
 
-
-
-
 <?php
 include('footer.php');
 ?>
-<script>
-    <?php if (isset($_GET['eac_id'])) {
-        /* Mutant solution to allow linking to a record */
-        echo "var eacId = ";
-        echo (int) $_GET['eac_id'];
-        echo ";";
-        echo " $(document).ready(function() {
-        build_editor(eacId);
-    });";
-        echo "$('option').each(function(data) { 
-  if ($(this).data().id === eacId) 
-  { 
-    $('select').select2(\"data\", {id: eacId, text: $(this).text()});
-  }
-});
-     ";
-    } ?>
-</script>
-
 
