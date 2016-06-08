@@ -296,6 +296,8 @@ function displayWikiSearch(lobjTitles, callback) {
         renderFlashMessage('<p>Wikipedia Ingest Process Canceled</p>');
 
         enableAllModuleButtons();
+
+        viewSwitch.enableDropdown();
     });
 }
 
@@ -351,9 +353,13 @@ function getWiki(lstrTitle, lstrLink) {
 
         $('#form_viewport').remove();
 
+        viewSwitch.removeWikiStepTwo();
+
         renderFlashMessage('<p>Wikipedia Ingest Process Canceled</p>');
 
         enableAllModuleButtons();
+
+        viewSwitch.enableDropdown();
 
     });
 }
