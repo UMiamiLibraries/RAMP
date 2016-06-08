@@ -29,7 +29,7 @@ if(isset($_FILES['ead'])){
 
     $u = new Uploader($_FILES, $ead_convert);
 
-
+    $response = $u->getResponse();
 //now convert eac xml to wiki markup and then insert it into db
     $db = Database::getInstance();
     $mysqli = $db->getConnection();
@@ -68,11 +68,18 @@ if(isset($_FILES['ead'])){
 
     $result = $mysqli->query($sql);
     if (!$result) {
-        printf("%s\n", $mysqli->error);
-        echo $sql;
+        //printf("%s\n", $mysqli->error);
+        //echo $sql;
+        $flash_message = "<div id=\"flash_message\"><div class=\"error-message\">";
+
+        if(isset($response) && ($response == "\"XML is not valid. Please check the xml file for errors.\"")) {
+            $flash_message .=  "<p>". $response ."</p>";
+        }
+        $flash_message .= "<p>Error, your EAD file has not been uploaded.</p>";
+        $flash_message .= "</div></div>";
 
     } else {
-        echo "<div id=\"flash_message\"><div class=\"success-message\"><p>Success! Your EAD file has been uploaded.</p></div></div>";
+        $flash_message = "<div id=\"flash_message\"><div class=\"success-message\"><p>Success! Your EAD file has been uploaded. Start editing your file <a href='/index.php'> here</a> </p></div></div>";
 
     }
 
@@ -107,7 +114,7 @@ if(isset($_FILES['ead'])){
                 <form enctype="multipart/form-data" method="POST" class="pure-form">
                     <input type="hidden" name="MAX_FILE_SIZE" value="30000000"/>
                     <input name="ead" type="file"/><br>
-                    <input type="submit" class="pure-button ramp-button action-button" value="Upload EAD"/>
+                    <input disabled type="submit" class="pure-button ramp-button action-button" value="Upload EAD"/>
                 </form>                
             </div>
             
@@ -127,6 +134,19 @@ if(isset($_FILES['ead'])){
 
         </div> <!-- end pure-g -->
 
+
+        <?php if(isset($flash_message)) {
+            echo $flash_message;
+        } ?>
     </div>
 
 <?php include('footer.php'); ?>
+
+<script>
+    $('input[name="ead"]').on('click', function() {
+
+
+        $('input[type="submit"]').prop('disabled', false);
+    })
+
+</script>

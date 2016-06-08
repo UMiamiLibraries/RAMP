@@ -43,7 +43,7 @@ class Uploader
 
         } else {
 
-            echo 'XML is not valid. Please check the xml file for errors.';
+            $this->response = 'XML is not valid. Please check the xml file for errors.';
         }
 
 

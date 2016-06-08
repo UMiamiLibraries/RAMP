@@ -6,7 +6,7 @@
 try {
     $db = Database::getInstance();
 
-     echo <<<EOT
+     $flash_message = <<<EOT
             
             <div class="inner-area">
               <div id="flash_message">
@@ -19,6 +19,16 @@ EOT;
 
 } catch (mysqli_sql_exception $e) {
 
+    $flash_message = <<<EOT
+            <div class="inner-area">
+            <div id="flash_message">
+                <div class="error-message">
+                 <p>Couldn't connect to the MySQL server. Please <a href="install.php">configure your database settings.</a>
+                </p>
+                </div>
+            </div>
+            </div>
+EOT;
 }
 ?>
 
@@ -32,5 +42,9 @@ if (isset($_POST['db_user'])) {
 ?>
 
 <?php include('installer/form.php'); ?>
+
+<?php if(isset($flash_message)) {
+    echo $flash_message;
+} ?>
 
 <?php include('footer.php') ?>
