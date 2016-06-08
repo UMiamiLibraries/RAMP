@@ -6,10 +6,13 @@ try {
     $db = Database::getInstance();
 
      echo <<<EOT
-            <div id="flash_message">
-                <div class="success-message">
-                 <p>Successfully connected to MySQL</p>
-                </div>
+            
+            <div class="inner-area">
+              <div id="flash_message">
+                  <div class="success-message">
+                   <p>Successfully connected to MySQL</p>
+                  </div>
+              </div>
             </div>
 EOT;
 
