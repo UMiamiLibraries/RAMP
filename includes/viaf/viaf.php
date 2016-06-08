@@ -98,7 +98,7 @@
                 </tr>
         
                 <tr class="user_plain_row">
-                    <td><input type="checkbox" class="viaf_check" name="chosen_results" value=""/></td>
+                    <td><input type="checkbox" class="viaf_check" name="chosen_results" value="<%= lstrName.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;') %>" /></td>
                     <td id="plainText"><span id="textSpan">  <%= lstrName %> </span>
                         <span id="select_wrap">
                             <select class="inline-select" id="ents" name="entities"
