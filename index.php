@@ -61,7 +61,7 @@ include('header.php');
                     </div>
                     <div class="pure-u-1-3">
                         <div class="all_items-btn-container home-view">
-                            <button id="view_all_items" class="viewall_button pure-button"><i class="fa fa-list-ul"></i> <a href="all-items.php">All Items</a></button>
+                            <div id="view_all_items" class="pure-button viewall_button action-button"><i class="fa fa-list-ul"></i> <a href="all-items.php">All Items</a></div>
                         </div>                            
                     </div>
                 </div>
@@ -158,6 +158,13 @@ include('footer.php');
         echo " $(document).ready(function() {
         build_editor(eacId);
     });";
+        echo "$('option').each(function(data) { 
+  if ($(this).data().id === eacId) 
+  { 
+    $('select').select2(\"data\", {id: eacId, text: $(this).text()});
+  }
+});
+     ";
     } ?>
 </script>
 

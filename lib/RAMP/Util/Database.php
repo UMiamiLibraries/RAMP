@@ -49,11 +49,13 @@ class Database
 
         if (mysqli_connect_error()) {
             $error_message = <<<EOT
+            <div class="inner-area">
             <div id="flash_message">
-                <div class="success-message">
+                <div class="error-message">
                  <p>Couldn't connect to the MySQL server. Please <a href="install.php">configure your database settings.</a>
                 </p>
                 </div>
+            </div>
             </div>
 EOT;
             echo $error_message;
