@@ -237,7 +237,7 @@ button[disabled], html input[disabled] {cursor: not-allowed;}
 /* All Items Button */
 .all_items-btn-container {text-align: right; border-left:1px solid #CCC; margin-left: 20px; width: 160px;}
 
-.viewall_button {background-color: #12776b; color:#FFF; height:47px; border-radius: 0;}
+.viewall_button {background-color: #12776b; color:#FFF; height:47px; border-radius: 0; padding: 0.75em 1em;}
 
 .viewall_button a{color:#FFF;}
 
@@ -379,7 +379,7 @@ button[disabled], html input[disabled] {cursor: not-allowed;}
 
 .add-row-plus {font-size: 20px; padding: 0 6px 0 0; color: #12776b;}
 
-.ner_empty_rm.ramp-button { background-color: transparent;  border: none; color: #9a200d; font-style: italic; }
+.ner_empty_rm.ramp-button { background-color: transparent;  border: none; color: #b82201; font-style: italic; }
 
 #plainText > span {
     vertical-align: top;
@@ -466,11 +466,11 @@ button[disabled], html input[disabled] {cursor: not-allowed;}
 
 .error-message {
   margin: 0 0 30px 0;
-  border: 1px solid rgba(254,138,113,0.35);
+  border: 1px solid #b82201;
   border-radius: 2px;
   padding: 8px 10px;
 }
-.error-message p {color: rgba(254,138,113,0.7); margin:0; font-style: italic;}
+.error-message p, .error-message a {color: #b82201; margin:0; font-style: italic;}
 
 .success-message {
   margin: 0 0 30px 0;
@@ -506,6 +506,11 @@ button[disabled], html input[disabled] {cursor: not-allowed;}
 .doc-anchor {margin-top:30px; display: block;}
 
 
+/* Database Install Page */
+.install-form div {margin:30px 0 10px 0;}
+
+.install-form label {font-weight: bold; margin: 0 0 10px 0;}
+.install-form input {border-radius: 0 !important; box-shadow: none !important; font-weight: normal;}
 
 
 /*///////////////////////////////////////////
