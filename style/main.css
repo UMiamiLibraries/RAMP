@@ -237,7 +237,7 @@ button[disabled], html input[disabled] {cursor: not-allowed;}
 /* All Items Button */
 .all_items-btn-container {text-align: right; border-left:1px solid #CCC; margin-left: 20px; width: 160px;}
 
-.viewall_button {background-color: #12776b; color:#FFF; height:47px; border-radius: 0;}
+.viewall_button {background-color: #12776b; color:#FFF; height:47px; border-radius: 0; padding: 0.75em 1em;}
 
 .viewall_button a{color:#FFF;}
 
