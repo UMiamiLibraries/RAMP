@@ -1,10 +1,25 @@
 <?php include('conf/db.php') ?>
+
+<div class="recordtitle-bkg">    
+   <div class="recordtitle">
+        <div class="inner-area"><h2 class="page-top-heading">Install RAMP</h2></div>
+   </div>
+</div>
+
+<div class="decoration-bar">
+    <div class="pure-g">
+        <div class="pure-u-1-4 decor1"></div>
+        <div class="pure-u-1-4 decor2"></div>
+        <div class="pure-u-1-4 decor3"></div>
+        <div class="pure-u-1-4 decor4"></div>
+    </div>
+</div>
+
 <div class="inner-area">
     <div class="pure-g">
         <div class="pure-u-1">
             <div class="content_box">
 
-                <h3>Install RAMP</h3>
                 <form class="pure-form-stacked pure-form install-form" method="post">
                     <fieldset>
                         <p>The form below saves your MySQL credentials.</p>
