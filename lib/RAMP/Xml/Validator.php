@@ -6,7 +6,7 @@
  * Time: 12:18 PM
  */
 
-namespace RAMP\Xml;
+namespace RAMP\XML;
 
 
 class Validator
