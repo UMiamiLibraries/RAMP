@@ -77,4 +77,28 @@ class Validator
 
 
 
+    public function hasNameAttribute($xmlFilename) {
+
+        $xmlContent = file_get_contents($xmlFilename);
+
+        $doc = new \DOMDocument();
+        $doc->loadXML($xmlContent);
+
+        $persname = $doc->getElementsByTagName('persname')->length;
+        $corpname = $doc->getElementsByTagName('corpname')->length;
+        $famname  = $doc->getElementsByTagName('famname')->length;
+
+
+        if($persname > 0) {
+            $hasNameAttribute = true;
+        } elseif($corpname > 0) {
+            $hasNameAttribute = true;
+        } elseif($famname > 0) {
+            $hasNameAttribute = true;
+        } else {
+            $hasNameAttribute = false;
+        }
+
+        return $hasNameAttribute;
+    }
 }

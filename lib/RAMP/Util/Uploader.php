@@ -26,7 +26,9 @@ class Uploader
         $xmlFilename = $files['ead']['tmp_name'];
         $isValidXml = $this->validateXmlFile($xmlFilename);
 
-        if ($isValidXml) {
+        $hasNameAttribute = $this->getNameAttribute($xmlFilename);
+        
+        if ($isValidXml && $hasNameAttribute) {
 
             $this->xml = simplexml_load_file($files['ead']['tmp_name']);
 
@@ -40,6 +42,7 @@ class Uploader
             } else {
                 $this->response = json_encode($this->fail);
             }
+
 
         } else {
 
@@ -55,6 +58,14 @@ class Uploader
         $isValid = $validator->isXMLFileValid($xmlFilename, $version, $encoding);
 
         return $isValid;
+    }
+
+    public function getNameAttribute($xmlFilename) {
+
+        $validator = new Validator();
+        $nameAttribute = $validator->hasNameAttribute($xmlFilename);
+
+        return $nameAttribute;
     }
 
 
