@@ -9,7 +9,7 @@
  * @copyright Copyright (c) 2013
  *
  */
-namespace RAMP\Xml;
+namespace RAMP\XML;
 
 use RAMP\Util\Database;
 

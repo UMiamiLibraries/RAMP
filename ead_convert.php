@@ -1,7 +1,7 @@
 <?php
 include('header.php');
 use RAMP\Util\Uploader;
-use RAMP\Xml\EadConvert;
+use RAMP\XML\EadConvert;
 use RAMP\Util\Database;
 
 require_once('autoloader.php');

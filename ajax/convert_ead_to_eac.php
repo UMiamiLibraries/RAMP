@@ -2,8 +2,8 @@
 /*error_reporting(E_ALL);
 ini_set('display_errors', '1');*/
 
-use RAMP\Xml\EadConvert;
-use RAMP\Xml\XsltTransform;
+use RAMP\XML\EadConvert;
+use RAMP\XML\XsltTransform;
 use RAMP\Util\Database;
 
 require_once ('../autoloader.php');

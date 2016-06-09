@@ -9,8 +9,8 @@ namespace RAMP\Util;
  */
 
 use RAMP\Interfaces\OutputInterface;
-use RAMP\Xml\EadConvert;
-use RAMP\Xml\Validator;
+use RAMP\XML\EadConvert;
+use RAMP\XML\Validator;
 
 class Uploader
 {

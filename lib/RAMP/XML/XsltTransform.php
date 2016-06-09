@@ -10,7 +10,7 @@
  *
  */
 
-namespace RAMP\Xml;
+namespace RAMP\XML;
 
 class XsltTransform {
 
