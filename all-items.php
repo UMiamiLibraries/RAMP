@@ -16,6 +16,7 @@ function statusIcon($status) {
 ?>
 
 <script src="script/deleteRecord.js"></script>
+<div class="delete-dialog">Are you sure you want to delete this record?</div>
 
 <div class="recordtitle-bkg">    
    <div class="recordtitle">
@@ -78,7 +79,6 @@ function statusIcon($status) {
      
     </div>
   </div>
-
 </div>
 <script>
     if ($('tbody').children().size() === 1) {
