@@ -444,6 +444,7 @@ button[disabled], html input[disabled] {cursor: not-allowed;}
   border: 1px solid #dbdad9 !important;
 }
 
+.delete-dialog { display: none; } 
 
 /* Validation, Messages */
 
