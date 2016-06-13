@@ -11,7 +11,7 @@
 <div id="xml_buttons_container" class="ace-editor-view">
     <button id="editor_readonly_button" class="pure-button ramp-button" data-readonly="on">Edit XML </button>
     <button id="save_eac" class="pure-button ramp-button">Save XML</button>
-    <button id="cancel-worldcat" class="pure-button ramp-button">Cancel</button>
+    <button id="cancel-editor" class="pure-button ramp-button ingest-cancel">Cancel</button>
 
     <div id="validation_container" class="ace-editor-view">
         <p id="readonly_status"></p>
