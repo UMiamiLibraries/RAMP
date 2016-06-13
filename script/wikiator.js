@@ -297,7 +297,7 @@ function displayWikiSearch(lobjTitles, callback) {
 
         enableAllModuleButtons();
 
-        viewSwitch.enableDropdown();
+        viewSwitch.showHome();
     });
 }
 
@@ -359,7 +359,7 @@ function getWiki(lstrTitle, lstrLink) {
 
         enableAllModuleButtons();
 
-        viewSwitch.enableDropdown();
+        viewSwitch.showHome();
 
     });
 }

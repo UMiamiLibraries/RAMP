@@ -202,25 +202,14 @@ $(document).ready(function () {
         //register click event to cancel process
         $('#ingest_viaf_chosen_viaf_cancel').on('click', function () {
 
-            // display results
-            $('.form_container').remove();
-            $('.help_container').remove();
-            //callback();
+            viewSwitch.removeViafStepOne();
+
+            viewSwitch.showHome();
 
             renderFlashMessage('<p>VIAF Ingest Canceled</p>');
 
-            clearHelpTemplateContainer();
-
-            viewSwitch.showAceEditor();
-
-            //render contextual help template
-            renderHelpTemplate('viaf_template_help_step_three');
 
             enableAllModuleButtons();
-
-
-
-
         });
 
         //scroll to top to view form correctly
@@ -514,10 +503,14 @@ $(document).ready(function () {
             var lobjChosenNames =[];
             callback(lobjChosenNames);
 
-            $('.form_container').remove();
-            $('.help_container').remove();
+            viewSwitch.removeViafStepTwo()
 
-            viewSwitch.showAceEditor();
+            //cancel ingest and viewSwitch.showHome
+            viewSwitch.showHome();
+
+            renderFlashMessage('<p>VIAF Ingest Process Canceled</p>');
+
+            enableAllModuleButtons();
 
 
         });
@@ -622,9 +615,14 @@ $(document).ready(function () {
             var lobjChosenResults =[];
 
             callback(lobjChosenResults);
-            $('.form_container').remove();
-            $('.help_container').remove();
-            $('#viaf_load').remove();
+
+            viewSwitch.removeViafStepThree();
+
+            viewSwitch.showHome();
+
+            renderFlashMessage('<p>VIAF Ingest Process Canceled</p>');
+
+            enableAllModuleButtons();
 
         });
     }

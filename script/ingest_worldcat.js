@@ -12,9 +12,11 @@ $(document).ready(function () {
         startWorldCat();
     });
 
+    /*
     $('#cancel-worldcat').on('click', function() {
        cancelWorldCat();
     });
+    */
 
 });
 
@@ -299,19 +301,15 @@ function display_possible_worldcat_form(lobjPossibleURI, callback) {
 
     //register click event to cancel process
     $('#ingest_worldcat_chosen_uri_cancel').on('click', function () {
-        //callback('');
+
         viewSwitch.removeWorldCatStepOne();
 
-        //show aceEditor
-        viewSwitch.showAceEditor();
+        //cancel ingest and viewSwitch.showHome
+        viewSwitch.showHome();
 
-        //scroll to top to view form correctly
-        scrollToFormTop();
+        renderFlashMessage('<p>WorldCat Ingest Process Canceled</p>');
 
-       renderFlashMessage('<p>WorldCat Ingest Process Canceled</p>');
-
-        enableSingleModuleButton('ingest_viaf');
-        enableSingleModuleButton('convert_to_wiki');
+        enableAllModuleButtons();
 
     });
 }
@@ -372,12 +370,20 @@ function display_possible_worldcat_subjects(lobjPossibleSubjects, callback) {
 
     //register click event to cancel process
     $('#ingest_worldcat_chosen_subjects_cancel').on('click', function () {
-        var lobjChosenSubjects =[];
 
+        var lobjChosenSubjects =[];
         callback(lobjChosenSubjects);
+
+
         viewSwitch.removeWorldCatStepTwo();
 
-        return;
+        //cancel ingest and viewSwitch.showHome
+        viewSwitch.showHome();
+
+        renderFlashMessage('<p>WorldCat Ingest Process Canceled</p>');
+
+        enableAllModuleButtons();
+
     });
 
     //skip worldcat step two - ingest from worldcat identities
