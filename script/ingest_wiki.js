@@ -21,15 +21,8 @@ function startWiki() {
     if (record.onWiki !== true) {
         record.onWiki = true;
     }
-/*
-    showLoadingImage();
-
-    viewSwitch.hideAceEditor();
-    eacToMediaWiki();
-*/
 
     autoSearchWikipedia(record.entityName);
-
 }
 
 function showWikiLoginButton() {
@@ -294,7 +287,7 @@ function getLocalWikiMarkup(eacId) {
 
 
 function autoSearchWikipedia(entityName) {
-
+    
     lstrUserSearch = encode_utf8(entityName);
 
     showLoadingImage();

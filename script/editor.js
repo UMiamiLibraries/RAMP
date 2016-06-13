@@ -10,6 +10,8 @@ $(document).ready(function () {
     //enable toggle switch for ace editor read only
     toggleReadOnly();
 
+    cancelEditor();
+
 
 });
 
@@ -37,9 +39,7 @@ function build_editor(eacId) {
         validateXML(undefined, record.eacXml);
     });
 
-
 }
-
 
 
 /*
@@ -354,4 +354,20 @@ function scrollToFormTop() {
     $('html,body').animate({
         scrollTop: 0
     }, 0);
+}
+
+function cancelEditor() {
+    $('#cancel-editor').on('click', function () {
+        viewSwitch.showHome();
+
+        //clear flash message
+        clearFlashMessage();
+
+        //display success message
+        renderFlashMessage('<p>Process Canceled</p>');
+
+
+        enableAllModuleButtons();
+
+    })
 }

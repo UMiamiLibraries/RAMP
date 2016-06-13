@@ -2,8 +2,6 @@ $(document).ready(function () {
 
     selectFileToIngest();
 
-    disableEadDropDownSelect();
-
     //clear ingest instructions after any module button is clicked
     clearInitialIngestInstructions();
 
@@ -12,7 +10,9 @@ $(document).ready(function () {
 
         $('.ead_files').change(function () {
 
-            //set record object
+            //set record object;
+
+
             record.eadFile = this.value;
             record.entityName = $(this).children("option:selected").text();
             record.savedXml = "";
@@ -41,8 +41,6 @@ $(document).ready(function () {
         });
     }
 
-
-
-
+    
 
 });

@@ -1,16 +1,23 @@
 var viewSwitch = {
     reset: function () {
         $('[class$=-view]').hide();
-        viewSwitch.enableDropdown();
+        viewSwitch.hideDropDown();
 
     },
     showHome: function () {
         viewSwitch.reset();
         $('.home-view').show();
+        viewSwitch.showDropDown();
 
     },
     enableDropdown: function () {
         $('#ead_files_select_menu').prop('disabled', false);
+    },
+    showDropDown: function () {
+        $('.select2-container').show();
+    },
+    hideDropDown: function () {
+        $('.select2-container').hide();
     },
     showWorldCatStepOne: function () {
         viewSwitch.reset();
