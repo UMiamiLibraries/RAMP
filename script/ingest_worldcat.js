@@ -33,7 +33,7 @@ function startWorldCat() {
 
     //cannot start ingestion without XML being loaded
     if (record.eacXml == '') {
-        renderFlashMessage('<p>Must load EAC first!</p>');
+        renderFlashMessage('<div class=\"error-message\"><p>Must load EAC first!</p></div>');
         return;
     }
 
@@ -73,7 +73,7 @@ function startWorldCat() {
             ingest_worldcat_elements(lobjeac, eac_name, function (lstrMessage) {
                 if (typeof lstrMessage != 'undefined' && lstrMessage != '') {
                     //display response
-                    renderFlashMessage('<p>' + lstrMessage + '</p>');
+                    renderFlashMessage('<div class=\"error-message\"><p>' + lstrMessage + '</p></div>');
                 }
 
                 viewSwitch.showAceEditor();
@@ -186,7 +186,7 @@ function ingest_worldcat_elements(lobjEac, lstrName, callback) {
                         // Notification logic added by timathom.
                         if (lobjSubjectList.length == 0) {
 
-                           renderFlashMessage('<p>No matching subjects.</p>');
+                           renderFlashMessage('<div class=\"error-message\"><p>No matching subjects.</p></div>');
 
                             $('.form_container').remove();
 
@@ -307,7 +307,7 @@ function display_possible_worldcat_form(lobjPossibleURI, callback) {
         //cancel ingest and viewSwitch.showHome
         viewSwitch.showHome();
 
-        renderFlashMessage('<p>WorldCat Ingest Process Canceled</p>');
+        renderFlashMessage('<div class=\"success-message\"><p>WorldCat Ingest Process Canceled</p></div>');
 
         enableAllModuleButtons();
 
@@ -380,7 +380,7 @@ function display_possible_worldcat_subjects(lobjPossibleSubjects, callback) {
         //cancel ingest and viewSwitch.showHome
         viewSwitch.showHome();
 
-        renderFlashMessage('<p>WorldCat Ingest Process Canceled</p>');
+        renderFlashMessage('<div class=\"success-message\"><p>WorldCat Ingest Process Canceled</p></div>');
 
         enableAllModuleButtons();
 

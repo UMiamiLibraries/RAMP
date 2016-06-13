@@ -257,7 +257,7 @@ function displayWikiSearch(lobjTitles, callback) {
                 lobjData = JSON.parse(response);
             }
             catch (e) {
-                renderFlashMessage('<p>' + e.message + '</p>');
+                renderFlashMessage('<div class=\"error-message\"><p>' + e.message + '</p></div>');
                 return;
             }
 
@@ -293,7 +293,7 @@ function displayWikiSearch(lobjTitles, callback) {
 
         viewSwitch.removeWikiStepOne();
 
-        renderFlashMessage('<p>Wikipedia Ingest Process Canceled</p>');
+        renderFlashMessage('<div class=\"success-message\"><p>Wikipedia Ingest Process Canceled</p></div>');
 
         enableAllModuleButtons();
 
@@ -355,7 +355,7 @@ function getWiki(lstrTitle, lstrLink) {
 
         viewSwitch.removeWikiStepTwo();
 
-        renderFlashMessage('<p>Wikipedia Ingest Process Canceled</p>');
+        renderFlashMessage('<div class=\"success-message\"><p>Wikipedia Ingest Process Canceled</p></div>');
 
         enableAllModuleButtons();
 

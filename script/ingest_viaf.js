@@ -77,6 +77,10 @@ $(document).ready(function () {
                 //display error when xml is not valid
                 $('body').append("<div id=\"dialog\"><p>XML must be valid!</p></div>");
                 makeDialog('#dialog', 'Error!');
+
+                hideLoadingImage();
+
+                viewSwitch.showAceEditor();
             }
         }, record.eacXml);
     }
@@ -206,7 +210,7 @@ $(document).ready(function () {
 
             viewSwitch.showHome();
 
-            renderFlashMessage('<p>VIAF Ingest Canceled</p>');
+            renderFlashMessage('<div class=\"success-message\"><p>VIAF Ingest Canceled</p></div>');
 
 
             enableAllModuleButtons();
@@ -331,7 +335,7 @@ $(document).ready(function () {
                         //scroll to top to view form correctly
                         scrollToFormTop();
 
-                        callback("Canceled!");
+                        //callback("!Canceled!");
                         //done if no names where chosen
 
                         viewSwitch.showAceEditor();
@@ -374,7 +378,7 @@ $(document).ready(function () {
                                     //scroll to top to view form correctly
                                     scrollToFormTop();
 
-                                    callback("Canceled!");
+                                    //callback("Canceled!");
 
                                     //finish process if no results chosen
                                     viewSwitch.showAceEditor();
@@ -393,7 +397,8 @@ $(document).ready(function () {
                                         var chosen_result_custom = lobjResultsChosen[ 'names'][ 'entity'][ 'custom'][i];
                                         var chosen_roles = lobjResultsChosen[ 'names'][ 'roles'][i];
                                         var chosen_rels = lobjResultsChosen[ 'names'][ 'rels'][i];
-                                        lobjEac.addCPFRelationCustom(lobjData[chosen_result_custom], chosen_roles, chosen_rels);
+
+                                        lobjEac.addCPFRelationCustom(lobjData[chosen_result_custom], lobjData[chosen_roles], lobjData[chosen_rels]);
                                     }
 
 
@@ -492,7 +497,7 @@ $(document).ready(function () {
 
                 viewSwitch.hideAceEditor();
 
-                renderFlashMessage('<p>Searching VIAF for matches. Depending on the number of queries, this may take some time.</p>');
+                renderFlashMessage('<div class="processing-message"><p>Searching VIAF for matches. Depending on the number of queries, this may take some time.</p></div>');
 
                 showLoadingImage();
             }
@@ -508,7 +513,7 @@ $(document).ready(function () {
             //cancel ingest and viewSwitch.showHome
             viewSwitch.showHome();
 
-            renderFlashMessage('<p>VIAF Ingest Process Canceled</p>');
+            renderFlashMessage('<div class=\"success-message\"><p>VIAF Ingest Process Canceled</p></div>');
 
             enableAllModuleButtons();
 
@@ -549,6 +554,7 @@ $(document).ready(function () {
         //register click event to continue process once user choses results
         $('#ingest_viaf_add_relations').on('click', function () {
 
+            console.log('viaf');
             var lobjChosenResults =[];
             lobjChosenResults[ 'names'] =[];
             lobjChosenResults[ 'names'][ 'entity'] =[];
@@ -569,6 +575,7 @@ $(document).ready(function () {
 
                         lobjChosenResults[ 'names'][ 'entity'][ 'all'].push($(this).closest('td').siblings('#plainText').children('#textSpan').text());
                         lobjChosenResults[ 'names'][ 'entity'][ 'custom'].push($(this).closest('td').siblings('#plainText').children('#textSpan').text());
+
 
                         if ($(this).closest('td').siblings('#plainText').children('#select_wrap').children('#ents').children('option:selected').val() != '') {
                             lobjChosenResults[ 'names'][ 'roles'].push("http://rdvocab.info/uri/schema/FRBRentitiesRDA/" + $(this).closest('td').siblings('#plainText').children('#select_wrap').children('#ents').children('option:selected').text());
@@ -620,7 +627,7 @@ $(document).ready(function () {
 
             viewSwitch.showHome();
 
-            renderFlashMessage('<p>VIAF Ingest Process Canceled</p>');
+            renderFlashMessage('<div class=\"success-message\"><p>VIAF Ingest Process Canceled</p></div>');
 
             enableAllModuleButtons();
 
