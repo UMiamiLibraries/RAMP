@@ -364,7 +364,7 @@ function cancelEditor() {
         clearFlashMessage();
 
         //display success message
-        renderFlashMessage('<p>Process Canceled</p>');
+        renderFlashMessage('<div class=\"success-message\"><p>Process Canceled</p></div>');
 
 
         enableAllModuleButtons();
