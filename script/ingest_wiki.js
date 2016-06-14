@@ -22,7 +22,11 @@ function startWiki() {
         record.onWiki = true;
     }
 
-    autoSearchWikipedia(record.entityName);
+
+    var fullName = normalizeEntityName(record.entityName);
+    console.log(fullName);
+
+    autoSearchWikipedia(fullName);
 }
 
 function showWikiLoginButton() {
@@ -33,6 +37,11 @@ function hideWikiLoginButton() {
     $('#wiki_login').hide();
 }
 
+function normalizeEntityName(name) {
+    var nameSplit = name.split(',');
+    var fullName = nameSplit[1] + ' ' + nameSplit[0];
+    return fullName;
+}
 
 
 function wikiCheck(eacId) {
@@ -287,7 +296,7 @@ function getLocalWikiMarkup(eacId) {
 
 
 function autoSearchWikipedia(entityName) {
-    
+
     lstrUserSearch = encode_utf8(entityName);
 
     showLoadingImage();
