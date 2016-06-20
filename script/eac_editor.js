@@ -2,7 +2,7 @@
 * This class handles all adding, creating, deleting, and getting of the EAC XML elements 
 * @class eac
 */
-function eac()
+function Eac()
 {
 	var objDomDocument;
 }
@@ -11,7 +11,7 @@ function eac()
 * This class handles all adding, creating, deleting, and getting of the EAD XML elements 
 * @class eac
 */
-function ead()
+function Ead()
 {
 	var objDomDocument;
 }
@@ -20,7 +20,7 @@ function ead()
 	* loadXMLFile loads the passed xml file path and creates and saves a Dom Document based on xml file content
 	* @method loadXMLFile
 	*/
-	eac.prototype.loadXMLFile = function( lstrXMLFile )
+	Eac.prototype.loadXMLFile = function(lstrXMLFile )
 	{
         if (window.XMLHttpRequest)
         {
@@ -33,19 +33,19 @@ function ead()
         xhttp.open("GET",lstrXMLFile,false);
         xhttp.send();
         this.objDomDocument = xhttp.responseXML;
-	}
+	};
 
 	/*
 	* loadXMLFile loads the passed xml file path and creates and saves a Dom Document based on xml file content
 	* @method loadXMLFile
 	*/
-	ead.prototype.loadXMLFile = eac.prototype.loadXMLFile;
+	Ead.prototype.loadXMLFile = Eac.prototype.loadXMLFile;
 
 	/*
 	* loadXMLString loads the passed xml string and creates and saves a Dom Document based on xml string
 	* @method loadXMLString
 	*/
-	eac.prototype.loadXMLString = function( lstrXML )
+	Eac.prototype.loadXMLString = function(lstrXML )
 	{
 		lstrXML = lstrXML.replace(/\n|\t|\r/g, " ");
 
@@ -65,19 +65,19 @@ function ead()
 			this.objDomDocument.async=false;
 			this.objDomDocument.loadXML(decoded);
 		}
-	}
+	};
 
 	/*
 	* loadXMLString loads the passed xml string and creates and saves a Dom Document based on xml string
 	* @method loadXMLString
 	*/
-	ead.prototype.loadXMLString = eac.prototype.loadXMLString;
+	Ead.prototype.loadXMLString = Eac.prototype.loadXMLString;
 
 	/*
 	* getXML retrieves the xml string from the DOM document, formats it, and returns the resulting text
 	* @method getXML
 	*/
-    eac.prototype.getXML = function()
+    Eac.prototype.getXML = function()
 	{
     	var xmlText = new XMLSerializer().serializeToString(this.objDomDocument);
     	xmlText = vkbeautify.xml(xmlText);
@@ -85,28 +85,28 @@ function ead()
     	//added to make span elements inline
     	xmlText = xmlText.replace(/[\n][\s]+<span([^\n]*)[\n]/g, "<span$1");
     	return xmlText;
-	}
+	};
 
 	/*
 	* getXML retrieves the xml string from the DOM document, formats it, and returns the resulting text
 	* @method getXML
 	*/
-	ead.prototype.getXML = eac.prototype.getXML;
+	Ead.prototype.getXML = Eac.prototype.getXML;
 
 	/*
 	* editRecordId edits the EAC recordId element
 	* @method editRecordId
 	*/
-	eac.prototype.editRecordId = function( lstrValue )
+	Eac.prototype.editRecordId = function(lstrValue )
 	{
 		this.editElement( '//*[local-name()=\'control\']/*[local-name()=\'recordId\']', lstrValue );
-	}
+	};
 
 	/*
 	* addOtherRecordId adds to the EAC a otherRecordId element
 	* @method addOtherRecordId
 	*/
-	eac.prototype.addOtherRecordId = function( lobjOtherRecId )
+	Eac.prototype.addOtherRecordId = function(lobjOtherRecId )
 	{
 	   
 	    //this.addElement( 'otherRecordId', lstrValue, '//*[local-name()=\'control\']/*[local-name()=\'maintenanceStatus\']', true );
@@ -118,61 +118,61 @@ function ead()
 
         this.addElement( 'otherRecordId', lobjOtherRecIdNode, '//*[local-name()=\'control\']/*[local-name()=\'maintenanceStatus\']', true );	        
         
-	}
+	};
 
 	/*
 	* editOtherRecordId edits the EAC otherRecordId element with desired index
 	* @method editOtherRecordId
 	*/
-	eac.prototype.editOtherRecordId = function( lintIndex, lstrValue )
+	Eac.prototype.editOtherRecordId = function(lintIndex, lstrValue )
 	{
 		this.editElementList( '//*[local-name()=\'control\']/*[local-name()=\'otherRecordId\']', lintIndex, lstrValue );
-	}
+	};
 
 	/*
 	* deleteOtherRecordId deletes from the EAC the otherRecordId element with desired index
 	* @method deleteOtherRecordId
 	*/
-	eac.prototype.deleteOtherRecordId = function( lintIndex )
+	Eac.prototype.deleteOtherRecordId = function(lintIndex )
 	{
 		this.deleteElement( '//*[local-name()=\'control\']/*[local-name()=\'otherRecordId\']', lintIndex );
-	}
+	};
 
 	/*
 	* editMaintenanceStatus edits the EAC maintenanceStatus element
 	* @method editMaintenanceStatus
 	*/
-	eac.prototype.editMaintenanceStatus = function( lstrValue )
+	Eac.prototype.editMaintenanceStatus = function(lstrValue )
 	{
 		this.editElement( '//*[local-name()=\'control\']/*[local-name()=\'maintenanceStatus\']', lstrValue );
-	}
+	};
 
 	/*
 	* addPublicationStatus adds to the EAC a publication status
 	* @method addPublicationStatus
 	*/
-	eac.prototype.addPublicationStatus = function( lstrValue )
+	Eac.prototype.addPublicationStatus = function(lstrValue )
 	{
 		if( !this.doesElementExist('//*[local-name()=\'control\']/*[local-name()=\'publicationStatus\']') )
 			this.addElement( 'publicationStatus', lstrValue, '//*[local-name()=\'control\']/*[local-name()=\'maintenanceAgency\']', true );
 		else
 			throw new Exception( "Cannot have multiple publication statuses" );
-	}
+	};
 
 	/*
 	* editPublicationStatus edits the EAC publicationStatus element
 	* @method editPublicationStatus
 	*/
-	eac.prototype.editPublicationStatus = function( lstrValue )
+	Eac.prototype.editPublicationStatus = function(lstrValue )
 	{
 		this.editElement( '//*[local-name()=\'control\']/*[local-name()=\'publicationStatus\']', lstrValue );
-	}
+	};
 
 	/*
 	* editMaintenanceAgency edits the EAC maintenanceAgency element
 	* @method editMaintenanceAgency
 	*/
-	eac.prototype.editMaintenanceAgency = function( lobjMaintenanceAgency )
+	Eac.prototype.editMaintenanceAgency = function(lobjMaintenanceAgency )
 	{
 		var lobjAttributes = typeof lobjMaintenanceAgency.attributes != 'undefined' ? lobjMaintenanceAgency.attributes : {};
 		var lobjElements = typeof lobjMaintenanceAgency.elements != 'undefined' ? lobjMaintenanceAgency.elements : {};
@@ -180,13 +180,13 @@ function ead()
 		var lobjMaintenanceAgencyNode = this.createElement( 'maintenanceAgency', lobjAttributes, lobjElements );
 
 		this.editElement( '//*[local-name()=\'control\']/*[local-name()=\'maintenanceAgency\']', lobjMaintenanceAgencyNode );
-	}
+	};
 
 	/*
 	* addMaintenanceEvent adds to the EAC a maintenance event element
 	* @method addMaintenanceEvent
 	*/
-	eac.prototype.addMaintenanceEvent = function( lobjMaintenanceEvent )
+	Eac.prototype.addMaintenanceEvent = function(lobjMaintenanceEvent )
 	{
 		var lobjAttributes = typeof lobjMaintenanceEvent.attributes != 'undefined' ? lobjMaintenanceEvent.attributes : {};
 		var lobjElements = typeof lobjMaintenanceEvent.elements != 'undefined' ? lobjMaintenanceEvent.elements : {};
@@ -194,13 +194,13 @@ function ead()
 		var lobjMaintenanceEventNode = this.createElement( 'maintenanceEvent', lobjAttributes, lobjElements );
 
 		this.addElement( 'maintenanceEvent', lobjMaintenanceEventNode, '//*[local-name()=\'control\']/*[local-name()=\'maintenanceHistory\']' );
-	}
+	};
 
 	/*
 	* editMaintenanceEvent edits the EAC maintenanceEvent element with desired index
 	* @method editMaintenanceEvent
 	*/
-	eac.prototype.editMaintenanceEvent = function( lintIndex, lobjMaintenanceEvent )
+	Eac.prototype.editMaintenanceEvent = function(lintIndex, lobjMaintenanceEvent )
 	{
 		var lobjAttributes = typeof lobjMaintenanceEvent.attributes != 'undefined' ? lobjMaintenanceEvent.attributes : {};
 		var lobjElements = typeof lobjMaintenanceEvent.elements != 'undefined' ? lobjMaintenanceEvent.elements : {};
@@ -208,40 +208,40 @@ function ead()
 		var lobjMaintenanceEventNode = this.createElement( 'maintenanceEvent', lobjAttributes, lobjElements );
 
 		this.editElementList( '//*[local-name()=\'control\']/*[local-name()=\'maintenanceHistory\']/*[local-name()=\'maintenanceEvent\']', lintIndex, lobjMaintenanceEventNode );
-	}
+	};
 
 	/*
 	* addEntityId adds to the EAC an entity id
 	* @method addEntityId
 	*/
-	eac.prototype.addEntityId = function( lstrValue )
+	Eac.prototype.addEntityId = function(lstrValue )
 	{
 		this.addElement( 'entityId', lstrValue, '//*[local-name()=\'cpfDescription\']/*[local-name()=\'identity\']/*[local-name()=\'entityType\']', true );
-	}
-
+	};
+;
 	/*
 	* deleteEntityId deletes from the EAC the entityId element with desired index
 	* @method deleteEntityId
 	*/
-	eac.prototype.deleteEntityId = function( lintIndex )
+	Eac.prototype.deleteEntityId = function(lintIndex )
 	{
 		this.deleteElement( '//*[local-name()=\'cpfDescription\']/*[local-name()=\'identity\']/*[local-name()=\'entityId\']', lintIndex );
-	}
+	};
 
 	/*
 	* editEntityType edits the EAC entityType element
 	* @method editEntityType
 	*/
-	eac.prototype.editEntityType = function( lstrValue )
+	Eac.prototype.editEntityType = function(lstrValue )
 	{
 		this.editElement( '//*[local-name()=\'cpfDescription\']/*[local-name()=\'identity\']/*[local-name()=\'entityType\']', lstrValue );
-	}
+	};
 
 	/*
 	* addNameEntry adds to the EAC a name entry element
 	* @method addNameEntry
 	*/
-	eac.prototype.addNameEntry = function( lobjNameEntry )
+	Eac.prototype.addNameEntry = function(lobjNameEntry )
 	{
 		var lobjAttributes = typeof lobjNameEntry.attributes != 'undefined' ? lobjNameEntry.attributes : {};
 		var lobjElements = typeof lobjNameEntry.elements != 'undefined' ? lobjNameEntry.elements : {};
@@ -249,13 +249,13 @@ function ead()
 		var lobjNameEntryNode = this.createElement( 'nameEntry', lobjAttributes, lobjElements );
 
 		this.addElement( 'nameEntry', lobjNameEntryNode, '//*[local-name()=\'cpfDescription\']/*[local-name()=\'identity\']' );
-	}
+	};
 
     /*
 	* addCPFRelation adds to the EAC a cpfRelation element
 	* @method addCPFRelation
 	*/
-	eac.prototype.addCPFRelation = function( lobjCPFRelation )
+	Eac.prototype.addCPFRelation = function(lobjCPFRelation )
 	{
 		var lobjAttributes = typeof lobjCPFRelation.attributes != 'undefined' ? lobjCPFRelation.attributes : {};
 		var lobjElements = typeof lobjCPFRelation.elements != 'undefined' ? lobjCPFRelation.elements : {};
@@ -268,13 +268,13 @@ function ead()
 			this.addElement( 'cpfRelation', lobjCPFRelationNode, '//*[local-name()=\'cpfDescription\']/*[local-name()=\'relations\']/*[local-name()=\'functionRelation\']', true );
 		else
 			this.addElement( 'cpfRelation', lobjCPFRelationNode, '//*[local-name()=\'cpfDescription\']/*[local-name()=\'relations\']' );
-	}
+	};
 
 	/*
 	* addCPFRelationViaf adds to the EAC a cpfRelation element
 	* @method addCPFRelationViaf
 	*/
-	eac.prototype.addCPFRelationViaf = function( lobjCPFRelationViaf )
+	Eac.prototype.addCPFRelationViaf = function(lobjCPFRelationViaf )
 	{
 		var lobjAttributes = typeof lobjCPFRelationViaf.attributes != 'undefined' ? lobjCPFRelationViaf.attributes : {};
 		var lobjElements = typeof lobjCPFRelationViaf.elements != 'undefined' ? lobjCPFRelationViaf.elements : {};
@@ -287,26 +287,29 @@ function ead()
 			this.addElement( 'cpfRelation', lobjCPFRelationNode, '//*[local-name()=\'cpfDescription\']/*[local-name()=\'relations\']/*[local-name()=\'functionRelation\']', true );
 		else
 			this.addElement( 'cpfRelation', lobjCPFRelationNode, '//*[local-name()=\'cpfDescription\']/*[local-name()=\'relations\']' );
-	}
+	};
 	
 	/*
 	* addCPFRelationCustom adds to the EAC a custom cpfRelation element
 	* @method addCPFRelationCustom
 	*/
-	eac.prototype.addCPFRelationCustom = function( lobjCPFRelationCustom, lobjRoles, lobjRels )
+	Eac.prototype.addCPFRelationCustom = function(lobjCPFRelationCustom, lobjRoles, lobjRels )
 	{
+
+		console.log(lobjRoles);
+		console.log(lobjRels);
 		var lobjAttributes = typeof lobjCPFRelationCustom.attributes != 'undefined' ? lobjCPFRelationCustom.attributes : {};
 		var lobjElements = typeof lobjCPFRelationCustom.elements != 'undefined' ? lobjCPFRelationCustom.elements : {};
 								
 		// Added by timathom to allow user to select entity type and relation type when no good matches from VIAF.
 		if ( lobjAttributes["xlink:role"] == '' )
 		{		    		   
-		    lobjAttributes["xlink:role"] = lobjRoles;		    		        		        		    		    
+		    lobjAttributes["xlink:role"] = lobjRoles;
 		}		
 		
 		if ( lobjAttributes["cpfRelationType"] == '' )
 		{		    		   
-		    lobjAttributes["cpfRelationType"] = lobjRels;		    		        		        		    		    
+		    lobjAttributes["cpfRelationType"] = lobjRels;
 		}
 		
 		lobjAttributes["xlink:type"] = "simple";
@@ -319,13 +322,13 @@ function ead()
 			this.addElement( 'cpfRelation', lobjCPFRelationNode, '//*[local-name()=\'cpfDescription\']/*[local-name()=\'relations\']/*[local-name()=\'functionRelation\']', true );
 		else
 			this.addElement( 'cpfRelation', lobjCPFRelationNode, '//*[local-name()=\'cpfDescription\']/*[local-name()=\'relations\']' );
-	}
+	};
 
 	/*
 	* addResourceRelation adds to the EAC a resourceRelation element
 	* @method addResourceRelation
 	*/
-	eac.prototype.addResourceRelation = function( lobjResourceRelation )
+	Eac.prototype.addResourceRelation = function(lobjResourceRelation )
 	{
 		var lobjAttributes = typeof lobjResourceRelation.attributes != 'undefined' ? lobjResourceRelation.attributes : {};
 		var lobjElements = typeof lobjResourceRelation.elements != 'undefined' ? lobjResourceRelation.elements : {};
@@ -336,13 +339,13 @@ function ead()
 			this.addElement( 'resourceRelation', lobjResourceRelationNode, '//*[local-name()=\'cpfDescription\']/*[local-name()=\'relations\']/*[local-name()=\'functionRelation\']', true );
 		else
 			this.addElement( 'resourceRelation', lobjResourceRelationNode, '//*[local-name()=\'cpfDescription\']/*[local-name()=\'relations\']' );
-	}
+	};
 
 	/*
 	* addSubjectHeading adds to the EAC a subject heading element
 	* @method addSubjectHeading
 	*/
-	eac.prototype.addSubjectHeading = function( lobjSubjectHeading )
+	Eac.prototype.addSubjectHeading = function(lobjSubjectHeading )
 	{
 		var lobjAttributes = typeof lobjSubjectHeading.attributes != 'undefined' ? lobjSubjectHeading.attributes : {};
 		var lobjElements = typeof lobjSubjectHeading.elements != 'undefined' ? lobjSubjectHeading.elements : {};
@@ -350,31 +353,31 @@ function ead()
 		var lobjSubjectHeadingNode = this.createElement( 'localDescription', lobjAttributes, lobjElements );
 
 		this.addElement( 'localDescription', lobjSubjectHeadingNode, '//*[local-name()=\'cpfDescription\']/*[local-name()=\'description\']//*[local-name()=\'localDescription\']|//*[local-name()=\'biogHist\']', true );
-	}
+	};
 
 	/*
 	* deleteSubjectHeading deletes from the EAC a subject heading element with desired index
 	* @method deleteSubjectHeading
 	*/
-	eac.prototype.deleteSubjectHeading = function( lintIndex )
+	Eac.prototype.deleteSubjectHeading = function(lintIndex )
 	{
 		this.deleteElement( '//*[local-name()=\'cpfDescription\']/*[local-name()=\'description\']/*[local-name()=\'localDescription\']', lintIndex );
-	}
+	};
 
 	/*
 	* addParagraph adds to the EAC a paragraph element to the biographic history element
 	* @method addParagraph
 	*/
-	eac.prototype.addParagraph = function( lstrValue )
+	Eac.prototype.addParagraph = function(lstrValue )
 	{
 		this.addElement( 'p', lstrValue, '//*[local-name()=\'cpfDescription\']/*[local-name()=\'description\']/*[local-name()=\'biogHist\']' );
-	}
+	};
 
 	/*
 	* editParagraph edits the EAC paragraph element with desired index under the biographic history element
 	* @method editParagraph
 	*/
-	eac.prototype.editParagraph = function( lintIndex, lstrValue )
+	Eac.prototype.editParagraph = function(lintIndex, lstrValue )
 	{
 		this.editElementList( '//*[local-name()=\'cpfDescription\']/*[local-name()=\'description\']/*[local-name()=\'biogHist\']/*[local-name()=\'p\']', lintIndex, lstrValue );
 	}
@@ -383,25 +386,25 @@ function ead()
 	* deleteParagraph deletes from the EAC a paragraph element with desired index under the biographic history element
 	* @method deleteParagraph
 	*/
-	eac.prototype.deleteParagraph = function( lintIndex )
+	Eac.prototype.deleteParagraph = function(lintIndex )
 	{
 		this.deleteElement( '//*[local-name()=\'cpfDescription\']/*[local-name()=\'description\']/*[local-name()=\'biogHist\']/*[local-name()=\'p\']', lintIndex );
-	}
+	};
 
 	/*
 	* getParagraph returns from the EAC a list of paragraphs (DOMNode List) elements under the biographic history element
 	* @method getParagraph
 	*/
-	eac.prototype.getParagraph = function()
+	Eac.prototype.getParagraph = function()
 	{
 		return this.getElementList( '//*[local-name()=\'cpfDescription\']/*[local-name()=\'description\']//*[local-name()=\'p\']' );
-	}
+	};
 
 	/*
 	* addSource adds to the EAC a source element
 	* @method addSource
 	*/
-	eac.prototype.addSource = function( lobjSource )
+	Eac.prototype.addSource = function(lobjSource )
 	{
 		var lobjAttributes = typeof lobjSource.attributes != 'undefined' ? lobjSource.attributes : {};
 		var lobjElements = typeof lobjSource.elements != 'undefined' ? lobjSource.elements : {};
@@ -417,7 +420,7 @@ function ead()
 			this.addElement( 'sources', lobjSourcesNode, '//*[local-name()=\'control\']' );
 		}else
 			this.addElement( 'source', lobjSourceNode, '//*[local-name()=\'control\']/*[local-name()=\'sources\']' );
-	}
+	};
 
 	/*
 	* addElement is the generic xml add element function. Adds an element with an xml element name lstrTag
@@ -425,7 +428,7 @@ function ead()
 	* xpath
 	* @method addElement
 	*/
-	eac.prototype.addElement = function( lstrTag, lmxValue, lstrReferencexPath, lboolBeforeReference)
+	Eac.prototype.addElement = function(lstrTag, lmxValue, lstrReferencexPath, lboolBeforeReference)
 	{
 		lboolBeforeReference = typeof lboolBeforeReference !== 'undefined' ? lboolBeforeReference : false;
 
@@ -451,13 +454,13 @@ function ead()
 			else
 				result.appendChild(lobjNode);
 		}
-	}
-
+	};
+;
 	/*
 	* editElementList is the generic xml edit element list function. Edits the nth element that matches the xpath query.
 	* @method editElementList
 	*/
- 	eac.prototype.editElementList = function( lstrXPath, lintIndex, lmixValue )
+ 	Eac.prototype.editElementList = function(lstrXPath, lintIndex, lmixValue )
 	{
 		var lintCounter = 0;
 
@@ -486,13 +489,13 @@ function ead()
  			lintCounter++;
  			result = nodes.iterateNext();
  		}
-	}
+	};
 
 	/*
 	* editElement is the generic xml edit element function. Edits the element that matches the xpath query.
 	* @method editElement
 	*/
-	eac.prototype.editElement = function( lstrXPath, lmixValue )
+	Eac.prototype.editElement = function(lstrXPath, lmixValue )
 	{
 		var nsResolver = this.objDomDocument.createNSResolver(this.objDomDocument.ownerDocument == null ? this.objDomDocument.documentElement : this.objDomDocument.ownerDocument.documentElement);
 		var nodes=this.objDomDocument.evaluate(lstrXPath, this.objDomDocument, nsResolver, XPathResult.ANY_TYPE, null);
@@ -512,13 +515,13 @@ function ead()
 		}
 
 
-	}
+	};
 
 	/*
 	* deleteElement is the generic xml delete element function. Deletes the nth element that matches the xpath query.
 	* @method deleteElement
 	*/
-	eac.prototype.deleteElement = function( lstrXPath, lintIndex )
+	Eac.prototype.deleteElement = function(lstrXPath, lintIndex )
 	{
 		var lintCounter = 0;
 
@@ -539,13 +542,13 @@ function ead()
 		}
 
 
-	}
+	};
 
 	/*
 	* doesElementExist returns true or false whether any element in the EAC matches the xpath query.
 	* @method doesElementExist
 	*/
-	eac.prototype.doesElementExist = function( lstrXPath )
+	Eac.prototype.doesElementExist = function(lstrXPath )
 	{
 		var nsResolver = this.objDomDocument.createNSResolver(this.objDomDocument.ownerDocument == null ? this.objDomDocument.documentElement : this.objDomDocument.ownerDocument.documentElement);
 		var nodes=this.objDomDocument.evaluate(lstrXPath, this.objDomDocument, nsResolver, XPathResult.ANY_TYPE, null);
@@ -558,13 +561,13 @@ function ead()
 		}
 
 		return false;
-	}
+	};
 
 	/*
 	* createElement creates an element(DOMNode) with passed attributes and passed elements as children. Recursive function.
 	* @method createElement
 	*/
-	eac.prototype.createElement = function( lstrTag, lobjAttributes, lobjElements )
+	Eac.prototype.createElement = function(lstrTag, lobjAttributes, lobjElements )
 	{
 		var lobjNode = this.objDomDocument.createElementNS( 'urn:isbn:1-931666-33-4', lstrTag );
 
@@ -621,13 +624,13 @@ function ead()
 		}
 
 		return lobjNode;
-	}
+	};
 
 	/*
 	* createElementList creates an element (DOMNode) list with passed tag name and element object that contains element attributes and children elements.
 	* @method createElementList
 	*/
-	eac.prototype.createElementList = function( lstrTag, lobjElements )
+	Eac.prototype.createElementList = function(lstrTag, lobjElements )
 	{
 		var lobjNodeList = [];
 
@@ -642,13 +645,13 @@ function ead()
 		}
 
 		return lobjNodeList;
-	}
+	};
 
 	/*
 	* getElement is the generic xml get element function. Returns first element (DOMNode) that matches the xpath query.
 	* @method getElement
 	*/
-	eac.prototype.getElement = function( lstrXPath )
+	Eac.prototype.getElement = function(lstrXPath )
 	{
 		var lobjList = null;
 		lobjList = this.getElementList( lstrXPath )
@@ -659,19 +662,19 @@ function ead()
 		}
 
 		return '';
-	}
+	};
 
 	/*
 	* getElement is the generic xml get element function. Returns first element (DOMNode) that matches the xpath query.
 	* @method getElement
 	*/
-	ead.prototype.getElement = eac.prototype.getElement;
+	Ead.prototype.getElement = Eac.prototype.getElement;
 
 	/*
 	* getElementList is the generic xml get element list function. Returns element (DOMNode) list that matches the xpath query.
 	* @method getElementList
 	*/
-	eac.prototype.getElementList = function( lstrXPath )
+	Eac.prototype.getElementList = function(lstrXPath )
 	{
 		var lobjList = [];
 
@@ -687,10 +690,46 @@ function ead()
 		}
 
 		return lobjList;
-	}
+	};
 
-	/*
+   Eac.prototype.getName = function () {
+		var eacName;
+
+	   //get first name entry part element in order to get name to search viaf
+	   var nameEntry;
+	   var forenamePart;
+	   var surnamePart;
+	   
+	   // The getElement method of eac() returns the first element that matches an xpath
+	   // the code below builds up a string from the XML structure in EAC:
+	   /*
+		<nameEntry>
+		<part localType="surname">Lemoyne</part>
+		<part localType="forename">Francois</part>
+		<authorizedForm>AFNOR</authorizedForm>
+		</nameEntry>
+		*/
+
+	   if (this.getElement('//*[local-name()=\'cpfDescription\']/*[local-name()=\'identity\']/*[local-name()=\'nameEntry\'][1]/*[local-name()=\'part\'][not(@localType)]')) {
+		   nameEntry = this.getElement('//*[local-name()=\'cpfDescription\']/*[local-name()=\'identity\']/*[local-name()=\'nameEntry\'][1]/*[local-name()=\'part\']');
+		   eacName = nameEntry.childNodes[0].nodeValue;
+		   eacName = eacName.trim();
+	   }
+	   else if (this.getElement('//*[local-name()=\'cpfDescription\']/*[local-name()=\'identity\']/*[local-name()=\'nameEntry\'][1]/*[local-name()=\'part\'][@localType=\'surname\' or @localType=\'forename\']')) {
+		   forenamePart = this.getElement('//*[local-name()=\'cpfDescription\']/*[local-name()=\'identity\']/*[local-name()=\'nameEntry\'][1]/*[local-name()=\'part\'][@localType=\'forename\']');
+		   eacName = forenamePart.childNodes[0].nodeValue;
+		   eacName += ' ';
+		   surnamePart = this.getElement('//*[local-name()=\'cpfDescription\']/*[local-name()=\'identity\']/*[local-name()=\'nameEntry\'][1]/*[local-name()=\'part\'][@localType=\'surname\']');
+		   eacName += surnamePart.childNodes[0].nodeValue;
+		   eacName = eacName.trim();
+	   }
+
+	return eacName;
+   };
+
+    /*
 	* getElementList is the generic xml get element list function. Returns element (DOMNode) list that matches the xpath query.
 	* @method getElementList
 	*/
-	ead.prototype.getElementList = eac.prototype.getElementList;
+	Ead.prototype.getElementList = Eac.prototype.getElementList;
+
