@@ -79,7 +79,7 @@ if(isset($_FILES['ead'])){
         $flash_message .= "</div></div>";
 
     } else {
-        $flash_message = "<div id=\"flash_message\"><div class=\"success-message\"><p>Success! Your EAD file has been uploaded. Start editing your file <a href='/index.php'> here</a> </p></div></div>";
+        $flash_message = "<div id=\"flash_message\"><div class=\"success-message\"><p>Success! Your file(s) has been uploaded/imported. Click <a href='/index.php'> here</a> to return to the Homepage and start working on the file.</p></div></div>";
 
     }
 
@@ -90,7 +90,7 @@ if(isset($_FILES['ead'])){
 
     <div class="recordtitle-bkg">    
        <div class="recordtitle">
-            <div class="inner-area"><h2 class="page-top-heading">Upload, Convert or Import EAC-CPF Files</h2></div>
+            <div class="inner-area"><h2 class="page-top-heading">Upload/Import Files</h2></div>
        </div>
     </div>
 
@@ -104,17 +104,16 @@ if(isset($_FILES['ead'])){
     </div>
 
     <div class="inner-area">
-        <p id="convert_message">On this page you can convert EAD files or import EAC-CPF files that you have placed in the "ead" folder during the install process.</p>
-        <p> After importing you can export and download the records <a href="all-items.php">here</a>.</p>
+        <p id="convert_message">On this page users can either <strong>Upload</strong> EAD/EAC-CPF files or <strong>Import</strong> the ones that were placed in the "ead" folder during the install process. During the Upload/Import process, EAD files are automatically converted to EAC-CPF and can be downloaded <a href="all-items.php">here</a>.</p>
 
 
         <div class="pure-g conversion-area">
             <div class="pure-u-1 pure-u-md-1-2">                
-                <h3>Upload an EAD File</h3>
+                <h3>Upload a File</h3>
                 <form enctype="multipart/form-data" method="POST" class="pure-form">
                     <input type="hidden" name="MAX_FILE_SIZE" value="30000000"/>
                     <input name="ead" type="file"/><br>
-                    <input disabled type="submit" class="pure-button ramp-button action-button" value="Upload EAD"/>
+                    <input disabled type="submit" class="pure-button ramp-button action-button" value="Upload"/>
                 </form>                
             </div>
             

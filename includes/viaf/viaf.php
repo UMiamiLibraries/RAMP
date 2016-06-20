@@ -36,7 +36,7 @@
             <h3 class="instruction">VIAF Ingest</h3>
 
             <div class="user_help_form">
-               <p class="user_help_text">Create CPF relation elements <a href="docs.php#viaf2" title="What is this?" target="_blank"><i class="fa fa-question-circle"></i></a></p>
+               <p class="user_help_text">Select appropriate CPF relation elements <a href="docs.php#viaf2" title="What is this?" target="_blank"><i class="fa fa-question-circle"></i></a></p>
 
                 <input type="checkbox" id="select_all" value=""><span class="viaf-select-all">Select all</span><br />
 
@@ -68,7 +68,7 @@
         <h3 class="instruction">VIAF Ingest</h3>
         
         <div class="user_help_form">
-            <p class="user_help_text">Create CPF relation elements <a href="docs.php#viaf3" title="What is this?" target="_blank"><i class="fa fa-question-circle"></i></a></p>
+            <p class="user_help_text">Select appropriate CPF relation elements <a href="docs.php#viaf3" title="What is this?" target="_blank"><i class="fa fa-question-circle"></i></a></p>
 
             <input type="checkbox" id="select_all" value=""><span>Select all</span><br />
 

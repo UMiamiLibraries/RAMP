@@ -3,7 +3,7 @@
         <td>Name</td>
         <td>VIAF Ingest Status</td>
         <td>WorldCat Ingest Status</td>
-        <td>Wiki Ingest Status</td>
+        <td>Wiki Markup Status</td>
         <td>Delete Record</td>
         <td>Download Record</td>
     </tr>
