@@ -8,7 +8,8 @@ include('header.php');
         <div class="inner-area">
             <div class="ramp-intro">
                 <div class="ramp-intro-text">  
-                    <p>The <strong>RAMP (Remixing Archival Metadata Project)</strong> editor is a web-based tool that allows users to:<br /><br /> (1) generate enhanced authority records, and (2) publish the content of those records as Wikipedia pages.</p>
+                    The RAMP (Remixing Archival Metadata Project) editor is a web-based tool that allows users to:<br /> (1) generate enhanced authority records<br />
+                    (2)publish the content of those records as Wikipedia pages</p>
                 </div>
             </div>
         </div> 
@@ -115,7 +116,7 @@ include('header.php');
         <div class="inner-area">
             <div class="homepage-content-text">
                 <a name="ramp-more"></a><h3>How Does RAMP Work?</h3>
-                <p>The RAMP editor extracts biographical and historical data from <a href="https://www.loc.gov/ead/" target="_blank">EAD</a> Finding Aids to create new authority records for persons, corporate bodies, and families associated with archival and special collections. Users can enhance those records with additional data from sources like <a href="http://viaf.org/" traget="_blank">VIAF</a> and <a href="http://www.oclc.org/research/themes/data-science/identities.html" target="_blank">WorldCat Identities</a> and RAMP will transform them into wiki markup suitable for publication to the English Wikipedia. New content can then be edited and added to an existing Wikipedia page or be used to start a new one from within the RAMP editor.</p> 
+                <p>The RAMP editor extracts biographical and historical data from <a href="https://www.loc.gov/ead/" target="_blank">EAD</a> Finding Aids to create new authority records for persons, corporate bodies, and families associated with archival and special collections. Users can enhance those records with additional data from sources like <a href="http://viaf.org/" target="_blank">VIAF</a> and <a href="http://www.oclc.org/research/themes/data-science/identities.html" target="_blank">WorldCat Identities</a> and RAMP will transform them into wiki markup suitable for publication to the English Wikipedia. New content can then be edited and added to an existing Wikipedia page or be used to start a new one from within the RAMP editor.</p> 
             </div>           
         </div>
     </div><!--end HOMEPAGE content (bottom)-->

@@ -13,9 +13,8 @@
         <h4>WorldCat Identities <span class="steps">(Step 1 of 3)</span></h4>
         <ul>
         	<li>Click <strong>preview</strong> for help choosing the best match</li>
-			<li>Click a radio button to select the entity</li>
-			<li>Click <strong>Next</strong> to continue, even if no match is found</li>
-			<li>Click <strong>Cancel</strong> to leave this page and go back to the last saved process</li>
+			<li>Click <strong>Next</strong> to continue after making the selection</li>
+			<li>Click <strong>Cancel</strong> to leave this screen and go back to the Homepage</li>
         </ul>
     </div>
 </script>
@@ -27,10 +26,9 @@
     <div class="help_container worldcat-step-two-view">
         <h4>WorldCat Identities <span class="steps">(Step 2 of 3)</span></h4>
         <ul>
-        	<li>Use the checkboxes to select one or more related subjects</li>
-			<li>Click <strong>Next</strong> to move to the next step</li>
+        	<li>Click <strong>Next</strong> to move to the next step</li>
 			<li>Click <strong>Skip</strong> if including related subjects is not desirable</li>
-			<li>Click <strong>Cancel</strong> to leave this page and go back to the last saved process</li>
+			<li>Click <strong>Cancel</strong> to leave this screen and go back to the Homepage</li>
         </ul>
     </div>
 </script>
@@ -44,7 +42,7 @@
         <ul>
         	<li>Click <strong>Edit XML</strong> to make direct changes to the file</li>
 			<li>Click <strong>Save XML</strong> to save the work</li>
-			<li>Click <strong>Cancel</strong> to leave this page and go back to the last saved process</li>
+			<li>Click <strong>Cancel</strong> to leave this screen and go back to the Homepage</li>
         </ul>
     </div>
 
