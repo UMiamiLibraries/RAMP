@@ -28,30 +28,41 @@ function setupWikiLogin(callback) {
         var lstrUserName = $('input[name="username"]').val();
         var lstrPassword = $('input[name="password"]').val();
 
-        $(dialog).dialog("close");
-        $(dialog).remove();
+        if (lstrPassword == "" || lstrUserName == "") {
+
+            $('body').append("<div id=\"no-username-password\"><p>You must enter a username and password to login.</p></div>");
+            makeDialog('#no-username-password', '', function(){});
 
 
-        //post to ajax wiki controller to log into wiki and get whether successful or not
-        $.post('ajax/wiki_api.php', {
-            'action': 'login',
-            'username': lstrUserName,
-            'password': lstrPassword
-        }, function (response) {
-            if (response.toLowerCase().indexOf("success") != -1) {
-                user.rampWikiLi = true;
-
-                $('#wiki_login').replaceWith("<li id=\"wiki_logout\" class=\"wiki_login menu_slice\"><a href=\"#\">| Wiki Logout |</a></li>");
-                $("#wiki_logout").on("click", setupWikiLogout);
-            }
-
-            $('body').append("<div id=\"dialog\"><p>" + response + "</p></div>");
-            makeDialog('#dialog', '', callback);
+        } else {
 
 
-            return;
-        });
+            $(dialog).dialog("close");
+            $(dialog).remove();
+
+
+            //post to ajax wiki controller to log into wiki and get whether successful or not
+            $.post('ajax/wiki_api.php', {
+                'action': 'login',
+                'username': lstrUserName,
+                'password': lstrPassword
+            }, function (response) {
+                if (response.toLowerCase().indexOf("success") != -1) {
+                    user.rampWikiLi = true;
+
+                    $('#wiki_login').replaceWith("<li id=\"wiki_logout\" class=\"wiki_login menu_slice\"><a href=\"#\">| Wiki Logout |</a></li>");
+                    $("#wiki_logout").on("click", setupWikiLogout);
+                }
+
+                $('body').append("<div id=\"dialog\"><p>" + response + "</p></div>");
+                makeDialog('#dialog', '', callback);
+
+
+                return;
+            });
+        }
     });
+
 }
 
 /*
