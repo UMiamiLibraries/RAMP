@@ -1,11 +1,19 @@
 $(document).ready(function () {
+    /**
+     *
+     * JS for kicking off the VIAF ingest process
+     *
+     */
 
-    //register click event that will start viaf ingest
     $('#ingest_viaf').on('click', function () {
 
 
+        // Register click event that will start viaf ingest
+        // This is triggered when you click the VIAF icon on the front page
 
-        //diable module buttons
+
+        // Disable ingest (module) buttons
+        // Only have the VIAF button highlighted
         disableAllModuleButtons();
 
         //clear any flash messages
@@ -13,16 +21,19 @@ $(document).ready(function () {
 
         clearHelpTemplateContainer();
 
+        // Start the VIAF process
         startViaf();
     });
 
     function startViaf() {
 
         viewSwitch.reset();
-
         viewSwitch.showViafStepOne();
 
         record.onWiki = false; // Unset "onWiki" status
+
+
+        // This is the XML that we want to append to with VIAF data
         record.eacXml = editor.getValue();
 
         //cannot start ingestion without XML being loaded
@@ -38,35 +49,18 @@ $(document).ready(function () {
 
             //xml must be valid in order for viaf ingestion to begin
             if (lboolValid) {
-                var lobjeac = new eac();
-                lobjeac.loadXMLString(record.eacXml);
 
-                //get first name entry part element in order to get name to search viaf
+                // Get a new eac object. This is defined in eac_editor.js
+                // It's an object that loads EAC and can append new elements
+                var eac = new Eac();
+                eac.loadXMLString(record.eacXml);
 
-                var lobjNameEntryPart;
-                var lobjNameEntryPartFore;
-                var lobjNameEntryPartSur;
+                var eacName = eac.getName();
+         
+                // Now that we have the name, send our EAC object and the name as a string to the next step
+                ingest_viaf_NameEntry_Sources(eac, eacName, function () {
 
-                if (lobjeac.getElement('//*[local-name()=\'cpfDescription\']/*[local-name()=\'identity\']/*[local-name()=\'nameEntry\'][1]/*[local-name()=\'part\'][not(@localType)]')) {
-                    lobjNameEntryPart = lobjeac.getElement('//*[local-name()=\'cpfDescription\']/*[local-name()=\'identity\']/*[local-name()=\'nameEntry\'][1]/*[local-name()=\'part\']');
-                    //= lobjeac.getElement('//*[local-name()=\'cpfDescription\']/*[local-name()=\'identity\']/*[local-name()=\'nameEntry\'][1]/*[local-name()=\'part\']');
-                    eac_name = lobjNameEntryPart.childNodes[0].nodeValue;
-                    eac_name = eac_name.trim();
-                    eac_name = encode_utf8(eac_name);
-                }
-                else if (lobjeac.getElement('//*[local-name()=\'cpfDescription\']/*[local-name()=\'identity\']/*[local-name()=\'nameEntry\'][1]/*[local-name()=\'part\'][@localType=\'surname\' or @localType=\'forename\']')) {
-                    lobjNameEntryPartFore = lobjeac.getElement('//*[local-name()=\'cpfDescription\']/*[local-name()=\'identity\']/*[local-name()=\'nameEntry\'][1]/*[local-name()=\'part\'][@localType=\'forename\']');
-                    eac_name = lobjNameEntryPartFore.childNodes[0].nodeValue;
-                    eac_name += ' ';
-                    lobjNameEntryPartSur = lobjeac.getElement('//*[local-name()=\'cpfDescription\']/*[local-name()=\'identity\']/*[local-name()=\'nameEntry\'][1]/*[local-name()=\'part\'][@localType=\'surname\']');
-                    eac_name += lobjNameEntryPartSur.childNodes[0].nodeValue;
-                    eac_name = eac_name.trim();
-                    eac_name = encode_utf8(eac_name);
-                }
-
-                ingest_viaf_NameEntry_Sources(lobjeac, eac_name, function () {
-
-                    ingest_viaf_Relations(lobjeac, function (lstrMessage) {
+                    ingest_viaf_Relations(eac, function (lstrMessage) {
                         //display response
                         $('body').append("<div id=\"dialog_main\"><p>" + lstrMessage + "</p></div>");
                         makeDialog('#dialog_main', 'Response');
@@ -84,25 +78,24 @@ $(document).ready(function () {
             }
         }, record.eacXml);
     }
-
-
-
+    
 
     /*
      * ingest_viaf_NameEntry_Sources ingest name entries and sources from viaf using API into passed EAC DOM Document. Using passed name to search Viaf.
      * @method ingest_viaf_NameEntry_Sources
      */
     function ingest_viaf_NameEntry_Sources(lobjEac, lstrName, callback) {
-
-        lstrName = encode_utf8(lstrName);
-
-        //post to ajax viaf ingestor controller to search viaf
+        // Send the name to a script which will search VIAF
         $.post('ajax/viaf_ingest_api.php', {
                 'action': 'search', 'name': lstrName
             },
             function (response) {
                 try {
                     var lobjData = JSON.parse(response);
+
+                    // You get this back:
+                    
+
                 }
                 catch (e) //response should be JSON so if not, throw error
                 {
@@ -112,19 +105,17 @@ $(document).ready(function () {
                 }
 
                 display_possible_viaf_form(lobjData, function (lstrChosenViaf) {
-
-                    //post to ajax viaf ingestor controller to get source and name entry nodes from viaf record of chosen result
+                    // Now that we have a VIAF identifier for the name, lets look for some associated
+                    // VIAF records
                     $.post('ajax/viaf_ingest_api.php', {
                             'action': 'source_and_name_entry', 'viaf_id': lstrChosenViaf
                         },
                         function (response) {
                             try {
                                 var lobjData = JSON.parse(response);
-                                //console.log(lobjData);
                             }
                             catch (e) //response should be JSON so if not, throw error
                             {
-
                                 callback();
                                 return;
                             }
@@ -136,7 +127,8 @@ $(document).ready(function () {
                             if (lobjNameEntryList.length != 0 || lobjNameEntryList != '') {
                                 for (var i = 0; i < lobjNameEntryList.length; i++) {
                                     var NameEntry = lobjNameEntryList[i];
-                                    console.log(NameEntry);
+
+                                    // Add the name entries to the EAC object we created earlier
                                     lobjEac.addNameEntry(NameEntry);
                                 }
 
@@ -199,7 +191,7 @@ $(document).ready(function () {
                 callback(lstrChosenViaf);
                 $('.form_container').remove();
                 $('.help_container').remove();
-                viewSwitch.hideAceEditor();;
+                viewSwitch.hideAceEditor();
             }
         });
 
@@ -231,13 +223,13 @@ $(document).ready(function () {
      *
      * @method ingest_viaf_Relations
      */
-    function ingest_viaf_Relations(lobjEac, callback) {
+    function ingest_viaf_Relations(eac, callback) {
         //need to get ead to get possible names and titles list
         $.get('ajax/get_record.php', {
                 'eac_id': record.eacId
             },
             function (data) {
-                var lobjead = new ead();
+                var lobjead = new Ead();
                 lobjead.loadXMLString(data.ead_xml);
 
                 var PossibleNameList =[];
@@ -245,9 +237,9 @@ $(document).ready(function () {
                 var PossibleNameListUnit =[];
                 var PossibleNameListIngest =[];
 
-                var lobjParagraphList = lobjEac.getElementList('//*[local-name()=\'p\']');
+                var lobjParagraphList = eac.getElementList('//*[local-name()=\'p\']');
                 var lobjUnitTitleList = lobjead.getElementList('//*[local-name()=\'unittitle\']');
-                var lobjIngestList = lobjEac.getElementList('//*[local-name()=\'chronItem\']/*[local-name()=\'event\'] | //*[local-name()=\'resourceRelation\'][@resourceRelationType=\'creatorOf\']/*[local-name()=\'relationEntry\'][1] | //*[local-name()=\'resourceRelation\'][not(@resourceRelationType)]/*[local-name()=\'relationEntry\'][1] | //*[local-name()=\'resourceRelation\'][@resourceRelationType=\'subjectOf\']/*[local-name()=\'relationEntry\'][@localType=\'creator\'] | //*[local-name()=\'resourceRelation\'][@resourceRelationType=\'subjectOf\']/*[local-name()=\'relationEntry\'][1]');
+                var lobjIngestList = eac.getElementList('//*[local-name()=\'chronItem\']/*[local-name()=\'event\'] | //*[local-name()=\'resourceRelation\'][@resourceRelationType=\'creatorOf\']/*[local-name()=\'relationEntry\'][1] | //*[local-name()=\'resourceRelation\'][not(@resourceRelationType)]/*[local-name()=\'relationEntry\'][1] | //*[local-name()=\'resourceRelation\'][@resourceRelationType=\'subjectOf\']/*[local-name()=\'relationEntry\'][@localType=\'creator\'] | //*[local-name()=\'resourceRelation\'][@resourceRelationType=\'subjectOf\']/*[local-name()=\'relationEntry\'][1]');
 
                 for (var i = 0; i < lobjParagraphList.length; i++) {
                     if (typeof lobjParagraphList[i].childNodes[0] == 'undefined')
@@ -321,7 +313,7 @@ $(document).ready(function () {
 
                     //set ace editor value to new xml from EAC Dom Document with ingested source and name entries
                     //added to show changes immediately
-                    editor.getSession().setValue(lobjEac.getXML());
+                    editor.getSession().setValue(eac.getXML());
 
 
 
@@ -341,7 +333,7 @@ $(document).ready(function () {
                         viewSwitch.showAceEditor();
 
                         //added to show changes immediately
-                        editor.getSession().setValue(lobjEac.getXML());
+                        editor.getSession().setValue(eac.getXML());
 
                         return;
                     }
@@ -372,7 +364,8 @@ $(document).ready(function () {
 
                             //display results from viaf relation nodes search so editor can choose which relations they want to ingest
                             display_viaf_results_form(lobjData, function (lobjResultsChosen) {
-
+                                console.log("Objects!");
+                                console.log(lobjResultsChosen);
                                 if (typeof lobjResultsChosen[ 'names'] == 'undefined' || typeof lobjResultsChosen[ 'names'][ 'entity'][ 'all'] == 'undefined' || lobjResultsChosen[ 'names'][ 'entity'][ 'all'].length == 0) {
 
                                     //scroll to top to view form correctly
@@ -383,13 +376,16 @@ $(document).ready(function () {
                                     //finish process if no results chosen
                                     viewSwitch.showAceEditor();
 
-                                    return;
+
                                 } else {
                                     //ingest into EAC all chosen results from viaf
+                                    console.log(lobjResultsChosen);
                                     for (var i = 0; i < lobjResultsChosen[ 'names'][ 'entity'][ 'viaf'].length; i++) {
                                         var chosen_result_viaf = lobjResultsChosen[ 'names'][ 'entity'][ 'viaf'][i];
+                                        console.log(chosen_result_viaf);
 
-                                        lobjEac.addCPFRelationViaf(lobjData[chosen_result_viaf]);
+
+                                        eac.addCPFRelationViaf(lobjData[chosen_result_viaf]);
 
                                     }
 
@@ -398,7 +394,8 @@ $(document).ready(function () {
                                         var chosen_roles = lobjResultsChosen[ 'names'][ 'roles'][i];
                                         var chosen_rels = lobjResultsChosen[ 'names'][ 'rels'][i];
 
-                                        lobjEac.addCPFRelationCustom(lobjData[chosen_result_custom], lobjData[chosen_roles], lobjData[chosen_rels]);
+                                        console.log(chosen_result_custom);
+                                        eac.addCPFRelationCustom(chosen_result_custom, chosen_roles, chosen_rels);
                                     }
 
 
@@ -413,11 +410,11 @@ $(document).ready(function () {
                                             "agent": "ramp/viaf",
                                             "eventDescription": "Ingested VIAF"
                                         }
-                                    }
+                                    };
 
-                                    lobjEac.addMaintenanceEvent(maintEvent);
+                                    eac.addMaintenanceEvent(maintEvent);
                                     
-                                    editor.getSession().setValue(lobjEac.getXML());
+                                    editor.getSession().setValue(eac.getXML());
 
                                     //scroll to top to view form correctly
                                     scrollToFormTop();
@@ -565,30 +562,27 @@ $(document).ready(function () {
             lobjChosenResults[ 'names'][ 'roles'] =[];
 
             $('input.viaf_check').each(function () {
+
                 if (this.checked) {
-                    if ($(this).val() != "") {
-                        lobjChosenResults[ 'names'][ 'entity'][ 'viaf'].push($(this).val());
-                        lobjChosenResults[ 'names'][ 'entity'][ 'all'].push($(this).val());
-                    } else {
-                        //lobjChosenResultsTest['names']['entity']['custom'].push($(this).closest('td').siblings('#plainText').children('#textSpan').text());
-                        //console.log($(this).closest('td').siblings('#plainText').children('#textSpan').text());
 
-                        lobjChosenResults[ 'names'][ 'entity'][ 'all'].push($(this).closest('td').siblings('#plainText').children('#textSpan').text());
-                        lobjChosenResults[ 'names'][ 'entity'][ 'custom'].push($(this).closest('td').siblings('#plainText').children('#textSpan').text());
+                                       console.log($(this).children('.entity-types').children('option:selected').val());
+                                       lobjChosenResults[ 'names'][ 'entity'][ 'viaf'].push($(this).val());
+                                       lobjChosenResults[ 'names'][ 'entity'][ 'all'].push($(this).val());
 
 
-                        if ($(this).closest('td').siblings('#plainText').children('#select_wrap').children('#ents').children('option:selected').val() != '') {
-                            lobjChosenResults[ 'names'][ 'roles'].push("http://rdvocab.info/uri/schema/FRBRentitiesRDA/" + $(this).closest('td').siblings('#plainText').children('#select_wrap').children('#ents').children('option:selected').text());
-                        }
+                                          lobjChosenResults[ 'names'][ 'entity'][ 'all'].push($(this).closest('td').siblings('#plainText').children('#textSpan').text());
+                                          lobjChosenResults[ 'names'][ 'entity'][ 'custom'].push($(this).val());
 
-                        if ($(this).closest('td').siblings('#plainText').children('#select_wrap').children('#rels').children('option:selected').val() != '') {
-                            lobjChosenResults[ 'names'][ 'rels'].push($(this).closest('td').siblings('#plainText').children('#select_wrap').children('#rels').children('option:selected').text());
-                        } else //( lobjChosenResults['names']['rels'].length == 0 )
-                        {
-                            lobjChosenResults[ 'names'][ 'rels'].push("associative");
-                        }
-                    }
-                }
+                                           if ($(this).closest('td').siblings('.plain-text').children('#select_wrap').children('.entity-types').children('option:selected').val() != '') {
+                                                  lobjChosenResults[ 'names'][ 'roles'].push("http://rdvocab.info/uri/schema/FRBRentitiesRDA/" + $(this).closest('td').siblings('.plain-text').children('#select_wrap').children('.entity-types').children('option:selected').text());
+                                           }
+
+                                          if ($(this).closest('td').siblings('.plain-text').children('#select_wrap').children('.relation-types').children('option:selected').val() != '') {
+                                                    lobjChosenResults[ 'names'][ 'rels'].push($(this).closest('td').siblings('.plain-text').children('#select_wrap').children('.relation-types').children('option:selected').text());
+                                          }
+
+                                        console.log(lobjChosenResults);
+                               }
             });
 
             // Display/notification added by timathom
@@ -602,6 +596,8 @@ $(document).ready(function () {
                 // display error
             } else {
                 callback(lobjChosenResults);
+
+
                 $('.form_container').remove();
                 $('.help_container').remove();
                 $('#viaf_load').remove();

@@ -99,9 +99,9 @@
         
                 <tr class="user_plain_row">
                     <td><input type="checkbox" class="viaf_check" name="chosen_results" value="<%= lstrName.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;') %>" /></td>
-                    <td id="plainText"><span id="textSpan">  <%= lstrName %> </span>
+                    <td class="plain-text"><span id="textSpan">  <%= lstrName %> </span>
                         <span id="select_wrap">
-                            <select class="inline-select" id="ents" name="entities"
+                            <select class="inline-select entity-types" name="entities"
                                     title="For non-VIAF entries, you must choose an entity type. For VIAF entries (the ones with links), the entity type has been predefined.">
                                 <option value="">Entity Type</option>
                                 <option value=""></option>
@@ -109,7 +109,7 @@
                                 <option value="corp">CorporateBody</option>
                                 <option value="fam">Family</option>
                             </select>
-                             <select class="inline-select" id="rels" name="relType"
+                             <select class="inline-select relation-types" name="relType"
                                      title="For non-VIAF entries, you may choose among different relation types. If you do not choose a relation type, the default value is 'associative.'">
                                  <option value="">Relation Type</option>
                                  <option value=""></option>

@@ -45,7 +45,7 @@ function startWorldCat() {
             //show the loading image
             showLoadingImage();
 
-            var lobjeac = new eac();
+            var lobjeac = new Eac();
             lobjeac.loadXMLString(record.eacXml);
 
             //get first name entry part element in order to get name to search WorldCat
@@ -55,22 +55,22 @@ function startWorldCat() {
 
             if (lobjeac.getElement('//*[local-name()=\'cpfDescription\']/*[local-name()=\'identity\']/*[local-name()=\'nameEntry\'][1]/*[local-name()=\'part\'][not(@localType)]')) {
                 lobjNameEntryPart = lobjeac.getElement('//*[local-name()=\'cpfDescription\']/*[local-name()=\'identity\']/*[local-name()=\'nameEntry\'][1]/*[local-name()=\'part\']');
-                eac_name = lobjNameEntryPart.childNodes[0].nodeValue;
-                eac_name = eac_name.trim();
-                eac_name = encode_utf8(eac_name);
+                eacName = lobjNameEntryPart.childNodes[0].nodeValue;
+                eacName = eacName.trim();
+                eacName = encode_utf8(eacName);
             }
             else if (lobjeac.getElement('//*[local-name()=\'cpfDescription\']/*[local-name()=\'identity\']/*[local-name()=\'nameEntry\'][1]/*[local-name()=\'part\'][@localType=\'surname\' or @localType=\'forename\']')) {
                 lobjNameEntryPartFore = lobjeac.getElement('//*[local-name()=\'cpfDescription\']/*[local-name()=\'identity\']/*[local-name()=\'nameEntry\'][1]/*[local-name()=\'part\'][@localType=\'forename\']');
-                eac_name = lobjNameEntryPartFore.childNodes[0].nodeValue;
-                eac_name += ' ';
+                eacName = lobjNameEntryPartFore.childNodes[0].nodeValue;
+                eacName += ' ';
                 lobjNameEntryPartSur = lobjeac.getElement('//*[local-name()=\'cpfDescription\']/*[local-name()=\'identity\']/*[local-name()=\'nameEntry\'][1]/*[local-name()=\'part\'][@localType=\'surname\']');
-                eac_name += lobjNameEntryPartSur.childNodes[0].nodeValue;
-                eac_name = eac_name.trim();
-                eac_name = encode_utf8(eac_name);
+                eacName += lobjNameEntryPartSur.childNodes[0].nodeValue;
+                eacName = eacName.trim();
+                eacName = encode_utf8(eacName);
             }
 
 
-            ingest_worldcat_elements(lobjeac, eac_name, function (lstrMessage) {
+            ingest_worldcat_elements(lobjeac, eacName, function (lstrMessage) {
                 if (typeof lstrMessage != 'undefined' && lstrMessage != '') {
                     //display response
                     renderFlashMessage('<div class=\"error-message\"><p>' + lstrMessage + '</p></div>');
