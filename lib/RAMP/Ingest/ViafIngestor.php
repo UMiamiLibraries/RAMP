@@ -189,10 +189,10 @@ class ViafIngestor extends Ingestor
 	{
 		foreach($lobjNames as $lstrName)
 		{
-			$lstrOrigName = utf8_decode($lstrName);
-			$lstrName = Ingestor::encodeForUrl($lstrName);
+			$lstrName = urlencode(trim($lstrName));
 
 			$this->strUrl = "http://viaf.org/viaf/search?query=local.mainHeadingEl+all+\"$lstrName\"&httpAccept=text/xml&sortKeys=holdingscount";
+
 
 			//curl options setup for this request
 			curl_setopt($this->rscCurl, CURLOPT_URL, $this->strUrl );
@@ -226,12 +226,12 @@ class ViafIngestor extends Ingestor
 					"attributes" => array( "cpfRelationType" => "",
 						"xlink:role" => "" ),
 					"elements" => array( "relationEntry" => array (
-						"elements" => $lstrOrigName
+						"elements" => $lstrName
 					)
 					)
 
 				);
-				$lstrKey = urldecode($lstrOrigName);
+				$lstrKey = urldecode($lstrName);
 				$this->objRelationsList[$lstrKey] = $lobjcpfRelation;
 			}
 
@@ -277,12 +277,12 @@ class ViafIngestor extends Ingestor
 					"attributes" => array( "cpfRelationType" => "",
 						"xlink:role" => "" ),
 					"elements" => array( "relationEntry" => array (
-						"elements" => $lstrOrigName
+						"elements" => $lstrName
 					)
 					)
 
 				);
-				$lstrKey = urldecode($lstrOrigName);
+				$lstrKey = urldecode($lstrName);
 				$this->objRelationsList[$lstrKey] = $lobjcpfRelation;
 			}
 		}

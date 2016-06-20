@@ -3,7 +3,7 @@
  * @method encode_utf8
  */
 function encode_utf8(s) {
-    return unescape(encodeURIComponent(s));
+    return s;
 }
 
 /*
@@ -11,7 +11,7 @@ function encode_utf8(s) {
  * @method decode_utf8
  */
 function decode_utf8(s) {
-    return decodeURIComponent(escape(s));
+    return s;
 }
 
 /*
