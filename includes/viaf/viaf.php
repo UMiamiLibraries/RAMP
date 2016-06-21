@@ -53,6 +53,7 @@
                 </table>             
 
                 <button id="ingest_viaf_chosen_names_relations" class="pure-button ramp-button ingest-ok">Next</button>
+                <button id="skip_viaf_chosen_names_relations" class="pure-button ramp-button">Skip</button>
                 <button id="ingest_viaf_chosen_names_relations_cancel" class="pure-button ramp-button ingest-cancel">Cancel</button>
             </div>
         </div>

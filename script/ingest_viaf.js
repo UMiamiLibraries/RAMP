@@ -634,4 +634,19 @@ $(document).ready(function () {
         });
     }
 
+
+    //skip worldcat step two - ingest from worldcat identities
+    $('body').on('click', '#skip_viaf_chosen_names_relations', function(){
+        console.log("Skipping");
+        viewSwitch.removeViafStepTwo();
+
+        // display ace editor
+        viewSwitch.showAceEditor();
+
+        //render help template
+       // renderHelpTemplate('');
+
+    });
+
+
 });
