@@ -352,14 +352,11 @@ $(document).ready(function () {
                             'action': 'relations', 'chosen_names': ljsonChosenNames
                         },
                         function (response) {
-                            console.log(response);
                             try {
                                 var lobjOrigNames = JSON.parse(ljsonChosenNames);
                                 // Keep the original name strings, in case there's no VIAF match.
                                 var lobjData = JSON.parse(response);
-                                //console.log(response);
                                 if (lobjData.length == 0) {
-                                    console.log(respone);
                                     callback('');
                                     $('.form_container').remove();
                                     $('.help_container').remove();
@@ -372,14 +369,11 @@ $(document).ready(function () {
                             }
                             catch (e) //response should be JSON so if not, throw error
                             {
-                                console.log(response);
                                 return;
                             }
 
                             //display results from viaf relation nodes search so editor can choose which relations they want to ingest
                             display_viaf_results_form(lobjData, function (lobjResultsChosen) {
-                                console.log("Objects!");
-                                console.log(lobjResultsChosen);
                                 if (typeof lobjResultsChosen[ 'names'] == 'undefined' || typeof lobjResultsChosen[ 'names'][ 'entity'][ 'all'] == 'undefined' || lobjResultsChosen[ 'names'][ 'entity'][ 'all'].length == 0) {
 
                                     //scroll to top to view form correctly
@@ -393,10 +387,8 @@ $(document).ready(function () {
 
                                 } else {
                                     //ingest into EAC all chosen results from viaf
-                                    console.log(lobjResultsChosen);
                                     for (var i = 0; i < lobjResultsChosen[ 'names'][ 'entity'][ 'viaf'].length; i++) {
                                         var chosen_result_viaf = lobjResultsChosen[ 'names'][ 'entity'][ 'viaf'][i];
-                                        console.log(chosen_result_viaf);
 
 
                                         eac.addCPFRelationViaf(lobjData[chosen_result_viaf]);
@@ -408,7 +400,6 @@ $(document).ready(function () {
                                         var chosen_roles = lobjResultsChosen[ 'names'][ 'roles'][i];
                                         var chosen_rels = lobjResultsChosen[ 'names'][ 'rels'][i];
 
-                                        console.log(chosen_result_custom);
                                         eac.addCPFRelationCustom(chosen_result_custom, chosen_roles, chosen_rels);
                                     }
 
@@ -564,8 +555,6 @@ $(document).ready(function () {
 
         //register click event to continue process once user choses results
         $('#ingest_viaf_add_relations').on('click', function () {
-
-            console.log('viaf');
             var lobjChosenResults =[];
             lobjChosenResults[ 'names'] =[];
             lobjChosenResults[ 'names'][ 'entity'] =[];
@@ -579,7 +568,6 @@ $(document).ready(function () {
 
                 if (this.checked) {
 
-                                       console.log($(this).children('.entity-types').children('option:selected').val());
                                        lobjChosenResults[ 'names'][ 'entity'][ 'viaf'].push($(this).val());
                                        lobjChosenResults[ 'names'][ 'entity'][ 'all'].push($(this).val());
 
@@ -595,7 +583,6 @@ $(document).ready(function () {
                                                     lobjChosenResults[ 'names'][ 'rels'].push($(this).closest('td').siblings('.plain-text').children('#select_wrap').children('.relation-types').children('option:selected').text());
                                           }
 
-                                        console.log(lobjChosenResults);
                                }
             });
 
