@@ -20,10 +20,8 @@ use RAMP\Util\Database;
 $db = Database::getInstance();
 $mysqli = $db->getConnection();
 
-$media_wiki = mysqli_real_escape_string($mysqli,$_POST["media_wiki"]);
-$ead_path = mysqli_real_escape_string($mysqli,$_POST["ead_path"]);
-
-
+$media_wiki = $mysqli->real_escape_string($_POST["media_wiki"]);
+$ead_path = $mysqli->real_escape_string($_POST["ead_path"]);
 
 $eac_id_sql = "SELECT eac_id from eac WHERE ead_file LIKE  CONCAT(\"%\",'$ead_path',\"%\")";
 

@@ -1,15 +1,19 @@
-<div id="dialog_box">
-</div>
-<div class="footer">
-   <div id="footer-text"><?php echo $agency_name; ?></div>
-    <div id="footer-logo-wrapper">            
-      <img src="style/images/logos1b-02.png" id="footer-logo" alt="Logo with the project name, Remixing Archival Metadata Project, spelled out on the left side of the skate-ramp shaped M"/>
-      <div id="footer-logo-text">Remixing Archival Metadata Project</div>
-    </div>
+<?php include('includes/scripts.php'); ?>
+
 </div>
 </div>
+<footer>
+	<div class="inner-area">
+		<div class="pure-g">
+			<div class="pure-u-2-3">
+				
+			</div>
+			<div class="pure-u-1-3">
+				<p class="ramp-link"><a href="https://github.com/UMiamiLibraries/RAMP" target="_blank">RAMP GitHub Project</a> <i class="fa fa-github"></i></p>
+			</div>
+		</div>
+	</div>
+</footer>
+
 </body>
 </html>
-
-
-

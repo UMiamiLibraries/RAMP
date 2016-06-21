@@ -39,7 +39,7 @@ class ViafIngestor extends Ingestor
 	{
 		$lobjSearchResults = array();
 
-		$this->strUrl = "http://viaf.org/viaf/search?query=local.names+all+\"$lstrName\"&httpAccept=text/xml&sortKeys=holdingscount";
+		$this->strUrl = "http://viaf.org/viaf/search?query=local.mainHeadingEl+all+\"$lstrName\"&httpAccept=text/xml&sortKeys=holdingscount";
 
 		//curl option setup for this request
 		curl_setopt($this->rscCurl, CURLOPT_URL, $this->strUrl );
@@ -189,10 +189,8 @@ class ViafIngestor extends Ingestor
 	{
 		foreach($lobjNames as $lstrName)
 		{
-			$lstrOrigName = utf8_decode($lstrName);
-			$lstrName = Ingestor::encodeForUrl($lstrName);
-
-			$this->strUrl = "http://viaf.org/viaf/search?query=local.names+all+\"$lstrName\"&httpAccept=text/xml&sortKeys=holdingscount";
+			$lstrName = urlencode(trim($lstrName));
+			$this->strUrl = "http://viaf.org/viaf/search?query=local.mainHeadingEl+all+\"$lstrName\"&httpAccept=text/xml&sortKeys=holdingscount";
 
 			//curl options setup for this request
 			curl_setopt($this->rscCurl, CURLOPT_URL, $this->strUrl );
@@ -226,13 +224,13 @@ class ViafIngestor extends Ingestor
 					"attributes" => array( "cpfRelationType" => "",
 						"xlink:role" => "" ),
 					"elements" => array( "relationEntry" => array (
-						"elements" => $lstrOrigName
+						"elements" => urldecode($lstrName)
 					)
 					)
 
 				);
-				$lstrKey = urldecode($lstrOrigName);
-				$this->objRelationsList[$lstrKey] = $lobjcpfRelation;
+
+				$this->objRelationsList[urldecode($lstrName)] = $lobjcpfRelation;
 			}
 
 
@@ -277,13 +275,14 @@ class ViafIngestor extends Ingestor
 					"attributes" => array( "cpfRelationType" => "",
 						"xlink:role" => "" ),
 					"elements" => array( "relationEntry" => array (
-						"elements" => $lstrOrigName
+						"elements" => urldecode($lstrName)
 					)
 					)
 
 				);
-				$lstrKey = urldecode($lstrOrigName);
-				$this->objRelationsList[$lstrKey] = $lobjcpfRelation;
+
+
+				$this->objRelationsList[urldecode($lstrName)] = $lobjcpfRelation;
 			}
 		}
 	}

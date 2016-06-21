@@ -176,7 +176,7 @@ class Wikiator
 		{
 			$lstrEncodedTitle = self::encodeForUrl($lobjSearchList[$i]['title']);
 
-			$lobjSearchList[$i]['snippet'] = $lobjMatch[1][$i] . "<br/><a target=\"_blank\" href=\"https://en.wikipedia.org/wiki/{$lstrEncodedTitle}\">View existing Wikipedia page</a>";
+			$lobjSearchList[$i]['snippet'] = html_entity_decode($lobjMatch[1][$i]) . "<br/><a target=\"_blank\" href=\"https://en.wikipedia.org/wiki/{$lstrEncodedTitle}\">View existing Wikipedia page</a>";
 		}
 
 		$lobjMatch = array();

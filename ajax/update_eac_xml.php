@@ -18,15 +18,15 @@ use RAMP\Util\Database;
 $db = Database::getInstance();
 $mysqli = $db->getConnection();
 
-$eac = $_POST["xml"];
-$ead = $_POST["ead_file"];
+if (isset($_POST["xml"]) && $_POST["ead_file"]) {
 
-$sql = 'UPDATE eac SET eac_xml = ' . '"' . mysqli_real_escape_string($mysqli, $_POST["xml"]) . '"' . 'WHERE ead_file LIKE "%' . $_POST["ead_file"] . '%"';
+  $sql = 'UPDATE eac SET eac_xml = ' . '"' . mysqli_real_escape_string($mysqli, $_POST["xml"]) . '"' . 'WHERE ead_file LIKE "%' . $_POST["ead_file"] . '%"';
 
-$result = $mysqli->query($sql);
+  $result = $mysqli->query($sql);
 
-if (!$result) {
-  printf("%s\n", $mysqli->error);
+  if (!$result) {
+    printf("%s\n", $mysqli->error);
 
 
-} 
+  }
+}

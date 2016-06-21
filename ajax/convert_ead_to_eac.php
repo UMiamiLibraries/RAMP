@@ -2,16 +2,13 @@
 /*error_reporting(E_ALL);
 ini_set('display_errors', '1');*/
 
-use RAMP\Xml\EadConvert;
-use RAMP\Xml\XsltTransform;
+use RAMP\XML\EadConvert;
+use RAMP\XML\XsltTransform;
 use RAMP\Util\Database;
 
 require_once ('../autoloader.php');
-require_once('../php-diff/lib/Diff.php');
-require_once('../php-diff/lib/Diff/Renderer/Html/SideBySide.php');
 
 include('../conf/includes.php');
-
 
 if( isset($_GET['dir']) )
 {
@@ -29,7 +26,6 @@ if( isset($_GET['dir']) )
 	$ead_convert->setEventDescCreate($eventDescCreate);
 	$ead_convert->setEventDescExport($eventDescExport);
 
-
 	if(isset($_POST['files']))
 	{
 		if(count($_POST['files']) != 0)
@@ -37,7 +33,5 @@ if( isset($_GET['dir']) )
 	}
 
 	echo $ead_convert->process_files();
-	//	$ead_convert->print_param();
-}
 
-?>
+}
