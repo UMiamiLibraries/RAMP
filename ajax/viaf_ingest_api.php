@@ -25,7 +25,7 @@ if(isset($_POST['action']))
 			}
 
 			//need to encode posted name in order to send to API
-			$lstrName = Ingestor::encodeForUrl($_POST['name']);
+			$lstrName = trim(urlencode($_POST['name']));
 
 			$lobjViafIngestor = new ViafIngestor();
 

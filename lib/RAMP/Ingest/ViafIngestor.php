@@ -189,9 +189,9 @@ class ViafIngestor extends Ingestor
 	{
 		foreach($lobjNames as $lstrName)
 		{
-			$lstrName = urlencode(trim($lstrName));
+			$lstrName = trim($lstrName);
 
-			$this->strUrl = "http://viaf.org/viaf/search?query=local.mainHeadingEl+all+\"$lstrName\"&httpAccept=text/xml&sortKeys=holdingscount";
+			$this->strUrl = "http://viaf.org/viaf/search?query=local.mainHeadingEl+all+\"{urlencode($lstrName)}\"&httpAccept=text/xml&sortKeys=holdingscount";
 
 
 			//curl options setup for this request
@@ -231,8 +231,8 @@ class ViafIngestor extends Ingestor
 					)
 
 				);
-				$lstrKey = urldecode($lstrName);
-				$this->objRelationsList[$lstrKey] = $lobjcpfRelation;
+
+				$this->objRelationsList[$lstrName] = $lobjcpfRelation;
 			}
 
 
