@@ -290,6 +290,11 @@ function Ead()
 			lobjAttributes["cpfRelationType"] = lobjRels;
 		}
 
+		if ( lobjAttributes["xlink:type"] == '' )
+		{
+			lobjAttributes["xlink:type"] = "simple";
+		}
+
 		var lobjCPFRelationNode = this.createElement( 'cpfRelation', lobjAttributes, lobjElements );		
 				
 		if( this.doesElementExist('//*[local-name()=\'cpfDescription\']/*[local-name()=\'relations\']/*[local-name()=\'resourceRelation\']') )
