@@ -29,7 +29,7 @@ class IngestStatus
         $mysqli = $db->getConnection();
 
         try {
-            $statement = $mysqli->prepare("SELECT eac_xml FROM ead_eac.eac WHERE eac_id = ?");
+            $statement = $mysqli->prepare("SELECT eac_xml FROM eac WHERE eac_id = ?");
             $statement->bind_param("s", $eac_id);
             $statement->execute();
             $statement->bind_result($result);
@@ -40,7 +40,7 @@ class IngestStatus
 
             $statement->close();
 
-            $wiki_stmt = $mysqli->prepare("SELECT wiki_text FROM ead_eac.mediawiki WHERE eac_id = ?");
+            $wiki_stmt = $mysqli->prepare("SELECT wiki_text FROM mediawiki WHERE eac_id = ?");
             $wiki_stmt->bind_param("s", $eac_id);
             $wiki_stmt->execute();
             $wiki_stmt->bind_result($result);
