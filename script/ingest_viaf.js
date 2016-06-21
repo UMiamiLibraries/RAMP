@@ -94,15 +94,22 @@ $(document).ready(function () {
                     var lobjData = JSON.parse(response);
 
                     // You get this back:
-                    
+
+                    if (response === "No results found!") {
+                    }
 
                 }
                 catch (e) //response should be JSON so if not, throw error
                 {
-                    callback();
+                    $('body').append("<div class='viaf-error'>No VIAF results were found. You'll continue to the second VIAF step.</div>");
 
+                    makeDialog($(".viaf-error"), "No Results");
+
+                    callback();
                     return;
                 }
+
+
 
                 display_possible_viaf_form(lobjData, function (lstrChosenViaf) {
                     // Now that we have a VIAF identifier for the name, lets look for some associated
@@ -345,20 +352,27 @@ $(document).ready(function () {
                             'action': 'relations', 'chosen_names': ljsonChosenNames
                         },
                         function (response) {
+                            console.log(response);
                             try {
                                 var lobjOrigNames = JSON.parse(ljsonChosenNames);
                                 // Keep the original name strings, in case there's no VIAF match.
                                 var lobjData = JSON.parse(response);
                                 //console.log(response);
                                 if (lobjData.length == 0) {
+                                    console.log(respone);
                                     callback('');
                                     $('.form_container').remove();
                                     $('.help_container').remove();
                                     viewSwitch.showAceEditor();
                                 }
+
+                                if (response === "No results found!") {
+                                    alert(response);
+                                }
                             }
                             catch (e) //response should be JSON so if not, throw error
                             {
+                                console.log(response);
                                 return;
                             }
 
