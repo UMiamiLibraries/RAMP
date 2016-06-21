@@ -393,12 +393,14 @@ $(document).ready(function () {
 
                                         for (var i = 0; i < lobjResultsChosen[ 'names'][ 'entity'][ 'viaf'].length; i++) {
                                             var chosen_result_viaf = lobjResultsChosen[ 'names'][ 'entity'][ 'viaf'][i];
-                                            eac.addCPFRelationViaf(lobjData[chosen_result_viaf]);
+                                            var chosen_roles = lobjResultsChosen[ 'names'][ 'roles'][i];
+                                            var chosen_rels = lobjResultsChosen[ 'names'][ 'rels'][i];
+                                            eac.addCPFRelationViaf(lobjData[chosen_result_viaf], chosen_roles, chosen_rels);
                                         }
 
                                     }
 
-
+/*
                                     for (var i = 0; i < lobjResultsChosen[ 'names'][ 'entity'][ 'custom'].length; i++) {
                                         var chosen_result_custom = lobjResultsChosen[ 'names'][ 'entity'][ 'custom'][i];
                                         var chosen_roles = lobjResultsChosen[ 'names'][ 'roles'][i];
@@ -406,7 +408,7 @@ $(document).ready(function () {
 
                                         eac.addCPFRelationCustom(lobjData[chosen_result_custom], chosen_roles, chosen_rels);
                                     }
-
+*/
 
                                     var d = new Date;
 
