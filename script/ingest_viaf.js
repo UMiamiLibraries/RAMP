@@ -374,6 +374,8 @@ $(document).ready(function () {
 
                             //display results from viaf relation nodes search so editor can choose which relations they want to ingest
                             display_viaf_results_form(lobjData, function (lobjResultsChosen) {
+
+
                                 if (typeof lobjResultsChosen[ 'names'] == 'undefined' || typeof lobjResultsChosen[ 'names'][ 'entity'][ 'all'] == 'undefined' || lobjResultsChosen[ 'names'][ 'entity'][ 'all'].length == 0) {
 
                                     //scroll to top to view form correctly
@@ -387,20 +389,22 @@ $(document).ready(function () {
 
                                 } else {
                                     //ingest into EAC all chosen results from viaf
-                                    for (var i = 0; i < lobjResultsChosen[ 'names'][ 'entity'][ 'viaf'].length; i++) {
-                                        var chosen_result_viaf = lobjResultsChosen[ 'names'][ 'entity'][ 'viaf'][i];
+                                    if(lobjResultsChosen[ 'names'][ 'entity'][ 'viaf'].length > 1) {
 
-
-                                        eac.addCPFRelationViaf(lobjData[chosen_result_viaf]);
+                                        for (var i = 0; i < lobjResultsChosen[ 'names'][ 'entity'][ 'viaf'].length; i++) {
+                                            var chosen_result_viaf = lobjResultsChosen[ 'names'][ 'entity'][ 'viaf'][i];
+                                            eac.addCPFRelationViaf(lobjData[chosen_result_viaf]);
+                                        }
 
                                     }
+
 
                                     for (var i = 0; i < lobjResultsChosen[ 'names'][ 'entity'][ 'custom'].length; i++) {
                                         var chosen_result_custom = lobjResultsChosen[ 'names'][ 'entity'][ 'custom'][i];
                                         var chosen_roles = lobjResultsChosen[ 'names'][ 'roles'][i];
                                         var chosen_rels = lobjResultsChosen[ 'names'][ 'rels'][i];
 
-                                        eac.addCPFRelationCustom(chosen_result_custom, chosen_roles, chosen_rels);
+                                        eac.addCPFRelationCustom(lobjData[chosen_result_custom], chosen_roles, chosen_rels);
                                     }
 
 
@@ -568,22 +572,21 @@ $(document).ready(function () {
 
                 if (this.checked) {
 
-                                       lobjChosenResults[ 'names'][ 'entity'][ 'viaf'].push($(this).val());
-                                       lobjChosenResults[ 'names'][ 'entity'][ 'all'].push($(this).val());
+                    lobjChosenResults['names']['entity']['viaf'].push($(this).val());
+                    lobjChosenResults['names']['entity']['all'].push($(this).val());
 
+                    lobjChosenResults['names']['entity']['all'].push($(this).closest('td').siblings('.plain-text').children('#textSpan').text());
+                    lobjChosenResults['names']['entity']['custom'].push($(this).val());
 
-                                          lobjChosenResults[ 'names'][ 'entity'][ 'all'].push($(this).closest('td').siblings('#plainText').children('#textSpan').text());
-                                          lobjChosenResults[ 'names'][ 'entity'][ 'custom'].push($(this).val());
+                    if ($(this).closest('td').siblings('.plain-text').children('#select_wrap').children('.entity-types').children('option:selected').val() != '') {
+                        lobjChosenResults['names']['roles'].push("http://rdvocab.info/uri/schema/FRBRentitiesRDA/" + $(this).closest('td').siblings('.plain-text').children('#select_wrap').children('.entity-types').children('option:selected').text());
+                    }
 
-                                           if ($(this).closest('td').siblings('.plain-text').children('#select_wrap').children('.entity-types').children('option:selected').val() != '') {
-                                                  lobjChosenResults[ 'names'][ 'roles'].push("http://rdvocab.info/uri/schema/FRBRentitiesRDA/" + $(this).closest('td').siblings('.plain-text').children('#select_wrap').children('.entity-types').children('option:selected').text());
-                                           }
+                    if ($(this).closest('td').siblings('.plain-text').children('#select_wrap').children('.relation-types').children('option:selected').val() != '') {
+                        lobjChosenResults['names']['rels'].push($(this).closest('td').siblings('.plain-text').children('#select_wrap').children('.relation-types').children('option:selected').text());
+                    }
 
-                                          if ($(this).closest('td').siblings('.plain-text').children('#select_wrap').children('.relation-types').children('option:selected').val() != '') {
-                                                    lobjChosenResults[ 'names'][ 'rels'].push($(this).closest('td').siblings('.plain-text').children('#select_wrap').children('.relation-types').children('option:selected').text());
-                                          }
-
-                               }
+                }
             });
 
             // Display/notification added by timathom
