@@ -274,11 +274,22 @@ function Ead()
 	* addCPFRelationViaf adds to the EAC a cpfRelation element
 	* @method addCPFRelationViaf
 	*/
-	Eac.prototype.addCPFRelationViaf = function(lobjCPFRelationViaf )
+	Eac.prototype.addCPFRelationViaf = function(lobjCPFRelationViaf, lobjRoles, lobjRels )
 	{
 		var lobjAttributes = typeof lobjCPFRelationViaf.attributes != 'undefined' ? lobjCPFRelationViaf.attributes : {};
 		var lobjElements = typeof lobjCPFRelationViaf.elements != 'undefined' ? lobjCPFRelationViaf.elements : {};
-											
+
+		// Added by timathom to allow user to select entity type and relation type when no good matches from VIAF.
+		if ( lobjAttributes["xlink:role"] == '' )
+		{
+			lobjAttributes["xlink:role"] = lobjRoles;
+		}
+
+		if ( lobjAttributes["cpfRelationType"] == '' )
+		{
+			lobjAttributes["cpfRelationType"] = lobjRels;
+		}
+
 		var lobjCPFRelationNode = this.createElement( 'cpfRelation', lobjAttributes, lobjElements );		
 				
 		if( this.doesElementExist('//*[local-name()=\'cpfDescription\']/*[local-name()=\'relations\']/*[local-name()=\'resourceRelation\']') )
@@ -295,33 +306,32 @@ function Ead()
 	*/
 	Eac.prototype.addCPFRelationCustom = function(lobjCPFRelationCustom, lobjRoles, lobjRels )
 	{
-
-		console.log(lobjRoles);
-		console.log(lobjRels);
 		var lobjAttributes = typeof lobjCPFRelationCustom.attributes != 'undefined' ? lobjCPFRelationCustom.attributes : {};
 		var lobjElements = typeof lobjCPFRelationCustom.elements != 'undefined' ? lobjCPFRelationCustom.elements : {};
-								
+
 		// Added by timathom to allow user to select entity type and relation type when no good matches from VIAF.
 		if ( lobjAttributes["xlink:role"] == '' )
-		{		    		   
+		{
 		    lobjAttributes["xlink:role"] = lobjRoles;
 		}		
 		
 		if ( lobjAttributes["cpfRelationType"] == '' )
-		{		    		   
+		{
 		    lobjAttributes["cpfRelationType"] = lobjRels;
 		}
 		
 		lobjAttributes["xlink:type"] = "simple";
 		
-		var lobjCPFRelationNode = this.createElement( 'cpfRelation', lobjAttributes, lobjElements );		
-				
+		var lobjCPFRelationNode = this.createElement( 'cpfRelation', lobjAttributes, lobjElements );
+
 		if( this.doesElementExist('//*[local-name()=\'cpfDescription\']/*[local-name()=\'relations\']/*[local-name()=\'resourceRelation\']') )
 			this.addElement( 'cpfRelation', lobjCPFRelationNode, '//*[local-name()=\'cpfDescription\']/*[local-name()=\'relations\']/*[local-name()=\'resourceRelation\']', true );
 		else if( this.doesElementExist('//*[local-name()=\'cpfDescription\']/*[local-name()=\'relations\']/*[local-name()=\'functionRelation\']') )
 			this.addElement( 'cpfRelation', lobjCPFRelationNode, '//*[local-name()=\'cpfDescription\']/*[local-name()=\'relations\']/*[local-name()=\'functionRelation\']', true );
 		else
 			this.addElement( 'cpfRelation', lobjCPFRelationNode, '//*[local-name()=\'cpfDescription\']/*[local-name()=\'relations\']' );
+
+
 	};
 
 	/*
