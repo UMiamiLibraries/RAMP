@@ -646,7 +646,7 @@ $(document).ready(function () {
         viewSwitch.showAceEditor();
 
         //render help template
-       // renderHelpTemplate('');
+        renderHelpTemplate('viaf_template_help_step_four');
 
     });
 
