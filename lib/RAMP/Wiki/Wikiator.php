@@ -404,10 +404,9 @@ class Wikiator
 	 */
 	static function encodeForUrl($lstrString)
 	{
-		$lstrString = preg_replace('/\s\s+/', " ", $lstrString );
-		$lstrString = rawurlencode(utf8_decode($lstrString));
 
-		return $lstrString;
+
+		return urlencode(trim($lstrString));
 	}
 
 	/**

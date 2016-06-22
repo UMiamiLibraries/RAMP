@@ -297,14 +297,14 @@ function getLocalWikiMarkup(eacId) {
 
 function autoSearchWikipedia(entityName) {
 
-    lstrUserSearch = encode_utf8(entityName);
+    var lstrUserSearch = entityName;
 
     showLoadingImage();
 
     //post to ajax wiki controller to search wiki and get results
     $.post('ajax/wiki_api.php', {'action': 'search', 'title': lstrUserSearch}, function (response) {
         try {
-            lobjData = JSON.parse(response);
+            var lobjData = JSON.parse(response);
         }
         catch (e) {
             renderFlashMessage('<p>' + e.message + '</p>');
