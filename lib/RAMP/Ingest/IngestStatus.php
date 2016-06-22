@@ -29,18 +29,18 @@ class IngestStatus
         $mysqli = $db->getConnection();
 
         $statement = $mysqli->prepare("SELECT eac_xml FROM ead_eac.eac WHERE eac_id = ?");
-        $statement->bind_param("s",$eac_id);
+        $statement->bind_param("s", $eac_id);
         $statement->execute();
         $statement->bind_result($result);
         $statement->fetch();
         $this->eac_xml_string = $result;
         $this->eac_xml_dom = simplexml_load_string($result);
-        $this->eac_xml_dom->registerXPathNamespace('eac','urn:isbn:1-931666-33-4');
+        $this->eac_xml_dom->registerXPathNamespace('eac', 'urn:isbn:1-931666-33-4');
 
         $statement->close();
 
         $wiki_stmt = $mysqli->prepare("SELECT wiki_text FROM ead_eac.mediawiki WHERE eac_id = ?");
-        $wiki_stmt->bind_param("s",$eac_id);
+        $wiki_stmt->bind_param("s", $eac_id);
         $wiki_stmt->execute();
         $wiki_stmt->bind_result($result);
         $wiki_stmt->fetch();
@@ -48,11 +48,11 @@ class IngestStatus
 
         if ($result != null) {
             $this->wiki_status = 'true';
-        }  else {
+        } else {
             $this->wiki_status = 'false';
+
+
         }
-
-
     }
 
     public function ingestStatus($type) {
