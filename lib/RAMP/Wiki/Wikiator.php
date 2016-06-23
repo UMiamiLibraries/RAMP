@@ -406,7 +406,7 @@ class Wikiator
 	{
 
 
-		return urlencode(trim($lstrString));
+		return urlencode(str_replace(" ","_",trim($lstrString)));
 	}
 
 	/**
